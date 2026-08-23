@@ -29,22 +29,36 @@ Numbers in the homepage proof section (`lib/content/home.ts`) render as
 "Pending verification" until their `verified` flag is flipped to `true` with a
 real, sourced number — never replace a pending stat with a guessed figure.
 
-## Build & deploy (static export to HostingRaja)
+## Build & deploy (GitHub Pages, custom domain)
 
-This site builds to a fully static `out/` folder — no Node server required at
-runtime, which matches typical shared/cPanel hosting like HostingRaja.
+This site builds to a fully static `out/` folder and deploys automatically via
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) on every push to
+`main` — GitHub Pages serves it directly, no server required.
 
 ```bash
 npm run build        # produces ./out
 npm run serve:static  # sanity-check the export locally at http://localhost:3200
 ```
 
-To deploy:
+`public/CNAME` (containing `startnet.in`) and `public/.nojekyll` are copied
+into every build — the CNAME keeps the custom domain pinned even if Pages
+settings are ever reset, and `.nojekyll` stops GitHub Pages from ignoring the
+`_next/` asset folder.
 
-1. Run `npm run build`.
-2. Upload the **contents** of `out/` (not the folder itself) to `public_html/`
-   (or the domain's document root) via HostingRaja's File Manager or FTP.
-3. Confirm `startnet.in`'s DNS/nameservers point at the HostingRaja hosting
-   account the files were uploaded to.
+One-time repo setup (Settings → Pages): set **Build and deployment → Source**
+to **GitHub Actions**, and **Custom domain** to `startnet.in`.
 
-Re-run steps 1–2 on every content or design update.
+DNS (managed at HostingRaja, since that's where `startnet.in`'s nameservers
+point) — leave all existing mail (MX/TXT/DKIM) records untouched, only change
+the web-serving records:
+
+| Type  | Host | Value |
+|-------|------|-------|
+| A     | `startnet.in` | `185.199.108.153` |
+| A     | `startnet.in` | `185.199.109.153` |
+| A     | `startnet.in` | `185.199.110.153` |
+| A     | `startnet.in` | `185.199.111.153` |
+| CNAME | `www.startnet.in` | `mkelango.github.io` |
+
+Re-run `npm run build` locally only to preview — the live site rebuilds
+automatically from the GitHub Actions workflow on every push to `main`.
