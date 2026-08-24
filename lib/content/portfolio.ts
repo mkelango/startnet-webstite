@@ -110,8 +110,8 @@ export const properties: Property[] = [
   {
     slug: "snx",
     name: "SNX",
-    domain: "snx.in",
-    href: "https://snx.in",
+    domain: "startnetx.in",
+    href: "https://startnetx.in",
     bucket: "home",
     kicker: "Diagnostics, community, archive",
     oneLiner:

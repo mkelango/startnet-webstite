@@ -36,8 +36,8 @@ export const whoThisIsFor: WhoPath[] = [
   {
     audience: "I'm a founder",
     body: "Start with SNX — get diagnosed, find your next step, join the community that stays active all year.",
-    cta: "Go to snx.in",
-    href: "https://snx.in",
+    cta: "Go to startnetx.in",
+    href: "https://startnetx.in",
   },
   {
     audience: "I'm an investor or mentor",

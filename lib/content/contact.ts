@@ -16,7 +16,7 @@ export const contactContent = {
     "A specific property",
   ],
   directRoutes: [
-    { label: "Founder support", href: "https://snx.in" },
+    { label: "Founder support", href: "https://startnetx.in" },
     { label: "Training questions", href: "https://aiflywheel.in" },
     { label: "Cohort applications", href: "https://nooru.ai" },
     { label: "Event registration", href: "https://physicalaiconnect.in" },
