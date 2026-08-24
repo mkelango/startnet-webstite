@@ -30,10 +30,8 @@ export default function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div
-        className={`border-b transition-all duration-500 ease-out ${
-          condensed
-            ? "border-paper-line/80 bg-paper/85 backdrop-blur-md"
-            : "border-transparent bg-paper/0"
+        className={`transition-all duration-500 ease-out ${
+          condensed ? "glass !border-x-0 !border-t-0" : "bg-paper/0"
         }`}
       >
         <div
@@ -45,14 +43,14 @@ export default function Header() {
             <Logo />
           </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex">
+          <nav className="hidden items-center gap-1 rounded-full border border-paper-line/70 bg-white/[0.03] p-1.5 lg:flex">
             <div
               className="relative"
               onMouseEnter={() => setPortfolioOpen(true)}
               onMouseLeave={() => setPortfolioOpen(false)}
             >
               <button
-                className="flex items-center gap-1.5 text-[0.95rem] text-ink-soft transition-colors hover:text-ink"
+                className="flex items-center gap-1.5 rounded-full px-4 py-2 text-[0.9rem] text-ink-soft transition-colors hover:bg-white/[0.06] hover:text-ink"
                 aria-expanded={portfolioOpen}
               >
                 Portfolio
@@ -82,7 +80,7 @@ export default function Header() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute left-1/2 top-full mt-3 w-[560px] -translate-x-1/2 rounded-2xl border border-paper-line bg-paper p-6 shadow-[0_24px_60px_-20px_rgba(20,22,27,0.25)]"
+                    className="glass-strong absolute left-1/2 top-full mt-3 w-[560px] -translate-x-1/2 rounded-2xl p-6 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.6)]"
                   >
                     <div className="grid grid-cols-3 gap-6">
                       {buckets.map((bucket) => (
@@ -123,7 +121,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-[0.95rem] text-ink-soft transition-colors hover:text-ink"
+                className="rounded-full px-4 py-2 text-[0.9rem] text-ink-soft transition-colors hover:bg-white/[0.06] hover:text-ink"
               >
                 {item.label}
               </Link>
@@ -133,7 +131,7 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <Link
               href="/contact"
-              className="hidden rounded-full bg-ink px-5 py-2.5 text-[0.9rem] font-medium text-paper transition-colors hover:bg-accent lg:inline-block"
+              className="hidden rounded-full bg-accent px-5 py-2.5 text-[0.9rem] font-medium text-ink transition-all duration-300 hover:bg-accent-ink hover:shadow-[0_0_28px_rgba(204,48,41,0.55)] lg:inline-block"
             >
               Contact
             </Link>
@@ -242,7 +240,7 @@ export default function Header() {
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-6 rounded-full bg-ink px-5 py-3.5 text-center text-[0.95rem] font-medium text-paper"
+                className="mt-6 rounded-full bg-accent px-5 py-3.5 text-center text-[0.95rem] font-medium text-ink"
               >
                 Contact
               </Link>

@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, IBM_Plex_Mono, Poppins } from "next/font/google";
+import { Space_Grotesk, Inter, IBM_Plex_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import { site } from "@/lib/content/site";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
-  axes: ["opsz", "SOFT", "WONK"],
+  weight: ["500", "600", "700"],
 });
 
 const inter = Inter({
@@ -43,7 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${plexMono.variable} ${poppins.variable} h-full`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${plexMono.variable} ${poppins.variable} h-full`}
     >
       <body className="flex min-h-full flex-col bg-paper text-ink">
         <SmoothScroll>

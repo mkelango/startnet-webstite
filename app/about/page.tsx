@@ -39,7 +39,7 @@ export default function AboutPage() {
           </div>
 
           <FadeUp delay={0.15}>
-            <div className="rounded-2xl border border-paper-line bg-paper-dim p-8">
+            <div className="glass rounded-2xl p-8">
               <p className="font-mono text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
                 What we believe
               </p>

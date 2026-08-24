@@ -1,20 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --color-paper: #f6f4ee;
-  --color-paper-dim: #efece2;
-  --color-paper-line: #e1ddd0;
-  --color-ink: #14161b;
-  --color-ink-soft: #52545b;
-  --color-ink-faint: #8b8d92;
-  --color-accent: #3241c9;
-  --color-accent-ink: #232f9e;
-  --color-accent-soft: #e8e9f8;
-  --color-warm: #c1622d;
-  --color-warm-soft: #f6e7dc;
+  --color-paper: #0a0a0b;
+  --color-paper-dim: #131316;
+  --color-paper-line: rgba(255, 255, 255, 0.1);
+  --color-ink: #f5f4f1;
+  --color-ink-soft: rgba(245, 244, 241, 0.66);
+  --color-ink-faint: rgba(245, 244, 241, 0.4);
+  --color-accent: #cc3029;
+  --color-accent-ink: #ff5449;
+  --color-accent-soft: rgba(204, 48, 41, 0.14);
   --color-brand-dot: #cc3029;
 
-  --font-display: var(--font-fraunces);
+  --font-display: var(--font-space-grotesk);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-plex-mono);
   --font-logo: var(--font-poppins);
@@ -33,8 +31,6 @@
   --color-accent: var(--color-accent);
   --color-accent-ink: var(--color-accent-ink);
   --color-accent-soft: var(--color-accent-soft);
-  --color-warm: var(--color-warm);
-  --color-warm-soft: var(--color-warm-soft);
   --color-brand-dot: var(--color-brand-dot);
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
@@ -61,7 +57,7 @@ body {
 
 ::selection {
   background: var(--color-accent);
-  color: var(--color-paper);
+  color: var(--color-ink);
 }
 
 .font-display {
@@ -72,7 +68,58 @@ body {
   font-family: var(--font-mono);
 }
 
-/* Subtle grain overlay for premium print-like texture without heavy assets */
+/* Glassmorphic surface — translucent panel with a soft inner highlight */
+.glass {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Soft radial glow blobs — used behind hero / section backgrounds */
+.glow-red {
+  background: radial-gradient(
+    closest-side,
+    rgba(204, 48, 41, 0.55),
+    rgba(204, 48, 41, 0) 70%
+  );
+  filter: blur(40px);
+}
+
+.glow-red-soft {
+  background: radial-gradient(
+    closest-side,
+    rgba(204, 48, 41, 0.28),
+    rgba(204, 48, 41, 0) 70%
+  );
+  filter: blur(60px);
+}
+
+/* Hover glow used on interactive cards */
+.card-glow {
+  transition:
+    border-color 0.4s var(--ease-out-quart),
+    box-shadow 0.4s var(--ease-out-quart),
+    transform 0.4s var(--ease-out-quart);
+}
+
+.card-glow:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 30px 60px -20px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* Grain overlay tuned for a dark surface (screen instead of multiply) */
 .grain {
   position: relative;
   isolation: isolate;
@@ -84,8 +131,8 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.035;
-  mix-blend-mode: multiply;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -111,7 +158,7 @@ body {
   }
 }
 
-/* Custom scrollbar to match the paper/ink system */
+/* Custom scrollbar to match the dark system */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -121,10 +168,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-paper-line);
+  background: rgba(255, 255, 255, 0.14);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-ink-faint);
+  background: rgba(255, 255, 255, 0.24);
 }

@@ -20,11 +20,11 @@ export default function PartnersPage() {
 
       <section className="py-16 md:py-24">
         <div className="mx-auto max-w-[1320px] px-6 md:px-10">
-          <div className="grid gap-px overflow-hidden rounded-2xl border border-paper-line bg-paper-line sm:grid-cols-2">
+          <div className="grid gap-5 sm:grid-cols-2">
             {partnersContent.ways.map((way, i) => (
               <FadeUp key={way.title} delay={i * 0.08}>
-                <div className="h-full bg-paper p-8">
-                  <p className="font-mono text-[0.72rem] text-ink-faint">
+                <div className="glass card-glow h-full rounded-2xl p-8">
+                  <p className="font-mono text-[0.72rem] text-accent">
                     0{i + 1}
                   </p>
                   <h3 className="mt-3 font-display text-[1.3rem] tracking-[-0.01em] text-ink">
@@ -45,7 +45,7 @@ export default function PartnersPage() {
               </h3>
               <Link
                 href="/contact?reason=partnership"
-                className="rounded-full bg-paper px-6 py-3 text-[0.95rem] font-medium text-ink transition-colors hover:bg-accent hover:text-paper"
+                className="rounded-full bg-paper px-6 py-3 text-[0.95rem] font-medium text-ink transition-all duration-300 hover:bg-accent hover:text-ink hover:shadow-[0_0_28px_rgba(204,48,41,0.5)]"
               >
                 Get in touch
               </Link>

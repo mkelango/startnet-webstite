@@ -31,7 +31,11 @@ export default function NextEventBanner() {
     <section className="border-t border-paper-line py-20 md:py-24">
       <div className="mx-auto max-w-[1320px] px-6 md:px-10">
         <FadeUp>
-          <div className="flex flex-col gap-8 rounded-3xl border border-paper-line bg-paper-dim p-10 md:flex-row md:items-center md:justify-between md:p-14">
+          <div className="glass-strong relative flex flex-col gap-8 overflow-hidden rounded-3xl p-10 md:flex-row md:items-center md:justify-between md:p-14">
+            <div
+              className="glow-red pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-60"
+              aria-hidden="true"
+            />
             <div>
               <p className="flex items-center gap-2 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-brand-dot">
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-dot" />

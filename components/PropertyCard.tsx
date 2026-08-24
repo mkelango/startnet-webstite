@@ -1,9 +1,17 @@
 "use client";
 
-import { useRef, type MouseEvent } from "react";
+import { useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import ArrowLink from "@/components/ArrowLink";
 import type { Property } from "@/lib/content/portfolio";
+
+function hexToRgba(hex: string, alpha: number) {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
 
 export default function PropertyCard({
   property,
@@ -13,35 +21,41 @@ export default function PropertyCard({
   detailed?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const glow = hexToRgba(property.accent, 0.35);
 
-  const handleMove = (e: MouseEvent<HTMLDivElement>) => {
+  const handleEnter = () => {
     const el = ref.current;
     if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const rx = ((e.clientY - rect.top) / rect.height - 0.5) * -4;
-    const ry = ((e.clientX - rect.left) / rect.width - 0.5) * 4;
     gsap.to(el, {
-      rotateX: rx,
-      rotateY: ry,
-      duration: 0.5,
-      ease: "power3.out",
-      transformPerspective: 800,
+      y: -6,
+      boxShadow: `0 30px 70px -24px rgba(0,0,0,0.6), 0 0 0 1px ${hexToRgba(
+        property.accent,
+        0.3
+      )}, 0 0 48px -8px ${glow}`,
+      borderColor: hexToRgba(property.accent, 0.4),
+      duration: 0.4,
+      ease: "power2.out",
     });
   };
 
   const handleLeave = () => {
     const el = ref.current;
     if (!el) return;
-    gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.6, ease: "power3.out" });
+    gsap.to(el, {
+      y: 0,
+      boxShadow: "0 0px 0px rgba(0,0,0,0)",
+      borderColor: "rgba(255,255,255,0.1)",
+      duration: 0.6,
+      ease: "power3.out",
+    });
   };
 
   return (
     <div
       ref={ref}
-      onMouseMove={handleMove}
+      onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
-      className="group relative flex h-full flex-col rounded-2xl border border-paper-line bg-paper p-7 transition-shadow duration-300 will-change-transform hover:shadow-[0_30px_60px_-24px_rgba(20,22,27,0.18)]"
-      style={{ transformStyle: "preserve-3d" }}
+      className="glass group relative flex h-full flex-col rounded-2xl p-7 will-change-transform"
     >
       <div className="flex items-center justify-between">
         <span
@@ -55,7 +69,7 @@ export default function PropertyCard({
         </span>
       </div>
 
-      <h3 className="mt-6 font-display text-[1.5rem] tracking-[-0.01em] text-ink">
+      <h3 className="mt-6 font-display text-[1.5rem] font-medium tracking-[-0.01em] text-ink">
         {property.name}
       </h3>
       <p className="mt-1 text-[0.85rem] font-medium" style={{ color: property.accent }}>

@@ -14,8 +14,12 @@ export default function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="border-b border-paper-line pt-40 pb-16 md:pt-48 md:pb-20">
-      <div className="mx-auto max-w-[1320px] px-6 md:px-10">
+    <section className="relative overflow-hidden border-b border-paper-line pt-40 pb-16 md:pt-48 md:pb-20">
+      <div
+        className="glow-red-soft pointer-events-none absolute -right-[10%] -top-[30%] h-[440px] w-[440px] rounded-full opacity-70"
+        aria-hidden="true"
+      />
+      <div className="relative mx-auto max-w-[1320px] px-6 md:px-10">
         {eyebrow && (
           <FadeUp>
             <p className="mb-5 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">

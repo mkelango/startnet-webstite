@@ -73,10 +73,19 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-28 pb-16">
+      <div
+        className="glow-red-soft pointer-events-none absolute -right-[10%] top-[8%] h-[560px] w-[560px] animate-[pulse_8s_ease-in-out_infinite] rounded-full"
+        aria-hidden="true"
+      />
+      <div
+        className="glow-red pointer-events-none absolute -left-[15%] bottom-[5%] h-[420px] w-[420px] rounded-full opacity-40"
+        aria-hidden="true"
+      />
+
       <svg
         ref={networkRef}
         viewBox="0 0 1200 800"
-        className="pointer-events-none absolute inset-0 h-full w-full text-ink-faint/40"
+        className="pointer-events-none absolute inset-0 h-full w-full text-accent/50"
         preserveAspectRatio="xMidYMid slice"
         aria-hidden="true"
       >
@@ -84,17 +93,17 @@ export default function Hero() {
         <path d="M520 260 L980 560" stroke="currentColor" strokeWidth="1" fill="none" />
         <path d="M180 620 L980 560" stroke="currentColor" strokeWidth="1" fill="none" />
         <path d="M900 180 L1120 420" stroke="currentColor" strokeWidth="1" fill="none" />
-        <circle cx="180" cy="620" r="4" fill="currentColor" />
-        <circle cx="520" cy="260" r="4" fill="currentColor" />
-        <circle cx="900" cy="180" r="4" fill="currentColor" />
-        <circle cx="980" cy="560" r="4" fill="currentColor" />
-        <circle cx="1120" cy="420" r="4" fill="currentColor" />
+        <circle cx="180" cy="620" r="4" fill="currentColor" style={{ filter: "drop-shadow(0 0 6px currentColor)" }} />
+        <circle cx="520" cy="260" r="4" fill="currentColor" style={{ filter: "drop-shadow(0 0 6px currentColor)" }} />
+        <circle cx="900" cy="180" r="4" fill="currentColor" style={{ filter: "drop-shadow(0 0 6px currentColor)" }} />
+        <circle cx="980" cy="560" r="4" fill="currentColor" style={{ filter: "drop-shadow(0 0 6px currentColor)" }} />
+        <circle cx="1120" cy="420" r="4" fill="currentColor" style={{ filter: "drop-shadow(0 0 6px currentColor)" }} />
       </svg>
 
       <div className="relative mx-auto w-full max-w-[1320px] px-6 md:px-10">
         <div
           ref={eyebrowRef}
-          className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-paper-line bg-paper px-4 py-1.5"
+          className="glass mb-7 inline-flex items-center gap-2.5 rounded-full px-4 py-1.5"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-brand-dot" />
           <span className="font-mono text-[0.72rem] uppercase tracking-[0.12em] text-ink-soft">

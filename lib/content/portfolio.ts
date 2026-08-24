@@ -55,8 +55,8 @@ export const properties: Property[] = [
     extended:
       "AI Flywheel is where founders and teams build real AI capability — structured curriculum, a free diagnostic to find your starting point, and a certification track for teams that want to formalize what they've learned.",
     bestFor: "Founders and teams early in their AI adoption journey.",
-    accent: "#1F7A6C",
-    accentSoft: "#E4F0EC",
+    accent: "#2DD4A8",
+    accentSoft: "rgba(45, 212, 168, 0.14)",
     mark: "AF",
   },
   {
@@ -71,8 +71,8 @@ export const properties: Property[] = [
     extended:
       "Nooru (“hundred” in Tamil) runs a curated, diagnostic-gated cohort of 100 startups through a structured 90–120 day program — mentorship, curriculum, and direct access to StartNet's investor network.",
     bestFor: "Founders with a validated product ready to scale.",
-    accent: "#B9862E",
-    accentSoft: "#F5EDDC",
+    accent: "#F2B84B",
+    accentSoft: "rgba(242, 184, 75, 0.14)",
     mark: "N",
   },
   {
@@ -87,8 +87,8 @@ export const properties: Property[] = [
     extended:
       "A single-day (or multi-day) digital-first summit bringing together the builders working on agentic AI — talks, demos, and the kind of density you don't get outside a dedicated gathering.",
     bestFor: "Anyone building with or around agentic AI, once a year.",
-    accent: "#3241C9",
-    accentSoft: "#E7E9F9",
+    accent: "#7C8CFF",
+    accentSoft: "rgba(124, 140, 255, 0.16)",
     mark: "AC",
   },
   {
@@ -103,8 +103,8 @@ export const properties: Property[] = [
     extended:
       "The in-person counterpart — where the ecosystem's founders, investors, mentors, and government partners are all in the same room at the same time.",
     bestFor: "Relationship-building, deal flow, and seeing the whole ecosystem at once.",
-    accent: "#C1622D",
-    accentSoft: "#F6E7DC",
+    accent: "#FF8A4C",
+    accentSoft: "rgba(255, 138, 76, 0.14)",
     mark: "PC",
   },
   {
@@ -119,8 +119,8 @@ export const properties: Property[] = [
     extended:
       "SNX is where the ecosystem stays alive in the months between Agentic AI Connect and Physical AI Connect — a founder diagnostic, a community feed, and the archive of everything from past gatherings.",
     bestFor: "Anyone who wants to stay connected to the ecosystem year-round, not just at events.",
-    accent: "#5B3A8E",
-    accentSoft: "#EDE6F3",
+    accent: "#B592FF",
+    accentSoft: "rgba(181, 146, 255, 0.16)",
     mark: "SNX",
   },
 ];

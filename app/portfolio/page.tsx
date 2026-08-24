@@ -24,7 +24,7 @@ export default function PortfolioPage() {
             <div key={bucket.id}>
               <FadeUp>
                 <div className="mb-8 flex items-baseline gap-4">
-                  <span className="font-mono text-[0.72rem] text-ink-faint">
+                  <span className="font-mono text-[0.72rem] text-accent">
                     0{bIdx + 1}
                   </span>
                   <h2 className="font-mono text-[0.78rem] uppercase tracking-[0.14em] text-ink">

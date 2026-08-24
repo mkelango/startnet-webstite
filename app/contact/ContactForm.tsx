@@ -26,7 +26,7 @@ export default function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-2xl border border-paper-line bg-paper-dim p-10 text-center">
+      <div className="glass rounded-2xl p-10 text-center">
         <p className="font-display text-[1.5rem] text-ink">
           Thanks — we&rsquo;ll be in touch.
         </p>
@@ -48,7 +48,7 @@ export default function ContactForm() {
             required
             type="text"
             name="name"
-            className="mt-2 w-full rounded-lg border border-paper-line bg-paper px-4 py-3 text-[0.95rem] text-ink outline-none transition-colors focus:border-accent"
+            className="mt-2 w-full rounded-lg border border-paper-line bg-white/[0.03] px-4 py-3 text-[0.95rem] text-ink outline-none transition-colors focus:border-accent"
           />
         </label>
         <label className="block">
@@ -59,7 +59,7 @@ export default function ContactForm() {
             required
             type="email"
             name="email"
-            className="mt-2 w-full rounded-lg border border-paper-line bg-paper px-4 py-3 text-[0.95rem] text-ink outline-none transition-colors focus:border-accent"
+            className="mt-2 w-full rounded-lg border border-paper-line bg-white/[0.03] px-4 py-3 text-[0.95rem] text-ink outline-none transition-colors focus:border-accent"
           />
         </label>
       </div>
@@ -71,7 +71,7 @@ export default function ContactForm() {
         <select
           name="reason"
           defaultValue={presetReason ?? "General"}
-          className="mt-2 w-full rounded-lg border border-paper-line bg-paper px-4 py-3 text-[0.95rem] text-ink outline-none transition-colors focus:border-accent"
+          className="mt-2 w-full rounded-lg border border-paper-line bg-white/[0.03] px-4 py-3 text-[0.95rem] text-ink outline-none transition-colors focus:border-accent"
         >
           {contactContent.reasons.map((r) => (
             <option key={r} value={r}>
@@ -89,13 +89,13 @@ export default function ContactForm() {
           required
           name="message"
           rows={5}
-          className="mt-2 w-full rounded-lg border border-paper-line bg-paper px-4 py-3 text-[0.95rem] text-ink outline-none transition-colors focus:border-accent"
+          className="mt-2 w-full rounded-lg border border-paper-line bg-white/[0.03] px-4 py-3 text-[0.95rem] text-ink outline-none transition-colors focus:border-accent"
         />
       </label>
 
       <button
         type="submit"
-        className="rounded-full bg-ink px-7 py-3.5 text-[0.95rem] font-medium text-paper transition-colors hover:bg-accent"
+        className="rounded-full bg-accent px-7 py-3.5 text-[0.95rem] font-medium text-ink transition-all duration-300 hover:bg-accent-ink hover:shadow-[0_0_28px_rgba(204,48,41,0.5)]"
       >
         Send message
       </button>

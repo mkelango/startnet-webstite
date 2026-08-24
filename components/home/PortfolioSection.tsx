@@ -26,7 +26,7 @@ export default function PortfolioSection() {
             <div key={bucket.id}>
               <FadeUp delay={0.05}>
                 <div className="mb-6 flex items-baseline gap-4">
-                  <span className="font-mono text-[0.72rem] text-ink-faint">
+                  <span className="font-mono text-[0.72rem] text-accent">
                     0{bIdx + 1}
                   </span>
                   <h3 className="font-mono text-[0.78rem] uppercase tracking-[0.14em] text-ink">

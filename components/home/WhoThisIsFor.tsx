@@ -13,10 +13,10 @@ export default function WhoThisIsFor() {
           className="font-display text-[clamp(2rem,4.2vw,3.4rem)] leading-[1.05] tracking-[-0.01em] text-ink"
         />
 
-        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-paper-line bg-paper-line sm:grid-cols-2">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2">
           {whoThisIsFor.map((path, i) => (
             <FadeUp key={path.audience} delay={i * 0.08}>
-              <div className="flex h-full flex-col bg-paper p-8 transition-colors hover:bg-paper-dim">
+              <div className="glass card-glow flex h-full flex-col rounded-2xl p-8">
                 <p className="font-display text-[1.35rem] tracking-[-0.01em] text-ink">
                   {path.audience}
                 </p>
