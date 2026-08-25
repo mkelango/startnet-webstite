@@ -12,6 +12,7 @@ const readBrand = (f) => readFileSync(fileURLToPath(new URL(f, brandDir)), 'utf8
 
 const WORDMARK = readBrand('startnet-wordmark.svg');
 const MONOGRAM = readBrand('startnet-monogram.svg');
+const ROCKET = readBrand('startnet-rocket.svg');
 
 /* The wordmark, stripped of its own <svg> wrapper attributes we override. */
 const wordmark = (className = '') =>
@@ -22,6 +23,10 @@ const wordmark = (className = '') =>
 
 export const monogram = (className = '') =>
   MONOGRAM.replace('<svg ', `<svg class="sn-monogram${className ? ` ${className}` : ''}" `);
+
+/* About page only — see src/pages/about.js. */
+export const rocketMark = (className = '') =>
+  ROCKET.replace('<svg ', `<svg class="sn-rocket${className ? ` ${className}` : ''}" `);
 
 /* ---------------------------------------------------------------------------
    STRUCTURED DATA

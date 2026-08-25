@@ -13,6 +13,7 @@ import {
   sectionHead,
   linkArrow,
 } from '../lib/ui.js';
+import { rocketMark } from '../lib/layout.js';
 
 const story = () => `
 <section class="section" id="story" data-surface="about-story">
@@ -177,6 +178,8 @@ export const aboutPage = () => ({
       label: 'About',
       title: 'We build the infrastructure. {Founders build the companies}[.]',
       deck: site.narrative,
+      className: 'page-hero--about',
+      badge: rocketMark('page-hero__badge-mark'),
       ringOpts: {
         states: ['path', 'orbit', 'network'],
         arc: 200,

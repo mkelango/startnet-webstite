@@ -197,16 +197,16 @@ export const proof = {
    ------------------------------------------------------------------------ */
 
 export const nextEvent = {
-  propertyId: 'physical',
-  name: 'Physical AI Connect 2026',
+  propertyId: 'agentic',
+  name: 'Agentic AI Connect 2026',
   date: '2026-11-14',
   dateDisplay: '14 November 2026',
   city: 'Chennai',
   theme: 'The year Tamil Nadu’s AI companies stopped being pilots.',
   windowDays: 120,
   links: [
-    { label: 'Register', href: 'https://physicalaiconnect.in/register', primary: true },
-    { label: 'See the agenda', href: 'https://physicalaiconnect.in/agenda' },
+    { label: 'Register', href: 'https://agenticaiconnect.in/register', primary: true },
+    { label: 'See the agenda', href: 'https://agenticaiconnect.in/agenda' },
   ],
 };
 

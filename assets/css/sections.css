@@ -960,6 +960,91 @@
   }
 }
 
+/* --------------------------------------------------------------------------
+   PAGE HERO BADGE — About page only
+   Everything below is scoped under .page-hero--about, so it can never affect
+   the plain .page-hero .ring used by every other inner page. Construction
+   mirrors the homepage hero badge exactly (stage carries position/size, a
+   reveal layer carries the fade so it never fights the positioning
+   transform by CSS specificity, badge centres on the stage).
+   ----------------------------------------------------------------------- */
+.page-hero--about .page-hero__ring-stage {
+  position: absolute;
+  top: 50%;
+  left: auto;
+  right: calc(-1 * clamp(50px, 9vw, 160px));
+  transform: translateY(-50%);
+  width: clamp(400px, 52vw, 720px); /* matches .ring--lg, used by About's hero */
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+.page-hero--about .page-hero__ring-stage .ring {
+  position: static;
+  inset: auto;
+  width: 100%;
+  z-index: auto;
+}
+
+.page-hero--about .page-hero__ring-reveal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.page-hero--about .page-hero__badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36%;
+  aspect-ratio: 1;
+  z-index: 1;
+}
+
+.page-hero--about .page-hero__badge-halo {
+  position: absolute;
+  inset: -32%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--color-surface-sunken) 0%,
+    var(--color-surface-sunken) 58%,
+    transparent 100%
+  );
+  z-index: -1;
+}
+
+.page-hero--about .sn-rocket {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.22))
+    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.12));
+}
+
+@media (max-width: 899px) {
+  .page-hero--about .page-hero__ring-stage {
+    /* Centred rather than bled to the edge, same fix as the homepage hero —
+       an off-canvas stage would carry the badge past the viewport with it. */
+    width: min(84vw, 340px);
+    top: calc(100% + 1rem);
+    bottom: auto;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .page-hero--about {
+    padding-block-end: calc(min(84vw, 340px) + 3rem);
+  }
+
+  .page-hero--about .page-hero__badge {
+    width: 40%;
+  }
+}
+
 /* ==========================================================================
    PILLARS (About / Portfolio deep sections)
    ========================================================================== */

@@ -233,15 +233,36 @@ export const stat = (m, { index = 0 } = {}) => `
   </div>`;
 
 /* --- page hero (inner pages) ---------------------------------------------- */
-export const pageHero = ({ label, title, deck = '', ringOpts = null }) => `
-  <section class="page-hero" data-reveal-group>
+export const pageHero = ({
+  label,
+  title,
+  deck = '',
+  ringOpts = null,
+  badge = '', // optional — a self-contained SVG string centred in the ring.
+  className = '', // optional page-specific modifier, scopes badge CSS safely.
+}) => `
+  <section class="page-hero${className ? ` ${className}` : ''}" data-reveal-group>
     <div class="shell page-hero__shell">
       <div class="page-hero__body">
         ${eyebrow(label)}
         <h1 class="page-hero__title" data-reveal="rise">${accent(title)}</h1>
         ${deck ? `<p class="page-hero__deck deck" data-reveal="rise">${accent(deck)}</p>` : ''}
       </div>
-      ${ringOpts ? ring(ringOpts) : ''}
+      ${
+        ringOpts && badge
+          ? `<div class="page-hero__ring-stage">
+               <div class="page-hero__ring-reveal" data-reveal="fade">
+                 ${ring(ringOpts)}
+                 <div class="page-hero__badge" aria-hidden="true">
+                   <span class="page-hero__badge-halo"></span>
+                   ${badge}
+                 </div>
+               </div>
+             </div>`
+          : ringOpts
+          ? ring(ringOpts)
+          : ''
+      }
     </div>
     <span class="hairline-gradient" aria-hidden="true"></span>
   </section>`;

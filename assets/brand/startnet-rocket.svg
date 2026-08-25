@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="StartNet — launch">
+<title>StartNet — launch</title>
+<circle class="sn-rocket__field" cx="100" cy="100" r="100" fill="#000000"/>
+<g class="sn-rocket__body" fill="#FFFFFF">
+  <path d="M100,32 C86,45 80,60 80,80 L80,126 Q80,132 86,132 L114,132 Q120,132 120,126 L120,80 C120,60 114,45 100,32 Z"/>
+  <path d="M80,108 L52,138 L80,124 Z"/>
+  <path d="M120,108 L148,138 L120,124 Z"/>
+</g>
+<rect class="sn-rocket__band" x="78" y="99" width="44" height="9" rx="2.5" fill="#CC3029"/>
+<circle class="sn-rocket__window-ring" cx="100" cy="76" r="15" fill="none" stroke="#CC3029" stroke-width="3"/>
+<circle class="sn-rocket__window" cx="100" cy="76" r="12" fill="#000000"/>
+<path class="sn-rocket__flame" d="M86,132 C90,148 94,158 100,172 C106,158 110,148 114,132 Z" fill="#CC3029"/>
+<g class="sn-rocket__sparks" fill="#CC3029">
+  <circle cx="70" cy="145" r="4"/>
+  <circle cx="62" cy="160" r="3"/>
+  <circle cx="130" cy="145" r="4"/>
+  <circle cx="138" cy="160" r="3"/>
+  <circle cx="100" cy="181" r="3.5"/>
+</g>
+</svg>
