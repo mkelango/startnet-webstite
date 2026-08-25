@@ -19,16 +19,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - run: npm ci
-      - run: npm run build
+
+      # Zero dependencies — build.mjs uses only Node's built-in modules.
+      - name: Build site
+        run: node build.mjs
+
+      # Assemble a clean publish directory rather than uploading the whole
+      # repo (source, docs, README) — only what startnet.in should serve.
+      - name: Assemble publish directory
+        run: |
+          mkdir -p dist
+          cp *.html dist/
+          cp sitemap.xml robots.txt portfolio.json dist/
+          cp -r assets dist/assets
+          echo "startnet.in" > dist/CNAME
+          touch dist/.nojekyll
+
       - uses: actions/configure-pages@v5
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ./dist
 
   deploy:
     needs: build

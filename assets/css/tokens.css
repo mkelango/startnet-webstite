@@ -1,0 +1,281 @@
+/* ============================================================================
+   StartNet Design System — LAYER 1: TOKENS
+   The single source of truth. Nothing below this layer invents a value.
+
+   Architecture:  primitive → semantic → component
+   Primitives are raw values (sn-red-500). Semantics carry meaning
+   (--color-accent). Components consume semantics only.
+   ========================================================================== */
+
+:root {
+  /* ------------------------------------------------------------------------
+     1. PRIMITIVE — BRAND COLOUR
+     Sampled directly from the StartNet master logo artwork.
+     Ink #000000 and Signal #CC3029 are the two protected brand constants.
+     --------------------------------------------------------------------- */
+  --sn-ink: #000000;          /* brand black — the wordmark            */
+  --sn-signal: #cc3029;       /* brand red   — THE DOT                 */
+
+  /* Signal ramp — derived, for states only. Never re-tint the logo dot. */
+  --sn-signal-050: #fbeceb;
+  --sn-signal-100: #f6d4d1;
+  --sn-signal-200: #eda9a3;
+  --sn-signal-300: #e28279;
+  --sn-signal-400: #d85a4f;
+  --sn-signal-500: #cc3029;   /* = --sn-signal                          */
+  --sn-signal-600: #ad2621;
+  --sn-signal-700: #8c1e1a;
+  --sn-signal-800: #661614;
+  --sn-signal-900: #3d0d0c;
+
+  /* Neutral ramp — a warm-neutral grey, so paper reads as paper, not screen */
+  --sn-neutral-000: #ffffff;
+  --sn-neutral-025: #fbfbfa;
+  --sn-neutral-050: #f6f6f4;
+  --sn-neutral-100: #efefec;
+  --sn-neutral-150: #e6e6e2;
+  --sn-neutral-200: #d9d9d4;
+  --sn-neutral-300: #bebeb7;
+  --sn-neutral-400: #9b9b93;
+  --sn-neutral-500: #6d6d64;   /* AA on paper (#F6F6F4) at 14px and below */
+  --sn-neutral-600: #5a5a53;
+  --sn-neutral-700: #3f3f3a;
+  --sn-neutral-800: #262624;
+  --sn-neutral-850: #1a1a19;
+  --sn-neutral-900: #111110;
+  --sn-neutral-950: #0a0a0a;
+
+  /* ------------------------------------------------------------------------
+     2. PRIMITIVE — PORTFOLIO SWATCHES
+     One restrained cue per property. Used ONLY as a dot, a hairline, or a
+     hover wash on that property's card — never as a section fill. This is
+     what keeps five sub-brands legible without importing five identities.
+     --------------------------------------------------------------------- */
+  --sn-prop-flywheel: #c4801f;   /* AI Flywheel          — amber   */
+  --sn-prop-nooru: #1f7a63;      /* Nooru.AI             — jade    */
+  --sn-prop-agentic: #2f5bd0;    /* Agentic AI Connect   — blue    */
+  --sn-prop-physical: #9b2c63;   /* Physical AI Connect  — magenta */
+  --sn-prop-snx: #4b3fa8;        /* SNX                  — indigo  */
+
+  /* ------------------------------------------------------------------------
+     3. SEMANTIC — SURFACE & TEXT (light context, the default)
+     --------------------------------------------------------------------- */
+  --color-surface: var(--sn-neutral-000);
+  --color-surface-raised: var(--sn-neutral-000);
+  --color-surface-sunken: var(--sn-neutral-050);
+  --color-surface-muted: var(--sn-neutral-100);
+  --color-surface-inverse: var(--sn-neutral-950);
+
+  --color-text: var(--sn-ink);
+  --color-text-secondary: var(--sn-neutral-600);
+  --color-text-tertiary: var(--sn-neutral-500);
+  --color-text-inverse: var(--sn-neutral-000);
+
+  --color-line: var(--sn-neutral-150);
+  --color-line-strong: var(--sn-neutral-200);
+  --color-line-hairline: color-mix(in srgb, var(--sn-ink) 8%, transparent);
+
+  --color-accent: var(--sn-signal);
+  --color-accent-hover: var(--sn-signal-600);
+  --color-accent-wash: var(--sn-signal-050);
+
+  --color-focus: var(--sn-signal-500);
+
+  /* Ring colour — the Dot System draws with this and inherits per section  */
+  --color-ring: var(--sn-signal);
+  --color-ring-ghost: color-mix(in srgb, var(--sn-ink) 7%, transparent);
+
+  /* ------------------------------------------------------------------------
+     4. SEMANTIC — TYPOGRAPHY
+     Two families, three voices:
+       Sans (Archivo)          → structure, authority, everything functional
+       Serif italic (Instrument Serif) → the human aside, the editorial voice
+       Sans micro              → labels, eyebrows, data
+     --------------------------------------------------------------------- */
+  --font-sans: 'Archivo', 'Archivo Fallback', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: 'Instrument Serif', 'Instrument Serif Fallback', Georgia,
+    'Times New Roman', serif;
+
+  /* Fluid display scale. Min is the 360px value, max the 1600px value.      */
+  --text-display-1: clamp(2.5rem, 1.15rem + 5.9vw, 4.75rem);     /*  40 →  76 */
+  --text-display-2: clamp(2.125rem, 1.2rem + 4vw, 3.75rem);      /*  34 →  60 */
+  --text-title-1: clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem);       /*  28 →  44 */
+  --text-title-2: clamp(1.5rem, 1.15rem + 1.5vw, 2.125rem);      /*  24 →  34 */
+  --text-title-3: clamp(1.25rem, 1.08rem + 0.75vw, 1.625rem);    /*  20 →  26 */
+  --text-title-4: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);  /*  18 →  21 */
+  --text-lead: clamp(1.0625rem, 0.98rem + 0.4vw, 1.3125rem);     /*  17 →  21 */
+  --text-body: 1rem;                                             /*  16       */
+  --text-small: 0.875rem;                                        /*  14       */
+  --text-micro: 0.75rem;                                         /*  12       */
+  --text-nano: 0.6875rem;                                        /*  11       */
+
+  --leading-tight: 0.98;
+  --leading-display: 1.04;
+  --leading-title: 1.12;
+  --leading-snug: 1.35;
+  --leading-body: 1.62;
+  --leading-loose: 1.75;
+
+  --tracking-display: -0.032em;   /* large sans needs to be pulled in tight  */
+  --tracking-title: -0.022em;
+  --tracking-body: -0.006em;
+  --tracking-label: 0.09em;       /* micro labels open up                    */
+  --tracking-label-wide: 0.16em;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  /* ------------------------------------------------------------------------
+     5. SEMANTIC — SPACE
+     4px base unit. Section rhythm is fluid so the page breathes the same
+     way at 390px as at 1920px.
+     --------------------------------------------------------------------- */
+  --space-0: 0;
+  --space-1: 0.25rem;   /*  4 */
+  --space-2: 0.5rem;    /*  8 */
+  --space-3: 0.75rem;   /* 12 */
+  --space-4: 1rem;      /* 16 */
+  --space-5: 1.25rem;   /* 20 */
+  --space-6: 1.5rem;    /* 24 */
+  --space-8: 2rem;      /* 32 */
+  --space-10: 2.5rem;   /* 40 */
+  --space-12: 3rem;     /* 48 */
+  --space-16: 4rem;     /* 64 */
+  --space-20: 5rem;     /* 80 */
+  --space-24: 6rem;     /* 96 */
+  --space-32: 8rem;     /* 128 */
+
+  --space-section: clamp(4.5rem, 2.5rem + 8vw, 10rem);
+  --space-section-tight: clamp(3rem, 1.8rem + 5vw, 6rem);
+
+  /* ------------------------------------------------------------------------
+     6. SEMANTIC — LAYOUT GRID
+     --------------------------------------------------------------------- */
+  --layout-max: 1440px;
+  --layout-text-max: 68ch;
+  --layout-inset: clamp(1.25rem, 0.4rem + 4vw, 5.5rem);
+  --layout-gutter: clamp(1rem, 0.5rem + 1.6vw, 2rem);
+  --layout-columns: 12;
+
+  /* ------------------------------------------------------------------------
+     7. SEMANTIC — SHAPE
+     --------------------------------------------------------------------- */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 36px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  --border-hairline: 1px;
+  --border-strong: 1.5px;
+
+  /* ------------------------------------------------------------------------
+     8. SEMANTIC — ELEVATION
+     Restrained. An institutional page earns depth through space, not shadow.
+     --------------------------------------------------------------------- */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.035), 0 10px 28px -16px rgba(0, 0, 0, 0.14);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.045), 0 28px 56px -24px rgba(0, 0, 0, 0.22);
+  --shadow-inset-hairline: inset 0 0 0 1px var(--color-line);
+
+  /* ------------------------------------------------------------------------
+     9. SEMANTIC — MOTION
+     House curve is ease-out-expo: fast departure, long settle. It is what
+     makes an interface feel expensive rather than springy.
+     --------------------------------------------------------------------- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-linear: linear;
+
+  --duration-instant: 90ms;
+  --duration-fast: 180ms;
+  --duration-base: 320ms;
+  --duration-slow: 620ms;
+  --duration-reveal: 900ms;
+  --duration-cinematic: 1400ms;
+
+  /* Dot System cadence — one full morph cycle */
+  --dot-cycle: 3600ms;
+  --dot-rotation: 150s;   /* one full ring revolution. Never faster.        */
+
+  /* ------------------------------------------------------------------------
+     10. SEMANTIC — Z-INDEX
+     --------------------------------------------------------------------- */
+  --z-below: -1;
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 100;
+  --z-header: 200;
+  --z-dropdown: 300;
+  --z-overlay: 400;
+  --z-modal: 500;
+  --z-toast: 600;
+}
+
+/* ==========================================================================
+   INVERSE CONTEXT
+   Any element carrying [data-theme="dark"] re-points the semantic layer.
+   Components never branch on theme — they just read the semantic token.
+   ========================================================================== */
+[data-theme='dark'] {
+  --color-surface: var(--sn-neutral-950);
+  --color-surface-raised: var(--sn-neutral-900);
+  --color-surface-sunken: #000000;
+  --color-surface-muted: var(--sn-neutral-850);
+  --color-surface-inverse: var(--sn-neutral-000);
+
+  --color-text: var(--sn-neutral-000);
+  --color-text-secondary: rgba(255, 255, 255, 0.68);
+  --color-text-tertiary: rgba(255, 255, 255, 0.52);
+  --color-text-inverse: var(--sn-ink);
+
+  --color-line: rgba(255, 255, 255, 0.12);
+  --color-line-strong: rgba(255, 255, 255, 0.22);
+  --color-line-hairline: rgba(255, 255, 255, 0.08);
+
+  --color-accent: var(--sn-signal-400);
+  --color-accent-hover: var(--sn-signal-300);
+  --color-accent-wash: rgba(216, 90, 79, 0.14);
+
+  --color-focus: var(--sn-signal-300);
+
+  --color-ring: var(--sn-signal-500);
+  --color-ring-ghost: rgba(255, 255, 255, 0.08);
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 28px -16px rgba(0, 0, 0, 0.7);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.45), 0 28px 56px -24px rgba(0, 0, 0, 0.8);
+}
+
+/* Paper context — the off-white band used between two white sections. */
+[data-theme='paper'] {
+  --color-surface: var(--sn-neutral-050);
+  --color-surface-raised: var(--sn-neutral-000);
+  --color-surface-sunken: var(--sn-neutral-100);
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   Motion is decoration here, never information. Everything collapses to a
+   resolved end state — no animation is required to read the page.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant: 1ms;
+    --duration-fast: 1ms;
+    --duration-base: 1ms;
+    --duration-slow: 1ms;
+    --duration-reveal: 1ms;
+    --duration-cinematic: 1ms;
+    --dot-cycle: 1ms;
+    --dot-rotation: 0s;
+  }
+}

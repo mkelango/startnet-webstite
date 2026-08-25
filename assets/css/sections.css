@@ -1,0 +1,1477 @@
+/* ============================================================================
+   StartNet Design System — LAYER 4: SECTIONS
+   Page-level compositions. Each one is a named place on the page, so the
+   telemetry layer can report which module actually routed a visitor.
+   ========================================================================== */
+
+/* ==========================================================================
+   HERO
+   The ring bleeds off the right edge on purpose: a masterbrand should imply
+   something larger than the frame it is shown in.
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  padding-block: clamp(var(--space-10), 5vw, var(--space-20))
+    clamp(var(--space-16), 7vw, var(--space-24));
+  min-height: min(84vh, 820px);
+  display: flex;
+  align-items: center;
+  overflow: clip;
+  isolation: isolate;
+}
+
+.hero__shell {
+  position: relative;
+  width: 100%;
+}
+
+.hero__body {
+  position: relative;
+  z-index: 1;
+  max-width: min(100%, 62ch);
+}
+
+.hero__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label-wide);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-6);
+}
+
+.hero__kicker-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-circle);
+  background: var(--sn-signal);
+  flex: none;
+  animation: sn-pulse 3.4s var(--ease-in-out) infinite;
+}
+
+@keyframes sn-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--sn-signal) 45%, transparent);
+  }
+  55% {
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--sn-signal) 0%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__kicker-dot {
+    animation: none;
+  }
+}
+
+.hero__title {
+  max-width: 17ch;
+  margin-bottom: clamp(var(--space-8), 4vw, var(--space-14, 3.5rem));
+}
+
+.hero__meta {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  gap: var(--space-8) clamp(var(--space-8), 5vw, var(--space-16));
+  align-items: start;
+  max-width: 58ch;
+}
+
+.hero__claim {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.hero__claim-text {
+  font-size: var(--text-title-4);
+  font-weight: var(--weight-bold);
+  line-height: 1.22;
+  letter-spacing: var(--tracking-title);
+}
+
+.hero__deck {
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-text-secondary);
+  max-width: 42ch;
+}
+
+/* The ring is cropped by the right edge on purpose — a masterbrand should
+   imply a system larger than the frame it is shown in. The stage carries the
+   position and size that used to live on .ring itself; the ring is pinned to
+   fill it exactly, which frees the centre for the monogram badge. */
+.hero__ring-stage {
+  position: absolute;
+  top: 50%;
+  left: auto;
+  right: calc(-1 * clamp(70px, 13vw, 230px));
+  transform: translateY(-50%);
+  width: clamp(520px, 66vw, 940px); /* matches .ring--xl */
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+.hero__ring-stage .hero__ring {
+  position: static;
+  inset: auto;
+  width: 100%;
+  z-index: auto;
+}
+
+/* Reveal lives on its own layer, purely for the opacity fade. Positioning
+   transforms belong on .hero__ring-stage and .hero__ring-badge only — the
+   generic [data-reveal='fade'] rule sets `transform: none` at a specificity
+   that would otherwise cancel translateY/translate centring outright. */
+.hero__ring-reveal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   THE MONOGRAM BADGE
+   Sits dead-centre of the ring, at a diameter well inside the mark radius
+   (marks orbit at 75% of the stage's half-width) so it never collides with
+   the arcs at any point in the morph cycle.
+   ----------------------------------------------------------------------- */
+.hero__ring-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 38%;
+  aspect-ratio: 1;
+  z-index: 1;
+}
+
+.hero__ring-badge-halo {
+  position: absolute;
+  inset: -34%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--color-surface) 0%,
+    var(--color-surface) 58%,
+    color-mix(in srgb, var(--color-surface) 0%, transparent) 100%
+  );
+  z-index: -1;
+}
+
+.hero__ring-badge-mark {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.22))
+    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.12));
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: var(--space-10);
+  left: var(--layout-inset);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-nano);
+  letter-spacing: var(--tracking-label-wide);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.hero__scroll-track {
+  display: block;
+  width: 46px;
+  height: 1px;
+  background: var(--color-line-strong);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__scroll-dot {
+  position: absolute;
+  top: -1.5px;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: var(--radius-circle);
+  background: var(--sn-signal);
+  animation: sn-scroll-run 2.6s var(--ease-in-out) infinite;
+}
+
+@keyframes sn-scroll-run {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(42px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__scroll-dot {
+    animation: none;
+  }
+}
+
+@media (max-width: 899px) {
+  /* On a narrow screen there is no column to put the ring beside, so the
+     hero grows a band underneath the copy and the ring lives there. A ring
+     dropped behind running text would be decoration at the cost of reading. */
+  .hero {
+    min-height: 0;
+    /* Must clear the ring band's own height (set on .hero__ring-stage below)
+       plus its 1rem offset and a margin, or the badge clips at the bottom
+       edge — keep the two numbers in step if either changes. */
+    padding-block-end: calc(min(84vw, 380px) + 3rem);
+  }
+
+  .hero__meta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero__ring-stage {
+    /* Centred rather than bled off the right edge: on a narrow screen there
+       is no spare width to crop into, and an off-canvas stage would carry
+       the monogram badge past the viewport edge with it. Capped well under
+       the viewport width, so it is never clipped at any mobile size. */
+    width: min(84vw, 380px);
+    top: calc(100% + 1rem);
+    bottom: auto;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    opacity: 1;
+  }
+
+  /* A little larger relative to the stage on small screens, where the badge
+     is the main focal point rather than one element beside the copy. */
+  .hero__ring-badge {
+    width: 42%;
+  }
+
+  .hero__scroll {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   THE ORBIT
+   ========================================================================== */
+
+.orbit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+  gap: clamp(var(--space-8), 5vw, var(--space-20));
+  align-items: center;
+  margin-bottom: clamp(var(--space-16), 8vw, var(--space-32));
+}
+
+.orbit__stage {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+.orbit__svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.orbit__track {
+  fill: none;
+  stroke: var(--color-line-strong);
+  stroke-width: 1;
+}
+
+.orbit__rotor {
+  transform-origin: 200px 200px;
+  transition: transform var(--duration-cinematic) var(--ease-out-expo);
+}
+
+.orbit__node {
+  transition: opacity var(--duration-slow) var(--ease-out-expo);
+}
+
+.orbit__halo {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.5);
+  transition: opacity var(--duration-slow) var(--ease-out-expo),
+    transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.orbit__dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--duration-slow) var(--ease-out-expo);
+  opacity: 0.4;
+}
+
+.orbit__node.is-active .orbit__dot {
+  transform: scale(1.7);
+  opacity: 1;
+}
+
+.orbit__node.is-active .orbit__halo {
+  opacity: 0.14;
+  transform: scale(1);
+}
+
+/* The centre pane — where the active property opens. */
+.orbit__centre {
+  position: absolute;
+  inset: 18%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--duration-base) var(--ease-out-expo),
+    transform var(--duration-base) var(--ease-out-expo);
+}
+
+.orbit__centre.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.orbit__group {
+  font-size: var(--text-nano);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label-wide);
+  text-transform: uppercase;
+  color: var(--prop);
+}
+
+.orbit__name {
+  font-size: var(--text-title-2);
+  letter-spacing: var(--tracking-title);
+  line-height: 1.1;
+}
+
+.orbit__line {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-lead);
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+  max-width: 26ch;
+}
+
+.orbit__link {
+  margin-top: var(--space-2);
+}
+
+/* The rail — a real, readable list. This is what gets indexed. */
+.orbit__rail-label {
+  font-size: var(--text-nano);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label-wide);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+  margin-bottom: var(--space-2);
+}
+
+.orbit__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.orbit__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0 var(--space-4);
+  width: 100%;
+  text-align: left;
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-3);
+  margin-inline: calc(var(--space-3) * -1);
+  border-radius: var(--radius-sm);
+  border-bottom: 1px solid var(--color-line);
+  position: relative;
+  transition: background var(--duration-base) var(--ease-out-expo);
+}
+
+.orbit__item:hover {
+  background: color-mix(in srgb, var(--color-text) 4%, transparent);
+}
+
+.orbit__item-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-circle);
+  background: var(--prop);
+  opacity: 0.35;
+  transform: translateY(-2px);
+  transition: opacity var(--duration-base) var(--ease-out-expo),
+    transform var(--duration-base) var(--ease-out-expo),
+    box-shadow var(--duration-base) var(--ease-out-expo);
+}
+
+.orbit__item.is-active .orbit__item-dot {
+  opacity: 1;
+  transform: translateY(-2px) scale(1.35);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--prop) 16%, transparent);
+}
+
+.orbit__item-name {
+  font-size: var(--text-title-4);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-title);
+  color: var(--color-text-tertiary);
+  transition: color var(--duration-base) var(--ease-out-expo);
+}
+
+.orbit__item.is-active .orbit__item-name {
+  color: var(--color-text);
+}
+
+.orbit__item-kind {
+  grid-column: 2;
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+}
+
+@media (max-width: 899px) {
+  .orbit {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .orbit__stage {
+    max-width: 380px;
+  }
+}
+
+/* ==========================================================================
+   PORTFOLIO GRID
+   ========================================================================== */
+
+.portfolio__groups {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--space-10), 5vw, var(--space-16));
+}
+
+.portfolio__group-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  padding-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.portfolio__group-label {
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label-wide);
+  text-transform: uppercase;
+}
+
+.portfolio__group-note {
+  font-size: var(--text-small);
+  color: var(--color-text-tertiary);
+}
+
+.portfolio__cards {
+  display: grid;
+  gap: var(--layout-gutter);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+
+.portfolio__cards--1 {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 900px) {
+  .portfolio__cards--1 .prop-card {
+    max-width: 62%;
+  }
+}
+
+/* ==========================================================================
+   PROOF
+   ========================================================================== */
+
+.proof__grid {
+  display: grid;
+  gap: clamp(var(--space-8), 3vw, var(--space-12)) var(--layout-gutter);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+}
+
+.proof__asof {
+  margin-top: clamp(var(--space-10), 4vw, var(--space-16));
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-line);
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+}
+
+.proof__ring {
+  top: 50%;
+  left: auto;
+  right: calc(100% - clamp(140px, 20vw, 300px));
+  transform: translateY(-50%);
+}
+
+@media (max-width: 899px) {
+  .proof__ring {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   STORY
+   ========================================================================== */
+
+.section--story {
+  background: var(--color-surface);
+}
+
+.story__shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(var(--space-10), 5vw, var(--space-20));
+  align-items: start;
+}
+
+.story__lead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+
+.story__title {
+  max-width: 18ch;
+}
+
+.story__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-8);
+  padding-top: clamp(var(--space-4), 3vw, var(--space-12));
+}
+
+.story__para {
+  font-size: var(--text-lead);
+  line-height: 1.62;
+  color: var(--color-text-secondary);
+  max-width: 48ch;
+}
+
+/* Sits high in the section so it never crosses the journey row below it —
+   a ring may bleed off the page, but it may never sit under running text. */
+.story__ring {
+  top: -30%;
+  left: auto;
+  right: calc(-1 * clamp(60px, 11vw, 200px));
+}
+
+/* --- the journey ---------------------------------------------------------
+   Five dots on a line. The founder path, told with the brand's own element.
+   ------------------------------------------------------------------------ */
+.journey {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--layout-gutter);
+  margin-top: clamp(var(--space-12), 6vw, var(--space-24));
+  position: relative;
+}
+
+.journey::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-line);
+}
+
+.journey__step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-8);
+  position: relative;
+}
+
+.journey__node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: var(--radius-circle);
+  background: var(--prop);
+  box-shadow: 0 0 0 4px var(--color-surface);
+}
+
+.journey__label {
+  font-size: var(--text-nano);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label-wide);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.journey__prop {
+  font-size: var(--text-title-4);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-title);
+}
+
+.journey__body {
+  font-size: var(--text-small);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-snug);
+}
+
+@media (max-width: 899px) {
+  .story__shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .journey {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+
+  .journey::before {
+    top: 0;
+    bottom: 0;
+    left: 5px;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+
+  .journey__step {
+    padding-top: 0;
+    padding-left: var(--space-8);
+  }
+
+  .journey__node {
+    top: 4px;
+  }
+
+  .story__ring {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   NEXT FLAGSHIP EVENT
+   ========================================================================== */
+
+.event--compact .event__compact-shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+  padding: var(--space-6) var(--space-8);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-sunken);
+  box-shadow: inset 0 0 0 1px var(--color-line);
+}
+
+.event__compact-text {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-small);
+  color: var(--color-text-secondary);
+}
+
+.event__compact-text strong {
+  color: var(--color-text);
+  font-weight: var(--weight-semibold);
+}
+
+.event__compact-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-circle);
+  background: var(--prop);
+  flex: none;
+}
+
+.event--expanded .event__shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(var(--space-8), 4vw, var(--space-16));
+  align-items: end;
+}
+
+.event__lead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+
+.event__title {
+  max-width: 14ch;
+}
+
+.event__where {
+  font-size: var(--text-title-4);
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+}
+
+.event__aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding-bottom: 0.4em;
+}
+
+.event__actions {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.event__ring {
+  top: -34%;
+  left: auto;
+  right: calc(-1 * clamp(40px, 8vw, 140px));
+}
+
+@media (max-width: 899px) {
+  .event--expanded .event__shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .event__ring {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   WHO THIS IS FOR
+   ========================================================================== */
+
+.who__grid {
+  display: grid;
+  gap: var(--layout-gutter);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+}
+
+.who__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding-top: var(--space-8);
+  border-top: 1.5px solid var(--color-text);
+  position: relative;
+}
+
+.who__dot {
+  position: absolute;
+  top: calc(var(--space-4) * -1 + 1px);
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-circle);
+  background: var(--prop);
+  box-shadow: 0 0 0 4px var(--color-surface);
+}
+
+.who__title {
+  font-size: var(--text-title-3);
+  letter-spacing: var(--tracking-title);
+}
+
+.who__body {
+  font-size: var(--text-small);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-body);
+  flex: 1;
+  margin-bottom: var(--space-3);
+}
+
+/* ==========================================================================
+   NEWS GRID
+   ========================================================================== */
+
+.news__grid {
+  display: grid;
+  gap: var(--layout-gutter);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+
+.news__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.news__row {
+  display: grid;
+  grid-template-columns: minmax(140px, 0.22fr) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-6);
+  padding: clamp(var(--space-5), 2.5vw, var(--space-8));
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-sunken);
+  transition: background var(--duration-base) var(--ease-out-expo),
+    transform var(--duration-base) var(--ease-out-expo);
+}
+
+.news__row:hover {
+  background: var(--color-surface-muted);
+  transform: translateX(4px);
+}
+
+.news__row-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+}
+
+.news__row-title {
+  font-size: var(--text-title-4);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.015em;
+  line-height: 1.32;
+}
+
+.news__row-summary {
+  font-size: var(--text-small);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-2);
+  max-width: 62ch;
+}
+
+@media (max-width: 767px) {
+  .news__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .news__row-meta {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-4);
+  }
+}
+
+.filter-status {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+}
+
+.filter-empty {
+  padding: var(--space-16) 0;
+  text-align: center;
+  color: var(--color-text-tertiary);
+}
+
+/* ==========================================================================
+   PAGE HERO (inner pages)
+   ========================================================================== */
+
+.page-hero {
+  position: relative;
+  padding-block: clamp(var(--space-16), 8vw, var(--space-24));
+  background: var(--color-surface-sunken);
+  overflow: clip;
+  isolation: isolate;
+}
+
+.page-hero__shell {
+  position: relative;
+}
+
+.page-hero__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+  max-width: 60ch;
+}
+
+.page-hero__title {
+  font-size: var(--text-display-2);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  max-width: 18ch;
+}
+
+.page-hero__deck {
+  max-width: 52ch;
+}
+
+.page-hero .ring {
+  top: 50%;
+  left: auto;
+  right: calc(-1 * clamp(50px, 9vw, 160px));
+  transform: translateY(-50%);
+}
+
+@media (max-width: 899px) {
+  .page-hero {
+    padding-block-end: 170px;
+  }
+
+  .page-hero .ring {
+    width: min(80vw, 320px);
+    top: calc(100% + 0.75rem);
+    bottom: auto;
+    left: auto;
+    right: -14%;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   PILLARS (About / Portfolio deep sections)
+   ========================================================================== */
+
+.pillars {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(var(--space-8), 5vw, var(--space-20));
+  align-items: start;
+}
+
+.pillars__list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--space-16), 10vw, var(--space-32));
+}
+
+.pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+  opacity: 0.4;
+  transition: opacity var(--duration-slow) var(--ease-out-expo);
+}
+
+.pillar.is-active {
+  opacity: 1;
+}
+
+.pillar__n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.4em;
+  padding: 0.45em 1em;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-text) 8%, transparent);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  font-variant-numeric: tabular-nums;
+}
+
+.pillar__title {
+  font-size: var(--text-title-1);
+  letter-spacing: var(--tracking-title);
+  max-width: 16ch;
+}
+
+.pillar__body {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-body);
+  max-width: 46ch;
+}
+
+.pillars__stage {
+  position: sticky;
+  top: clamp(96px, 22vh, 200px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.pillars__stage .ring {
+  position: relative;
+  inset: auto;
+  width: min(100%, 440px);
+  z-index: 1;
+}
+
+@media (max-width: 899px) {
+  .pillars {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pillars__stage {
+    display: none;
+  }
+
+  .pillars__list {
+    gap: var(--space-16);
+  }
+
+  .pillar {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   PORTFOLIO PAGE — deep blocks
+   ========================================================================== */
+
+.prop-deep {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(var(--space-6), 4vw, var(--space-16));
+  padding-block: clamp(var(--space-12), 6vw, var(--space-20));
+  border-top: 1px solid var(--color-line);
+}
+
+.prop-deep__lead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.prop-deep__name {
+  font-size: var(--text-title-1);
+  letter-spacing: var(--tracking-title);
+}
+
+.prop-deep__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.prop-deep__mark::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: var(--radius-circle);
+  background: var(--prop);
+}
+
+.prop-deep__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+
+.prop-deep__line {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-lead);
+  line-height: 1.42;
+  color: var(--color-text);
+  max-width: 46ch;
+}
+
+.prop-deep__detail {
+  color: var(--color-text-secondary);
+  max-width: 58ch;
+}
+
+.prop-deep__best {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  font-size: var(--text-small);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-line);
+  width: 100%;
+}
+
+.prop-deep__best dt {
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.prop-deep__best dd {
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+@media (max-width: 899px) {
+  .prop-deep {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ==========================================================================
+   PARTNERS / CAREERS / CONTACT
+   ========================================================================== */
+
+.tracks {
+  display: grid;
+  gap: var(--layout-gutter);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: clamp(var(--space-6), 2.5vw, var(--space-8));
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 0 0 1px var(--color-line);
+  transition: box-shadow var(--duration-base) var(--ease-out-expo);
+}
+
+.track:hover {
+  box-shadow: inset 0 0 0 1px var(--color-line-strong);
+}
+
+.track__entry {
+  font-size: var(--text-nano);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--sn-signal);
+}
+
+.track__title {
+  font-size: var(--text-title-3);
+  letter-spacing: var(--tracking-title);
+}
+
+.track__body {
+  font-size: var(--text-small);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-body);
+}
+
+.jobs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.job {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-5);
+  padding: clamp(var(--space-5), 2.5vw, var(--space-8));
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-sunken);
+  transition: background var(--duration-base) var(--ease-out-expo),
+    transform var(--duration-base) var(--ease-out-expo);
+}
+
+.job:hover {
+  background: var(--color-surface-muted);
+  transform: translateX(4px);
+}
+
+.job__title {
+  font-size: var(--text-title-4);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.015em;
+}
+
+.job__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+}
+
+.job__summary {
+  font-size: var(--text-small);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-2);
+  max-width: 62ch;
+}
+
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+  gap: clamp(var(--space-10), 5vw, var(--space-20));
+  align-items: start;
+}
+
+.contact__form {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.contact__row {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+}
+
+.contact__done {
+  padding: var(--space-5) var(--space-6);
+  border-radius: var(--radius-md);
+  background: var(--color-accent-wash);
+  font-size: var(--text-small);
+  color: var(--color-text);
+}
+
+.routes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-top: var(--space-6);
+}
+
+.route {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-3);
+  margin-inline: calc(var(--space-3) * -1);
+  border-radius: var(--radius-sm);
+  border-bottom: 1px solid var(--color-line);
+  transition: background var(--duration-fast) var(--ease-out-expo);
+}
+
+.route:hover {
+  background: var(--color-surface-sunken);
+}
+
+.route__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-circle);
+  background: var(--prop);
+}
+
+.route__label {
+  font-size: var(--text-small);
+}
+
+.route__label strong {
+  display: block;
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-body);
+}
+
+@media (max-width: 899px) {
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .job {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ==========================================================================
+   DESIGN SYSTEM PAGE
+   ========================================================================== */
+
+.ds-block + .ds-block {
+  margin-top: clamp(var(--space-16), 7vw, var(--space-24));
+}
+
+.ds-block__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-8);
+  border-bottom: 1.5px solid var(--color-text);
+}
+
+.ds-block__title {
+  font-size: var(--text-title-2);
+  letter-spacing: var(--tracking-title);
+}
+
+.ds-block__note {
+  font-size: var(--text-small);
+  color: var(--color-text-tertiary);
+  max-width: 52ch;
+}
+
+.swatches {
+  display: grid;
+  gap: var(--layout-gutter);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr));
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.swatch__chip {
+  height: 92px;
+  border-radius: var(--radius-md);
+  background: var(--c);
+  box-shadow: inset 0 0 0 1px var(--color-line-hairline);
+}
+
+.swatch__name {
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+}
+
+.swatch__value {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.type-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.2fr) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: baseline;
+  padding-block: var(--space-6);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.type-row__meta {
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.specimen-grid {
+  display: grid;
+  gap: clamp(var(--space-8), 4vw, var(--space-16));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+
+.specimen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.specimen__stage {
+  position: relative;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-sunken);
+  overflow: hidden;
+}
+
+/* Rings normally sit at z-index -1 so they pass behind page content. Inside
+   a specimen the ring IS the content, so it has to come forward of the
+   stage's own background. */
+.specimen__stage .ring {
+  position: relative;
+  inset: auto;
+  width: 78%;
+  transform: none;
+  z-index: 1;
+}
+
+.specimen__name {
+  font-size: var(--text-title-4);
+  font-weight: var(--weight-semibold);
+}
+
+.specimen__note {
+  font-size: var(--text-small);
+  color: var(--color-text-secondary);
+}
+
+.ds-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.ds-panel {
+  padding: clamp(var(--space-6), 3vw, var(--space-10));
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 0 0 1px var(--color-line);
+}
+
+.ds-panel--dark {
+  background: var(--sn-neutral-950);
+}
+
+.do-dont {
+  display: grid;
+  gap: var(--layout-gutter);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+.do-dont__item {
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 0 0 1px var(--color-line);
+  font-size: var(--text-small);
+  color: var(--color-text-secondary);
+}
+
+.do-dont__tag {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-nano);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+
+.do-dont__item--do .do-dont__tag {
+  color: var(--sn-prop-nooru);
+}
+
+.do-dont__item--dont .do-dont__tag {
+  color: var(--sn-signal);
+}
