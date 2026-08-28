@@ -101,7 +101,12 @@ const flywheelSection = () => `
           <span class="pillar__n">CORE</span>
           <h3 class="pillar__title" style="font-size:var(--text-title-2)">The governance ring</h3>
           <p class="pillar__body">
-            ${coreDrive.core.map((c) => `<strong>${esc(c.letter)}</strong>${esc(c.word)}`).join(' · ')}:
+            ${coreDrive.core
+              .map(
+                (c) =>
+                  `<strong class="accent-letter">${esc(c.letter)}</strong>${esc(c.word.slice(1))}`
+              )
+              .join(' · ')}:
             the check every flywheel stage runs through.
           </p>
         </article>
@@ -109,7 +114,12 @@ const flywheelSection = () => `
           <span class="pillar__n">DRIVE</span>
           <h3 class="pillar__title" style="font-size:var(--text-title-2)">The operating engine</h3>
           <p class="pillar__body">
-            ${coreDrive.drive.map((d) => `<strong>${esc(d.letter)}</strong>${esc(d.word)}`).join(' · ')}.
+            ${coreDrive.drive
+              .map(
+                (d) =>
+                  `<strong class="accent-letter">${esc(d.letter)}</strong>${esc(d.word.slice(1))}`
+              )
+              .join(' · ')}.
             It maps almost exactly to the five doors: Diagnose is StartNet X,
             Research is StartNet Research, Incubate is StartNet AI, Validate is
             StartNet Vibe, Expand is StartNet Connect.

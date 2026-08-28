@@ -178,6 +178,19 @@ h6 {
   margin-inline-start: -0.02em;
 }
 
+/* --------------------------------------------------------------------------
+   THE ACCENT LETTER
+   Spells an acronym out inside its own word — CORE, DRIVE — by colouring
+   only the initiating letter rather than repeating it before the full word.
+   The letter is bold and Signal red; the rest of the word carries on in the
+   surrounding weight, so "Capability" reads as one word with its C marked,
+   never as two letters run together.
+   ----------------------------------------------------------------------- */
+.accent-letter {
+  color: var(--sn-signal);
+  font-weight: var(--weight-extrabold);
+}
+
 /* Editorial deck — the human aside next to an institutional claim. */
 .deck {
   font-family: var(--font-serif);
