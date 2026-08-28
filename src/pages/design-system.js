@@ -171,7 +171,7 @@ const dotStates = () => {
   const specs = [
     ['mark', 'One dot. Identity at rest.'],
     ['path', 'Evenly spaced. A journey with steps.'],
-    ['signal', 'Graded large to small. Momentum, decay, direction.'],
+    ['signal', 'Constant size, fading opacity. Momentum, decay, direction.'],
     ['measure', 'Dots stretched into ticks. Evidence and numbers.'],
     ['orbit', 'Fused into one stroke. Infrastructure.'],
     ['network', 'Concentric lanes. One system, running on more than one level.'],

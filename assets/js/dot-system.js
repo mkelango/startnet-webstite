@@ -7,7 +7,7 @@
 
      mark     one dot                     → identity
      path     evenly spaced dots          → a journey
-     signal   dots graded large to small  → momentum
+     signal   dots fading in opacity      → momentum, decay
      measure  dots stretched into ticks   → evidence, the numbers
      orbit    marks fused into one stroke → infrastructure
      network  concentric lanes            → one system on more than one level
@@ -53,15 +53,14 @@ const STATES = {
 
   path: () => ({ w: 8, h: 8, dr: 0, op: 1 }),
 
-  /* Floor kept well above zero on purpose — early builds tapered to 2.5px at
-     55% opacity, which at high mark-density reads as the ring pinching down
-     to a sharp point rather than a continuous running line. This still
-     grades (the momentum/direction the state is named for) without ever
-     dissolving into something that looks broken instead of designed. */
-  signal: (t) => {
-    const s = lerp(15, 7, easeInOut(t));
-    return { w: s, h: s, dr: 0, op: lerp(1, 0.82, t) };
-  },
+  /* Signal used to grade dot SIZE large-to-small — any size gradient sitting
+     next to the ring's constant-width solid tail reads as one continuous
+     line tapering to a point, at rest or mid-morph, no matter how gentle
+     the floor. Size now stays constant (matching `path`, so morphing
+     between the two barely reads as a size change at all) and the
+     "signal weakening with distance" idea is carried by opacity alone —
+     which cannot produce a geometric point, only a fade. */
+  signal: (t) => ({ w: 9, h: 9, dr: 0, op: lerp(1, 0.32, easeInOut(t)) }),
 
   measure: (t) => ({
     w: 2.6,
