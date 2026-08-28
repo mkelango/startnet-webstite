@@ -8,7 +8,7 @@ import { accent, esc, eyebrow, ring, button } from '../lib/ui.js';
 
 export const notFoundPage = () => ({
   path: '/404',
-  title: 'Page not found — StartNet',
+  title: 'Page not found: StartNet',
   description: 'That page does not exist. Here are the five doors that do.',
   bodyClass: 'page-404',
   main: `

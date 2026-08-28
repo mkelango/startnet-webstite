@@ -67,14 +67,14 @@ const identity = () =>
           <span style="width:26%;aspect-ratio:1;border-radius:50%;background:var(--sn-signal);display:block"></span>
         </div>
         <span class="specimen__name">The Dot</span>
-        <span class="specimen__note">Signal red, always a perfect circle, never outlined, never gradient, never rotated — a circle has no wrong angle and that is the point.</span>
+        <span class="specimen__note">Signal red, always a perfect circle, never outlined, never gradient, never rotated: a circle has no wrong angle and that is the point.</span>
       </div>
     </div>
 
     <div class="do-dont" style="margin-top:var(--space-10)">
       <div class="do-dont__item do-dont__item--do" data-reveal="rise">
         <span class="do-dont__tag">Do</span>
-        Let the dot travel — as an eyebrow bullet, a swatch on a property card, a
+        Let the dot travel: as an eyebrow bullet, a swatch on a property card, a
         node on the founder journey, a mark on a ring. It is the same dot each time.
       </div>
       <div class="do-dont__item do-dont__item--dont" data-reveal="rise">
@@ -88,7 +88,7 @@ const identity = () =>
 const colour = () =>
   block({
     title: 'Colour',
-    note: 'Two brand constants and a restrained neutral field. Signal red is an accent, never a surface — the moment it becomes a background it stops meaning "here".',
+    note: 'Two brand constants and a restrained neutral field. Signal red is an accent, never a surface: the moment it becomes a background it stops meaning "here".',
     body: `
     <div class="swatches">
       ${swatch('Ink', 'var(--sn-ink)', '#000000 · brand')}
@@ -106,7 +106,7 @@ const colour = () =>
     </h3>
     <p class="ds-block__note" style="margin-bottom:var(--space-6)">
       One cue per property. Permitted only as a dot, a hairline or a hover wash on
-      that property's own card. Never as a section fill — five sub-brands must not
+      that property's own card. Never as a section fill: five sub-brands must not
       be able to repaint the parent.
     </p>
     <div class="swatches">
@@ -117,7 +117,7 @@ const colour = () =>
 const typography = () =>
   block({
     title: 'Typography',
-    note: 'Archivo carries structure and authority. Instrument Serif italic carries the human aside. The mix is the signature — and it only works because it is rationed.',
+    note: 'Archivo carries structure and authority. Instrument Serif italic carries the human aside. The mix is the signature, and it only works because it is rationed.',
     body: `
     <div class="type-row" data-reveal="fade">
       <span class="type-row__meta">Display 1<br>40 → 76px</span>
@@ -138,7 +138,7 @@ const typography = () =>
     <div class="type-row" data-reveal="fade">
       <span class="type-row__meta">Deck<br>serif italic, 17 → 21px</span>
       <p class="deck" style="margin:0">
-        Our connected properties give founders a measurable advantage — one system,
+        Our connected properties give founders a measurable advantage: one system,
         five doors, no dead ends.
       </p>
     </div>
@@ -178,7 +178,7 @@ const dotStates = () => {
   ];
   return block({
     title: 'The Dot System',
-    note: 'Six states of one element. Every ring on this site is the same set of marks described by four numbers — width, height, radial lane, opacity — which is why any state can morph into any other.',
+    note: 'Six states of one element. Every ring on this site is the same set of marks described by four numbers (width, height, radial lane, opacity), which is why any state can morph into any other.',
     body: `
     <div class="specimen-grid">
       ${specs
@@ -361,13 +361,13 @@ export const designSystemPage = () => ({
   path: '/design-system',
   title: 'StartNet Design System',
   description:
-    'The StartNet visual system — the dot, the wordmark, colour, typography, components and the principles that govern them.',
+    'The StartNet visual system: the dot, the wordmark, colour, typography, components and the principles that govern them.',
   bodyClass: 'page-design-system',
   main: [
     pageHero({
       label: 'Design system',
       title: 'One dot, and everything {that follows}[.]',
-      deck: 'The working system behind startnet.in — rendered from the same tokens and components every other page on this site uses.',
+      deck: 'The working system behind startnet.in, rendered from the same tokens and components every other page on this site uses.',
       ringOpts: {
         states: ['mark', 'path', 'signal', 'measure', 'orbit', 'network'],
         arc: 260,

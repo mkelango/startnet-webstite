@@ -44,7 +44,7 @@ const story = () => `
         all three compound.
       </p>
       <p data-reveal="rise">
-        So we built it as one house with five doors — an account every founder has
+        So we built it as one house with five doors: an account every founder has
         through <strong>StartNet X</strong>, two flagship gatherings through
         <strong>StartNet Connect</strong>, an accreditation route for colleges through
         <strong>StartNet Research</strong>, a ladder from student to builder through
@@ -72,7 +72,7 @@ const flywheelSection = () => `
     ${sectionHead({
       label: 'The AI Flywheel',
       title: 'A ladder is not a flywheel. {A loop is}[.]',
-      deck: 'Physical AI, deployed in a real poultry shed or a real knitting floor, generates data no public corpus contains. That data makes Perception better — and Perception is where the next turn starts.',
+      deck: 'Physical AI, deployed in a real poultry shed or a real knitting floor, generates data no public corpus contains. That data makes Perception better, and Perception is where the next turn starts.',
       align: 'stacked',
     })}
     <ol class="journey" data-reveal-group aria-label="The AI Flywheel, stage by stage" style="margin-top:0">
@@ -91,7 +91,7 @@ const flywheelSection = () => `
     <p class="proof__asof" data-reveal="fade">
       Stages two to four are Jensen Huang’s CES 2025 progression, credited rather than
       claimed as our own. Closing the loop from Data back into Perception is StartNet’s
-      contribution — and it is the argument for why an ecosystem body in an industrial
+      contribution, and it is the argument for why an ecosystem body in an industrial
       state has an advantage a lab in a metro does not.
     </p>
 
@@ -101,16 +101,16 @@ const flywheelSection = () => `
           <span class="pillar__n">CORE</span>
           <h3 class="pillar__title" style="font-size:var(--text-title-2)">The governance ring</h3>
           <p class="pillar__body">
-            ${coreDrive.core.map((c) => `<strong>${esc(c.letter)}</strong>${esc(c.word)}`).join(' · ')}
-            — the check every flywheel stage runs through.
+            ${coreDrive.core.map((c) => `<strong>${esc(c.letter)}</strong>${esc(c.word)}`).join(' · ')}:
+            the check every flywheel stage runs through.
           </p>
         </article>
         <article class="pillar is-active">
           <span class="pillar__n">DRIVE</span>
           <h3 class="pillar__title" style="font-size:var(--text-title-2)">The operating engine</h3>
           <p class="pillar__body">
-            ${coreDrive.drive.map((d) => `<strong>${esc(d.letter)}</strong>${esc(d.word)}`).join(' · ')}
-            — and it maps almost exactly to the five doors: Diagnose is StartNet X,
+            ${coreDrive.drive.map((d) => `<strong>${esc(d.letter)}</strong>${esc(d.word)}`).join(' · ')}.
+            It maps almost exactly to the five doors: Diagnose is StartNet X,
             Research is StartNet Research, Incubate is StartNet AI, Validate is
             StartNet Vibe, Expand is StartNet Connect.
           </p>
@@ -238,23 +238,23 @@ const numbers = () => `
     })}
     <div class="do-dont">
       <div class="do-dont__item do-dont__item--do">
-        <span class="do-dont__tag">A — verified</span>
+        <span class="do-dont__tag">A: verified</span>
         Checked against a primary source: a government register, a published order,
         an audited filing.
       </div>
       <div class="do-dont__item">
-        <span class="do-dont__tag" style="color:var(--color-text-tertiary)">B — reported</span>
-        An organisation’s own claim — ours included — published as exactly that,
+        <span class="do-dont__tag" style="color:var(--color-text-tertiary)">B: reported</span>
+        An organisation’s own claim (ours included), published as exactly that,
         never dressed up as independently verified.
       </div>
       <div class="do-dont__item do-dont__item--dont">
-        <span class="do-dont__tag">C — estimate</span>
+        <span class="do-dont__tag">C: estimate</span>
         An inference or a derived figure, marked as one, and never published as a
         quotation or a guarantee.
       </div>
     </div>
     <p class="proof__asof" style="margin-top:clamp(var(--space-10),4vw,var(--space-16))">
-      A number without a tag and a date does not go on this site — see the Proof
+      A number without a tag and a date does not go on this site. See the Proof
       section on the homepage for the figures currently live under this rule.
     </p>
     <div style="margin-top:var(--space-6)">
@@ -330,7 +330,7 @@ const leadership = () => `
     </div>
     <p class="proof__asof">
       Named biographies are withheld until confirmed. This page follows the same rule
-      as the proof section — nothing goes up that cannot be verified.
+      as the proof section: nothing goes up that cannot be verified.
     </p>
   </div>
 </section>`;
@@ -347,9 +347,9 @@ const closing = () => `
 
 export const aboutPage = () => ({
   path: '/about',
-  title: 'About StartNet — Building Tamil Nadu’s AI startup infrastructure',
+  title: 'About StartNet: Building Tamil Nadu’s AI startup infrastructure',
   description:
-    'StartNet is the commercial house behind Tamil Nadu’s AI startup ecosystem — StartNet X, Connect, Research, Vibe and AI, the AI Flywheel, and our relationship with Think TN Foundation.',
+    'StartNet is the commercial house behind Tamil Nadu’s AI startup ecosystem: StartNet X, Connect, Research, Vibe and AI, the AI Flywheel, and our relationship with Think TN Foundation.',
   bodyClass: 'page-about',
   main: [
     pageHero({

@@ -153,7 +153,7 @@ const portfolio = () => `
     ${sectionHead({
       label: 'The house',
       title: 'Five doors. {One ecosystem}[.]',
-      deck: 'Wherever you are starting from, there is a door that fits. Each brand stands on its own — together they are one system.',
+      deck: 'Wherever you are starting from, there is a door that fits. Each brand stands on its own; together they are one system.',
     })}
 
     ${orbit()}
@@ -196,7 +196,7 @@ const proofSection = () => {
     <div class="proof__grid" data-reveal-group>
       ${rows.map((m, i) => stat(m, { index: i })).join('')}
     </div>
-    <p class="proof__asof">Reconciled as of ${esc(proof.asOf)}. Every figure carries a confidence tag — see how we produce our numbers on the About page.</p>
+    <p class="proof__asof">Reconciled as of ${esc(proof.asOf)}. Every figure carries a confidence tag: see how we produce our numbers on the About page.</p>
   </div>
   ${ring({
     states: ['measure', 'path', 'orbit'],
@@ -233,7 +233,7 @@ const story = () => `
         A founder might start with the Founder Diagnostic on StartNet X, come up through
         a Vibe Summit and the Academy, build capability through a StartNet Research lab,
         join a nooru.ai cohort on StartNet AI, and meet their first investor at StartNet
-        Connect — all before their first year is out, and all on one account. Each door
+        Connect, all before their first year is out, and all on one account. Each door
         stands on its own. Together, they are the closest thing Tamil Nadu has to an
         operating system for building an AI company.
       </p>
@@ -297,7 +297,7 @@ const eventModule = () => {
       <span class="event__compact-dot" style="--prop:${p.swatch}" aria-hidden="true"></span>
       Next gathering: <strong>${esc(nextEvent.name)}</strong>, ${esc(
       nextEvent.dateDisplay
-    )} — then ${esc(secondEvent.name)}, ${esc(secondEvent.dateDisplay)}.
+    )}. Then ${esc(secondEvent.name)}, ${esc(secondEvent.dateDisplay)}.
     </p>
     ${linkArrow({ label: 'Learn more', href: p.href })}
   </div>
@@ -329,7 +329,7 @@ const eventModule = () => {
           .join('')}
       </div>
       <p class="proof__asof" style="border:0;padding:0;margin-top:var(--space-4)">
-        ${esc(secondEvent.name)} follows on ${esc(secondEvent.dateDisplay)} — the two flagship
+        ${esc(secondEvent.name)} follows on ${esc(secondEvent.dateDisplay)}; the two flagship
         summits are always on separate dates, published a year out.
       </p>
     </div>
@@ -401,9 +401,9 @@ const newsroomPreview = () => `
 
 export const homePage = () => ({
   path: '/',
-  title: 'StartNet — Five doors, one ecosystem, for Tamil Nadu’s AI startups',
+  title: 'StartNet: Five doors, one ecosystem, for Tamil Nadu’s AI startups',
   description:
-    'StartNet is the infrastructure behind Tamil Nadu’s AI-driven startup ecosystem — StartNet X, Connect, Research, Vibe and AI, all under one roof.',
+    'StartNet is the infrastructure behind Tamil Nadu’s AI-driven startup ecosystem: StartNet X, Connect, Research, Vibe and AI, all under one roof.',
   bodyClass: 'page-home',
   main: [
     hero(),

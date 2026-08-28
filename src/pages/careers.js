@@ -69,9 +69,9 @@ const general = () => `
 
 export const careersPage = () => ({
   path: '/careers',
-  title: 'Careers at StartNet — Openings across the ecosystem',
+  title: 'Careers at StartNet: Openings across the ecosystem',
   description:
-    'Open roles across StartNet X, Connect, Research, Vibe and AI — one place to see everything.',
+    'Open roles across StartNet X, Connect, Research, Vibe and AI, one place to see everything.',
   bodyClass: 'page-careers',
   main: [
     pageHero({

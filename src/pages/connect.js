@@ -77,7 +77,7 @@ const eventBlock = ({ id, name, dateDisplay, city, theme, stage, cta }) => `
         ${cta.map((l, i) => button({ label: l.label, href: l.href, variant: i === 0 ? 'accent' : 'ghost' })).join('')}
       </div>
       <p class="proof__asof" style="border:0;padding:0;margin-top:var(--space-4)">
-        Published on a fixed annual window and never moved — a small institution
+        Published on a fixed annual window and never moved. A small institution
         earns standing by being predictable enough to plan around.
       </p>
     </div>
@@ -95,9 +95,9 @@ const sponsorship = () => `
     })}
     <div class="tracks" data-reveal-group>
       ${[
-        ['Category exclusivity', 'One sponsor per category at each flagship — used by every large event, and one of two levers that cost nothing.'],
+        ['Category exclusivity', 'One sponsor per category at each flagship: used by every large event, and one of two levers that cost nothing.'],
         ['Bundled delegate passes', 'Every sponsorship tier bundles delegate passes into it, so sponsorship is never a pure cost line.'],
-        ['Named track sponsorship', 'Put your name on a stage of the AI Flywheel — Perception, Generative, Agentic or Physical.'],
+        ['Named track sponsorship', 'Put your name on a stage of the AI Flywheel: Perception, Generative, Agentic or Physical.'],
       ]
         .map(
           ([title, body], i) => `
@@ -110,7 +110,7 @@ const sponsorship = () => `
         .join('')}
     </div>
     <p class="proof__asof">
-      Exact pricing is finalised per edition and provided on request — published here
+      Exact pricing is finalised per edition and provided on request, published here
       the moment it is costed, per the same rule every number on this site follows.
     </p>
   </div>
@@ -121,7 +121,7 @@ const speak = () => `
   <div class="shell event__compact-shell" data-reveal-group>
     <p class="event__compact-text" data-reveal="fade">
       <span class="event__compact-dot" style="--prop:${brand.swatch}" aria-hidden="true"></span>
-      Call for speakers — we look for people shipping in production, not slide decks.
+      Call for speakers: we look for people shipping in production, not slide decks.
     </p>
     ${linkArrow({ label: 'Submit a talk', href: 'mailto:hello@startnet.in?subject=Speaker%20submission' })}
   </div>
@@ -141,15 +141,15 @@ const archive = () => `
 
 export const connectPage = () => ({
   path: '/connect',
-  title: 'StartNet Connect — Agentic AI Connect & Physical AI Connect',
+  title: 'StartNet Connect: Agentic AI Connect & Physical AI Connect',
   description:
-    'StartNet Connect runs the two days a year Tamil Nadu’s AI ecosystem is in one room — Agentic AI Connect and Physical AI Connect, on separate published dates.',
+    'StartNet Connect runs the two days a year Tamil Nadu’s AI ecosystem is in one room: Agentic AI Connect and Physical AI Connect, on separate published dates.',
   bodyClass: 'page-connect',
   main: [
     pageHero({
       label: 'StartNet Connect',
       title: 'The two days a year {the ecosystem} is in one room[.]',
-      deck: brand.line,
+      deck: 'Agentic AI Connect and Physical AI Connect, published on fixed dates a year apart, so ministries, sponsors and journalists can plan around them.',
       ringOpts: {
         states: ['signal', 'path', 'orbit'],
         arc: 210,
@@ -176,7 +176,7 @@ export const connectPage = () => ({
       name: secondEvent.name,
       dateDisplay: secondEvent.dateDisplay,
       city: secondEvent.city,
-      theme: 'The flagship gathering — in the room, once a year.',
+      theme: 'The flagship gathering: in the room, once a year.',
       stage: 'Physical summit · yearly',
       cta: [{ label: 'Learn more', href: secondEvent.href }],
     }),

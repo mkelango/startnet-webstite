@@ -74,10 +74,10 @@ const academy = () => `
     })}
     <div class="tracks" data-reveal-group>
       ${[
-        ['Courses', 'AI education on the four flywheel tracks — Perception, Generative, Agentic, Physical.'],
+        ['Courses', 'AI education on the four flywheel tracks: Perception, Generative, Agentic, Physical.'],
         ['Cohorts', 'Fixed intake windows, run alongside the academic calendar, not against it.'],
         ['Certification', 'A formal assessment path recognised across the StartNet Research lab network.'],
-        ['Fees', 'Priced against an existing faculty-development budget line — the easiest first rupee in the house.'],
+        ['Fees', 'Priced against an existing faculty-development budget line, the easiest first rupee in the house.'],
       ]
         .map(
           ([title, body], i) => `
@@ -104,12 +104,12 @@ const vibathon = () => `
     <div class="story__body" data-reveal-group>
       <p class="story__para" data-reveal="rise">
         Smart India Hackathon and every metro event reach tier 1 and tier 2 colleges.
-        Vibathon’s reach is genuinely tier 3 and tier 4 — the differentiator worth
+        Vibathon’s reach is genuinely tier 3 and tier 4, the differentiator worth
         saying out loud, rather than an unverifiable “largest hackathon” claim.
       </p>
       ${button({ label: 'Host a Vibathon', href: '/partners', variant: 'primary' })}
     </div>
-    <div class="proof__grid" data-reveal-group style="grid-column:1/-1;margin-top:var(--space-8)">
+    <div class="proof__grid" data-reveal-group style="grid-column:1/-1;margin-top:var(--space-8);max-width:220px">
       ${stat(
         { value: 80, display: '80%', label: 'of participating colleges are tier 3 and 4', source: 'Vibathon 2025 brochure' },
         { index: 0 }
@@ -134,7 +134,7 @@ const summits = () => `
     ${sectionHead({
       label: 'Vibe Summits',
       title: 'Cheap, {high-frequency.}',
-      deck: 'Campus summits run with the host institution — the recruiting engine for both Vibathon and Academy.',
+      deck: 'Campus summits run with the host institution: the recruiting engine for both Vibathon and Academy.',
       cta: { label: 'Host a summit', href: '/partners', variant: 'primary' },
     })}
   </div>
@@ -147,13 +147,13 @@ const audiences = () => `
       <article class="who__card" id="colleges" style="--prop:${brand.swatch}" data-reveal="rise" data-reveal-i="0">
         <span class="who__dot" aria-hidden="true"></span>
         <h3 class="who__title">For colleges</h3>
-        <p class="who__body">Partner with Vibe — what we bring, what you provide, and how the fees work against your faculty-development budget.</p>
+        <p class="who__body">Partner with Vibe: what we bring, what you provide, and how the fees work against your faculty-development budget.</p>
         ${linkArrow({ label: 'Partner with Vibe', href: '/partners' })}
       </article>
       <article class="who__card" id="students" style="--prop:${brand.swatch}" data-reveal="rise" data-reveal-i="1">
         <span class="who__dot" aria-hidden="true"></span>
         <h3 class="who__title">For students</h3>
-        <p class="who__body">Start with a campus summit, run the ladder — Summit → Academy → Vibathon → a nooru.ai cohort → StartNet X.</p>
+        <p class="who__body">Start with a campus summit, run the ladder: Summit → Academy → Vibathon → a nooru.ai cohort → StartNet X.</p>
         ${linkArrow({ label: 'Start here', href: '/platform' })}
       </article>
     </div>
@@ -162,15 +162,15 @@ const audiences = () => `
 
 export const vibePage = () => ({
   path: '/vibe',
-  title: 'StartNet Vibe — How a student becomes a builder',
+  title: 'StartNet Vibe: How a student becomes a builder',
   description:
-    'StartNet Vibe is Vibe Academy, Vibathon and Vibe Summits — the ladder from a first campus summit to a founded company, with 80% of Vibathon colleges tier 3 and 4.',
+    'StartNet Vibe is Vibe Academy, Vibathon and Vibe Summits: the ladder from a first campus summit to a founded company, with 80% of Vibathon colleges tier 3 and 4.',
   bodyClass: 'page-vibe',
   main: [
     pageHero({
       label: 'StartNet Vibe',
       title: 'How a student {becomes a builder}[.]',
-      deck: brand.line,
+      deck: 'Summits recruit, the Academy trains, Vibathon proves it, on a ladder that reaches tier 3 and tier 4 colleges no metro event touches.',
       ringOpts: {
         states: ['path', 'measure', 'orbit'],
         arc: 200,

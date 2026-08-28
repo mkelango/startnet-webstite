@@ -73,19 +73,19 @@ const diagnostic = () => `
     ${sectionHead({
       label: 'The Founder Diagnostic',
       title: 'Free. {No login to start.}',
-      deck: 'An email to finish. This is the front door of the whole house, and the top of every funnel StartNet has — a directory is a thing people are in, a diagnostic is a thing people do.',
+      deck: 'An email to finish. This is the front door of the whole house, and the top of every funnel StartNet has: a directory is a thing people are in, a diagnostic is a thing people do.',
       cta: { label: 'Start the diagnostic', href: 'mailto:hello@startnet.in?subject=Founder%20Diagnostic', variant: 'primary' },
     })}
     <div class="tracks" data-reveal-group>
       <article class="track" data-reveal="rise" data-reveal-i="0">
         <p class="track__entry">Step 1</p>
         <h3 class="track__title">How it works</h3>
-        <p class="track__body">A short, structured set of questions about your stage, your team and your traction — a few minutes, no jargon.</p>
+        <p class="track__body">A short, structured set of questions about your stage, your team and your traction: a few minutes, no jargon.</p>
       </article>
       <article class="track" data-reveal="rise" data-reveal-i="1">
         <p class="track__entry">Step 2</p>
         <h3 class="track__title">What you get</h3>
-        <p class="track__body">A result page with a specific next step — a Vibe track, a Research lab near you, a Connect pass, or a nooru.ai application — not a generic score.</p>
+        <p class="track__body">A result page with a specific next step (a Vibe track, a Research lab near you, a Connect pass, or a nooru.ai application), not a generic score.</p>
       </article>
       <article class="track" data-reveal="rise" data-reveal-i="2">
         <p class="track__entry">Step 3</p>
@@ -137,7 +137,7 @@ const matching = () => `
     </div>
     <div class="story__body" data-reveal-group>
       <p class="story__para" data-reveal="rise">
-        The legacy platform architecture specified eight separate AI agents — a build
+        The legacy platform architecture specified eight separate AI agents, a build
         for a company with a hundred engineers. We ship one matching agent covering
         mentor matching, investor readiness, talent and programme matching, and add
         the rest only when usage demands it.
@@ -180,9 +180,9 @@ const pricing = () => `
     })}
     <div class="tracks" data-reveal-group>
       ${[
-        ['Free tier', 'Every founder and student — diagnostic, profile, directory listing, archive access.'],
-        ['Institution', 'Colleges and incubators — cohort management, aggregate diagnostic data, Research and Vibe integration.'],
-        ['Corporate', 'GCCs and investors — the platform’s real revenue, and where deal flow and talent search live.'],
+        ['Free tier', 'Every founder and student: diagnostic, profile, directory listing, archive access.'],
+        ['Institution', 'Colleges and incubators: cohort management, aggregate diagnostic data, Research and Vibe integration.'],
+        ['Corporate', 'GCCs and investors: the platform’s real revenue, and where deal flow and talent search live.'],
       ]
         .map(
           ([title, body], i) => `
@@ -199,15 +199,15 @@ const pricing = () => `
 
 export const platformPage = () => ({
   path: '/platform',
-  title: 'StartNet X — The platform every founder in Tamil Nadu has',
+  title: 'StartNet X: The platform every founder in Tamil Nadu has',
   description:
-    'StartNet X is the free account every founder in Tamil Nadu has — diagnostics, profile, matching, and the archive of everything the house has published.',
+    'StartNet X is the free account every founder in Tamil Nadu has: diagnostics, profile, matching, and the archive of everything the house has published.',
   bodyClass: 'page-platform',
   main: [
     pageHero({
       label: 'StartNet X',
       title: 'The account {every founder} has[.]',
-      deck: brand.line,
+      deck: 'Free to join, free to be listed, free to be diagnosed. StartNet X is where every founder’s path through the house begins.',
       ringOpts: {
         states: ['path', 'signal', 'orbit'],
         arc: 200,

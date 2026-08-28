@@ -67,7 +67,7 @@ const pressBox = () => `
 
 export const newsroomPage = () => ({
   path: '/newsroom',
-  title: 'StartNet Newsroom — Announcements across the ecosystem',
+  title: 'StartNet Newsroom: Announcements across the ecosystem',
   description:
     'The latest news, cohort results and event announcements from across StartNet X, Connect, Research, Vibe and AI.',
   bodyClass: 'page-newsroom',
@@ -75,7 +75,7 @@ export const newsroomPage = () => ({
     pageHero({
       label: 'Newsroom',
       title: 'One newsroom. {Every property}[.]',
-      deck: 'Announcements, results and press coverage from across the StartNet ecosystem — filter by property or browse everything.',
+      deck: 'Announcements, results and press coverage from across the StartNet ecosystem: filter by property or browse everything.',
       ringOpts: {
         states: ['path', 'measure', 'orbit'],
         arc: 190,

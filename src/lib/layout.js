@@ -106,7 +106,7 @@ const header = (current = '/') => `
 <header class="header" data-header>
   <div class="header__bar">
     <div class="shell header__shell">
-      <a class="header__brand" href="/" aria-label="StartNet — home">
+      <a class="header__brand" href="/" aria-label="StartNet: home">
         ${wordmark('header__wordmark')}
       </a>
 

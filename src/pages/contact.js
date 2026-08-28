@@ -64,7 +64,7 @@ const form = () => `
         ${submitButton({ label: 'Send message' })}
 
         <p class="contact__done" data-form-done hidden tabindex="-1">
-          Thanks — your message is on its way. We reply to everything within two working days.
+          Thanks, your message is on its way. We reply to everything within two working days.
         </p>
       </form>
     </div>
@@ -116,7 +116,7 @@ export const contactPage = () => ({
   path: '/contact',
   title: 'Contact StartNet',
   description:
-    'Get in touch with StartNet — general enquiries, partnerships, press and careers, all in one place.',
+    'Get in touch with StartNet: general enquiries, partnerships, press and careers, all in one place.',
   bodyClass: 'page-contact',
   main: [
     pageHero({

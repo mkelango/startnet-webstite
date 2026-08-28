@@ -75,7 +75,7 @@ const thesis = () => `
     </div>
     <div class="story__body" data-reveal-group>
       <p class="story__para" data-reveal="rise">
-        BloombergGPT — 50 billion parameters, a 363-billion-token proprietary corpus —
+        BloombergGPT (50 billion parameters, a 363-billion-token proprietary corpus)
         was beaten by GPT-4 with zero financial pretraining at all. Seven medical
         LLMs tested against their own base models won 12.1% of the time and were
         significantly worse 38.2% of the time. Krutrim spent ₹10,000 crore and left
@@ -91,7 +91,7 @@ const thesis = () => `
       <p class="story__para" data-reveal="rise">
         <strong>Small models win where the data is proprietary and the task is
         narrow. Frontier models win at language. We build the first and rent the
-        second — training small vision and tabular models, renting the language
+        second: training small vision and tabular models, renting the language
         layer from whoever is best that quarter, and owning the data access.</strong>
       </p>
     </div>
@@ -114,27 +114,27 @@ const domain = () => `
     ${sectionHead({
       label: 'Domain AI',
       title: 'Namakkal first. {The order matters.}',
-      deck: 'No hardware, no new model, no IT literacy required of the farmer — the deliberately unglamorous first product.',
+      deck: 'No hardware, no new model, no IT literacy required of the farmer: the deliberately unglamorous first product.',
     })}
     <div class="tracks" data-reveal-group>
       <article class="track" data-reveal="rise" data-reveal-i="0">
-        <p class="track__entry">Cluster 1 — poultry</p>
-        <h3 class="track__title">Namakkal — egg-price and feed-cost forecasting</h3>
+        <p class="track__entry">Cluster 1: poultry</p>
+        <h3 class="track__title">Namakkal: egg-price and feed-cost forecasting</h3>
         <p class="track__body">
           The Competition Commission of India’s 2022 cease-and-desist order against
           the NECC removed the cluster’s price-coordination mechanism, and nobody
-          replaced it with a forecast — an unserved need created by a regulator,
+          replaced it with a forecast, an unserved need created by a regulator,
           the most durable kind. Cluster losses were reported at ₹5 crore a day
           during the March 2026 price crash.
         </p>
       </article>
       <article class="track" data-reveal="rise" data-reveal-i="1">
-        <p class="track__entry">Cluster 2 — knitwear</p>
-        <h3 class="track__title">Tiruppur — fabric defect detection</h3>
-        <p class="track__body">A mature product category with real vendors and real prices — a harder sale than Namakkal, taken second on purpose.</p>
+        <p class="track__entry">Cluster 2: knitwear</p>
+        <h3 class="track__title">Tiruppur: fabric defect detection</h3>
+        <p class="track__body">A mature product category with real vendors and real prices, a harder sale than Namakkal, taken second on purpose.</p>
       </article>
       <article class="track" data-reveal="rise" data-reveal-i="2">
-        <p class="track__entry">Cluster 3 — home textiles</p>
+        <p class="track__entry">Cluster 3: home textiles</p>
         <h3 class="track__title">Karur</h3>
         <p class="track__body">Third in sequence, each cluster a harder sale than the last.</p>
       </article>
@@ -161,7 +161,7 @@ const nooru = () => `
     </div>
     <div class="story__body" data-reveal-group>
       <p class="story__para" data-reveal="rise">
-        A hundred founders, one flywheel cycle, real outcomes — a curated,
+        A hundred founders, one flywheel cycle, real outcomes: a curated,
         diagnostic-gated cohort run through a structured programme, with direct
         access to StartNet’s investor network. It is the one name in the house that
         could stand alone if the cohort works, and it is treated with the lightest
@@ -205,7 +205,7 @@ const transformation = () => `
   <div class="shell event__compact-shell" data-reveal-group>
     <p class="event__compact-text" data-reveal="fade">
       <span class="event__compact-dot" style="--prop:${brand.swatch}" aria-hidden="true"></span>
-      AI transformation — assessment, roadmaps, build, support. Custom development is
+      AI transformation: assessment, roadmaps, build, support. Custom development is
       opportunistic work, deliberately not the business: it has no leverage and it
       will eat the team if it becomes one.
     </p>
@@ -215,15 +215,15 @@ const transformation = () => `
 
 export const aiPage = () => ({
   path: '/ai',
-  title: 'StartNet AI — Domain AI products, not domain-specific models',
+  title: 'StartNet AI: Domain AI products, not domain-specific models',
   description:
-    'StartNet AI trains small vision and tabular models, rents the language layer, and owns the data access — the nooru.ai cohort, GCC partnerships, and domain clusters starting with Namakkal.',
+    'StartNet AI trains small vision and tabular models, rents the language layer, and owns the data access: the nooru.ai cohort, GCC partnerships, and domain clusters starting with Namakkal.',
   bodyClass: 'page-ai',
   main: [
     pageHero({
       label: 'StartNet AI',
       title: 'What we build {and sell with industry}[.]',
-      deck: brand.line,
+      deck: 'Small vision and tabular models trained on real cluster data, the language layer rented from whoever is best that quarter, the data access always owned.',
       ringOpts: {
         states: ['network', 'orbit', 'path'],
         arc: 200,

@@ -23,7 +23,7 @@ export const site = {
   legalName: 'StartNet',
   tagline: 'Five doors. One ecosystem.',
   narrative:
-    'StartNet is the infrastructure behind Tamil Nadu’s AI-driven startup ecosystem — one platform, one lab programme, one education ladder, one venture studio and two annual gatherings, all under one roof.',
+    'StartNet is the infrastructure behind Tamil Nadu’s AI-driven startup ecosystem: one platform, one lab programme, one education ladder, one venture studio and two annual gatherings, all under one roof.',
   year: 2026,
   email: {
     general: 'hello@startnet.in',
@@ -79,12 +79,12 @@ export const properties = [
     group: 'all',
     kind: 'Platform',
     /* CANONICAL LINE — do not reword downstream */
-    line: 'The account every founder in Tamil Nadu has — diagnostics, profile, matching, the archive.',
+    line: 'The account every founder in Tamil Nadu has: diagnostics, profile, matching, the archive.',
     detail:
-      'StartNet X is free to join, free to be listed, and free to be diagnosed. The front door is the Founder Diagnostic, not the directory — a directory is a thing people are in, a diagnostic is a thing people do, and everything else on the platform is reachable from the result page.',
-    bestFor: 'Every founder, mentor, investor and college in the ecosystem — the account underneath everything else.',
+      'StartNet X is free to join, free to be listed, and free to be diagnosed. The front door is the Founder Diagnostic, not the directory. A directory is a thing people are in, a diagnostic is a thing people do, and everything else on the platform is reachable from the result page.',
+    bestFor: 'Every founder, mentor, investor and college in the ecosystem, the account underneath everything else.',
     swatch: 'var(--sn-prop-snx)',
-    lockup: 'Full — StartNet X',
+    lockup: 'Full: StartNet X',
   },
   {
     id: 'connect',
@@ -95,10 +95,10 @@ export const properties = [
     kind: 'Event',
     line: 'The two days a year the ecosystem is in one room.',
     detail:
-      'Agentic AI Connect and Physical AI Connect are the two flagship gatherings — each maps to a stage of the AI Flywheel, published on a fixed annual window, never moved, so ministries, sponsors and journalists can plan around it a year out.',
+      'Agentic AI Connect and Physical AI Connect are the two flagship gatherings, each mapping to a stage of the AI Flywheel, published on a fixed annual window, never moved, so ministries, sponsors and journalists can plan around it a year out.',
     bestFor: 'Anyone who wants the whole ecosystem in one room, twice a year, on a date that never moves.',
     swatch: 'var(--sn-prop-agentic)',
-    lockup: 'Full — event name, “a StartNet Connect event”',
+    lockup: 'Full: event name, “a StartNet Connect event”',
   },
   {
     id: 'research',
@@ -109,10 +109,10 @@ export const properties = [
     kind: 'Institutional programme',
     line: 'The lab a college buys to become accredited.',
     detail:
-      'A three-year operating contract — curriculum, staffing and rented compute — not a capital equipment sale. Four lab types map to the four flywheel stages, and the case for a college is a fee band and an accreditation score, not enthusiasm for AI.',
+      'A three-year operating contract (curriculum, staffing and rented compute), not a capital equipment sale. Four lab types map to the four flywheel stages, and the case for a college is a fee band and an accreditation score, not enthusiasm for AI.',
     bestFor: 'Engineering colleges pursuing Category I / NBA accreditation, and the industry clusters that fund a named lab.',
     swatch: 'var(--sn-prop-physical)',
-    lockup: 'Full, and prominent — procurement buys the institution, not the brand',
+    lockup: 'Full, and prominent: procurement buys the institution, not the brand',
   },
   {
     id: 'vibe',
@@ -123,7 +123,7 @@ export const properties = [
     kind: 'Education',
     line: 'How a student becomes a builder.',
     detail:
-      'Three products on one ladder — Vibe Summits recruit, Vibe Academy trains faculty and students on the four flywheel tracks, and Vibathon is the college hackathon where 80% of participating colleges are tier 3 and 4 — reach no metro event has.',
+      'Three products on one ladder: Vibe Summits recruit, Vibe Academy trains faculty and students on the four flywheel tracks, and Vibathon is the college hackathon where 80% of participating colleges are tier 3 and 4, a reach no metro event has.',
     bestFor: 'Students and the faculty who teach them, from a first campus summit through to a founded company.',
     swatch: 'var(--sn-prop-nooru)',
     lockup: 'Full for Academy and Summits · light for Vibathon',
@@ -137,10 +137,10 @@ export const properties = [
     kind: 'Product & venture',
     line: 'What StartNet builds and sells with industry.',
     detail:
-      'Small vision and tabular models trained on real cluster data, the language layer rented from whoever is best that quarter, and the data access owned. The nooru.ai cohort sits here — a hundred founders, one flywheel cycle — alongside GCC partnerships and the domain clusters, Namakkal first.',
+      'Small vision and tabular models trained on real cluster data, the language layer rented from whoever is best that quarter, and the data access owned. The nooru.ai cohort sits here (a hundred founders, one flywheel cycle), alongside GCC partnerships and the domain clusters, Namakkal first.',
     bestFor: 'GCCs, industry clusters and the nooru.ai cohort of founders building domain AI products.',
     swatch: 'var(--sn-prop-flywheel)',
-    lockup: 'Light, and lighter over time — nooru.ai may stand alone if the cohort works',
+    lockup: 'Light, and lighter over time: nooru.ai may stand alone if the cohort works',
   },
 ];
 
@@ -205,7 +205,7 @@ export const aboutMenu = [
 
 export const proof = {
   asOf: 'August 2026',
-  note: 'We do not publish a number we cannot source. Every figure below carries a confidence tag from the strategy’s own scheme — verified, self-reported, or estimated — and nothing else goes on this page.',
+  note: 'We do not publish a number we cannot source. Every figure below carries a confidence tag from the strategy’s own scheme (verified, self-reported, or estimated), and nothing else goes on this page.',
   metrics: [
     {
       value: 2400,
@@ -218,7 +218,7 @@ export const proof = {
     {
       value: 80,
       display: '80%',
-      label: 'of Vibathon colleges are tier 3 and 4 — reach no metro hackathon has',
+      label: 'of Vibathon colleges are tier 3 and 4, the reach no metro hackathon has',
       source: 'Vibathon 2025 brochure',
       tag: 'B',
       verified: true,
@@ -254,19 +254,19 @@ export const proof = {
 export const flywheel = [
   {
     stage: 'Perception',
-    body: 'Sensing and vision — the stage every deployment starts from, and the one the legacy material skipped.',
+    body: 'Sensing and vision: the stage every deployment starts from, and the one the legacy material skipped.',
   },
   {
     stage: 'Generative',
-    body: 'Language and content — Jensen Huang’s CES 2025 progression, credited rather than silently reused.',
+    body: 'Language and content: Jensen Huang’s CES 2025 progression, credited rather than silently reused.',
   },
   {
     stage: 'Agentic',
-    body: 'Tool use and orchestration — agents that act, not just answer.',
+    body: 'Tool use and orchestration: agents that act, not just answer.',
   },
   {
     stage: 'Physical',
-    body: 'Deployed in a real poultry shed or a real knitting floor — where the loop actually closes.',
+    body: 'Deployed in a real poultry shed or a real knitting floor, where the loop actually closes.',
   },
   {
     stage: 'Data',
@@ -333,7 +333,7 @@ export const audiences = [
   {
     id: 'founder',
     title: 'I’m a founder',
-    body: 'Start with the Founder Diagnostic on StartNet X — free, no login to start, an email to finish.',
+    body: 'Start with the Founder Diagnostic on StartNet X: free, no login to start, an email to finish.',
     cta: { label: 'Go to StartNet X', href: '/platform' },
     propertyId: 'x',
   },
@@ -372,7 +372,7 @@ export const news = [
     dateDisplay: '20 August 2026',
     title: 'Vibathon reach confirmed: 80% of colleges are tier 3 and 4',
     summary:
-      'A distinctive that Smart India Hackathon and every metro event cannot claim — reach the strategy names as the single most defensible number in the house.',
+      'A distinctive that Smart India Hackathon and every metro event cannot claim: reach the strategy names as the single most defensible number in the house.',
     href: '/vibe#vibathon',
     external: false,
   },
@@ -383,7 +383,7 @@ export const news = [
     dateDisplay: '12 August 2026',
     title: 'Agentic AI Connect and Physical AI Connect now on separate dates',
     summary:
-      'Agentic AI Connect runs 14 November 2026; Physical AI Connect follows on 8 May 2027 — a fixed, repeatable annual rhythm.',
+      'Agentic AI Connect runs 14 November 2026; Physical AI Connect follows on 8 May 2027, a fixed, repeatable annual rhythm.',
     href: '/connect',
     external: false,
   },
@@ -405,7 +405,7 @@ export const news = [
     dateDisplay: '22 July 2026',
     title: 'nooru.ai opens its next cohort inside StartNet AI',
     summary:
-      'A hundred founders, one flywheel cycle, real outcomes — domain AI products, not domain-specific models.',
+      'A hundred founders, one flywheel cycle, real outcomes: domain AI products, not domain-specific models.',
     href: '/ai#nooru',
     external: false,
   },
@@ -503,7 +503,7 @@ export const partnerTracks = [
   {
     id: 'government',
     title: 'Government & policy',
-    body: 'Evidence-sharing, ecosystem data, and alignment with Tamil Nadu’s AI-driven economy initiatives — through StartNet X and StartNet Research.',
+    body: 'Evidence-sharing, ecosystem data, and alignment with Tamil Nadu’s AI-driven economy initiatives, through StartNet X and StartNet Research.',
     entry: 'Ecosystem data, quarterly',
   },
   {
@@ -544,7 +544,7 @@ export const beliefs = [
   {
     n: '03',
     title: 'A college buys an outcome, not equipment',
-    body: 'A lab is a three-year operating contract, priced against a fee band and an accreditation score — not a capital purchase nobody can afford to run.',
+    body: 'A lab is a three-year operating contract, priced against a fee band and an accreditation score, not a capital purchase nobody can afford to run.',
   },
 ];
 
@@ -555,7 +555,7 @@ export const journey = [
   { step: 'Learn', propertyId: 'vibe', body: 'Comes up through a Vibe Summit and the Academy.' },
   { step: 'Build', propertyId: 'research', body: 'Or a college builds capability through a Research lab.' },
   { step: 'Venture', propertyId: 'ai', body: 'Joins a nooru.ai cohort inside StartNet AI.' },
-  { step: 'Gather', propertyId: 'connect', body: 'Meets the whole ecosystem at Connect — and comes back to X in between.' },
+  { step: 'Gather', propertyId: 'connect', body: 'Meets the whole ecosystem at Connect, and comes back to X in between.' },
 ];
 
 /* ---------------------------------------------------------------------------
@@ -567,7 +567,7 @@ export const brandGate = [
   'A named full-time owner who is not the founder.',
   'A named, priced, sold revenue line covering at least 60% of its own first-year cost.',
   'A one-page charter: who it serves, what it costs, four ways it fails, five conditions under which it is closed.',
-  'A one-sentence mechanism naming what it gives another StartNet brand — "synergy" is not a mechanism.',
+  'A one-sentence mechanism naming what it gives another StartNet brand. "Synergy" is not a mechanism.',
   'An independence test: does it share its customer, its funder and its people with an existing brand? If yes, it is that brand wearing a second hat.',
 ];
 
@@ -580,9 +580,9 @@ export const houseRelationship = {
     'StartNet is a commercial entity that shares a founder and a mission with Think TN Foundation. The two are visibly, contractually and financially separate.',
   rows: [
     { label: 'Form', thinktn: 'Section 8, not-for-profit', startnet: 'Commercial' },
-    { label: 'What it sells', thinktn: 'Nothing — it publishes', startnet: 'Platform, events, labs, education, products' },
+    { label: 'What it sells', thinktn: 'Nothing; it publishes', startnet: 'Platform, events, labs, education, products' },
     { label: 'Revenue rule', thinktn: 'Commercial receipts ≤ 20% of total', startnet: 'No such constraint' },
-    { label: 'Relationship', thinktn: 'Arm’s length — a written services agreement, priced at market, disclosed as a related-party transaction', startnet: 'The same, from the other side' },
+    { label: 'Relationship', thinktn: 'Arm’s length: a written services agreement, priced at market, disclosed as a related-party transaction', startnet: 'The same, from the other side' },
   ],
   note: 'An institution that discloses this relationship is stronger than one that is asked about it.',
 };

@@ -11,7 +11,7 @@ const tracks = () => `
     ${sectionHead({
       label: 'Ways to partner',
       title: 'Four entry points, {one team to talk to}[.]',
-      deck: 'Whichever door you come through, the conversation starts in the same place — and we route it from there.',
+      deck: 'Whichever door you come through, the conversation starts in the same place, and we route it from there.',
     })}
     <div class="tracks" data-reveal-group>
       ${partnerTracks
@@ -63,7 +63,7 @@ const cta = () => `
     <div class="story__body" data-reveal-group>
       <p class="story__para" data-reveal="rise">
         Tell us what you are trying to move and we will point at the property that
-        moves it — or tell you honestly that none of them do.
+        moves it, or tell you honestly that none of them do.
       </p>
       ${button({
         label: 'Start a conversation',
@@ -91,15 +91,15 @@ const cta = () => `
 
 export const partnersPage = () => ({
   path: '/partners',
-  title: 'Partner with StartNet — Government, institutional & sponsor relationships',
+  title: 'Partner with StartNet: Government, institutional & sponsor relationships',
   description:
-    'Work with StartNet across training, acceleration and annual gatherings — for government bodies, institutions and sponsors building Tamil Nadu’s AI startup ecosystem.',
+    'Work with StartNet across training, acceleration and annual gatherings, for government bodies, institutions and sponsors building Tamil Nadu’s AI startup ecosystem.',
   bodyClass: 'page-partners',
   main: [
     pageHero({
       label: 'Partners',
       title: 'One conversation. {Five ways to plug in}[.]',
-      deck: 'Whether you are a government body, an institution or a sponsor, there is a natural entry point across our portfolio — and one team to talk to about all of it.',
+      deck: 'Whether you are a government body, an institution or a sponsor, there is a natural entry point across our portfolio, and one team to talk to about all of it.',
       ringOpts: {
         states: ['orbit', 'network', 'path'],
         arc: 200,

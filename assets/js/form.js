@@ -62,7 +62,7 @@ export function initForm(scope = document) {
     const data = new FormData(form);
     const subject = encodeURIComponent(`[${data.get('topic')}] ${data.get('name')}`);
     const body = encodeURIComponent(
-      `${data.get('message')}\n\n— ${data.get('name')} (${data.get('email')})`
+      `${data.get('message')}\n\nFrom: ${data.get('name')} (${data.get('email')})`
     );
     window.location.href = `mailto:hello@startnet.in?subject=${subject}&body=${body}`;
 
