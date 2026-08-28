@@ -4,7 +4,7 @@
 
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { site, nav, propertiesByGroup, properties } from '../data/site.js';
+import { site, nav, properties, aboutMenu } from '../data/site.js';
 import { esc, accent, button, iconChevron, iconArrow, eyebrow } from './ui.js';
 
 const brandDir = new URL('../../assets/brand/', import.meta.url);
@@ -31,9 +31,10 @@ export const rocketMark = (className = '') =>
 /* ---------------------------------------------------------------------------
    STRUCTURED DATA
    The strategy asks this page to be the thing an answer engine quotes when
-   asked "what is StartNet". That means: crawlable outbound links, one
-   consistently-worded description per property, and an Organization graph
-   that names all five as sub-organizations.
+   asked "what is StartNet". That means: crawlable internal links, one
+   consistently-worded description per brand, and a single Organization —
+   the five doors are sections of this org, not sub-organizations, now that
+   they live on one site rather than five external domains.
    ------------------------------------------------------------------------ */
 const orgSchema = () =>
   JSON.stringify({
@@ -47,29 +48,31 @@ const orgSchema = () =>
     email: site.email.general,
     areaServed: { '@type': 'AdministrativeArea', name: 'Tamil Nadu, India' },
     sameAs: site.social.map((s) => s.href),
-    subOrganization: properties.map((p) => ({
-      '@type': 'Organization',
+    makesOffer: properties.map((p) => ({
+      '@type': 'Offer',
       name: p.name,
-      url: p.href,
+      url: `${site.origin}${p.href}`,
       description: p.line,
     })),
   });
 
 /* ---------------------------------------------------------------------------
    HEADER
-   Sticky, condenses past 100px. The Portfolio mega-menu keeps the three-group
-   logic visible, because the grouping is itself the argument.
+   Sticky, condenses past 100px. About is the one nav item that carries a
+   mega-menu — the five brands are direct top-level links instead, per the
+   strategy's brand-led navigation (§5.2). The DOM id stays "mega-portfolio"
+   internally; it is never shown, so renaming it is not worth the touch.
    ------------------------------------------------------------------------ */
 const megaMenu = () => `
   <div class="mega" id="mega-portfolio" hidden>
     <div class="mega__inner shell">
       <div class="mega__intro">
-        ${eyebrow('Portfolio')}
+        ${eyebrow('About')}
         <p class="mega__lede">${accent('Five doors. {One ecosystem}[.]')}</p>
-        <a class="link-arrow" href="/portfolio"><span>See the full portfolio</span>${iconArrow()}</a>
+        <a class="link-arrow" href="/about"><span>Read the full story</span>${iconArrow()}</a>
       </div>
       <div class="mega__groups">
-        ${propertiesByGroup
+        ${aboutMenu
           .map(
             (g) => `
           <div class="mega__group">
@@ -77,14 +80,13 @@ const megaMenu = () => `
             <ul class="mega__list">
               ${g.items
                 .map(
-                  (p) => `
+                  (item) => `
                 <li>
-                  <a class="mega__item" href="${esc(p.href)}" target="_blank" rel="noopener"
-                     style="--prop:${p.swatch}">
+                  <a class="mega__item" href="${esc(item.href)}">
                     <span class="mega__dot" aria-hidden="true"></span>
                     <span class="mega__text">
-                      <span class="mega__name">${esc(p.name)}</span>
-                      <span class="mega__kind">${esc(p.kind)}</span>
+                      <span class="mega__name">${esc(item.name)}</span>
+                      <span class="mega__kind">${esc(item.kind)}</span>
                     </span>
                     <span class="mega__badge" aria-hidden="true">${iconArrow()}</span>
                   </a>
@@ -132,7 +134,7 @@ const header = (current = '/') => `
       </nav>
 
       <div class="header__actions">
-        ${button({ label: 'Contact', href: '/contact', variant: 'primary', size: 'sm' })}
+        ${button({ label: 'Join StartNet X', href: '/platform', variant: 'primary', size: 'sm' })}
         <button class="burger" type="button" aria-expanded="false" aria-controls="mobile-menu"
                 aria-label="Open menu" data-burger>
           <span class="burger__box" aria-hidden="true">
@@ -149,26 +151,28 @@ const header = (current = '/') => `
 
 <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
   <div class="mobile-menu__inner">
+    ${nav
+      .filter((n) => !n.mega)
+      .map((n) => `<a class="mobile-menu__link" href="${esc(n.href)}">${esc(n.label)}</a>`)
+      .join('')}
     <div class="mobile-menu__group">
       <button class="mobile-menu__acc" type="button" aria-expanded="false" data-acc-trigger>
-        <span>Portfolio</span>${iconChevron()}
+        <span>About</span>${iconChevron()}
       </button>
       <div class="mobile-menu__panel" data-acc-panel hidden>
-        ${propertiesByGroup
+        ${aboutMenu
           .map(
             (g) => `
           <div class="mobile-menu__sub">
             <h3 class="mobile-menu__sub-label">${esc(g.label)}</h3>
             ${g.items
               .map(
-                (p) => `
-              <a class="mobile-menu__prop" href="${esc(
-                p.href
-              )}" target="_blank" rel="noopener" style="--prop:${p.swatch}">
+                (item) => `
+              <a class="mobile-menu__prop" href="${esc(item.href)}">
                 <span class="mega__dot" aria-hidden="true"></span>
                 <span class="mega__text">
-                  <span class="mega__name">${esc(p.name)}</span>
-                  <span class="mega__kind">${esc(p.kind)}</span>
+                  <span class="mega__name">${esc(item.name)}</span>
+                  <span class="mega__kind">${esc(item.kind)}</span>
                 </span>
               </a>`
               )
@@ -176,14 +180,10 @@ const header = (current = '/') => `
           </div>`
           )
           .join('')}
-        <a class="mobile-menu__link mobile-menu__link--sub" href="/portfolio">See the full portfolio</a>
+        <a class="mobile-menu__link mobile-menu__link--sub" href="/about">Read the full story</a>
       </div>
     </div>
-    ${nav
-      .filter((n) => !n.mega)
-      .map((n) => `<a class="mobile-menu__link" href="${esc(n.href)}">${esc(n.label)}</a>`)
-      .join('')}
-    <a class="mobile-menu__link" href="/contact">Contact</a>
+    <a class="mobile-menu__link" href="/platform">Join StartNet X</a>
   </div>
 </div>`;
 
@@ -205,13 +205,13 @@ const footer = () => `
 
     <div class="footer__grid">
       <div class="footer__col footer__col--wide">
-        <h2 class="footer__label">Portfolio</h2>
+        <h2 class="footer__label">The five doors</h2>
         <ul class="footer__props">
           ${properties
             .map(
               (p) => `
             <li style="--prop:${p.swatch}">
-              <a class="footer__prop" href="${esc(p.href)}" target="_blank" rel="noopener">
+              <a class="footer__prop" href="${esc(p.href)}">
                 <span class="footer__prop-dot" aria-hidden="true"></span>
                 <span class="footer__prop-name">${esc(p.name)}</span>
                 <span class="footer__prop-line">${esc(p.line)}</span>
@@ -226,7 +226,6 @@ const footer = () => `
         <h2 class="footer__label">Company</h2>
         <ul class="footer__links">
           <li><a href="/about">About</a></li>
-          <li><a href="/portfolio">Portfolio</a></li>
           <li><a href="/partners">Partners</a></li>
           <li><a href="/careers">Careers</a></li>
           <li><a href="/design-system">Design system</a></li>
@@ -234,7 +233,7 @@ const footer = () => `
       </div>
 
       <div class="footer__col">
-        <h2 class="footer__label">Connect</h2>
+        <h2 class="footer__label">Get in touch</h2>
         <ul class="footer__links">
           <li><a href="/newsroom">Newsroom</a></li>
           <li><a href="/contact">Contact</a></li>

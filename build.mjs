@@ -16,7 +16,11 @@ import { site, properties } from './src/data/site.js';
 
 import { homePage } from './src/pages/home.js';
 import { aboutPage } from './src/pages/about.js';
-import { portfolioPage } from './src/pages/portfolio.js';
+import { platformPage } from './src/pages/platform.js';
+import { connectPage } from './src/pages/connect.js';
+import { researchPage } from './src/pages/research.js';
+import { vibePage } from './src/pages/vibe.js';
+import { aiPage } from './src/pages/ai.js';
 import { newsroomPage } from './src/pages/newsroom.js';
 import { partnersPage } from './src/pages/partners.js';
 import { careersPage } from './src/pages/careers.js';
@@ -30,7 +34,11 @@ const ROOT = dirname(fileURLToPath(import.meta.url));
 const PAGES = [
   homePage,
   aboutPage,
-  portfolioPage,
+  platformPage,
+  connectPage,
+  researchPage,
+  vibePage,
+  aiPage,
   newsroomPage,
   partnersPage,
   careersPage,

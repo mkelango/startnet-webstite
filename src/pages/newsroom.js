@@ -69,7 +69,7 @@ export const newsroomPage = () => ({
   path: '/newsroom',
   title: 'StartNet Newsroom — Announcements across the ecosystem',
   description:
-    'The latest news, cohort results and event announcements from across AI Flywheel, Nooru.AI, Agentic AI Connect, Physical AI Connect and SNX.',
+    'The latest news, cohort results and event announcements from across StartNet X, Connect, Research, Vibe and AI.',
   bodyClass: 'page-newsroom',
   main: [
     pageHero({

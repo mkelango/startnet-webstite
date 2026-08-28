@@ -23,7 +23,7 @@ export const notFoundPage = () => ({
         ${properties
           .map(
             (p) => `
-          <a class="route" href="${esc(p.href)}" target="_blank" rel="noopener"
+          <a class="route" href="${esc(p.href)}"
              style="--prop:${p.swatch}">
             <span class="route__dot" aria-hidden="true"></span>
             <span class="route__label"><strong>${esc(p.name)}</strong>${esc(p.kind)}</span>

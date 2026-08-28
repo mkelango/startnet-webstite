@@ -24,7 +24,7 @@ export const privacyPage = () => ({
   main: [
     pageHero({ label: 'Legal', title: 'Privacy' }),
     shell([
-      `This page describes how StartNet handles information collected through startnet.in. It does not cover the five properties in the portfolio, each of which publishes and is responsible for its own privacy policy.`,
+      `This page describes how StartNet handles information collected through startnet.in, across all five doors — StartNet X, Connect, Research, Vibe and AI.`,
       `<strong>Placeholder — replace before launch.</strong> This draft has not been reviewed by counsel and should not be published as-is.`,
       `Questions about this policy can be sent to <a href="mailto:${site.email.general}">${site.email.general}</a>.`,
     ]),
@@ -39,7 +39,7 @@ export const termsPage = () => ({
   main: [
     pageHero({ label: 'Legal', title: 'Terms of use' }),
     shell([
-      `These terms govern use of startnet.in, the masterbrand site for the StartNet portfolio. Each of the five properties — AI Flywheel, Nooru.AI, Agentic AI Connect, Physical AI Connect and SNX — operates under its own terms, published on its own domain.`,
+      `These terms govern use of startnet.in and all five doors published on it — StartNet X, StartNet Connect, StartNet Research, StartNet Vibe and StartNet AI.`,
       `<strong>Placeholder — replace before launch.</strong> This draft has not been reviewed by counsel and should not be published as-is.`,
       `Questions about these terms can be sent to <a href="mailto:${site.email.general}">${site.email.general}</a>.`,
     ]),

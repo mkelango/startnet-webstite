@@ -259,15 +259,15 @@ const componentsBlock = () =>
       <p class="label" style="margin-bottom:var(--space-5)">Labels, tags and filters</p>
       <div class="ds-row">
         ${eyebrow('Portfolio')}
-        ${tag('Nooru.AI', 'var(--sn-prop-nooru)')}
-        ${tag('Physical AI Connect', 'var(--sn-prop-physical)')}
+        ${tag('StartNet Vibe', 'var(--sn-prop-nooru)')}
+        ${tag('StartNet Research', 'var(--sn-prop-physical)')}
       </div>
       <div style="margin-top:var(--space-6)">
         ${filterBar(
           [
             { label: 'All', value: 'all' },
-            { label: 'AI Flywheel', value: 'flywheel', swatch: 'var(--sn-prop-flywheel)' },
-            { label: 'SNX', value: 'snx', swatch: 'var(--sn-prop-snx)' },
+            { label: 'StartNet AI', value: 'ai', swatch: 'var(--sn-prop-flywheel)' },
+            { label: 'StartNet X', value: 'x', swatch: 'var(--sn-prop-snx)' },
           ],
           { name: 'demo' }
         )}

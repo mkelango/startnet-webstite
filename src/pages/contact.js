@@ -9,11 +9,11 @@ import { site, properties, propertyById } from '../data/site.js';
 import { esc, eyebrow, pageHero, submitButton } from '../lib/ui.js';
 
 const routes = [
-  { label: 'Founder support', target: 'snx' },
-  { label: 'Training questions', target: 'flywheel' },
-  { label: 'Cohort applications', target: 'nooru' },
-  { label: 'Digital summit', target: 'agentic' },
-  { label: 'Flagship gathering', target: 'physical' },
+  { label: 'Founder support', target: 'x' },
+  { label: 'Lab & accreditation questions', target: 'research' },
+  { label: 'Student & Vibathon questions', target: 'vibe' },
+  { label: 'Cohort applications', target: 'ai' },
+  { label: 'Event & sponsorship', target: 'connect' },
 ];
 
 const form = () => `
@@ -79,7 +79,7 @@ const form = () => `
           .map((r, i) => {
             const p = propertyById[r.target];
             return `
-          <a class="route" href="${esc(p.href)}" target="_blank" rel="noopener"
+          <a class="route" href="${esc(p.href)}"
              style="--prop:${p.swatch}" data-reveal="fade" data-reveal-i="${i}">
             <span class="route__dot" aria-hidden="true"></span>
             <span class="route__label"><strong>${esc(r.label)}</strong>${esc(p.domain)}</span>

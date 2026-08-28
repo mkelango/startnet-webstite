@@ -141,7 +141,7 @@ class Orbit {
       this.fields.name.textContent = d.name || '';
       this.fields.line.textContent = d.line || '';
       this.fields.link.href = d.href || '#';
-      this.fields.linkLabel.textContent = `Visit ${d.domain || ''}`;
+      this.fields.linkLabel.textContent = `Explore ${d.name || ''}`;
     };
 
     if (instant || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

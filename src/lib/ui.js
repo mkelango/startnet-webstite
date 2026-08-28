@@ -177,7 +177,7 @@ export const sectionHead = ({
    sub-brand is allowed to bring onto this page is a single swatch dot.
    ------------------------------------------------------------------------ */
 export const propertyCard = (p, { index = 0 } = {}) => `
-  <a class="prop-card" href="${esc(p.href)}" target="_blank" rel="noopener"
+  <a class="prop-card" href="${esc(p.href)}"
      style="--prop: ${p.swatch}" data-reveal="rise" data-reveal-i="${index}"
      data-property="${esc(p.id)}">
     <span class="prop-card__swatch" aria-hidden="true"></span>
@@ -185,7 +185,7 @@ export const propertyCard = (p, { index = 0 } = {}) => `
     <h3 class="prop-card__name">${esc(p.name)}</h3>
     <p class="prop-card__line">${esc(p.line)}</p>
     <span class="prop-card__foot">
-      <span class="prop-card__cta">Visit ${esc(p.domain)}</span>
+      <span class="prop-card__cta">Explore ${esc(p.name)}</span>
       <span class="prop-card__badge" aria-hidden="true">${iconArrow()}</span>
     </span>
   </a>`;

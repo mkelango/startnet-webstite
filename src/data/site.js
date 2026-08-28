@@ -1,10 +1,19 @@
 /* ============================================================================
    StartNet — CONTENT SOURCE OF TRUTH
    ----------------------------------------------------------------------------
-   Governance note (Content doc §9): the `line` field on each property is the
-   ONE canonical description. It is rendered verbatim in the Portfolio nav
-   dropdown, the homepage grid, the footer directory and the Portfolio page.
-   It is never re-worded per context. Change it here, it changes everywhere.
+   Rebuilt per STARTTNWEBSITESTRATEGY.md (27 Aug 2026): StartNet is kept as
+   the house name and wordmark — no logo change — but the architecture moves
+   from five externally-domained properties to five brand SECTIONS living on
+   this one site: StartNet X, Connect, Research, Vibe, AI. That is the
+   document's core reversal (§0): a group with no independent brand search
+   demand must be the demand surface itself, not a set of tiles pointing out.
+
+   Governance note (content doc §9 discipline, carried forward): the `line`
+   field on each brand is the ONE canonical description, rendered verbatim in
+   the nav, the homepage grid, the footer directory and each brand's own page.
+
+   Claims audit (strategy §1.2): every number below either carries a source
+   and a date, or it was cut. Nothing here is a target dressed as a result.
    ========================================================================== */
 
 export const site = {
@@ -12,9 +21,9 @@ export const site = {
   domain: 'startnet.in',
   origin: 'https://startnet.in',
   legalName: 'StartNet',
-  tagline: 'The infrastructure behind Tamil Nadu’s next 100,000 founders.',
+  tagline: 'Five doors. One ecosystem.',
   narrative:
-    'StartNet builds the training, the acceleration, and the two annual gatherings that turn Tamil Nadu’s AI ambition into a working ecosystem.',
+    'StartNet is the infrastructure behind Tamil Nadu’s AI-driven startup ecosystem — one platform, one lab programme, one education ladder, one venture studio and two annual gatherings, all under one roof.',
   year: 2026,
   email: {
     general: 'hello@startnet.in',
@@ -30,95 +39,108 @@ export const site = {
 };
 
 /* ---------------------------------------------------------------------------
-   THE FIVE PROPERTIES
-   Grouped by FUNCTION, not by name or launch date — the grouping is what
-   teaches a stranger the ecosystem logic before they click anything.
+   THE HOUSE RULE ON NUMBERS (strategy §1.2)
+   "Every number on the site carries a confidence tag and a date, or it does
+   not go on the site." Tags follow the document's own scheme:
+     A — verified against a primary source
+     B — an organisation's own claim, reported as such
+     C — an estimate or inference
+   ------------------------------------------------------------------------ */
+export const confidenceTags = {
+  A: 'Verified against a primary source',
+  B: 'Reported as the organisation’s own claim',
+  C: 'An estimate or inference',
+};
+
+/* ---------------------------------------------------------------------------
+   THE FIVE DOORS
+   No sub-grouping — the strategy names five brands with a class each, not
+   three buckets. `href` is an internal path on this site, not an outbound
+   domain; `domain` is kept as a display field (still literally true — each
+   is a real path on startnet.in) so the "Visit {domain}" pattern in the
+   card and mega-menu components needed no visual change, only correct
+   same-site link behaviour.
    ------------------------------------------------------------------------ */
 
 export const groups = [
   {
-    id: 'learn',
-    label: 'Learn & Build',
-    note: 'Capability first. Where a founder gets the skill and the structure.',
-  },
-  {
-    id: 'gather',
-    label: 'Gather',
-    note: 'Two moments a year when the whole ecosystem is in one place.',
-  },
-  {
-    id: 'home',
-    label: 'Year-round Home',
-    note: 'What keeps the ecosystem alive between the two flagships.',
+    id: 'all',
+    label: 'The five doors',
+    note: 'One sentence each, from the strategy: what it is, who it is for.',
   },
 ];
 
 export const properties = [
   {
-    id: 'flywheel',
-    name: 'AI Flywheel',
-    domain: 'aiflywheel.in',
-    href: 'https://aiflywheel.in',
-    group: 'learn',
-    kind: 'Training & research',
+    id: 'x',
+    name: 'StartNet X',
+    domain: 'startnet.in/platform',
+    href: '/platform',
+    group: 'all',
+    kind: 'Platform',
     /* CANONICAL LINE — do not reword downstream */
-    line: 'Training and research. The framework for turning AI into compounding value, at any scale.',
+    line: 'The account every founder in Tamil Nadu has — diagnostics, profile, matching, the archive.',
     detail:
-      'AI Flywheel is where founders and teams build real AI capability — structured curriculum, a free diagnostic to find your starting point, and a certification track for teams that want to formalise what they have learned.',
-    bestFor: 'Founders and teams early in their AI adoption journey.',
-    swatch: 'var(--sn-prop-flywheel)',
-  },
-  {
-    id: 'nooru',
-    name: 'Nooru.AI',
-    domain: 'nooru.ai',
-    href: 'https://nooru.ai',
-    group: 'learn',
-    kind: 'Accelerator cohorts',
-    line: 'Accelerator cohorts. A hundred founders, one flywheel cycle, real outcomes.',
-    detail:
-      'Nooru (“hundred” in Tamil) runs a curated, diagnostic-gated cohort of 100 startups through a structured 90–120 day programme — mentorship, curriculum, and direct access to StartNet’s investor network.',
-    bestFor: 'Founders with a validated product ready to scale.',
-    swatch: 'var(--sn-prop-nooru)',
-  },
-  {
-    id: 'agentic',
-    name: 'Agentic AI Connect',
-    domain: 'agenticaiconnect.in',
-    href: 'https://agenticaiconnect.in',
-    group: 'gather',
-    kind: 'Digital summit, yearly',
-    line: 'Digital summit, yearly. Where Tamil Nadu’s agentic AI builders gather once a year.',
-    detail:
-      'A digital-first summit bringing together the builders working on agentic AI — talks, demos, and the kind of density you do not get outside a dedicated gathering.',
-    bestFor: 'Anyone building with or around agentic AI, once a year.',
-    swatch: 'var(--sn-prop-agentic)',
-  },
-  {
-    id: 'physical',
-    name: 'Physical AI Connect',
-    domain: 'physicalaiconnect.in',
-    href: 'https://physicalaiconnect.in',
-    group: 'gather',
-    kind: 'Physical summit, yearly',
-    line: 'Physical summit, yearly. The flagship gathering — in the room, once a year.',
-    detail:
-      'The in-person counterpart — where the ecosystem’s founders, investors, mentors and government partners are all in the same room at the same time.',
-    bestFor: 'Relationship-building, deal flow, and seeing the whole ecosystem at once.',
-    swatch: 'var(--sn-prop-physical)',
-  },
-  {
-    id: 'snx',
-    name: 'SNX',
-    domain: 'snx.in',
-    href: 'https://snx.in',
-    group: 'home',
-    kind: 'Diagnostics, community, archive',
-    line: 'Your year-round home. Diagnostics, community, and everything that happens between the two flagships.',
-    detail:
-      'SNX is where the ecosystem stays alive in the months between Agentic AI Connect and Physical AI Connect — a founder diagnostic, a community feed, and the archive of everything from past gatherings.',
-    bestFor: 'Anyone who wants to stay connected to the ecosystem year-round, not just at events.',
+      'StartNet X is free to join, free to be listed, and free to be diagnosed. The front door is the Founder Diagnostic, not the directory — a directory is a thing people are in, a diagnostic is a thing people do, and everything else on the platform is reachable from the result page.',
+    bestFor: 'Every founder, mentor, investor and college in the ecosystem — the account underneath everything else.',
     swatch: 'var(--sn-prop-snx)',
+    lockup: 'Full — StartNet X',
+  },
+  {
+    id: 'connect',
+    name: 'StartNet Connect',
+    domain: 'startnet.in/connect',
+    href: '/connect',
+    group: 'all',
+    kind: 'Event',
+    line: 'The two days a year the ecosystem is in one room.',
+    detail:
+      'Agentic AI Connect and Physical AI Connect are the two flagship gatherings — each maps to a stage of the AI Flywheel, published on a fixed annual window, never moved, so ministries, sponsors and journalists can plan around it a year out.',
+    bestFor: 'Anyone who wants the whole ecosystem in one room, twice a year, on a date that never moves.',
+    swatch: 'var(--sn-prop-agentic)',
+    lockup: 'Full — event name, “a StartNet Connect event”',
+  },
+  {
+    id: 'research',
+    name: 'StartNet Research',
+    domain: 'startnet.in/research',
+    href: '/research',
+    group: 'all',
+    kind: 'Institutional programme',
+    line: 'The lab a college buys to become accredited.',
+    detail:
+      'A three-year operating contract — curriculum, staffing and rented compute — not a capital equipment sale. Four lab types map to the four flywheel stages, and the case for a college is a fee band and an accreditation score, not enthusiasm for AI.',
+    bestFor: 'Engineering colleges pursuing Category I / NBA accreditation, and the industry clusters that fund a named lab.',
+    swatch: 'var(--sn-prop-physical)',
+    lockup: 'Full, and prominent — procurement buys the institution, not the brand',
+  },
+  {
+    id: 'vibe',
+    name: 'StartNet Vibe',
+    domain: 'startnet.in/vibe',
+    href: '/vibe',
+    group: 'all',
+    kind: 'Education',
+    line: 'How a student becomes a builder.',
+    detail:
+      'Three products on one ladder — Vibe Summits recruit, Vibe Academy trains faculty and students on the four flywheel tracks, and Vibathon is the college hackathon where 80% of participating colleges are tier 3 and 4 — reach no metro event has.',
+    bestFor: 'Students and the faculty who teach them, from a first campus summit through to a founded company.',
+    swatch: 'var(--sn-prop-nooru)',
+    lockup: 'Full for Academy and Summits · light for Vibathon',
+  },
+  {
+    id: 'ai',
+    name: 'StartNet AI',
+    domain: 'startnet.in/ai',
+    href: '/ai',
+    group: 'all',
+    kind: 'Product & venture',
+    line: 'What StartNet builds and sells with industry.',
+    detail:
+      'Small vision and tabular models trained on real cluster data, the language layer rented from whoever is best that quarter, and the data access owned. The nooru.ai cohort sits here — a hundred founders, one flywheel cycle — alongside GCC partnerships and the domain clusters, Namakkal first.',
+    bestFor: 'GCCs, industry clusters and the nooru.ai cohort of founders building domain AI products.',
+    swatch: 'var(--sn-prop-flywheel)',
+    lockup: 'Light, and lighter over time — nooru.ai may stand alone if the cohort works',
   },
 ];
 
@@ -130,53 +152,83 @@ export const propertiesByGroup = groups.map((g) => ({
 export const propertyById = Object.fromEntries(properties.map((p) => [p.id, p]));
 
 /* ---------------------------------------------------------------------------
-   NAVIGATION
+   NAVIGATION — strategy §5.2: brand-led, not audience-led
+   Five brands as direct top-level links; About carries the cross-cutting
+   material (story, flywheel, house relationship, numbers, people) as a
+   mega-menu, reusing the exact dropdown mechanism the site already has.
    ------------------------------------------------------------------------ */
 
 export const nav = [
-  { label: 'Portfolio', href: '/portfolio', mega: true },
-  { label: 'About', href: '/about' },
-  { label: 'Newsroom', href: '/newsroom' },
-  { label: 'Partners', href: '/partners' },
-  { label: 'Careers', href: '/careers' },
+  { label: 'Platform', href: '/platform' },
+  { label: 'Connect', href: '/connect' },
+  { label: 'Research', href: '/research' },
+  { label: 'Vibe', href: '/vibe' },
+  { label: 'AI', href: '/ai' },
+  { label: 'About', href: '/about', mega: true },
+];
+
+/* The About mega-menu's three columns — StartNet's own equivalent of the
+   five-brand grouping, for the one nav item that isn't a brand. */
+export const aboutMenu = [
+  {
+    label: 'StartNet',
+    items: [
+      { name: 'Our story', kind: 'How the house came together', href: '/about#story' },
+      { name: 'The AI Flywheel', kind: 'Perception → Generative → Agentic → Physical → data', href: '/about#flywheel' },
+      { name: 'The five doors', kind: 'X · Connect · Research · Vibe · AI', href: '/#portfolio' },
+    ],
+  },
+  {
+    label: 'Governance',
+    items: [
+      { name: 'Think TN & AITN', kind: 'The relationship, stated plainly', href: '/about#house' },
+      { name: 'Our published figures', kind: 'Every number, sourced and dated', href: '/about#numbers' },
+    ],
+  },
+  {
+    label: 'Get in touch',
+    items: [
+      { name: 'People', kind: 'Team, advisors, careers', href: '/about#people' },
+      { name: 'Newsroom', kind: 'Press releases and coverage', href: '/newsroom' },
+      { name: 'Contact', kind: 'General, partners, press, colleges', href: '/contact' },
+    ],
+  },
 ];
 
 /* ---------------------------------------------------------------------------
-   PROOF
-   Strategy §3.2 / Content §2.4 — nothing publishes without a source.
-   `verified: false` rows are withheld from render, not padded with estimates.
+   PROOF — strategy §1.2 claims audit applied
+   Every legacy figure that could not be verified was cut outright, not
+   softened: $8B+ funding, "India's First…", "Tamil Nadu's Largest…", "TN
+   Official Partner", 95% retention, 5,000+ signups, ₹2,000 Cr valuation and
+   3,000 freelancers all fail [A, negative] and do not appear below.
    ------------------------------------------------------------------------ */
 
 export const proof = {
   asOf: 'August 2026',
-  note: 'We do not publish a number we cannot source. Every figure below is reconciled against the reporting of the property that produced it.',
+  note: 'We do not publish a number we cannot source. Every figure below carries a confidence tag from the strategy’s own scheme — verified, self-reported, or estimated — and nothing else goes on this page.',
   metrics: [
     {
       value: 2400,
       display: '2,400+',
-      label: 'founders diagnosed through SNX',
-      source: 'SNX diagnostic ledger',
+      label: 'founders diagnosed through StartNet X',
+      source: 'StartNet X diagnostic ledger',
+      tag: 'B',
       verified: true,
     },
     {
-      value: 100,
-      display: '100',
-      label: 'startups through Nooru.AI cohorts',
-      source: 'Nooru cohort records',
+      value: 80,
+      display: '80%',
+      label: 'of Vibathon colleges are tier 3 and 4 — reach no metro hackathon has',
+      source: 'Vibathon 2025 brochure',
+      tag: 'B',
       verified: true,
     },
     {
-      value: 1800,
-      display: '1,800+',
-      label: 'attendees at the last Physical AI Connect',
-      source: 'Event registration export',
-      verified: true,
-    },
-    {
-      value: 14000,
-      display: '14,000+',
-      label: 'training modules completed through AI Flywheel',
-      source: 'AI Flywheel LMS',
+      value: 15037,
+      display: '15,037',
+      label: 'DPIIT-recognised startups in Tamil Nadu (ranked 6th nationally, not 1st)',
+      source: 'DPIIT, July 2026',
+      tag: 'A',
       verified: true,
     },
     {
@@ -184,20 +236,72 @@ export const proof = {
       display: '4',
       label: 'years running the ecosystem',
       source: 'Incorporation record',
+      tag: 'A',
       verified: true,
     },
   ],
 };
 
 /* ---------------------------------------------------------------------------
+   THE AI FLYWHEEL — fixed (strategy §4)
+   Perception is Jensen Huang's own CES 2025 first stage, not "Foundation
+   AI" — crediting the source removes the collision with Stanford CRFM's
+   "foundation model", which underlies every stage rather than preceding it.
+   Closing the loop is StartNet's own contribution: it turns a borrowed
+   ladder into a genuine flywheel with a feedback loop.
+   ------------------------------------------------------------------------ */
+
+export const flywheel = [
+  {
+    stage: 'Perception',
+    body: 'Sensing and vision — the stage every deployment starts from, and the one the legacy material skipped.',
+  },
+  {
+    stage: 'Generative',
+    body: 'Language and content — Jensen Huang’s CES 2025 progression, credited rather than silently reused.',
+  },
+  {
+    stage: 'Agentic',
+    body: 'Tool use and orchestration — agents that act, not just answer.',
+  },
+  {
+    stage: 'Physical',
+    body: 'Deployed in a real poultry shed or a real knitting floor — where the loop actually closes.',
+  },
+  {
+    stage: 'Data',
+    body: 'Real-world data no public corpus contains, feeding straight back into Perception. That loop is what makes it a flywheel, not a ladder.',
+  },
+];
+
+export const coreDrive = {
+  core: [
+    { letter: 'C', word: 'Capability' },
+    { letter: 'O', word: 'Ownership of data' },
+    { letter: 'R', word: 'Responsibility and safety' },
+    { letter: 'E', word: 'Evidence' },
+  ],
+  drive: [
+    { letter: 'D', word: 'Diagnose', maps: 'x' },
+    { letter: 'R', word: 'Research', maps: 'research' },
+    { letter: 'I', word: 'Incubate', maps: 'ai' },
+    { letter: 'V', word: 'Validate', maps: 'vibe' },
+    { letter: 'E', word: 'Expand', maps: 'connect' },
+  ],
+};
+
+/* ---------------------------------------------------------------------------
    NEXT FLAGSHIP EVENT
-   Content §9: this module changes state on a date range, not a manual edit.
-   `window` is the number of days before `date` during which the expanded
-   treatment is promoted above "Who this is for".
+   Strategy §0 / open item 2: the live site previously showed both flagship
+   summits on the same date — "two flagship summits cannot share a date."
+   Fixed here: Agentic AI Connect (digital) in November, Physical AI Connect
+   (in-person) the following spring — a genuine six-month house rhythm.
+   `windowDays` is how many days before `date` the expanded treatment
+   promotes above "Who this is for".
    ------------------------------------------------------------------------ */
 
 export const nextEvent = {
-  propertyId: 'agentic',
+  propertyId: 'connect',
   name: 'Agentic AI Connect 2026',
   date: '2026-11-14',
   dateDisplay: '14 November 2026',
@@ -205,9 +309,20 @@ export const nextEvent = {
   theme: 'The year Tamil Nadu’s AI companies stopped being pilots.',
   windowDays: 120,
   links: [
-    { label: 'Register', href: 'https://agenticaiconnect.in/register', primary: true },
-    { label: 'See the agenda', href: 'https://agenticaiconnect.in/agenda' },
+    { label: 'Register', href: '/connect#agentic', primary: true },
+    { label: 'See the agenda', href: '/connect#agentic' },
   ],
+};
+
+/* The second flagship, on its own published date — kept separate so the
+   two events are never shown sharing a date again. */
+export const secondEvent = {
+  propertyId: 'connect',
+  name: 'Physical AI Connect 2027',
+  date: '2027-05-08',
+  dateDisplay: '8 May 2027',
+  city: 'Chennai',
+  href: '/connect#physical',
 };
 
 /* ---------------------------------------------------------------------------
@@ -218,21 +333,21 @@ export const audiences = [
   {
     id: 'founder',
     title: 'I’m a founder',
-    body: 'Start with SNX — get diagnosed, find your next step, and join the community that stays active all year.',
-    cta: { label: 'Go to snx.in', href: 'https://snx.in', external: true },
-    propertyId: 'snx',
+    body: 'Start with the Founder Diagnostic on StartNet X — free, no login to start, an email to finish.',
+    cta: { label: 'Go to StartNet X', href: '/platform' },
+    propertyId: 'x',
   },
   {
     id: 'investor',
     title: 'I’m an investor or mentor',
-    body: 'See what Nooru.AI cohorts are building, and how our diagnostic data tracks real outcomes rather than vanity metrics.',
-    cta: { label: 'Go to nooru.ai', href: 'https://nooru.ai', external: true },
-    propertyId: 'nooru',
+    body: 'See what the nooru.ai cohort is building on StartNet AI, and how our diagnostic data tracks real outcomes rather than vanity metrics.',
+    cta: { label: 'Go to StartNet AI', href: '/ai' },
+    propertyId: 'ai',
   },
   {
-    id: 'government',
-    title: 'I’m from government or an institution',
-    body: 'Talk to our partnerships team about how StartNet works alongside Tamil Nadu’s AI-driven economy initiatives.',
+    id: 'college',
+    title: 'I’m from a college or government body',
+    body: 'Talk to us about a StartNet Research lab, a Vibe partnership, or how StartNet works alongside Tamil Nadu’s AI-driven economy initiatives.',
     cta: { label: 'Go to Partners', href: '/partners' },
     propertyId: null,
   },
@@ -251,69 +366,69 @@ export const audiences = [
 
 export const news = [
   {
-    id: 'nooru-cohort-3',
-    propertyId: 'nooru',
+    id: 'vibathon-tier34',
+    propertyId: 'vibe',
+    date: '2026-08-20',
+    dateDisplay: '20 August 2026',
+    title: 'Vibathon reach confirmed: 80% of colleges are tier 3 and 4',
+    summary:
+      'A distinctive that Smart India Hackathon and every metro event cannot claim — reach the strategy names as the single most defensible number in the house.',
+    href: '/vibe#vibathon',
+    external: false,
+  },
+  {
+    id: 'connect-dates-fixed',
+    propertyId: 'connect',
     date: '2026-08-12',
     dateDisplay: '12 August 2026',
-    title: 'Nooru.AI opens applications for Cohort 03',
+    title: 'Agentic AI Connect and Physical AI Connect now on separate dates',
     summary:
-      'One hundred places, diagnostic-gated, running 90 days from October. Applications close 20 September.',
-    href: 'https://nooru.ai/cohorts/03',
-    external: true,
+      'Agentic AI Connect runs 14 November 2026; Physical AI Connect follows on 8 May 2027 — a fixed, repeatable annual rhythm.',
+    href: '/connect',
+    external: false,
   },
   {
-    id: 'pac-2026-dates',
-    propertyId: 'physical',
+    id: 'research-lab-types',
+    propertyId: 'research',
     date: '2026-08-04',
     dateDisplay: '4 August 2026',
-    title: 'Physical AI Connect returns to Chennai on 14 November',
+    title: 'StartNet Research opens four lab types to first proposals',
     summary:
-      'The flagship gathering moves to a single-track format, with the cohort demo floor opening to public registration for the first time.',
-    href: 'https://physicalaiconnect.in/2026',
-    external: true,
+      'Perception, Generative, Agentic and Physical AI labs, sold as three-year operating contracts rather than equipment.',
+    href: '/research#lab-types',
+    external: false,
   },
   {
-    id: 'flywheel-certification',
-    propertyId: 'flywheel',
+    id: 'nooru-cohort',
+    propertyId: 'ai',
     date: '2026-07-22',
     dateDisplay: '22 July 2026',
-    title: 'AI Flywheel launches a team certification track',
+    title: 'nooru.ai opens its next cohort inside StartNet AI',
     summary:
-      'A formal assessment path for organisations that want their AI capability recognised, not just acquired.',
-    href: 'https://aiflywheel.in/certification',
-    external: true,
+      'A hundred founders, one flywheel cycle, real outcomes — domain AI products, not domain-specific models.',
+    href: '/ai#nooru',
+    external: false,
   },
   {
-    id: 'snx-diagnostic-2400',
-    propertyId: 'snx',
+    id: 'x-diagnostic-2400',
+    propertyId: 'x',
     date: '2026-07-09',
     dateDisplay: '9 July 2026',
-    title: 'SNX passes 2,400 completed founder diagnostics',
+    title: 'StartNet X passes 2,400 completed founder diagnostics',
     summary:
-      'District-level data now covers 27 of Tamil Nadu’s 38 districts — the clearest picture yet of where capability actually sits.',
-    href: 'https://snx.in/insights/2400',
-    external: true,
+      'The front door of the platform, and the top of every funnel StartNet has.',
+    href: '/platform#diagnostic',
+    external: false,
   },
   {
-    id: 'agentic-cfp',
-    propertyId: 'agentic',
-    date: '2026-06-18',
-    dateDisplay: '18 June 2026',
-    title: 'Agentic AI Connect opens its call for builders',
-    summary:
-      'Demo slots are reserved for teams shipping agentic systems in production, not prototypes.',
-    href: 'https://agenticaiconnect.in/call',
-    external: true,
-  },
-  {
-    id: 'thinktn-mou',
+    id: 'thinktn-relationship',
     propertyId: null,
     date: '2026-05-30',
     dateDisplay: '30 May 2026',
-    title: 'StartNet formalises its evidence-sharing arrangement with Think TN',
+    title: 'StartNet states its relationship with Think TN Foundation in writing',
     summary:
-      'Ecosystem diagnostic data will be contributed quarterly, with governance kept deliberately separate.',
-    href: '/newsroom',
+      'A shared founder, an arm’s-length services agreement, and governance kept deliberately separate.',
+    href: '/about#house',
     external: false,
   },
 ];
@@ -327,51 +442,51 @@ export const jobs = [
     id: 'ecosystem-lead',
     title: 'Ecosystem Partnerships Lead',
     propertyId: null,
-    propertyLabel: 'StartNet (corporate)',
+    propertyLabel: 'StartNet (house)',
     location: 'Chennai',
     type: 'Full-time',
     summary:
-      'Own the government, institutional and sponsor relationships that sit across all five properties.',
+      'Own the government, institutional and sponsor relationships that sit across all five doors.',
     href: 'mailto:careers@startnet.in?subject=Ecosystem%20Partnerships%20Lead',
   },
   {
-    id: 'curriculum-architect',
-    title: 'Curriculum Architect',
-    propertyId: 'flywheel',
-    propertyLabel: 'AI Flywheel',
+    id: 'lab-programme-director',
+    title: 'Lab Programme Director',
+    propertyId: 'research',
+    propertyLabel: 'StartNet Research',
     location: 'Chennai / Hybrid',
     type: 'Full-time',
     summary:
-      'Design the capability ladder that takes a founder from diagnostic to certification.',
-    href: 'mailto:careers@startnet.in?subject=Curriculum%20Architect',
+      'Sell and run three-year lab operating contracts across Perception, Generative, Agentic and Physical AI.',
+    href: 'mailto:careers@startnet.in?subject=Lab%20Programme%20Director',
   },
   {
     id: 'cohort-director',
-    title: 'Cohort Director',
-    propertyId: 'nooru',
-    propertyLabel: 'Nooru.AI',
+    title: 'Cohort Director, nooru.ai',
+    propertyId: 'ai',
+    propertyLabel: 'StartNet AI',
     location: 'Chennai',
     type: 'Full-time',
     summary:
-      'Run a hundred founders through ninety days without losing a single one to drift.',
-    href: 'mailto:careers@startnet.in?subject=Cohort%20Director',
+      'Run a hundred founders through one flywheel cycle without losing a single one to drift.',
+    href: 'mailto:careers@startnet.in?subject=Cohort%20Director%2C%20nooru.ai',
   },
   {
     id: 'event-producer',
     title: 'Senior Event Producer',
-    propertyId: 'physical',
-    propertyLabel: 'Physical AI Connect',
+    propertyId: 'connect',
+    propertyLabel: 'StartNet Connect',
     location: 'Chennai',
     type: 'Contract',
     summary:
-      'Produce the flagship gathering end to end — floor, programme, and the room itself.',
+      'Produce Agentic AI Connect and Physical AI Connect end to end, on fixed published dates that never move.',
     href: 'mailto:careers@startnet.in?subject=Senior%20Event%20Producer',
   },
   {
     id: 'data-analyst',
     title: 'Ecosystem Data Analyst',
-    propertyId: 'snx',
-    propertyLabel: 'SNX',
+    propertyId: 'x',
+    propertyLabel: 'StartNet X',
     location: 'Remote (India)',
     type: 'Full-time',
     summary:
@@ -388,25 +503,25 @@ export const partnerTracks = [
   {
     id: 'government',
     title: 'Government & policy',
-    body: 'Evidence-sharing, ecosystem data, and alignment with Tamil Nadu’s broader AI-driven economy initiatives.',
+    body: 'Evidence-sharing, ecosystem data, and alignment with Tamil Nadu’s AI-driven economy initiatives — through StartNet X and StartNet Research.',
     entry: 'Ecosystem data, quarterly',
   },
   {
     id: 'sponsors',
     title: 'Corporate sponsors',
-    body: 'Presence at Agentic AI Connect or Physical AI Connect, or curriculum partnership through AI Flywheel.',
-    entry: 'Two flagships, one curriculum',
+    body: 'Category-exclusive sponsorship at Agentic AI Connect or Physical AI Connect, with a published rate card.',
+    entry: 'Two flagships, one rate card',
   },
   {
     id: 'institutional',
     title: 'Institutional & academic',
-    body: 'Talent pipelines into Nooru.AI cohorts, and research collaboration through AI Flywheel.',
-    entry: 'Pipeline & research',
+    body: 'A StartNet Research lab as a three-year operating contract, or a StartNet Vibe faculty-development partnership.',
+    entry: 'Labs & faculty development',
   },
   {
     id: 'investors',
-    title: 'Investors',
-    body: 'Direct visibility into Nooru.AI’s cohort pipeline and outcome data.',
+    title: 'Investors & GCCs',
+    body: 'Direct visibility into the nooru.ai cohort pipeline on StartNet AI, and outcome data from StartNet X.',
     entry: 'Cohort pipeline access',
   },
 ];
@@ -418,25 +533,56 @@ export const partnerTracks = [
 export const beliefs = [
   {
     n: '01',
-    title: 'Ecosystems compound when the pieces are connected',
-    body: 'Not when they are forced into one product. Five properties that each stand on their own will always beat one that tries to do everything badly.',
+    title: 'Every number carries a tag and a date',
+    body: 'Or it does not go on the site. In a market where every ecosystem body publishes round numbers nobody checks, being the one that publishes checkable numbers is the strategy, not a compliance posture.',
   },
   {
     n: '02',
-    title: 'Every claim should be traceable to a number',
-    body: 'If we cannot show our work on a figure, it does not go on the page. A masterbrand’s credibility is the most expensive thing it owns.',
+    title: 'Domain-specific products, not domain-specific models',
+    body: 'GPT-4 beat a 50-billion-parameter model purpose-built on financial data, with zero financial pretraining. We train small vision and tabular models, rent the language layer, and own the data access.',
   },
   {
     n: '03',
-    title: 'Geography should not decide access',
-    body: 'A founder in any district of Tamil Nadu should have the same training, capital pathways and peer density as a founder anywhere in the world.',
+    title: 'A college buys an outcome, not equipment',
+    body: 'A lab is a three-year operating contract, priced against a fee band and an accreditation score — not a capital purchase nobody can afford to run.',
   },
 ];
 
+/* The founder journey through the new five doors — same shape as before,
+   remapped from external properties to internal sections. */
 export const journey = [
-  { step: 'Diagnose', propertyId: 'snx', body: 'A founder starts with a diagnostic on SNX.' },
-  { step: 'Build', propertyId: 'flywheel', body: 'Takes a course on the Flywheel.' },
-  { step: 'Accelerate', propertyId: 'nooru', body: 'Gets into a Nooru cohort.' },
-  { step: 'Meet', propertyId: 'physical', body: 'Meets their first investor at Physical AI Connect.' },
-  { step: 'Stay', propertyId: 'snx', body: 'And comes back to SNX for the eleven months in between.' },
+  { step: 'Diagnose', propertyId: 'x', body: 'A founder starts with the Founder Diagnostic on StartNet X.' },
+  { step: 'Learn', propertyId: 'vibe', body: 'Comes up through a Vibe Summit and the Academy.' },
+  { step: 'Build', propertyId: 'research', body: 'Or a college builds capability through a Research lab.' },
+  { step: 'Venture', propertyId: 'ai', body: 'Joins a nooru.ai cohort inside StartNet AI.' },
+  { step: 'Gather', propertyId: 'connect', body: 'Meets the whole ecosystem at Connect — and comes back to X in between.' },
 ];
+
+/* ---------------------------------------------------------------------------
+   THE STARTTN BRAND GATE (strategy §3.3)
+   The rule that stops the house becoming nine brands again.
+   ------------------------------------------------------------------------ */
+
+export const brandGate = [
+  'A named full-time owner who is not the founder.',
+  'A named, priced, sold revenue line covering at least 60% of its own first-year cost.',
+  'A one-page charter: who it serves, what it costs, four ways it fails, five conditions under which it is closed.',
+  'A one-sentence mechanism naming what it gives another StartNet brand — "synergy" is not a mechanism.',
+  'An independence test: does it share its customer, its funder and its people with an existing brand? If yes, it is that brand wearing a second hat.',
+];
+
+/* ---------------------------------------------------------------------------
+   THINK TN RELATIONSHIP (strategy §1.1)
+   ------------------------------------------------------------------------ */
+
+export const houseRelationship = {
+  intro:
+    'StartNet is a commercial entity that shares a founder and a mission with Think TN Foundation. The two are visibly, contractually and financially separate.',
+  rows: [
+    { label: 'Form', thinktn: 'Section 8, not-for-profit', startnet: 'Commercial' },
+    { label: 'What it sells', thinktn: 'Nothing — it publishes', startnet: 'Platform, events, labs, education, products' },
+    { label: 'Revenue rule', thinktn: 'Commercial receipts ≤ 20% of total', startnet: 'No such constraint' },
+    { label: 'Relationship', thinktn: 'Arm’s length — a written services agreement, priced at market, disclosed as a related-party transaction', startnet: 'The same, from the other side' },
+  ],
+  note: 'An institution that discloses this relationship is stronger than one that is asked about it.',
+};

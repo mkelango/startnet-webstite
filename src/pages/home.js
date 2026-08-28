@@ -1,8 +1,11 @@
 /* ============================================================================
    HOMEPAGE
-   Section order follows the masterbrand strategy §3.2 exactly. The one
-   deviation the strategy itself asks for: the flagship-event module is
-   promoted above "Who this is for" while inside its pre-event window.
+   Content rebuilt per STARTTNWEBSITESTRATEGY.md — StartNet kept as the house
+   name (no logo change), five properties restructured from external domains
+   into internal brand sections (StartNet X / Connect / Research / Vibe /
+   AI). Section order and every visual component are unchanged; only the
+   copy, the data driving them, and the internal-vs-external link behaviour
+   were touched.
    ========================================================================== */
 
 import {
@@ -12,6 +15,7 @@ import {
   propertyById,
   proof,
   nextEvent,
+  secondEvent,
   audiences,
   news,
   journey,
@@ -35,7 +39,9 @@ import { monogram } from '../lib/layout.js';
 /* --------------------------------------------------------------------------
    1. HERO
    Comprehension, not conversion. No call to action lives here by design —
-   the first click opportunity is the portfolio below.
+   the first click opportunity is the portfolio below. Headline is kept
+   verbatim from the live site — the strategy's own tagline candidate and
+   the one it recommends keeping (§0, §5.3).
    ----------------------------------------------------------------------- */
 const hero = () => `
 <section class="hero" id="hero" data-surface="hero" data-reveal-group>
@@ -43,7 +49,7 @@ const hero = () => `
     <div class="hero__body">
       <p class="hero__kicker" data-reveal="fade">
         <span class="hero__kicker-dot" aria-hidden="true"></span>
-        Masterbrand · Tamil Nadu
+        House · Tamil Nadu
       </p>
       <h1 class="hero__title display-1" data-reveal="rise">${accent(
         'The infrastructure behind Tamil Nadu’s next {100,000} founders[.]'
@@ -83,13 +89,12 @@ const hero = () => `
 </section>`;
 
 /* --------------------------------------------------------------------------
-   2. PORTFOLIO
+   2. THE FIVE DOORS
    The Orbit carries the argument; the grid carries the detail. Both use the
-   same canonical one-line description, never a re-write.
+   same canonical one-line description, never a re-write. Links are internal
+   now — each door is a section of this site, not an external domain.
    ----------------------------------------------------------------------- */
 const orbit = () => {
-  const groupLabel = (id) =>
-    ({ learn: 'Learn & Build', gather: 'Gather', home: 'Year-round Home' }[id] || '');
   const first = properties[0];
   return `
   <div class="orbit" data-orbit>
@@ -101,20 +106,20 @@ const orbit = () => {
         </g>
       </svg>
       <div class="orbit__centre is-in" style="--prop:${first.swatch}">
-        <p class="orbit__group">${esc(groupLabel(first.group))}</p>
+        <p class="orbit__group">${esc(first.kind)}</p>
         <h3 class="orbit__name">${esc(first.name)}</h3>
         <p class="orbit__line">${esc(first.line)}</p>
         <a class="link-arrow orbit__link" href="${esc(
           first.href
-        )}" target="_blank" rel="noopener"><span>Visit ${esc(
-    first.domain
+        )}"><span>Explore ${esc(
+    first.name
   )}</span><svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9.5M8.75 4.25 12.5 8l-3.75 3.75" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
 
     <div class="orbit__rail">
       <p class="orbit__rail-label">The five doors</p>
-      <ul class="orbit__list" role="tablist" aria-label="StartNet properties">
+      <ul class="orbit__list" role="tablist" aria-label="StartNet brands">
         ${properties
           .map(
             (p, i) => `
@@ -125,10 +130,10 @@ const orbit = () => {
               tabindex="${i === 0 ? 0 : -1}"
               style="--prop:${p.swatch}"
               data-name="${esc(p.name)}"
-              data-group="${esc(groupLabel(p.group))}"
+              data-group="${esc(p.kind)}"
               data-line="${esc(p.line)}"
               data-href="${esc(p.href)}"
-              data-domain="${esc(p.domain)}"
+              data-domain="${esc(p.name)}"
               data-swatch="${p.swatch}">
               <span class="orbit__item-dot" aria-hidden="true"></span>
               <span class="orbit__item-name">${esc(p.name)}</span>
@@ -146,10 +151,9 @@ const portfolio = () => `
 <section class="section section--portfolio" id="portfolio" data-surface="portfolio" data-theme="paper">
   <div class="shell">
     ${sectionHead({
-      label: 'Portfolio',
+      label: 'The house',
       title: 'Five doors. {One ecosystem}[.]',
-      deck: 'Wherever you are starting from, there is a door that fits. Each property stands on its own — together they are one system.',
-      cta: { label: 'See the full portfolio', href: '/portfolio', variant: 'primary' },
+      deck: 'Wherever you are starting from, there is a door that fits. Each brand stands on its own — together they are one system.',
     })}
 
     ${orbit()}
@@ -175,7 +179,9 @@ const portfolio = () => `
 
 /* --------------------------------------------------------------------------
    3. PROOF
-   Every row carries its source. A row without one is cut, not softened.
+   Every row carries its source. A row without one is cut, not softened —
+   the claims audit at strategy §1.2 applied: only figures verified or
+   reported as such remain.
    ----------------------------------------------------------------------- */
 const proofSection = () => {
   const rows = proof.metrics.filter((m) => m.verified);
@@ -190,7 +196,7 @@ const proofSection = () => {
     <div class="proof__grid" data-reveal-group>
       ${rows.map((m, i) => stat(m, { index: i })).join('')}
     </div>
-    <p class="proof__asof">Reconciled as of ${esc(proof.asOf)}.</p>
+    <p class="proof__asof">Reconciled as of ${esc(proof.asOf)}. Every figure carries a confidence tag — see how we produce our numbers on the About page.</p>
   </div>
   ${ring({
     states: ['measure', 'path', 'orbit'],
@@ -208,7 +214,9 @@ const proofSection = () => {
 /* --------------------------------------------------------------------------
    4. THE ECOSYSTEM STORY
    Written so a single paragraph, lifted verbatim, correctly answers "what is
-   StartNet and what does it do" — the internal test set in strategy §6.
+   StartNet and what does it do" — the internal test the strategy sets at
+   §6. The founder's path now runs through the five doors as sections of one
+   site, not five separate companies.
    ----------------------------------------------------------------------- */
 const story = () => `
 <section class="section section--story" id="story" data-theme="dark" data-surface="story">
@@ -222,15 +230,16 @@ const story = () => `
 
     <div class="story__body" data-reveal-group>
       <p class="story__para" data-reveal="rise">
-        A founder might start with a diagnostic on SNX, take a course on the Flywheel,
-        get into a Nooru cohort, and meet their first investor at Physical AI Connect —
-        all before their first year is out. Each property stands on its own. Together,
-        they are the closest thing Tamil Nadu has to an operating system for building
-        an AI company.
+        A founder might start with the Founder Diagnostic on StartNet X, come up through
+        a Vibe Summit and the Academy, build capability through a StartNet Research lab,
+        join a nooru.ai cohort on StartNet AI, and meet their first investor at StartNet
+        Connect — all before their first year is out, and all on one account. Each door
+        stands on its own. Together, they are the closest thing Tamil Nadu has to an
+        operating system for building an AI company.
       </p>
       ${button({
         label: 'How the five fit together',
-        href: '/about',
+        href: '/about#flywheel',
         variant: 'primary',
       })}
     </div>
@@ -265,7 +274,10 @@ const story = () => `
 /* --------------------------------------------------------------------------
    5. NEXT FLAGSHIP EVENT
    Content §9: this module changes state on a date range rather than a manual
-   content edit. Inside the window it expands and moves up the page.
+   content edit. Fixed per strategy open item 2 — Agentic AI Connect and
+   Physical AI Connect no longer share a date; the second is named
+   explicitly wherever the first appears, so the correction is visible on
+   its face rather than buried in a data file.
    ----------------------------------------------------------------------- */
 const isInWindow = () => {
   const event = new Date(nextEvent.date).getTime();
@@ -283,9 +295,11 @@ const eventModule = () => {
   <div class="shell event__compact-shell" data-reveal-group>
     <p class="event__compact-text" data-reveal="fade">
       <span class="event__compact-dot" style="--prop:${p.swatch}" aria-hidden="true"></span>
-      Next gathering: <strong>${esc(nextEvent.name)}</strong>, ${esc(nextEvent.dateDisplay)}.
+      Next gathering: <strong>${esc(nextEvent.name)}</strong>, ${esc(
+      nextEvent.dateDisplay
+    )} — then ${esc(secondEvent.name)}, ${esc(secondEvent.dateDisplay)}.
     </p>
-    ${linkArrow({ label: 'Learn more', href: p.href, external: true })}
+    ${linkArrow({ label: 'Learn more', href: p.href })}
   </div>
 </section>`;
   }
@@ -309,12 +323,15 @@ const eventModule = () => {
             button({
               label: l.label,
               href: l.href,
-              external: true,
               variant: i === 0 ? 'accent' : 'ghost',
             })
           )
           .join('')}
       </div>
+      <p class="proof__asof" style="border:0;padding:0;margin-top:var(--space-4)">
+        ${esc(secondEvent.name)} follows on ${esc(secondEvent.dateDisplay)} — the two flagship
+        summits are always on separate dates, published a year out.
+      </p>
     </div>
   </div>
   ${ring({
@@ -352,7 +369,7 @@ const who = () => `
           <span class="who__dot" aria-hidden="true"></span>
           <h3 class="who__title">${esc(a.title)}</h3>
           <p class="who__body">${esc(a.body)}</p>
-          ${linkArrow({ label: a.cta.label, href: a.cta.href, external: Boolean(a.cta.external) })}
+          ${linkArrow({ label: a.cta.label, href: a.cta.href })}
         </article>`;
         })
         .join('')}
@@ -384,9 +401,9 @@ const newsroomPreview = () => `
 
 export const homePage = () => ({
   path: '/',
-  title: 'StartNet — The infrastructure behind Tamil Nadu’s AI startup ecosystem',
+  title: 'StartNet — Five doors, one ecosystem, for Tamil Nadu’s AI startups',
   description:
-    'StartNet builds the training, acceleration, and annual gatherings behind Tamil Nadu’s AI-driven startup ecosystem — AI Flywheel, Nooru.AI, Agentic AI Connect, Physical AI Connect, and SNX.',
+    'StartNet is the infrastructure behind Tamil Nadu’s AI-driven startup ecosystem — StartNet X, Connect, Research, Vibe and AI, all under one roof.',
   bodyClass: 'page-home',
   main: [
     hero(),
