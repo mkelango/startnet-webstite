@@ -53,9 +53,14 @@ const STATES = {
 
   path: () => ({ w: 8, h: 8, dr: 0, op: 1 }),
 
+  /* Floor kept well above zero on purpose — early builds tapered to 2.5px at
+     55% opacity, which at high mark-density reads as the ring pinching down
+     to a sharp point rather than a continuous running line. This still
+     grades (the momentum/direction the state is named for) without ever
+     dissolving into something that looks broken instead of designed. */
   signal: (t) => {
-    const s = lerp(15, 2.5, easeInOut(t));
-    return { w: s, h: s, dr: 0, op: lerp(1, 0.55, t) };
+    const s = lerp(15, 7, easeInOut(t));
+    return { w: s, h: s, dr: 0, op: lerp(1, 0.82, t) };
   },
 
   measure: (t) => ({
