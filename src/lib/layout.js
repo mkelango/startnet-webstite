@@ -193,7 +193,7 @@ const header = (current = '/') => `
    to route someone correctly. It repeats the canonical line verbatim.
    ------------------------------------------------------------------------ */
 const footer = () => `
-<footer class="footer" data-theme="dark">
+<footer class="footer" data-theme="footer">
   <div class="shell footer__shell">
     <div class="footer__top">
       <p class="footer__statement">${accent('One ecosystem. {Five doors}[.]')}</p>

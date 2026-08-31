@@ -67,7 +67,7 @@ const identity = () =>
           <span style="width:26%;aspect-ratio:1;border-radius:50%;background:var(--sn-signal);display:block"></span>
         </div>
         <span class="specimen__name">The Dot</span>
-        <span class="specimen__note">Signal red, always a perfect circle, never outlined, never gradient, never rotated: a circle has no wrong angle and that is the point.</span>
+        <span class="specimen__note">Signal cyan, always a perfect circle, never outlined, never gradient, never rotated: a circle has no wrong angle and that is the point.</span>
       </div>
     </div>
 
@@ -88,15 +88,15 @@ const identity = () =>
 const colour = () =>
   block({
     title: 'Colour',
-    note: 'Two brand constants and a restrained neutral field. Signal red is an accent, never a surface: the moment it becomes a background it stops meaning "here".',
+    note: 'Two brand constants and a restrained neutral field. Signal cyan is an accent, never a surface: the moment it becomes a background it stops meaning "here".',
     body: `
     <div class="swatches">
-      ${swatch('Ink', 'var(--sn-ink)', '#000000 · brand')}
-      ${swatch('Signal', 'var(--sn-signal)', '#CC3029 · brand')}
-      ${swatch('Signal 600', 'var(--sn-signal-600)', '#AD2621 · hover')}
-      ${swatch('Signal 050', 'var(--sn-signal-050)', '#FBECEB · wash')}
-      ${swatch('Paper', 'var(--sn-neutral-050)', '#F6F6F4')}
-      ${swatch('Line', 'var(--sn-neutral-150)', '#E6E6E2')}
+      ${swatch('Ink', 'var(--sn-ink)', '#00203F · brand')}
+      ${swatch('Signal', 'var(--sn-signal)', '#10A0D8 · brand')}
+      ${swatch('Signal 600', 'var(--sn-signal-600)', '#0D80AD · hover')}
+      ${swatch('Signal 050', 'var(--sn-signal-050)', '#E6F7FD · wash')}
+      ${swatch('Paper', 'var(--sn-neutral-050)', '#F4F6F7')}
+      ${swatch('Line', 'var(--sn-neutral-150)', '#E2E6E9')}
       ${swatch('Text secondary', 'var(--sn-neutral-600)', '#5A5A53')}
       ${swatch('Surface inverse', 'var(--sn-neutral-950)', '#0A0A0A')}
     </div>
@@ -300,7 +300,7 @@ const principles = () =>
         [
           '02',
           'One accent, rationed',
-          'Signal red and the serif italic are the only two things allowed to raise their voice. Spend them once per screen and they keep working.',
+          'Signal cyan and the serif italic are the only two things allowed to raise their voice. Spend them once per screen and they keep working.',
         ],
         [
           '03',

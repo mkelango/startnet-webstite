@@ -10,40 +10,54 @@
 :root {
   /* ------------------------------------------------------------------------
      1. PRIMITIVE — BRAND COLOUR
-     Sampled directly from the StartNet master logo artwork.
-     Ink #000000 and Signal #CC3029 are the two protected brand constants.
+     Re-tuned to the Informa reference (informa.com): deep navy replaces
+     ink as the institutional anchor, and a bright cyan replaces signal
+     red as THE DOT. The StartNet wordmark and name are unchanged — only
+     the colour system underneath them is re-sampled from the reference.
      --------------------------------------------------------------------- */
-  --sn-ink: #000000;          /* brand black — the wordmark            */
-  --sn-signal: #cc3029;       /* brand red   — THE DOT                 */
+  --sn-ink: #00203f;           /* brand navy — the wordmark, was #000    */
+  --sn-signal: #10a0d8;        /* brand cyan — THE DOT, was #cc3029      */
 
-  /* Signal ramp — derived, for states only. Never re-tint the logo dot. */
-  --sn-signal-050: #fbeceb;
-  --sn-signal-100: #f6d4d1;
-  --sn-signal-200: #eda9a3;
-  --sn-signal-300: #e28279;
-  --sn-signal-400: #d85a4f;
-  --sn-signal-500: #cc3029;   /* = --sn-signal                          */
-  --sn-signal-600: #ad2621;
-  --sn-signal-700: #8c1e1a;
-  --sn-signal-800: #661614;
-  --sn-signal-900: #3d0d0c;
+  /* Signal ramp — derived, for states only. */
+  --sn-signal-050: #e6f7fd;
+  --sn-signal-100: #cceffb;
+  --sn-signal-200: #99dff7;
+  --sn-signal-300: #66cff3;
+  --sn-signal-400: #33bfef;
+  --sn-signal-500: #10a0d8;   /* = --sn-signal                          */
+  --sn-signal-600: #0d80ad;
+  --sn-signal-700: #0a6082;
+  --sn-signal-800: #064058;
+  --sn-signal-900: #03202c;
 
-  /* Neutral ramp — a warm-neutral grey, so paper reads as paper, not screen */
+  /* Pale-blue tint family — Informa's banded "discover" sections and
+     decorative circles. Used as a surface tint, never as text or line. */
+  --sn-tint-050: #f0fafd;
+  --sn-tint-100: #d0f0f8;
+  --sn-tint-200: #b0e8f8;
+  --sn-tint-300: #a8e0f8;
+  --sn-tint-400: #c8f0f8;
+
+  /* Footer grey — the light neutral band the reference site closes on,
+     distinct from the pale-blue tint bands above. */
+  --sn-footer-grey: #e8ecef;
+
+  /* Neutral ramp — a cool neutral grey, matching the reference's paper */
   --sn-neutral-000: #ffffff;
-  --sn-neutral-025: #fbfbfa;
-  --sn-neutral-050: #f6f6f4;
-  --sn-neutral-100: #efefec;
-  --sn-neutral-150: #e6e6e2;
-  --sn-neutral-200: #d9d9d4;
-  --sn-neutral-300: #bebeb7;
-  --sn-neutral-400: #9b9b93;
-  --sn-neutral-500: #6d6d64;   /* AA on paper (#F6F6F4) at 14px and below */
-  --sn-neutral-600: #5a5a53;
-  --sn-neutral-700: #3f3f3a;
-  --sn-neutral-800: #262624;
-  --sn-neutral-850: #1a1a19;
-  --sn-neutral-900: #111110;
-  --sn-neutral-950: #0a0a0a;
+  --sn-neutral-025: #fafbfc;
+  --sn-neutral-050: #f4f6f7;
+  --sn-neutral-100: #eceff1;
+  --sn-neutral-150: #e2e6e9;
+  --sn-neutral-200: #d4d9dd;
+  --sn-neutral-300: #b8c0c6;
+  --sn-neutral-400: #8f9aa2;
+  --sn-neutral-500: #5f6b73;   /* AA on paper (#F4F6F7) at 14px and below */
+  --sn-neutral-600: #4c5860;
+  --sn-neutral-700: #37424a;
+  --sn-neutral-800: #212c33;
+  --sn-neutral-850: #172029;
+  --sn-neutral-900: #0e161d;
+  --sn-neutral-950: #081019;
 
   /* ------------------------------------------------------------------------
      2. PRIMITIVE — PORTFOLIO SWATCHES
@@ -260,6 +274,28 @@
   --color-surface: var(--sn-neutral-050);
   --color-surface-raised: var(--sn-neutral-000);
   --color-surface-sunken: var(--sn-neutral-100);
+}
+
+/* Tint context — the pale-blue "discover" band, reused from the reference
+   site's promo strips and decorative circles. */
+[data-theme='tint'] {
+  --color-surface: var(--sn-tint-100);
+  --color-surface-raised: var(--sn-neutral-000);
+  --color-surface-sunken: var(--sn-tint-300);
+  --color-line: color-mix(in srgb, var(--sn-ink) 12%, transparent);
+}
+
+/* Footer context — a light neutral grey band, distinct from both paper and
+   tint, closing the page the way the reference site's footer does. */
+[data-theme='footer'] {
+  --color-surface: var(--sn-footer-grey);
+  --color-surface-raised: var(--sn-neutral-000);
+  --color-surface-sunken: var(--sn-neutral-150);
+  --color-text: var(--sn-ink);
+  --color-text-secondary: var(--sn-neutral-600);
+  --color-text-tertiary: var(--sn-neutral-500);
+  --color-line: var(--sn-neutral-200);
+  --color-line-strong: var(--sn-neutral-300);
 }
 
 /* ==========================================================================
