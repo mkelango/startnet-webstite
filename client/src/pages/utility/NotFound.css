@@ -1,0 +1,96 @@
+/* 404 — the red full stop, and a calm way on. Prefix: .notfound
+   AngelList family: title and both languages on the ink band; search and suggested links on the sheet below. */
+.notfound { overflow: hidden; }
+.notfound__band {
+  background: var(--night-0); color: var(--night-text);
+  padding-block: clamp(var(--space-12), 2rem + 4vw, var(--space-20)) calc(clamp(var(--space-12), 2rem + 4vw, var(--space-20)) + var(--sheet-radius));
+}
+.notfound__head { display: grid; justify-items: start; }
+.notfound__head > * { min-width: 0; max-width: 100%; }
+
+/* "● 404": the falling full stop as a dot label */
+.notfound__mark { display: inline-flex; align-items: center; gap: 0.6em; }
+.notfound__dot {
+  display: block; width: 0.75rem; aspect-ratio: 1; border-radius: 50%;
+  background: var(--color-point);
+}
+.notfound__code { font-size: var(--text-body); font-weight: 400; color: var(--color-text); letter-spacing: 0; }
+
+.notfound__title { margin-top: var(--space-6); max-width: 18ch; overflow-wrap: break-word; }
+.notfound__sub { margin-top: var(--space-6); color: var(--color-text-2); max-width: 40rem; }
+.notfound__other {
+  margin-top: var(--space-8); padding-top: var(--space-5); max-width: 40rem;
+  border-top: 1px solid var(--color-border); color: var(--color-text-muted);
+}
+.notfound__other-title { font-weight: 500; color: var(--color-text-2); }
+.notfound__other-sub { font-size: var(--text-small); margin-top: var(--space-1); max-width: var(--measure); }
+
+/* The sheet slides over the band */
+.notfound__sheet {
+  position: relative; background: var(--color-bg);
+  margin-top: calc(-1 * var(--sheet-radius));
+  border-top-left-radius: var(--sheet-radius); border-top-right-radius: var(--sheet-radius);
+  padding-block: clamp(var(--space-10), 2rem + 3vw, var(--space-16)) var(--space-section);
+}
+.notfound__inner { display: grid; gap: var(--space-12); }
+@media (min-width: 1024px) {
+  .notfound__inner { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--space-16); align-items: start; }
+}
+.notfound__copy > * + * { margin-top: var(--space-6); }
+
+.notfound__legacy {
+  display: grid; gap: var(--space-3); padding: var(--space-5);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card); color: var(--color-text);
+}
+
+/* Search: a quiet hairline field (4px radius, 3:1 border) with the ink submit inside */
+.notfound__search { max-width: 36rem; }
+.notfound__label { display: block; font-weight: 500; margin-bottom: var(--space-3); }
+.notfound__field {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-4);
+  background: var(--card); border: 1px solid var(--color-border-control); border-radius: var(--btn-radius);
+  transition: border-color var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) { .notfound__field:hover { border-color: color-mix(in srgb, var(--color-text) 60%, var(--color-border-control)); } }
+.notfound__field:focus-within { border-color: var(--color-text); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-text) 12%, transparent); }
+.notfound__field-icon { flex: none; color: var(--color-text-muted); }
+.notfound__field input {
+  flex: 1; min-width: 0; min-height: 44px; border: 0; background: transparent; outline: none;
+  font-size: var(--text-body);
+}
+.notfound__field input:focus-visible { box-shadow: none; }
+.notfound__submit-icon { display: none; }
+@media (max-width: 479px) {
+  /* The submit carries the magnifier on phones, so the leading icon would only steal width. */
+  .notfound__field-icon { display: none; }
+  /* .button: NotFound.css ships in the entry bundle, before theme.css, whose `:root .button--md { padding-inline }`
+     would otherwise squeeze the icon to 6px. */
+  .notfound__field .notfound__submit.button { flex: none; width: 44px; height: 44px; min-height: 44px; padding: 0; }
+  .notfound__submit .notfound__submit-icon { display: block; }
+  .notfound__submit .notfound__submit-text {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  }
+}
+
+/* Where most people were heading: a hairline list */
+.notfound__links ul { list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--color-border); }
+@media (min-width: 640px) and (max-width: 1023.98px) { .notfound__links ul { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-8); } }
+.notfound__links li { border-bottom: 1px solid var(--color-border); }
+.notfound__link {
+  display: flex; align-items: center; gap: var(--space-4); min-height: 64px; padding-block: var(--space-4);
+  color: var(--color-text); text-decoration: none; font-size: var(--text-h5); font-weight: 400; letter-spacing: -0.01em;
+}
+.notfound__link > svg:first-child { flex: none; color: var(--color-text-muted); }
+.notfound__link span { flex: 1; min-width: 0; }
+.notfound__arrow { flex: none; color: var(--color-text); transition: transform var(--dur-2) var(--ease-standard); }
+.notfound__link:hover span { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.notfound__link:focus-visible .notfound__arrow { transform: translateX(var(--shift-1)); }
+@media (hover: hover) and (pointer: fine) { .notfound__link:hover .notfound__arrow { transform: translateX(var(--shift-1)); } }
+
+.notfound__more { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-6); margin-top: var(--space-6); font-size: var(--text-small); }
+.notfound__more a { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; color: var(--color-text-2); }
+.notfound__more a:hover { color: var(--color-text); }
+.notfound__inner > * { min-width: 0; }
+
+@media (prefers-reduced-motion: reduce) { .notfound__arrow, .notfound__field { transition: none; } }

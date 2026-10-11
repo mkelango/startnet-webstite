@@ -1,0 +1,58 @@
+/* T07 chapter nav (insights-reports group). Oct 2026: hairline TOC (1px rail, ink marker on the current chapter),
+   sentence-case title, a thin ink progress line, a quiet 4px toggle on phones. */
+.chapter-nav { display: grid; gap: var(--space-3); min-width: 0; }
+.chapter-nav__nav { display: grid; gap: var(--space-3); min-width: 0; }
+.chapter-nav__progress {
+  height: 2px; border-radius: var(--radius-full); background: var(--color-border); overflow: hidden;
+}
+.chapter-nav__bar {
+  display: block; height: 100%; background: var(--color-text);
+  transform: scaleX(0); transform-origin: left center; will-change: transform;
+}
+.chapter-nav__toggle {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  width: 100%; min-height: 44px; padding: 0 var(--space-4);
+  border: 1px solid var(--color-border-control); border-radius: var(--radius-btn);
+  background: var(--white); color: var(--color-text);
+  font-size: var(--text-small); font-weight: 500;
+}
+.chapter-nav__chev { transition: transform var(--dur-2) var(--ease-standard); }
+.chapter-nav__toggle[aria-expanded="true"] .chapter-nav__chev { transform: rotate(180deg); }
+.chapter-nav__title {
+  display: none; margin: 0; color: var(--color-text-muted);
+  font-size: var(--text-small); font-weight: 400;
+}
+.chapter-nav__list { position: relative; list-style: none; margin: 0; padding: 0; display: none; border-left: 1px solid var(--color-border); }
+.chapter-nav__ind {
+  position: absolute; left: -1px; top: 0; width: 2px; height: 100px;
+  background: var(--color-text); opacity: 0; pointer-events: none;
+  transform-origin: top left;
+  transform: translateY(var(--ind-y, 0px)) scaleY(calc(var(--ind-h, 0) / 100));
+  transition: transform var(--dur-3) var(--ease-snap), opacity var(--dur-2) var(--ease-snap);
+}
+.chapter-nav__list[data-ind-ready] > .chapter-nav__ind { opacity: 1; }
+.chapter-nav__list[data-ind-ready] .chapter-nav__link[aria-current] { border-left-color: transparent; }
+.chapter-nav__list[data-open="true"] { display: grid; }
+.chapter-nav__link {
+  display: flex; align-items: center; gap: var(--space-3);
+  min-height: 44px; padding: var(--space-2) var(--space-4);
+  margin-left: -1px; border-left: 1px solid transparent;
+  color: var(--color-text-muted); text-decoration: none; font-size: var(--text-small);
+  transition: color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard);
+}
+.chapter-nav__link:hover { color: var(--color-text); }
+.chapter-nav__link[aria-current] { color: var(--color-text); border-left-color: var(--color-text); }
+.chapter-nav__num { font-variant-numeric: tabular-nums; color: var(--color-text-muted); font-size: var(--text-caption); }
+.chapter-nav__extra { display: grid; gap: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+
+@media (min-width: 1024px) {
+  .chapter-nav__toggle { display: none; }
+  .chapter-nav__title { display: block; }
+  .chapter-nav__list,
+  .chapter-nav__list[data-open="false"] { display: grid; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter-nav__chev, .chapter-nav__link, .chapter-nav__ind { transition: none; }
+}
+:root[data-motion='reduced'] :is(.chapter-nav__chev, .chapter-nav__link, .chapter-nav__ind) { transition: none; }

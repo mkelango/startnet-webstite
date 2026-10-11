@@ -1,0 +1,376 @@
+/* /events/<series>/<edition>(/agenda|/speakers) — T05 event edition.
+   AngelList-family finish (Oct 2026): the hero is the ink band (data-surface="night" in the JSX) with a framed
+   poster and a hairline fact strip; the body is a sheet sliding over it — underline tabs and feature rows on the
+   left, the key-facts panel on the right. */
+.edition-page { overflow-x: clip; }
+.edition-page__loading { display: grid; gap: var(--space-6); padding-block: var(--space-16); }
+.edition-page__error { display: grid; gap: var(--space-4); justify-items: start; max-width: var(--measure); }
+
+/* Hero: the ink band */
+.edition-hero {
+  position: relative; background: var(--night-0); color: var(--night-text);
+  padding-block: var(--space-8) calc(clamp(var(--space-12), 2rem + 4vw, var(--space-20)) + var(--sheet-radius));
+}
+/* The body slides over the band as a rounded sheet (as theme.css does after .page-hero). */
+.edition-page .edition-hero + .section {
+  position: relative;
+  margin-top: calc(-1 * var(--sheet-radius));
+  border-top-left-radius: var(--sheet-radius);
+  border-top-right-radius: var(--sheet-radius);
+  box-shadow: 0 -18px 40px -24px color-mix(in srgb, var(--night-0) 30%, transparent);
+  padding-top: calc(var(--space-section) * 0.7);
+}
+.edition-hero__grid { display: grid; gap: var(--space-8); margin-top: var(--space-10); align-items: center; }
+@media (min-width: 1024px) { .edition-hero__grid { grid-template-columns: 7fr 5fr; gap: var(--space-16); } }
+.edition-hero__copy { display: grid; gap: var(--space-5); justify-items: start; min-width: 0; }
+.edition-hero__chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.edition-hero__title { max-width: 16ch; overflow-wrap: anywhere; color: var(--night-text); }
+.edition-hero__endorse { margin-top: calc(-1 * var(--space-2)); font-size: var(--text-small); font-weight: 500; color: var(--accent-night, var(--night-text-2)); }
+.edition-hero__lede { color: var(--night-text-2); max-width: 46ch; }
+.edition-hero__actions { --cluster-gap: var(--space-3); }
+.edition-hero__micro { max-width: 52ch; color: var(--night-text-2); }
+.edition-hero__copy > .caption { color: var(--night-text-2); }
+.edition-hero__wa { font-weight: 500; color: var(--night-text); text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-underline-offset: 0.25em; }
+
+.edition-hero__poster { position: relative; width: 100%; max-width: 30rem; justify-self: center; }
+@media (min-width: 1024px) { .edition-hero__poster { justify-self: end; } }
+@media (max-width: 1023px) {
+  .edition-hero__poster { justify-self: start; max-width: none; max-height: 220px; overflow: hidden; border-radius: var(--media-radius); }
+}
+/* Date block over the poster: an ink label — small caps over a big light numeral */
+.edition-hero__dateblock {
+  position: absolute; left: var(--space-4); top: var(--space-4); z-index: 2; display: grid; justify-items: start; gap: 0.25em;
+  min-width: 4.75rem; padding: var(--space-2) var(--space-3);
+  border-radius: var(--btn-radius); background: var(--night-0); color: var(--night-text);
+  box-shadow: inset 0 0 0 1px var(--night-line-strong);
+}
+.edition-hero__dateblock-month { font-size: 0.6875rem; font-weight: 500; line-height: 1; letter-spacing: 0; color: var(--night-text-2); }
+:lang(ta) .edition-hero__dateblock-month { text-transform: none; letter-spacing: 0; font-size: var(--text-caption); }
+.edition-hero__dateblock-day { font-size: var(--text-h3); font-weight: 400; line-height: 1; letter-spacing: -0.04em; }
+.edition-hero__dateblock-wd { font-size: var(--text-caption); color: var(--night-text-muted); }
+@media (min-width: 1024px) {
+  .edition-hero__dateblock { left: var(--space-5); top: var(--space-5); min-width: 5.5rem; padding: var(--space-3) var(--space-4); }
+  .edition-hero__dateblock-day { font-size: var(--text-h1); }
+}
+
+/* Facts: a hairline strip on the band — small muted label over the value; columns split by vertical hairlines */
+.edition-hero__facts {
+  display: grid; margin: var(--space-12) 0 0; grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--night-line);
+}
+@media (max-width: 359px) { .edition-hero__facts { grid-template-columns: minmax(0, 1fr); } }
+/* No lone fact in a part-empty row: 2 columns on phones (an odd last fact spans the row); at 768–1023, 4 facts sit
+   2 × 2 and other counts use 3 columns with the last fact widened to close its row; at 1024+ 4–5 facts share one
+   row and 6 split 3 + 3 until 1280. data-count is set by EditionPage. */
+@media (min-width: 360px) and (max-width: 767px) {
+  .edition-hero__fact:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .edition-hero__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .edition-hero__facts[data-count="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .edition-hero__facts:not([data-count="4"]) .edition-hero__fact:last-child:nth-child(3n + 2) { grid-column: span 2; }
+  .edition-hero__facts:not([data-count="4"]) .edition-hero__fact:last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) { .edition-hero__facts { grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); } }
+@media (min-width: 1024px) and (max-width: 1279px) { .edition-hero__facts[data-count="6"] { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .edition-hero__facts[data-count="6"] { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.edition-hero__fact { min-width: 0; overflow-wrap: anywhere; padding: var(--space-4) var(--space-4) var(--space-4) 0; border-bottom: 1px solid var(--night-line); }
+.edition-hero__fact dt { font-size: var(--text-small); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--night-text-muted); }
+.edition-hero__fact dd { margin: var(--space-1) 0 0; font-weight: 500; color: var(--night-text); }
+@media (min-width: 1024px) {
+  .edition-hero__fact { padding-block: var(--space-5); }
+  .edition-hero__fact + .edition-hero__fact { border-left: 1px solid var(--night-line); padding-left: var(--space-5); }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .edition-hero__facts[data-count="6"] .edition-hero__fact:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
+}
+
+/* Body: main 8 / aside 4 with a sticky key-facts panel on desktop */
+.edition-body__layout { display: grid; gap: var(--space-12); }
+.edition-body__main { min-width: 0; display: grid; gap: var(--space-10); align-content: start; }
+.edition-body__aside { min-width: 0; }
+@media (max-width: 1023px) { .edition-body__aside { order: -1; } }
+@media (min-width: 1024px) {
+  .edition-body__layout { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--space-16); }
+  .edition-body__sticky { position: sticky; top: calc(var(--shell-offset, var(--header-h)) + var(--space-6)); transition: top var(--dur-3) var(--ease-standard); }
+}
+.edition-body__sticky { display: grid; gap: var(--space-4); justify-items: start; }
+.edition-body__sticky > .key-facts { width: 100%; }
+.edition-body__aside-actions { display: grid; gap: var(--space-3); }
+/* 1024–1279: a 20rem aside with tighter button padding, so "Get the date on WhatsApp" keeps one line */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .edition-body__layout { grid-template-columns: minmax(0, 1fr) 20rem; gap: var(--space-10); }
+}
+@media (min-width: 1024px) { .edition-page .edition-body__aside-actions .button:not(.button--tertiary) { padding-inline: var(--space-4); } }
+
+/* Path-synced tabs: underline tabs in regular weight on a hairline (as .tabs in theme.css) */
+.edition-tabs {
+  position: relative; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--color-border);
+  scroll-margin-top: calc(var(--shell-offset, var(--header-h)) + var(--space-4));
+  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 24px), transparent);
+          mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 24px), transparent);
+}
+@media (min-width: 768px) { .edition-tabs { -webkit-mask-image: none; mask-image: none; } }
+.edition-tabs::-webkit-scrollbar { display: none; }
+.edition-tabs:focus { outline: none; }
+.edition-tabs__list { list-style: none; margin: 0; padding: 0 var(--space-6) 0 0; display: flex; gap: var(--space-8); min-width: max-content; }
+.edition-tabs__tab {
+  position: relative; display: inline-flex; align-items: center; min-height: 48px; padding: var(--space-3) 0 var(--space-4);
+  color: var(--color-text-muted); font-size: var(--text-body-lg); font-weight: 400; letter-spacing: -0.01em; text-decoration: none; white-space: nowrap;
+  transition: color var(--dur-2) var(--ease-standard);
+}
+:lang(ta) .edition-tabs__tab { font-size: var(--text-body); letter-spacing: 0; }
+.edition-tabs__tab:hover, .edition-tabs__tab.is-active { color: var(--color-text); }
+/* The scroller clips anything outside it, so the ring is drawn inside the 48px tab (4px top/bottom) and 4px
+   beyond the label at the sides; the scroller starts 4px early (padding + negative margin) so the first ring fits. */
+.edition-tabs { margin-inline-start: -4px; padding-inline-start: 4px; }
+.edition-tabs__tab:focus-visible { outline: none; }
+.edition-tabs__tab:focus-visible::after {
+  content: ''; position: absolute; inset: 4px -4px; border-radius: var(--btn-radius); box-shadow: var(--focus-ring); pointer-events: none;
+}
+.edition-tabs__indicator { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; border-radius: 0; background: var(--color-text); }
+
+/* Panels: regular-weight titles, feature rows on hairlines */
+.edition-panel { min-width: 0; }
+.edition-panel__stack { display: grid; gap: var(--space-16); }
+.edition-panel__block { display: grid; gap: var(--space-5); justify-items: start; min-width: 0; }
+.edition-panel__block > * { max-width: 100%; }
+/* Lists, tables and the FAQ take the full column (the block itself aligns its children to the start). */
+.edition-panel__block > :is(div, dl, ol, ul) { width: 100%; }
+/* Grid gaps carry the rhythm; no extra prose margins above the first heading or between heading and text. */
+.edition-panel__block.prose > * { margin-top: 0; }
+.edition-panel__block > h2.h3 { font-weight: 400; letter-spacing: -0.015em; }
+.edition-panel__sub { display: grid; gap: var(--space-3); justify-items: start; margin-top: var(--space-6); padding-top: var(--space-6); border-top: 1px solid var(--color-border); width: 100%; }
+.edition-panel__sub > h3 { font-weight: 500; }
+:lang(ta) .edition-panel__block > h2.h3 { letter-spacing: 0; }
+.edition-panel__placeholder { display: grid; gap: var(--space-3); }
+
+.edition-outcomes {
+  display: grid; gap: var(--space-6); margin: 0; width: 100%; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  padding-top: var(--space-6); border-top: 1px solid var(--color-border);
+}
+/* Figures: big light numerals between vertical hairlines (Meridian), not ink rules over each figure */
+.edition-outcomes > .stat--default { padding-top: 0; border-top: 0; }
+@media (min-width: 1024px) {
+  .edition-outcomes > .stat + .stat { padding-left: var(--space-6); border-left: 1px solid var(--color-border); }
+}
+
+/* "What it is": numbered feature rows — big light numerals over a hairline, no boxes */
+.edition-pillars { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-8) var(--space-6); }
+@media (min-width: 768px) { .edition-pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.edition-pillars__item {
+  min-width: 0; overflow-wrap: break-word;
+  display: grid; gap: var(--space-2); align-content: start; padding-top: var(--space-5); border-top: 1px solid var(--color-border);
+}
+.edition-pillars__item > h3 { font-weight: 500; letter-spacing: -0.01em; }
+.edition-pillars__num { font-size: var(--text-h2); font-weight: 400; line-height: 1; letter-spacing: -0.04em; color: var(--color-text-muted); margin-bottom: var(--space-2); }
+
+/* Tracks: a two-column hairline list */
+.edition-tracks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 var(--space-8); width: 100%; border-top: 1px solid var(--color-border); }
+@media (min-width: 768px) { .edition-tracks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.edition-tracks__item { display: grid; gap: var(--space-1); align-content: start; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+.edition-tracks__item > h3 { font-weight: 500; }
+
+/* Prizes: check rows on hairlines */
+.edition-prizes { list-style: none; margin: 0; padding: 0; display: grid; width: 100%; border-top: 1px solid var(--color-border); }
+.edition-prizes li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-3); align-items: start; padding-block: var(--space-3); border-bottom: 1px solid var(--color-border); }
+.edition-prizes svg { color: var(--accent-text); margin-top: 0.2em; }
+
+/* Venue: a hairline fact list */
+.edition-venue { display: grid; gap: 0; margin: 0; width: 100%; border-top: 1px solid var(--color-border); }
+.edition-venue > div { display: grid; gap: var(--space-1); align-items: baseline; padding-block: var(--space-4); border-bottom: 1px solid var(--color-border); }
+@media (min-width: 768px) { .edition-venue > div { grid-template-columns: 12rem minmax(0, 1fr); gap: var(--space-4); } }
+.edition-venue dt { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); }
+.edition-venue dd { margin: 0; overflow-wrap: anywhere; }
+
+/* Agenda table (time grid on desktop, scrolls inside its own container on phones) */
+.edition-table { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--btn-radius); }
+.edition-table:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.edition-table__table { width: 100%; min-width: 32rem; border-collapse: collapse; font-size: var(--text-small); }
+.edition-table__table caption { caption-side: bottom; text-align: left; padding-top: var(--space-3); color: var(--color-text-muted); }
+.edition-table__table th, .edition-table__table td { text-align: left; vertical-align: top; padding: var(--space-3) var(--space-4) var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+.edition-table__table thead th { font-size: var(--text-small); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--color-text-muted); }
+.edition-table__table tbody th { font-weight: 500; }
+.edition-table__time { white-space: nowrap; font-weight: 500; }
+
+/* Timeline: a hairline track with small accent dots */
+.edition-timeline { list-style: none; margin: 0; padding: 0 0 0 var(--space-8); position: relative; display: grid; gap: var(--space-8); width: 100%; }
+.edition-timeline::before { content: ""; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 1px; background: var(--color-border-control); opacity: 0.5; }
+.edition-timeline__item { position: relative; display: grid; gap: var(--space-1); }
+.edition-timeline__dot {
+  position: absolute; left: calc(-1 * var(--space-8)); top: 0.35em; width: 11px; height: 11px; border-radius: var(--radius-full);
+  background: var(--accent-fill, var(--color-point)); box-shadow: 0 0 0 4px var(--color-bg);
+}
+.edition-timeline__when { margin: 0; color: var(--color-text-muted); }
+.edition-timeline__stage { margin: 0; font-weight: 500; }
+
+.edition-speakers { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); width: 100%; grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr)); }
+
+/* "From the room" (EventGallery, owned by the shared layer): its own white sheet after the body, a calm gap,
+   then the sibling editions on the same sheet below a hairline. */
+.edition-page .edition-gallery { padding-bottom: var(--space-16); }
+/* Films follow the gallery on the same white sheet, below a hairline */
+.edition-page .edition-films { padding-bottom: var(--space-16); }
+/* The shared same-ground rule already draws a full-bleed hairline between these Bone sections, so no second inner
+   rule: just a calm 64px (AIWO header gap) before the next block. */
+.edition-page .edition-gallery + .edition-films,
+.edition-page .edition-films + .edition-siblings,
+.edition-page .edition-gallery + .edition-siblings { padding-top: var(--space-16); }
+
+/* Sibling editions */
+.edition-siblings__grid { list-style: none; margin: var(--space-8) 0 0; padding: 0; display: grid; gap: var(--space-6); }
+@media (min-width: 768px) { .edition-siblings__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .edition-siblings__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.edition-siblings__grid > li { display: grid; min-width: 0; }
+/* One sibling: a full-width row card (art left), not a lone card beside two empty columns.
+   Two siblings: two columns with a shorter frame. */
+@media (min-width: 768px) {
+  .edition-siblings__grid:has(> li:only-child) { grid-template-columns: minmax(0, 1fr); }
+  .edition-siblings__grid > li:only-child > .card:has(> .card__media) { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .edition-siblings__grid > li:only-child > .card.card > .card__media { height: 100%; border-radius: calc(var(--media-radius) - 1px) 0 0 calc(var(--media-radius) - 1px); }
+  .edition-siblings__grid > li:only-child > .card > .card__media .art-image { aspect-ratio: auto !important; height: 100%; min-height: 14rem; }
+}
+@media (min-width: 1024px) {
+  .edition-siblings__grid:has(> li:nth-child(2):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .edition-siblings__grid:has(> li:nth-child(2):last-child) .card__media .art-image { aspect-ratio: 2 / 1 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edition-tabs__tab, .edition-body__sticky { transition: none; }
+}
+
+/* Final verifier r3 (F-72 carried over): flat /events/<series>-<edition> URLs now land here, so the phone hero gets
+   the same height budget the old event hero had. Below 480px the decorative poster (alt="", its date block is
+   aria-hidden and repeats the Date fact) is dropped, and the facts become compact label | value rows. No copy or
+   fact is removed. */
+@media (max-width: 479.98px) {
+  .edition-hero { padding-block: var(--space-6) calc(var(--space-8) + var(--sheet-radius)); }
+  .edition-page .edition-hero + .section { padding-top: calc(var(--space-8) + var(--sheet-radius) * 0.25); }
+  .edition-hero__grid { margin-top: var(--space-5); gap: var(--space-6); }
+  .edition-hero__copy { gap: var(--space-4); }
+  .edition-hero__poster { display: none; }
+  .edition-hero__facts { margin-top: var(--space-6); grid-template-columns: minmax(0, 1fr); }
+  .edition-hero__fact {
+    display: grid; grid-template-columns: 4.75rem minmax(0, 1fr); column-gap: var(--space-3); align-items: baseline;
+    padding: var(--space-3) 0;
+  }
+  .edition-hero__fact dd { margin: 0; font-size: var(--text-small); line-height: 1.5; }
+}
+@media (min-width: 480px) and (max-width: 767.98px) {
+  .edition-hero { padding-bottom: calc(var(--space-10) + var(--sheet-radius)); }
+}
+
+/* Final verifier r3: Tamil pillar headings (now localized) at h5 size, breaking only between whole words, so
+   "போட்டியிடுங்கள்" no longer splits mid-syllable in the 3-up grid (same rule EventDetail uses since round 2). */
+.edition-pillars .h4:lang(ta) { font-size: var(--text-h5); }
+.edition-pillars :is(h3, p):lang(ta) { overflow-wrap: break-word; }
+
+/* Phone hero budget (Tamil edition hero was 1295px at 320). The eligibility/fee note repeats the Fee fact, so below
+   480px it folds behind a 44px toggle; Tamil lede drops to body size and fact values use a tighter line height.
+   Nothing is removed: the note opens in place and every fact stays visible. */
+.edition-hero__micro-toggle { display: none; }
+@media (max-width: 479.98px) {
+  .edition-hero__micro-toggle {
+    display: inline-flex; align-items: center; gap: var(--space-2); justify-self: start;
+    min-height: 44px; padding: 0; border: 0; background: none; color: var(--night-text);
+    font-size: var(--text-small); font-weight: 500; text-decoration: underline;
+    text-decoration-color: var(--color-link-decoration); text-underline-offset: 0.25em;
+  }
+  .edition-hero__micro-toggle::after { content: "+"; font-weight: 400; text-decoration: none; }
+  .edition-hero__micro-toggle[aria-expanded="true"]::after { content: "−"; }
+  .edition-hero__micro { display: none; }
+  .edition-hero__micro.is-open { display: block; }
+  .edition-hero__lede:lang(ta) { font-size: var(--text-body); line-height: 1.7; }
+  .edition-hero__fact dd:lang(ta), :lang(ta) .edition-hero__fact dd { line-height: 1.45; }
+  :lang(ta) .edition-hero__fact { grid-template-columns: 4.25rem minmax(0, 1fr); }
+}
+
+/* Real photo in the poster (< 1024px): the poster is a short landscape band, so the photo fills exactly that band
+   and crops around its focal point, instead of a 4:5 photo being cut off by max-height. */
+@media (max-width: 1023px) {
+  .edition-hero__poster:has(.art-image--photo) { height: 220px; }
+  .edition-hero__poster .art-image--photo { aspect-ratio: auto !important; height: 100%; }
+}
+
+/* AA: the shared "Past edition" chip sets muted grey on the sheet-2 fill (4.4:1); secondary text keeps it above 4.5:1. */
+.edition-page :is(.badge--past, .badge--closed) { color: var(--color-text-2); }
+
+/* ---------- DESIGN-v2 6.3 (Oct 2026) ---------- */
+/* Hero: the plain Ink band (no dot texture, as PageHero); the sheet rises once, straight, no shadow. */
+.edition-hero {
+  padding-top: var(--space-16);
+}
+@media (max-width: 479.98px) { .edition-hero { padding-top: var(--space-8); } }
+.edition-page .edition-hero + .section { box-shadow: none; z-index: 1; padding-top: calc(var(--space-section) * 0.75); }
+.edition-hero__grid { align-items: start; }
+.edition-hero__dateblock-month { font-size: var(--text-caption); letter-spacing: 0; }
+.edition-hero__dateblock-day { font-weight: 400; font-variant-numeric: tabular-nums lining-nums; }
+.edition-hero__fact dd { font-weight: 500; font-variant-numeric: tabular-nums; }
+.edition-hero__fact dt { color: var(--night-text-2); }
+.edition-hero__poster .art-image { border-radius: var(--radius-media); }
+/* Poster entrance: the same CSS clip-in as PageHero media (SSR-safe; the prerender runs reduced) */
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) .edition-hero__poster .art-image--photo { animation: edition-media-in 900ms var(--ease-reveal) 120ms both; }
+}
+@keyframes edition-media-in {
+  from { clip-path: inset(6% 6% 6% 6% round 12px); transform: scale(1.04); }
+  to { clip-path: inset(0 round 12px); transform: none; }
+}
+/* Sticky framed key-facts card: docks 32px under the visible header */
+@media (min-width: 1024px) {
+  .edition-body__sticky { top: calc(var(--shell-offset, var(--header-h)) + 32px); }
+}
+.edition-page .key-facts__action .button--primary { background-color: var(--sn-ink); }
+/* Path tabs: one 2px Ink underline glides between the links (useSlidingIndicator); static underline before measuring */
+.edition-tabs { border-bottom: 0; box-shadow: inset 0 -1px 0 var(--hairline); }
+.edition-tabs .ind { z-index: 1; }
+.edition-tabs__tab { color: var(--color-text-2); font-size: 1rem; letter-spacing: 0; }
+.edition-tabs__tab[aria-current='page'] { color: var(--color-text); font-weight: 500; }
+.edition-tabs__tab:focus-visible { box-shadow: none; outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.edition-tabs:not([data-ind-ready]) .edition-tabs__tab[aria-current='page'] { box-shadow: inset 0 -2px 0 var(--color-text); }
+.edition-panel { animation: none; }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) .edition-panel > * { animation: edition-panel-in var(--dur-3) var(--ease-snap); }
+}
+@keyframes edition-panel-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+/* Panel headings at 500 */
+.edition-panel__block > h2.h3 { font-weight: 500; }
+/* Pillars: 01–0N meta index over an Ink top rule (Steps pattern) */
+.edition-pillars__item { border-top: 1px solid var(--sn-ink); }
+.edition-pillars__num { font-size: var(--text-meta); line-height: 1.45; letter-spacing: 0; color: var(--color-text-2); font-variant-numeric: tabular-nums; margin-bottom: var(--space-3); }
+/* Agenda: hairline rows, tabular times, Bone row hover */
+.edition-table__time { font-variant-numeric: tabular-nums lining-nums; font-weight: 500; }
+.edition-table__table tbody tr { transition: background-color var(--dur-2) var(--ease-snap); }
+@media (hover: hover) { .edition-table__table tbody tr:hover { background: var(--bone); } }
+.edition-table__table th, .edition-table__table td { border-bottom-color: var(--hairline); }
+/* Timeline: Ink dots on a hairline track (never red; the red point is the headline stop) */
+.edition-timeline::before { background: var(--hairline); opacity: 1; }
+.edition-timeline__dot { background: var(--sn-ink); box-shadow: 0 0 0 4px var(--paper); }
+.edition-timeline__item:first-child .edition-timeline__dot { background: var(--paper); box-shadow: inset 0 0 0 2px var(--sn-ink), 0 0 0 4px var(--paper); }
+.edition-timeline__when { color: var(--color-text-2); font-variant-numeric: tabular-nums; }
+.edition-prizes svg { color: var(--color-text); }
+.edition-outcomes, .edition-venue, .edition-venue > div, .edition-tracks, .edition-tracks__item, .edition-prizes, .edition-prizes li { border-color: var(--hairline); }
+@media (prefers-reduced-motion: reduce) { .edition-table__table tbody tr { transition: none; } }
+/* One red point: in-body arrow links are Ink; the brand accent stays in the label dots */
+.edition-body .button--tertiary, .edition-siblings .button--tertiary { color: var(--color-text); }
+
+/* Three outcome figures: one row of three from 768 (auto-fit gave 2 + 1 at 1024–1279) */
+@media (min-width: 768px) { .edition-outcomes:has(> :nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Mobile audit (Oct 2026) ------------------------------------------------------------------------------------
+   Phones: the hero actions take the full row, as every PageHero does below 480px (they sat as two ragged
+   left-aligned buttons of different widths). */
+@media (max-width: 479.98px) {
+  .edition-hero__actions > .button:not(.button--tertiary) { flex: 1 1 100%; }
+  /* Three path tabs fit a 375px column with a 20px gap (at 32px "Speakers and jury" was cut by the fade). */
+  .edition-tabs__list { gap: var(--space-5); }
+}
+/* < 1024px: the hero fact strip already lists Date, Where, Format and Price, so the Key facts card no longer jumps
+   ahead of the tabs (the same facts twice, back to back, before any content). It follows the tab panel as the
+   summary + register card, matching EventDetail; the hero and the bottom CTA bar keep the register action up top. */
+@media (max-width: 1023px) { .edition-body__aside { order: 0; } }
+/* 320–359px: the Key facts rows stack (label over value), as on programme pages, instead of a 4-line date
+   squeezed into a ~120px value column. */
+@media (max-width: 359px) {
+  .edition-page .key-facts__row { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); }
+}

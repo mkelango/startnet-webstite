@@ -1,0 +1,144 @@
+:where(.ladder) { margin: 0; }
+.ladder { list-style: none; padding: 0; }
+
+/* ===== Vertical stepper (default; also mobile for horizontal) ===== */
+.ladder--vertical, .ladder--horizontal { display: grid; gap: 0; }
+.ladder__level {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: var(--space-4);
+  padding-bottom: var(--space-6);
+}
+.ladder__marker { position: relative; display: flex; justify-content: center; }
+/* Rail joining the dots */
+.ladder__marker::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  bottom: calc(var(--space-6) * -1);
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: var(--color-border);
+}
+.reveal-group__item:last-child .ladder__marker::before,
+.ladder__level:last-child .ladder__marker::before { display: none; }
+.ladder__dot {
+  position: relative;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  margin-top: 4px;
+  border: 1.5px solid var(--color-text);
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+}
+.ladder__level--tracked .ladder__dot { background: var(--color-bg); border-color: var(--color-border-control); border-style: dashed; }
+.ladder__level--range .ladder__dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-tint); }
+[data-surface='night'] .ladder__level--range .ladder__dot { background: var(--accent-night); border-color: var(--accent-night); box-shadow: none; }
+[data-surface='night'] .ladder__level:not(.ladder__level--current):not(.ladder__level--tracked):not(.ladder__level--range) .ladder__dot { background: var(--night-0); border-color: var(--night-text); }
+/* The current level is the red point (Brand Book 04.4 "Ladder: current level filled red") */
+.ladder__level--current .ladder__dot { width: 18px; height: 18px; margin-top: 2px; background: var(--color-point); border-color: var(--color-point); box-shadow: none; }
+.ladder__content { display: grid; gap: var(--space-1); min-width: 0; }
+.ladder__code {
+  font-size: var(--text-meta);
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.ladder__name { font-family: var(--font-display); font-size: var(--text-h5); font-weight: 500; line-height: 1.3; letter-spacing: var(--tracking-h3); color: var(--color-text); }
+.ladder__def { color: var(--color-text-2); font-size: var(--text-small); max-width: 44ch; }
+.ladder__example { color: var(--color-text-muted); font-size: var(--text-caption); }
+.ladder__level--tracked .ladder__name { color: var(--color-text-2); }
+.ladder__content .stat { margin-top: var(--space-2); }
+
+/* ===== Horizontal staircase (≥ 1024px) ===== */
+@media (min-width: 1024px) {
+  .ladder--horizontal {
+    grid-template-columns: repeat(var(--ladder-cols, 7), minmax(0, 1fr));
+    align-items: end;
+    gap: 0 var(--space-3);
+  }
+  .ladder--horizontal .reveal-group__item { align-self: end; }
+  .ladder--horizontal .ladder__level {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-3);
+    padding: 0 0 calc(var(--ladder-i, 0) * var(--space-6)) 0;
+    margin-top: 0;
+  }
+  .ladder--horizontal .ladder__marker { justify-content: flex-start; padding-top: var(--space-3); border-top: 1px solid var(--color-text); }
+  .ladder--horizontal .ladder__level--tracked .ladder__marker { border-top-style: dashed; border-top-color: var(--color-border-control); }
+  .ladder--horizontal .ladder__marker::before { display: none; }
+  .ladder--horizontal .ladder__dot { margin-top: calc(-1 * var(--space-3) - 8px); }
+  .ladder--horizontal .ladder__def { font-size: var(--text-caption); }
+}
+
+/* ===== Compact: a row of seven dots ===== */
+.ladder--compact {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0;
+  position: relative;
+}
+.ladder--compact::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: calc(100% / 14);
+  right: calc(100% / 14);
+  height: 2px;
+  background: var(--color-border);
+}
+.ladder__c {
+  position: relative;
+  display: grid;
+  /* dot / code / name rows: every code shares one baseline whether or not a name is shown */
+  grid-template-rows: auto auto auto;
+  align-content: start;
+  justify-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  text-align: center;
+}
+.ladder__c-dot {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--color-border-control);
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+}
+.ladder__c-code { font-size: var(--text-caption); font-weight: 500; color: var(--color-text-2); font-variant-numeric: tabular-nums; }
+.ladder__c-name {
+  max-width: 100%;
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+.ladder__c--range .ladder__c-dot { border-color: var(--accent); background: var(--accent); }
+[data-surface='night'] .ladder__c--range .ladder__c-dot { border-color: var(--accent-night); background: var(--accent-night); }
+.ladder__c--range .ladder__c-code { color: var(--color-text); }
+.ladder__c--current .ladder__c-dot { border-color: var(--color-point); background: var(--color-point); }
+.ladder__c--current .ladder__c-code, .ladder__c--current .ladder__c-name { color: var(--color-text); font-weight: 500; }
+/* One caption under the row replaces the per-column names on phones (columns are 34–46px wide). */
+.ladder__range-caption { display: none; margin: var(--space-3) 0 0; font-size: var(--text-small); font-weight: 500; color: var(--color-text); text-align: center; }
+@media (max-width: 479px) {
+  .ladder--compact .ladder__c-name { display: none; }
+  .ladder__range-caption { display: block; }
+  /* Without a caption (no range/current), keep the names screen-reader only */
+  .ladder--compact:not(.ladder--has-caption) .ladder__c-name {
+    display: block;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+

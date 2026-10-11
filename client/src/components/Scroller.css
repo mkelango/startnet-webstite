@@ -1,0 +1,102 @@
+/* Scroller (DESIGN-v2 3.11): right-bleed snap rail. The first card sits on the container edge; later cards run off
+   the viewport edge. Controls (AIWO P5): a tabular "01 / 08" counter (16px muted, the current index in Ink) + two
+   48px round ring buttons (the disabled one at 35%).
+   A 1px progress hairline runs under the track. */
+.scroller { position: relative; min-width: 0; }
+.scroller__controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+/* Directly under a section header with no action: the controls share the header's last row at ≥1024 */
+@media (min-width: 1024px) {
+  .section-header:not(.section-header--has-action) + .scroller > .scroller__controls {
+    margin-top: calc(-1 * (48px + var(--space-head-gap)));
+    margin-bottom: var(--space-head-gap);
+    margin-left: auto;
+    width: max-content;
+  }
+}
+.scroller__status { margin: 0 var(--space-4) 0 0; font-size: 1rem; line-height: 1; color: var(--color-text-muted); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; white-space: nowrap; }
+.scroller__count-now { color: var(--color-text); }
+.scroller__count-sep { color: var(--color-text-muted); }
+.scroller--fits .scroller__controls,
+.scroller--fits .scroller__progress { display: none; }
+.scroller__btn {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: var(--color-text);
+  transition: background-color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap), opacity var(--dur-2) var(--ease-snap), transform var(--dur-1) var(--ease-standard);
+}
+:root [data-surface='night'] .scroller__btn { box-shadow: inset 0 0 0 1px var(--night-line-strong); }
+.scroller__btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+@media (hover: hover) {
+  .scroller__btn:hover:not(:disabled):not([aria-disabled='true']) { box-shadow: inset 0 0 0 1px var(--color-text); background: rgb(12 23 25 / 0.04); }
+  :root [data-surface='night'] .scroller__btn:hover:not(:disabled):not([aria-disabled='true']) { box-shadow: inset 0 0 0 1px var(--paper); background: rgb(244 243 239 / 0.08); }
+}
+.scroller__btn:active:not(:disabled):not([aria-disabled='true']) { transform: scale(0.96); }
+.scroller__btn:disabled, .scroller__btn[aria-disabled='true'] { opacity: 0.35; cursor: default; }
+.scroller__track:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; border-radius: var(--radius-btn); }
+
+/* Track: gap 32 (20 below 768); snap; no scrollbar */
+.scroller__track {
+  --scroller-item: min(84%, 22rem);
+  --scroller-start: var(--gutter);
+  --scroller-end: var(--gutter);
+  display: flex;
+  gap: 20px;
+  margin: 0 calc(-1 * var(--scroller-end)) 0 calc(-1 * var(--scroller-start));
+  padding: var(--space-1) var(--scroller-end) var(--space-4) var(--scroller-start);
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--scroller-start) var(--scroller-end);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.scroller__track::-webkit-scrollbar { display: none; }
+.scroller__item {
+  flex: 0 0 var(--scroller-item);
+  min-width: 0;
+  scroll-snap-align: start;
+  display: grid;
+}
+@media (min-width: 768px) {
+  .scroller__track { gap: 32px; }
+}
+/* When the scroller spans the container, Scroller.jsx measures the room to both viewport edges */
+.scroller--bleed .scroller__track { --scroller-start: var(--scroller-bleed-start); --scroller-end: var(--scroller-bleed-end); }
+.scroller--bleed-page .scroller__track { --scroller-start: var(--page-margin); --scroller-end: var(--page-margin); }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) .scroller__track { scroll-behavior: smooth; }
+}
+
+/* Progress hairline */
+.scroller__progress { position: relative; height: 1px; margin-top: var(--space-4); background: var(--color-border); overflow: hidden; }
+.scroller__progress-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ---------- Scroll-linked rail (Scroller.jsx): it slides with the page scroll and can be dragged ---------- */
+/* The page scroll drives the position, so snapping and smooth scroll-behavior would fight it. */
+.scroller--linked .scroller__track { scroll-snap-type: none; scroll-behavior: auto !important; }
+@media (hover: hover) and (pointer: fine) {
+  .scroller--linked .scroller__track,
+  .scroller--linked .scroller__track * { cursor: grab; }
+  .scroller--linked.is-dragging .scroller__track,
+  .scroller--linked.is-dragging .scroller__track * { cursor: grabbing; user-select: none; }
+}
+.scroller--linked .scroller__track img { -webkit-user-drag: none; user-select: none; }

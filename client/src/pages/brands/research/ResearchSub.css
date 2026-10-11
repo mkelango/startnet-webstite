@@ -1,0 +1,132 @@
+.research-sub__crumbs { padding-top: var(--space-4); }
+
+.research-sub__layout { align-items: start; }
+.research-sub__main { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-16); }
+.research-sub__aside { min-width: 0; }
+/* Sticky only where the whole Key facts card (and its CTA) fits under the compact header and sub-nav.
+   On short screens (1024x768, 1280x800) it scrolls with the page so the CTA is never stranded off-screen. */
+@media (min-width: 1024px) and (min-height: 900px) {
+  .research-sub__aside {
+    position: sticky;
+    top: calc(var(--shell-offset, var(--header-h-compact)) + var(--subnav-h, 48px) + var(--space-6));
+    max-height: calc(100vh - var(--shell-offset, var(--header-h-compact)) - var(--subnav-h, 48px) - 2 * var(--space-6));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+/* html already sets scroll-padding-top (header + sub-nav + 16px); adding the same again here doubled the gap to ~280px */
+.research-sub__block, .research-sub__sponsor { scroll-margin-top: var(--space-2); }
+.research-sub__block { padding-top: var(--space-8); border-top: 1px solid var(--color-border); }
+.research-sub__main > .research-sub__block:first-child, .research-sub__main > :first-child .research-sub__block { padding-top: 0; border-top: 0; }
+.research-sub__block .eyebrow { margin-bottom: var(--space-4); }
+.research-sub__block-title { margin-top: 0; max-width: 30ch; }
+.research-sub__block-body { margin-top: var(--space-6); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); justify-items: start; }
+.research-sub__block-body > * { max-width: 100%; }
+/* Readable measure: at 900–1023 the single-column body ran ~100–117 characters per line */
+.research-sub__main p.text-2, .research-sub__main p.body-lg { max-width: 68ch; }
+:lang(ta) .research-sub__main p.text-2, :lang(ta) .research-sub__main p.body-lg { max-width: 36em; }
+.research-sub__note { color: var(--color-text-2); font-size: var(--text-small); max-width: var(--measure); }
+.research-sub__note--lead { margin-bottom: calc(-1 * var(--space-10)); }
+
+/* Jump chips */
+.research-sub__jump { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: calc(-1 * var(--space-8)); padding-bottom: var(--space-6); border-bottom: 1px solid var(--color-border); }
+/* Jump links: the v2 chip (36px pill, line-strong ring) */
+:root .research-sub__jump-chip { text-decoration: none; }
+
+/* Stats */
+.research-sub__stats { width: 100%; display: grid; gap: var(--space-8) var(--space-6); grid-template-columns: minmax(0, 1fr); padding: var(--space-6) 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+/* Four items: 2x2, then 4 across, with vertical dividers inside each row. The 8/4 split leaves the main column
+   narrow at 1024-1279, so 4-up waits for 1280. */
+@media (min-width: 640px) {
+  .research-sub__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .research-sub__stats > :nth-child(2n) { border-left: 1px solid var(--color-border); padding-left: var(--space-6); }
+}
+@media (min-width: 1280px) {
+  .research-sub__stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .research-sub__stats > * + * { border-left: 1px solid var(--color-border); padding-left: var(--space-6); }
+}
+.research-sub__stats .stat--compact .stat__value { font-size: var(--text-h2); }
+
+/* Lab articles */
+.research-sub__labs { width: 100%; display: grid; gap: var(--space-6); }
+.research-sub__lab {
+  display: grid; gap: var(--space-6); padding: var(--space-6);
+  background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius);
+  scroll-margin-top: var(--space-2);
+}
+.research-sub__lab:target { border-color: var(--color-text); box-shadow: inset 0 0 0 1px var(--color-text); }
+@media (min-width: 768px) { .research-sub__lab { grid-template-columns: 9rem 1fr; } }
+.research-sub__lab-art { max-width: 9rem; }
+/* Mobile audit: below 768px the card is one column, so the 144px square sat alone at the left of a ~290px card
+   (a shrunk desktop thumbnail). Run the image across the card as a 16:9 header instead. */
+@media (max-width: 767.98px) {
+  .research-sub__lab-art { max-width: none; }
+  :root .research-sub__lab-art .art-image { aspect-ratio: 16 / 9 !important; }
+}
+.research-sub__lab-art .art-image { border-radius: calc(var(--media-radius) - 4px); }
+.research-sub__lab-body { display: grid; gap: var(--space-3); justify-items: start; min-width: 0; }
+.research-sub__dl { margin: var(--space-2) 0 0; width: 100%; display: grid; font-size: var(--text-small); border-top: 1px solid var(--color-border); }
+.research-sub__dl div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-1) var(--space-4); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+.research-sub__dl dt { color: var(--color-text-muted); }
+.research-sub__dl dd { margin: 0; }
+.research-sub__lab-more { width: 100%; font-size: var(--text-small); }
+.research-sub__lab-more summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 500; color: var(--accent-text); }
+.research-sub__lab-more p { margin-top: var(--space-2); color: var(--color-text-2); }
+.research-sub__lab-actions { --cluster-gap: var(--space-3); margin-top: var(--space-2); }
+
+/* Wave 2 (greyed) */
+.research-sub__wave2 { width: 100%; list-style: none; display: grid; gap: var(--space-3); grid-template-columns: minmax(0, 1fr); }
+/* Four proposals: 2x2, then 4 across once each card has room (never 3 + an orphan) */
+@media (min-width: 400px) { .research-sub__wave2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .research-sub__wave2 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.research-sub__wave2-card {
+  display: grid; gap: var(--space-1); padding: var(--space-5);
+  border: 1px dashed var(--line-strong); border-radius: var(--media-radius);
+  background: transparent; color: var(--color-text-muted);
+}
+.research-sub__wave2-name { font-weight: 500; color: var(--color-text-2); overflow-wrap: break-word; }
+
+/* Ticks */
+.research-sub__ticks { list-style: none; display: grid; width: 100%; border-top: 1px solid var(--color-border); }
+.research-sub__ticks li { display: flex; gap: var(--space-3); align-items: flex-start; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); font-size: var(--text-lede); }
+.research-sub__tick { flex: none; margin-top: 0.2em; color: var(--color-text); }
+
+/* Summit moments */
+.research-sub__moments { width: 100%; list-style: none; display: grid; gap: var(--space-8) 32px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
+/* AIWO top-rule columns (P7) */
+.research-sub__moment { padding: 28px 0 0; border-top: 1px solid var(--color-text); display: grid; gap: var(--space-4); align-content: start; }
+.research-sub__moment-icon { color: var(--color-text); }
+
+/* Terms: parties */
+.research-sub__parties { margin: 0; display: grid; width: 100%; border-top: 1px solid var(--color-border); }
+.research-sub__parties div { padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border); }
+.research-sub__parties dd { margin: var(--space-2) 0 0; }
+
+/* Lab sponsorship (target of /research/labs#sponsor) */
+.research-sub__sponsor {
+  display: grid; gap: var(--space-4); justify-items: start;
+  padding: var(--space-8); border-radius: var(--media-radius);
+  background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line);
+}
+.research-sub__sponsor:target { border-color: var(--color-text); box-shadow: inset 0 0 0 1px var(--color-text); }
+.research-sub__sponsor p { max-width: var(--measure); color: var(--color-text-2); }
+/* Mobile audit: in the 32px-padded card the CTA wrapped to two lines inside a 44px box with no vertical padding.
+   Phones: 24px card padding and a full-width CTA with room for a second line. */
+@media (max-width: 479.98px) {
+  .research-sub__sponsor { padding: var(--space-6); }
+  :root .research-sub__sponsor > .button { justify-self: stretch; padding-block: var(--space-3); }
+}
+
+/* V-R1: Tamil in the narrow 8/4 main column at 1024–1279. Three steps in a row left 181 px per title
+   ("வாடிக்கையாளர்களிடம்" split mid-word): two columns there, the odd last step spans the row. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  :lang(ta) .research-sub__main .steps--row.steps--n3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  :lang(ta) .research-sub__main .steps--row.steps--n3 > :last-child { grid-column: 1 / -1; }
+}
+/* V-R1: the Key facts aside is a third of the page: Tamil labels ("வாடிக்கையாளர்", "விண்ணப்பிக்கலாம்") split in the
+   ~127 px label column at 1280+. Stack label over value at every width in this aside (the kit already does below 1280). */
+:lang(ta) .research-sub__aside .key-facts__row { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); }
+
+/* Three moments: one row of three from 768 (auto-fit gave 2 + 1 in the narrower column at 1024–1279) */
+@media (min-width: 768px) { .research-sub__moments:has(> :nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

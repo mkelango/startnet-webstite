@@ -1,0 +1,22 @@
+{
+  "name": "startnet-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "startnet.in — Tamil Nadu's founder-making network. React (Vite) front end + NestJS API.",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix client && npm install --prefix server && npm install --prefix tools/audit",
+    "dev": "concurrently -k -n api,web -c red,blue \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "build": "npm run build --prefix client && npm run build --prefix server && npm run prerender",
+    "start": "npm start --prefix server",
+    "preview:full": "npm run build && npm start",
+    "prerender": "node tools/seo/prerender.mjs",
+    "seo:og": "node tools/seo/og-images.mjs",
+    "seo:check": "node tools/seo/check-head.mjs",
+    "photos": "node tools/images/photos.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

@@ -1,0 +1,120 @@
+/* /search — T14. Prefix: .search-  (AngelList family: the head is part of the ink band, results sit on a sheet) */
+.search-head {
+  background: var(--night-0); color: var(--night-text);
+  padding-block: var(--space-10) calc(var(--space-12) + var(--sheet-radius));
+}
+@media (min-width: 1024px) { .search-head { padding-block: var(--space-12) calc(var(--space-16) + var(--sheet-radius)); } }
+.search-head__title { margin-top: var(--space-8); max-width: 22ch; overflow-wrap: anywhere; }
+.search-head__q { color: var(--color-text-2); }
+
+/* The sheet that follows the head slides over the band, like every hero → sheet change (theme.css). */
+.search-head + .search-sheet {
+  position: relative;
+  margin-top: calc(-1 * var(--sheet-radius));
+  border-top-left-radius: var(--sheet-radius);
+  border-top-right-radius: var(--sheet-radius);
+  padding-top: calc(clamp(var(--space-10), 2rem + 2vw, var(--space-16)) + var(--sheet-radius) * 0.25);
+}
+
+/* Search field on ink: hairline control (3:1 border), 4px radius, paper submit */
+.search-form { margin-top: var(--space-8); max-width: 48rem; }
+.search-form__field {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-5);
+  background: var(--night-1); border: 1px solid var(--color-border-control); border-radius: var(--btn-radius);
+  transition: border-color var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) { .search-form__field:hover { border-color: var(--night-text-muted); } }
+.search-form__field:focus-within { border-color: var(--night-text); box-shadow: 0 0 0 3px color-mix(in srgb, var(--night-text) 18%, transparent); }
+.search-form__icon { flex: none; color: var(--color-text-muted); }
+.search-form__field input {
+  flex: 1; min-width: 0; min-height: 52px; border: 0; background: transparent; outline: none;
+  color: var(--color-text); font-size: var(--text-body-lg);
+}
+.search-form__field input::placeholder { color: var(--color-text-muted); opacity: 1; }
+.search-form__field input::-webkit-search-cancel-button { display: none; }
+.search-form__field input:focus-visible { box-shadow: none; }
+.search-form__clear {
+  flex: none; display: inline-grid; place-items: center; width: 44px; height: 44px;
+  border: 0; border-radius: var(--btn-radius); background: transparent; color: var(--color-text-muted);
+}
+@media (hover: hover) and (pointer: fine) { .search-form__clear:hover { background: var(--night-2); color: var(--color-text); } }
+.search-form__field .search-form__submit.button { min-height: 48px; }
+.search-form__submit-icon { display: none; }
+@media (max-width: 479px) {
+  .search-form__field { padding-left: var(--space-4); }
+  /* The submit button carries the magnifier on phones, so the leading icon would only steal width. */
+  .search-form__icon { display: none; }
+  .search-form__field input { font-size: var(--text-body); }
+  /* Typed text stays 16px (no iOS zoom); the hint steps down so it fits a 320px screen in full. */
+  .search-form__field input::placeholder { font-size: var(--text-small); }
+  .search-form__field .search-form__submit.button { flex: none; width: 44px; height: 44px; min-height: 44px; padding: 0; }
+  .search-form__submit .search-form__submit-icon { display: block; }
+  .search-form__submit .search-form__submit-text {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  }
+}
+
+/* Popular searches: DESIGN-v2 3.12 filter chips (36px pills, line-strong ring, Ink ring on hover, 100ms press) */
+.search-quick { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.search-quick__label { font-size: var(--text-small); color: var(--color-text-muted); font-weight: 400; margin-right: var(--space-2); }
+.search-quick__list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.search-quick__chip {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px;
+  border: 1px solid var(--line-strong); border-radius: var(--radius-full);
+  background: transparent; color: var(--color-text); text-decoration: none; font-size: var(--text-meta); font-weight: 500;
+  transition: background-color var(--dur-2) var(--ease-snap), border-color var(--dur-2) var(--ease-snap), transform var(--dur-1) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) { .search-quick__chip:hover { border-color: var(--color-text); background: rgb(12 23 25 / 0.04); } }
+.search-quick__chip:active { transform: scale(0.97); }
+@media (pointer: coarse) { .search-quick__chip { min-height: 44px; } }
+
+/* Results: hairline rows, small sentence-case type labels */
+.search-tabs { margin-top: 0; }
+.search-results { list-style: none; margin-top: var(--space-4); }
+.search-result {
+  display: grid; gap: var(--space-2); max-width: 52rem;
+  padding-block: var(--space-6); border-bottom: 1px solid var(--color-border);
+}
+.search-result__chips { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-4); }
+.search-result__chips .badge { min-height: 0; padding: 0; border: 0; box-shadow: none; background: none; font-size: var(--text-small); font-weight: 400; }
+/* Plain-text meta: beat the global ":root :is(.section--white, …) .badge" card fill + hairline, which otherwise
+   drew a box tight against the unpadded text. */
+:root .search-result .search-result__chips .badge.badge { box-shadow: none; background: none; }
+.search-result__chips .badge--type { color: var(--color-text-muted); }
+.search-result__chips .badge--brand { color: var(--color-text-2); }
+.search-result__title.h5 { font-weight: 500; letter-spacing: -0.01em; }
+.search-result__link { color: var(--color-text); text-decoration: none; }
+.search-result__link:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.search-result__snippet { color: var(--color-text-2); }
+.search-result__url { font-size: var(--text-caption); color: var(--color-text-muted); overflow-wrap: anywhere; }
+.search-mark {
+  background: color-mix(in srgb, var(--color-text) 7%, transparent); color: inherit;
+  border-radius: 2px; padding: 0 0.1em; box-shadow: inset 0 -1px 0 var(--color-text);
+}
+
+.search-error {
+  display: grid; gap: var(--space-4); justify-items: start; padding: var(--space-6);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--color-error-bg); color: var(--color-text);
+}
+
+/* No results: hairline route rows, then the open programmes */
+.search-zero { display: grid; gap: var(--space-12); padding-block: var(--space-2) var(--space-6); }
+.search-zero__head > * + * { margin-top: var(--space-4); }
+.search-zero__head :is(h2, h3).h3 { font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+.search-zero__routes { display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--color-border); }
+@media (min-width: 768px) { .search-zero__routes { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-8); } }
+.search-zero__route {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+  min-height: 72px; padding-block: var(--space-5); border-bottom: 1px solid var(--color-border);
+  color: var(--color-text); text-decoration: none;
+}
+.search-zero__route .h5 { font-weight: 500; letter-spacing: -0.01em; }
+.search-zero__route svg { flex: none; color: var(--color-text); transition: transform var(--dur-2) var(--ease-standard); }
+.search-zero__route:hover .h5 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+@media (hover: hover) and (pointer: fine) { .search-zero__route:hover svg { transform: translateX(var(--shift-1)); } }
+.search-zero__programmes { display: grid; gap: var(--space-5); justify-items: start; }
+.search-zero__programmes > .h5 { font-weight: 500; }
+.search-zero__programmes > .grid { width: 100%; }
+
+@media (prefers-reduced-motion: reduce) { .search-zero__route svg, .search-quick__chip, .search-form__field { transition: none; } }

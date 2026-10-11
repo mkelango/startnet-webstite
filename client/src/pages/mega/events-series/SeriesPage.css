@@ -1,0 +1,246 @@
+/* /events/<series> — T04 event series. AngelList-family finish (Oct 2026): ink-band hero (PageHero), then sheets —
+   about with numbered feature rows on hairlines, editions as flat cards, past editions as hairline rows on the night
+   band, a flat partner panel, and the other series as quiet pills. */
+.series-page { overflow-x: clip; }
+
+.series-hero__endorse {
+  display: block; margin-bottom: var(--space-3); font-size: var(--text-small); font-weight: 500; color: var(--accent-night, var(--night-text-2));
+}
+.series-hero__lede { display: block; }
+.series-hero__meta { --cluster-gap: var(--space-2); }
+
+/* About: text + numbered feature rows (big light numerals over a hairline, no boxes) */
+.series-about__grid { display: grid; gap: var(--space-12); }
+@media (min-width: 1024px) { .series-about__grid { grid-template-columns: 5fr 7fr; gap: var(--space-16); align-items: start; } }
+.series-about__prose { margin-top: var(--space-6); }
+.series-about__pillars { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-8) var(--space-6); }
+/* 4 pillars (Connect) sit 2 × 2. 3 pillars sit in one row of 3 at 768–1023 (full width) and 1280+, and stack
+   full-width in the 7fr column at 1024–1279, where a third column would be too narrow; never a 2 + 1 orphan. */
+@media (min-width: 768px) { .series-about__pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 768px) and (max-width: 1023px) { .series-about__pillars[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1024px) and (max-width: 1279px) { .series-about__pillars[data-count="3"] { grid-template-columns: minmax(0, 1fr); } }
+@media (min-width: 1280px) { .series-about__pillars[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.series-about__pillar {
+  min-width: 0; overflow-wrap: break-word;
+  display: grid; gap: var(--space-2); align-content: start; padding-top: var(--space-5); border-top: 1px solid var(--color-border);
+}
+.series-about__pillar > h3 { font-weight: 500; letter-spacing: -0.01em; }
+.series-about__num { font-size: var(--text-h2); font-weight: 400; line-height: 1; letter-spacing: -0.04em; color: var(--color-text-muted); margin-bottom: var(--space-2); }
+
+/* Editions grid: flat hairline cards */
+.series-grid { list-style: none; margin: var(--space-10) 0 0; padding: 0; display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 768px) { .series-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .series-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.series-grid > li { display: grid; min-width: 0; }
+/* One upcoming edition: a full-width row card (art left) rather than one card beside empty columns */
+@media (min-width: 768px) {
+  ul.series-grid:has(> li:only-child) { grid-template-columns: minmax(0, 1fr); }
+  .series-grid > li:only-child > .card:has(> .card__media) { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .series-grid > li:only-child > .card.card > .card__media { height: 100%; border-radius: calc(var(--media-radius) - 1px) 0 0 calc(var(--media-radius) - 1px); }
+  .series-grid > li:only-child > .card > .card__media .art-image { aspect-ratio: auto !important; height: 100%; min-height: 15rem; }
+  .series-grid > li:only-child > .card > .card__body { padding: var(--space-8); }
+}
+@media (min-width: 1024px) {
+  ul.series-grid:has(> li:nth-child(2):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  ul.series-grid:has(> li:nth-child(2):last-child) .card__media .art-image { aspect-ratio: 2 / 1 !important; }
+}
+
+/* Past editions (Night band): hairline rows */
+.series-past__list { list-style: none; margin: var(--space-10) 0 0; padding: 0; display: grid; }
+.series-past__item {
+  display: grid; gap: var(--space-5); padding-block: var(--space-8);
+  border-top: 1px solid var(--night-line);
+}
+.series-past__item:last-child { border-bottom: 1px solid var(--night-line); }
+/* >= 1024: AIWO event row (P12). Date, title and summary in cols 1-8; outcome figures top-right; the arrow links
+   right-aligned at the row's foot, so every edition ends on the same edge. */
+@media (min-width: 1024px) {
+  .series-past__item { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); column-gap: 32px; padding-block: var(--space-10); }
+  .series-past__head { grid-column: 1; grid-row: 1 / span 2; }
+  .series-past__summary { max-width: 62ch; }
+  .series-past__stats { grid-column: 2; grid-row: 1; }
+  .series-past__actions { grid-column: 2; grid-row: 2; align-self: end; justify-content: flex-end; }
+}
+.series-past__head { display: grid; gap: var(--space-2); align-content: start; min-width: 0; }
+.series-past__when { margin: 0; color: var(--color-text-muted); }
+.series-past__title { margin: 0; font-weight: 500; letter-spacing: -0.015em; }
+:lang(ta) .series-past__title { letter-spacing: 0; }
+.series-past__link { color: inherit; text-decoration: none; background-image: linear-gradient(currentColor, currentColor); background-size: 0 1px; background-repeat: no-repeat; background-position: 0 100%; transition: background-size var(--dur-3) var(--ease-standard); }
+.series-past__link:hover, .series-past__link:focus-visible { background-size: 100% 1px; }
+.series-past__summary { color: var(--color-text-2); margin: 0; }
+.series-past__stats { display: grid; gap: var(--space-6); margin: 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); align-content: start; }
+.series-past__none, .series-past__empty { margin: 0; color: var(--color-text-2); }
+.series-past__empty { margin-top: var(--space-8); }
+.series-past__actions { --cluster-gap: var(--space-6); }
+
+/* Figures */
+.series-figures { padding-block: var(--space-12); }
+
+/* Partner + host */
+.series-partner__grid { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) { .series-partner__grid { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-12); align-items: start; } }
+.series-partner__tiers { display: grid; gap: var(--space-6); min-width: 0; }
+/* On the sunken sheet the quiet secondary button needs its paper fill to read as a button */
+.series-partner__tiers .button--secondary { --button-bg: var(--card); --button-bg-hover: var(--card); --button-border: var(--color-border); --button-border-hover: var(--color-border-control); }
+/* Host / co-host: a flat paper panel with a hairline (no resting shadow) */
+.series-partner__host {
+  display: grid; gap: var(--space-4); justify-items: start; padding: var(--space-6); border-radius: var(--media-radius);
+  background: var(--card); border: 1px solid var(--color-border); min-width: 0;
+}
+@media (min-width: 768px) { .series-partner__host { padding: var(--space-8); } }
+.series-partner__host > h3 { font-weight: 500; letter-spacing: -0.01em; }
+.series-partner__icon { color: var(--color-text-muted); }
+
+.series-tiers { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; border-radius: var(--media-radius); border: 1px solid var(--color-border); }
+.series-tiers:focus-visible { box-shadow: var(--focus-ring); outline: none; }
+.series-tiers__table { width: 100%; min-width: 34rem; border-collapse: collapse; font-size: var(--text-small); background: var(--card); }
+.series-tiers__caption { caption-side: bottom; text-align: left; padding: var(--space-3) var(--space-4); color: var(--color-text-muted); }
+.series-tiers__table th, .series-tiers__table td { text-align: left; vertical-align: top; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border); }
+.series-tiers__table thead th {
+  font-size: var(--text-small); font-weight: 400; letter-spacing: 0; text-transform: none;
+  color: var(--color-text-muted); white-space: nowrap; background: var(--sheet);
+}
+.series-tiers__table tbody th { font-weight: 500; }
+.series-tiers__price { white-space: nowrap; font-weight: 500; }
+
+/* Phones (< 640px): the 34rem three-column table scrolled sideways, hiding the price column and cutting the
+   "What you get" text at the screen edge. Each tier becomes a stacked block instead: tier name and indicative
+   price on one line, what you get below, all inside the screen. The table keeps its semantics through the
+   explicit ARIA roles in SeriesPage.jsx; the column headers stay for screen readers only. */
+@media (max-width: 639.98px) {
+  .series-tiers { overflow-x: visible; }
+  .series-tiers__table { min-width: 0; display: flex; flex-direction: column; }
+  .series-tiers__table :is(thead, tbody, tr) { display: block; }
+  .series-tiers__table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .series-tiers__table tbody tr {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--space-4); row-gap: var(--space-1);
+    padding: var(--space-4); border-bottom: 1px solid var(--hairline);
+  }
+  .series-tiers__table tbody :is(th, td) { display: block; padding: 0; border: 0; }
+  .series-tiers__table tbody th { grid-column: 1; grid-row: 1; }
+  .series-tiers__table tbody td:not(.series-tiers__price) { grid-column: 1 / -1; grid-row: 2; color: var(--color-text-2); }
+  .series-tiers__price { grid-column: 2; grid-row: 1; text-align: right; }
+  .series-tiers__caption { display: block; order: 1; }
+}
+
+/* Interest form */
+.series-interest__form { margin-top: var(--space-8); }
+
+/* More series: quiet pills with the series' brand dot */
+.series-more__title { margin: 0 0 var(--space-5); font-size: var(--text-body); font-weight: 400; color: var(--color-text-2); }
+.series-more__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.series-more__link {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border); border-radius: var(--radius-full); color: var(--color-text); text-decoration: none; font-weight: 500;
+  font-size: var(--text-small); background: var(--sheet);
+  transition: border-color var(--dur-2) var(--ease-standard), background-color var(--dur-2) var(--ease-standard);
+}
+.series-more__link:hover { border-color: var(--color-border-control); background: var(--card); }
+.series-more__link:focus-visible { box-shadow: var(--focus-ring); outline: none; }
+.series-more__dot { width: 8px; height: 8px; border-radius: var(--radius-full); background: var(--accent-fill); flex: none; }
+.series-more__link:not([data-brand]) .series-more__dot { background: var(--color-point); }
+
+@media (prefers-reduced-motion: reduce) {
+  .series-more__link, .series-past__link { transition: none; }
+}
+
+/* Final verifier r3: Tamil pillar headings at h5 size (165px columns split "போட்டியிடுங்கள்" at h4 size), and the
+   sponsor-tier table (it scrolls inside .series-tiers) keeps whole Tamil words. */
+.series-about__pillar .h4:lang(ta) { font-size: min(var(--text-h5), 1.125rem); overflow-wrap: break-word; }
+.series-tiers .series-tiers__table :is(th, td) { overflow-wrap: normal; }
+.series-tiers .series-tiers__table tbody th:lang(ta) { min-width: 7.5rem; }
+
+/* AA: the shared "Past edition" chip sets muted grey on the sheet-2 fill (4.4:1); secondary text keeps it above 4.5:1. */
+.series-page :is(.badge--past, .badge--closed) { color: var(--color-text-2); }
+
+/* Films of the series, on the evidence band */
+.series-past__films { margin-top: clamp(var(--space-10), 2rem + 3vw, var(--space-16)); }
+.series-past__films:not(.event-videos--pair) .event-videos__list { max-width: 60rem; }
+
+/* ---------- DESIGN-v2 6.3 (Oct 2026) ---------- */
+/* Hero: a BrandHero-like landscape bleed. At >= 1024 the media is 16/10 and runs off the right viewport edge
+   (radius 12px on the left only); below 1024 it follows the copy as the PageHero 16/10 band. */
+@media (min-width: 1024px) {
+  .series-hero.page-hero--with-art .page-hero__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .series-hero .page-hero__art { margin-right: calc(-1 * var(--page-margin)); }
+  .series-hero .page-hero__art .art-image { aspect-ratio: 16 / 10 !important; border-radius: var(--radius-media) 0 0 var(--radius-media); max-height: 600px; }
+}
+.series-hero__endorse { font-weight: 500; }
+
+/* About: numbered pillars with the Steps pattern (01–0N tabular meta index over an Ink top rule) */
+.series-about__pillar { position: relative; border-top: 1px solid var(--sn-ink); }
+.series-about__pillar::before {
+  content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 3px; background: var(--sn-ink);
+  transform: scaleY(0.34); transform-origin: top; transition: transform var(--dur-3) var(--ease-snap);
+}
+@media (hover: hover) { .series-about__pillar:hover::before { transform: scaleY(1); } }
+.series-about__pillar > h3 { font-weight: 500; }
+.series-about__num { font-size: var(--text-meta); line-height: 1.45; letter-spacing: 0; color: var(--color-text-2); font-variant-numeric: tabular-nums; margin-bottom: var(--space-3); }
+
+/* Upcoming editions: a right-bleed Scroller when there are two or more (components/Scroller.css) */
+.series-scroller { margin-top: var(--space-head-gap, var(--space-10)); }
+.series-grid { margin-top: var(--space-head-gap, var(--space-10)); }
+.series-upcoming .button--tertiary, .series-past .button--tertiary { color: inherit; }
+
+/* Past editions on the Ink band: hairline rows with a Night-1 hover ground and a sweeping title underline */
+.series-past__item { position: relative; isolation: isolate; }
+.series-past__item::before {
+  content: ''; position: absolute; z-index: -1; inset: 0 calc(-1 * var(--space-4)); border-radius: var(--radius-media);
+  background: var(--night-1); opacity: 0; transition: opacity var(--dur-2) var(--ease-snap);
+}
+@media (hover: hover) and (pointer: fine) { .series-past__item:hover::before { opacity: 1; } }
+.series-past__item:focus-within::before { opacity: 1; }
+.series-past__when { color: var(--night-text-2); font-variant-numeric: tabular-nums; }
+.series-past__title { font-size: var(--text-h3); font-weight: 500; }
+.series-past__summary { color: var(--night-text-2); }
+.series-past__link { transition: background-size var(--dur-3) var(--ease-snap); }
+.series-past__item:hover .series-past__link { background-size: 100% 1px; }
+
+/* Series figures: count-up stats (Stat) per 3.9 inside FactBand */
+.series-figures { padding-block: var(--space-section-tight, var(--space-12)); }
+
+/* Partner + host: the host panel is a framed card with the 2px Ink top rule on hover */
+.series-partner__host { position: relative; overflow: hidden; border: 0; background: var(--white); box-shadow: inset 0 0 0 1px var(--hairline); }
+.series-partner__host::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--sn-ink);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+@media (hover: hover) { .series-partner__host:hover::before { transform: scaleX(1); } }
+.series-partner__host:focus-within::before { transform: scaleX(1); }
+.series-partner__host > h3 { font-weight: 500; }
+.series-partner__icon { color: var(--color-text); }
+.series-partner .button--tertiary { color: var(--color-text); }
+.series-tiers { border: 0; box-shadow: inset 0 0 0 1px var(--hairline); }
+.series-tiers__table { background: var(--white); font-variant-numeric: tabular-nums; }
+.series-tiers__table thead th { background: var(--card); color: var(--color-text-2); font-weight: 500; }
+.series-tiers__table th, .series-tiers__table td { border-bottom-color: var(--hairline); }
+
+/* Interest form: a White form card */
+.series-interest__form.form-card { margin-top: var(--space-head-gap, var(--space-8)); }
+
+/* More series: 36px chips with the series' brand dot; Ink ring on hover, press scale */
+.series-more__title { font-size: var(--text-meta); font-weight: 500; color: var(--color-text-2); }
+.series-more__link {
+  min-height: 36px; padding: 0 14px; border: 0; background: transparent; font-size: var(--text-meta); font-weight: 500;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  transition: box-shadow var(--dur-2) var(--ease-snap), background-color var(--dur-2) var(--ease-snap), transform var(--dur-1) var(--ease-standard);
+}
+@media (pointer: coarse) { .series-more__link { min-height: 44px; } }
+@media (hover: hover) { .series-more__link:hover { background: transparent; box-shadow: inset 0 0 0 1px var(--color-text); } }
+.series-more__link:active { transform: scale(0.97); }
+.series-more__link:focus-visible { box-shadow: inset 0 0 0 1px var(--color-text); outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.series-more__dot { width: 7px; height: 7px; background: var(--accent); }
+.series-more__link:not([data-brand]) .series-more__dot { background: var(--sn-ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .series-about__pillar::before, .series-past__item::before, .series-partner__host::before, .series-more__link { transition: none; }
+}
+:root[data-motion='reduced'] .series-about__pillar::before,
+:root[data-motion='reduced'] .series-past__item::before,
+:root[data-motion='reduced'] .series-partner__host::before { transition: none; }
+
+/* QA v6 (Tamil, phones): two figures across leave ~159px per label at 390; "தலைமையிலானவை" (~11.3em at 15px) split
+   between aksharas on /ta/events/women-founders-summit. Below 420px the Tamil figures stack in one column. */
+@media (max-width: 419.98px) {
+  :lang(ta) .series-figures .fact-band__grid { grid-template-columns: minmax(0, 1fr); }
+}

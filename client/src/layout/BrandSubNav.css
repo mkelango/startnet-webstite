@@ -1,0 +1,121 @@
+/* C07 · Brand sub-nav (DESIGN-v2 3.4): a 48px Ink bar with a night-line hairline, docked under the fixed header
+   (offset published by Header.jsx; it slides to top:0 when the header hides). The brand accent is a 2px rule under
+   the current item that glides between items. Mobile: the row scrolls with an edge fade and proximity snap. */
+.brand-subnav {
+  position: sticky; top: var(--shell-offset, 0px); z-index: 40;
+  height: var(--subnav-h);
+  background: var(--night-0);
+  border-bottom: 1px solid var(--night-line);
+  color: var(--night-text);
+  transition: top var(--dur-header) var(--ease-snap);
+}
+:root[data-header-hidden] .brand-subnav { transition-timing-function: var(--ease-header-exit); }
+.brand-subnav__inner { height: 100%; display: flex; align-items: center; gap: var(--space-4); }
+.brand-subnav__lockup { display: none; align-items: center; min-height: 44px; flex-shrink: 0; color: var(--night-text); text-decoration: none; }
+.brand-subnav__lockup:hover { text-decoration: none; }
+@media (min-width: 1024px) { .brand-subnav__lockup { display: inline-flex; } }
+
+.brand-subnav__scroller {
+  position: relative; flex: 1; min-width: 0; height: 100%;
+  overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+}
+.brand-subnav__scroller::-webkit-scrollbar { display: none; }
+.brand-subnav__scroller[data-fade-end] { -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
+.brand-subnav__scroller[data-fade-start] { -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%); mask-image: linear-gradient(90deg, transparent, #000 15%); }
+.brand-subnav__scroller[data-fade-start][data-fade-end] {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.brand-subnav__list { position: relative; list-style: none; display: flex; align-items: center; gap: var(--space-1); height: 100%; width: max-content; margin: 0; padding: 0 var(--space-1); }
+@media (min-width: 1024px) { .brand-subnav__list { margin-inline: auto; } }
+.brand-subnav__list > li { height: 100%; display: flex; align-items: center; scroll-snap-align: start; }
+.brand-subnav__glide-wrap { position: absolute !important; inset: 0; pointer-events: none; }
+.brand-subnav__glide { background: var(--accent-night, var(--paper)); height: 2px; bottom: 0; }
+.brand-subnav__list[data-ind-ready] .brand-subnav__glide { opacity: 1; }
+
+.brand-subnav__link {
+  position: relative; display: inline-flex; align-items: center; gap: var(--space-1);
+  height: 100%; padding: 0 12px; border: 0; background: transparent;
+  color: var(--night-text-2); font-size: var(--text-small); font-weight: 400; white-space: nowrap; text-decoration: none;
+  transition: color var(--dur-2) var(--ease-snap);
+}
+.brand-subnav__link:hover { color: var(--paper); text-decoration: none; }
+.brand-subnav__link[aria-current='page'], .brand-subnav__more[data-active] { color: var(--paper); font-weight: 500; }
+/* Before the glide is measured (no JS / prerender), the current item carries its own 2px rule */
+.brand-subnav__list:not([data-ind-ready]) .brand-subnav__link[aria-current='page'] { box-shadow: inset 0 -2px 0 var(--accent-night, var(--paper)); }
+.brand-subnav__link:focus-visible { outline: 2px solid var(--paper); outline-offset: -4px; border-radius: var(--radius-btn); }
+.brand-subnav__more { font: inherit; font-size: var(--text-small); cursor: pointer; }
+
+.brand-subnav__cta { flex-shrink: 0; display: none; }
+.brand-subnav__cta .button { min-height: 36px; }
+@media (min-width: 480px) { .brand-subnav__cta { display: block; } }
+.brand-subnav__rule { display: none; }
+
+/* "More" sheet */
+.brand-subnav-sheet { position: fixed; inset: 0; z-index: 95; }
+.brand-subnav-sheet__backdrop { position: absolute; inset: 0; background: rgb(12 23 25 / 0.4); }
+.brand-subnav-sheet__panel {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  max-height: 80vh; overflow-y: auto;
+  background: var(--paper); border-radius: 12px 12px 0 0; box-shadow: var(--shadow-overlay);
+  border-top: 2px solid var(--accent);
+  padding: var(--space-4) var(--gutter) calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+  font-family: var(--font-sans); color: var(--color-text);
+}
+.brand-subnav-sheet__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2); }
+.brand-subnav-sheet__title { font-weight: 500; font-size: var(--text-h5); }
+.brand-subnav-sheet__close {
+  display: inline-grid; place-items: center; width: 44px; height: 44px; border: 0; box-shadow: inset 0 0 0 1px var(--line-strong);
+  border-radius: var(--radius-full); background: transparent; color: var(--color-text);
+}
+.brand-subnav-sheet__list { list-style: none; }
+.brand-subnav-sheet__link {
+  display: flex; align-items: center; min-height: 52px; border-bottom: 1px solid var(--color-border);
+  color: var(--color-text); text-decoration: none; font-size: var(--text-body-lg); font-weight: 500;
+}
+.brand-subnav-sheet__link[aria-current="page"] { color: var(--accent-text); font-weight: 500; }
+
+/* Phones/tablets: 44 px hit area around the 32 px pill (fits inside the 48 px bar) */
+@media (max-width: 1023px) {
+  .brand-subnav__link, .brand-subnav__more { position: relative; }
+  .brand-subnav__link::before, .brand-subnav__more::before { content: ""; position: absolute; inset: 0; }
+}
+
+/* 480–1023: the bottom CTA bar carries the brand CTA, so the sub-nav does not repeat it */
+@media (min-width: 480px) and (max-width: 1023px) { .brand-subnav__cta { display: none; } }
+
+/* 1024–1199: give the links the lock-up's room (Overview already leads to the brand home) */
+@media (min-width: 1024px) and (max-width: 1199px) { .brand-subnav__lockup { display: none; } }
+
+/* ≥ 1024 "More" menu for links the bar cannot fit */
+.brand-subnav__morewrap { position: relative; flex-shrink: 0; height: 100%; display: flex; align-items: center; }
+.brand-subnav__more--menu { cursor: pointer; }
+.brand-subnav__more-chev { transition: transform var(--dur-2) var(--ease-standard); }
+.brand-subnav__more--menu[aria-expanded="true"] .brand-subnav__more-chev { transform: rotate(180deg); }
+@media (min-width: 1024px) {
+  .brand-subnav__more--menu[data-active] { background: transparent; color: var(--paper); box-shadow: inset 0 -2px 0 var(--accent-night, var(--paper)); }
+}
+.brand-subnav__menu {
+  position: absolute; top: 100%; right: 0; z-index: 2; min-width: 14rem; list-style: none;
+  margin: 0; padding: var(--space-2); background: var(--paper);
+  border: 1px solid var(--hairline); border-top: 2px solid var(--accent); border-radius: 0 0 var(--radius-media) var(--radius-media);
+  box-shadow: var(--shadow-overlay);
+}
+.brand-subnav__menu-link {
+  display: flex; align-items: center; min-height: 44px; padding: 0 var(--space-3); border-radius: var(--radius-sm);
+  color: var(--ink-900); text-decoration: none; font-size: var(--text-small); font-weight: 500; white-space: nowrap;
+}
+.brand-subnav__menu-link:hover { background: var(--bone); text-decoration: none; }
+.brand-subnav__menu-link[aria-current="page"] { color: var(--accent-text); font-weight: 500; background: var(--accent-tint); }
+
+/* ≥ 1024: links that the bar cannot fit are listed under "More" and hidden in the row (never half visible) */
+@media (min-width: 1024px) { .brand-subnav__list > li[data-clipped] { visibility: hidden; } }
+/* Tamil (Book 3 §4.4): no letter-spacing on Tamil labels */
+:lang(ta) .brand-subnav__link, :lang(ta) .brand-subnav__menu-link { letter-spacing: 0; }
+
+:root[data-motion="reduced"] .brand-subnav { transition: none; }
+@media (prefers-reduced-motion: reduce) { :root:not([data-motion="full"]) .brand-subnav { transition: none; } }
+
+/* Phones/tablets: 8px between chips, so "More" never touches the last link (Tamil labels at 320) */
+@media (max-width: 1023px) { .brand-subnav__list { gap: var(--space-2); } }

@@ -1,0 +1,7 @@
+/* One filled button, then arrow links (AIWO 1.5): 24px apart on one row; on phones the filled button takes the full
+   width and the arrow links sit under it, left-aligned. */
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-6); }
+.actions > .button--tertiary { min-height: 44px; }
+@media (max-width: 479px) {
+  .actions > .button:not(.button--tertiary) { flex: 1 1 100%; }
+}

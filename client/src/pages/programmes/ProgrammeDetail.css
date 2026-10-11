@@ -1,0 +1,176 @@
+/* /programmes/:slug — T03 programme page. AngelList-family finish (Oct 2026): breadcrumbs on the ink band joined to
+   the hero; the body is a sheet with two columns — feature rows on hairlines (who it's for, what you get, how applying
+   works, FAQ) on the left, the key-facts panel with the apply action on the right. */
+.programme-detail__crumbs-band { background: var(--night-0); color: var(--night-text); }
+.programme-detail__crumbs { padding-top: var(--space-6); }
+.programme-detail__loading { display: grid; gap: var(--space-6); padding-block: var(--space-16); }
+.programme-detail__error { display: grid; gap: var(--space-4); justify-items: start; max-width: var(--measure); }
+
+.programme-detail__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.programme-detail__applyby { font-size: var(--text-small); font-weight: 500; color: var(--color-text-2); }
+
+/* 8/4 with sticky key-facts aside on desktop; single column on mobile (facts first, near the Apply action) */
+.programme-detail__layout { display: grid; gap: var(--space-12); }
+@media (min-width: 1024px) {
+  .programme-detail__layout { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); grid-template-areas: "main aside"; gap: var(--space-16); }
+  .programme-detail__main { grid-area: main; }
+  .programme-detail__aside { grid-area: aside; }
+  /* Docks under the visible header and never grows past the viewport; Apply/Notify stays pinned at its foot. */
+  .programme-detail__sticky {
+    position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-6));
+    max-height: calc(100vh - var(--shell-offset, 0px) - 2 * var(--space-6)); overflow: auto; overscroll-behavior: contain;
+    border-radius: var(--media-radius); scrollbar-width: thin;
+    transition: top var(--dur-3) var(--ease-standard), max-height var(--dur-3) var(--ease-standard);
+  }
+  .programme-detail__sticky .key-facts__action {
+    position: sticky; bottom: 0; z-index: 1;
+    margin: var(--space-6) calc(-1 * var(--space-6)) calc(-1 * var(--space-6));
+    padding: var(--space-4) var(--space-6) var(--space-6);
+    background: var(--card); border-top: 1px solid var(--color-border);
+    border-radius: 0 0 calc(var(--media-radius) - 1px) calc(var(--media-radius) - 1px);
+  }
+  /* More facts below the fold of the aside: fade them out above the pinned action and lift it with a shadow,
+     a cue that the aside scrolls (F-70). data-more is set by ProgrammeDetail only while content is hidden. */
+  .programme-detail__sticky[data-more] .key-facts__action {
+    box-shadow: 0 -2.5rem 1.5rem -1rem var(--card), 0 -6px 12px -6px color-mix(in srgb, var(--night-0) 18%, transparent);
+  }
+}
+/* Short laptop screens: tighter fact rows so the whole aside fits more often */
+@media (min-width: 1024px) and (max-height: 800px) {
+  .programme-detail__sticky .key-facts { padding: var(--space-5); }
+  .programme-detail__sticky .key-facts__title { margin-bottom: var(--space-2); }
+  .programme-detail__sticky .key-facts__row { padding-block: var(--space-2); gap: var(--space-3); }
+  .programme-detail__sticky .key-facts__action {
+    margin: var(--space-4) calc(-1 * var(--space-5)) calc(-1 * var(--space-5));
+    padding: var(--space-3) var(--space-5) var(--space-5);
+  }
+  .programme-detail__sticky .programme-detail__aside-actions { gap: var(--space-2); }
+}
+.programme-detail__aside-actions { display: grid; gap: var(--space-3); }
+/* Status badges in the narrow facts column wrap rather than run off a 320px screen (long Tamil labels) */
+.programme-detail .key-facts__value .badge { white-space: normal; max-width: 100%; }
+@media (max-width: 359px) {
+  .programme-detail .key-facts__row { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); }
+}
+
+.programme-detail__main { display: grid; gap: var(--space-20); min-width: 0; }
+
+/* < 768px: no tall blank band between the stacked hero and Key facts (F-70); the sheet still overlaps the band. */
+@media (max-width: 767px) {
+  .programme-detail .brand-hero, .programme-detail .page-hero { padding-bottom: calc(var(--space-8) + var(--sheet-radius)); }
+  .programme-detail__body.section { padding-top: calc(var(--space-8) + var(--sheet-radius) * 0.25); }
+  .programme-detail__layout { gap: var(--space-10); }
+  .programme-detail__main { gap: var(--space-12); }
+}
+.programme-detail__block { display: grid; gap: var(--space-5); align-content: start; }
+.programme-detail__block > .h2 { max-width: 22ch; }
+.programme-detail__block--split { gap: var(--space-10); padding-top: var(--space-10); border-top: 1px solid var(--color-border); }
+@media (min-width: 768px) { .programme-detail__block--split { grid-template-columns: 1fr 1fr; } }
+.programme-detail__block--split > div { display: grid; gap: var(--space-3); align-content: start; }
+
+/* Founder ladder: a flat paper frame */
+.programme-detail__ladder { padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card); overflow-x: auto; }
+
+/* Eligibility: check rows on hairlines (no boxed rows) */
+.programme-detail__checks { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
+.programme-detail__checks li {
+  display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); align-items: start;
+  padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border);
+}
+.programme-detail__check { color: var(--accent-text); margin-top: 2px; }
+
+/* What you get: numbered feature rows with big light numerals */
+.programme-detail__outcomes { list-style: none; display: grid; }
+.programme-detail__outcomes li {
+  display: grid; grid-template-columns: 4rem 1fr; gap: var(--space-4); align-items: baseline;
+  padding-block: var(--space-5); border-top: 1px solid var(--color-border);
+}
+.programme-detail__outcomes li:last-child { border-bottom: 1px solid var(--color-border); }
+.programme-detail__outcome-num { font-size: var(--text-h3); font-weight: 400; letter-spacing: -0.03em; color: var(--color-text-muted); }
+
+/* How applying works (shared Steps, row variant): hairline rules and light numerals on this page */
+
+.programme-detail__faq-list { padding-left: 1.25em; }
+.programme-detail__faq-list li + li { margin-top: var(--space-1); }
+
+.programme-detail__related-grid {
+  list-style: none; display: grid; gap: var(--space-6); margin-top: var(--space-8);
+  grid-template-columns: minmax(0, 1fr);
+}
+/* Up to 3 related programmes, no 2+1 orphan: 2-up on tablets with an odd last card spanning the row, 3-up from 1024px */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .programme-detail__related-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .programme-detail__related-grid > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .programme-detail__related-grid > li:last-child:nth-child(odd) > .card:has(> .card__media) { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .programme-detail__related-grid > li:last-child:nth-child(odd) > .card.card > .card__media { border-radius: calc(var(--media-radius) - 1px) 0 0 calc(var(--media-radius) - 1px); }
+  .programme-detail__related-grid > li:last-child:nth-child(odd) > .card > .card__media { height: 100%; }
+  .programme-detail__related-grid > li:last-child:nth-child(odd) > .card > .card__media .art-image { aspect-ratio: auto !important; height: 100%; min-height: 12rem; } /* art fills the row (svg slices) */
+}
+@media (min-width: 1024px) { .programme-detail__related-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.programme-detail__related-grid > li { display: flex; }
+.programme-detail__related-grid > li > * { flex: 1; min-width: 0; }
+.programme-detail .programme-card .programme-card__stage { border-color: var(--color-border-control); border-radius: var(--btn-radius); font-weight: 500; }
+.programme-detail__status-note { flex-basis: 100%; font-size: var(--text-small); color: var(--color-text-2); }
+/* The programme's headline: a regular-weight statement over a hairline */
+.programme-detail__statement-text {
+  font-size: var(--text-h3); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; max-width: 28ch; text-wrap: balance;
+  padding-bottom: var(--space-8); margin-bottom: var(--space-4); border-bottom: 1px solid var(--color-border);
+}
+:lang(ta) .programme-detail__statement-text { letter-spacing: 0; line-height: var(--leading-heading); }
+
+/* ---------- DESIGN-v2 6.3 (Oct 2026) ---------- */
+/* 8/4 split with a sticky framed key-facts card that docks 32px under the visible header */
+@media (min-width: 1024px) {
+  .programme-detail__layout { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 32px; }
+  .programme-detail__main { padding-right: var(--space-12); }
+  .programme-detail__sticky {
+    top: calc(var(--shell-offset, var(--header-h)) + 32px);
+    max-height: calc(100vh - var(--shell-offset, var(--header-h)) - 64px);
+  }
+  .programme-detail__sticky .key-facts__action { background: var(--card); border-top-color: var(--hairline); }
+  .programme-detail__sticky[data-more] .key-facts__action {
+    box-shadow: 0 -2.5rem 1.5rem -1rem var(--card), 0 -6px 12px -6px rgb(12 23 25 / 0.12);
+  }
+}
+@media (min-width: 1024px) and (max-width: 1279px) { .programme-detail__main { padding-right: 0; } }
+.programme-detail__applyby { font-weight: 500; font-variant-numeric: tabular-nums; }
+.programme-detail__block { gap: var(--space-6); }
+.programme-detail__block > .eyebrow + .h2 { margin-top: calc(-1 * var(--space-2)); }
+/* The first lede (ScrubText): a large regular statement over a hairline */
+.programme-detail__statement-text {
+  font-size: clamp(1.5rem, 1.25rem + 1.1vw, 2.125rem); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em;
+  max-width: 26ch; border-bottom-color: var(--hairline);
+}
+/* Founder ladder: a Card frame (hairline ring) */
+.programme-detail__ladder { border: 0; box-shadow: inset 0 0 0 1px var(--hairline); background: var(--card); border-radius: var(--radius-media); }
+/* Eligibility: check rows on hairlines, Ink ticks */
+.programme-detail__checks, .programme-detail__checks li { border-color: var(--hairline); }
+.programme-detail__check { color: var(--color-text); }
+/* What you get: numbered rows, 01–0N tabular meta index (Steps pattern) */
+.programme-detail__outcomes li { grid-template-columns: 3.5rem 1fr; border-top-color: var(--hairline); transition: background-color var(--dur-2) var(--ease-snap); }
+.programme-detail__outcomes li:last-child { border-bottom-color: var(--hairline); }
+.programme-detail__outcome-num { font-size: var(--text-meta); letter-spacing: 0; color: var(--color-text-2); font-variant-numeric: tabular-nums; }
+/* Related programmes: framed cards, Ink cues */
+.programme-detail__related .card__cta, .programme-detail__related .button--tertiary { color: var(--color-text); }
+.programme-detail .programme-card .programme-card__stage { border-color: var(--line-strong); font-weight: 500; font-variant-numeric: tabular-nums; }
+.programme-detail__related-grid { gap: var(--space-8) var(--space-6); margin-top: 0; }
+@media (min-width: 1024px) { .programme-detail__related-grid { gap: var(--space-8); } }
+
+/* AIWO split hero (Oct 2026): BrandHero runs full (not compact), so the brand's media slot sits right and bleeds to the
+   viewport edge. The title reads at the inner-page title size (AIWO ~60px at 1440) and the band starts close under
+   the breadcrumbs, which already sit on the Ink band. */
+.programme-detail .brand-hero { padding-top: var(--space-10); }
+.programme-detail .brand-hero__title { font-size: var(--text-h1); max-width: 14ch; line-height: 1.08; }
+@media (min-width: 1024px) {
+  .programme-detail .brand-hero__inner { align-items: center; }
+  .programme-detail .brand-hero__art .art-image { aspect-ratio: 4 / 3 !important; }
+}
+/* < 1024: the stacked media is a low 2:1 band, so Key facts stay close to the first screen */
+@media (max-width: 1023.98px) { .programme-detail .brand-hero__art .art-image { aspect-ratio: 2 / 1 !important; } }
+
+/* Mobile audit (Oct 2026) ------------------------------------------------------------------------------------
+   Phones: a 22ch cap on Tamil section titles (wide glyphs) broke "L1 அறிமுகம் நிலையில் தொடங்கி…" into five short
+   lines in ~260px of a 335px column; on phones the title uses the column. */
+@media (max-width: 767px) { :lang(ta) .programme-detail__block > .h2 { max-width: none; } }
+/* The ladder stage chip ("L1 → L2") in the related cards was 12px; 14px meta size keeps it readable. */
+.programme-detail .programme-card .programme-card__stage { font-size: var(--text-meta); }

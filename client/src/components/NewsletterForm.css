@@ -1,0 +1,70 @@
+.newsletter { display: grid; gap: var(--space-5); min-width: 0; color: var(--color-text); }
+.newsletter[data-surface='night'] { background: transparent; }
+/* Newsletter (DESIGN-v2 3.14 / 3.16): title 500; on Ink the fields are Night-1 with an Ink-400 border and a Paper focus ring. */
+.newsletter__title { font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); }
+.newsletter__row { display: grid; gap: var(--space-3); align-items: end; }
+.newsletter--compact .newsletter__row { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 480px) {
+  .newsletter--compact .newsletter__row { grid-template-columns: minmax(0, 1fr) auto; }
+  /* keep the button aligned with the input when the field shows an error */
+  .newsletter--compact .newsletter__submit { align-self: start; margin-top: calc(1.35em + var(--space-2)); min-height: 48px; }
+}
+.newsletter__group { margin: 0; padding: 0; border: 0; min-width: 0; }
+.newsletter__legend { margin-bottom: var(--space-2); padding: 0; font-weight: 500; font-size: var(--text-small); }
+.newsletter__chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.newsletter__chip {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 0;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text);
+  font-size: var(--text-meta);
+  font-weight: 500;
+  transition: background-color var(--dur-1) var(--ease-standard), color var(--dur-1) var(--ease-standard), border-color var(--dur-1) var(--ease-standard), transform var(--dur-1) var(--ease-standard);
+}
+.newsletter__chip:active { transform: scale(0.97); }
+@media (hover: hover) { .newsletter__chip:hover { box-shadow: inset 0 0 0 1px var(--color-text); } }
+.newsletter__chip--on { background: var(--color-text); box-shadow: inset 0 0 0 1px var(--color-text); color: var(--color-bg); }
+@media (hover: hover) { .newsletter__chip--on:hover { color: var(--color-bg); } }
+.newsletter__chip:focus-visible { outline-offset: 2px; }
+:root .newsletter--night .newsletter__chip, :root [data-surface='night'] .newsletter__chip:not(.newsletter__chip--on) { box-shadow: inset 0 0 0 1px var(--night-line-strong); }
+
+.newsletter__langs { display: inline-flex; padding: 4px; border: 0; box-shadow: inset 0 0 0 1px var(--color-border); border-radius: var(--radius-full); }
+.newsletter__lang { position: relative; display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: var(--radius-full); cursor: pointer; font-weight: 500; font-size: var(--text-meta); color: var(--color-text-2); }
+.newsletter__lang input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.newsletter__lang--on { background: var(--color-text); color: var(--color-bg); }
+.newsletter__lang:has(input:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+.newsletter__wa { display: grid; gap: var(--space-2); }
+.newsletter__wa-toggle { display: flex; align-items: center; gap: var(--space-3); min-height: 44px; cursor: pointer; justify-self: start; }
+.newsletter__wa-text { font-weight: 500; font-size: var(--text-small); line-height: 1.4; }
+.newsletter__wa-panel { overflow: hidden; }
+.newsletter__wa-inner { display: grid; gap: var(--space-4); padding: var(--space-2) 0 var(--space-2) calc(24px + var(--space-3)); }
+@media (max-width: 479px) { .newsletter__wa-inner { padding-left: 0; } }
+
+.newsletter__alert {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-btn);
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  font-size: var(--text-small);
+  font-weight: 500;
+}
+[data-surface='night'] .newsletter__alert, .newsletter--night .newsletter__alert { background: var(--night-1); }
+.newsletter__alert:focus { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.newsletter__actions { padding-top: var(--space-2); }
+@media (max-width: 479px) { .newsletter__actions .button { width: 100%; } }
+
+/* On Ink: fields Night-1, border Ink-400, Paper text, focus Paper (Field.css night rules); submit = Paper fill */
+:root .newsletter--night .field__control { background: var(--night-1); border-color: var(--ink-400); color: var(--paper); }
+:root .newsletter--night .field__control:focus { border-color: var(--paper); box-shadow: 0 0 0 1px var(--paper); }
+:root .newsletter--night .field__label { color: var(--night-text-2); }
+
+/* Phones: 44px topic chips, 8px apart */
+@media (max-width: 767.98px), (pointer: coarse) {
+  .newsletter__chip { min-height: 44px; }
+}

@@ -1,0 +1,186 @@
+/* Buttons (DESIGN-v2 3.6): 4px rectangles, weight 500. Primary is Ink and turns Red-600 only while someone
+   interacts with it (one red point at rest). Selectors carry :root where they must outrank page CSS in lazy chunks. */
+.button {
+  --button-bg: var(--sn-ink);
+  --button-fg: var(--paper);
+  --button-ring: transparent;
+  --button-bg-hover: var(--sn-red-600);
+  --button-fg-hover: #FFFFFF;
+  --button-ring-hover: transparent;
+  --button-bg-active: var(--sn-red-700);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: var(--radius-btn);
+  background: var(--button-bg);
+  box-shadow: inset 0 0 0 1px var(--button-border, var(--button-ring));
+  color: var(--button-fg);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--dur-2) var(--ease-snap),
+    color var(--dur-2) var(--ease-snap),
+    box-shadow var(--dur-2) var(--ease-snap),
+    transform var(--dur-1) var(--ease-standard);
+}
+.button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.button:active:not([aria-disabled='true']):not(:disabled) { transform: scale(0.97); background: var(--button-bg-active, var(--button-bg-hover)); color: var(--button-fg-hover); }
+
+@media (hover: hover) {
+  .button:hover:not([aria-disabled='true']):not(:disabled) {
+    background: var(--button-bg-hover);
+    color: var(--button-fg-hover);
+    box-shadow: inset 0 0 0 1px var(--button-border-hover, var(--button-ring-hover));
+    text-decoration: none;
+  }
+  .button:hover .button__icon { transform: translateX(4px); }
+  .button[href^='http']:hover .button__icon { transform: translate(2px, -2px); }
+  .whatsapp-button:hover .button__icon { transform: none; }
+}
+.button:focus-visible .button__icon { transform: translateX(4px); }
+
+.button__label { display: inline-block; min-width: 0; text-wrap: balance; }
+.button__icon { display: inline-flex; flex: none; transition: transform var(--dur-2) var(--ease-snap); }
+.button .arrow { display: inline-block; transition: transform var(--dur-2) var(--ease-snap); }
+@media (hover: hover) { .button:hover .arrow { transform: translateX(4px); } }
+.button:focus-visible .arrow { transform: translateX(4px); }
+/* Icons never shrink inside a squeezed button */
+.button svg { flex: none; }
+
+/* shortLabel: the short form replaces the label below 400px (display:none keeps the accessible name
+   equal to the visible text at every width). */
+.button__label-short { display: none; }
+@media (max-width: 399.98px) {
+  .button--has-short .button__label-full { display: none; }
+  .button--has-short .button__label-short { display: inline; }
+}
+@media (max-width: 374.98px) {
+  .button:not(.button--tertiary) { padding-inline: var(--space-4); }
+}
+
+/* Sizes: sm 36 · md 44 · lg 52 */
+.button--sm { min-height: 36px; padding: 0 14px; font-size: var(--text-meta); }
+.button--md { min-height: 44px; padding: 0 18px; }
+.button--lg { min-height: 52px; padding: 0 24px; font-size: 1rem; }
+.button--full { display: flex; width: 100%; }
+@media (pointer: coarse) {
+  .button--sm, .button--md { min-height: 44px; }
+}
+
+/* Tamil: same 4px radius, no tracking; long labels grow in height instead of truncating. */
+:lang(ta) .button {
+  font-size: var(--text-small);
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-wrap: balance;
+  padding-block: 10px;
+}
+:lang(ta) .button:not(.button--tertiary) { padding-inline: var(--space-5); }
+@media (max-width: 400px) {
+  :lang(ta) .button:not(.button--tertiary) { padding-inline: 0.875rem; gap: var(--space-1); }
+}
+
+/* ---------- Variants ---------- */
+/* primary: Ink → Red-600 on hover → Red-700 pressed. On Ink: Paper → white. */
+.button--primary { --button-bg: var(--sn-ink); --button-fg: var(--paper); --button-bg-hover: var(--sn-red-600); --button-fg-hover: #FFFFFF; --button-bg-active: var(--sn-red-700); }
+:root [data-surface='night'] .button--primary { --button-bg: var(--paper); --button-fg: var(--sn-ink); --button-bg-hover: #FFFFFF; --button-fg-hover: var(--sn-ink); --button-bg-active: #FFFFFF; }
+/* secondary: hairline ring → Ink ring + 4% wash. On Ink: Paper ring 32% → Paper. */
+.button--secondary,
+.button--whatsapp {
+  --button-bg: transparent; --button-fg: var(--sn-ink); --button-ring: var(--line-strong);
+  --button-bg-hover: rgb(12 23 25 / 0.04); --button-fg-hover: var(--sn-ink); --button-ring-hover: var(--sn-ink);
+  --button-bg-active: rgb(12 23 25 / 0.08);
+}
+:root [data-surface='night'] :is(.button--secondary, .button--whatsapp) {
+  --button-bg: transparent; --button-fg: var(--paper); --button-ring: rgb(244 243 239 / 0.32);
+  --button-bg-hover: rgb(244 243 239 / 0.08); --button-fg-hover: var(--paper); --button-ring-hover: var(--paper);
+  --button-bg-active: rgb(244 243 239 / 0.12);
+}
+/* brand: accent fill, 8% darker on hover */
+.button--brand {
+  --button-bg: var(--accent-fill); --button-fg: var(--accent-on-fill);
+  --button-bg-hover: color-mix(in oklab, var(--accent-fill), #000 8%); --button-fg-hover: var(--accent-on-fill);
+  --button-bg-active: color-mix(in oklab, var(--accent-fill), #000 14%);
+}
+/* whatsapp: neutral secondary + the 20px glyph in Ink (Paper on Ink). No green fill. */
+.whatsapp-button__glyph { color: currentColor; }
+/* inverse: Paper fill, Ink text → white */
+.button--inverse {
+  --button-bg: var(--paper); --button-fg: var(--sn-ink);
+  --button-bg-hover: #FFFFFF; --button-fg-hover: var(--sn-ink); --button-bg-active: #FFFFFF;
+}
+
+/* tertiary: the arrow link (base.css .arrow-link): arrow +4px and an underline sweep */
+.button--tertiary {
+  --button-bg: transparent; --button-fg: var(--color-link-standalone);
+  --button-bg-hover: transparent; --button-fg-hover: var(--color-link-standalone); --button-bg-active: transparent;
+  padding-inline: 0;
+  min-height: 44px;
+  border-radius: var(--radius-btn);
+  gap: 10px;
+  text-align: left;
+  justify-content: flex-start;
+}
+.button--tertiary .button__label {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  padding-bottom: 0.08em;
+  transition: background-size var(--dur-3) var(--ease-snap);
+}
+@media (hover: hover) {
+  .button--tertiary:hover .button__label { background-size: 100% 1px; }
+}
+.button--tertiary:focus-visible .button__label { background-size: 100% 1px; }
+.button--tertiary:active:not([aria-disabled='true']):not(:disabled) { transform: none; }
+:root [data-surface='night'] .button--tertiary { --button-fg: var(--paper); --button-fg-hover: var(--paper); }
+/* Inside a brand scope, tertiary links follow the brand's text accent (night remaps --accent-text to accent-night). */
+:root [data-brand] .button--tertiary { --button-fg: var(--accent-text); --button-fg-hover: var(--accent-text); }
+
+/* Icon-only buttons keep a square hit area */
+:root .button:has(> .button__label:empty) { padding-inline: 0; min-width: 44px; justify-content: center; }
+
+/* Disabled: 40% opacity, still announced */
+.button:disabled,
+.button[aria-disabled='true'] { opacity: 0.4; cursor: not-allowed; }
+.button--loading:disabled { opacity: 1; cursor: progress; }
+
+/* Loading: three-dot pulli pulse in the label colour (Ink or Paper, never red); width stays locked */
+.button--loading .button__label,
+.button--loading .button__icon { visibility: hidden; }
+.button__dots {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.button__dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+  animation: button-pulse 1s var(--ease-standard) infinite both;
+}
+.button__dots i:nth-child(2) { animation-delay: 0.15s; }
+.button__dots i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes button-pulse {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) .button__dots i { animation: none; opacity: 0.8; }
+}
+:root[data-motion='reduced'] .button__dots i { animation: none; opacity: 0.8; }

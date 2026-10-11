@@ -1,0 +1,152 @@
+/* /insights/reports/:slug — T07 report (8/4 with chapter nav; Paper). Oct 2026: calm reading column, findings as
+   blueprint cells, hairline file rows, quiet 4px chips, no coloured bars. */
+.report-detail__loading { display: grid; gap: var(--space-4); }
+.report-detail__crumbs { margin-bottom: var(--space-6); }
+.report-detail__error-title { margin-bottom: var(--space-6); }
+.report-detail__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+.report-detail__layout { display: grid; gap: var(--space-8); min-width: 0; }
+.report-detail__aside { min-width: 0; }
+.report-detail__body { display: grid; gap: var(--space-12); min-width: 0; max-width: var(--measure); }
+
+@media (min-width: 1024px) {
+  .report-detail__layout {
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    grid-template-areas: "body aside";
+    gap: var(--space-16);
+    align-items: start;
+  }
+  .report-detail__aside { grid-area: aside; align-self: stretch; }
+  .report-detail__body { grid-area: body; }
+  .report-detail__sticky {
+    position: sticky;
+    top: calc(var(--shell-offset, var(--header-h)) + var(--space-6));
+    max-height: calc(100vh - var(--shell-offset, var(--header-h)) - var(--space-12));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+/* DESIGN-v2 6.4: long read. At ≥1280 the chapter nav becomes a sticky LEFT rail and the body a 68ch column. */
+@media (min-width: 1280px) {
+  .report-detail__layout {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    grid-template-areas: "aside body";
+    gap: var(--space-16);
+  }
+  .report-detail__body { max-width: 68ch; }
+}
+
+.report-detail__block { display: grid; gap: var(--space-5); scroll-margin-top: var(--space-6); min-width: 0; }
+.report-detail__summary { color: var(--color-text); }
+.report-detail__prelaunch,
+.report-detail__prose { color: var(--color-text-2); max-width: 62ch; }
+.report-detail__muted { color: var(--color-text-muted); font-size: var(--text-small); }
+.report-detail__launch { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); color: var(--color-text-2); }
+.report-detail__defs { display: grid; gap: var(--space-2); padding-left: var(--space-5); color: var(--color-text-2); }
+
+.report-detail__findings {
+  display: grid; gap: 1px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  background: var(--color-border); border: 1px solid var(--color-border); border-radius: var(--media-radius); overflow: hidden;
+}
+.report-detail__finding {
+  display: grid; gap: var(--space-3); align-content: start; min-width: 0;
+  padding: var(--space-6);
+  background: var(--card);
+}
+.report-detail__meaning { font-size: var(--text-small); color: var(--color-text-2); }
+.report-detail__pending {
+  display: grid; gap: var(--space-3); justify-items: start;
+  padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  background: var(--card);
+  color: var(--color-text-2);
+}
+.report-detail__context { display: grid; gap: var(--space-3); padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+.report-detail__context-title { color: var(--color-text-muted); }
+.report-detail__context-grid {
+  display: grid; gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+}
+.report-detail__context-note { font-size: var(--text-caption); color: var(--color-text-muted); }
+
+.report-detail__chapters { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--color-border); }
+@media (min-width: 768px) { .report-detail__chapters { grid-template-columns: 1fr 1fr; column-gap: var(--space-8); } }
+.report-detail__chapters li { display: flex; gap: var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); min-width: 0; }
+.report-detail__num { font-variant-numeric: tabular-nums; color: var(--color-text-muted); font-weight: 400; }
+
+.report-detail__sources ul { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: var(--space-2) 0 0; padding: 0; }
+.report-detail__sources li {
+  padding: var(--space-1) var(--space-3); border-radius: var(--btn-radius);
+  border: 1px solid var(--color-border); background: var(--card); font-size: var(--text-small);
+}
+.report-detail__tags { display: grid; gap: var(--space-2); margin: 0; }
+.report-detail__tag { display: flex; align-items: center; gap: var(--space-3); }
+.report-detail__tag dd { margin: 0; color: var(--color-text-2); font-size: var(--text-small); }
+.report-detail__method-links { --cluster-gap: var(--space-4); }
+
+/* Sponsor disclosure band: its own block, sunken, after methodology. */
+.report-detail__sponsor {
+  display: grid; gap: var(--space-3); scroll-margin-top: var(--space-6);
+  padding: var(--space-6); border-radius: var(--media-radius);
+  border: 1px solid var(--color-border); background: var(--card);
+}
+.report-detail__sponsor-body { display: grid; gap: var(--space-2); }
+.report-detail__sponsor-rule { color: var(--color-text); font-weight: 500; }
+
+.report-detail__notify { display: grid; gap: var(--space-5); }
+.report-detail__survey { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.report-detail__briefing { display: grid; gap: var(--space-1); justify-items: start; padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+
+.report-detail__files { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--color-border); }
+.report-detail__file {
+  display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap;
+  min-height: 44px; padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border);
+}
+.report-detail__file-text { display: grid; gap: var(--space-1); flex: 1 1 12rem; min-width: 0; }
+.report-detail__file-link { font-weight: 500; text-decoration-color: var(--color-link-decoration); text-underline-offset: 3px; }
+.report-detail__file-meta { font-size: var(--text-small); color: var(--color-text-muted); }
+.report-detail__gate { display: grid; gap: var(--space-4); }
+.report-detail__gate-intro { display: flex; gap: var(--space-2); align-items: flex-start; color: var(--color-text-2); }
+.report-detail__gate-intro svg { flex: none; margin-top: 0.2em; }
+
+.report-detail__related { display: grid; gap: var(--space-6); margin-top: var(--space-8); }
+@media (min-width: 768px) { .report-detail__related { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .report-detail__related { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* 2-up on tablets: an odd last card spans the row as a horizontal card (no 2+1 orphan) */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .report-detail__related > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .report-detail__related > :last-child:nth-child(odd) > .card:has(> .card__media) { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .report-detail__related > :last-child:nth-child(odd) > .card.card > .card__media { height: 100%; border-radius: calc(var(--media-radius) - 1px) 0 0 calc(var(--media-radius) - 1px); }
+  .report-detail__related > :last-child:nth-child(odd) > .card > .card__media .art-image { aspect-ratio: auto !important; height: 100%; min-height: 12rem; }
+}
+.report-detail__related-item { display: flex; min-width: 0; }
+.report-detail__related-item > * { flex: 1; }
+
+/* Long Tamil words must not force horizontal scroll at 320px. */
+.report-detail__body, .report-detail__aside { overflow-wrap: anywhere; }
+.report-detail__tag dd { min-width: 0; flex: 1; }
+
+/* min(…, 8vw): at 390 "TN Founder Report 2027" measured 354px in Inter and 357px in the metric fallback against a 350px
+   box, so it wrapped (fallback) and then un-wrapped when Inter arrived (CLS). 8vw keeps both on one line. */
+@media (max-width: 479px) { .report-detail__hero-title { font-size: min(var(--text-h1), 8vw); overflow-wrap: anywhere; } }
+
+/* Phones: pin the single column to the container width, so a long Tamil word or placeholder chip cannot widen it (320 px /ta). */
+@media (max-width: 1023px) {
+  .report-detail__layout, .report-detail__body, .report-detail__block { grid-template-columns: minmax(0, 1fr); }
+}
+/* A tag chip and its long Tamil meaning share a row only when they fit. */
+.report-detail__tag { flex-wrap: wrap; row-gap: var(--space-1); }
+
+/* Block titles: regular-weight headings over a hairline (Oct 2026). */
+.report-detail__block > .h3 { font-weight: 400; letter-spacing: -0.02em; }
+.report-detail__block > .h3:lang(ta) { letter-spacing: 0; }
+.report-detail__block + .report-detail__block { padding-top: var(--space-10); border-top: 1px solid var(--color-border); }
+.report-detail__block > .h5 { font-weight: 500; }
+.report-detail__context-title, .report-detail__sources .h6 { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); }
+.report-detail__chapters li > :first-child { flex: none; white-space: nowrap; overflow-wrap: normal; font-variant-numeric: tabular-nums; }
+
+/* Tamil phones (mobile audit, Oct 2026): next to the 145px "A சரிபார்க்கப்பட்டது" chip the meaning got ~100px at
+   320 and சரிபார்க்கப்பட்டது. split mid-word. An 11rem basis moves the meaning under its chip when the two cannot
+   share a row (320–360px) and keeps them side by side from 375px. */
+.report-detail__tag dd:lang(ta) { flex: 1 1 11rem; }

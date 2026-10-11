@@ -1,0 +1,83 @@
+/* /about/leadership — reads like USVC's team grid: portraits in 12px frames inside a hairline grid,
+   name 500, role small muted, bio grey. */
+
+/* Filter row: the top of the first sheet (theme.css rounds "hero + *"); a pill segmented control whose Ink pill
+   slides to the pressed filter (DESIGN-v2 3.12). Left edge on the container edge. */
+.lead-filter-band { background: var(--paper); border-bottom: 1px solid var(--hairline); }
+.lead-filter-wrap { padding-block: var(--space-3); }
+.lead-filter { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.lead-filter::-webkit-scrollbar { display: none; }
+.lead-filter__btn { flex-shrink: 0; cursor: pointer; }
+.lead-filter__btn:focus-visible { outline: 0; box-shadow: inset 0 0 0 2px var(--color-focus), inset 0 0 0 4px var(--paper); }
+.lead-filter-band + .section { padding-top: var(--space-section-tight, var(--space-section)); }
+
+.lead-grid { list-style: none; display: grid; gap: var(--space-8) var(--space-6); margin-top: var(--space-8); grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
+.lead-grid > * { min-width: 0; }
+/* Fixed counts get layouts with no orphan row (F-49). */
+/* Three founders: unframed media cards (DESIGN-v2 3.7 family A) — 1/1 portraits, 32px column gap, 48px rows. */
+.lead-grid--three { grid-template-columns: minmax(0, 1fr); gap: var(--space-12, 48px) 32px; }
+@media (min-width: 768px) { .lead-grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 768px) and (max-width: 1023.98px) { .lead-grid--three { column-gap: 24px; } }
+/* Four councils: 2 × 2 from 640 to 1279, one row of four from 1280. */
+.lead-grid--four { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) { .lead-grid--four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .lead-grid--four { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+/* Five brand leads: a centred 3 + 2 from 640 to 1279 (6-column grid, each item spans 2), one row of five from 1280. */
+.lead-grid--five { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) and (max-width: 1279.98px) {
+  .lead-grid--five { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .lead-grid--five > * { grid-column: span 2; }
+  .lead-grid--five > :nth-child(4) { grid-column: 2 / span 2; }
+}
+@media (min-width: 1280px) { .lead-grid--five { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-8) var(--space-5); } }
+
+/* A person: the shared PersonCard, unframed; its 1/1 portrait keeps the 12px frame and zooms 1.03 on hover. */
+.lead-person { display: flex; flex-direction: column; gap: var(--space-3); height: 100%; }
+.lead-person .person-card { border: 0; border-radius: 0; background: transparent; gap: var(--space-5); }
+.lead-person .person-card__portrait { border-radius: var(--radius-media); overflow: hidden; background: var(--bone); }
+@media (hover: hover) and (pointer: fine) {
+  .lead-person .person-card__portrait > * { transition: transform var(--dur-media, 480ms) var(--ease-snap); }
+  .lead-person:hover .person-card__portrait > * { transform: scale(1.03); }
+}
+@media (prefers-reduced-motion: reduce) { .lead-person .person-card__portrait > * { transition: none; transform: none !important; } }
+:root[data-motion='reduced'] .lead-person .person-card__portrait > * { transition: none; transform: none !important; }
+.lead-person .person-card__body { gap: var(--space-1); }
+.lead-person .person-card__name { font-weight: 500; letter-spacing: var(--tracking-h3, -0.015em); font-size: var(--text-h3); line-height: 1.2; }
+.lead-person .person-card__role { color: var(--color-text); font-size: var(--text-small); }
+.lead-person .person-card__org { color: var(--color-text-muted); }
+.lead-person__bio { color: var(--color-text-2); font-size: var(--text-small); line-height: 1.55; max-width: 40ch; }
+.lead-person__full { font-size: var(--text-small); }
+.lead-tag { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-8); font-size: var(--text-small); color: var(--color-text-muted); }
+
+/* Open roles (AIWO P14): open columns under a 1px top rule in the brand accent (not yet filled = no portrait, no
+   box); the brand dot sits on the rule's left end. */
+.lead-vacant {
+  position: relative; display: flex; flex-direction: column; gap: var(--space-2);
+  padding: 28px 0 0;
+  border-top: 1px solid var(--accent-fill, var(--accent, var(--color-text)));
+}
+.lead-vacant__rule {
+  position: absolute; top: -4.5px; left: 0;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent-fill, var(--accent));
+}
+.lead-vacant__role { font-weight: 400; font-size: var(--text-h5, 1.25rem); line-height: 1.25; letter-spacing: -0.01em; }
+.lead-vacant__status { font-size: var(--text-small); color: var(--color-text-muted); }
+
+/* Advisory councils: hairline rows, brand as a small dot. */
+.lead-councils { list-style: none; display: grid; gap: 0; margin-top: var(--space-8); border-top: 1px solid var(--color-border); }
+@media (min-width: 768px) { .lead-councils { grid-template-columns: repeat(2, 1fr); column-gap: var(--space-8); } }
+@media (min-width: 1024px) { .lead-councils { grid-template-columns: repeat(4, 1fr); } }
+.lead-council { padding-block: var(--space-5); border-bottom: 1px solid var(--color-border); display: grid; gap: var(--space-2); }
+.lead-council__brand { font-weight: 500; color: var(--accent-text); display: flex; align-items: center; gap: var(--space-2); }
+.lead-council__brand::before { content: ''; width: 8px; height: 8px; border-radius: var(--radius-full); background: var(--accent-fill, var(--accent)); }
+.lead-council__who { color: var(--color-text-2); }
+.lead-council__who::first-letter { text-transform: uppercase; }
+.lead-person__bio, .lead-vacant__role { overflow-wrap: break-word; }
+.lead-pending { margin-top: var(--space-6); font-size: var(--text-small); }
+
+:lang(ta) .lead-person .person-card__name { letter-spacing: 0; line-height: 1.35; }
+:lang(ta) .lead-vacant__role { letter-spacing: 0; }
+
+/* Founder interview (StartupTN) under the founding team */
+.lead-film { margin-top: clamp(var(--space-10), 2rem + 3vw, var(--space-16)); max-width: 56rem; }
+.lead-film .event-videos__title { font-size: var(--text-h3); }

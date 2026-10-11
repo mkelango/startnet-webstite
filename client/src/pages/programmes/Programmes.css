@@ -1,0 +1,319 @@
+/* /programmes — finder hub. AngelList-family finish (Oct 2026): the hero is the ink band (data-surface="night" in
+   the JSX) with the finder as a raised ink panel; the results are a calm sheet sliding over it — needs as flat
+   hairline cards, a hairline filter bar (FacetBar), flat programme cards, a hairline index table. */
+.programmes-hero {
+  position: relative; background: var(--night-0); color: var(--night-text);
+  padding-block: var(--space-8) calc(clamp(var(--space-12), 2rem + 4vw, var(--space-20)) + var(--sheet-radius));
+}
+/* The results slide over the band as a rounded sheet (as theme.css does after .page-hero). */
+.programmes .programmes-hero + .section {
+  position: relative;
+  margin-top: calc(-1 * var(--sheet-radius));
+  border-top-left-radius: var(--sheet-radius);
+  border-top-right-radius: var(--sheet-radius);
+  box-shadow: 0 -18px 40px -24px color-mix(in srgb, var(--night-0) 30%, transparent);
+  padding-top: calc(var(--space-section) * 0.7);
+}
+.programmes-hero__grid { display: grid; gap: var(--space-10); margin-top: var(--space-8); align-items: start; }
+@media (min-width: 1024px) {
+  .programmes-hero__grid { grid-template-columns: 5fr 7fr; gap: var(--space-16); margin-top: var(--space-12); }
+  .programmes-hero__copy { position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-8)); transition: top var(--dur-3) var(--ease-standard); }
+}
+.programmes-hero__copy > * + * { margin-top: var(--space-5); }
+.programmes-hero__title { max-width: 12ch; color: var(--night-text); }
+.programmes-hero__lede { color: var(--night-text-2); max-width: 34ch; }
+
+/* Finder: a raised ink panel with a hairline (AngelList's product frame on the band) */
+.programmes-finder {
+  background: var(--night-1); border: 1px solid var(--night-line); border-radius: var(--media-radius);
+  box-shadow: 0 30px 60px -40px color-mix(in srgb, var(--night-0) 80%, transparent);
+  padding: var(--space-6);
+  display: grid; gap: var(--space-8);
+}
+@media (min-width: 768px) { .programmes-finder { padding: var(--space-10); } }
+.programmes-finder__q { display: grid; gap: var(--space-4); }
+.programmes-finder__label { display: flex; align-items: center; gap: var(--space-3); font-size: var(--text-h4); font-weight: 400; letter-spacing: -0.015em; color: var(--night-text); }
+:lang(ta) .programmes-finder__label { letter-spacing: 0; font-size: var(--text-h5); }
+.programmes-finder__num {
+  display: inline-grid; place-items: center; width: 2rem; height: 2rem; flex: none;
+  border-radius: var(--radius-full); border: 1px solid var(--night-line-strong); background: transparent;
+  color: var(--night-text-2); font-size: var(--text-small); font-weight: 500;
+}
+.programmes-finder__opts { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.programmes-finder__opt {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--night-line-strong); border-radius: var(--radius-full); background: transparent;
+  color: var(--night-text); font-size: var(--text-small); font-weight: 500; text-align: left; line-height: 1.3; text-decoration: none;
+  transition: background-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard), transform var(--dur-1) var(--ease-standard);
+}
+.programmes-finder__opt:hover { border-color: var(--night-text-muted); background: var(--night-2); }
+.programmes-finder__opt:active { transform: scale(0.98); }
+.programmes-finder__opt.is-on { background: var(--night-text); border-color: var(--night-text); color: var(--night-0); }
+.programmes-finder__opt--link { border-style: dashed; color: var(--night-text-2); }
+.programmes-finder__opt--link svg { transition: transform var(--dur-2) var(--ease-standard); }
+.programmes-finder__opt--link:hover svg { transform: translateX(var(--shift-1)); }
+.programmes-finder__hint {
+  font-size: var(--text-caption); color: var(--night-text-2); padding: 0 var(--space-2);
+  border-radius: var(--btn-radius); background: var(--night-2);
+}
+.programmes-finder__opt.is-on .programmes-finder__hint { background: var(--bone); color: var(--night-0); }
+/* The ladder hint never wraps inside its pill; the label text wraps instead (F-69) */
+/* Long (Tamil) labels: the hint pill drops under the label instead of forcing the card wider than the screen */
+.programmes-finder__opt:has(.programmes-finder__hint) { flex-wrap: wrap; row-gap: var(--space-1); }
+.programmes-finder__opt-text { min-width: 0; }
+/* Tamil options often run to two or three lines: a rounded rectangle reads better than a stretched pill */
+:lang(ta) .programmes-finder__opt { border-radius: var(--media-radius); }
+.programmes-finder__hint { white-space: nowrap; flex-shrink: 0; }
+.programmes-finder__submit { white-space: nowrap; }
+/* Tamil runs 30–60% longer: allow the submit to take two lines rather than overflow (Book 2 §14.3 note) */
+:lang(ta) .programmes-finder__submit { white-space: normal; }
+@media (max-width: 359px) {
+  .programmes-finder { padding: var(--space-5); }
+  .programmes-finder__foot .programmes-finder__submit { width: 100%; justify-content: center; }
+}
+.programmes-finder__foot {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4);
+  padding-top: var(--space-6); border-top: 1px solid var(--night-line);
+}
+.programmes-finder__count { display: flex; align-items: baseline; gap: var(--space-2); font-size: var(--text-body-lg); color: var(--night-text-2); }
+/* The live count: a big light numeral */
+.programmes-finder__count strong { font-size: var(--text-h1); font-weight: 400; line-height: 1; letter-spacing: -0.04em; color: var(--night-text); }
+
+/* Needs: four flat hairline cards (a ladder of rungs as the figure) */
+.programmes-needs { display: grid; gap: var(--space-8); }
+.programmes-needs__title { font-weight: 400; letter-spacing: -0.015em; }
+:lang(ta) .programmes-needs__title { letter-spacing: 0; }
+.programmes-needs__grid { list-style: none; display: grid; gap: var(--space-4); grid-template-columns: minmax(0, 1fr); }
+/* Four needs: 1 column on phones, 2×2 from 640px (no 3+1 orphan), 4 across from 1280px */
+@media (min-width: 640px) { .programmes-needs__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .programmes-needs__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.programmes-needs__title:focus { outline: none; }
+.programmes-needs__title:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--btn-radius); }
+.programmes-need {
+  width: 100%; height: 100%; display: grid; gap: var(--space-3); align-content: start; text-align: left;
+  padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  background: var(--card); color: var(--color-text); position: relative;
+  transition: transform var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) {
+  .programmes-need:hover:not([aria-disabled="true"]) {
+    transform: translateY(-2px); border-color: var(--color-border-control);
+    box-shadow: 0 18px 40px -24px color-mix(in srgb, var(--night-0) 35%, transparent);
+  }
+}
+.programmes-need[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
+.programmes-need.is-on { border-color: var(--color-text); box-shadow: inset 0 0 0 1px var(--color-text); }
+.programmes-need:focus-visible { box-shadow: var(--focus-ring); }
+.programmes-need.is-on::after {
+  content: ""; position: absolute; top: var(--space-5); right: var(--space-5); width: 10px; height: 10px;
+  border-radius: var(--radius-full); background: var(--color-point);
+}
+.programmes-need__label { font-weight: 500; letter-spacing: -0.01em; }
+.programmes-need__ladder { display: flex; align-items: flex-end; gap: 3px; height: 28px; margin-block: var(--space-1); }
+.programmes-need__rung {
+  width: 12px; height: calc(var(--rung) * 3px + 6px); border-radius: 2px; background: var(--color-border);
+  transition: background-color var(--dur-3) var(--ease-standard);
+}
+.programmes-need__rung.is-on { background: var(--color-text); }
+.programmes-need.is-on .programmes-need__rung.is-top { background: var(--color-point); }
+.programmes-need__levels { font-size: var(--text-caption); color: var(--color-text-muted); }
+.programmes-need__count { display: inline-flex; align-items: center; gap: var(--space-1); font-size: var(--text-small); font-weight: 500; margin-top: var(--space-2); }
+.programmes-need__arrow { transition: transform var(--dur-2) var(--ease-standard); }
+.programmes-need:hover:not([aria-disabled="true"]) .programmes-need__arrow { transform: translateX(var(--shift-1)); }
+
+/* Results */
+.programmes-results__bar {
+  /* Docks flush under the visible header (--shell-offset is 0 while it is hidden); the breathing room is
+     padding on its own opaque background, so cards never show through a gap above it (F-69). */
+  position: sticky; top: var(--shell-offset, 0px); z-index: 20;
+  transition: top var(--dur-3) var(--ease-standard);
+  margin-top: var(--space-12); padding: var(--space-3) 0; background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+@media (min-width: 1024px) { .programmes-results__bar { padding: var(--space-4) 0; } }
+.programmes-results__bar + .facetbar__active { margin-top: var(--space-4); }
+.programmes-results__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); margin: var(--space-8) 0 var(--space-6); }
+.programmes-results__count { font-size: var(--text-body-lg); font-weight: 400; color: var(--color-text-2); }
+.programmes-results__grid {
+  list-style: none; position: relative; display: grid; gap: var(--space-6);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+}
+.programmes-results__item { display: flex; }
+.programmes-results__item > * { flex: 1; min-width: 0; }
+.programmes-results__grid--skeleton { display: grid; }
+/* Flat programme cards: the stage marker as a quiet 4px label, like the badges beside it */
+.programmes .programme-card .programme-card__stage { border-color: var(--color-border-control); border-radius: var(--btn-radius); font-weight: 500; }
+.programmes .programme-card .card__meta { border-top-color: var(--color-border); }
+/* Twenty repeated cues: a quiet ink text link with an arrow; the red stays for the page's main action. */
+.programmes-results .programme-card .card__cta { color: var(--color-text); font-weight: 500; }
+
+.programmes-loadmore { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); margin-top: var(--space-12); }
+
+.programmes-error {
+  display: grid; gap: var(--space-3); justify-items: start; padding: var(--space-8);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card);
+  box-shadow: inset 3px 0 0 var(--color-error);
+}
+.programmes-empty { display: grid; gap: var(--space-12); }
+.programmes-empty__closest { display: grid; gap: var(--space-5); }
+.programmes-empty__closest-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-3); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
+.programmes-empty__closest-head h3 { font-weight: 500; }
+
+
+/* Programme index: a hairline table, brand as a small dot */
+.programmes-index__head { display: grid; gap: var(--space-3); margin-bottom: var(--space-10); }
+.programmes-index__lede { max-width: var(--measure); font-size: var(--text-body-lg); }
+.programmes-index__table { width: 100%; border-collapse: collapse; font-size: var(--text-small); }
+.programmes-index__table thead th {
+  text-align: left; font-size: var(--text-small); font-weight: 400; letter-spacing: 0; text-transform: none;
+  color: var(--color-text-muted); padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border);
+}
+.programmes-index__table thead th:first-child { padding-left: 0; }
+.programmes-index__table tbody th, .programmes-index__table td { text-align: left; vertical-align: top; padding: var(--space-4); border-bottom: 1px solid var(--color-border); font-weight: 400; }
+.programmes-index__table tbody th { padding-block: var(--space-1); padding-left: 0; } /* name link is a 44px target; keep row height */
+.programmes-index__table tbody tr { transition: background-color var(--dur-2) var(--ease-standard); }
+.programmes-index__table tbody tr:hover { background: var(--sheet); }
+.programmes-index__name { display: inline-flex; align-items: center; min-height: 44px; gap: var(--space-3); font-weight: 500; color: var(--color-text); text-decoration: none; }
+.programmes-index__name:hover { text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-underline-offset: 0.25em; }
+.programmes-index__bar { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-fill, var(--accent)); flex: none; }
+.programmes-index__brand { color: var(--color-text-2); font-weight: 400; }
+.programmes-index__cost { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.programmes-index__note { margin-top: var(--space-5); color: var(--color-text-muted); }
+
+@media (max-width: 767px) {
+  .programmes-index__table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .programmes-index__table, .programmes-index__table tbody, .programmes-index__table tr, .programmes-index__table th, .programmes-index__table td { display: block; }
+  .programmes-index__table { border-top: 1px solid var(--color-border); }
+  .programmes-index__table tr { padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+  .programmes-index__table tbody th, .programmes-index__table td { padding: var(--space-1) 0; border: 0; }
+  .programmes-index__table td { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: var(--space-3); }
+  .programmes-index__table td::before { content: attr(data-label); color: var(--color-text-muted); font-size: var(--text-caption); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .programmes-need, .programmes-need__arrow, .programmes-finder__opt, .programmes-hero__copy { transition: none; }
+}
+
+/* Tamil (768px+): the table cells break only between whole words; base.css lets Tamil th/td break anywhere,
+   which split பிராண்ட் and the Latin programme names (Academy, Launchpad) in the narrow columns. */
+@media (min-width: 768px) {
+  :lang(ta) .programmes-index__table :is(th, td) { overflow-wrap: break-word; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Whole Tamil words make the table ~10px wider than the 720px column at 768: tighter cell padding. */
+  :lang(ta) .programmes-index__table :is(th, td) { padding-inline: var(--space-3); }
+}
+@media (max-width: 767px) {
+  .programmes-hero { padding-bottom: calc(var(--space-12) + var(--sheet-radius)); }
+}
+
+/* ---------- DESIGN-v2 6.3 (Oct 2026) ---------- */
+/* Hero: plain Ink band (no dot texture, AIWO); the results sheet rises once, straight, no shadow */
+.programmes-hero {
+  padding-top: var(--space-16);
+}
+.programmes .programmes-hero + .section { box-shadow: none; z-index: 1; padding-top: calc(var(--space-section) * 0.75); }
+/* Finder: a Night-1 panel with a hairline only (no shadow + hairline) */
+.programmes-finder { box-shadow: none; border-color: var(--night-line); border-radius: var(--radius-media); }
+.programmes-finder__label { font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3, -0.015em); }
+.programmes-finder__num { font-weight: 500; font-variant-numeric: tabular-nums; }
+.programmes-finder__opt {
+  font-size: var(--text-meta); font-weight: 500; min-height: 36px; padding: 6px 14px; border: 0;
+  box-shadow: inset 0 0 0 1px var(--night-line-strong);
+  transition: background-color var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap), transform var(--dur-1) var(--ease-standard);
+}
+@media (pointer: coarse) { .programmes-finder__opt { min-height: 44px; } }
+@media (hover: hover) { .programmes-finder__opt:hover { background: transparent; box-shadow: inset 0 0 0 1px var(--paper); } }
+.programmes-finder__opt:active { transform: scale(0.97); }
+.programmes-finder__opt.is-on { background: var(--paper); color: var(--sn-ink); box-shadow: inset 0 0 0 1px var(--paper); }
+.programmes-finder__opt.is-on .programmes-finder__hint { background: var(--bone); color: var(--sn-ink); }
+.programmes-finder__hint { font-variant-numeric: tabular-nums; }
+.programmes-finder__count strong { font-size: var(--text-h1); font-weight: 400; letter-spacing: var(--tracking-stat, -0.04em); font-variant-numeric: tabular-nums; }
+:lang(ta) .programmes-finder__label { letter-spacing: 0; font-size: var(--text-h5); }
+
+/* Needs: framed cards (3.7 B): Card ground, hairline ring, a 2px Ink top rule on hover and focus, no lift.
+   Pressed = an Ink ring and the top rung in Ink (no red: one red point per composition). */
+.programmes-need {
+  position: relative; overflow: hidden; border: 0; border-radius: var(--radius-media);
+  background: var(--card); box-shadow: inset 0 0 0 1px var(--hairline);
+  transition: box-shadow var(--dur-2) var(--ease-snap), transform var(--dur-1) var(--ease-standard);
+}
+.programmes-need::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--sn-ink);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+@media (hover: hover) and (pointer: fine) {
+  .programmes-need:hover:not([aria-disabled='true']) { transform: none; box-shadow: inset 0 0 0 1px var(--line-strong); }
+  .programmes-need:hover:not([aria-disabled='true'])::before { transform: scaleX(1); }
+  .programmes-need:hover:not([aria-disabled='true']) .programmes-need__rung.is-on { background: var(--sn-ink); }
+}
+.programmes-need:focus-visible::before, .programmes-need.is-on::before { transform: scaleX(1); }
+.programmes-need:active:not([aria-disabled='true']) { transform: scale(0.99); }
+.programmes-need.is-on { box-shadow: inset 0 0 0 1.5px var(--sn-ink); }
+.programmes-need.is-on::after { content: none; }
+.programmes-need:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.programmes-need__label { font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3, -0.015em); line-height: 1.2; }
+:lang(ta) .programmes-need__label { letter-spacing: 0; font-size: var(--text-h5); }
+.programmes-need__rung { background: var(--hairline); transition: background-color var(--dur-3) var(--ease-snap); }
+.programmes-need__rung.is-on { background: var(--ink-400); }
+.programmes-need.is-on .programmes-need__rung.is-on, .programmes-need.is-on .programmes-need__rung.is-top { background: var(--sn-ink); }
+.programmes-need__levels { color: var(--color-text-2); font-size: var(--text-meta); font-variant-numeric: tabular-nums; }
+.programmes-need__count { font-size: var(--text-meta); font-weight: 500; }
+/* Links line up across the row when one title wraps to two lines (the card is the grid row's height). */
+.programmes-need { grid-template-rows: auto auto auto 1fr; align-content: stretch; }
+.programmes-need__count { align-self: end; }
+.programmes-need__arrow { transition: transform var(--dur-2) var(--ease-snap); }
+.programmes-need:hover:not([aria-disabled='true']) .programmes-need__arrow { transform: translateX(4px); }
+.programmes-needs__title { font-size: var(--text-h3); font-weight: 500; }
+
+/* Results: framed ProgrammeCards 3-up from 1024, 2-up from 768 (32px column gap, 32px row gap) */
+.programmes-results__bar { background: var(--paper); border-bottom-color: var(--hairline); }
+.programmes-results__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
+@media (min-width: 768px) { .programmes-results__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8) var(--space-6); } }
+@media (min-width: 1024px) { .programmes-results__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-8); } }
+.programmes-results__count { font-size: var(--text-lede); }
+.programmes .programme-card .programme-card__stage { border-color: var(--line-strong); font-weight: 500; font-variant-numeric: tabular-nums; }
+.programmes .programme-card .card__meta { border-top-color: var(--hairline); }
+.programmes .programme-card .card__cta { color: var(--color-text); font-weight: 500; }
+.programmes-loadmore { align-items: flex-start; }
+.programmes-loadmore__status { color: var(--color-text-2); }
+.programmes-error { border: 0; box-shadow: inset 0 0 0 1px var(--hairline); }
+
+/* Index: a hairline table with tabular figures; rows lift to Card on hover, the name underline sweeps in */
+.programmes-index__head { gap: var(--space-4); margin-bottom: var(--space-head-gap, var(--space-12)); }
+.programmes-index__table { font-variant-numeric: tabular-nums; }
+.programmes-index__table thead th { color: var(--color-text-2); font-weight: 500; border-bottom-color: var(--line-strong); }
+.programmes-index__table tbody th, .programmes-index__table td { border-bottom-color: var(--hairline); }
+.programmes-index__table tbody tr { transition: background-color var(--dur-2) var(--ease-snap); }
+@media (hover: hover) { .programmes-index__table tbody tr:hover { background: var(--card); } }
+.programmes-index__name { font-weight: 500; }
+.programmes-index__name:hover { text-decoration-color: currentColor; }
+.programmes-index__bar { width: 7px; height: 7px; background: var(--accent); }
+.programmes-index__note { color: var(--ink-600); }
+
+/* FAQ: 4/8 editorial split */
+.programmes-faq__grid { row-gap: var(--space-8); }
+/* AIWO P16: header in cols 1-5, questions in cols 7-12 */
+@media (min-width: 1024px) { .grid-12 > .programmes-faq__list { grid-column: 7 / span 6; } }
+@media (min-width: 1024px) {
+  .programmes-faq__head { position: sticky; top: calc(var(--shell-offset, var(--header-h)) + var(--space-8)); align-self: start; transition: top var(--dur-3) var(--ease-standard); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .programmes-need, .programmes-need::before, .programmes-need__arrow, .programmes-index__table tbody tr, .programmes-faq__head { transition: none; }
+}
+:root[data-motion='reduced'] .programmes-need,
+:root[data-motion='reduced'] .programmes-need::before,
+:root[data-motion='reduced'] .programmes-need__arrow { transition: none; }
+
+/* QA v6 (Tamil hero): "கண்டறியுங்கள்." is ~8.4em; at 1440 it overran the 507px copy column (the red stop dropped to a
+   line of its own) and at 1024 the word split between aksharas. The title scales to the copy column. */
+:lang(ta) .programmes-hero__copy { container-type: inline-size; }
+:lang(ta) .programmes-hero__title { font-size: min(var(--text-display-xl), 100cqi / 8.7); }
+/* QA v6: four Tamil need cards across from 1280 leave ~244–260px per label; "வாடிக்கையாளர்களையும்" (~13.8em) ran
+   16px into the card padding and was clipped. Tamil labels step down to fit. */
+@media (min-width: 1280px) {
+  :lang(ta) .programmes-need__label { font-size: min(var(--text-h5), 1.25vw, 1.125rem); }
+}
+
+/* Mobile audit (Oct 2026): the ladder stage chip ("L1 → L2") in the result cards was 12px; 14px meta size. */
+.programmes .programme-card .programme-card__stage { font-size: var(--text-meta); }

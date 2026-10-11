@@ -1,0 +1,117 @@
+/* Founder ladder sequence (Mission 1 Lakh). */
+.mission-ladder { padding-block: var(--space-section); }
+.mission-ladder__intro > * + * { margin-top: var(--space-4); }
+.mission-ladder__footer { margin-top: var(--space-10); }
+/* Pinned: the footer follows the pinned frame and closes the section. */
+.mission-ladder--pinned .mission-ladder__footer { margin-top: 0; padding-bottom: var(--space-section); }
+
+/* ---- Stepper (phones, reduced motion): full-width hairline rows ---- */
+.mission-ladder__steps { list-style: none; position: relative; display: grid; gap: 0; margin-top: var(--space-10); border-top: 1px solid var(--color-border); }
+.mission-ladder__step {
+  position: relative; display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: var(--space-5); align-items: center;
+  padding-block: var(--space-5); border-bottom: 1px solid var(--color-border);
+}
+.mission-ladder__badge {
+  display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: var(--radius-full);
+  background: var(--color-text); color: var(--color-bg); font-weight: 500; font-size: var(--text-small);
+}
+.mission-ladder__step.is-tracked .mission-ladder__badge { box-shadow: none; border: 1px dashed var(--color-border-control); }
+.mission-ladder__name { margin: 0 0 var(--space-1); font-weight: 500; letter-spacing: -0.01em; }
+.mission-ladder__def { color: var(--color-text-2); font-size: var(--text-small); }
+
+/* ---- Pinned (desktop) ---- */
+.mission-ladder--pinned { padding-block: 0; }
+.mission-ladder__pin { height: calc(100vh - var(--header-h-compact)); min-height: 34rem; display: flex; align-items: center; background: var(--color-bg); }
+.mission-ladder__frame { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: center; }
+.mission-ladder__now { margin-top: var(--space-10); padding-top: var(--space-6); border-top: 1px solid var(--color-border); animation: mission-ladder-in var(--dur-5) var(--ease-enter) both; }
+@keyframes mission-ladder-in { from { opacity: 0; transform: translateY(var(--shift-3)); } to { opacity: 1; transform: none; } }
+/* Big light numerals (Meridian): "L3 / 7" */
+.mission-ladder__now-code {
+  font-size: var(--text-display-xl); font-weight: 400; line-height: 1; letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.mission-ladder__now-of { font-size: var(--text-h4); color: var(--color-text-muted); font-weight: 400; letter-spacing: -0.02em; }
+.mission-ladder__now-name { font-size: var(--text-h3); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; margin-top: var(--space-3); }
+.mission-ladder__now-def { font-size: var(--text-body-lg); color: var(--color-text-2); margin-top: var(--space-3); max-width: 36ch; min-height: 3.2em; }
+
+.mission-ladder__chart { position: relative; height: min(58vh, 30rem); }
+.mission-ladder__bars { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; align-items: end; }
+.mission-ladder__bar {
+  position: relative; height: calc(var(--h) * 100%); margin-inline: var(--space-1); padding: 0; border: 0; border-radius: var(--btn-radius) var(--btn-radius) 0 0;
+  background: var(--color-bg-sunken); overflow: hidden; cursor: pointer; text-align: left;
+  transition: transform var(--dur-2) var(--ease-snap);
+}
+@media (hover: hover) and (pointer: fine) {
+  .mission-ladder__bar:hover .mission-ladder__barfill { opacity: 0.6; }
+  .mission-ladder__bar.is-reached:hover .mission-ladder__barfill { opacity: 0.92; }
+}
+.mission-ladder__bar.is-tracked { background: transparent; border: 1px dashed var(--color-border-control); border-bottom: 0; }
+.mission-ladder__barfill {
+  position: absolute; inset: 0; background: var(--color-text);
+  opacity: 0; transition: opacity var(--dur-3) var(--ease-standard);
+}
+.mission-ladder__bar.is-reached .mission-ladder__barfill { opacity: 0.85; }
+.mission-ladder__bar.is-tracked .mission-ladder__barfill { opacity: 0; }
+.mission-ladder__bar.is-active .mission-ladder__barfill { opacity: 1; }
+.mission-ladder__barlabel {
+  position: absolute; left: var(--space-3); right: var(--space-2); bottom: var(--space-3);
+  display: flex; flex-direction: column; gap: 0; font-size: var(--text-caption); line-height: 1.3;
+  /* text-2, not muted: muted is < 4.5:1 on the sheet-2 bars */
+  color: var(--color-text-2); transition: color var(--dur-3) var(--ease-standard);
+}
+.mission-ladder__barlabel .tnum { font-weight: 500; font-size: var(--text-small); color: var(--color-text); transition: color var(--dur-3) var(--ease-standard); }
+.mission-ladder__bar.is-reached:not(.is-tracked) .mission-ladder__barlabel,
+.mission-ladder__bar.is-reached:not(.is-tracked) .mission-ladder__barlabel .tnum { color: var(--color-bg); }
+
+.mission-ladder__nurtured-line {
+  position: absolute; top: 0; bottom: 0; left: calc(100% / 7); width: 0;
+  border-left: 1px dashed var(--line-strong);
+}
+.mission-ladder__nurtured-line span {
+  position: absolute; top: 0; left: var(--space-2); white-space: nowrap;
+  font-size: var(--text-caption); font-weight: 500; color: var(--color-link-standalone);
+}
+
+.mission-ladder__dotlayer {
+  position: absolute; inset: 0; pointer-events: none;
+  transform: translate(calc((var(--i) + 0.5) / 7 * 100%), calc(-1 * (var(--i) + 1) / 7 * 100%));
+  transition: transform var(--dur-4) var(--ease-snap);
+}
+/* Reduced motion: --dur-4 keeps 120ms for fades, so the dot jumps instead of gliding. */
+@media (prefers-reduced-motion: reduce) { :root:not([data-motion="full"]) .mission-ladder__dotlayer { transition: none; } }
+:root[data-motion="reduced"] .mission-ladder__dotlayer { transition: none; }
+.mission-ladder__dot {
+  position: absolute; left: 0; bottom: 0; width: 14px; height: 14px; margin: 0 0 var(--space-2) -7px;
+  border-radius: var(--radius-full); background: var(--color-point);
+  box-shadow: 0 0 0 5px var(--color-bg);
+}
+
+/* The dot layer is translated by up to ~93% of its own width; clip horizontally so it never adds page scroll. */
+.mission-ladder__chart { overflow-x: clip; }
+
+/* A tracked (dashed) bar never fills, even when it is the active step: its label must stay readable.
+   The active tracked bar is marked with an accent dashed outline instead. */
+.mission-ladder__bar.is-tracked.is-active .mission-ladder__barfill { opacity: 0; }
+.mission-ladder__bar.is-tracked.is-active { border-color: var(--color-text); }
+.mission-ladder__bar.is-tracked.is-active .mission-ladder__barlabel { color: var(--color-text); }
+.mission-ladder__bar.is-active:not(.is-tracked) .mission-ladder__barlabel,
+.mission-ladder__bar.is-active:not(.is-tracked) .mission-ladder__barlabel .tnum { color: var(--color-bg); }
+
+/* 1024–1279: bars are ~70px wide — give the chart more room and let long stage names wrap. */
+@media (max-width: 1279.98px) {
+  .mission-ladder__frame { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--space-10); }
+  .mission-ladder__bar { margin-inline: 2px; }
+  .mission-ladder__barlabel { left: var(--space-2); right: var(--space-1); font-size: 0.6875rem; overflow-wrap: anywhere; }
+  .mission-ladder__barlabel .tnum { font-size: var(--text-caption); }
+}
+/* Tamil, 1024–1279: the 4fr copy column (~312 px) cannot hold the long heading verb on one line (V-A1);
+   the chart shows codes only in Tamil, so it gives up the extra room without crowding. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  :lang(ta) .mission-ladder__frame { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-12); }
+}
+
+/* Tamil: the stage names cannot fit a ~70–100 px bar without breaking mid-word, so the bars carry only the
+   level code; the active level's name and definition are shown large beside the chart. */
+:lang(ta) .mission-ladder__barlabel > span:not(.tnum) { display: none; }
+:lang(ta) .mission-ladder__now-name { line-height: 1.35; letter-spacing: 0; }
+:lang(ta) .mission-ladder__name { letter-spacing: 0; }

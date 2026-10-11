@@ -1,0 +1,158 @@
+/* C02 · Header (DESIGN-v2 3.1, AIWO P1): one Ink band on every page. Fixed; the in-flow spacer lives in SiteLayout.css.
+   72px bar (56 when compact / below 1024). Compact = glass rgb(12 23 25 / .92) + blur 16 + hairline.
+   Hide: translateY(-100%) over 280ms --ease-header-exit; show 240ms --ease-snap. Never hides under reduced motion. */
+.site-header {
+  position: fixed; inset: 0 0 auto 0; z-index: 60;
+  transform: translateY(0);
+  transition: transform var(--dur-3) var(--ease-snap);
+}
+@media (min-width: 1024px) {
+  .site-header[data-scrolled] { transform: translateY(calc(-1 * var(--utility-h))); }
+}
+.site-header[data-hidden] { transform: translateY(-100%); transition: transform var(--dur-header) var(--ease-header-exit); }
+
+.site-header .utilitybar { display: none; }
+@media (min-width: 1024px) { .site-header .utilitybar { display: block; } }
+
+.site-header__bar {
+  position: relative; z-index: 2;
+  height: var(--header-h);
+  background: var(--night-0);
+  border-bottom: 1px solid transparent;
+  transition: height var(--dur-3) var(--ease-snap), background-color var(--dur-2) var(--ease-snap), border-color var(--dur-2) var(--ease-snap);
+}
+.site-header[data-scrolled] .site-header__bar {
+  height: var(--header-h-compact);
+  background: rgb(12 23 25 / 0.92);
+  -webkit-backdrop-filter: saturate(1.2) blur(16px);
+  backdrop-filter: saturate(1.2) blur(16px);
+  border-bottom-color: var(--night-line);
+}
+.site-header[data-open] .site-header__bar { background: var(--night-0); border-bottom-color: var(--night-line); }
+.site-shell__spacer { background: var(--night-0); }
+
+.site-header__inner { height: 100%; display: flex; align-items: center; gap: var(--space-6); }
+.site-header__logo { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; text-decoration: none; color: var(--night-text); border-radius: var(--radius-btn); }
+.site-header .logo { color: var(--night-text); }
+.site-header__logo:hover { text-decoration: none; }
+.site-header__logo:focus-visible { outline-color: var(--paper); }
+
+/* Primary nav (AIWO P1): full-height triggers; the open / current / hovered item carries ONE 2px Paper underline
+   flush with the bar's bottom edge, which glides between items (it replaces the old pill highlight and the 4px dot). */
+.site-header__nav { display: none; flex: 1; min-width: 0; height: 100%; }
+@media (min-width: 1024px) { .site-header__nav { display: flex; justify-content: center; align-items: stretch; } }
+.site-header__list { --nav-pad: 14px; position: relative; list-style: none; display: flex; align-items: stretch; gap: 2px; height: 100%; margin: 0; padding: 0; }
+.site-header__list > li { display: flex; align-items: stretch; }
+.site-nav__glide-wrap { position: absolute; inset: 0; pointer-events: none; }
+.site-nav__glide.ind--pill,
+.site-nav__glide {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100px;
+  height: 2px;
+  border-radius: 0;
+  background: var(--paper);
+  opacity: 0;
+  transform-origin: left center;
+  transform: translateX(calc(var(--ind-x, 0px) + var(--nav-pad))) scaleX(calc((var(--ind-w, 0) - 2 * var(--nav-pad-n, 14)) / 100));
+  transition: transform var(--dur-3) var(--ease-snap), opacity var(--dur-2) var(--ease-snap);
+}
+.site-header__list[data-ind-ready] .site-nav__glide { opacity: 1; }
+.site-header__trigger {
+  position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 4px;
+  height: 100%; min-height: 40px; padding: 0 var(--nav-pad);
+  border: 0; border-radius: 0; background: transparent; color: var(--night-text-2);
+  font-size: 0.9375rem; font-weight: 400; letter-spacing: -0.005em; white-space: nowrap;
+  transition: color var(--dur-2) var(--ease-snap);
+}
+@media (hover: hover) { .site-header__trigger:hover { color: var(--paper); } }
+.site-header__trigger[aria-expanded='true'], .site-header__trigger[data-current] { color: var(--paper); }
+/* Before the glide is measured (prerender, no JS): the current item draws its own static underline */
+.site-header__trigger[data-current]::after {
+  content: ''; position: absolute; left: var(--nav-pad); right: var(--nav-pad); bottom: -1px; height: 2px;
+  background: var(--paper);
+}
+.site-header__list[data-ind-ready] .site-header__trigger::after { display: none; }
+.site-header__trigger:focus-visible { outline: 2px solid var(--paper); outline-offset: -6px; border-radius: var(--radius-btn); }
+/* Tamil (Book 3 §4.4): never below 14 px, one line per trigger with the chevron beside the label;
+   desktop triggers use the compact shortLabelTa (nav.js), and the gap tightens to make room. */
+:lang(ta) .site-header__list { --nav-pad: 8px; --nav-pad-n: 8; }
+:lang(ta) .site-header__trigger { font-size: 0.875rem; white-space: nowrap; line-height: 1.3; letter-spacing: 0; }
+:lang(ta) .site-header__inner { gap: var(--space-4); }
+.site-header__chev { flex: none; color: var(--night-text-muted); transition: transform var(--dur-3) var(--ease-snap), color var(--dur-2) var(--ease-snap); }
+.site-header__menu svg, .site-header__trigger svg, .site-header__icon svg { flex: none; }
+.site-header__trigger .nowrap { white-space: nowrap; }
+.site-header__trigger[aria-expanded='true'] .site-header__chev { transform: rotate(180deg); color: var(--paper); }
+/* 1024–1279: tighter triggers so the nav never runs under the logo or the search button */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .site-header__inner { gap: var(--space-4); }
+  .site-header__list { gap: 0; --nav-pad: 9px; --nav-pad-n: 9; }
+  .site-header__trigger { font-size: 0.875rem; gap: 2px; }
+}
+
+/* Tools: 40px circle icon buttons with a night-line-strong ring */
+.site-header__tools { display: flex; align-items: center; gap: var(--space-2); margin-left: auto; }
+@media (min-width: 1024px) { .site-header__tools { margin-left: 0; } }
+.site-header__icon, .site-header__menu {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  min-width: 40px; height: 40px; padding: 0; border: 0; background: transparent; color: var(--night-text);
+  border-radius: var(--radius-full); box-shadow: inset 0 0 0 1px var(--night-line-strong);
+  transition: background-color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
+}
+@media (hover: hover) {
+  .site-header__icon:hover, .site-header__menu:hover { background: rgb(244 243 239 / 0.08); box-shadow: inset 0 0 0 1px var(--night-text-muted); }
+}
+.site-header__icon:focus-visible, .site-header__menu:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
+.site-header__menu { padding: 0 14px; font-weight: 500; font-size: var(--text-meta); }
+.site-header__icon:active, .site-header__menu:active { transform: scale(0.98); }
+@media (pointer: coarse) { .site-header__icon, .site-header__menu { min-width: 44px; height: 44px; } }
+@media (min-width: 1024px) {
+  .site-header__lang, .site-header__menu { display: none; }
+}
+/* Narrow phones: the label is hidden visually but still names the button (axe button-name). */
+@media (max-width: 359px) {
+  .site-header__menu-label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+  .site-header__menu { padding: 0; }
+}
+@media (max-width: 399px) {
+  :lang(ta) .site-header__menu-label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+}
+.site-header__menu { position: relative; }
+
+/* Tamil: the longer labels need ≥ 1280 px for the seven triggers; below that keep the drawer (Header.jsx uses the same query) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  :lang(ta) .site-header__nav { display: none; }
+  :lang(ta) .site-header__tools { margin-left: auto; }
+  :lang(ta) .site-header__menu { display: inline-flex; }
+}
+
+/* Scroll-progress line (long pages, Header.jsx sets data-on): 2px SNX Red, scaleX from the left. It is the chrome's
+   one red point; it fades in once the page is long enough and never shows under reduced motion. */
+.site-header__progress {
+  position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+  background: var(--sn-red);
+  transform: scaleX(0); transform-origin: left center;
+  opacity: 0;
+  transition: opacity var(--dur-3) var(--ease-snap);
+  pointer-events: none;
+}
+.site-header__progress[data-on] { opacity: 1; }
+.site-header[data-open] .site-header__progress { opacity: 0; }
+/* Header hidden: the line stays as a 2px rule on the top edge of the viewport */
+.site-header[data-hidden] .site-header__progress { translate: 0 2px; }
+
+/* Dim layer under the open mega panel (AIWO P1): Ink at 25%, so the panel reads as a sheet over the page
+   (absolute: the transformed header is the containing block) */
+.site-header__scrim {
+  position: absolute; z-index: 0; left: 0; right: 0; top: 100%; height: 100vh;
+  background: rgb(12 23 25 / 0.25);
+}
+
+/* Reduced motion: no travel; JS also keeps the header shown */
+:root[data-motion='reduced'] .site-header, :root[data-motion='reduced'] .site-nav__glide { transition: none; }
+:root[data-motion='reduced'] .site-header__progress { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) :is(.site-header, .site-nav__glide) { transition: none; }
+  :root:not([data-motion='full']) .site-header__progress { display: none; }
+}

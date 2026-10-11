@@ -1,0 +1,23 @@
+/* Section (DESIGN-v2 2.1 / 2.3): padding-block --space-section (64→128), pad="tight" 48→80.
+   Grounds: paper = Paper, white/sunken = Bone, night = flat Ink (the old pulli dot texture is retired: no dot grids). Same-ground neighbours get a
+   hairline (styles/theme.css), not a gap. */
+.section {
+  position: relative;
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding-block: var(--space-section);
+}
+.section--white,
+.section--sunken { background: var(--bone); }
+
+/* Night band: the evidence room. One flat Ink ground, straight edges (AIWO: no texture, no gradient on grounds). */
+.section--night {
+  background-color: var(--night-0);
+  background-image: none;
+  isolation: isolate;
+}
+
+.section--pad-sm,
+.section--pad-tight { padding-block: var(--space-section-tight); }
+.section--pad-none { padding-block: 0; }
+.section__inner { position: relative; }

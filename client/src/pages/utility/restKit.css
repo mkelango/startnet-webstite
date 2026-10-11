@@ -1,0 +1,100 @@
+/* REST pages · AIWO pattern kit (docs/AIWO-BLUEPRINT.md), page-local and opt-in by class.
+   Imported by the about/, insights/, partner/, snx/, utility/, new/ pages and Join. Nothing here changes copy, order or
+   links: it only re-composes existing blocks. Brand book wins over AIWO (4px buttons, 12px media, sentence-case dot
+   labels, 400/500 display weights, no mono font). Prefix: .rk- */
+
+/* ---------- P2 · Split photo hero (PageHero className="rk-hero") ----------
+   ≥1024: copy in cols 1–6 on Ink, the media runs edge to edge in cols 7–12 (right edge, top and bottom of the band;
+   the Paper sheet rises over its foot). Below 1024 the media comes first, full bleed (4:5 phones, 16:10 tablets). */
+:root .page-hero:is(.rk-hero, .rk-page) { background-image: none; }
+@media (min-width: 1024px) {
+  :root .page-hero.rk-hero.page-hero--with-art {
+    min-height: clamp(560px, 78svh, 760px);
+    display: flex;
+    flex-direction: column;
+  }
+  :root .page-hero.rk-hero.page-hero--with-art .page-hero__inner { flex: 1 0 auto; width: 100%; }
+  :root .page-hero.rk-hero.page-hero--with-art .page-hero__grid { grid-template-columns: minmax(0, 1fr); }
+  :root .page-hero.rk-hero.page-hero--with-art .page-hero__text {
+    /* cols 1–6 of the 12-col grid (32px gutters) */
+    max-width: calc(50% - 16px);
+    padding-right: var(--space-8);
+    padding-top: var(--space-6);
+  }
+  :root .page-hero.rk-hero .page-hero__art {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(50% + 16px);
+    right: 0;
+    z-index: 0;
+  }
+  :root .page-hero.rk-hero .page-hero__art .art-image {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    aspect-ratio: auto !important;
+    border-radius: 0;
+  }
+  :root .page-hero.rk-hero .page-hero__art .art-image::after { border-radius: 0; box-shadow: none; }
+  :root .page-hero.rk-hero .page-hero__title { max-width: 13ch; }
+  :root .page-hero.rk-hero .page-hero__title:lang(ta) { max-width: 18ch; }
+}
+@media (max-width: 1023.98px) {
+  :root .page-hero.rk-hero.page-hero--with-art .page-hero__grid { gap: var(--space-8); }
+  :root .page-hero.rk-hero .page-hero__art {
+    order: -1;
+    /* full bleed: escape the container padding on both sides */
+    margin-inline: calc(-1 * var(--page-margin, var(--gutter)));
+  }
+  :root .page-hero.rk-hero .page-hero__art .art-image {
+    aspect-ratio: 16 / 10 !important;
+    max-height: 60svh;
+    border-radius: 0;
+  }
+  :root .page-hero.rk-hero .page-hero__art .art-image::after { border-radius: 0; box-shadow: none; }
+}
+@media (max-width: 639.98px) {
+  :root .page-hero.rk-hero .page-hero__art .art-image { aspect-ratio: 4 / 5 !important; max-height: 58svh; }
+}
+:root .page-hero.rk-hero .page-hero__art :is(.art-image__picture, .art-image__photo) { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* The one filled button, then the arrow link 24px to its right (AIWO 1.5) */
+:root .page-hero.rk-hero .page-hero__actions { margin-top: var(--space-10); --cluster-gap: var(--space-4) var(--space-6); align-items: center; }
+:root .page-hero.rk-hero .page-hero__lede { margin-top: var(--space-6); }
+
+/* ---------- 2 · Section header rhythm on REST pages (AIWO 1.3) ----------
+   label → 24 → h2 → 32 → lede (20px, Ink-2, ≤ 52ch); header block ≤ 832px; header → content 64px at 1440. */
+main:has(.rk-page) .section-header__eyebrow { margin-bottom: var(--space-6); }
+main:has(.rk-page) .section-header__lede { margin-top: var(--space-8); max-width: 52ch; line-height: 1.5; }
+main:has(.rk-page) .section-header__text { max-width: 52rem; }
+main:has(.rk-page) :lang(ta) .section-header__lede { max-width: 40em; }
+
+/* ---------- P16 · FAQ: heading (and its link) pinned left in cols 1–5, the rows in cols 7–12 ---------- */
+.rk-faq__grid { display: grid; gap: 0; }
+.rk-faq__grid > * { min-width: 0; }
+@media (min-width: 1024px) {
+  .rk-faq__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: calc(100% / 12 + 32px); align-items: start; }
+  .rk-faq__grid > .section-header,
+  .rk-faq__head { position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-8)); margin-bottom: 0; }
+  .rk-faq__grid .section-header { grid-template-columns: minmax(0, 1fr) !important; grid-template-areas: none !important; }
+  .rk-faq__grid .section-header__text { display: block !important; }
+}
+/* Right column starts level with the heading; page wrappers keep their own stacked spacing below 1024 */
+@media (min-width: 1024px) {
+  .rk-faq__grid > :not(.section-header):not(.rk-faq__head) { margin-top: 0; }
+  .rk-faq__grid > :not(.section-header) > .accordion:first-child,
+  .rk-faq__body > :first-child, .rk-faq__body > :first-child > .accordion:first-child { margin-top: 0; }
+}
+.rk-faq .accordion__trigger { padding-block: 28px; font-weight: 400; font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem); }
+.rk-faq .accordion__answer { font-size: var(--text-body); line-height: 1.6; }
+
+/* ---------- P14 · Top-rule columns (whole-card links under a 1px Ink rule, no boxes) ---------- */
+.rk-cols { display: grid; gap: var(--space-12) 32px; grid-template-columns: minmax(0, 1fr); list-style: none; margin: 0; padding: 0; }
+@media (min-width: 640px) { .rk-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) {
+  .rk-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--space-14, 56px); }
+  .rk-cols--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* ---------- Media frames: Bone placeholder behind every image slot, no shadows on content ---------- */
+main:has(.rk-page) .art-image { background-color: var(--art-bg, var(--bone)); }

@@ -1,0 +1,1859 @@
+<title>StartNet Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans+Tamil:wght@400;600;700&amp;family=Anek+Tamil:wght@600;700&amp;display=swap">
+<style>
+/* ========== Tokens: light (Book 3 §9.3 + Book 4 R4 §4) ========== */
+:root {
+  --bg: #F6F5F2;
+  --bg-raised: #FFFFFF;
+  --bg-sunken: #EFEDE8;
+  --fg: #0E0E10;
+  --fg-2: #3A3A40;
+  --fg-muted: #6B6B73;
+  --line: #E3E1DC;
+  --line-strong: #CFCEC8;
+  --line-control: #8B8B93;
+  --grid-dot: #CFCEC8;
+  --accent: #0E8F63;
+  --accent-text: #006F4B;
+  --accent-tint: #EFF9F3;
+  --accent-soft: #BBE2CE;
+  --accent-mid: #5DB88F;
+  --accent-fill: #0E8F63;
+  --accent-on-fill: #0E0E10;
+  --accent-fill-hover: #2AA375;
+  --point: #E5322D;
+  --action: #D32523;
+  --action-hover: #B00E13;
+  --action-active: #8A0309;
+  --on-action: #FFFFFF;
+  --focus: #E5322D;
+  --link-deco: #E5322D;
+  --link-standalone: #B00E13;
+  --error: #B00E13;
+  --error-bg: #FFF3F1;
+  --success: #006F4B;
+  --success-bg: #EFF9F3;
+  --warn-fg: #7A4700;
+  --warn-bg: #FFF6E0;
+  --warn-line: #EDA100;
+  --info-fg: #145CAE;
+  --night-bg: #0E0E10;
+  --night-raised: #17171A;
+  --night-raised-2: #202024;
+  --night-line: #2E2E34;
+  --night-line-strong: #45454D;
+  --night-fg: #F4F3EF;
+  --night-fg-2: #C9C8C2;
+  --night-muted: #9A9993;
+  --night-accent: #5DB88F;
+  --night-warn-fg: #F6C64A;
+  --night-warn-bg: #2A2414;
+  --scrim: rgb(14 14 16 / .5);
+  --shadow-1: 0 1px 2px rgb(14 14 16 / .06), 0 1px 1px rgb(14 14 16 / .04);
+  --shadow-2: 0 4px 12px rgb(14 14 16 / .08), 0 2px 4px rgb(14 14 16 / .05);
+  --shadow-3: 0 12px 32px rgb(14 14 16 / .14), 0 4px 8px rgb(14 14 16 / .06);
+  --fade-edge: rgb(246 245 242 / 0);
+
+  --font-sans: "Inter", "Noto Sans Tamil", system-ui, "Nirmala UI", Roboto, Arial, sans-serif;
+  --font-ta: "Noto Sans Tamil", "Inter", system-ui, sans-serif;
+  --font-ta-display: "Anek Tamil", "Noto Sans Tamil", system-ui, sans-serif;
+  --text-display-2xl: clamp(2.5rem, 1.5rem + 4.4444vw, 5.5rem);
+  --text-display-xl: clamp(2.25rem, 1.5rem + 3.3333vw, 4.5rem);
+  --text-h1: clamp(2rem, 1.5rem + 2.2222vw, 3.5rem);
+  --text-h2: clamp(1.625rem, 1.3333rem + 1.2963vw, 2.5rem);
+  --text-h3: clamp(1.375rem, 1.2083rem + 0.7407vw, 1.875rem);
+  --text-h4: clamp(1.1875rem, 1.0833rem + 0.463vw, 1.5rem);
+  --text-h5: clamp(1.0625rem, 1rem + 0.2778vw, 1.25rem);
+  --text-body-lg: clamp(1.125rem, 1.0833rem + 0.1852vw, 1.25rem);
+  --text-body: clamp(1rem, 0.9792rem + 0.0926vw, 1.0625rem);
+  --text-small: clamp(0.875rem, 0.8542rem + 0.0926vw, 0.9375rem);
+  --text-caption: 0.8125rem;
+  --text-eyebrow: clamp(0.75rem, 0.7292rem + 0.0926vw, 0.8125rem);
+  --text-stat: clamp(2.5rem, 1.8333rem + 2.963vw, 4.5rem);
+  --tracking-display: -0.03em;
+  --tracking-heading: -0.015em;
+  --tracking-eyebrow: 0.08em;
+
+  --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem; --space-5: 1.25rem;
+  --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem;
+  --space-20: 5rem; --space-24: 6rem;
+  --space-section: clamp(4rem, 2.6667rem + 5.9259vw, 8rem);
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 20px; --radius-full: 9999px;
+  --container-max: 80rem; --gutter: 16px; --measure: 68ch;
+  --subnav-h: 56px;
+
+  --dur-1: 100ms; --dur-2: 160ms; --dur-3: 240ms; --dur-4: 320ms; --dur-5: 480ms; --dur-6: 800ms; --dur-count: 1200ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --ease-enter: cubic-bezier(0, 0, 0.3, 1);
+  --ease-exit: cubic-bezier(0.2, 0, 1, 0.9);
+  --ease-expressive: cubic-bezier(0.4, 0.14, 0.3, 1);
+  --ease-dot: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --shift-1: 4px; --shift-2: 8px; --shift-3: 16px; --shift-4: 24px;
+  --stagger: 40ms;
+  color-scheme: light;
+  scroll-padding-top: calc(var(--subnav-h) + 16px);
+}
+@media (min-width: 768px) { :root { --gutter: 24px; } }
+@media (min-width: 1280px) { :root { --gutter: 32px; } }
+
+/* ========== Tokens: dark ========== */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E0E10; --bg-raised: #17171A; --bg-sunken: #131316;
+    --fg: #F4F3EF; --fg-2: #C9C8C2; --fg-muted: #9A9993;
+    --line: #2E2E34; --line-strong: #45454D; --line-control: #6E6D69; --grid-dot: #34343B;
+    --accent: #2AA375; --accent-text: #5DB88F; --accent-tint: #0F2A20; --accent-soft: #025639; --accent-mid: #5DB88F;
+    --accent-fill: #0E8F63; --accent-on-fill: #0E0E10; --accent-fill-hover: #2AA375;
+    --point: #E5322D; --action: #D32523; --action-hover: #B00E13; --action-active: #8A0309; --on-action: #FFFFFF;
+    --focus: #FE6F62; --link-deco: #FE6F62; --link-standalone: #FE6F62;
+    --error: #FE6F62; --error-bg: #2A1514; --success: #5DB88F; --success-bg: #0F2A20;
+    --warn-fg: #F6C64A; --warn-bg: #2A2414; --warn-line: #9A5B00; --info-fg: #92C1FE;
+    --night-bg: #17171A; --night-raised: #202024; --night-raised-2: #28282D; --night-line: #34343B;
+    --scrim: rgb(0 0 0 / .6);
+    --shadow-1: 0 1px 2px rgb(0 0 0 / .4);
+    --shadow-2: 0 4px 14px rgb(0 0 0 / .45);
+    --shadow-3: 0 14px 36px rgb(0 0 0 / .55);
+    --fade-edge: rgb(14 14 16 / 0);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E0E10; --bg-raised: #17171A; --bg-sunken: #131316;
+  --fg: #F4F3EF; --fg-2: #C9C8C2; --fg-muted: #9A9993;
+  --line: #2E2E34; --line-strong: #45454D; --line-control: #6E6D69; --grid-dot: #34343B;
+  --accent: #2AA375; --accent-text: #5DB88F; --accent-tint: #0F2A20; --accent-soft: #025639; --accent-mid: #5DB88F;
+  --accent-fill: #0E8F63; --accent-on-fill: #0E0E10; --accent-fill-hover: #2AA375;
+  --point: #E5322D; --action: #D32523; --action-hover: #B00E13; --action-active: #8A0309; --on-action: #FFFFFF;
+  --focus: #FE6F62; --link-deco: #FE6F62; --link-standalone: #FE6F62;
+  --error: #FE6F62; --error-bg: #2A1514; --success: #5DB88F; --success-bg: #0F2A20;
+  --warn-fg: #F6C64A; --warn-bg: #2A2414; --warn-line: #9A5B00; --info-fg: #92C1FE;
+  --night-bg: #17171A; --night-raised: #202024; --night-raised-2: #28282D; --night-line: #34343B;
+  --scrim: rgb(0 0 0 / .6);
+  --shadow-1: 0 1px 2px rgb(0 0 0 / .4);
+  --shadow-2: 0 4px 14px rgb(0 0 0 / .45);
+  --shadow-3: 0 14px 36px rgb(0 0 0 / .55);
+  --fade-edge: rgb(14 14 16 / 0);
+  color-scheme: dark;
+}
+
+/* Reduced motion (device or on-site switch) */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) { --dur-3: 0ms; --dur-4: 120ms; --dur-5: 0ms; --dur-6: 0ms; --dur-count: 0ms;
+    --shift-1: 0px; --shift-2: 0px; --shift-3: 0px; --shift-4: 0px; }
+}
+:root[data-motion="reduced"] { --dur-3: 0ms; --dur-4: 120ms; --dur-5: 0ms; --dur-6: 0ms; --dur-count: 0ms;
+  --shift-1: 0px; --shift-2: 0px; --shift-3: 0px; --shift-4: 0px; }
+
+/* ========== Base ========== */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-sans); font-size: var(--text-body); line-height: 1.55; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+.site { overflow-x: clip; min-width: 0; }
+.wrap { width: 100%; max-width: var(--container-max); margin-inline: auto; padding-inline: var(--gutter); }
+img, svg { max-width: 100%; }
+h1, h2, h3, h4, h5 { margin: 0; font-weight: 700; letter-spacing: var(--tracking-heading); line-height: 1.15; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+ul, ol { margin: 0; padding: 0; }
+a { color: inherit; }
+:lang(ta) { font-family: var(--font-ta); letter-spacing: 0 !important; text-transform: none !important; }
+h1:lang(ta), h2:lang(ta), h3:lang(ta), .display:lang(ta) { font-family: var(--font-ta-display); line-height: 1.3; }
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip { position: absolute; left: var(--space-4); top: -100px; z-index: 100; background: var(--bg-raised); color: var(--fg); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); box-shadow: var(--shadow-2); font-weight: 600; }
+.skip:focus { top: var(--space-4); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: var(--radius-sm); }
+.eyebrow { font-size: var(--text-eyebrow); font-weight: 600; letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--fg-muted); display: inline-flex; align-items: center; gap: var(--space-2); }
+.eyebrow .num { color: var(--accent-text); font-variant-numeric: tabular-nums; }
+.lede { font-size: var(--text-body-lg); color: var(--fg-2); max-width: 60ch; line-height: 1.55; }
+.muted { color: var(--fg-muted); }
+.small { font-size: var(--text-small); }
+.caption { font-size: var(--text-caption); color: var(--fg-muted); line-height: 1.45; }
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* Full stop: the one red point */
+.fs { display: inline-block; width: .2em; height: .2em; border-radius: 50%; background: var(--point); margin-left: .05em; vertical-align: baseline; position: relative; }
+.fs--ink { background: currentColor; }
+.motion-ok .fs--land { animation: fs-land var(--dur-5) var(--ease-dot) both; animation-delay: var(--land-delay, 600ms); }
+@keyframes fs-land { 0% { transform: translateY(-1.1em) scale(.6); opacity: 0; } 60% { opacity: 1; } 100% { transform: none; opacity: 1; } }
+
+/* Logo + lock-up */
+.logo { font-weight: 800; letter-spacing: -0.02em; text-decoration: none; color: var(--fg); white-space: nowrap; display: inline-flex; align-items: baseline; }
+.lockup { display: inline-flex; align-items: baseline; flex-wrap: nowrap; white-space: nowrap; }
+.lockup__desc { font-weight: 400; margin-left: .42em; color: var(--accent-text); letter-spacing: -0.01em; }
+.lockup--lg { font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); }
+.lockup--lg .lockup__desc { color: var(--accent); }
+
+/* Buttons */
+.btn { --b-bg: var(--action); --b-fg: var(--on-action); --b-bd: transparent; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-height: 44px; padding: .7rem 1.35rem; border-radius: var(--radius-full); border: 1.5px solid var(--b-bd); background: var(--b-bg); color: var(--b-fg); font: inherit; font-size: var(--text-small); font-weight: 600; text-decoration: none; cursor: pointer; transition: background-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard), transform var(--dur-1) var(--ease-standard); text-align: center; line-height: 1.25; }
+.btn:hover { --b-bg: var(--action-hover); }
+.btn:active { transform: scale(.98); --b-bg: var(--action-active); }
+.btn:disabled { opacity: .4; cursor: default; transform: none; }
+.btn--brand { --b-bg: var(--accent-fill); --b-fg: var(--accent-on-fill); }
+.btn--brand:hover { --b-bg: var(--accent-fill-hover); }
+.btn--brand:active { --b-bg: var(--accent-fill); }
+.btn--secondary { --b-bg: transparent; --b-fg: var(--fg); --b-bd: var(--fg); }
+.btn--secondary:hover { --b-bg: var(--fg); --b-fg: var(--bg); }
+.btn--secondary:active { --b-bg: var(--fg-2); --b-fg: var(--bg); }
+.btn--sm { min-height: 44px; padding: .5rem 1rem; font-size: var(--text-caption); }
+.btn .arr { display: inline-block; transition: transform var(--dur-2) var(--ease-standard); }
+.btn:hover .arr, .tlink:hover .arr { transform: translateX(var(--shift-1)); }
+.tlink { display: inline-flex; align-items: center; gap: .35em; min-height: 44px; color: var(--link-standalone); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; text-decoration-color: transparent; transition: text-decoration-color var(--dur-2) var(--ease-standard); }
+.tlink:hover { text-decoration-color: currentColor; }
+.tlink .arr { display: inline-block; transition: transform var(--dur-2) var(--ease-standard); }
+.prose a, .inline-link { text-decoration: underline; text-decoration-color: var(--link-deco); text-decoration-thickness: 1.5px; text-underline-offset: .2em; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+
+/* Chips */
+.chip { display: inline-flex; align-items: center; gap: .4em; font-size: var(--text-caption); font-weight: 600; padding: .25rem .65rem; border-radius: var(--radius-full); border: 1px solid var(--line-strong); color: var(--fg-2); background: var(--bg-raised); line-height: 1.3; white-space: nowrap; }
+.chip--accent { border-color: transparent; background: var(--accent-tint); color: var(--accent-text); }
+.chip--accent::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.chip--dashed { border-style: dashed; color: var(--fg-muted); background: transparent; }
+.ph { display: inline-block; font-size: var(--text-caption); font-weight: 600; color: var(--warn-fg); background: var(--warn-bg); border: 1px dashed var(--warn-line); border-radius: var(--radius-sm); padding: .1rem .45rem; line-height: 1.4; white-space: normal; }
+
+/* Tag + popover */
+.tagwrap { position: relative; display: inline-flex; vertical-align: middle; }
+.tag { min-width: 28px; min-height: 28px; padding: 0 .45rem; border-radius: var(--radius-full); font: inherit; font-size: .6875rem; font-weight: 700; letter-spacing: .02em; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; border: 1.5px dashed currentColor; background: transparent; color: var(--fg-2); position: relative; }
+.tag::after { content: ""; position: absolute; inset: -8px; }
+.tag--pending { border-style: dotted; color: var(--warn-fg); }
+.pop { position: absolute; z-index: 30; bottom: calc(100% + 10px); left: 50%; width: min(300px, 80vw); transform: translateX(-50%); background: var(--bg-raised); color: var(--fg); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-3); padding: var(--space-4); font-size: var(--text-caption); line-height: 1.5; text-align: left; font-weight: 400; letter-spacing: 0; text-transform: none; }
+.pop[hidden] { display: none; }
+.pop dl { display: grid; grid-template-columns: auto 1fr; gap: .25rem .75rem; margin: 0; }
+.pop dt { color: var(--fg-muted); font-weight: 600; }
+.pop dd { margin: 0; min-width: 0; }
+.pop .tlink { min-height: 32px; font-size: var(--text-caption); }
+.motion-ok .pop:not([hidden]) { animation: pop-in var(--dur-3) var(--ease-enter); }
+@keyframes pop-in { from { opacity: 0; transform: translate(-50%, var(--shift-2)); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+/* ========== Masterbrand strip ========== */
+.mb { border-bottom: 1px solid var(--line); background: var(--bg); }
+.mb__in { display: flex; align-items: center; gap: var(--space-4); min-height: 48px; flex-wrap: wrap; padding-block: var(--space-2); }
+.mb .logo { font-size: 1.125rem; display: inline-block; line-height: 44px; }
+.mb__tag { font-size: var(--text-small); color: var(--fg-2); min-width: 0; }
+.mb__right { margin-left: auto; display: flex; align-items: center; gap: var(--space-2); }
+.mb__link { font-size: var(--text-small); color: var(--fg-2); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; padding-inline: var(--space-2); border-radius: var(--radius-md); }
+.mb__link:hover { color: var(--fg); text-decoration: underline; text-decoration-color: var(--link-deco); text-underline-offset: .25em; }
+@media (max-width: 640px) { .mb__tag { display: none; } .mb__link--hide-sm { display: none; } }
+
+.langtoggle { display: inline-flex; border: 1px solid var(--line-strong); border-radius: var(--radius-full); padding: 2px; background: var(--bg-raised); }
+.langtoggle button { min-height: 40px; min-width: 44px; padding: 0 .7rem; border: 0; background: transparent; color: var(--fg-2); font: inherit; font-size: var(--text-caption); font-weight: 600; border-radius: var(--radius-full); cursor: pointer; transition: background-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard); }
+.langtoggle button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.langtoggle button:lang(ta) { font-family: var(--font-ta); }
+
+/* ========== Brand sub-nav ========== */
+.subnav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; background: var(--bg); border-bottom: 1px solid var(--line); }
+.subnav::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: var(--accent); transform-origin: left center; }
+.motion-ok .subnav::after { animation: sweep var(--dur-4) var(--ease-expressive) both; animation-delay: 200ms; }
+@keyframes sweep { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.subnav__in { display: flex; align-items: center; gap: var(--space-4); min-height: var(--subnav-h); }
+.subnav__brand { font-size: 1rem; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; flex: none; }
+.subnav__brand .lockup__desc { color: var(--accent-text); }
+.subnav__scroll { position: relative; flex: 1 1 auto; min-width: 0; }
+.subnav__links { display: flex; gap: var(--space-1); list-style: none; overflow-x: auto; scrollbar-width: none; scroll-behavior: smooth; padding-block: 4px; }
+.subnav__links::-webkit-scrollbar { display: none; }
+@media (prefers-reduced-motion: reduce) { :root:not([data-motion="full"]) .subnav__links { scroll-behavior: auto; } }
+:root[data-motion="reduced"] .subnav__links { scroll-behavior: auto; }
+.subnav__links a { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 .75rem; font-size: var(--text-small); font-weight: 500; color: var(--fg-2); text-decoration: none; white-space: nowrap; border-radius: var(--radius-md); transition: color var(--dur-2) var(--ease-standard), background-color var(--dur-2) var(--ease-standard); }
+.subnav__links a:hover { color: var(--fg); background: var(--bg-sunken); }
+.subnav__links a::after { content: ""; position: absolute; left: .75rem; right: .75rem; bottom: 2px; height: 2px; border-radius: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-3) var(--ease-standard); }
+.subnav__links a[aria-current="true"] { color: var(--fg); font-weight: 600; }
+.subnav__links a[aria-current="true"]::after { transform: scaleX(1); }
+.subnav__fade { position: absolute; top: 0; bottom: 0; width: 28px; pointer-events: none; opacity: 0; transition: opacity var(--dur-2) var(--ease-standard); }
+.subnav__fade--l { left: 0; background: linear-gradient(90deg, var(--bg), var(--fade-edge)); }
+.subnav__fade--r { right: 0; background: linear-gradient(270deg, var(--bg), var(--fade-edge)); }
+.subnav__scroll[data-l="1"] .subnav__fade--l, .subnav__scroll[data-r="1"] .subnav__fade--r { opacity: 1; }
+.subnav__cta { flex: none; }
+@media (max-width: 1023px) { .subnav__brand { display: none; } }
+@media (max-width: 560px) { .subnav__cta .btn { padding-inline: .9rem; } .subnav__cta .long { display: none; } }
+@media (min-width: 561px) { .subnav__cta .short { display: none; } }
+
+/* ========== Hero ========== */
+.hero { position: relative; padding-block: clamp(2.5rem, 1.5rem + 4vw, 5.5rem) var(--space-section); }
+.hero__grid { display: grid; gap: var(--space-10); align-items: center; }
+@media (min-width: 960px) { .hero__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-16); } }
+.hero__text { min-width: 0; display: grid; gap: var(--space-6); }
+.hero__lock { display: grid; gap: var(--space-3); justify-items: start; }
+.hero__journey { font-size: var(--text-small); font-weight: 600; color: var(--accent-text); display: flex; flex-wrap: wrap; gap: .35rem 1rem; }
+.hero__journey span { white-space: nowrap; }
+.hero__sweep { height: 4px; width: 100%; max-width: 240px; background: var(--accent); border-radius: 2px; transform-origin: left; }
+.motion-ok .hero__sweep { animation: sweep var(--dur-4) var(--ease-expressive) both; animation-delay: 120ms; }
+.hero h1 { font-size: var(--text-display-xl); line-height: 1.04; letter-spacing: var(--tracking-display); font-weight: 800; max-width: 15ch; }
+.hero h1:lang(ta) { font-size: calc(var(--text-display-xl) * .85); }
+.hero__meta { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.hero__art { min-width: 0; position: relative; }
+.art-frame { position: relative; border-radius: var(--radius-xl); background: var(--bg-raised); border: 1px solid var(--line); overflow: hidden; aspect-ratio: 4 / 5; box-shadow: var(--shadow-1); }
+.art-frame svg { display: block; width: 100%; height: 100%; }
+.art-frame__label { position: absolute; left: var(--space-3); bottom: var(--space-3); font-size: var(--text-caption); background: var(--bg-raised); color: var(--fg-muted); padding: .2rem .55rem; border-radius: var(--radius-full); border: 1px solid var(--line); }
+@media (max-width: 959px) { .art-frame { aspect-ratio: 16 / 10; } }
+
+/* Kinetic headline */
+.kw { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .08em; margin-bottom: -.08em; }
+.kw > span { display: inline-block; }
+.motion-ok .kinetic .kw > span { animation: rise var(--dur-5) var(--ease-enter) both; animation-delay: calc(var(--i) * 70ms + 80ms); }
+@keyframes rise { from { transform: translateY(100%); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* Art draw-in (progressive: only added once in view) */
+.draw-pre .edge { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.draw-go .edge { stroke-dashoffset: 0; transition: stroke-dashoffset var(--dur-6) var(--ease-enter); transition-delay: calc(var(--d, 0) * 1ms); }
+.draw-pre .node { opacity: 0; transform: scale(.4); }
+.draw-go .node { opacity: 1; transform: none; transition: opacity var(--dur-4) var(--ease-enter), transform var(--dur-4) var(--ease-enter); transition-delay: calc(var(--d, 0) * 1ms); }
+.node { transform-box: fill-box; transform-origin: center; }
+.draw-pre .art-point { opacity: 0; transform: translateY(-40px) scale(.5); }
+.draw-go .art-point { opacity: 1; transform: none; transition: transform var(--dur-5) var(--ease-dot), opacity var(--dur-3) var(--ease-enter); transition-delay: 900ms; }
+.art-point { transform-box: fill-box; transform-origin: center; }
+
+/* ========== Sections ========== */
+.section { padding-block: var(--space-section); border-top: 1px solid var(--line); }
+.section--sunken { background: var(--bg-sunken); }
+.shead { display: grid; gap: var(--space-5); margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem); }
+@media (min-width: 960px) { .shead { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); column-gap: var(--space-16); align-items: end; } .shead .eyebrow { grid-column: 1 / -1; } }
+.shead h2 { font-size: var(--text-h1); letter-spacing: -0.025em; line-height: 1.08; font-weight: 700; max-width: 18ch; }
+.shead h2:lang(ta) { font-size: calc(var(--text-h1) * .88); }
+.shead__side { display: grid; gap: var(--space-4); min-width: 0; }
+.h3 { font-size: var(--text-h3); line-height: 1.2; }
+.h4 { font-size: var(--text-h4); line-height: 1.3; font-weight: 600; }
+.h5 { font-size: var(--text-h5); line-height: 1.35; font-weight: 600; }
+.grid-2 { display: grid; gap: var(--space-6); }
+@media (min-width: 768px) { .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.split { display: grid; gap: var(--space-10); }
+@media (min-width: 960px) { .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-16); align-items: start; } }
+.stack { display: grid; gap: var(--space-4); min-width: 0; }
+.stack-lg { display: grid; gap: var(--space-8); min-width: 0; }
+
+/* Reveal (scroll-driven, visible at rest when unsupported) */
+@supports (animation-timeline: view()) {
+  .motion-ok .reveal { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+  @keyframes reveal { from { transform: translateY(var(--shift-3)); } to { transform: none; } }
+}
+
+/* Cards */
+.card { position: relative; background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-6); display: grid; gap: var(--space-3); align-content: start; min-width: 0; transition: transform var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard); }
+.card--lift:hover, .card--lift:focus-within { transform: translateY(calc(var(--shift-1) * -1)); box-shadow: var(--shadow-2); border-color: var(--line-strong); }
+.card__rule { height: 3px; width: 40px; background: var(--accent); border-radius: 2px; }
+
+/* ========== Overview: path ========== */
+.path { list-style: none; display: grid; gap: 0; position: relative; counter-reset: p; }
+.path__item { position: relative; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: var(--space-4); padding-bottom: var(--space-6); }
+.path__item::before { content: ""; position: absolute; left: 19px; top: 28px; bottom: 0; width: 2px; background: var(--line-strong); }
+.path__item:last-child::before { display: none; }
+.path__dot { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg-raised); display: grid; place-items: center; font-size: var(--text-caption); font-weight: 700; color: var(--accent-text); position: relative; z-index: 1; font-variant-numeric: tabular-nums; transition: background-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard); }
+.path__a { text-decoration: none; display: grid; gap: .15rem; min-height: 44px; padding: .35rem .5rem; margin: -.35rem -.5rem; border-radius: var(--radius-md); }
+.path__a:hover .path__verb { text-decoration: underline; text-decoration-color: var(--link-deco); text-underline-offset: .2em; }
+.path__item:hover .path__dot, .path__item:focus-within .path__dot { background: var(--accent-fill); color: var(--accent-on-fill); }
+.path__verb { font-size: var(--text-h4); font-weight: 700; letter-spacing: -0.01em; }
+.path__what { color: var(--fg-2); font-size: var(--text-small); }
+@media (min-width: 900px) {
+  .path { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-4); }
+  .path__item { grid-template-columns: 1fr; padding-bottom: 0; gap: var(--space-4); }
+  .path__item::before { left: 40px; right: calc(var(--space-4) * -1); top: 19px; bottom: auto; width: auto; height: 2px; }
+}
+
+.persona { display: grid; gap: var(--space-4); border-left: 3px solid var(--accent); padding: var(--space-2) 0 var(--space-2) var(--space-6); }
+.persona q { font-size: var(--text-h4); font-weight: 600; line-height: 1.35; quotes: "\201C" "\201D"; letter-spacing: -0.01em; }
+.persona dl { display: grid; gap: var(--space-3); margin: 0; }
+.persona dt { font-size: var(--text-caption); font-weight: 600; color: var(--fg-muted); text-transform: uppercase; letter-spacing: .06em; }
+.persona dd { margin: 0; color: var(--fg-2); }
+
+/* ========== Network graph ========== */
+.net { display: grid; gap: var(--space-6); margin-top: clamp(3rem, 2rem + 3vw, 5rem); }
+@media (min-width: 1024px) { .net { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--space-12); align-items: start; } }
+.net__side { display: grid; gap: var(--space-5); min-width: 0; }
+.net__legend { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.lg-btn { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: 0 .9rem; border-radius: var(--radius-full); border: 1px solid var(--line-strong); background: var(--bg-raised); color: var(--fg-2); font: inherit; font-size: var(--text-small); font-weight: 500; cursor: pointer; transition: border-color var(--dur-2) var(--ease-standard), background-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard); }
+.lg-btn:hover { border-color: var(--fg); color: var(--fg); }
+.lg-btn[aria-pressed="true"] { border-color: var(--fg); background: var(--fg); color: var(--bg); }
+.lg-sw { width: 12px; height: 12px; flex: none; }
+.net__panel { background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-5); min-height: 116px; display: grid; gap: var(--space-2); align-content: start; }
+.net__panel strong { font-size: var(--text-h5); }
+.net__stage { position: relative; background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius-xl); overflow: hidden; min-width: 0; }
+.net__stage svg { display: block; width: 100%; height: auto; }
+.net__stage:focus-within { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--focus); }
+.net__hint { position: absolute; right: var(--space-3); bottom: var(--space-3); font-size: var(--text-caption); color: var(--fg-muted); background: var(--bg-raised); border: 1px solid var(--line); padding: .2rem .55rem; border-radius: var(--radius-full); }
+@media (max-width: 600px) { .net__hint { position: static; display: block; margin: 0 var(--space-3) var(--space-3); width: max-content; max-width: calc(100% - 24px); } }
+.g-dot { fill: var(--grid-dot); }
+.g-edge { stroke: var(--line-strong); stroke-width: 1.5; fill: none; stroke-linecap: round; transition: stroke var(--dur-2) var(--ease-standard), opacity var(--dur-2) var(--ease-standard), stroke-width var(--dur-2) var(--ease-standard); }
+.g-node { cursor: pointer; outline: none; }
+.g-node circle, .g-node rect { transition: opacity var(--dur-2) var(--ease-standard), transform var(--dur-2) var(--ease-standard); transform-box: fill-box; transform-origin: center; }
+.g-node .halo { fill: none; stroke: var(--focus); stroke-width: 2.5; opacity: 0; }
+.g-node:focus-visible .halo, .g-node.is-sel .halo { opacity: 1; }
+.t-founder { fill: var(--accent); }
+.t-mentor { fill: var(--bg-raised); stroke: var(--fg); stroke-width: 2.5; }
+.t-gcc { fill: var(--fg); }
+.t-investor { fill: var(--bg-raised); stroke: var(--accent); stroke-width: 3.5; }
+.t-circle { fill: var(--accent-tint); stroke: var(--accent); stroke-width: 2; }
+.t-point { fill: var(--point); }
+.g-lbl { font-size: 13px; font-weight: 600; fill: var(--fg-2); font-family: var(--font-sans); pointer-events: none; }
+.net-dim .g-edge { opacity: .15; }
+.net-dim .g-node { opacity: .22; }
+.net-dim .g-edge.hi { opacity: 1; stroke: var(--accent); stroke-width: 2.5; }
+.net-dim .g-node.hi { opacity: 1; }
+.net-dim .g-edge.hi-point { stroke: var(--point); }
+.net-twin { border-top: 1px solid var(--line); padding-top: var(--space-4); }
+.net-twin summary { cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; font-weight: 600; color: var(--link-standalone); }
+.net-twin dl { margin: var(--space-3) 0 0; display: grid; gap: var(--space-3); }
+.net-twin dt { font-weight: 600; }
+.net-twin dd { margin: 0; color: var(--fg-2); font-size: var(--text-small); }
+
+/* ========== Connect Series grid ========== */
+.parts { display: grid; gap: var(--space-3); grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: var(--space-10); }
+@media (min-width: 900px) { .parts { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.part { display: flex; gap: var(--space-3); align-items: center; padding: var(--space-4); border-radius: var(--radius-lg); background: var(--bg-raised); border: 1px solid var(--line); font-weight: 600; font-size: var(--text-small); min-width: 0; }
+.part svg { flex: none; width: 32px; height: 32px; }
+.part svg .p-l { stroke: var(--accent); stroke-width: 2; fill: none; stroke-linecap: round; }
+.part svg .p-d { fill: var(--accent); }
+.part svg .p-g { fill: var(--grid-dot); }
+.filters { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-bottom: var(--space-6); }
+.f-btn { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: 0 1rem; border-radius: var(--radius-full); border: 1px solid var(--line-strong); background: var(--bg-raised); color: var(--fg-2); font: inherit; font-size: var(--text-small); font-weight: 500; cursor: pointer; transition: border-color var(--dur-2) var(--ease-standard), background-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard); }
+.f-btn:hover { border-color: var(--fg); color: var(--fg); }
+.f-btn[aria-pressed="true"] { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+.f-btn .n { font-variant-numeric: tabular-nums; font-size: var(--text-caption); opacity: .75; }
+.filters__count { margin-left: auto; font-size: var(--text-small); color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+@media (max-width: 600px) { .filters__count { margin-left: 0; width: 100%; } }
+.sgrid { list-style: none; display: grid; gap: var(--space-4); }
+@media (min-width: 640px) { .sgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .sgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.sgrid > li[hidden] { display: none; }
+.scard { position: relative; height: 100%; background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-6); display: grid; grid-template-rows: auto auto 1fr auto; gap: var(--space-4); min-width: 0; transition: transform var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard); }
+.scard:hover, .scard:focus-within { transform: translateY(calc(var(--shift-1) * -1)); box-shadow: var(--shadow-2); border-color: var(--line-strong); }
+.scard__top { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-3); }
+.scard__glyph { width: 64px; height: 48px; flex: none; }
+.scard__glyph .gd { fill: var(--grid-dot); transition: fill var(--dur-3) var(--ease-standard); }
+.scard__glyph .gl { stroke: var(--accent-soft); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: stroke var(--dur-3) var(--ease-standard); }
+.scard__glyph .gn { fill: var(--accent-soft); transition: fill var(--dur-3) var(--ease-standard); }
+.scard:hover .scard__glyph .gl, .scard:focus-within .scard__glyph .gl { stroke: var(--accent); }
+.scard:hover .scard__glyph .gn, .scard:focus-within .scard__glyph .gn { fill: var(--accent); }
+.scard__status { display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: flex-end; }
+.scard h3 { font-size: var(--text-h4); font-weight: 700; letter-spacing: -0.015em; }
+.scard__sum { color: var(--fg-2); font-size: var(--text-small); }
+.scard__foot { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); border-top: 1px solid var(--line); padding-top: var(--space-3); }
+.scard__foot .tlink { font-size: var(--text-small); }
+.sgrid__empty { padding: var(--space-8); border: 1px dashed var(--line-strong); border-radius: var(--radius-lg); color: var(--fg-muted); }
+.cohost { margin-top: var(--space-8); display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-6); align-items: center; font-size: var(--text-small); color: var(--fg-2); }
+
+/* ========== Circles ========== */
+.ring { position: relative; background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: var(--space-6); display: grid; gap: var(--space-4); }
+.ring svg { width: 100%; max-width: 480px; margin-inline: auto; display: block; height: auto; }
+.ring .r-track { fill: none; stroke: var(--line-strong); stroke-width: 1.5; stroke-dasharray: 2 6; }
+.ring .r-member { fill: var(--grid-dot); }
+.ring .r-seat circle { fill: var(--bg-raised); stroke: var(--accent); stroke-width: 2.5; transition: fill var(--dur-2) var(--ease-standard); }
+.ring .r-seat text { font-size: 11px; font-weight: 600; fill: var(--fg-2); font-family: var(--font-sans); }
+.ring .r-seat.is-hi circle { fill: var(--accent); }
+.ring .r-center { font-family: var(--font-sans); fill: var(--fg); }
+.ring .r-line { stroke: var(--accent); stroke-width: 2; opacity: 0; transition: opacity var(--dur-2) var(--ease-standard); }
+.ring .r-line.is-hi { opacity: 1; }
+.seatpick { display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center; }
+.seatpick button { min-height: 40px; padding: 0 .75rem; border-radius: var(--radius-full); border: 1px solid var(--line-strong); background: transparent; font: inherit; font-size: var(--text-caption); font-weight: 600; color: var(--fg-2); cursor: pointer; }
+.seatpick button[aria-pressed="true"] { background: var(--accent-fill); color: var(--accent-on-fill); border-color: transparent; }
+.price { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2) var(--space-3); padding: var(--space-5); border-radius: var(--radius-lg); background: var(--accent-tint); }
+.price__v { font-size: var(--text-h2); font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--fg); }
+.price__l { color: var(--fg-2); font-size: var(--text-small); }
+
+/* Forms */
+.form { display: grid; gap: var(--space-4); background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-6); }
+.form h3 { font-size: var(--text-h5); }
+.field { display: grid; gap: .35rem; min-width: 0; }
+.field label { font-weight: 600; font-size: var(--text-small); }
+.field .hint { font-size: var(--text-caption); color: var(--fg-muted); }
+.input { width: 100%; min-height: 48px; padding: .65rem .85rem; border: 1.5px solid var(--line-control); border-radius: var(--radius-md); background: var(--bg-raised); color: var(--fg); font: inherit; font-size: var(--text-body); transition: border-color var(--dur-2) var(--ease-standard); }
+.input:hover { border-color: var(--fg-2); }
+.input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; border-color: var(--fg); }
+.input[aria-invalid="true"] { border-color: var(--error); }
+select.input { appearance: auto; }
+.err { display: none; align-items: flex-start; gap: .4rem; color: var(--error); font-size: var(--text-caption); font-weight: 600; }
+.err::before { content: "!"; flex: none; width: 16px; height: 16px; border-radius: 50%; background: var(--error); color: var(--bg-raised); font-size: 11px; display: grid; place-items: center; line-height: 1; margin-top: 1px; }
+.field.is-err .err { display: flex; }
+.motion-ok .field.is-err .err { animation: fade-in var(--dur-3) var(--ease-enter); }
+@keyframes fade-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.check { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: var(--space-3); align-items: start; font-size: var(--text-small); color: var(--fg-2); }
+.check input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--accent-fill); }
+.form-note { font-size: var(--text-caption); color: var(--fg-muted); }
+.success { display: grid; gap: var(--space-3); justify-items: start; padding: var(--space-6); border-radius: var(--radius-lg); background: var(--success-bg); border: 1px solid var(--accent-soft); }
+.success[hidden] { display: none; }
+.success__title { font-size: var(--text-h3); font-weight: 800; letter-spacing: -0.02em; }
+.success svg { width: 44px; height: 44px; }
+.success .ck-c { fill: none; stroke: var(--accent); stroke-width: 3; }
+.success .ck-p { fill: none; stroke: var(--success); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.motion-ok .success:not([hidden]) .ck-p { stroke-dasharray: 40; animation: draw var(--dur-5) var(--ease-enter) both 120ms; }
+@keyframes draw { from { stroke-dashoffset: 40; } to { stroke-dashoffset: 0; } }
+
+/* ========== Founder Switch ========== */
+.facts { display: grid; gap: 0; margin: 0; border-top: 1px solid var(--line); }
+.facts > div { display: grid; grid-template-columns: minmax(0, 10rem) minmax(0, 1fr); gap: var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--line); }
+.facts dt { font-size: var(--text-small); color: var(--fg-muted); font-weight: 600; }
+.facts dd { margin: 0; min-width: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+@media (max-width: 480px) { .facts > div { grid-template-columns: 1fr; gap: var(--space-1); } }
+
+.sw { margin-top: clamp(2.5rem, 2rem + 2vw, 4rem); background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: clamp(1.25rem, 1rem + 1.5vw, 2.5rem); display: grid; gap: var(--space-8); }
+.sw__head { display: grid; gap: var(--space-3); }
+@media (min-width: 900px) { .sw__head { grid-template-columns: minmax(0, 1fr) auto; align-items: end; } }
+.sw__track { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); position: relative; }
+.sw__track::before { content: ""; position: absolute; left: 10%; right: 10%; top: 21px; height: 2px; background: var(--line-strong); }
+.sw__fill { position: absolute; left: 10%; top: 21px; height: 2px; background: var(--accent); width: calc(80% * var(--p, 0)); transition: width var(--dur-4) var(--ease-standard); }
+.sw__step { position: relative; display: grid; justify-items: center; text-align: center; min-width: 0; }
+.sw__btn { display: grid; justify-items: center; gap: var(--space-2); background: none; border: 0; padding: 0 2px; font: inherit; color: var(--fg-2); cursor: pointer; min-height: 44px; width: 100%; border-radius: var(--radius-md); }
+.sw__dot { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--line-strong); background: var(--bg-raised); display: grid; place-items: center; font-weight: 700; font-size: var(--text-small); font-variant-numeric: tabular-nums; transition: background-color var(--dur-3) var(--ease-standard), border-color var(--dur-3) var(--ease-standard), color var(--dur-3) var(--ease-standard), transform var(--dur-3) var(--ease-standard); position: relative; z-index: 1; }
+.sw__name { font-size: var(--text-caption); font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.sw__step[data-state="done"] .sw__dot { background: var(--accent-fill); border-color: var(--accent-fill); color: var(--accent-on-fill); }
+.sw__step[data-state="notyet"] .sw__dot { border-color: var(--accent); border-style: dashed; }
+.sw__btn[aria-current="step"] .sw__dot { border-color: var(--fg); box-shadow: 0 0 0 4px var(--accent-tint); transform: scale(1.06); }
+.sw__btn[aria-current="step"] .sw__name { color: var(--fg); }
+.sw__step--end .sw__dot { border-style: solid; }
+.sw__step--end[data-state="done"] .sw__dot { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+.sw__panel { display: grid; gap: var(--space-5); min-height: 15rem; align-content: start; }
+@media (min-width: 900px) { .sw__panel { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); column-gap: var(--space-12); } }
+.motion-ok .sw__panel.is-in { animation: panel-in var(--dur-4) var(--ease-enter); }
+@keyframes panel-in { from { opacity: 0; transform: translateX(var(--shift-3)); } to { opacity: 1; transform: none; } }
+.sw__q { display: grid; gap: var(--space-4); align-content: start; background: var(--bg-sunken); border-radius: var(--radius-lg); padding: var(--space-5); }
+.sw__q p { font-weight: 600; }
+.yn { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.yn button { min-height: 44px; padding: 0 1.1rem; border-radius: var(--radius-full); border: 1.5px solid var(--line-control); background: var(--bg-raised); color: var(--fg); font: inherit; font-size: var(--text-small); font-weight: 600; cursor: pointer; transition: background-color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard); }
+.yn button:hover { border-color: var(--fg); }
+.yn button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.sw__nav { display: flex; gap: var(--space-3); justify-content: space-between; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: var(--space-5); align-items: center; }
+.sw__nav .caption { flex: 1 1 14rem; }
+.verdict { display: grid; gap: var(--space-3); }
+.verdict__word { font-size: var(--text-display-xl); font-weight: 800; letter-spacing: -0.035em; line-height: 1; }
+.meter { display: flex; gap: 6px; }
+.meter span { flex: 1; height: 8px; border-radius: 4px; background: var(--line); transition: background-color var(--dur-3) var(--ease-standard); }
+.meter span.on { background: var(--accent); }
+.disclose { display: grid; gap: var(--space-3); }
+.disclose[hidden] { display: none; }
+.disclose textarea { width: 100%; min-height: 16rem; resize: vertical; font: inherit; font-size: var(--text-small); line-height: 1.55; padding: var(--space-4); border-radius: var(--radius-md); border: 1.5px solid var(--line-control); background: var(--bg-raised); color: var(--fg); }
+
+/* ========== Scale tabs ========== */
+.tabs { display: grid; gap: var(--space-6); }
+.tablist { position: relative; display: flex; gap: var(--space-1); overflow-x: auto; border-bottom: 1px solid var(--line); scrollbar-width: none; }
+.tablist::-webkit-scrollbar { display: none; }
+.tab { min-height: 48px; padding: 0 1rem; border: 0; background: transparent; color: var(--fg-2); font: inherit; font-size: var(--text-small); font-weight: 600; cursor: pointer; white-space: nowrap; border-radius: var(--radius-md) var(--radius-md) 0 0; }
+.tab:hover { color: var(--fg); background: var(--bg-sunken); }
+.tab[aria-selected="true"] { color: var(--fg); }
+.tab-ind { position: absolute; bottom: -1px; left: 0; height: 3px; background: var(--accent); border-radius: 2px; width: 0; transition: transform var(--dur-3) var(--ease-standard), width var(--dur-3) var(--ease-standard); }
+.tabpanel { display: grid; gap: var(--space-6); }
+@media (min-width: 900px) { .tabpanel { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-12); align-items: start; } }
+.tabpanel[hidden] { display: none; }
+.motion-ok .tabpanel.is-in { animation: fade-in var(--dur-3) var(--ease-enter); }
+.tabpanel .big { font-size: var(--text-h3); font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; }
+.mini-art { aspect-ratio: 3 / 2; border-radius: var(--radius-lg); background: var(--bg-sunken); border: 1px solid var(--line); overflow: hidden; }
+.mini-art svg { width: 100%; height: 100%; display: block; }
+.ma-d { fill: var(--grid-dot); }
+.ma-l { stroke: var(--accent); stroke-width: 2.5; fill: none; stroke-linecap: round; }
+.ma-n { fill: var(--accent); }
+.ma-o { fill: var(--bg-raised); stroke: var(--fg); stroke-width: 2.5; }
+.ma-i { fill: var(--fg); }
+
+/* ========== Angels ========== */
+.legal { border: 1px solid var(--line-strong); border-left: 4px solid var(--fg); border-radius: var(--radius-md); padding: var(--space-5); background: var(--bg-raised); display: grid; gap: var(--space-2); }
+.legal strong { font-size: var(--text-small); text-transform: uppercase; letter-spacing: .06em; }
+.legal p { font-size: var(--text-small); color: var(--fg-2); }
+
+/* ========== Events ========== */
+.next { display: grid; gap: var(--space-4); padding: var(--space-6); background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius-lg); }
+@media (min-width: 900px) { .next { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--space-8); } }
+.datebox { width: 88px; height: 88px; border-radius: var(--radius-lg); border: 1.5px dashed var(--warn-line); background: var(--warn-bg); color: var(--warn-fg); display: grid; place-items: center; text-align: center; font-size: var(--text-caption); font-weight: 700; line-height: 1.2; padding: var(--space-2); }
+.scroller { position: relative; margin-top: var(--space-10); }
+.scroller__head { display: flex; align-items: end; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-5); flex-wrap: wrap; }
+.scroller__btns { display: flex; gap: var(--space-2); }
+.icon-btn { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--fg); background: transparent; color: var(--fg); display: grid; place-items: center; cursor: pointer; font: inherit; font-size: 1.1rem; transition: background-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard), opacity var(--dur-2) var(--ease-standard); }
+.icon-btn:hover { background: var(--fg); color: var(--bg); }
+.icon-btn:disabled { opacity: .35; cursor: default; background: transparent; color: var(--fg); }
+.scroller__track { list-style: none; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(260px, 82%); gap: var(--space-4); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: var(--space-3); scrollbar-width: thin; overscroll-behavior-x: contain; }
+@media (min-width: 640px) { .scroller__track { grid-auto-columns: minmax(280px, calc((100% - 2rem) / 2.4)); } }
+@media (min-width: 1024px) { .scroller__track { grid-auto-columns: calc((100% - 3 * 1rem) / 3.4); } }
+.scroller__track > li { scroll-snap-align: start; min-width: 0; }
+.arch { height: 100%; display: grid; gap: var(--space-3); align-content: start; padding: var(--space-5); border-radius: var(--radius-lg); background: var(--bg-raised); border: 1px solid var(--line); }
+.arch__art { aspect-ratio: 16 / 9; border-radius: var(--radius-md); background: var(--bg-sunken); overflow: hidden; }
+.arch__art svg { width: 100%; height: 100%; display: block; }
+.arch dl { margin: 0; display: grid; gap: var(--space-2); font-size: var(--text-small); }
+.arch dl > div { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--space-2); }
+.arch dt { color: var(--fg-muted); }
+.arch dd { margin: 0; min-width: 0; }
+
+/* ========== Night proof band ========== */
+.night { background: var(--night-bg); color: var(--night-fg); padding-block: var(--space-section); position: relative; overflow: hidden; }
+.night .eyebrow { color: var(--night-muted); }
+.night .eyebrow .num { color: var(--night-accent); }
+.night .lede { color: var(--night-fg-2); }
+.night .shead h2 { max-width: 20ch; }
+.night .tlink { color: var(--night-fg); text-decoration-color: var(--point); }
+.night .tlink:hover { text-decoration-color: var(--night-fg); }
+.night .ph { color: var(--night-warn-fg); background: var(--night-warn-bg); border-color: var(--night-warn-fg); }
+.night .tag { color: var(--night-fg-2); }
+.night .tag--pending { color: var(--night-warn-fg); }
+.night .pop { background: var(--night-raised-2); color: var(--night-fg); border-color: var(--night-line); }
+.night .pop dt { color: var(--night-muted); }
+.night .pop .tlink { color: var(--night-fg); }
+.night :focus-visible { outline-color: var(--focus); }
+.night__bg { position: absolute; inset: 0; pointer-events: none; opacity: .9; }
+.night__bg circle { fill: var(--night-line); }
+.night > .wrap { position: relative; }
+.stats { display: grid; gap: 0; margin: 0; border-top: 1px solid var(--night-line); }
+@media (min-width: 640px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: var(--space-3); padding: var(--space-6) var(--space-5) var(--space-6) 0; border-bottom: 1px solid var(--night-line); min-width: 0; }
+@media (min-width: 640px) { .stat { padding-right: var(--space-6); } .stat + .stat { border-left: 1px solid var(--night-line); padding-left: var(--space-6); } .stats > .stat:nth-child(2n+1) { border-left: 0; padding-left: 0; } }
+@media (min-width: 1100px) { .stats > .stat:nth-child(2n+1) { border-left: 1px solid var(--night-line); padding-left: var(--space-6); } .stats > .stat:nth-child(4n+1) { border-left: 0; padding-left: 0; } }
+.stat dt { font-size: var(--text-small); color: var(--night-fg-2); min-width: 0; }
+.stat dd { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); min-height: 72px; }
+.stat__v { font-size: var(--text-stat); font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; color: var(--night-fg); }
+.stat__v small { font-size: .45em; letter-spacing: -0.01em; font-weight: 700; }
+.stat__asat { font-size: var(--text-caption); color: var(--night-muted); width: 100%; }
+.stats-sub { margin-top: var(--space-12); display: grid; gap: var(--space-4); }
+.stats-sub h3 { font-size: var(--text-h5); color: var(--night-fg); }
+.night__foot { margin-top: var(--space-10); display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-8); align-items: center; justify-content: space-between; font-size: var(--text-small); color: var(--night-fg-2); }
+.legend-abc { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); }
+.legend-abc span { display: inline-flex; align-items: center; gap: .4rem; }
+.legend-abc b { min-width: 24px; height: 24px; border-radius: var(--radius-full); display: inline-grid; place-items: center; font-size: .6875rem; border: 1.5px solid var(--night-fg-2); color: var(--night-fg); }
+.legend-abc b.a { background: var(--night-fg); color: var(--night-bg); border-color: var(--night-fg); }
+.legend-abc b.c { border-style: dashed; }
+
+/* ========== FAQ ========== */
+.faq { display: grid; gap: 0; border-top: 1px solid var(--line); max-width: 56rem; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: var(--space-4); min-height: 64px; padding: var(--space-4) 0; font-size: var(--text-h5); font-weight: 600; letter-spacing: -0.01em; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary:hover { color: var(--accent-text); }
+.faq .pm { flex: none; width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--line-strong); position: relative; transition: transform var(--dur-3) var(--ease-standard), border-color var(--dur-2) var(--ease-standard), background-color var(--dur-2) var(--ease-standard); }
+.faq .pm::before, .faq .pm::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; background: currentColor; transform: translate(-50%, -50%); border-radius: 1px; }
+.faq .pm::after { transform: translate(-50%, -50%) rotate(90deg); transition: transform var(--dur-3) var(--ease-standard); }
+.faq details[open] .pm { background: var(--accent-fill); border-color: var(--accent-fill); color: var(--accent-on-fill); }
+.faq details[open] .pm::after { transform: translate(-50%, -50%) rotate(0deg); }
+.faq .ans { padding: 0 0 var(--space-6); color: var(--fg-2); max-width: var(--measure); display: grid; gap: var(--space-3); }
+.motion-ok .faq details[open] .ans { animation: fade-in var(--dur-3) var(--ease-enter); }
+
+/* ========== CTA band ========== */
+.cta { padding-block: var(--space-section); border-top: 1px solid var(--line); position: relative; overflow: hidden; }
+.cta__grid { display: grid; gap: var(--space-8); align-items: center; }
+@media (min-width: 960px) { .cta__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-16); } }
+.cta h2 { font-size: var(--text-display-xl); font-weight: 800; letter-spacing: var(--tracking-display); line-height: 1.04; max-width: 14ch; }
+.cta__art { aspect-ratio: 5 / 3; min-width: 0; }
+.cta__art svg { width: 100%; height: 100%; display: block; }
+
+/* ========== Footer (Ink surface) ========== */
+.foot { background: var(--night-bg); color: var(--night-fg-2); padding-block: var(--space-16) var(--space-8); border-top: 1px solid var(--night-line); }
+.foot a { color: var(--night-fg); text-decoration: none; }
+.foot a:hover { text-decoration: underline; text-decoration-color: var(--point); text-underline-offset: .25em; }
+.foot .logo { color: var(--night-fg); font-size: 1.75rem; }
+.foot__grid { display: grid; gap: var(--space-10); }
+@media (min-width: 900px) { .foot__grid { grid-template-columns: minmax(0, 5fr) repeat(2, minmax(0, 3fr)) minmax(0, 4fr); gap: var(--space-8); } }
+.foot h2 { font-size: var(--text-caption); text-transform: uppercase; letter-spacing: .08em; color: var(--night-muted); font-weight: 600; margin-bottom: var(--space-4); }
+.foot ul { list-style: none; display: grid; gap: 0; }
+.foot li a { display: inline-flex; min-height: 40px; align-items: center; font-size: var(--text-small); }
+.foot__tag { font-size: var(--text-h5); color: var(--night-fg); font-weight: 600; margin-top: var(--space-3); }
+.foot__pos { font-size: var(--text-small); margin-top: var(--space-2); }
+.foot__part { margin-top: var(--space-5); display: inline-flex; align-items: center; gap: .6rem; font-size: var(--text-small); color: var(--night-fg); border: 1px solid var(--night-line-strong); border-radius: var(--radius-full); padding: .35rem .9rem; min-height: 40px; }
+.foot__ctl { display: grid; gap: var(--space-4); }
+.foot__ctl .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.foot .langtoggle { background: var(--night-raised); border-color: var(--night-line-strong); }
+.foot .langtoggle button { color: var(--night-fg-2); }
+.foot .langtoggle button[aria-pressed="true"] { background: var(--night-fg); color: var(--night-bg); }
+.switch { display: inline-flex; align-items: center; gap: var(--space-3); min-height: 44px; background: none; border: 0; color: var(--night-fg); font: inherit; font-size: var(--text-small); cursor: pointer; padding: 0; }
+.switch__t { width: 44px; height: 26px; border-radius: 13px; background: var(--night-line-strong); position: relative; transition: background-color var(--dur-2) var(--ease-standard); flex: none; }
+.switch__t::after { content: ""; position: absolute; left: 3px; top: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--night-fg); transition: transform var(--dur-2) var(--ease-standard); }
+.switch[aria-checked="true"] .switch__t { background: var(--accent-fill); }
+.switch[aria-checked="true"] .switch__t::after { transform: translateX(18px); }
+.foot__legal { margin-top: var(--space-12); padding-top: var(--space-6); border-top: 1px solid var(--night-line); display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); font-size: var(--text-caption); color: var(--night-muted); align-items: center; }
+.foot .ph { color: var(--night-warn-fg); background: var(--night-warn-bg); border-color: var(--night-warn-fg); }
+.ta-note { font-size: var(--text-caption); color: var(--night-muted); max-width: 34ch; }
+
+@media (max-width: 360px) { .btn { padding-inline: 1rem; } }
+@media print { .subnav { position: static; } }
+</style>
+
+<div class="site" id="top">
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ===== Masterbrand strip ===== -->
+<header class="mb" aria-label="StartNet">
+  <div class="wrap mb__in">
+    <a class="logo" href="https://startnet.in" aria-label="StartNet home, startnet.in">StartNet<span class="fs" aria-hidden="true"></span></a>
+    <p class="mb__tag" data-ta="ஒவ்வொரு திறமையும், ஒரு நிறுவனர்.">Every talent, a founder.</p>
+    <div class="mb__right">
+      <a class="mb__link mb__link--hide-sm" href="https://startnet.in/brands" data-ta="எங்கள் பிராண்டுகள்">Our brands</a>
+      <a class="mb__link" href="https://x.startnet.in/signin?src=artifact-connect&amp;brand=connect" data-ta="உள்நுழைக">Sign in</a>
+      <div class="langtoggle" role="group" aria-label="Language">
+        <button type="button" id="lang-en-top" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" id="lang-ta-top" data-lang="ta" lang="ta" aria-pressed="false">தமிழ்</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Brand sub-nav ===== -->
+<nav class="subnav" aria-label="StartNet Connect">
+  <div class="wrap subnav__in">
+    <a class="subnav__brand lockup" href="#overview"><span class="logo">StartNet<span class="fs" aria-hidden="true"></span></span><span class="lockup__desc">Connect</span></a>
+    <div class="subnav__scroll" id="subnav-scroll">
+      <span class="subnav__fade subnav__fade--l" aria-hidden="true"></span>
+      <ul class="subnav__links" id="subnav-links">
+        <li><a href="#overview" aria-current="true">Overview</a></li>
+        <li><a href="#series">Connect Series</a></li>
+        <li><a href="#circles">Circles</a></li>
+        <li><a href="#founder-switch">Founder Switch</a></li>
+        <li><a href="#scale">Scale</a></li>
+        <li><a href="#angels">Angels</a></li>
+        <li><a href="#events" data-ta="நிகழ்வுகள்">Events</a></li>
+      </ul>
+      <span class="subnav__fade subnav__fade--r" aria-hidden="true"></span>
+    </div>
+    <div class="subnav__cta">
+      <a class="btn btn--brand btn--sm" href="#series"><span class="long">Find your sector Connect</span><span class="short">Find your Connect</span></a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ===== Hero ===== -->
+<section class="hero" id="overview" aria-labelledby="hero-title">
+  <div class="wrap hero__grid">
+    <div class="hero__text">
+      <div class="hero__lock">
+        <span class="lockup lockup--lg" aria-label="StartNet Connect"><span class="logo">StartNet<span class="fs" aria-hidden="true"></span></span><span class="lockup__desc">Connect</span></span>
+        <span class="hero__sweep" aria-hidden="true"></span>
+        <p class="hero__journey"><span>Professional → Founder</span><span>Startup → Scale</span></p>
+      </div>
+      <h1 id="hero-title" class="display" data-kinetic>Keep your job while you test your company<span class="fs fs--land" aria-hidden="true"></span><span class="sr-only">.</span></h1>
+      <p class="lede">StartNet Connect helps working professionals, especially in Global Capability Centres (GCCs) and IT, become founders, and helps existing startups find customers, capital and co-founders.</p>
+      <div class="actions">
+        <a class="btn btn--brand" href="#events">See Connect events <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn--secondary" href="https://x.startnet.in/apply/founder-switch?src=artifact-connect&amp;brand=connect">Apply for Founder Switch</a>
+      </div>
+      <div class="hero__meta" aria-label="At a glance">
+        <span class="chip chip--accent">9 sector communities</span>
+        <span class="chip chip--accent">12-week Founder Switch</span>
+        <span class="chip chip--accent">Circles of 25–40 founders</span>
+      </div>
+    </div>
+    <div class="hero__art">
+      <div class="art-frame">
+        <svg id="hero-art" viewBox="0 0 480 600" role="img" aria-label="Generative art: a grid of dots, some joined by green lines into a network, with one red dot, the full stop, where the lines meet."></svg>
+        <span class="art-frame__label" aria-hidden="true">Dots → network → full stop</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Overview ===== -->
+<section class="section" aria-labelledby="ov-title">
+  <div class="wrap">
+    <div class="shead">
+      <p class="eyebrow"><span class="num">01</span> Overview</p>
+      <h2 id="ov-title">Test your idea and find a co-founder before you leave your job.</h2>
+      <div class="shead__side">
+        <p class="lede">Customers, capital and pilots from the network that knows Tamil Nadu's districts and GCCs. Start with one evening at a sector Connect.</p>
+      </div>
+    </div>
+
+    <h3 class="h5" id="path-title" style="margin-bottom: var(--space-6)">The professional-to-founder path</h3>
+    <ol class="path" aria-labelledby="path-title">
+      <li class="path__item"><span class="path__dot" aria-hidden="true">1</span><a class="path__a" href="#series"><span class="path__verb">Attend</span><span class="path__what">a sector Connect</span></a></li>
+      <li class="path__item"><span class="path__dot" aria-hidden="true">2</span><a class="path__a" href="#founder-switch"><span class="path__verb">Explore</span><span class="path__what">Founder Switch</span></a></li>
+      <li class="path__item"><span class="path__dot" aria-hidden="true">3</span><a class="path__a" href="#matching"><span class="path__verb">Team</span><span class="path__what">co-founder matching</span></a></li>
+      <li class="path__item"><span class="path__dot" aria-hidden="true">4</span><a class="path__a" href="#angels"><span class="path__verb">Leap</span><span class="path__what">angels, a first pilot</span></a></li>
+      <li class="path__item"><span class="path__dot" aria-hidden="true">5</span><a class="path__a" href="#circles"><span class="path__verb">Grow</span><span class="path__what">Circles, Scale Connect</span></a></li>
+    </ol>
+
+    <div class="split" style="margin-top: clamp(3rem, 2rem + 3vw, 5rem)">
+      <div class="grid-2">
+        <article class="card card--lift reveal">
+          <span class="card__rule" aria-hidden="true"></span>
+          <p class="eyebrow">Professionals</p>
+          <h3 class="h4">Validation before quitting.</h3>
+          <p class="muted small">Find the next sector Connect, apply to Founder Switch, ask about Circles.</p>
+          <a class="tlink" href="#founder-switch">Apply to Founder Switch <span class="arr" aria-hidden="true">→</span></a>
+        </article>
+        <article class="card card--lift reveal">
+          <span class="card__rule" aria-hidden="true"></span>
+          <p class="eyebrow">Startups</p>
+          <h3 class="h4">Customers, capital and pilots.</h3>
+          <p class="muted small">For startups past first revenue: investor days, pilot matchmaking, procurement readiness and export desks.</p>
+          <a class="tlink" href="#scale">Apply to Scale Connect <span class="arr" aria-hidden="true">→</span></a>
+        </article>
+      </div>
+      <figure class="persona" style="margin:0">
+        <p class="eyebrow">Who Connect is built for · illustrative composite</p>
+        <q>Sandeep, 31, senior engineer at a Chennai GCC, weighing a SaaS idea against a mortgage.</q>
+        <dl>
+          <div><dt>Needs</dt><dd>Validation before quitting; a co-founder; investors.</dd></div>
+          <div><dt>The objection we have to answer</dt><dd>"Networking without outcomes?" That's why Circle introductions are logged on StartNet X, and founder outcomes are published with confidence tags.</dd></div>
+        </dl>
+        <figcaption class="caption">A planning persona, not a real person. To be validated in interviews.</figcaption>
+      </figure>
+    </div>
+
+    <!-- Network graph -->
+    <div class="net" id="network">
+      <div class="net__side">
+        <p class="eyebrow">The network</p>
+        <h3 class="h3">Dots, joined by lines.</h3>
+        <p class="muted">Every dot is a person or an organisation. Every line is an introduction. The red full stop is the outcome: a founder with a customer, a co-founder and a cheque.</p>
+        <div class="net__legend" role="group" aria-label="Highlight by type">
+          <button type="button" class="lg-btn" id="lg-founder" data-type="founder" aria-pressed="false"><svg class="lg-sw" viewBox="0 0 12 12" aria-hidden="true"><circle class="t-founder" cx="6" cy="6" r="5"/></svg>Founders</button>
+          <button type="button" class="lg-btn" id="lg-mentor" data-type="mentor" aria-pressed="false"><svg class="lg-sw" viewBox="0 0 12 12" aria-hidden="true"><circle class="t-mentor" cx="6" cy="6" r="4" style="stroke-width:2"/></svg>Mentors</button>
+          <button type="button" class="lg-btn" id="lg-gcc" data-type="gcc" aria-pressed="false"><svg class="lg-sw" viewBox="0 0 12 12" aria-hidden="true"><rect class="t-gcc" x="1" y="1" width="10" height="10" rx="2"/></svg>GCCs</button>
+          <button type="button" class="lg-btn" id="lg-investor" data-type="investor" aria-pressed="false"><svg class="lg-sw" viewBox="0 0 12 12" aria-hidden="true"><circle class="t-investor" cx="6" cy="6" r="4" style="stroke-width:2.5"/></svg>Investors</button>
+          <button type="button" class="lg-btn" id="lg-circle" data-type="circle" aria-pressed="false"><svg class="lg-sw" viewBox="0 0 12 12" aria-hidden="true"><circle class="t-circle" cx="6" cy="6" r="5"/></svg>Circles</button>
+        </div>
+        <div class="net__panel" id="net-panel" aria-live="polite">
+          <strong>Pick a dot.</strong>
+          <span class="small muted">Tab into the graph, then use the arrow keys to move between dots. Each one shows who it connects to.</span>
+        </div>
+        <details class="net-twin">
+          <summary>Explore as a list</summary>
+          <dl>
+            <div><dt>Founder ↔ Circle</dt><dd>A Connect Circle is a closed chapter that meets monthly. Introductions and referrals are logged on StartNet X and reported back to members.</dd></div>
+            <div><dt>Founder ↔ Founder</dt><dd>Co-founder matching through Founder Switch and the StartNet X Matchmaker.</dd></div>
+            <div><dt>Founder ↔ Mentor</dt><dd>Mentor matching on StartNet X; mentors meet founders at sector Connects.</dd></div>
+            <div><dt>Founder ↔ GCC</dt><dd>Pilot matchmaking with GCCs and corporates through Scale Connect.</dd></div>
+            <div><dt>Founder ↔ Investor</dt><dd>Curated investor days through Scale Connect; StartNet Angels once it opens through a SEBI-compliant structure.</dd></div>
+          </dl>
+        </details>
+        <p class="caption">Illustrative graph. It shows no real people, partners or results.</p>
+      </div>
+      <div class="net__stage">
+        <svg id="net-svg" viewBox="0 0 920 520" role="group" aria-label="Illustrative network of founders, mentors, GCCs, investors and Circles. Use arrow keys to move between dots."></svg>
+        <span class="net__hint" aria-hidden="true">Hover, tap or use arrow keys</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Connect Series ===== -->
+<section class="section section--sunken" id="series" aria-labelledby="series-title">
+  <div class="wrap">
+    <div class="shead">
+      <p class="eyebrow"><span class="num">02</span> Connect Series</p>
+      <h2 id="series-title">Nine sectors. One community each, all year.</h2>
+      <div class="shead__side">
+        <p class="lede">Each Connect is a community, not a single date: a flagship event, monthly meet-ups, a sector report and a Circle. We co-host with sector bodies wherever we can, rather than duplicate them.</p>
+      </div>
+    </div>
+
+    <ul class="parts" aria-label="What happens in every sector Connect">
+      <li class="part"><svg viewBox="0 0 32 32" aria-hidden="true"><circle class="p-g" cx="6" cy="26" r="2"/><circle class="p-g" cx="16" cy="26" r="2"/><circle class="p-g" cx="26" cy="26" r="2"/><path class="p-l" d="M6 26 L16 8 L26 26"/><circle class="p-d" cx="16" cy="8" r="4"/></svg>Flagship event</li>
+      <li class="part"><svg viewBox="0 0 32 32" aria-hidden="true"><circle class="p-d" cx="6" cy="16" r="3"/><circle class="p-d" cx="16" cy="16" r="3"/><circle class="p-d" cx="26" cy="16" r="3"/><path class="p-l" d="M6 16 H26"/><circle class="p-g" cx="6" cy="6" r="2"/><circle class="p-g" cx="26" cy="26" r="2"/></svg>Monthly meet-ups</li>
+      <li class="part"><svg viewBox="0 0 32 32" aria-hidden="true"><circle class="p-g" cx="16" cy="16" r="2"/><path class="p-l" d="M8 26 V18 M14 26 V12 M20 26 V15 M26 26 V7"/></svg>Sector report</li>
+      <li class="part"><svg viewBox="0 0 32 32" aria-hidden="true"><circle class="p-l" cx="16" cy="16" r="10"/><circle class="p-d" cx="16" cy="6" r="3"/><circle class="p-d" cx="25" cy="20" r="3"/><circle class="p-d" cx="7" cy="20" r="3"/></svg>A Circle</li>
+    </ul>
+
+    <div class="filters" role="group" aria-label="Filter sector Connects by status">
+      <button type="button" class="f-btn" id="f-all" data-filter="all" aria-pressed="true">All <span class="n">9</span></button>
+      <button type="button" class="f-btn" id="f-running" data-filter="running" aria-pressed="false">Running <span class="n">3</span></button>
+      <button type="button" class="f-btn" id="f-2027" data-filter="new2027" aria-pressed="false">New · 2027 <span class="n">3</span></button>
+      <button type="button" class="f-btn" id="f-new" data-filter="new" aria-pressed="false">New · date to be set <span class="n">3</span></button>
+      <p class="filters__count" id="series-count" aria-live="polite">Showing 9 sector Connects</p>
+    </div>
+
+    <ul class="sgrid" id="sgrid">
+      <li data-status="running"><article class="scard"><div class="scard__top"><svg class="scard__glyph" viewBox="0 0 64 48" data-seed="11" aria-hidden="true"></svg><div class="scard__status"><span class="chip chip--accent">Running</span><span class="ph">since [year placeholder]</span></div></div><h3>GenAI Connect</h3><p class="scard__sum">For builders shipping generative and agentic AI into real products, including for GCCs.</p><div class="scard__foot"><a class="tlink" href="https://x.startnet.in/events?series=genai-connect&amp;src=artifact-connect&amp;brand=connect">Register for the next event <span class="arr" aria-hidden="true">→</span></a><a class="tlink" href="https://startnet.in/connect/genai">GenAI Connect</a></div></article></li>
+      <li data-status="running"><article class="scard"><div class="scard__top"><svg class="scard__glyph" viewBox="0 0 64 48" data-seed="23" aria-hidden="true"></svg><div class="scard__status"><span class="chip chip--accent">Running</span><span class="ph">since [year placeholder]</span></div></div><h3>SaaS Connect</h3><p class="scard__sum">For early-stage and Tier 2 SaaS founders finding their first 100 customers.</p><div class="scard__foot"><a class="tlink" href="https://x.startnet.in/events?series=saas-connect&amp;src=artifact-connect&amp;brand=connect">Register for the next event <span class="arr" aria-hidden="true">→</span></a><a class="tlink" href="https://startnet.in/connect/saas">SaaS Connect</a></div></article></li>
+      <li data-status="running"><article class="scard"><div class="scard__top"><svg class="scard__glyph" viewBox="0 0 64 48" data-seed="37" aria-hidden="true"></svg><div class="scard__status"><span class="chip chip--accent">Running</span><span class="ph">since [year placeholder]</span></div></div><h3>D2C Connect</h3><p class="scard__sum">For consumer brands selling direct, from Tamil Nadu to the world.</p><div class="scard__foot"><a class="tlink" href="https://x.startnet.in/events?series=d2c-connect&amp;src=artifact-connect&amp;brand=connect">Register for the next event <span class="arr" aria-hidden="true">→</span></a><a class="tlink" href="https://startnet.in/connect/d2c">D2C Connect</a></div></article></li>
+      <li data-status="new2027"><article class="scard"><div class="scard__top"><svg class="scard__glyph" viewBox="0 0 64 48" data-seed="41" aria-hidden="true"></svg><div class="scard__status"><span class="chip">New · 2027</span><span class="chip chip--dashed">proposed</span></div></div><h3>DeepTech Connect</h3><p class="scard__sum">For founders building on hard science and engineering IP.</p><div class="scard__foot"><a class="tlink" href="https://startnet.in/connect/deeptech?src=artifact-connect&amp;brand=connect">Register interest <span class="arr" aria-hidden="true">→</span></a></div></article></li>
+      <li data-status="new2027"><article class="scard"><div class="scard__top"><svg class="scard__glyph" viewBox="0 0 64 48" data-seed="53" aria-hidden="true"></svg><div class="scard__status"><span class="chip">New · 2027</span><span class="chip chip--dashed">proposed</span></div></div><h3>FinTech Connect</h3><p class="scard__sum">For founders building payments, lending, insurance and compliance products.</p><div class="scard__foot"><a class="tlink" href="https://startnet.in/connect/fintech?src=artifact-connect&amp;brand=connect">Register interest <span class="arr" aria-hidden="true">→</span></a></div></article></li>
+      <li data-status="new2027"><article class="scard"><div class="scard__top"><svg class="scard__glyph" viewBox="0 0 64 48" data-seed="67" aria-hidden="true"></svg><div class="scard__status"><span class="chip">New · 2027</span><span class="chip chip--dashed">proposed</span></div></div><h3>Industry 4.0 Connect</h3><p class="scard__sum">For founders selling into Tamil Nadu's manufacturing base: automation, IoT and quality.</p><div class="scard__foot"><a class="tlink" href="https://startnet.in/connect/industry-4-0?src=artifact-connect&amp;brand=connect">Register interest <span class="arr" aria-hidden="true">→</span></a></div></article></li>
+      <li data-status="new"><article class="scard"><div class="scard__top"><svg class="scard__glyph" viewBox="0 0 64 48" data-seed="71" aria-hidden="true"></svg><div class="scard__status"><span class="chip">New</span><span class="chip chip--dashed">proposed</span></div></div><h3>HealthTech Connect</h3><p class="scard__sum">For founders in diagnostics, care delivery and health data.</p><div class="scard__foot"><a class="tlink" href="https://startnet.in/connect/healthtech?src=artifact-connect&amp;brand=connect">Register interest <span class="arr" aria-hidden="true">→</span></a></div></article></li>
+      <li data-status="new"><article class="scard"><div class="scard__top"><svg class="scard__glyph" viewBox="0 0 64 48" data-seed="83" aria-hidden="true"></svg><div class="scard__status"><span class="chip">New</span><span class="chip chip--dashed">proposed</span></div></div><h3>AgriFood Connect</h3><p class="scard__sum">For founders in farm technology, food processing and supply chains.</p><div class="scard__foot"><a class="tlink" href="https://startnet.in/connect/agrifood?src=artifact-connect&amp;brand=connect">Register interest <span class="arr" aria-hidden="true">→</span></a></div></article></li>
+      <li data-status="new"><article class="scard"><div class="scard__top"><svg class="scard__glyph" viewBox="0 0 64 48" data-seed="97" aria-hidden="true"></svg><div class="scard__status"><span class="chip">New</span><span class="chip chip--dashed">proposed</span></div></div><h3>Climate Connect</h3><p class="scard__sum">For founders in energy, EV, materials and circular economy.</p><div class="scard__foot"><a class="tlink" href="https://startnet.in/connect/climate?src=artifact-connect&amp;brand=connect">Register interest <span class="arr" aria-hidden="true">→</span></a></div></article></li>
+    </ul>
+
+    <div class="cohost">
+      <span><strong>Co-hosts:</strong> <span class="ph">[placeholder — signed only]</span></span>
+      <span><strong>Sponsors:</strong> <span class="ph">[placeholder]</span></span>
+      <a class="tlink" href="https://startnet.in/partner/sponsors?src=artifact-connect&amp;brand=connect">Sponsor a sector Connect <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Circles ===== -->
+<section class="section" id="circles" aria-labelledby="circles-title">
+  <div class="wrap">
+    <div class="shead">
+      <p class="eyebrow"><span class="num">03</span> Connect Circles</p>
+      <h2 id="circles-title">Twenty-five to forty founders. One seat per sector. Every month.</h2>
+      <div class="shead__side">
+        <p class="lede">A Connect Circle is a closed chapter that meets monthly. Each sector has one seat, so members refer business instead of competing for it.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="stack-lg">
+        <p>Introductions and referrals are logged on StartNet X and reported back to members. Volunteer chairs, StartNet operations.</p>
+        <div class="price">
+          <span class="price__l">Membership from</span>
+          <span class="price__v">₹30,000</span>
+          <span class="price__l">a year</span>
+          <span class="tagwrap"><button type="button" class="tag" id="tag-circle-price" aria-expanded="false" aria-controls="pop-circle-price" aria-label="Confidence tag C. Show source">C</button>
+            <span class="pop" id="pop-circle-price" role="note" hidden><dl><dt>Tag</dt><dd>C · indicative price, planning assumption</dd><dt>Source</dt><dd>StartNet website content, Book 2 §3.3</dd><dt>As at</dt><dd>Oct 2026; replaced by the published rate card</dd></dl><a class="tlink" href="https://startnet.in/about/evidence-standard">Evidence standard <span class="arr" aria-hidden="true">→</span></a></span></span>
+          <span class="price__l" style="width:100%">Includes StartNet X Pro.</span>
+        </div>
+        <p class="caption">Membership is by application. We'll check your sector seat is free before you pay.</p>
+        <div class="actions">
+          <a class="btn btn--brand" href="https://x.startnet.in/circles/apply?src=artifact-connect&amp;brand=connect">Apply to a Circle <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--secondary" href="https://startnet.in/connect/circles?src=artifact-connect&amp;brand=connect">Find a Circle near you</a>
+        </div>
+
+        <form class="form" id="circle-form" novalidate aria-labelledby="circle-form-title">
+          <h3 id="circle-form-title">Check a sector seat</h3>
+          <p class="form-note">Tell us your sector and district. This page doesn't send anything; you finish on StartNet X.</p>
+          <div class="field"><label for="cf-name">Your name</label><input class="input" id="cf-name" name="name" type="text" autocomplete="name" required aria-describedby="cf-name-err"><span class="err" id="cf-name-err">Enter your name.</span></div>
+          <div class="field"><label for="cf-email">Email</label><input class="input" id="cf-email" name="email" type="email" autocomplete="email" required aria-describedby="cf-email-err"><span class="err" id="cf-email-err">Enter an email address like name@example.com.</span></div>
+          <div class="field"><label for="cf-sector">Your sector seat</label>
+            <select class="input" id="cf-sector" name="sector" required aria-describedby="cf-sector-err">
+              <option value="">Choose a sector</option>
+              <option>GenAI</option><option>SaaS</option><option>D2C</option><option>DeepTech</option><option>FinTech</option><option>Industry 4.0</option><option>HealthTech</option><option>AgriFood</option><option>Climate</option>
+            </select><span class="err" id="cf-sector-err">Choose the sector you'd hold a seat for.</span></div>
+          <div class="field"><label for="cf-district">District</label><input class="input" id="cf-district" name="district" type="text" autocomplete="address-level2" required aria-describedby="cf-district-err"><span class="err" id="cf-district-err">Enter your district.</span></div>
+          <label class="check" for="cf-consent"><input type="checkbox" id="cf-consent" name="consent" required aria-describedby="cf-consent-err"><span>I agree StartNet may contact me about Connect Circles. See the privacy notice.</span></label>
+          <span class="err" id="cf-consent-err" style="margin-top:-.5rem">Tick the box so we can contact you about your seat.</span>
+          <div><button class="btn btn--brand" type="submit">Check my seat</button></div>
+        </form>
+        <div class="success" id="circle-form-ok" hidden tabindex="-1">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><circle class="ck-c" cx="22" cy="22" r="19"/><path class="ck-p" d="M13 23 l6 6 l12 -13"/></svg>
+          <p class="success__title">You're in<span class="fs fs--land" style="--land-delay:500ms" aria-hidden="true"></span><span class="sr-only">.</span></p>
+          <p class="small">Your details stayed on this page; nothing was sent. Finish your Circle application on StartNet X and we'll check your sector seat before you pay.</p>
+          <a class="tlink" href="https://x.startnet.in/circles/apply?src=artifact-connect&amp;brand=connect">Continue on StartNet X <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="ring reveal">
+        <svg id="ring-svg" viewBox="-40 0 520 440" role="img" aria-labelledby="ring-desc"><desc id="ring-desc">Illustration of a Circle: a ring of founders with nine sector seats, one per sector.</desc></svg>
+        <div class="seatpick" role="group" aria-label="Highlight a sector seat" id="seatpick"></div>
+        <p class="caption" style="text-align:center">One seat per sector: GenAI, SaaS, D2C and six more. Illustrative.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Founder Switch ===== -->
+<section class="section section--sunken" id="founder-switch" aria-labelledby="fs-title">
+  <div class="wrap">
+    <div class="shead">
+      <p class="eyebrow"><span class="num">04</span> Founder Switch</p>
+      <h2 id="fs-title">Twelve weeks to a clear go or no-go.</h2>
+      <div class="shead__side">
+        <p class="lede">For professionals with a day job and an idea. Evenings and weekends for 12 weeks: validate the idea with customers, find or test a co-founder, plan your financial runway, and finish with a decision you can defend.</p>
+      </div>
+    </div>
+    <div class="split">
+      <dl class="facts">
+        <div><dt>Duration</dt><dd>12 weeks, evenings and weekends</dd></div>
+        <div><dt>Fee</dt><dd><span class="ph">[placeholder — rate card; indicative ₹35,000–75,000]</span><span class="tagwrap"><button type="button" class="tag" id="tag-fs-fee" aria-expanded="false" aria-controls="pop-fs-fee" aria-label="Confidence tag C. Show source">C</button><span class="pop" id="pop-fs-fee" role="note" hidden><dl><dt>Tag</dt><dd>C · indicative range, planning assumption</dd><dt>Source</dt><dd>StartNet website content, Book 2 §3.3</dd><dt>As at</dt><dd>Oct 2026; replaced by the published rate card</dd></dl></span></span></dd></div>
+        <div><dt>Next cohort</dt><dd><span class="ph">[date placeholder]</span></dd></div>
+        <div><dt>Format</dt><dd>Chennai in person + online <span class="chip chip--dashed">to be confirmed</span></dd></div>
+        <div><dt>Sponsorship</dt><dd>Some GCCs sponsor seats for their employees.</dd></div>
+      </dl>
+      <div class="stack-lg">
+        <div class="actions">
+          <a class="btn btn--brand" href="https://x.startnet.in/apply/founder-switch?src=artifact-connect&amp;brand=connect">Apply for the next cohort <span class="arr" aria-hidden="true">→</span></a>
+          <button type="button" class="btn btn--secondary" id="sponsor-toggle" aria-expanded="false" aria-controls="sponsor-panel">Ask your employer to sponsor a seat</button>
+        </div>
+        <div class="disclose" id="sponsor-panel" hidden>
+          <label for="sponsor-email" class="small" style="font-weight:600">A pre-written email to your manager. Copy it into your own email.</label>
+          <textarea id="sponsor-email" readonly>Subject: Sponsoring my seat on StartNet Founder Switch
+
+Hi [manager's name],
+
+I'd like to apply for Founder Switch, a 12-week evening and weekend programme from StartNet Connect for professionals with a day job and an idea. Over 12 weeks I would validate an idea with customers, find or test a co-founder, plan my financial runway, and finish with a go or no-go decision I can defend.
+
+Some GCCs sponsor seats for their employees. Could we consider sponsoring mine?
+
+Programme: startnet.in/connect/founder-switch
+Fee: [to be confirmed from StartNet's rate card]
+Next cohort: [date to be confirmed]
+
+Thank you,
+[Your name]</textarea>
+          <div class="actions"><button type="button" class="btn btn--sm btn--secondary" id="sponsor-copy">Copy text</button><span class="caption" id="sponsor-copy-status" aria-live="polite"></span></div>
+        </div>
+        <div id="matching" class="card">
+          <span class="card__rule" aria-hidden="true"></span>
+          <h3 class="h5">Co-founder matching</h3>
+          <p class="small muted">Find or test a co-founder during the programme. StartNet X Pro adds the co-founder and mentor Matchmaker; Connect Circle members get Pro included.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signature: go/no-go stepper -->
+    <div class="sw" id="switch-stepper" aria-labelledby="sw-title">
+      <div class="sw__head">
+        <div class="stack">
+          <p class="eyebrow">Try the lens</p>
+          <h3 class="h3" id="sw-title">Your go or no-go, in four questions.</h3>
+        </div>
+        <p class="caption" style="max-width:34ch">A self-check, not an assessment. Nothing is saved or sent. The programme is where you test each answer properly.</p>
+      </div>
+      <ol class="sw__track" id="sw-track" aria-label="Steps">
+        <li class="sw__step" data-step="0"><button type="button" class="sw__btn" id="sw-b0" aria-current="step"><span class="sw__dot">1</span><span class="sw__name">Validate</span></button></li>
+        <li class="sw__step" data-step="1"><button type="button" class="sw__btn" id="sw-b1"><span class="sw__dot">2</span><span class="sw__name">Co-founder</span></button></li>
+        <li class="sw__step" data-step="2"><button type="button" class="sw__btn" id="sw-b2"><span class="sw__dot">3</span><span class="sw__name">Runway</span></button></li>
+        <li class="sw__step" data-step="3"><button type="button" class="sw__btn" id="sw-b3"><span class="sw__dot">4</span><span class="sw__name">Defend it</span></button></li>
+        <li class="sw__step sw__step--end" data-step="4"><button type="button" class="sw__btn" id="sw-b4"><span class="sw__dot" aria-hidden="true">?</span><span class="sw__name">Decision</span></button></li>
+        <li aria-hidden="true" style="position:absolute;inset:0;pointer-events:none"><span class="sw__fill" id="sw-fill"></span></li>
+      </ol>
+      <div class="sw__panel" id="sw-panel" aria-live="polite"></div>
+      <div class="sw__nav">
+        <button type="button" class="btn btn--secondary btn--sm" id="sw-prev">← Back</button>
+        <span class="caption" id="sw-pos">Step 1 of 5</span>
+        <button type="button" class="btn btn--brand btn--sm" id="sw-next">Next →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Scale Connect ===== -->
+<section class="section" id="scale" aria-labelledby="scale-title">
+  <div class="wrap">
+    <div class="shead">
+      <p class="eyebrow"><span class="num">05</span> Scale Connect</p>
+      <h2 id="scale-title">Your next customer, investor or market.</h2>
+      <div class="shead__side">
+        <p class="lede">For startups past first revenue. Curated investor days, pilot matchmaking with GCCs and corporates, readiness for government procurement, and export desks connected to Tamil diaspora networks.</p>
+        <div class="actions">
+          <a class="btn btn--brand" href="https://x.startnet.in/apply/scale-connect?src=artifact-connect&amp;brand=connect">Apply to Scale Connect <span class="arr" aria-hidden="true">→</span></a>
+          <span class="caption">Included with StartNet X Scale.</span>
+        </div>
+      </div>
+    </div>
+    <div class="tabs" id="scale-tabs">
+      <div class="tablist" role="tablist" aria-label="Scale Connect offers">
+        <button type="button" class="tab" role="tab" id="tab-inv" aria-selected="true" aria-controls="panel-inv">Investor days</button>
+        <button type="button" class="tab" role="tab" id="tab-pilot" aria-selected="false" aria-controls="panel-pilot" tabindex="-1">Pilot matchmaking</button>
+        <button type="button" class="tab" role="tab" id="tab-gov" aria-selected="false" aria-controls="panel-gov" tabindex="-1">Government procurement</button>
+        <button type="button" class="tab" role="tab" id="tab-exp" aria-selected="false" aria-controls="panel-exp" tabindex="-1">Export desks</button>
+        <span class="tab-ind" id="tab-ind" aria-hidden="true"></span>
+      </div>
+      <div class="tabpanel" role="tabpanel" id="panel-inv" aria-labelledby="tab-inv" tabindex="0">
+        <div class="stack"><p class="big" id="investor-days">Curated investor days.</p><p class="muted">Investor days run through Scale Connect and the Lab-to-Market Summit. StartNet X Scale adds deal room and investor-day priority.</p><p class="small">Investors on the panel: <span class="ph">[placeholder — signed only]</span></p></div>
+        <div class="mini-art"><svg viewBox="0 0 300 200" data-mini="inv" aria-hidden="true"></svg></div>
+      </div>
+      <div class="tabpanel" role="tabpanel" id="panel-pilot" aria-labelledby="tab-pilot" tabindex="0" hidden>
+        <div class="stack"><p class="big">Pilot matchmaking with GCCs and corporates.</p><p class="muted">GCCs post signed problem statements and run pilots with startups. StartNet X Scale adds pilot pipeline analytics.</p><p class="small">Pilot partners: <span class="ph">[placeholder — signed only]</span></p></div>
+        <div class="mini-art"><svg viewBox="0 0 300 200" data-mini="pilot" aria-hidden="true"></svg></div>
+      </div>
+      <div class="tabpanel" role="tabpanel" id="panel-gov" aria-labelledby="tab-gov" tabindex="0" hidden>
+        <div class="stack"><p class="big">Readiness for government procurement.</p><p class="muted">Get ready to sell to government buyers. We feed founders to state programmes and incubators rather than duplicate them.</p></div>
+        <div class="mini-art"><svg viewBox="0 0 300 200" data-mini="gov" aria-hidden="true"></svg></div>
+      </div>
+      <div class="tabpanel" role="tabpanel" id="panel-exp" aria-labelledby="tab-exp" tabindex="0" hidden>
+        <div class="stack"><p class="big">Export desks connected to Tamil diaspora networks.</p><p class="muted">Routes into new markets through the Tamil diaspora. StartNet X Scale includes export desk access.</p></div>
+        <div class="mini-art"><svg viewBox="0 0 300 200" data-mini="exp" aria-hidden="true"></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== StartNet Angels ===== -->
+<section class="section section--sunken" id="angels" aria-labelledby="angels-title">
+  <div class="wrap">
+    <div class="shead">
+      <p class="eyebrow"><span class="num">06</span> StartNet Angels</p>
+      <h2 id="angels-title">Founders backing the next founders.</h2>
+      <div class="shead__side">
+        <p class="lede">An angel network for Circle alumni, successful founders and experienced professionals who want to invest in companies from StartNet programmes.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="stack-lg">
+        <p>Investments are made only through a SEBI-compliant structure <span class="ph">[placeholder — partner platform or fund, to be confirmed]</span>.</p>
+        <div class="legal" role="note" aria-labelledby="legal-title">
+          <strong id="legal-title">Please read</strong>
+          <p>StartNet Angels is not yet open for investment. Nothing on this page is an offer of securities or investment advice. Investing in early-stage companies carries a high risk of loss. Participation will be limited to eligible investors through a registered structure.</p>
+        </div>
+      </div>
+      <div>
+        <form class="form" id="angel-form" novalidate aria-labelledby="angel-form-title">
+          <h3 id="angel-form-title">Register interest as an angel</h3>
+          <p class="form-note">Register interest only. This page doesn't send anything; you finish on startnet.in.</p>
+          <div class="field"><label for="af-name">Your name</label><input class="input" id="af-name" name="name" type="text" autocomplete="name" required aria-describedby="af-name-err"><span class="err" id="af-name-err">Enter your name.</span></div>
+          <div class="field"><label for="af-email">Email</label><input class="input" id="af-email" name="email" type="email" autocomplete="email" required aria-describedby="af-email-err"><span class="err" id="af-email-err">Enter an email address like name@example.com.</span></div>
+          <div class="field"><label for="af-who">I am</label>
+            <select class="input" id="af-who" name="who" required aria-describedby="af-who-err">
+              <option value="">Choose one</option>
+              <option>A Circle alumnus</option>
+              <option>A founder</option>
+              <option>An experienced professional</option>
+            </select><span class="err" id="af-who-err">Choose the option closest to you.</span></div>
+          <label class="check" for="af-consent"><input type="checkbox" id="af-consent" name="consent" required aria-describedby="af-consent-err"><span>I understand StartNet Angels is not yet open, and agree StartNet may contact me when it opens.</span></label>
+          <span class="err" id="af-consent-err" style="margin-top:-.5rem">Tick the box to continue.</span>
+          <div><button class="btn btn--brand" type="submit">Register interest as an angel</button></div>
+        </form>
+        <div class="success" id="angel-form-ok" hidden tabindex="-1">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><circle class="ck-c" cx="22" cy="22" r="19"/><path class="ck-p" d="M13 23 l6 6 l12 -13"/></svg>
+          <p class="success__title">You're in<span class="fs fs--land" style="--land-delay:500ms" aria-hidden="true"></span><span class="sr-only">.</span></p>
+          <p class="small">Your details stayed on this page; nothing was sent. Register on startnet.in to hear when StartNet Angels opens.</p>
+          <a class="tlink" href="https://startnet.in/connect/angels?src=artifact-connect&amp;brand=connect">Continue on startnet.in <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Events ===== -->
+<section class="section" id="events" aria-labelledby="events-title">
+  <div class="wrap">
+    <div class="shead">
+      <p class="eyebrow"><span class="num">07</span> <span data-ta="நிகழ்வுகள்">Events</span></p>
+      <h2 id="events-title">Five years of rooms.</h2>
+      <div class="shead__side">
+        <p class="lede">We're rebuilding our event archive, including GenAI Connect, D2C Connect, SaaS Connect, the Investors Summit and Vibathon 2025. Each entry will list the date, co-hosts, attendance and what happened next.</p>
+      </div>
+    </div>
+
+    <div class="next">
+      <div class="datebox">Date<br>to be set</div>
+      <div class="stack">
+        <p class="eyebrow">Next sector Connect</p>
+        <p class="h4">Upcoming Connect dates <span class="ph">[placeholder — to be supplied by StartNet]</span></p>
+        <p class="small muted">Most first events are free. Register on WhatsApp in under a minute.</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn--brand" href="https://startnet.in/events?brand=connect&amp;src=artifact-connect" data-ta="வரவிருக்கும் நிகழ்வுகளைப் பாருங்கள்">See upcoming events</a>
+      </div>
+    </div>
+
+    <div class="scroller" id="archive">
+      <div class="scroller__head">
+        <h3 class="h4" id="archive-title">From the archive</h3>
+        <div class="scroller__btns">
+          <button type="button" class="icon-btn" id="arch-prev" aria-label="Previous archive entries" aria-controls="arch-track">←</button>
+          <button type="button" class="icon-btn" id="arch-next" aria-label="Next archive entries" aria-controls="arch-track">→</button>
+        </div>
+      </div>
+      <ul class="scroller__track" id="arch-track" aria-labelledby="archive-title" tabindex="0">
+        <li><article class="arch"><div class="arch__art"><svg viewBox="0 0 320 180" data-arch="3" aria-hidden="true"></svg></div><h4 class="h5">GenAI Connect</h4><dl><div><dt>Date</dt><dd><span class="ph">[placeholder]</span></dd></div><div><dt>Co-hosts</dt><dd><span class="ph">[placeholder — signed only]</span></dd></div><div><dt>Attendance</dt><dd><span class="ph">[placeholder — tagged A/B]</span></dd></div><div><dt>What happened next</dt><dd><span class="ph">[placeholder]</span></dd></div></dl></article></li>
+        <li><article class="arch"><div class="arch__art"><svg viewBox="0 0 320 180" data-arch="5" aria-hidden="true"></svg></div><h4 class="h5">SaaS Connect</h4><dl><div><dt>Date</dt><dd><span class="ph">[placeholder]</span></dd></div><div><dt>Co-hosts</dt><dd><span class="ph">[placeholder — signed only]</span></dd></div><div><dt>Attendance</dt><dd><span class="ph">[placeholder — tagged A/B]</span></dd></div><div><dt>What happened next</dt><dd><span class="ph">[placeholder]</span></dd></div></dl></article></li>
+        <li><article class="arch"><div class="arch__art"><svg viewBox="0 0 320 180" data-arch="8" aria-hidden="true"></svg></div><h4 class="h5">D2C Connect</h4><dl><div><dt>Date</dt><dd><span class="ph">[placeholder]</span></dd></div><div><dt>Co-hosts</dt><dd><span class="ph">[placeholder — signed only]</span></dd></div><div><dt>Attendance</dt><dd><span class="ph">[placeholder — tagged A/B]</span></dd></div><div><dt>What happened next</dt><dd><span class="ph">[placeholder]</span></dd></div></dl></article></li>
+        <li><article class="arch"><div class="arch__art"><svg viewBox="0 0 320 180" data-arch="13" aria-hidden="true"></svg></div><h4 class="h5">Investors Summit</h4><dl><div><dt>Date</dt><dd><span class="ph">[placeholder]</span></dd></div><div><dt>Co-hosts</dt><dd><span class="ph">[placeholder — signed only]</span></dd></div><div><dt>Attendance</dt><dd><span class="ph">[placeholder — tagged A/B]</span></dd></div><div><dt>What happened next</dt><dd><span class="ph">[placeholder]</span></dd></div></dl></article></li>
+      </ul>
+    </div>
+    <p class="small" style="margin-top: var(--space-8)">Want StartNet in your district or college? <a class="inline-link" href="https://startnet.in/events/host?src=artifact-connect&amp;brand=connect">Host an event</a></p>
+  </div>
+</section>
+
+<!-- ===== Proof band (the one Night band) ===== -->
+<section class="night" id="proof" aria-labelledby="proof-title" data-surface="night">
+  <svg class="night__bg" id="night-bg" aria-hidden="true" preserveAspectRatio="xMidYMid slice"></svg>
+  <div class="wrap">
+    <div class="shead">
+      <p class="eyebrow"><span class="num">—</span> Proof</p>
+      <h2 id="proof-title">Proof first. Claims never.</h2>
+      <div class="shead__side">
+        <p class="lede">Every figure shows a source and an as-at date, or an A/B/C confidence tag. Where Connect's own numbers are not yet verified, we say so.</p>
+      </div>
+    </div>
+    <dl class="stats">
+      <div class="stat"><dt>Connect events run since</dt><dd><span class="ph">[year placeholder]</span><span class="tagwrap"><button type="button" class="tag tag--pending" id="tag-p1" aria-expanded="false" aria-controls="pop-p1" aria-label="Tag pending. Show details">?</button><span class="pop" id="pop-p1" role="note" hidden><dl><dt>Tag</dt><dd>Pending: A or B once verified</dd><dt>Source</dt><dd>Event archive, to be supplied by StartNet</dd><dt>As at</dt><dd>[date]</dd></dl></span></span></dd></div>
+      <div class="stat"><dt>Total attendees</dt><dd><span class="ph">[placeholder — to be supplied by StartNet]</span><span class="tagwrap"><button type="button" class="tag tag--pending" id="tag-p2" aria-expanded="false" aria-controls="pop-p2" aria-label="Tag pending. Show details">?</button><span class="pop" id="pop-p2" role="note" hidden><dl><dt>Tag</dt><dd>Pending: A or B once verified</dd><dt>Source</dt><dd>Event registrations, to be supplied by StartNet</dd><dt>As at</dt><dd>[date]</dd></dl></span></span></dd></div>
+      <div class="stat"><dt>Circle members</dt><dd><span class="ph">[placeholder — to be supplied by StartNet]</span><span class="tagwrap"><button type="button" class="tag tag--pending" id="tag-p3" aria-expanded="false" aria-controls="pop-p3" aria-label="Tag pending. Show details">?</button><span class="pop" id="pop-p3" role="note" hidden><dl><dt>Tag</dt><dd>Pending: A once counted in StartNet X</dd><dt>Source</dt><dd>Circles module, StartNet X</dd><dt>As at</dt><dd>[date]</dd></dl></span></span></dd></div>
+      <div class="stat"><dt>Capital raised by Connect founders</dt><dd><span class="ph">[placeholder — to be supplied by StartNet]</span><span class="tagwrap"><button type="button" class="tag tag--pending" id="tag-p4" aria-expanded="false" aria-controls="pop-p4" aria-label="Tag pending. Show details">?</button><span class="pop" id="pop-p4" role="note" hidden><dl><dt>Tag</dt><dd>Pending: A or B once verified</dd><dt>Source</dt><dd>Founder Ledger, by brand</dd><dt>As at</dt><dd>[date]</dd></dl></span></span></dd></div>
+    </dl>
+
+    <div class="stats-sub">
+      <h3>By design: what each programme commits to</h3>
+      <dl class="stats">
+        <div class="stat"><dt>Sector communities (3 running, 6 proposed)</dt><dd><span class="stat__v"><span class="sr-only">9</span><span class="count" data-to="9" aria-hidden="true">9</span></span><span class="tagwrap"><button type="button" class="tag" id="tag-d1" aria-expanded="false" aria-controls="pop-d1" aria-label="Confidence tag C. Show source">C</button><span class="pop" id="pop-d1" role="note" hidden><dl><dt>Tag</dt><dd>C · planning: six sectors are proposed</dd><dt>Source</dt><dd>Book 2 §3.3, Connect Series</dd><dt>As at</dt><dd>Oct 2026</dd></dl></span></span><span class="stat__asat">as at Oct 2026</span></dd></div>
+        <div class="stat"><dt>Weeks in Founder Switch, evenings and weekends</dt><dd><span class="stat__v"><span class="sr-only">12</span><span class="count" data-to="12" aria-hidden="true">12</span></span><span class="tagwrap"><button type="button" class="tag" id="tag-d2" aria-expanded="false" aria-controls="pop-d2" aria-label="Confidence tag C. Show source">C</button><span class="pop" id="pop-d2" role="note" hidden><dl><dt>Tag</dt><dd>C · programme design</dd><dt>Source</dt><dd>Book 2 §3.3, Founder Switch</dd><dt>As at</dt><dd>Oct 2026</dd></dl></span></span><span class="stat__asat">as at Oct 2026</span></dd></div>
+        <div class="stat"><dt>Founders per Connect Circle, one seat per sector</dt><dd><span class="stat__v">25–40</span><span class="tagwrap"><button type="button" class="tag" id="tag-d3" aria-expanded="false" aria-controls="pop-d3" aria-label="Confidence tag C. Show source">C</button><span class="pop" id="pop-d3" role="note" hidden><dl><dt>Tag</dt><dd>C · programme design</dd><dt>Source</dt><dd>Book 2 §3.3, Connect Circles</dd><dt>As at</dt><dd>Oct 2026</dd></dl></span></span><span class="stat__asat">as at Oct 2026</span></dd></div>
+        <div class="stat"><dt>Circle membership a year, from (includes StartNet X Pro)</dt><dd><span class="stat__v"><span class="sr-only">₹30,000</span><span aria-hidden="true">₹<span class="count" data-to="30000">30,000</span></span></span><span class="tagwrap"><button type="button" class="tag" id="tag-d4" aria-expanded="false" aria-controls="pop-d4" aria-label="Confidence tag C. Show source">C</button><span class="pop" id="pop-d4" role="note" hidden><dl><dt>Tag</dt><dd>C · indicative price</dd><dt>Source</dt><dd>Book 2 §3.3 and §4 programme table</dd><dt>As at</dt><dd>Oct 2026; replaced by the rate card</dd></dl></span></span><span class="stat__asat">as at Oct 2026</span></dd></div>
+      </dl>
+    </div>
+
+    <div class="night__foot">
+      <div class="legend-abc" aria-label="Confidence tags">
+        <span><b class="a">A</b> verified against a primary source</span>
+        <span><b>B</b> an organisation's own claim</span>
+        <span><b class="c">C</b> estimate or planning assumption</span>
+      </div>
+      <a class="tlink" href="https://startnet.in/insights/founder-ledger?brand=connect" data-ta="Founder Ledger-ஐப் படியுங்கள்">Read the Founder Ledger</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section" id="faq" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="shead">
+      <p class="eyebrow">FAQ</p>
+      <h2 id="faq-title">What professionals ask before they start.</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Do I have to leave my job?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>No. Founder Switch runs on evenings and weekends for 12 weeks, so you can test your idea and find a co-founder before you leave your job. You finish with a go or no-go decision you can defend.</p></div></details>
+      <details><summary>Isn't this just networking without outcomes?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Each Connect is a community, not a single date. In Connect Circles, introductions and referrals are logged on StartNet X and reported back to members. Founder outcomes are counted in the Founder Ledger with an A/B/C confidence tag and an as-at date.</p></div></details>
+      <details><summary>What does it cost?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Most first events are free. Connect Circles membership is from ₹30,000 a year [C] and includes StartNet X Pro. The Founder Switch fee is <span class="ph">[placeholder — rate card; indicative ₹35,000–75,000]</span> [C]. Some GCCs sponsor seats for their employees.</p></div></details>
+      <details><summary>Why is there only one seat per sector in a Circle?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>So members refer business instead of competing for it. Membership is by application. We'll check your sector seat is free before you pay.</p></div></details>
+      <details><summary>Who runs a Connect Circle?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Volunteer chairs, with StartNet running operations. Circles meet monthly.</p></div></details>
+      <details><summary>My startup already has revenue. Is Connect for me?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Yes. Scale Connect is for startups past first revenue: curated investor days, pilot matchmaking with GCCs and corporates, readiness for government procurement, and export desks connected to Tamil diaspora networks. It is included with StartNet X Scale.</p></div></details>
+      <details><summary>My sector isn't running yet. What now?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>GenAI, SaaS and D2C Connect are running. DeepTech, FinTech and Industry 4.0 Connect are proposed for 2027; HealthTech, AgriFood and Climate Connect are proposed, with dates to be set. Register interest on the sector's page and we'll tell you when it opens.</p></div></details>
+      <details><summary>Can I invest through StartNet Angels today?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>No. StartNet Angels is not yet open for investment. Nothing on this page is an offer of securities or investment advice. Investing in early-stage companies carries a high risk of loss. Participation will be limited to eligible investors through a registered structure.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA band ===== -->
+<section class="cta" aria-labelledby="cta-title">
+  <div class="wrap cta__grid">
+    <div class="stack-lg">
+      <p class="eyebrow">Start with one evening</p>
+      <h2 id="cta-title">Find your sector Connect<span class="fs" aria-hidden="true"></span><span class="sr-only">.</span></h2>
+      <p class="lede">Nine sector communities, one profile on StartNet X that follows you from your first Connect to your Circle.</p>
+      <div class="actions">
+        <a class="btn btn--brand" href="#series">Find your sector Connect <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn" href="https://x.startnet.in/signup?src=artifact-connect&amp;brand=connect" data-ta="StartNet-இல் இணையுங்கள்">Join StartNet</a>
+        <a class="tlink" href="https://x.startnet.in/signup?src=artifact-connect&amp;brand=connect&amp;plan=free" data-ta="உங்கள் இலவச சுயவிவரத்தை உருவாக்குங்கள்">Create your free profile</a>
+      </div>
+    </div>
+    <div class="cta__art"><svg id="cta-art" viewBox="0 0 500 300" aria-hidden="true"></svg></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="foot" aria-label="Footer">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <a class="logo" href="https://startnet.in">StartNet<span class="fs" aria-hidden="true"></span></a>
+        <p class="foot__tag" data-ta="ஒவ்வொரு திறமையும், ஒரு நிறுவனர்.">Every talent, a founder.</p>
+        <p class="foot__pos" data-ta="தமிழ்நாட்டின் நிறுவனர்களை உருவாக்கும் வலையமைப்பு">Tamil Nadu's founder-making network</p>
+        <a class="foot__part" href="https://startnet.in">Part of StartNet · startnet.in</a>
+      </div>
+      <nav aria-labelledby="fb-brands">
+        <h2 id="fb-brands" data-ta="எங்கள் பிராண்டுகள்">Our brands</h2>
+        <ul>
+          <li><a href="https://startnet.in/research">StartNet Research</a></li>
+          <li><a href="https://startnet.in/vibe">StartNet Vibe</a></li>
+          <li><a href="#overview" aria-current="page">StartNet Connect</a></li>
+          <li><a href="https://startnet.in/women">StartNet Women</a></li>
+          <li><a href="https://startnet.in/startnet-x">StartNet X</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="fb-connect">
+        <h2 id="fb-connect">Connect</h2>
+        <ul>
+          <li><a href="#series">Connect Series</a></li>
+          <li><a href="#circles">Circles</a></li>
+          <li><a href="#founder-switch">Founder Switch</a></li>
+          <li><a href="#scale">Scale Connect</a></li>
+          <li><a href="#angels">StartNet Angels</a></li>
+          <li><a href="https://startnet.in/partner?src=artifact-connect&amp;brand=connect" data-ta="எங்களுடன் கூட்டு சேருங்கள்">Partner with us</a></li>
+        </ul>
+      </nav>
+      <div class="foot__ctl">
+        <h2>Settings</h2>
+        <div class="row">
+          <div class="langtoggle" role="group" aria-label="Language">
+            <button type="button" id="lang-en-foot" data-lang="en" aria-pressed="true">EN</button>
+            <button type="button" id="lang-ta-foot" data-lang="ta" lang="ta" aria-pressed="false">தமிழ்</button>
+          </div>
+        </div>
+        <p class="ta-note">Tamil covers the tagline, navigation and main buttons. It is a draft for review by a native Tamil copywriter.</p>
+        <div class="row">
+          <button type="button" class="switch" id="motion-switch" role="switch" aria-checked="false"><span class="switch__t" aria-hidden="true"></span><span>Reduce motion</span></button>
+        </div>
+        <p class="ta-note" id="motion-note">Following your device setting.</p>
+      </div>
+    </div>
+    <div class="foot__legal">
+      <span>© <span id="yr">2026</span> <span class="ph">[legal entity name — to be supplied by StartNet]</span></span>
+      <span>CIN <span class="ph">[placeholder — to be supplied by StartNet]</span></span>
+      <a href="https://startnet.in/legal/privacy">Privacy notice</a>
+      <a href="https://startnet.in/legal/terms">Terms</a>
+      <a href="https://startnet.in/about/evidence-standard">Evidence standard</a>
+      <a href="https://startnet.in/contact" data-ta="தொடர்புக்கு">Contact</a>
+    </div>
+  </div>
+</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var SVGNS = "http://www.w3.org/2000/svg";
+  var mq = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false, addEventListener: function () {} };
+
+  function store(k, v) { try { if (v === undefined) return window.localStorage.getItem(k); if (v === null) window.localStorage.removeItem(k); else window.localStorage.setItem(k, v); } catch (e) { return null; } return null; }
+  function el(tag, attrs, parent) { var n = document.createElementNS(SVGNS, tag); for (var k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; }
+  function rng(seed) { var s = seed >>> 0 || 1; return function () { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return ((s >>> 0) % 100000) / 100000; }; }
+  function $(id) { return document.getElementById(id); }
+
+  /* ---------- Motion preference ---------- */
+  var motionPref = store("sn-motion"); // "reduced" | "full" | null
+  function motionOK() { if (motionPref === "reduced") return false; if (motionPref === "full") return true; return !mq.matches; }
+  function applyMotion() {
+    if (motionPref === "reduced" || motionPref === "full") root.setAttribute("data-motion", motionPref); else root.removeAttribute("data-motion");
+    root.classList.toggle("motion-ok", motionOK());
+    var sw = $("motion-switch"); if (sw) sw.setAttribute("aria-checked", motionOK() ? "false" : "true");
+    var note = $("motion-note"); if (note) note.textContent = motionPref ? "Set on this page. Your device setting is " + (mq.matches ? "reduce motion." : "full motion.") : "Following your device setting.";
+  }
+  applyMotion();
+  if (mq.addEventListener) mq.addEventListener("change", applyMotion);
+  $("motion-switch").addEventListener("click", function () {
+    var reducedNow = !motionOK();
+    var want = reducedNow ? "full" : "reduced";
+    var deviceReduced = mq.matches;
+    motionPref = (want === "reduced" && deviceReduced) || (want === "full" && !deviceReduced) ? null : want;
+    store("sn-motion", motionPref);
+    applyMotion();
+  });
+
+  /* ---------- Language ---------- */
+  var i18nEls = Array.prototype.slice.call(document.querySelectorAll("[data-ta]"));
+  i18nEls.forEach(function (n) { n.setAttribute("data-en", n.textContent); });
+  function setLang(lang) {
+    i18nEls.forEach(function (n) {
+      if (lang === "ta") { n.textContent = n.getAttribute("data-ta"); n.setAttribute("lang", "ta"); }
+      else { n.textContent = n.getAttribute("data-en"); n.removeAttribute("lang"); }
+    });
+    document.querySelectorAll(".langtoggle button").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+    store("sn-lang", lang);
+    updateSubnavFades();
+  }
+  document.querySelectorAll(".langtoggle button").forEach(function (b) { b.addEventListener("click", function () { setLang(b.getAttribute("data-lang")); }); });
+
+  /* ---------- Kinetic headline (progressive) ---------- */
+  var h1 = document.querySelector("[data-kinetic]");
+  if (h1) {
+    var tn = h1.firstChild; // text node before the full stop
+    if (tn && tn.nodeType === 3) {
+      var words = tn.textContent.trim().split(/\s+/);
+      var frag = document.createDocumentFragment();
+      var vis = document.createElement("span"); vis.setAttribute("aria-hidden", "true");
+      words.forEach(function (w, i) {
+        var o = document.createElement("span"); o.className = "kw";
+        var inner = document.createElement("span"); inner.textContent = w; inner.style.setProperty("--i", i);
+        o.appendChild(inner); vis.appendChild(o);
+        if (i < words.length - 1) vis.appendChild(document.createTextNode(" "));
+      });
+      var sr = document.createElement("span"); sr.className = "sr-only"; sr.textContent = tn.textContent.trim();
+      frag.appendChild(sr); frag.appendChild(vis);
+      h1.replaceChild(frag, tn);
+      var landDelay = words.length * 70 + 80 + 380;
+      var dot = h1.querySelector(".fs--land"); if (dot) dot.style.setProperty("--land-delay", landDelay + "ms");
+      h1.classList.add("kinetic");
+    }
+  }
+
+  /* ---------- Draw-in helper (adds hidden state only when entering view) ---------- */
+  function drawOnView(svg) {
+    if (!("IntersectionObserver" in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(svg);
+        if (!motionOK()) return;
+        svg.classList.add("draw-pre");
+        void svg.getBoundingClientRect();
+        requestAnimationFrame(function () { requestAnimationFrame(function () { svg.classList.add("draw-go"); svg.classList.remove("draw-pre");
+          setTimeout(function () { svg.classList.remove("draw-go"); }, 2600); }); });
+      });
+    }, { threshold: 0.25 });
+    io.observe(svg);
+  }
+
+  /* ---------- Hero art: pulli grid → network → full stop ---------- */
+  function heroArt() {
+    var svg = $("hero-art"); if (!svg) return;
+    var W = 480, H = 600, S = 30, r = rng(2026);
+    var g = el("g", {}, svg);
+    for (var x = S; x < W; x += S) for (var y = S; y < H; y += S) el("circle", { cx: x, cy: y, r: 1.8, class: "g-dot" }, g);
+    var pts = [], cx = 250, cy = 320;
+    var tries = 0;
+    while (pts.length < 22 && tries < 2000) {
+      tries++;
+      var gx = Math.round((S + r() * (W - 2 * S)) / S) * S, gy = Math.round((S + r() * (H - 2 * S)) / S) * S;
+      var dx = (gx - cx) / 190, dy = (gy - cy) / 230;
+      if (dx * dx + dy * dy > 1) continue;
+      if (pts.some(function (p) { return Math.abs(p.x - gx) < S * 1.5 && Math.abs(p.y - gy) < S * 1.5; })) continue;
+      pts.push({ x: gx, y: gy });
+    }
+    var point = { x: 330, y: 420 };
+    pts.push(point);
+    var edges = [], seen = {};
+    pts.forEach(function (p, i) {
+      var d = pts.map(function (q, j) { return { j: j, d: (q.x - p.x) * (q.x - p.x) + (q.y - p.y) * (q.y - p.y) }; }).filter(function (o) { return o.j !== i; }).sort(function (a, b) { return a.d - b.d; });
+      var k = p === point ? 4 : 2;
+      for (var m = 0; m < k; m++) { var j = d[m].j, key = Math.min(i, j) + "-" + Math.max(i, j); if (!seen[key]) { seen[key] = 1; edges.push([i, j]); } }
+    });
+    var eg = el("g", {}, svg);
+    edges.forEach(function (e, idx) {
+      var a = pts[e[0]], b = pts[e[1]];
+      var toPoint = a === point || b === point;
+      var ln = el("path", { d: "M" + a.x + " " + a.y + " L" + b.x + " " + b.y, pathLength: 1, class: "edge", fill: "none", "stroke-linecap": "round", stroke: "var(--accent)", "stroke-width": toPoint ? 3 : 2, opacity: toPoint ? 1 : 0.55 }, eg);
+      ln.style.setProperty("--d", Math.round(idx * 22));
+    });
+    var ng = el("g", {}, svg);
+    pts.forEach(function (p, i) {
+      if (p === point) return;
+      var big = i % 4 === 0;
+      var c = el("circle", { cx: p.x, cy: p.y, r: big ? 9 : 6, class: "node", fill: i % 5 === 2 ? "var(--bg-raised)" : "var(--accent)", stroke: i % 5 === 2 ? "var(--fg)" : "none", "stroke-width": 2.5 }, ng);
+      c.style.setProperty("--d", 200 + i * 30);
+    });
+    el("circle", { cx: point.x, cy: point.y, r: 26, fill: "none", stroke: "var(--point)", "stroke-width": 1.5, opacity: 0.35, class: "node" }, ng).style.setProperty("--d", 1100);
+    el("circle", { cx: point.x, cy: point.y, r: 15, class: "art-point", fill: "var(--point)" }, svg);
+    drawOnView(svg);
+  }
+
+  /* ---------- Small glyphs ---------- */
+  function glyphs() {
+    document.querySelectorAll(".scard__glyph").forEach(function (svg) {
+      var r = rng(+svg.getAttribute("data-seed") * 7919);
+      var cols = 5, rows = 4, sx = 14, sy = 13, ox = 4, oy = 4;
+      var dots = [];
+      for (var y = 0; y < rows; y++) for (var x = 0; x < cols; x++) { dots.push([ox + x * sx, oy + y * sy]); el("circle", { cx: ox + x * sx, cy: oy + y * sy, r: 1.6, class: "gd" }, svg); }
+      var cur = Math.floor(r() * dots.length), path = [cur], used = {}; used[cur] = 1;
+      for (var s = 0; s < 4; s++) {
+        var cx = cur % cols, cy = Math.floor(cur / cols), opts = [];
+        for (var ddx = -1; ddx <= 1; ddx++) for (var ddy = -1; ddy <= 1; ddy++) { var nx = cx + ddx, ny = cy + ddy, id = ny * cols + nx; if ((ddx || ddy) && nx >= 0 && nx < cols && ny >= 0 && ny < rows && !used[id]) opts.push(id); }
+        if (!opts.length) break; cur = opts[Math.floor(r() * opts.length)]; used[cur] = 1; path.push(cur);
+      }
+      el("path", { d: path.map(function (i, k) { return (k ? "L" : "M") + dots[i][0] + " " + dots[i][1]; }).join(" "), class: "gl" }, svg);
+      path.forEach(function (i, k) { el("circle", { cx: dots[i][0], cy: dots[i][1], r: k === path.length - 1 ? 4.5 : 3, class: "gn" }, svg); });
+    });
+    document.querySelectorAll("[data-arch]").forEach(function (svg) {
+      var r = rng(+svg.getAttribute("data-arch") * 104729), S = 20, pts = [];
+      for (var x = S; x < 320; x += S) for (var y = S; y < 180; y += S) { el("circle", { cx: x, cy: y, r: 1.4, class: "ma-d" }, svg); if (r() < 0.12) pts.push([x, y]); }
+      pts.sort(function (a, b) { return a[0] - b[0]; });
+      if (pts.length > 1) el("path", { d: pts.map(function (p, k) { return (k ? "L" : "M") + p[0] + " " + p[1]; }).join(" "), class: "ma-l", opacity: 0.6 }, svg);
+      pts.forEach(function (p) { el("circle", { cx: p[0], cy: p[1], r: 4, class: "ma-n" }, svg); });
+    });
+    document.querySelectorAll("[data-mini]").forEach(function (svg) {
+      var kind = svg.getAttribute("data-mini"), S = 20;
+      for (var x = S; x < 300; x += S) for (var y = S; y < 200; y += S) el("circle", { cx: x, cy: y, r: 1.4, class: "ma-d" }, svg);
+      var f = [[80, 100], [100, 60], [100, 140], [60, 140]];
+      function line(a, b) { el("path", { d: "M" + a[0] + " " + a[1] + " L" + b[0] + " " + b[1], class: "ma-l edge", pathLength: 1 }, svg); }
+      if (kind === "inv") { var inv = [[220, 60], [240, 100], [220, 140]]; f.forEach(function (p) { inv.forEach(function (q, k) { if ((p[1] + k) % 2 === 0 || k === 1) line(p, q); }); }); f.forEach(function (p) { el("circle", { cx: p[0], cy: p[1], r: 6, class: "ma-n" }, svg); }); inv.forEach(function (q) { el("circle", { cx: q[0], cy: q[1], r: 8, fill: "var(--bg-raised)", stroke: "var(--accent)", "stroke-width": 3.5 }, svg); }); }
+      if (kind === "pilot") { var gcc = [[220, 80], [220, 120]]; f.forEach(function (p, i) { line(p, gcc[i % 2]); }); f.forEach(function (p) { el("circle", { cx: p[0], cy: p[1], r: 6, class: "ma-n" }, svg); }); gcc.forEach(function (q) { el("rect", { x: q[0] - 9, y: q[1] - 9, width: 18, height: 18, rx: 3, class: "ma-i" }, svg); }); }
+      if (kind === "gov") { var gv = [240, 100]; line([80, 100], [160, 100]); line([160, 100], gv); line([100, 60], [160, 100]); line([100, 140], [160, 100]); [[80, 100], [100, 60], [100, 140]].forEach(function (p) { el("circle", { cx: p[0], cy: p[1], r: 6, class: "ma-n" }, svg); }); el("circle", { cx: 160, cy: 100, r: 7, class: "ma-o" }, svg); el("rect", { x: gv[0] - 14, y: gv[1] - 14, width: 28, height: 28, rx: 4, class: "ma-o" }, svg); }
+      if (kind === "exp") { var far = [[260, 40], [270, 100], [250, 160]]; line([80, 100], [160, 100]); far.forEach(function (q) { line([160, 100], q); }); el("circle", { cx: 80, cy: 100, r: 7, class: "ma-n" }, svg); el("circle", { cx: 160, cy: 100, r: 8, class: "ma-o" }, svg); far.forEach(function (q) { el("circle", { cx: q[0], cy: q[1], r: 6, class: "ma-n" }, svg); }); }
+    });
+    var nb = $("night-bg");
+    if (nb) { nb.setAttribute("viewBox", "0 0 1440 800"); for (var x = 24; x < 1440; x += 32) for (var y = 24; y < 800; y += 32) el("circle", { cx: x, cy: y, r: 1.2 }, nb); }
+    var ca = $("cta-art");
+    if (ca) {
+      var r2 = rng(77), S2 = 25, ps = [];
+      for (var x2 = S2; x2 < 500; x2 += S2) for (var y2 = S2; y2 < 300; y2 += S2) el("circle", { cx: x2, cy: y2, r: 1.6, class: "g-dot" }, ca);
+      for (var k = 0; k < 7; k++) ps.push([75 + k * 50 + (k % 2) * 25, 75 + Math.round(r2() * 6) * 25]);
+      var end = [450, 150];
+      var d = "M" + ps.map(function (p) { return p[0] + " " + p[1]; }).join(" L") + " L" + end[0] + " " + end[1];
+      el("path", { d: d, fill: "none", stroke: "var(--accent)", "stroke-width": 2.5, "stroke-linecap": "round", "stroke-linejoin": "round", pathLength: 1, class: "edge" }, ca);
+      ps.forEach(function (p, i) { el("circle", { cx: p[0], cy: p[1], r: 6, class: "node", fill: "var(--accent)" }, ca).style.setProperty("--d", 100 + i * 60); });
+      drawOnView(ca);
+    }
+  }
+
+  /* ---------- Circles ring ---------- */
+  var SECTORS = ["GenAI", "SaaS", "D2C", "DeepTech", "FinTech", "Industry 4.0", "HealthTech", "AgriFood", "Climate"];
+  function ring() {
+    var svg = $("ring-svg"); if (!svg) return;
+    var C = 220, R = 150;
+    el("circle", { cx: C, cy: C, r: R, class: "r-track" }, svg);
+    for (var i = 0; i < 32; i++) { var a = (i / 32) * Math.PI * 2; el("circle", { cx: C + Math.cos(a) * (R - 34), cy: C + Math.sin(a) * (R - 34), r: 3.2, class: "r-member" }, svg); }
+    var lines = el("g", {}, svg), seats = [];
+    SECTORS.forEach(function (s, i) {
+      var a = (i / SECTORS.length) * Math.PI * 2 - Math.PI / 2;
+      var x = C + Math.cos(a) * R, y = C + Math.sin(a) * R;
+      el("line", { x1: C, y1: C, x2: x, y2: y, class: "r-line", "data-i": i }, lines);
+      var g = el("g", { class: "r-seat", "data-i": i }, svg);
+      el("circle", { cx: x, cy: y, r: 11 }, g);
+      var lx = C + Math.cos(a) * (R + 30), ly = C + Math.sin(a) * (R + 30) + 4;
+      var t = el("text", { x: lx, y: ly, "text-anchor": Math.abs(Math.cos(a)) < 0.3 ? "middle" : (Math.cos(a) > 0 ? "start" : "end") }, g);
+      t.textContent = s; seats.push(g);
+    });
+    var ct = el("text", { x: C, y: C - 4, "text-anchor": "middle", class: "r-center", "font-size": 30, "font-weight": 800 }, svg); ct.textContent = "25–40";
+    var ct2 = el("text", { x: C, y: C + 20, "text-anchor": "middle", class: "r-center", "font-size": 13, "font-weight": 500 }, svg); ct2.textContent = "founders, monthly";
+    var pick = $("seatpick");
+    SECTORS.forEach(function (s, i) {
+      var b = document.createElement("button"); b.type = "button"; b.id = "seat-" + i; b.textContent = s; b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () {
+        var on = b.getAttribute("aria-pressed") !== "true";
+        pick.querySelectorAll("button").forEach(function (o) { o.setAttribute("aria-pressed", "false"); });
+        seats.forEach(function (g) { g.classList.remove("is-hi"); });
+        lines.querySelectorAll("line").forEach(function (l) { l.classList.remove("is-hi"); });
+        if (on) { b.setAttribute("aria-pressed", "true"); seats[i].classList.add("is-hi"); lines.children[i].classList.add("is-hi"); }
+      });
+      pick.appendChild(b);
+    });
+  }
+
+  /* ---------- Network graph (precomputed layout on the pulli grid) ---------- */
+  function network() {
+    var svg = $("net-svg"); if (!svg) return;
+    var N = {
+      c1: ["circle", 200, 260, "Circle"], c2: ["circle", 480, 280, "Circle"], c3: ["circle", 760, 240, "Circle"],
+      g1: ["gcc", 120, 80, "GCC"], g2: ["gcc", 440, 60, "GCC"], g3: ["gcc", 800, 80, "GCC"],
+      i1: ["investor", 160, 460, "Investor"], i2: ["investor", 600, 460, "Investor"], i3: ["investor", 840, 440, "Investor"],
+      m1: ["mentor", 320, 120, "Mentor"], m2: ["mentor", 640, 120, "Mentor"], m3: ["mentor", 80, 320, "Mentor"], m4: ["mentor", 880, 320, "Mentor"], m5: ["mentor", 360, 440, "Mentor"],
+      f1: ["founder", 120, 200, "Founder"], f2: ["founder", 240, 160, "Founder"], f3: ["founder", 160, 360, "Founder"], f4: ["founder", 280, 320, "Founder"],
+      f5: ["founder", 400, 200, "Founder"], f6: ["founder", 560, 200, "Founder"], f7: ["founder", 440, 380, "Founder"],
+      f8: ["founder", 680, 160, "Founder"], f9: ["founder", 840, 200, "Founder"], f10: ["founder", 680, 320, "Founder"], f11: ["founder", 760, 360, "Founder"],
+      fp: ["point", 600, 340, "Founder with an outcome"]
+    };
+    var E = [
+      ["c1", "f1"], ["c1", "f2"], ["c1", "f3"], ["c1", "f4"], ["c2", "f5"], ["c2", "f6"], ["c2", "f7"], ["c2", "fp"], ["c3", "f8"], ["c3", "f9"], ["c3", "f10"], ["c3", "f11"],
+      ["c1", "c2"], ["c2", "c3"],
+      ["m1", "f2"], ["m1", "f5"], ["m2", "f6"], ["m2", "f8"], ["m2", "fp"], ["m3", "f1"], ["m3", "f3"], ["m4", "f9"], ["m4", "f11"], ["m5", "f4"], ["m5", "f7"],
+      ["g1", "f1"], ["g2", "f5"], ["g2", "fp"], ["g3", "f9"],
+      ["i1", "f3"], ["i2", "fp"], ["i2", "f7"], ["i3", "f11"],
+      ["f4", "f7"], ["f10", "fp"], ["f2", "f5"]
+    ];
+    var gd = el("g", {}, svg);
+    for (var x = 40; x < 920; x += 40) for (var y = 40; y < 520; y += 40) el("circle", { cx: x, cy: y, r: 1.6, class: "g-dot" }, gd);
+    var eg = el("g", {}, svg), ng = el("g", {}, svg);
+    var adj = {}, edgeEls = [];
+    Object.keys(N).forEach(function (k) { adj[k] = []; });
+    E.forEach(function (e, i) {
+      var a = N[e[0]], b = N[e[1]];
+      var p = el("path", { d: "M" + a[1] + " " + a[2] + " L" + b[1] + " " + b[2], class: "g-edge edge", pathLength: 1 }, eg);
+      p.style.setProperty("--d", i * 18);
+      if (e[0] === "fp" || e[1] === "fp") p.classList.add("to-point");
+      adj[e[0]].push(e[1]); adj[e[1]].push(e[0]);
+      edgeEls.push({ el: p, a: e[0], b: e[1] });
+    });
+    var nodeEls = {}, order = Object.keys(N).sort(function (a, b) { return N[a][1] - N[b][1] || N[a][2] - N[b][2]; });
+    var TYPE_LABEL = { founder: "Founder", mentor: "Mentor", gcc: "GCC", investor: "Investor", circle: "Circle", point: "Founder" };
+    order.forEach(function (k, idx) {
+      var n = N[k], t = n[0];
+      var g = el("g", { class: "g-node node", tabindex: "-1", role: "button", "data-k": k }, ng);
+      g.style.setProperty("--d", 300 + idx * 20);
+      var rr = t === "circle" ? 22 : t === "point" ? 13 : t === "gcc" ? 0 : 9;
+      if (t === "gcc") { el("rect", { x: n[1] - 11, y: n[2] - 11, width: 22, height: 22, rx: 4, class: "t-gcc" }, g); el("rect", { x: n[1] - 17, y: n[2] - 17, width: 34, height: 34, rx: 8, class: "halo" }, g); }
+      else { el("circle", { cx: n[1], cy: n[2], r: rr, class: "t-" + t }, g); el("circle", { cx: n[1], cy: n[2], r: rr + 6, class: "halo" }, g); }
+      el("circle", { cx: n[1], cy: n[2], r: 24, fill: "transparent" }, g);
+      if (t === "circle") { var tx = el("text", { x: n[1], y: n[2] + 40, "text-anchor": "middle", class: "g-lbl" }, g); tx.textContent = "Circle"; }
+      if (t === "point") { var tp = el("text", { x: n[1], y: n[2] + 32, "text-anchor": "middle", class: "g-lbl" }, g); tp.textContent = "The outcome"; }
+      nodeEls[k] = g;
+      g.setAttribute("aria-label", describe(k, true));
+    });
+    function describe(k, short) {
+      var n = N[k], counts = {};
+      adj[k].forEach(function (j) { var t = TYPE_LABEL[N[j][0]]; counts[t] = (counts[t] || 0) + 1; });
+      var parts = Object.keys(counts).map(function (t) { var c = counts[t]; return c + " " + (c > 1 ? (t === "GCC" ? "GCCs" : t + "s") : t); });
+      var name = n[3] + " (illustrative)";
+      return short ? name + ". Connected to " + parts.join(", ") + "." : parts.join(" · ");
+    }
+    var BLURB = {
+      founder: "A professional testing an idea, or a startup finding customers.",
+      point: "The red full stop: a founder whose lines reach a Circle, a mentor, a GCC pilot and an investor.",
+      mentor: "Mentors meet founders at sector Connects and through the StartNet X Matchmaker.",
+      gcc: "Global Capability Centres bring problem statements and pilots through Scale Connect.",
+      investor: "Investor days through Scale Connect; StartNet Angels once it opens through a SEBI-compliant structure.",
+      circle: "A closed chapter of 25–40 founders, one seat per sector, meeting monthly."
+    };
+    var panel = $("net-panel"), sel = null, typeSel = null;
+    function clearHi() { svg.classList.remove("net-dim"); svg.querySelectorAll(".hi").forEach(function (n) { n.classList.remove("hi"); }); svg.querySelectorAll(".hi-point").forEach(function (n) { n.classList.remove("hi-point"); }); }
+    function highlightNode(k) {
+      clearHi(); svg.classList.add("net-dim");
+      nodeEls[k].classList.add("hi");
+      adj[k].forEach(function (j) { nodeEls[j].classList.add("hi"); });
+      edgeEls.forEach(function (e) { if (e.a === k || e.b === k) { e.el.classList.add("hi"); if (k === "fp") e.el.classList.add("hi-point"); } });
+    }
+    function showPanel(k) {
+      var t = N[k][0];
+      panel.innerHTML = "";
+      var s = document.createElement("strong"); s.textContent = N[k][3]; panel.appendChild(s);
+      var p1 = document.createElement("span"); p1.className = "small"; p1.textContent = BLURB[t]; panel.appendChild(p1);
+      var p2 = document.createElement("span"); p2.className = "caption"; p2.textContent = "Lines: " + describe(k, false); panel.appendChild(p2);
+    }
+    function select(k, focus) {
+      if (sel && nodeEls[sel]) { nodeEls[sel].classList.remove("is-sel"); nodeEls[sel].setAttribute("tabindex", "-1"); }
+      sel = k; nodeEls[k].classList.add("is-sel"); nodeEls[k].setAttribute("tabindex", "0");
+      if (focus) nodeEls[k].focus();
+      resetLegend(); highlightNode(k); showPanel(k);
+    }
+    nodeEls[order[0]].setAttribute("tabindex", "0");
+    order.forEach(function (k) {
+      var g = nodeEls[k];
+      g.addEventListener("click", function () { select(k, false); });
+      g.addEventListener("mouseenter", function () { if (!typeSel) highlightNode(k); });
+      g.addEventListener("mouseleave", function () { if (typeSel) return; if (sel) highlightNode(sel); else clearHi(); });
+      g.addEventListener("focus", function () { if (sel !== k) select(k, false); });
+      g.addEventListener("keydown", function (ev) {
+        var key = ev.key, cur = N[k], best = null, bd = Infinity;
+        var dir = { ArrowRight: [1, 0], ArrowLeft: [-1, 0], ArrowDown: [0, 1], ArrowUp: [0, -1] }[key];
+        if (key === "Enter" || key === " ") { ev.preventDefault(); select(k, true); return; }
+        if (key === "Escape") { clearHi(); return; }
+        if (key === "Home" || key === "End") { ev.preventDefault(); select(key === "Home" ? order[0] : order[order.length - 1], true); return; }
+        if (!dir) return;
+        ev.preventDefault();
+        order.forEach(function (j) {
+          if (j === k) return;
+          var dx = N[j][1] - cur[1], dy = N[j][2] - cur[2];
+          var along = dx * dir[0] + dy * dir[1]; if (along <= 0) return;
+          var across = Math.abs(dx * dir[1]) + Math.abs(dy * dir[0]);
+          var score = along + across * 2.2; if (score < bd) { bd = score; best = j; }
+        });
+        if (best) select(best, true);
+      });
+    });
+    var legend = document.querySelectorAll(".lg-btn");
+    function resetLegend() { typeSel = null; legend.forEach(function (b) { b.setAttribute("aria-pressed", "false"); }); }
+    legend.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var t = b.getAttribute("data-type"), on = b.getAttribute("aria-pressed") !== "true";
+        resetLegend(); clearHi();
+        if (sel) { nodeEls[sel].classList.remove("is-sel"); sel = null; }
+        if (!on) { panel.innerHTML = "<strong>Pick a dot.</strong><span class=\"small muted\">Tab into the graph, then use the arrow keys to move between dots.</span>"; return; }
+        typeSel = t; b.setAttribute("aria-pressed", "true"); svg.classList.add("net-dim");
+        var ks = Object.keys(N).filter(function (k) { return N[k][0] === t || (t === "founder" && N[k][0] === "point"); });
+        ks.forEach(function (k) { nodeEls[k].classList.add("hi"); adj[k].forEach(function (j) { nodeEls[j].classList.add("hi"); }); });
+        edgeEls.forEach(function (e) { if (ks.indexOf(e.a) > -1 || ks.indexOf(e.b) > -1) e.el.classList.add("hi"); });
+        panel.innerHTML = "";
+        var s = document.createElement("strong"); s.textContent = b.textContent.trim() + ": " + ks.length + " in this illustration"; panel.appendChild(s);
+        var p = document.createElement("span"); p.className = "small"; p.textContent = BLURB[t]; panel.appendChild(p);
+      });
+    });
+    drawOnView(svg);
+  }
+
+  /* ---------- Sector filter with FLIP reflow ---------- */
+  function sectorFilter() {
+    var grid = $("sgrid"), count = $("series-count"); if (!grid) return;
+    var items = Array.prototype.slice.call(grid.children);
+    var btns = document.querySelectorAll(".f-btn");
+    var LABEL = { all: "", running: " running", new2027: " new in 2027", "new": " new, date to be set" };
+    btns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var f = b.getAttribute("data-filter");
+        btns.forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+        var first = new Map(); items.forEach(function (li) { first.set(li, li.hidden ? null : li.getBoundingClientRect()); });
+        var n = 0;
+        items.forEach(function (li) { var show = f === "all" || li.getAttribute("data-status") === f; li.hidden = !show; if (show) n++; });
+        count.textContent = "Showing " + n + LABEL[f] + " sector Connect" + (n === 1 ? "" : "s");
+        if (!motionOK() || !items[0].animate) return;
+        var i = 0;
+        items.forEach(function (li) {
+          if (li.hidden) return;
+          var a = first.get(li), b2 = li.getBoundingClientRect();
+          if (!a) { li.animate([{ opacity: 0, transform: "translateY(16px) scale(.97)" }, { opacity: 1, transform: "none" }], { duration: 320, delay: Math.min(i++, 6) * 40, easing: "cubic-bezier(0, 0, 0.3, 1)", fill: "backwards" }); return; }
+          var dx = a.left - b2.left, dy = a.top - b2.top;
+          if (dx || dy) li.animate([{ transform: "translate(" + dx + "px," + dy + "px)" }, { transform: "none" }], { duration: 320, easing: "cubic-bezier(0.2, 0, 0.38, 0.9)" });
+        });
+      });
+    });
+  }
+
+  /* ---------- Founder Switch stepper ---------- */
+  function stepper() {
+    var STEPS = [
+      { name: "Validate", title: "Validate the idea with customers.", body: "Before you leave a salary, find out whether people with the problem would pay to have it solved.", q: "Have you spoken to potential customers who say they would pay?" },
+      { name: "Co-founder", title: "Find or test a co-founder.", body: "Most companies are built by teams. Founder Switch gives you time to work with someone before you commit.", q: "Is there someone you'd want to test as a co-founder?" },
+      { name: "Runway", title: "Plan your financial runway.", body: "Know how long your savings cover you, so the decision is about the company, not panic.", q: "Do you know how many months your savings would cover?" },
+      { name: "Defend it", title: "Finish with a decision you can defend.", body: "Go and no-go are both good outcomes. What matters is a decision you can explain with evidence.", q: "Could you explain your decision to someone who might fund it?" }
+    ];
+    var answers = [null, null, null, null], cur = 0;
+    var panel = $("sw-panel"), track = $("sw-track"), fill = $("sw-fill"), prev = $("sw-prev"), next = $("sw-next"), pos = $("sw-pos");
+    var btns = [0, 1, 2, 3, 4].map(function (i) { return $("sw-b" + i); });
+    function render(focusPanel) {
+      btns.forEach(function (b, i) {
+        if (i === cur) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current");
+        var li = b.parentNode, st = i < 4 ? (answers[i] === true ? "done" : answers[i] === false ? "notyet" : "") : (answers.every(function (a) { return a !== null; }) ? "done" : "");
+        if (st) li.setAttribute("data-state", st); else li.removeAttribute("data-state");
+        var lbl = i < 4 ? "Step " + (i + 1) + ", " + STEPS[i].name + (answers[i] === true ? ", answered yes" : answers[i] === false ? ", answered not yet" : "") : "Decision";
+        b.setAttribute("aria-label", lbl);
+      });
+      var answered = answers.filter(function (a) { return a !== null; }).length;
+      fill.style.setProperty("--p", Math.min(cur, 4) / 4);
+      panel.innerHTML = "";
+      panel.classList.remove("is-in"); void panel.offsetWidth; panel.classList.add("is-in");
+      if (cur < 4) {
+        var s = STEPS[cur];
+        var left = document.createElement("div"); left.className = "stack";
+        left.innerHTML = '<p class="eyebrow">Stage ' + (cur + 1) + ' of 4</p>';
+        var h = document.createElement("h4"); h.className = "h3"; h.textContent = s.title; left.appendChild(h);
+        var p = document.createElement("p"); p.className = "muted"; p.textContent = s.body; left.appendChild(p);
+        var right = document.createElement("div"); right.className = "sw__q";
+        var q = document.createElement("p"); q.id = "sw-q-" + cur; q.textContent = s.q; right.appendChild(q);
+        var yn = document.createElement("div"); yn.className = "yn"; yn.setAttribute("role", "group"); yn.setAttribute("aria-labelledby", "sw-q-" + cur);
+        [["Yes", true], ["Not yet", false]].forEach(function (o) {
+          var b = document.createElement("button"); b.type = "button"; b.id = "sw-ans-" + cur + "-" + (o[1] ? "y" : "n"); b.textContent = o[0];
+          b.setAttribute("aria-pressed", answers[cur] === o[1] ? "true" : "false");
+          b.addEventListener("click", function () { answers[cur] = o[1]; cur = Math.min(cur + 1, 4); render(true); });
+          yn.appendChild(b);
+        });
+        right.appendChild(yn);
+        panel.appendChild(left); panel.appendChild(right);
+      } else {
+        var yes = answers.filter(function (a) { return a === true; }).length;
+        var word, msg;
+        if (answered < 4) { word = "Not yet decided"; msg = "Answer all four questions to see where you stand. Use the step buttons to go back."; }
+        else if (yes === 4) { word = "Leaning go"; msg = "You have the raw material for a go decision. Founder Switch is where you test it with customers, a co-founder and a runway plan, and defend it."; }
+        else if (yes >= 2) { word = "Worth testing"; msg = "You have some of the evidence and gaps you can name. That is what the 12 weeks are for: close the gaps, then decide."; }
+        else { word = "Start smaller"; msg = "Not yet is a good answer. Come to a sector Connect, meet founders in your field, and come back to Founder Switch when the idea has a customer."; }
+        var l2 = document.createElement("div"); l2.className = "verdict";
+        l2.innerHTML = '<p class="eyebrow">Your self-check</p>';
+        var w = document.createElement("p"); w.className = "verdict__word"; w.textContent = word; if (answered === 4) { var fsd = document.createElement("span"); fsd.className = "fs fs--land"; fsd.style.setProperty("--land-delay", "260ms"); fsd.setAttribute("aria-hidden", "true"); w.appendChild(fsd); } l2.appendChild(w);
+        var m = document.createElement("div"); m.className = "meter"; m.setAttribute("role", "img"); m.setAttribute("aria-label", yes + " of 4 answered yes");
+        for (var i = 0; i < 4; i++) { var sp = document.createElement("span"); if (i < yes) sp.className = "on"; m.appendChild(sp); }
+        l2.appendChild(m);
+        var cap = document.createElement("p"); cap.className = "caption"; cap.textContent = yes + " of 4 answered yes. Nothing is saved or sent."; l2.appendChild(cap);
+        var r2 = document.createElement("div"); r2.className = "sw__q";
+        var mp = document.createElement("p"); mp.style.fontWeight = "400"; mp.textContent = msg; r2.appendChild(mp);
+        var acts = document.createElement("div"); acts.className = "actions";
+        acts.innerHTML = '<a class="btn btn--brand btn--sm" href="https://x.startnet.in/apply/founder-switch?src=artifact-connect&amp;brand=connect&amp;from=stepper">Apply for the next cohort</a><a class="tlink" href="#series">Find your sector Connect <span class="arr" aria-hidden="true">→</span></a>';
+        r2.appendChild(acts);
+        var again = document.createElement("button"); again.type = "button"; again.id = "sw-restart"; again.className = "btn btn--secondary btn--sm"; again.textContent = "Start again";
+        again.addEventListener("click", function () { answers = [null, null, null, null]; cur = 0; render(true); });
+        r2.appendChild(again);
+        panel.appendChild(l2); panel.appendChild(r2);
+      }
+      prev.disabled = cur === 0;
+      next.textContent = cur >= 4 ? "Done" : "Next →";
+      next.disabled = cur >= 4;
+      pos.textContent = "Step " + (cur + 1) + " of 5";
+      if (focusPanel) { var f = panel.querySelector("h4, .verdict__word"); if (f) { f.setAttribute("tabindex", "-1"); f.focus({ preventScroll: true }); } }
+    }
+    btns.forEach(function (b, i) { b.addEventListener("click", function () { cur = i; render(true); }); });
+    track.addEventListener("keydown", function (ev) {
+      var i = btns.indexOf(document.activeElement); if (i < 0) return;
+      if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") { ev.preventDefault(); var j = (i + (ev.key === "ArrowRight" ? 1 : -1) + 5) % 5; btns[j].focus(); }
+    });
+    prev.addEventListener("click", function () { if (cur > 0) { cur--; render(true); } });
+    next.addEventListener("click", function () { if (cur < 4) { cur++; render(true); } });
+    render(false);
+  }
+
+  /* ---------- Tabs ---------- */
+  function tabs() {
+    var list = document.querySelector("#scale-tabs [role=tablist]"); if (!list) return;
+    var ts = Array.prototype.slice.call(list.querySelectorAll("[role=tab]")), ind = $("tab-ind");
+    function moveInd(t) { ind.style.width = t.offsetWidth + "px"; ind.style.transform = "translateX(" + t.offsetLeft + "px)"; }
+    function activate(t, focus) {
+      ts.forEach(function (o) { var on = o === t; o.setAttribute("aria-selected", on ? "true" : "false"); o.tabIndex = on ? 0 : -1; var p = $(o.getAttribute("aria-controls")); p.hidden = !on; if (on) { p.classList.remove("is-in"); void p.offsetWidth; p.classList.add("is-in"); } });
+      moveInd(t); if (focus) t.focus();
+    }
+    ts.forEach(function (t, i) {
+      t.addEventListener("click", function () { activate(t, false); });
+      t.addEventListener("keydown", function (ev) {
+        var j = null;
+        if (ev.key === "ArrowRight") j = (i + 1) % ts.length; else if (ev.key === "ArrowLeft") j = (i - 1 + ts.length) % ts.length; else if (ev.key === "Home") j = 0; else if (ev.key === "End") j = ts.length - 1;
+        if (j !== null) { ev.preventDefault(); activate(ts[j], true); }
+      });
+    });
+    moveInd(ts[0]);
+    window.addEventListener("resize", function () { moveInd(list.querySelector("[aria-selected=true]")); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { moveInd(list.querySelector("[aria-selected=true]")); });
+  }
+
+  /* ---------- Tag popovers ---------- */
+  function popovers() {
+    var open = null;
+    function close(returnFocus) { if (!open) return; var b = open; open = null; b.setAttribute("aria-expanded", "false"); $(b.getAttribute("aria-controls")).hidden = true; if (returnFocus) b.focus(); }
+    document.querySelectorAll(".tag").forEach(function (b) {
+      b.addEventListener("click", function (ev) {
+        ev.stopPropagation();
+        var was = open === b; close(false);
+        if (!was) { open = b; b.setAttribute("aria-expanded", "true"); var p = $(b.getAttribute("aria-controls")); p.hidden = false;
+          p.style.left = "50%"; p.style.transform = ""; var r = p.getBoundingClientRect(), vw = document.documentElement.clientWidth;
+          if (r.left < 8) p.style.left = "calc(50% + " + (8 - r.left) + "px)"; else if (r.right > vw - 8) p.style.left = "calc(50% - " + (r.right - vw + 8) + "px)"; }
+      });
+    });
+    document.addEventListener("click", function (ev) { if (open && !$(open.getAttribute("aria-controls")).contains(ev.target)) close(false); });
+    document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && open) close(true); });
+  }
+
+  /* ---------- Count-up (from 80%) ---------- */
+  function countUp() {
+    if (!("IntersectionObserver" in window)) return;
+    var fmt = new Intl.NumberFormat("en-IN");
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return; io.unobserve(e.target);
+        if (!motionOK()) return;
+        var n = e.target, to = +n.getAttribute("data-to"), from = Math.floor(to * 0.8), t0 = null, D = 1100;
+        function step(ts) { if (!t0) t0 = ts; var k = Math.min(1, (ts - t0) / D); var eased = 1 - Math.pow(1 - k, 3); n.textContent = fmt.format(Math.round(from + (to - from) * eased)); if (k < 1) requestAnimationFrame(step); }
+        n.textContent = fmt.format(from); requestAnimationFrame(step);
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll(".count").forEach(function (n) { io.observe(n); });
+  }
+
+  /* ---------- Forms (page-only) ---------- */
+  function forms() {
+    [["circle-form", "circle-form-ok"], ["angel-form", "angel-form-ok"]].forEach(function (pair) {
+      var f = $(pair[0]), ok = $(pair[1]); if (!f) return;
+      function check(input) {
+        var valid = input.type === "checkbox" ? input.checked : (input.type === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim()) : input.value.trim() !== "");
+        var wrap = input.closest(".field");
+        input.setAttribute("aria-invalid", valid ? "false" : "true");
+        if (wrap) wrap.classList.toggle("is-err", !valid);
+        else { var er = $(input.getAttribute("aria-describedby")); if (er) er.style.display = valid ? "none" : "flex"; }
+        return valid;
+      }
+      f.querySelectorAll("[required]").forEach(function (i) {
+        i.addEventListener("blur", function () { if ((i.type !== "checkbox" && i.value) || i.getAttribute("aria-invalid")) check(i); });
+        i.addEventListener("change", function () { if (i.getAttribute("aria-invalid") === "true") check(i); });
+      });
+      f.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        var firstBad = null;
+        f.querySelectorAll("[required]").forEach(function (i) { if (!check(i) && !firstBad) firstBad = i; });
+        if (firstBad) { firstBad.focus(); return; }
+        f.hidden = true; ok.hidden = false; ok.focus();
+      });
+    });
+  }
+
+  /* ---------- Sponsor email ---------- */
+  function sponsor() {
+    var t = $("sponsor-toggle"), p = $("sponsor-panel"), c = $("sponsor-copy"), ta = $("sponsor-email"), st = $("sponsor-copy-status");
+    t.addEventListener("click", function () { var on = t.getAttribute("aria-expanded") !== "true"; t.setAttribute("aria-expanded", on ? "true" : "false"); p.hidden = !on; if (on) ta.focus(); });
+    c.addEventListener("click", function () {
+      ta.focus(); ta.select();
+      var done = function () { st.textContent = "Copied. Paste it into an email to your manager."; };
+      var fallback = function () { var okc = false; try { okc = document.execCommand("copy"); } catch (e) {} st.textContent = okc ? "Copied. Paste it into an email to your manager." : "Text selected. Press Ctrl+C or Cmd+C to copy."; };
+      try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ta.value).then(done, fallback); else fallback(); } catch (e) { fallback(); }
+    });
+  }
+
+  /* ---------- Archive scroller ---------- */
+  function scroller() {
+    var tr = $("arch-track"), pv = $("arch-prev"), nx = $("arch-next"); if (!tr) return;
+    function upd() { pv.disabled = tr.scrollLeft < 4; nx.disabled = tr.scrollLeft + tr.clientWidth >= tr.scrollWidth - 4; }
+    function go(d) { var item = tr.querySelector("li"); var w = item ? item.getBoundingClientRect().width + 16 : 300; tr.scrollBy({ left: d * w, behavior: motionOK() ? "smooth" : "auto" }); }
+    pv.addEventListener("click", function () { go(-1); }); nx.addEventListener("click", function () { go(1); });
+    tr.addEventListener("scroll", upd, { passive: true }); window.addEventListener("resize", upd); upd();
+  }
+
+  /* ---------- Sub-nav scroll-spy + chip row fades ---------- */
+  var sc = $("subnav-scroll"), ul = $("subnav-links");
+  function updateSubnavFades() { if (!ul) return; sc.setAttribute("data-l", ul.scrollLeft > 4 ? "1" : "0"); sc.setAttribute("data-r", ul.scrollLeft + ul.clientWidth < ul.scrollWidth - 4 ? "1" : "0"); }
+  function spy() {
+    var links = Array.prototype.slice.call(ul.querySelectorAll("a"));
+    var ids = links.map(function (a) { return a.getAttribute("href").slice(1); });
+    var secs = ids.map(function (id) { return $(id); });
+    var ovEnd = document.querySelector("#series");
+    function setActive(i) {
+      links.forEach(function (a, j) { if (i === j) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); });
+      var a = links[i]; if (!a) return;
+      var target = a.offsetLeft - (ul.clientWidth - a.offsetWidth) / 2;
+      ul.scrollTo({ left: Math.max(0, target), behavior: motionOK() ? "smooth" : "auto" });
+    }
+    var ticking = false, last = -1;
+    function onScroll() {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        var line = window.innerHeight * 0.35, idx = 0;
+        secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= line) idx = i; });
+        if (ovEnd && ovEnd.getBoundingClientRect().top > line) idx = 0;
+        var proof = $("proof"); if (proof && proof.getBoundingClientRect().top <= line) idx = -1;
+        if (idx !== last) { last = idx; if (idx < 0) links.forEach(function (a) { a.removeAttribute("aria-current"); }); else setActive(idx); }
+      });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+    ul.addEventListener("scroll", updateSubnavFades, { passive: true }); window.addEventListener("resize", updateSubnavFades); updateSubnavFades();
+    document.addEventListener("click", function (ev) {
+      var a = ev.target.closest && ev.target.closest('a[href^="#"]'); if (!a) return;
+      var id = a.getAttribute("href").slice(1), t = id ? $(id) : null; if (!t) return;
+      ev.preventDefault();
+      t.scrollIntoView({ behavior: motionOK() ? "smooth" : "auto", block: "start" });
+      if (!t.hasAttribute("tabindex")) t.setAttribute("tabindex", "-1");
+      t.focus({ preventScroll: true });
+    });
+  }
+
+  heroArt(); glyphs(); ring(); network(); sectorFilter(); stepper(); tabs(); popovers(); countUp(); forms(); sponsor(); scroller(); spy();
+  var y = $("yr"); if (y) y.textContent = String(new Date().getFullYear());
+  var savedLang = store("sn-lang"); if (savedLang === "ta") setLang("ta");
+})();
+</script>

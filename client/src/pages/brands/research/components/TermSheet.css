@@ -1,0 +1,113 @@
+.termsheet {
+  margin: 0;
+  background: var(--bp-card, var(--color-bg-raised));
+  box-shadow: inset 0 0 0 1px var(--bp-line, var(--color-border));
+  border-radius: var(--media-radius);
+  padding: var(--space-6);
+}
+@media (min-width: 768px) { .termsheet { padding: var(--space-8); } }
+
+.termsheet__top { display: flex; flex-wrap: wrap; gap: var(--space-4); justify-content: space-between; align-items: center; margin-bottom: var(--space-8); }
+/* View switch: the pill segmented control (DESIGN-v2 3.12) with a sliding Ink thumb (components/_indicator.js) */
+.termsheet__view { gap: var(--space-2); }
+.termsheet__view svg { flex: none; }
+/* Phones: the three views share the row evenly */
+@media (max-width: 479px) {
+  .termsheet { padding: var(--space-5) var(--space-4); }
+  :root .termsheet__views { display: flex; width: 100%; }
+  .termsheet__view { flex: 1 1 0; justify-content: center; gap: var(--space-1); padding: 0 var(--space-2); }
+}
+@media (max-width: 359px) { .termsheet__view svg { display: none; } }
+
+.termsheet__body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8); }
+.termsheet__chart, .termsheet__detail { min-width: 0; }
+@media (min-width: 1024px) {
+  .termsheet__body { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); align-items: center; gap: var(--space-12); }
+  .termsheet--compact .termsheet__body { grid-template-columns: 1fr; }
+}
+
+/* Stacked bar */
+.termsheet__bar { display: flex; gap: 2px; height: clamp(56px, 8vw, 88px); }
+.termsheet__seg {
+  position: relative; display: block; min-width: 6px;
+  background-color: var(--ink-500);
+  transform-origin: left center;
+  transition: background-color var(--dur-2) var(--ease-snap);
+}
+.termsheet__seg:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+.termsheet__seg:last-child { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+/* Hatch: C-tagged (illustrative) values are textured, never solid-only (Book 4 IX-27) */
+.termsheet__seg::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background-image: repeating-linear-gradient(135deg, rgb(255 255 255 / .22) 0 2px, transparent 2px 9px);
+}
+.termsheet__bar .termsheet__seg.is-active { background-color: var(--accent); }
+@media (hover: hover) { .termsheet__bar .termsheet__seg:not(.is-active):hover { background-color: var(--ink-700); } }
+
+.termsheet__scale { display: flex; gap: 2px; list-style: none; margin-top: var(--space-3); }
+.termsheet__scale li { min-width: 6px; position: relative; white-space: nowrap; }
+.termsheet__scale-val { font-size: var(--text-meta); font-weight: 400; color: var(--color-text-muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.termsheet__scale li.is-active .termsheet__scale-val { color: var(--color-text); }
+.termsheet__scale li:last-child { text-align: right; }
+/* Narrow screens: slices are too thin for labels; the legend carries the values */
+@media (max-width: 639px) { .termsheet__scale { display: none; } }
+
+/* Donut */
+.termsheet__donut-wrap { display: grid; place-items: center; }
+.termsheet__donut { width: min(100%, 300px); height: auto; overflow: visible; }
+.termsheet__arc { stroke: var(--ink-500); transition: stroke var(--dur-2) var(--ease-snap); cursor: pointer; }
+.termsheet__arc.is-active { stroke: var(--accent); }
+.termsheet__donut-val { font-size: 34px; font-weight: 400; fill: var(--color-text); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.termsheet__donut-lbl { font-size: 13px; font-weight: 400; fill: var(--color-text-muted); }
+
+/* Legend (direct identity, never colour alone) */
+.termsheet__legend { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: var(--space-2); margin-top: var(--space-6); }
+.termsheet__key {
+  display: flex; align-items: center; gap: var(--space-2); width: 100%;
+  min-height: 44px; padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border); border-radius: var(--btn-radius); background: transparent;
+  text-align: left; font-size: var(--text-small);
+  transition: border-color var(--dur-2) var(--ease-standard), background-color var(--dur-2) var(--ease-standard);
+}
+.termsheet__key:hover { border-color: var(--color-border-control); }
+.termsheet__key[aria-pressed="true"] { border-color: var(--color-text); background: var(--bone); }
+.termsheet__key-label { flex: 1; min-width: 0; overflow-wrap: break-word; font-weight: 500; }
+.termsheet__key-val { flex: none; }
+/* Tamil labels ('நிறுவனர்கள்', 'ESOP தொகுப்பு') need wider pills so the value stays inside the border. */
+:lang(ta) .termsheet__legend { grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); }
+.termsheet__key-val { font-weight: 500; font-variant-numeric: tabular-nums; }
+.termsheet__swatch {
+  flex: none; display: inline-block; width: 12px; height: 12px; border-radius: 3px;
+  background-color: var(--ink-500);
+  background-image: repeating-linear-gradient(135deg, rgb(255 255 255 / .3) 0 1px, transparent 1px 4px);
+  transition: background-color var(--dur-2) var(--ease-snap);
+  margin-right: var(--space-1); vertical-align: -1px;
+}
+
+/* Table twin (canonical). The wrapper scrolls so the table can never widen the figure. */
+.termsheet__table-scroll { overflow-x: auto; max-width: 100%; border-radius: var(--radius-md); }
+.termsheet__tag--short { display: none; }
+@media (max-width: 479px) {
+  .termsheet__table th, .termsheet__table td { padding: var(--space-3) var(--space-1); }
+  .termsheet__table thead th { letter-spacing: 0; }
+  .termsheet__col-range { display: none; }
+  .termsheet__wide-only { display: none; }
+  .termsheet__tag--full { display: none; }
+  .termsheet__tag--short { display: inline-flex; }
+}
+.termsheet__table { width: 100%; border-collapse: collapse; font-size: var(--text-small); }
+.termsheet__table th, .termsheet__table td { text-align: left; padding: var(--space-3) var(--space-2); border-bottom: var(--border-hair); }
+.termsheet__table thead th { font-size: var(--text-small); color: var(--color-text-muted); font-weight: 400; }
+.termsheet__table tbody th { font-weight: 500; }
+.termsheet__party { display: inline-flex; align-items: baseline; gap: var(--space-1); }
+.termsheet__party .termsheet__swatch { margin-right: 0; align-self: center; }
+
+/* Detail */
+.termsheet__detail { position: relative; padding-left: var(--space-5); }
+.termsheet__detail-rule { position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); }
+.termsheet__role { margin-top: var(--space-3); color: var(--color-text-2); }
+.termsheet__range { margin-top: var(--space-2); }
+
+.termsheet__cap { margin-top: var(--space-6); padding-top: var(--space-4); border-top: var(--border-hair); }
+
+

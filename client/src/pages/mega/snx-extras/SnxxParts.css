@@ -1,0 +1,44 @@
+/* StartNet X extras: shared status label and in-page nav (AngelList-family: 4px labels, quiet pill chips). */
+.snxx-status {
+  /* Dot + one text run. The dot never detaches; if the text must wrap (narrow cells, Tamil), the 4px label
+     simply grows to a small rectangle. */
+  display: inline-flex; align-items: flex-start; flex-wrap: nowrap; gap: var(--space-2);
+  max-width: 100%; min-width: 0; box-sizing: border-box;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--btn-radius);
+  font-size: var(--text-caption); font-weight: 500; line-height: 1.4; text-align: left;
+  border: 1px solid var(--color-border); color: var(--color-text-2); background: transparent;
+}
+.snxx-status__dot {
+  width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid currentColor; flex: none;
+  margin-top: calc((1.4em - 8px) / 2); box-sizing: border-box;
+}
+.snxx-status__text { min-width: 0; overflow-wrap: normal; }
+.snxx-status--beta .snxx-status__dot { background: currentColor; }
+.snxx-status__rel { color: var(--color-text-muted); font-weight: 400; white-space: nowrap; }
+[data-surface="night"] .snxx-status { background: transparent; }
+
+/* "On this page": quiet pill chips (sheet-2 fill, no outline), 44px targets, wraps on phones. */
+.snxx-otp { display: grid; gap: var(--space-3); }
+.snxx-otp__title { font-size: var(--text-small); font-weight: 500; color: var(--color-text-muted); }
+.snxx-otp__list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.snxx-otp__link {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
+  padding: var(--space-2) var(--space-4); border: 0; border-radius: var(--radius-full);
+  background: var(--sheet-2); color: var(--color-text); text-decoration: none; font-size: var(--text-small); font-weight: 500;
+  transition: background-color var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) { .snxx-otp__link:hover { background: color-mix(in srgb, var(--color-text) 8%, var(--sheet-2)); } }
+.snxx-otp__link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.snxx-otp__num { font-size: var(--text-caption); color: var(--color-text-2); font-variant-numeric: tabular-nums; }
+
+/* ---- StartNet X strict red (DESIGN-v2 6.4) ---- */
+/* [data-brand='x'] uses red as its accent, so red is kept to one point per composition: the headline stop.
+   Dot labels, the hero journey line and arrow links go Ink (Paper on Ink); hero / CTA buttons are Ink primary. */
+.brand-layout[data-brand='x'],
+.brand-layout[data-brand='x'] [data-brand='x']:not([data-surface='night']) { --color-label-dot: var(--color-text); }
+.brand-layout[data-brand='x'] [data-surface='night'] { --color-label-dot: var(--paper); }
+:root .brand-layout[data-brand='x'] .button--tertiary { --button-fg: var(--color-link-standalone); --button-fg-hover: var(--color-link-standalone); }
+:root .brand-layout[data-brand='x'] [data-surface='night'] .button--tertiary { --button-fg: var(--paper); --button-fg-hover: var(--paper); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey { color: var(--night-text-2); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey::before { background: var(--paper); }

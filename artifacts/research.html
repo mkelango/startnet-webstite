@@ -1,0 +1,1665 @@
+<title>StartNet Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&amp;family=Noto+Sans+Tamil:wght@400;600&amp;family=Anek+Tamil:wght@600;700&amp;display=swap">
+<style>
+/* Layout concept: calm Paper editorial column, a sticky indigo-ruled brand sub-nav,
+   one Night "evidence" band for the term sheet. One red full stop per composition. */
+:root {
+  /* Surfaces and text (Book 3 §3.4 neutrals) */
+  --bg: #F6F5F2;            /* Paper */
+  --surface: #FFFFFF;
+  --sunken: #EFEDE8;
+  --fg: #0E0E10;            /* Ink */
+  --fg-2: #3A3A40;
+  --muted: #6B6B73;
+  --line: #E3E1DC;
+  --control: #8B8B93;
+  --scrim: rgb(246 245 242 / 0.9);
+
+  /* StartNet Research accent (Book 3 §9.2) */
+  --accent: #4A3AA7;
+  --on-accent: #FFFFFF;
+  --accent-hover: #5641C5;
+  --accent-text: #4A3AA7;
+  --accent-soft: #F4F5FF;
+  --accent-400: #9894FF;
+  --accent-tint: #DCDAFB;
+
+  /* Red: full stop and display only; controls use red-600 */
+  --red: #E5322D;
+  --red-btn: #D32523;
+  --red-text: #B00E13;
+  --focus: #E5322D;
+
+  /* Status */
+  --amber-bg: #FFF6E0;
+  --amber-fg: #7A4700;
+  --amber-line: #EDA100;
+  --ok-bg: #EFF9F3;
+  --ok-fg: #006F4B;
+  --err-bg: #FFF3F1;
+  --err-fg: #B00E13;
+
+  /* Night band (Book 3 §3.5): the evidence surface */
+  --band-bg: #0E0E10;
+  --band-surface: #17171A;
+  --band-raised: #202024;
+  --band-line: #2E2E34;
+  --band-subtle: #6E6D69;
+  --band-text: #F4F3EF;
+  --band-text-2: #C9C8C2;
+  --band-muted: #9A9993;
+  --band-accent: #9894FF;
+  --band-esop: #5641C5;
+
+  --shadow-1: 0 1px 2px rgb(14 14 16 / 0.06), 0 1px 1px rgb(14 14 16 / 0.04);
+  --shadow-2: 0 4px 12px rgb(14 14 16 / 0.08), 0 2px 4px rgb(14 14 16 / 0.05);
+  --shadow-3: 0 12px 32px rgb(14 14 16 / 0.14), 0 4px 8px rgb(14 14 16 / 0.06);
+
+  /* Type (Book 3 §4.3) */
+  --font-sans: "Inter", "Noto Sans Tamil", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-ta: "Noto Sans Tamil", "Inter", system-ui, sans-serif;
+  --font-ta-display: "Anek Tamil", "Noto Sans Tamil", "Inter", system-ui, sans-serif;
+  --text-display-xl: clamp(2.25rem, 1.5rem + 3.3333vw, 4.5rem);
+  --text-h1: clamp(2rem, 1.5rem + 2.2222vw, 3.5rem);
+  --text-h2: clamp(1.625rem, 1.3333rem + 1.2963vw, 2.5rem);
+  --text-h3: clamp(1.375rem, 1.2083rem + 0.7407vw, 1.875rem);
+  --text-h4: clamp(1.1875rem, 1.0833rem + 0.463vw, 1.5rem);
+  --text-h5: clamp(1.0625rem, 1rem + 0.2778vw, 1.25rem);
+  --text-body-lg: clamp(1.125rem, 1.0833rem + 0.1852vw, 1.25rem);
+  --text-body: clamp(1rem, 0.9792rem + 0.0926vw, 1.0625rem);
+  --text-small: clamp(0.875rem, 0.8542rem + 0.0926vw, 0.9375rem);
+  --text-caption: 0.8125rem;
+  --text-eyebrow: clamp(0.75rem, 0.7292rem + 0.0926vw, 0.8125rem);
+  --text-stat: clamp(2.5rem, 1.8333rem + 2.963vw, 4.5rem);
+
+  /* Space, radii (Book 3 §5) */
+  --gutter: clamp(16px, 4vw, 48px);
+  --section: clamp(64px, 8vw, 120px);
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 20px; --radius-full: 9999px;
+
+  /* Motion (Book 4 R4 §4) */
+  --dur-1: 100ms; --dur-2: 160ms; --dur-3: 240ms; --dur-4: 320ms; --dur-5: 480ms; --dur-6: 800ms; --dur-count: 1200ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --ease-enter: cubic-bezier(0, 0, 0.3, 1);
+  --ease-exit: cubic-bezier(0.2, 0, 1, 0.9);
+  --ease-expressive: cubic-bezier(0.4, 0.14, 0.3, 1);
+  --ease-dot: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --shift-1: 4px; --shift-2: 8px; --shift-3: 16px; --shift-4: 24px;
+  --stagger: 40ms;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E0E10; --surface: #17171A; --sunken: #121215; --fg: #F4F3EF; --fg-2: #C9C8C2; --muted: #9A9993;
+    --line: #2E2E34; --control: #6E6D69; --scrim: rgb(14 14 16 / 0.9);
+    --accent: #4A3AA7; --on-accent: #FFFFFF; --accent-hover: #5641C5; --accent-text: #9894FF; --accent-soft: #1B1930; --accent-400: #9894FF; --accent-tint: #2C2858;
+    --red: #E5322D; --red-btn: #D32523; --red-text: #FE6F62; --focus: #E5322D;
+    --amber-bg: #2A2110; --amber-fg: #F6C64A; --amber-line: #EDA100;
+    --ok-bg: #0F241B; --ok-fg: #5DB88F; --err-bg: #2A1513; --err-fg: #FE6F62;
+    --band-bg: #17171A; --band-surface: #202024; --band-raised: #26262B;
+    --band-line: #2E2E34; --band-subtle: #6E6D69; --band-text: #F4F3EF; --band-text-2: #C9C8C2; --band-muted: #9A9993; --band-accent: #9894FF; --band-esop: #5641C5;
+    --shadow-1: none; --shadow-2: 0 0 0 1px #2E2E34; --shadow-3: 0 0 0 1px #45454D;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E0E10; --surface: #17171A; --sunken: #121215; --fg: #F4F3EF; --fg-2: #C9C8C2; --muted: #9A9993;
+  --line: #2E2E34; --control: #6E6D69; --scrim: rgb(14 14 16 / 0.9);
+  --accent: #4A3AA7; --on-accent: #FFFFFF; --accent-hover: #5641C5; --accent-text: #9894FF; --accent-soft: #1B1930; --accent-400: #9894FF; --accent-tint: #2C2858;
+  --red: #E5322D; --red-btn: #D32523; --red-text: #FE6F62; --focus: #E5322D;
+  --amber-bg: #2A2110; --amber-fg: #F6C64A; --amber-line: #EDA100;
+  --ok-bg: #0F241B; --ok-fg: #5DB88F; --err-bg: #2A1513; --err-fg: #FE6F62;
+  --band-bg: #17171A; --band-surface: #202024; --band-raised: #26262B;
+  --band-line: #2E2E34; --band-subtle: #6E6D69; --band-text: #F4F3EF; --band-text-2: #C9C8C2; --band-muted: #9A9993; --band-accent: #9894FF; --band-esop: #5641C5;
+  --shadow-1: none; --shadow-2: 0 0 0 1px #2E2E34; --shadow-3: 0 0 0 1px #45454D;
+  color-scheme: dark;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) { scroll-behavior: auto; --dur-3: 0ms; --dur-4: 120ms; --dur-5: 0ms; --dur-6: 0ms; --dur-count: 0ms; --shift-1: 0px; --shift-2: 0px; --shift-3: 0px; --shift-4: 0px; }
+}
+:root[data-motion="reduced"] { --dur-3: 0ms; --dur-4: 120ms; --dur-5: 0ms; --dur-6: 0ms; --dur-count: 0ms; --shift-1: 0px; --shift-2: 0px; --shift-3: 0px; --shift-4: 0px; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 96px; interpolate-size: allow-keywords; }
+:root[data-motion="reduced"] { scroll-behavior: auto; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--font-sans); font-size: var(--text-body); line-height: 1.55;
+  font-optical-sizing: auto; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; }
+h1, h2, h3, h4 { text-wrap: balance; font-weight: 700; }
+p { text-wrap: pretty; }
+a { color: var(--accent-text); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--radius-sm); }
+.sr { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+[lang="ta"] { font-family: var(--font-ta); letter-spacing: 0 !important; text-transform: none !important; line-height: 1.7; }
+h1 [lang="ta"], h2 [lang="ta"], h3 [lang="ta"], .eyebrow[lang="ta"], .tagline[lang="ta"] { font-family: var(--font-ta-display); }
+
+.page { padding-inline: var(--gutter); overflow-x: clip; }
+.bleed { margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
+.container { max-width: 1200px; margin-inline: auto; }
+.skip { position: absolute; left: 16px; top: -100px; z-index: 50; background: var(--fg); color: var(--bg); padding: 12px 16px; border-radius: var(--radius-md); }
+.skip:focus { top: 12px; }
+
+/* ---------- Masterbrand strip ---------- */
+.strip { border-bottom: 1px solid var(--line); background: var(--bg); }
+.strip-in { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; min-height: 52px; flex-wrap: wrap; padding-block: 6px; }
+.strip-left { display: flex; align-items: center; gap: 8px 18px; flex-wrap: wrap; min-width: 0; }
+.wordmark { display: inline-block; line-height: 44px; font-weight: 700; letter-spacing: -0.02em; color: var(--fg); text-decoration: none; font-size: 1.125rem; white-space: nowrap; }
+.wordmark:hover { text-decoration: none; }
+.fs { display: inline-block; width: 0.26em; height: 0.26em; border-radius: 50%; background: var(--red); margin-left: 0.05em; vertical-align: baseline; flex: none; }
+.tagline { color: var(--fg-2); font-size: var(--text-small); font-weight: 500; }
+.tagline .fs { width: 0.3em; height: 0.3em; }
+.strip-right { display: flex; align-items: center; gap: 8px 16px; flex-wrap: wrap; }
+.strip-link { font-size: var(--text-small); font-weight: 600; color: var(--fg); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; gap: 6px; }
+.strip-link:hover { color: var(--accent-text); }
+.seg { display: inline-flex; border: 1px solid var(--control); border-radius: var(--radius-full); padding: 2px; gap: 2px; }
+.seg button { border: 0; background: transparent; border-radius: var(--radius-full); min-height: 36px; min-width: 44px; padding: 0 12px; font-size: var(--text-small); font-weight: 600; cursor: pointer; color: var(--fg-2); transition: background var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard); }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.seg button:hover:not([aria-pressed="true"]) { background: var(--sunken); }
+
+/* ---------- Brand sub-nav ---------- */
+.subnav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--scrim); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--line); }
+.subnav-in { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px 16px; min-height: 64px; }
+.lockup { display: inline-block; line-height: 44px; text-decoration: none; color: var(--fg); white-space: nowrap; font-size: 1.125rem; }
+.lockup .wm { font-weight: 700; letter-spacing: -0.02em; }
+
+.lockup .desc { margin-left: 0.42em; font-weight: 400; color: var(--accent-text); letter-spacing: -0.01em; }
+.links-wrap { position: relative; min-width: 0; }
+.links { display: flex; list-style: none; gap: 0; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; padding: 4px; }
+.links::-webkit-scrollbar { display: none; }
+.links a { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 11px; font-size: var(--text-small); font-weight: 500; color: var(--fg-2); text-decoration: none; white-space: nowrap; border-radius: var(--radius-full); scroll-snap-align: start; transition: color var(--dur-2) var(--ease-standard), background var(--dur-2) var(--ease-standard); }
+.links a:hover { color: var(--fg); background: var(--sunken); }
+.links a::after { content: ""; position: absolute; left: 11px; right: 11px; bottom: 4px; height: 3px; border-radius: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-3) var(--ease-expressive); }
+.links a[aria-current="true"] { color: var(--fg); font-weight: 600; }
+.links a[aria-current="true"]::after { transform: scaleX(1); }
+.sweep { position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: var(--accent); transform-origin: left; }
+:root[data-motion="full"] .sweep { animation: sweep var(--dur-6) var(--ease-expressive) 120ms both; }
+@keyframes sweep { from { transform: scaleX(0.04); } to { transform: scaleX(1); } }
+
+/* ---------- Buttons, chips, tags ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: var(--radius-full); font-weight: 600; font-size: var(--text-body); text-decoration: none; border: 1.5px solid transparent; cursor: pointer; transition: background var(--dur-2) var(--ease-standard), transform var(--dur-1) var(--ease-standard), border-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard); text-align: center; line-height: 1.25; }
+.btn:hover { text-decoration: none; }
+.btn:active { transform: scale(0.98); }
+.btn-accent { background: var(--accent); color: var(--on-accent); }
+.btn-accent:hover { background: var(--accent-hover); }
+.btn-ghost { background: transparent; color: var(--fg); border-color: var(--fg); }
+.btn-ghost:hover { background: var(--fg); color: var(--bg); }
+.btn-sm { min-height: 44px; padding: 0 18px; font-size: var(--text-small); }
+.btn .arr { display: inline-block; transition: transform var(--dur-2) var(--ease-standard); }
+.btn:hover .arr { transform: translateX(var(--shift-1)); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.textlink { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 600; color: var(--accent-text); }
+
+.ph { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: var(--radius-sm); background: var(--amber-bg); color: var(--amber-fg); border: 1px solid var(--amber-line); font-size: var(--text-caption); font-weight: 600; line-height: 1.45; vertical-align: middle; }
+.ph::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--amber-line); flex: none; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: var(--radius-full); font-size: var(--text-caption); font-weight: 600; border: 1px solid var(--line); color: var(--fg-2); background: var(--surface); white-space: nowrap; }
+.chip-accent { background: var(--accent-soft); color: var(--accent-text); border-color: var(--accent-tint); }
+
+.tagw { position: relative; display: inline-block; vertical-align: middle; }
+.tag { display: inline-flex; align-items: center; gap: 5px; min-height: 26px; padding: 0 9px; border-radius: var(--radius-full); font-size: var(--text-caption); font-weight: 600; cursor: pointer; line-height: 1; position: relative; }
+.tag::before { content: ""; position: absolute; inset: -9px -4px; }
+.tag b { font-weight: 800; }
+.tag-a { background: var(--fg); color: var(--bg); border: 1.5px solid var(--fg); }
+.tag-b { background: var(--bg); color: var(--fg); border: 1.5px solid var(--fg); }
+.tag-c { background: var(--bg); color: var(--fg-2); border: 1.5px dashed var(--control); }
+.tag-pop { position: absolute; z-index: 40; left: 0; top: calc(100% + 10px); width: min(300px, calc(100vw - 32px)); background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: var(--radius-md); box-shadow: var(--shadow-3); padding: 14px 16px; font-size: var(--text-small); font-weight: 400; line-height: 1.5; text-align: left; display: none; }
+.tag-pop strong { display: block; font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 4px; }
+.tag-pop dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin-top: 8px; font-size: var(--text-caption); }
+.tag-pop dt { color: var(--muted); }
+.tagw.open .tag-pop { display: block; animation: pop var(--dur-3) var(--ease-enter) both; }
+@keyframes pop { from { opacity: 0.4; transform: translateY(calc(-1 * var(--shift-1))); } to { opacity: 1; transform: none; } }
+
+/* ---------- Typography helpers ---------- */
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: var(--text-eyebrow); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-text); }
+.eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; }
+.lede { font-size: var(--text-body-lg); color: var(--fg-2); max-width: 62ch; }
+.muted { color: var(--muted); }
+.small { font-size: var(--text-small); }
+.caption { font-size: var(--text-caption); color: var(--muted); }
+
+section { scroll-margin-top: 80px; }
+.sec { padding-block: var(--section); border-top: 1px solid var(--line); }
+.sec-head { display: grid; gap: 18px; max-width: 820px; margin-bottom: clamp(32px, 4vw, 56px); }
+.sec-head h2 { font-size: var(--text-h1); line-height: 1.08; letter-spacing: -0.025em; }
+.sec-head .fs, .h-stop .fs { width: 0.2em; height: 0.2em; }
+
+/* ---------- Hero ---------- */
+.hero { padding-block: clamp(40px, 6vw, 88px) clamp(40px, 5vw, 72px); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.hero-copy { display: grid; gap: 24px; min-width: 0; }
+.hero h1 { font-size: var(--text-display-xl); line-height: 1.04; letter-spacing: -0.03em; font-weight: 750; }
+.hero h1 .fs { width: 0.17em; height: 0.17em; margin-left: 0.03em; }
+.word { display: inline-block; }
+:root[data-motion="full"] .kinetic .word { animation: wordIn var(--dur-5) var(--ease-enter) both; animation-delay: calc(var(--i) * 70ms + 80ms); }
+@keyframes wordIn { from { opacity: 0.08; transform: translateY(var(--shift-4)); } to { opacity: 1; transform: none; } }
+:root[data-motion="full"] .land { animation: land var(--dur-5) var(--ease-dot) both; animation-delay: var(--land-delay, 720ms); }
+@keyframes land { 0% { transform: translateY(-1.1em) scale(0.6); opacity: 0.3; } 100% { transform: none; opacity: 1; } }
+.journey-line { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: var(--text-small); font-weight: 600; color: var(--fg-2); }
+.journey-line span:not(.j-arr) { white-space: nowrap; }
+.j-arr { color: var(--control); }
+.hero-art { position: relative; margin: 0; min-width: 0; }
+.art-frame { position: relative; aspect-ratio: 1 / 1; max-width: 100%; border-radius: var(--radius-xl); background: var(--surface); border: 1px solid var(--line); overflow: hidden; }
+.art-frame canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero-art figcaption { margin-top: 12px; font-size: var(--text-caption); color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* ---------- Proof band ---------- */
+.proof { padding-block: clamp(32px, 4vw, 56px); }
+.proof-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.stat { border-top: 2px solid var(--fg); padding-top: 16px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.stat-v { font-size: var(--text-stat); font-weight: 700; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; display: flex; align-items: baseline; gap: 2px; }
+.stat-v .ph { font-size: var(--text-caption); letter-spacing: 0; }
+.stat-l { font-size: var(--text-small); color: var(--fg-2); }
+.stat-m { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: var(--text-caption); color: var(--muted); }
+.stat-ctx .stat-v { color: var(--accent-text); }
+
+/* ---------- Journey stepper ---------- */
+.journey { display: grid; gap: 20px; }
+.steps { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; list-style: none; position: relative; }
+.steps::before { content: ""; position: absolute; left: 22px; right: 22px; top: 21px; height: 2px; background: var(--line); }
+.step-btn { position: relative; display: grid; justify-items: start; gap: 10px; width: 100%; background: transparent; border: 0; padding: 0 8px 12px 0; cursor: pointer; text-align: left; min-height: 44px; border-radius: var(--radius-md); }
+.step-btn .sd { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--bg); border: 2px solid var(--control); font-weight: 700; font-size: var(--text-small); font-variant-numeric: tabular-nums; color: var(--fg-2); transition: background var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard), transform var(--dur-3) var(--ease-standard); }
+.step-btn .sn { font-weight: 650; font-size: var(--text-h5); letter-spacing: -0.005em; }
+.step-btn .ss { font-size: var(--text-caption); color: var(--muted); line-height: 1.4; }
+.step-btn:hover .sd { border-color: var(--accent-text); color: var(--accent-text); }
+.step-btn[aria-selected="true"] .sd { background: var(--accent); border-color: var(--accent); color: var(--on-accent); transform: scale(1.06); }
+.step-btn[aria-selected="true"] .sn { color: var(--accent-text); }
+.step-panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(20px, 3vw, 32px); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 32px; align-items: end; }
+.step-panel h3 { font-size: var(--text-h3); letter-spacing: -0.015em; }
+.step-panel p { color: var(--fg-2); margin-top: 8px; max-width: 60ch; }
+:root[data-motion="full"] .step-panel:not([hidden]) { animation: rise var(--dur-4) var(--ease-enter) both; }
+@keyframes rise { from { opacity: 0.4; transform: translateY(var(--shift-2)); } to { opacity: 1; transform: none; } }
+
+/* ---------- Who it's for ---------- */
+.who { margin-top: clamp(48px, 6vw, 80px); display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 2.1fr); gap: clamp(24px, 4vw, 56px); }
+.who h3 { font-size: var(--text-h3); letter-spacing: -0.015em; }
+.who-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.who-item { padding: 20px 20px 20px 0; border-bottom: 1px solid var(--line); display: grid; gap: 6px; min-width: 0; }
+.who-item:nth-child(odd) { border-right: 1px solid var(--line); }
+.who-item:nth-child(even) { padding-left: 20px; }
+.who-item h4 { font-size: var(--text-h5); font-weight: 650; }
+.who-item p { color: var(--fg-2); font-size: var(--text-small); }
+.persona { margin-top: 20px; padding: 20px; border-radius: var(--radius-lg); background: var(--accent-soft); border: 1px solid var(--accent-tint); display: grid; gap: 8px; font-size: var(--text-small); color: var(--fg-2); }
+.persona b { color: var(--fg); }
+
+/* ---------- Labs and pipeline ---------- */
+.pipeline { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: clamp(20px, 3.5vw, 40px); display: grid; gap: 24px; }
+.pipe-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 24px; }
+.pipe-head h3 { font-size: var(--text-h4); letter-spacing: -0.01em; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.pipe-stages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.pipe-btn { position: relative; display: grid; gap: 10px; align-content: start; text-align: left; padding: 18px; min-height: 180px; border-radius: var(--radius-lg); border: 1.5px solid var(--line); background: var(--bg); cursor: pointer; transition: border-color var(--dur-2) var(--ease-standard), background var(--dur-2) var(--ease-standard), transform var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard); }
+.pipe-btn:hover { transform: translateY(calc(-1 * var(--shift-1))); box-shadow: var(--shadow-2); }
+.pipe-btn[aria-selected="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.pipe-btn:not(:last-child)::after { content: ""; position: absolute; right: -13px; top: 50%; width: 10px; height: 10px; border-top: 2px solid var(--control); border-right: 2px solid var(--control); transform: translateY(-50%) rotate(45deg); }
+.pipe-k { font-size: var(--text-h2); font-weight: 750; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+.pipe-n { font-weight: 650; font-size: var(--text-body); display: inline-flex; align-items: baseline; }
+.pipe-n .fs { width: 0.3em; height: 0.3em; }
+.pipe-s { font-size: var(--text-caption); color: var(--muted); }
+.pdots { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
+.pdot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent-text); transition: background var(--dur-3) var(--ease-standard), transform var(--dur-3) var(--ease-dot); }
+.pdot.range { background: transparent; border: 1.5px dashed var(--accent-text); }
+.pipeline.playing .pdot { background: var(--line); transform: scale(0.7); }
+.pipeline.playing .pdot.range { background: transparent; border-color: var(--control); }
+.pipeline.playing .pdot.lit { background: var(--accent-text); transform: none; }
+.pipeline.playing .pdot.range.lit { background: transparent; border-color: var(--accent-text); }
+.pipe-panel { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px 32px; align-items: start; }
+.pipe-panel p { color: var(--fg-2); max-width: 58ch; }
+.pipe-panel h4 { font-size: var(--text-h5); margin-bottom: 6px; }
+.stoprule { border-left: 3px solid var(--fg); padding: 4px 0 4px 16px; font-size: var(--text-small); color: var(--fg-2); }
+.stoprule b { color: var(--fg); }
+
+.labs-grid { margin-top: clamp(40px, 5vw, 64px); display: grid; gap: 20px; }
+.labs-grid h3 { font-size: var(--text-h3); letter-spacing: -0.015em; }
+.lab-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.lab-tab { display: grid; gap: 12px; align-content: start; text-align: left; padding: 16px; border-radius: var(--radius-lg); border: 1.5px solid var(--line); background: var(--surface); cursor: pointer; transition: transform var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard); min-width: 0; }
+.lab-tab:hover, .lab-tab:focus-visible { transform: translateY(calc(-1 * var(--shift-1))); box-shadow: var(--shadow-2); }
+.lab-tab[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 4px 0 var(--accent); }
+.lab-tab .lt-name { font-weight: 650; font-size: var(--text-body); line-height: 1.3; }
+.lab-art { width: 100%; height: auto; aspect-ratio: 7 / 4.2; display: block; border-radius: var(--radius-md); background: var(--bg); }
+.lab-art .g { fill: var(--control); opacity: 0.55; }
+.lab-art .e { stroke: var(--control); stroke-width: 2.4; stroke-linecap: round; fill: none; transition: stroke var(--dur-3) var(--ease-standard); }
+.lab-art .n { fill: var(--control); transition: fill var(--dur-3) var(--ease-standard); }
+.lab-tab:hover .lab-art .e, .lab-tab:focus-visible .lab-art .e, .lab-tab[aria-selected="true"] .lab-art .e { stroke: var(--accent-text); }
+.lab-tab:hover .lab-art .n, .lab-tab:focus-visible .lab-art .n, .lab-tab[aria-selected="true"] .lab-art .n { fill: var(--accent-text); }
+.lab-panel { border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); padding: clamp(20px, 3vw, 36px); display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px 40px; }
+:root[data-motion="full"] .lab-panel:not([hidden]) { animation: rise var(--dur-4) var(--ease-enter) both; }
+.lab-panel h4 { font-size: var(--text-h3); letter-spacing: -0.015em; }
+.lab-panel .sub { color: var(--fg-2); font-size: var(--text-body-lg); margin-top: 8px; }
+.kv { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 16px; font-size: var(--text-small); align-items: center; }
+.kv dt { color: var(--muted); }
+.blk { display: grid; gap: 6px; }
+.blk h5 { margin: 0; font-size: var(--text-eyebrow); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.blk p, .blk li { color: var(--fg-2); font-size: var(--text-small); }
+.dotlist { list-style: none; display: grid; gap: 8px; }
+.dotlist li { position: relative; padding-left: 18px; }
+.dotlist li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-text); }
+.wave2 { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; padding: 18px 20px; border: 1px dashed var(--control); border-radius: var(--radius-lg); }
+.wave2 .chip { color: var(--muted); background: transparent; }
+.wave2 p { font-size: var(--text-small); color: var(--muted); flex: 1 1 260px; }
+
+/* ---------- Two-column feature sections ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
+.split > * { min-width: 0; }
+.facts { display: grid; border-top: 1px solid var(--line); }
+.facts div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 16px; padding-block: 14px; border-bottom: 1px solid var(--line); align-items: baseline; }
+.facts dt { font-size: var(--text-small); color: var(--muted); }
+.facts dd { font-weight: 550; }
+.micro { font-size: var(--text-small); color: var(--muted); }
+
+.interviews { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: clamp(20px, 3vw, 32px); display: grid; gap: 16px; }
+.igrid { display: grid; grid-template-columns: repeat(10, 1fr); gap: clamp(8px, 1.6vw, 14px); align-items: center; justify-items: center; }
+.idot { width: clamp(8px, 1.4vw, 12px); aspect-ratio: 1; border-radius: 50%; background: var(--accent-text); }
+.interviews.play .idot { animation: idot var(--dur-3) var(--ease-enter) both; animation-delay: calc(var(--i) * 9ms); }
+@keyframes idot { from { opacity: 0.2; transform: scale(0.5); } to { opacity: 1; transform: none; } }
+.decision { display: flex; align-items: center; gap: 12px; font-weight: 650; }
+.decision .big { width: 18px; height: 18px; border-radius: 50%; background: var(--red); flex: none; }
+.interviews.play .decision .big { animation: land var(--dur-5) var(--ease-dot) both; animation-delay: 1050ms; }
+
+.summit-list { list-style: none; display: grid; gap: 0; counter-reset: s; border-top: 1px solid var(--line); }
+.summit-list li { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 12px; padding-block: 18px; border-bottom: 1px solid var(--line); counter-increment: s; align-items: baseline; }
+.summit-list li::before { content: counter(s, decimal-leading-zero); font-variant-numeric: tabular-nums; color: var(--accent-text); font-weight: 700; font-size: var(--text-small); }
+.summit-list p { font-size: var(--text-h5); font-weight: 550; letter-spacing: -0.005em; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(20px, 3vw, 28px); display: grid; gap: 14px; align-content: start; }
+.card h3 { font-size: var(--text-h4); letter-spacing: -0.01em; }
+
+.pkg { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; counter-reset: p; }
+.pkg li { counter-increment: p; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 18px; display: grid; gap: 6px; font-weight: 550; transition: transform var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard); }
+.pkg li:hover { transform: translateY(calc(-1 * var(--shift-1))); box-shadow: var(--shadow-2); }
+.pkg li::before { content: counter(p); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); font-size: var(--text-caption); font-weight: 700; }
+.price { display: grid; gap: 8px; }
+.price .pv { font-size: var(--text-h1); font-weight: 750; letter-spacing: -0.025em; line-height: 1; font-variant-numeric: tabular-nums; }
+.quote-line { font-size: var(--text-h4); font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.fchip { min-height: 44px; padding: 0 16px; border-radius: var(--radius-full); border: 1.5px solid var(--line); background: var(--surface); font-size: var(--text-small); font-weight: 600; cursor: pointer; color: var(--fg-2); transition: background var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard); }
+.fchip:hover { border-color: var(--control); }
+.fchip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.empty { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px 28px; align-items: center; padding: clamp(20px, 3vw, 32px); border: 1px dashed var(--control); border-radius: var(--radius-lg); background: var(--bg); }
+.empty svg { width: 120px; height: auto; }
+.empty svg .g { fill: var(--control); opacity: 0.6; }
+.empty svg .e { stroke: var(--accent-text); stroke-width: 2.5; stroke-linecap: round; fill: none; stroke-dasharray: 5 7; }
+.empty h3 { font-size: var(--text-h4); }
+.empty p { color: var(--fg-2); font-size: var(--text-small); margin-top: 6px; }
+
+/* ---------- Night band: terms ---------- */
+.night { background: var(--band-bg); color: var(--band-text); padding-block: var(--section); position: relative; isolation: isolate; }
+.night::before { content: ""; position: absolute; inset: 0; z-index: -1; background-image: radial-gradient(circle at center, var(--band-line) 1.3px, transparent 1.6px); background-size: 28px 28px; mask-image: linear-gradient(180deg, transparent, var(--band-bg) 30%, var(--band-bg) 70%, transparent); -webkit-mask-image: linear-gradient(180deg, transparent, var(--band-bg) 30%, var(--band-bg) 70%, transparent); opacity: 0.8; }
+.night .eyebrow { color: var(--band-accent); }
+.night .eyebrow::before { background: var(--band-accent); }
+.night .lede, .night p { color: var(--band-text-2); }
+.night a { color: var(--band-accent); }
+.night .tag-c { background: var(--band-bg); color: var(--band-text-2); border-color: var(--band-subtle); }
+.night .tag-pop { background: var(--band-raised); color: var(--band-text); border-color: var(--band-line); box-shadow: none; }
+.night .tag-pop strong, .night .tag-pop dt { color: var(--band-muted); }
+.night :focus-visible { outline-color: var(--focus); }
+.draft { display: inline-flex; gap: 8px; align-items: center; font-size: var(--text-caption); font-weight: 600; color: var(--band-text); border: 1px solid var(--band-subtle); border-radius: var(--radius-full); padding: 4px 12px; }
+.draft::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--band-text-2); }
+.ts { background: var(--band-surface); border: 1px solid var(--band-line); border-radius: var(--radius-xl); padding: clamp(20px, 3.5vw, 40px); display: grid; gap: 28px; }
+.ts-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; align-items: baseline; }
+.ts-top h3 { font-size: var(--text-h3); letter-spacing: -0.015em; color: var(--band-text); }
+.barwrap { display: flex; align-items: center; gap: 10px; }
+.bar { display: flex; flex: 1 1 auto; height: clamp(64px, 9vw, 88px); border-radius: var(--radius-md); overflow: hidden; gap: 3px; min-width: 0; }
+.seg-b { position: relative; border: 0; padding: 0 0 0 12px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 2px; min-width: 0; overflow: hidden; text-align: left; transition: flex-basis var(--dur-4) var(--ease-standard), filter var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard); }
+.seg-b .pct { font-size: clamp(1.125rem, 0.9rem + 1.2vw, 1.75rem); font-weight: 750; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; white-space: nowrap; }
+.seg-b .lbl { font-size: var(--text-caption); font-weight: 600; white-space: nowrap; }
+.seg-b.narrow { padding-left: 6px; }
+.seg-b.narrow .lbl { display: none; }
+.seg-b.narrow .pct { font-size: var(--text-small); }
+.seg-b[aria-pressed="true"] { box-shadow: inset 0 0 0 3px var(--band-text); }
+.seg-b:hover { filter: brightness(1.08); }
+.seg-b:focus-visible { outline: 2px solid var(--focus); outline-offset: -6px; border-radius: var(--radius-sm); }
+.s-f { background: var(--band-accent); color: var(--band-bg); }
+.s-e { background: var(--band-esop); color: var(--band-text); }
+.s-i { background: var(--band-muted); color: var(--band-bg); }
+.s-s { background: var(--band-text); color: var(--band-bg); }
+.bar-stop { width: 18px; height: 18px; border-radius: 50%; background: var(--red); flex: none; }
+.ts-controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 28px; }
+.ctl { display: grid; gap: 8px; align-content: start; }
+.ctl label, .ctl .ctl-l { display: flex; justify-content: space-between; gap: 12px; font-size: var(--text-small); font-weight: 600; color: var(--band-text); }
+.ctl output { font-variant-numeric: tabular-nums; color: var(--band-accent); }
+.ctl .hint { font-size: var(--text-caption); color: var(--band-muted); }
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 44px; background: transparent; cursor: pointer; }
+input[type="range"]::-webkit-slider-runnable-track { height: 4px; border-radius: 4px; background: var(--band-subtle); }
+input[type="range"]::-moz-range-track { height: 4px; border-radius: 4px; background: var(--band-subtle); }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--band-text); border: 4px solid var(--band-esop); margin-top: -9px; }
+input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--band-text); border: 4px solid var(--band-esop); }
+input[type="range"]:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.ts-foot { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; border-top: 1px solid var(--band-line); padding-top: 20px; font-size: var(--text-small); color: var(--band-muted); }
+.btn-night { background: transparent; color: var(--band-text); border-color: var(--band-subtle); }
+.btn-night:hover { border-color: var(--band-text); background: var(--band-raised); }
+.majority { display: inline-flex; gap: 8px; align-items: center; color: var(--band-text); font-weight: 600; }
+.majority::before { content: ""; width: 16px; height: 16px; border-radius: 50%; background: var(--band-accent); -webkit-mask: radial-gradient(circle, transparent 3px, var(--band-bg) 3.5px); mask: radial-gradient(circle, transparent 3px, var(--band-bg) 3.5px); }
+.parties { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
+.party { text-align: left; display: grid; gap: 10px; align-content: start; padding: 20px; border-radius: var(--radius-lg); border: 1px solid var(--band-line); background: var(--band-surface); color: var(--band-text); cursor: pointer; transition: border-color var(--dur-2) var(--ease-standard), background var(--dur-2) var(--ease-standard), transform var(--dur-2) var(--ease-standard); min-width: 0; }
+.party:hover { transform: translateY(calc(-1 * var(--shift-1))); border-color: var(--band-subtle); }
+.party[aria-pressed="true"] { border-color: var(--band-text); background: var(--band-raised); }
+.party .sw { width: 28px; height: 8px; border-radius: 4px; }
+.party h4 { font-size: var(--text-h5); font-weight: 650; }
+.party p { font-size: var(--text-small); color: var(--band-text-2); }
+.party .stake { font-size: var(--text-caption); color: var(--band-muted); font-variant-numeric: tabular-nums; }
+.nisp { margin-top: 24px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 32px; font-size: var(--text-small); }
+.nisp p { border-left: 2px solid var(--band-line); padding-left: 16px; }
+
+/* ---------- FAQ ---------- */
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+.tab { position: relative; min-height: 48px; padding: 0 16px; background: transparent; border: 0; font-weight: 600; font-size: var(--text-small); color: var(--muted); cursor: pointer; }
+.tab::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: -1px; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-3) var(--ease-standard); }
+.tab[aria-selected="true"] { color: var(--fg); }
+.tab[aria-selected="true"]::after { transform: scaleX(1); }
+.tab:hover { color: var(--fg); }
+details { border-bottom: 1px solid var(--line); }
+summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 64px; padding-block: 14px; font-weight: 600; font-size: var(--text-h5); letter-spacing: -0.005em; }
+summary::-webkit-details-marker { display: none; }
+summary .pm { position: relative; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--control); flex: none; transition: transform var(--dur-3) var(--ease-standard), background var(--dur-2) var(--ease-standard); }
+summary .pm::before, summary .pm::after { content: ""; position: absolute; left: 50%; top: 50%; width: 11px; height: 1.5px; background: var(--fg); transform: translate(-50%, -50%); }
+summary .pm::after { transform: translate(-50%, -50%) rotate(90deg); transition: transform var(--dur-3) var(--ease-standard); }
+details[open] summary .pm { background: var(--accent-soft); border-color: var(--accent-text); }
+details[open] summary .pm::after { transform: translate(-50%, -50%) rotate(0deg); }
+details::details-content { block-size: 0; overflow: clip; transition: block-size var(--dur-3) var(--ease-standard), content-visibility var(--dur-3) allow-discrete; }
+details[open]::details-content { block-size: auto; }
+.ans { padding-bottom: 20px; color: var(--fg-2); max-width: 70ch; display: grid; gap: 10px; }
+.faq-wrap { max-width: 880px; }
+
+/* ---------- CTA band + form ---------- */
+.cta { padding-block: var(--section); border-top: 1px solid var(--line); }
+.cta-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
+.cta h2 { font-size: var(--text-h1); line-height: 1.08; letter-spacing: -0.025em; }
+.contact { margin-top: 28px; display: grid; gap: 10px; }
+.contact .addr { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.contact code { font-family: var(--font-sans); font-weight: 600; font-size: var(--text-body); user-select: all; background: var(--sunken); padding: 6px 10px; border-radius: var(--radius-sm); color: var(--fg); }
+.copy { min-height: 44px; padding: 0 14px; border-radius: var(--radius-full); border: 1.5px solid var(--control); background: transparent; font-size: var(--text-small); font-weight: 600; cursor: pointer; }
+.copy:hover { border-color: var(--fg); }
+form.reg, .success { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: clamp(20px, 3vw, 36px); display: grid; gap: 18px; box-shadow: var(--shadow-1); }
+.field { display: grid; gap: 6px; }
+.field label, .field .fl { font-size: var(--text-small); font-weight: 600; }
+.field .opt { color: var(--muted); font-weight: 400; }
+.field input[type="text"], .field input[type="email"], .field select, .field textarea { width: 100%; min-height: 48px; padding: 10px 14px; border-radius: var(--radius-md); border: 1px solid var(--control); background: var(--surface); color: var(--fg); font: inherit; transition: border-color var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard); }
+.field textarea { min-height: 112px; resize: vertical; }
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: none; border-color: var(--accent-text); box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--focus); }
+.field.invalid input, .field.invalid select { border-color: var(--err-fg); border-width: 1.5px; }
+.err { display: none; gap: 8px; align-items: center; color: var(--err-fg); background: var(--err-bg); border-left: 2px solid var(--err-fg); font-size: var(--text-small); padding: 6px 10px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.field.invalid .err { display: flex; animation: rise var(--dur-3) var(--ease-enter) both; }
+.err svg { flex: none; }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.check { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; align-items: start; font-size: var(--text-small); color: var(--fg-2); }
+.check input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--accent); }
+.form-note { font-size: var(--text-caption); color: var(--muted); }
+.success h3 { font-size: var(--text-h2); letter-spacing: -0.02em; display: flex; align-items: baseline; }
+.success h3 .fs { width: 0.22em; height: 0.22em; }
+.success p { color: var(--fg-2); }
+.tick { width: 44px; height: 44px; }
+.tick circle { fill: var(--ok-bg); stroke: var(--ok-fg); stroke-width: 2; }
+.tick path { fill: none; stroke: var(--ok-fg); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 30; stroke-dashoffset: 0; }
+:root[data-motion="full"] .success:not([hidden]) .tick path { animation: draw var(--dur-5) var(--ease-enter) both; }
+@keyframes draw { from { stroke-dashoffset: 30; } to { stroke-dashoffset: 0; } }
+
+/* ---------- Footer ---------- */
+.foot { background: var(--band-bg); color: var(--band-text); padding-block: clamp(48px, 6vw, 80px) 32px; }
+.foot a { color: var(--band-text); }
+.foot-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); gap: 32px 48px; }
+.foot .wordmark { color: var(--band-text); font-size: 1.5rem; }
+.foot .tagline { color: var(--band-text-2); }
+.foot h3 { font-size: var(--text-eyebrow); letter-spacing: 0.08em; text-transform: uppercase; color: var(--band-muted); font-weight: 600; margin-bottom: 10px; }
+.foot ul { list-style: none; display: grid; gap: 2px; }
+.foot li a { display: inline-flex; align-items: center; min-height: 40px; text-decoration: none; font-size: var(--text-small); }
+.foot li a:hover { text-decoration: underline; }
+.foot .seg { border-color: var(--band-subtle); }
+.foot .seg button { color: var(--band-text-2); }
+.foot .seg button[aria-pressed="true"] { background: var(--band-text); color: var(--band-bg); }
+.foot .seg button:hover:not([aria-pressed="true"]) { background: var(--band-raised); }
+.foot-ctl { display: grid; gap: 14px; }
+.foot-ctl .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: var(--text-small); color: var(--band-text-2); }
+.foot-ctl .row > span:first-child { min-width: 7.5rem; }
+.foot-base { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--band-line); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; font-size: var(--text-caption); color: var(--band-muted); }
+.foot .partof { font-size: var(--text-small); color: var(--band-text-2); margin-top: 14px; }
+.foot .lockup-desc { color: var(--band-accent); }
+
+/* ---------- Section reveal (progressive, from a visible state) ---------- */
+@supports (animation-timeline: view()) {
+  :root[data-motion="full"] .reveal { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+}
+@keyframes reveal { from { opacity: 0.6; transform: translateY(var(--shift-3)); } to { opacity: 1; transform: none; } }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1240px) {
+  .subnav-in { grid-template-columns: auto auto; grid-template-areas: "lock cta" "links links"; padding-top: 6px; }
+  .lockup { grid-area: lock; }
+  .subnav-cta { grid-area: cta; justify-self: end; }
+  .links-wrap { grid-area: links; margin-inline: calc(-1 * var(--gutter)); }
+  .links { padding-inline: var(--gutter); }
+  .links-wrap::before, .links-wrap::after { content: ""; position: absolute; top: 0; bottom: 0; width: 24px; pointer-events: none; z-index: 1; }
+  .links-wrap::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+  .links-wrap::after { right: 0; background: linear-gradient(270deg, var(--bg), transparent); }
+  html { scroll-padding-top: 132px; }
+  section { scroll-margin-top: 120px; }
+}
+@media (max-width: 960px) {
+  .hero-grid, .split, .cta-grid, .who, .pipe-panel, .lab-panel { grid-template-columns: minmax(0, 1fr); }
+  .hero-art { max-width: 520px; }
+  .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 16px; }
+  .steps::before { display: none; }
+  .pipe-stages, .lab-tabs, .parties { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pipe-btn::after { display: none; }
+  .ts-controls { grid-template-columns: minmax(0, 1fr); }
+  .foot-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .foot-grid > :first-child { grid-column: 1 / -1; }
+  .step-panel { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .strip-in { justify-content: flex-start; }
+  .tagline-wrap { display: none; }
+  .lockup { font-size: 1rem; }
+  .subnav-cta .long { display: none; }
+  .proof-grid { grid-template-columns: minmax(0, 1fr); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .who-grid, .pkg, .two, .nisp, .foot-grid { grid-template-columns: minmax(0, 1fr); }
+  .who-item:nth-child(odd) { border-right: 0; }
+  .who-item:nth-child(even) { padding-left: 0; }
+  .pipe-stages, .lab-tabs, .parties { grid-template-columns: minmax(0, 1fr); }
+  .pipe-btn { min-height: 0; }
+  .facts div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .empty { grid-template-columns: minmax(0, 1fr); }
+  .seg-b .lbl { display: none; }
+  .seg-b { padding-left: 6px; }
+  .seg-b .pct { font-size: var(--text-small); }
+}
+@media (min-width: 641px) { .subnav-cta .short { display: none; } }
+</style>
+
+<div class="page">
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- Masterbrand strip -->
+<div class="strip bleed">
+  <div class="container strip-in">
+    <div class="strip-left">
+      <a class="wordmark" href="https://startnet.in" target="_blank" rel="noopener" aria-label="StartNet home on startnet.in (opens in a new tab)">StartNet<span class="fs" aria-hidden="true"></span></a>
+      <span class="tagline-wrap"><span class="tagline"><span data-ta="ஒவ்வொரு திறமையும், ஒரு நிறுவனர்">Every talent, a founder</span><span class="fs" aria-hidden="true"></span><span class="sr">.</span></span></span>
+    </div>
+    <div class="strip-right">
+      <a class="strip-link" href="https://startnet.in" target="_blank" rel="noopener">startnet.in <span aria-hidden="true">↗</span><span class="sr"> (opens in a new tab)</span></a>
+      <div class="seg" role="group" aria-label="Language">
+        <button type="button" id="lang-en-top" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" id="lang-ta-top" data-lang="ta" aria-pressed="false" lang="ta">தமிழ்</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Brand sub-nav -->
+<nav class="subnav bleed" aria-label="StartNet Research" id="subnav">
+  <div class="container subnav-in">
+    <a class="lockup" href="#overview" aria-label="StartNet Research, back to overview"><span class="wm">StartNet</span><span class="fs" aria-hidden="true"></span><span class="desc">Research</span></a>
+    <div class="links-wrap">
+      <ul class="links" id="subnav-links">
+        <li><a href="#overview" aria-current="true">Overview</a></li>
+        <li><a href="#labs">Labs</a></li>
+        <li><a href="#fellowship">Fellowship</a></li>
+        <li><a href="#summit">Lab-to-Market Summit</a></li>
+        <li><a href="#institutions">Institutions</a></li>
+        <li><a href="#problems">Problem statements</a></li>
+        <li><a href="#terms">Terms</a></li>
+      </ul>
+    </div>
+    <a class="btn btn-accent btn-sm subnav-cta" href="https://x.startnet.in/join?persona=scholar&amp;intent=fellowship&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener"><span class="long" data-ta="இப்போதே விண்ணப்பியுங்கள்">Apply to the Fellowship</span><span class="short">Apply</span></a>
+  </div>
+  <span class="sweep" aria-hidden="true"></span>
+</nav>
+
+<main id="main">
+
+<!-- ============ OVERVIEW ============ -->
+<section id="overview" aria-labelledby="h-hero">
+  <div class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow" data-ta="ஆராய்ச்சியிலிருந்து நிறுவனம்">Scholar → Founder</span>
+        <h1 id="h-hero" class="kinetic"><span class="kin-text">Your research, a company you co-own</span><span class="fs land" aria-hidden="true"></span><span class="sr">.</span></h1>
+        <p class="lede">StartNet Research helps PhD scholars, post-docs and faculty turn research into products and companies, with their institution and an industry partner on the same side of the table.</p>
+        <div class="btn-row">
+          <a class="btn btn-accent" href="https://x.startnet.in/join?persona=scholar&amp;intent=lab&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Register interest in a Lab <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="#institutions">For institutions</a>
+        </div>
+        <p class="journey-line" aria-label="The journey: Discover, Validate, Build, Form, Fund, Scale">
+          <span>Discover</span><span class="j-arr" aria-hidden="true">→</span><span>Validate</span><span class="j-arr" aria-hidden="true">→</span><span>Build</span><span class="j-arr" aria-hidden="true">→</span><span>Form</span><span class="j-arr" aria-hidden="true">→</span><span>Fund</span><span class="j-arr" aria-hidden="true">→</span><span>Scale</span>
+        </p>
+      </div>
+      <figure class="hero-art">
+        <div class="art-frame">
+          <canvas id="hero-canvas" role="img" aria-label="A pulli dot grid. Four dots, labelled scholar, institution, industry partner and StartNet, are joined by lines across the grid and meet at one red full stop: a company."></canvas>
+        </div>
+        <figcaption><span>Every company we help form has four parties with clear roles.</span><a href="#terms">See the four-party model</a></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- Proof band -->
+  <div class="proof">
+    <div class="container">
+      <h2 class="sr">StartNet Research in numbers</h2>
+      <div class="proof-grid">
+        <div class="stat">
+          <div class="stat-v"><span class="ph">[placeholder — to be supplied by StartNet]</span></div>
+          <div class="stat-l">Partner institutions</div>
+          <div class="stat-m">Signed agreements only</div>
+        </div>
+        <div class="stat">
+          <div class="stat-v"><span class="ph">[placeholder — to be supplied by StartNet]</span></div>
+          <div class="stat-l">Scholar Founders Fellows</div>
+          <div class="stat-m">Counted in the Founder Ledger</div>
+        </div>
+        <div class="stat">
+          <div class="stat-v"><span class="ph">[placeholder — to be supplied by StartNet]</span></div>
+          <div class="stat-l">Companies formed</div>
+          <div class="stat-m">On standard terms</div>
+        </div>
+        <div class="stat stat-ctx">
+          <div class="stat-v"><span class="count" data-to="30000" aria-hidden="true">30,000</span><span aria-hidden="true">+</span><span class="sr">More than 30,000</span></div>
+          <div class="stat-l">PhD enrolments in Tamil Nadu institutions. Context, not a StartNet figure.</div>
+          <div class="stat-m">
+            <span class="tagw">
+              <button type="button" class="tag tag-a" aria-expanded="false" aria-controls="tp-aishe" id="tag-aishe"><b>A</b> Verified</button>
+              <span class="tag-pop" id="tp-aishe" role="note">
+                <strong>Confidence tag A</strong>
+                Verified against a primary source.
+                <dl><dt>Source</dt><dd>AISHE 2020-21</dd><dt>As at</dt><dd>2020-21, latest state figure</dd><dt>Scope</dt><dd>PhD enrolments, Tamil Nadu institutions</dd></dl>
+              </span>
+            </span>
+            <span>AISHE 2020-21</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Journey -->
+  <div class="sec">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">The journey</span>
+        <h2>From a lab result to first contracts, in six steps.</h2>
+        <p class="lede">Pick a step to see what happens and where it happens.</p>
+      </div>
+      <div class="journey">
+        <ol class="steps" role="tablist" aria-label="Research to company journey" id="journey-tabs">
+          <li role="presentation"><button type="button" class="step-btn" role="tab" id="jt-1" aria-controls="jp-1" aria-selected="true"><span class="sd">1</span><span class="sn">Discover</span><span class="ss">Lab audits, scouting</span></button></li>
+          <li role="presentation"><button type="button" class="step-btn" role="tab" id="jt-2" aria-controls="jp-2" aria-selected="false" tabindex="-1"><span class="sd">2</span><span class="sn">Validate</span><span class="ss">7-week sprint</span></button></li>
+          <li role="presentation"><button type="button" class="step-btn" role="tab" id="jt-3" aria-controls="jp-3" aria-selected="false" tabindex="-1"><span class="sd">3</span><span class="sn">Build</span><span class="ss">Proof of concept</span></button></li>
+          <li role="presentation"><button type="button" class="step-btn" role="tab" id="jt-4" aria-controls="jp-4" aria-selected="false" tabindex="-1"><span class="sd">4</span><span class="sn">Form</span><span class="ss">Company, IP licence</span></button></li>
+          <li role="presentation"><button type="button" class="step-btn" role="tab" id="jt-5" aria-controls="jp-5" aria-selected="false" tabindex="-1"><span class="sd">5</span><span class="sn">Fund</span><span class="ss">Grants, angels</span></button></li>
+          <li role="presentation"><button type="button" class="step-btn" role="tab" id="jt-6" aria-controls="jp-6" aria-selected="false" tabindex="-1"><span class="sd">6</span><span class="sn">Scale</span><span class="ss">Pilots, contracts</span></button></li>
+        </ol>
+        <div class="step-panel" role="tabpanel" id="jp-1" aria-labelledby="jt-1">
+          <div><h3>Discover</h3><p>Lab audits and technology scouting. We look for research that could solve someone's problem, inside the institutions of a StartNet Lab.</p></div>
+          <a class="textlink" href="#labs">Where it happens: StartNet Labs <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="step-panel" role="tabpanel" id="jp-2" aria-labelledby="jt-2" hidden>
+          <div><h3>Validate</h3><p>A 7-week sprint with 100 customer interviews. You test whether your research solves a problem someone will pay for.</p></div>
+          <a class="textlink" href="#fellowship">Where it happens: Scholar Founders Fellowship <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="step-panel" role="tabpanel" id="jp-3" aria-labelledby="jt-3" hidden>
+          <div><h3>Build</h3><p>A proof of concept with a GCC or industry partner. The partner brings the problem, funds the proof of concept and can become the first customer.</p></div>
+          <a class="textlink" href="#problems">Where it happens: Problem statements <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="step-panel" role="tabpanel" id="jp-4" aria-labelledby="jt-4" hidden>
+          <div><h3>Form</h3><p>Company, IP licence and standard terms. One set of terms, agreed once per institution, not company by company.</p></div>
+          <a class="textlink" href="#terms">Where it happens: Standard terms <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="step-panel" role="tabpanel" id="jp-5" aria-labelledby="jt-5" hidden>
+          <div><h3>Fund</h3><p>Grants, angels and research funds. Lab members get help with grants, and lab teams demo to investors at the Lab-to-Market Summit.</p></div>
+          <a class="textlink" href="#summit">Where it happens: Lab-to-Market Summit <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="step-panel" role="tabpanel" id="jp-6" aria-labelledby="jt-6" hidden>
+          <div><h3>Scale</h3><p>Pilots and first contracts, with the GCCs, industry partners and government bodies who set the problems in the first place.</p></div>
+          <a class="textlink" href="#summit">Where it happens: Lab-to-Market Summit <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="who">
+        <div>
+          <span class="eyebrow">Who it's for · who pays</span>
+          <h3 style="margin-top:14px">Everyone at the table gets something they can report.</h3>
+          <div class="persona">
+            <span class="caption">Illustrative persona, a composite to be validated in interviews</span>
+            <p><b>Dr Arun, 34,</b> is a PhD guide at a state university in Coimbatore, with a lab prototype and no route to a company. He asks two things first: “Will my university allow it?” and “Who owns the IP?” <a href="#faq">Read the answers</a></p>
+          </div>
+        </div>
+        <div class="who-grid">
+          <div class="who-item"><h4>Scholars and faculty</h4><p>A founder path, a fellowship and grant support.</p></div>
+          <div class="who-item"><h4>Institutions</h4><p>Spinouts, patents and innovation metrics.</p></div>
+          <div class="who-item"><h4>GCCs</h4><p>Problem-solving research and access to IP and talent.</p></div>
+          <div class="who-item"><h4>Government</h4><p>A deep-tech pipeline.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LABS ============ -->
+<section id="labs" class="sec" aria-labelledby="h-labs">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">StartNet Labs · Wave 1 launches 2027</span>
+      <h2 id="h-labs">Research pointed at a customer before it becomes a company.</h2>
+      <p class="lede">A StartNet Lab is a network, not a building. Each has a host institution, three to five partner institutions, one or two industry sponsors, a faculty Lab Director and a StartNet venture lead.</p>
+    </div>
+
+    <div class="pipeline reveal" id="pipeline">
+      <div class="pipe-head">
+        <h3>What every Lab commits to each year
+          <span class="tagw">
+            <button type="button" class="tag tag-c" aria-expanded="false" aria-controls="tp-lab" id="tag-lab"><b>C</b> Targets</button>
+            <span class="tag-pop" id="tp-lab" role="note">
+              <strong>Confidence tag C</strong>
+              An estimate or planning assumption. These are annual targets per Lab, not results.
+              <dl><dt>Source</dt><dd>StartNet Labs charter, website copy (Book 2 §3.1.1)</dd><dt>Status</dt><dd>Targets from Wave 1 (2027)</dd></dl>
+            </span>
+          </span>
+        </h3>
+        <button type="button" class="btn btn-ghost btn-sm" id="pipe-play">Play a Lab year <span class="arr" aria-hidden="true">▸</span></button>
+      </div>
+      <div class="pipe-stages" role="tablist" aria-label="Lab pipeline, from problem statement to spinout" id="pipe-tabs">
+        <button type="button" class="pipe-btn" role="tab" id="pt-1" aria-controls="pp-1" aria-selected="true">
+          <span class="pipe-s">Stage 1</span><span class="pipe-k">10+</span><span class="pipe-n">Problem statements</span>
+          <span class="pdots" data-n="10" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="pipe-btn" role="tab" id="pt-2" aria-controls="pp-2" aria-selected="false" tabindex="-1">
+          <span class="pipe-s">Stage 2</span><span class="pipe-k">20</span><span class="pipe-n">Fellows in the sprint</span>
+          <span class="pdots" data-n="20" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="pipe-btn" role="tab" id="pt-3" aria-controls="pp-3" aria-selected="false" tabindex="-1">
+          <span class="pipe-s">Stage 3</span><span class="pipe-k">6</span><span class="pipe-n">Funded prototypes</span>
+          <span class="pdots" data-n="6" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="pipe-btn" role="tab" id="pt-4" aria-controls="pp-4" aria-selected="false" tabindex="-1">
+          <span class="pipe-s">Stage 4</span><span class="pipe-k">2–3</span><span class="pipe-n">Spinouts<span class="fs" aria-hidden="true"></span></span>
+          <span class="pdots" data-n="2" data-range="1" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="pipe-panel" role="tabpanel" id="pp-1" aria-labelledby="pt-1">
+        <div><h4>Problem statement</h4><p>At least 10 problem statements a year, each co-signed by an industry, GCC or government sponsor. Research starts from a problem someone owns.</p></div>
+        <p class="stoprule"><b>Stopping rule.</b> No company formed in 24 months means the Lab closes or pivots, and we publish the decision.</p>
+      </div>
+      <div class="pipe-panel" role="tabpanel" id="pp-2" aria-labelledby="pt-2" hidden>
+        <div><h4>Scholar Founders Fellowship</h4><p>20 Scholar Founders Fellows through the 7-week sprint. Each talks to at least 100 potential customers before any money is spent.</p></div>
+        <p class="stoprule"><b>Stopping rule.</b> No company formed in 24 months means the Lab closes or pivots, and we publish the decision.</p>
+      </div>
+      <div class="pipe-panel" role="tabpanel" id="pp-3" aria-labelledby="pt-3" hidden>
+        <div><h4>Prototype: a funded proof of concept</h4><p>6 teams with a funded proof of concept. The GCC or industry partner brings the problem, funds the proof of concept and can become the first customer.</p></div>
+        <p class="stoprule"><b>Stopping rule.</b> No company formed in 24 months means the Lab closes or pivots, and we publish the decision.</p>
+      </div>
+      <div class="pipe-panel" role="tabpanel" id="pp-4" aria-labelledby="pt-4" hidden>
+        <div><h4>Spinout on standard terms</h4><p>2–3 companies formed on standard terms each year, with founders holding a clear majority. <a href="#terms">See the illustrative split</a>.</p></div>
+        <p class="stoprule"><b>Stopping rule.</b> No company formed in 24 months means the Lab closes or pivots, and we publish the decision.</p>
+      </div>
+      <p class="sr" aria-live="polite" id="pipe-live"></p>
+    </div>
+
+    <div class="labs-grid">
+      <h3>Wave 1 Labs</h3>
+      <div class="lab-tabs" role="tablist" aria-label="Wave 1 Labs" id="lab-tabs">
+        <button type="button" class="lab-tab" role="tab" id="lt-1" aria-controls="lp-1" aria-selected="true"><svg class="lab-art" data-art="agentic" viewBox="0 0 140 84" aria-hidden="true"></svg><span class="lt-name">Agentic AI Lab</span><span class="chip chip-accent">Launching 2027</span></button>
+        <button type="button" class="lab-tab" role="tab" id="lt-2" aria-controls="lp-2" aria-selected="false" tabindex="-1"><svg class="lab-art" data-art="ontology" viewBox="0 0 140 84" aria-hidden="true"></svg><span class="lt-name">Ontology &amp; Knowledge Lab</span><span class="chip chip-accent">Launching 2027</span></button>
+        <button type="button" class="lab-tab" role="tab" id="lt-3" aria-controls="lp-3" aria-selected="false" tabindex="-1"><svg class="lab-art" data-art="physical" viewBox="0 0 140 84" aria-hidden="true"></svg><span class="lt-name">Physical AI Lab</span><span class="chip chip-accent">Launching 2027</span></button>
+        <button type="button" class="lab-tab" role="tab" id="lt-4" aria-controls="lp-4" aria-selected="false" tabindex="-1"><svg class="lab-art" data-art="drug" viewBox="0 0 140 84" aria-hidden="true"></svg><span class="lt-name">Drug Discovery Lab</span><span class="chip chip-accent">Launching 2027</span></button>
+      </div>
+
+      <div class="lab-panel" role="tabpanel" id="lp-1" aria-labelledby="lt-1">
+        <div class="blk" style="gap:20px">
+          <div><h4>Agentic AI Lab</h4><p class="sub">Enterprise agents that work in production: evaluation, safety and Tamil- and Indic-language agents, built against real GCC problems.</p></div>
+          <div class="blk"><h5>Problems we work on</h5><p>Problem statements open <span class="ph">[date placeholder]</span></p></div>
+          <div class="blk"><h5>Who should apply</h5><p>PhD scholars, post-docs and faculty in the field; final-year master's students by invitation.</p></div>
+          <div class="btn-row"><a class="btn btn-accent btn-sm" href="https://x.startnet.in/join?persona=scholar&amp;intent=lab&amp;lab=agentic-ai&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Register interest</a><a class="btn btn-ghost btn-sm" href="https://x.startnet.in/join?persona=gcc&amp;intent=sponsor-lab&amp;lab=agentic-ai&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Sponsor this Lab</a></div>
+        </div>
+        <div class="blk" style="gap:20px">
+          <dl class="kv"><dt>Status</dt><dd><span class="chip chip-accent">Launching 2027</span></dd><dt>Host institution</dt><dd><span class="ph">[placeholder]</span></dd><dt>Spoke institutions</dt><dd><span class="ph">[placeholder]</span></dd><dt>Industry sponsors</dt><dd><span class="ph">[placeholder]</span></dd><dt>Lab Director</dt><dd><span class="ph">[placeholder]</span></dd></dl>
+          <div class="blk"><h5>What you get</h5><ul class="dotlist"><li>A place in the Scholar Founders Fellowship</li><li>Mentors from industry</li><li>A funded proof of concept if selected</li><li>Help with grants</li><li>Standard terms if you form a company</li></ul></div>
+        </div>
+      </div>
+      <div class="lab-panel" role="tabpanel" id="lp-2" aria-labelledby="lt-2" hidden>
+        <div class="blk" style="gap:20px">
+          <div><h4>Ontology &amp; Knowledge Lab</h4><p class="sub">Knowledge graphs and domain models that make health, legal, manufacturing and government data usable.</p></div>
+          <div class="blk"><h5>Problems we work on</h5><p>Problem statements open <span class="ph">[date placeholder]</span></p></div>
+          <div class="blk"><h5>Who should apply</h5><p>PhD scholars, post-docs and faculty in the field; final-year master's students by invitation.</p></div>
+          <div class="btn-row"><a class="btn btn-accent btn-sm" href="https://x.startnet.in/join?persona=scholar&amp;intent=lab&amp;lab=ontology-knowledge&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Register interest</a><a class="btn btn-ghost btn-sm" href="https://x.startnet.in/join?persona=gcc&amp;intent=sponsor-lab&amp;lab=ontology-knowledge&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Sponsor this Lab</a></div>
+        </div>
+        <div class="blk" style="gap:20px">
+          <dl class="kv"><dt>Status</dt><dd><span class="chip chip-accent">Launching 2027</span></dd><dt>Host institution</dt><dd><span class="ph">[placeholder]</span></dd><dt>Spoke institutions</dt><dd><span class="ph">[placeholder]</span></dd><dt>Industry sponsors</dt><dd><span class="ph">[placeholder]</span></dd><dt>Lab Director</dt><dd><span class="ph">[placeholder]</span></dd></dl>
+          <div class="blk"><h5>What you get</h5><ul class="dotlist"><li>A place in the Scholar Founders Fellowship</li><li>Mentors from industry</li><li>A funded proof of concept if selected</li><li>Help with grants</li><li>Standard terms if you form a company</li></ul></div>
+        </div>
+      </div>
+      <div class="lab-panel" role="tabpanel" id="lp-3" aria-labelledby="lt-3" hidden>
+        <div class="blk" style="gap:20px">
+          <div><h4>Physical AI Lab</h4><p class="sub">Robots, autonomy, vision and edge AI, tested with the manufacturers in Tamil Nadu's automotive and electronics base.</p></div>
+          <div class="blk"><h5>Problems we work on</h5><p>Problem statements open <span class="ph">[date placeholder]</span></p></div>
+          <div class="blk"><h5>Who should apply</h5><p>PhD scholars, post-docs and faculty in the field; final-year master's students by invitation.</p></div>
+          <div class="btn-row"><a class="btn btn-accent btn-sm" href="https://x.startnet.in/join?persona=scholar&amp;intent=lab&amp;lab=physical-ai&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Register interest</a><a class="btn btn-ghost btn-sm" href="https://x.startnet.in/join?persona=gcc&amp;intent=sponsor-lab&amp;lab=physical-ai&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Sponsor this Lab</a></div>
+        </div>
+        <div class="blk" style="gap:20px">
+          <dl class="kv"><dt>Status</dt><dd><span class="chip chip-accent">Launching 2027</span></dd><dt>Host institution</dt><dd><span class="ph">[placeholder]</span></dd><dt>Spoke institutions</dt><dd><span class="ph">[placeholder]</span></dd><dt>Industry sponsors</dt><dd><span class="ph">[placeholder]</span></dd><dt>Lab Director</dt><dd><span class="ph">[placeholder]</span></dd></dl>
+          <div class="blk"><h5>What you get</h5><ul class="dotlist"><li>A place in the Scholar Founders Fellowship</li><li>Mentors from industry</li><li>A funded proof of concept if selected</li><li>Help with grants</li><li>Standard terms if you form a company</li></ul></div>
+        </div>
+      </div>
+      <div class="lab-panel" role="tabpanel" id="lp-4" aria-labelledby="lt-4" hidden>
+        <div class="blk" style="gap:20px">
+          <div><h4>Drug Discovery Lab</h4><p class="sub">AI-assisted molecule design and biologics. Long timelines, computation first, with bio-incubators and pharma partners.</p></div>
+          <div class="blk"><h5>Problems we work on</h5><p>Problem statements open <span class="ph">[date placeholder]</span></p></div>
+          <div class="blk"><h5>Who should apply</h5><p>PhD scholars, post-docs and faculty in the field; final-year master's students by invitation.</p></div>
+          <div class="btn-row"><a class="btn btn-accent btn-sm" href="https://x.startnet.in/join?persona=scholar&amp;intent=lab&amp;lab=drug-discovery&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Register interest</a><a class="btn btn-ghost btn-sm" href="https://x.startnet.in/join?persona=gcc&amp;intent=sponsor-lab&amp;lab=drug-discovery&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Sponsor this Lab</a></div>
+        </div>
+        <div class="blk" style="gap:20px">
+          <dl class="kv"><dt>Status</dt><dd><span class="chip chip-accent">Launching 2027</span></dd><dt>Host institution</dt><dd><span class="ph">[placeholder]</span></dd><dt>Spoke institutions</dt><dd><span class="ph">[placeholder]</span></dd><dt>Industry sponsors</dt><dd><span class="ph">[placeholder]</span></dd><dt>Lab Director</dt><dd><span class="ph">[placeholder]</span></dd></dl>
+          <div class="blk"><h5>What you get</h5><ul class="dotlist"><li>A place in the Scholar Founders Fellowship</li><li>Mentors from industry</li><li>A funded proof of concept if selected</li><li>Help with grants</li><li>Standard terms if you form a company</li></ul></div>
+        </div>
+      </div>
+
+      <div class="wave2">
+        <span class="small" style="font-weight:600">Wave 2 (2028, proposed)</span>
+        <span class="chip">Climate &amp; EV Materials</span><span class="chip">MedTech</span><span class="chip">Agri &amp; Food</span><span class="chip">Semiconductor Design</span>
+        <p>Proposed. Not yet committed. Tell us if your institution wants to host one. <a href="https://x.startnet.in/join?persona=institution&amp;intent=host-lab&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Suggest a host</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FELLOWSHIP ============ -->
+<section id="fellowship" class="sec" aria-labelledby="h-fellow">
+  <div class="container split">
+    <div>
+      <div class="sec-head" style="margin-bottom:28px">
+        <span class="eyebrow">Scholar Founders Fellowship · 7 weeks</span>
+        <h2 id="h-fellow">100 conversations before a single rupee.</h2>
+        <p class="lede">Seven weeks of structured customer discovery. You'll talk to at least 100 potential customers, test whether your research solves a problem someone will pay for, and finish with evidence and a go/no-go decision.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>For</dt><dd>PhD scholars, post-docs and faculty</dd></div>
+        <div><dt>Length</dt><dd>7 weeks</dd></div>
+        <div><dt>Interviews</dt><dd>At least 100 potential customers</dd></div>
+        <div><dt>You leave with</dt><dd>Evidence and a go/no-go decision</dd></div>
+        <div><dt>Fee</dt><dd><span class="ph">[placeholder — mostly sponsor- or grant-funded seats]</span></dd></div>
+      </dl>
+      <div class="btn-row" style="margin-top:28px">
+        <a class="btn btn-accent" href="https://x.startnet.in/join?persona=scholar&amp;intent=fellowship&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Apply for the next cohort <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+      <p class="micro" style="margin-top:12px">Next cohort opens <span class="ph">[date placeholder]</span>. <a href="#register">Get notified</a>.</p>
+    </div>
+    <figure class="interviews reveal" id="interviews">
+      <div class="igrid" id="igrid" aria-hidden="true"></div>
+      <figcaption class="decision"><span class="big" aria-hidden="true"></span><span>100 interviews, then a decision<span class="sr">.</span></span></figcaption>
+      <p class="caption">Each dot is one customer conversation. The sprint ends when the evidence supports a go or a no-go.</p>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ SUMMIT ============ -->
+<section id="summit" class="sec" aria-labelledby="h-summit">
+  <div class="container split">
+    <div>
+      <div class="sec-head" style="margin-bottom:28px">
+        <span class="eyebrow">Lab-to-Market Summit · Annual</span>
+        <h2 id="h-summit">Where lab teams meet their first customers.</h2>
+        <p class="lede">The annual day where lab teams demo to GCCs, investors and government, and next year's problem statements are set.</p>
+      </div>
+      <ol class="summit-list">
+        <li><p>Lab teams demo to GCCs, investors and government.</p></li>
+        <li><p>Sponsors post next year's problem statements.</p></li>
+        <li><p>We launch the TN Research Commercialisation Index. <span class="chip">Planned</span></p></li>
+      </ol>
+    </div>
+    <div class="card reveal">
+      <h3>Next edition</h3>
+      <dl class="kv">
+        <dt>Date</dt><dd><span class="ph">[placeholder]</span></dd>
+        <dt>Venue</dt><dd><span class="ph">[placeholder]</span></dd>
+        <dt>Co-host</dt><dd><span class="ph">[placeholder]</span></dd>
+        <dt>Partners</dt><dd><span class="ph">[placeholder — signed partners only]</span></dd>
+      </dl>
+      <div class="btn-row">
+        <a class="btn btn-accent btn-sm" href="https://x.startnet.in/join?persona=scholar&amp;intent=summit&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener"><span data-ta="பதிவு செய்யுங்கள்">Register interest</span></a>
+        <a class="btn btn-ghost btn-sm" href="https://x.startnet.in/join?persona=sponsor&amp;intent=sponsor-summit&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Sponsor the Summit</a>
+      </div>
+      <p class="caption">In season, the brand button changes to “Register for Lab-to-Market Summit”.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSTITUTIONS ============ -->
+<section id="institutions" class="sec" aria-labelledby="h-inst">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Institution Partner Programme</span>
+      <h2 id="h-inst">Measure your institution by the founders it produces.</h2>
+      <p class="lede">One annual package for universities and colleges. Founder outcomes you can report, not workshops you have to justify.</p>
+    </div>
+    <div class="split">
+      <ol class="pkg">
+        <li>Membership of a StartNet Lab</li>
+        <li>A policy kit and IP committee set-up aligned with AICTE's innovation and startup policy</li>
+        <li>Faculty development</li>
+        <li>AI-readiness services</li>
+        <li>A Campus Innovation Index score</li>
+        <li>One set of research spinout terms, agreed once <a href="#terms" class="small">See terms</a></li>
+      </ol>
+      <div class="card reveal">
+        <div class="price">
+          <span class="caption">Indicative price</span>
+          <span class="pv">From ₹5 L</span>
+          <span class="small muted">a year, by size of institution</span>
+          <span><span class="tagw">
+            <button type="button" class="tag tag-c" aria-expanded="false" aria-controls="tp-ipp" id="tag-ipp"><b>C</b> Estimate</button>
+            <span class="tag-pop" id="tp-ipp" role="note"><strong>Confidence tag C</strong>An indicative price, to be replaced by the published rate card.<dl><dt>Source</dt><dd>Website copy, Book 2 §3.1.2</dd><dt>Excludes</dt><dd>GST</dd></dl></span>
+          </span></span>
+        </div>
+        <p class="quote-line">Institutions get spinouts, patents and innovation metrics.</p>
+        <dl class="kv"><dt>Signed institutions</dt><dd><span class="ph">[placeholder — to be supplied by StartNet]</span></dd></dl>
+        <div class="btn-row">
+          <a class="btn btn-accent btn-sm" href="https://x.startnet.in/join?persona=institution&amp;intent=consultation&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Book a consultation</a>
+          <a class="textlink small" href="https://startnet.in/research/institution-partner-programme" target="_blank" rel="noopener">Programme page on startnet.in <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM STATEMENTS ============ -->
+<section id="problems" class="sec" aria-labelledby="h-prob">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Problem statements</span>
+      <h2 id="h-prob">Real problems, co-signed by the people who have them.</h2>
+      <p class="lede">Each Lab publishes at least 10 problem statements a year, each co-signed by an industry, GCC or government sponsor. Scholars apply to a problem. For selected teams, the sponsor funds the proof of concept and can become the first customer.</p>
+    </div>
+    <div style="display:grid;gap:16px">
+      <div class="filters" role="group" aria-label="Filter problem statements by Lab" id="prob-filters">
+        <button type="button" class="fchip" id="pf-all" aria-pressed="true" data-f="all">All Labs</button>
+        <button type="button" class="fchip" id="pf-agentic" aria-pressed="false" data-f="Agentic AI">Agentic AI</button>
+        <button type="button" class="fchip" id="pf-ontology" aria-pressed="false" data-f="Ontology &amp; Knowledge">Ontology &amp; Knowledge</button>
+        <button type="button" class="fchip" id="pf-physical" aria-pressed="false" data-f="Physical AI">Physical AI</button>
+        <button type="button" class="fchip" id="pf-drug" aria-pressed="false" data-f="Drug Discovery">Drug Discovery</button>
+      </div>
+      <div class="empty" aria-live="polite">
+        <svg viewBox="0 0 120 72" aria-hidden="true" id="empty-art"></svg>
+        <div>
+          <h3 id="prob-empty-h">No problem statements are published yet.</h3>
+          <p>Problem statements open <span class="ph">[date placeholder]</span>. They appear here only once a sponsor has co-signed them.</p>
+          <div class="btn-row" style="margin-top:16px">
+            <a class="btn btn-accent btn-sm" href="https://x.startnet.in/join?persona=scholar&amp;intent=problem&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Get notified on StartNet X</a>
+            <a class="btn btn-ghost btn-sm" href="https://x.startnet.in/join?persona=gcc&amp;intent=post-problem&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Post a problem statement</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TERMS (Night band) ============ -->
+<section id="terms" class="night bleed" aria-labelledby="h-terms">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Standard terms</span>
+      <h2 id="h-terms">Clear terms for research spinouts.</h2>
+      <p class="lede">We publish one set of terms and agree them once per institution, not company by company. Final terms follow each institution's IP policy.</p>
+      <span><span class="draft">Draft · publish only after legal review</span></span>
+    </div>
+
+    <div class="ts" id="termsheet">
+      <div class="ts-top">
+        <h3>Illustrative split at formation</h3>
+        <span class="tagw">
+          <button type="button" class="tag tag-c" aria-expanded="false" aria-controls="tp-ts" id="tag-ts"><b>C</b> Estimate</button>
+          <span class="tag-pop" id="tp-ts" role="note"><strong>Confidence tag C</strong>An illustrative draft, subject to legal review. Not an offer.<dl><dt>Source</dt><dd>StartNet standard terms draft (Book 2 §3.1)</dd><dt>Ranges</dt><dd>Institution 5–10%, StartNet 3–7%</dd></dl></span>
+        </span>
+      </div>
+      <div class="barwrap">
+        <div class="bar" id="ts-bar" role="group" aria-label="Cap table at formation">
+          <button type="button" class="seg-b s-f" data-p="f" aria-pressed="false" id="seg-f"><span class="pct">78%</span><span class="lbl">Founders</span></button>
+          <button type="button" class="seg-b s-e" data-p="e" aria-pressed="false" id="seg-e"><span class="pct">10%</span><span class="lbl">ESOP pool</span></button>
+          <button type="button" class="seg-b s-i" data-p="i" aria-pressed="false" id="seg-i"><span class="pct">7%</span><span class="lbl">Institution</span></button>
+          <button type="button" class="seg-b s-s" data-p="s" aria-pressed="false" id="seg-s"><span class="pct">5%</span><span class="lbl">StartNet</span></button>
+        </div>
+        <span class="bar-stop" aria-hidden="true"></span>
+      </div>
+      <div class="ts-controls">
+        <div class="ctl">
+          <label for="r-inst"><span>Institution stake</span><output for="r-inst" id="o-inst">7%</output></label>
+          <input type="range" id="r-inst" min="5" max="10" step="0.5" value="7" aria-valuetext="7 percent">
+          <span class="hint">Range 5–10%. A small stake and/or royalty for IP, lab access and a host incubator.</span>
+        </div>
+        <div class="ctl">
+          <label for="r-sn"><span>StartNet stake</span><output for="r-sn" id="o-sn">5%</output></label>
+          <input type="range" id="r-sn" min="3" max="7" step="0.5" value="5" aria-valuetext="5 percent">
+          <span class="hint">Range 3–7%. A small founding stake for the programme, venture building, capital and market access.</span>
+        </div>
+        <div class="ctl">
+          <span class="ctl-l"><span>Founders keep</span><output id="o-f" aria-live="polite">78%</output></span>
+          <span class="majority" id="majority">A clear majority</span>
+          <span class="hint">ESOP pool held at 10%. A GCC or industry partner takes equity only if it invests cash.</span>
+        </div>
+      </div>
+      <div class="ts-foot">
+        <span>The draft term sheet will be published here after legal review.</span>
+        <button type="button" class="btn btn-night btn-sm" id="ts-reset">Reset to 78 / 10 / 7 / 5</button>
+      </div>
+    </div>
+
+    <h3 class="sr">The four-party model</h3>
+    <div class="parties" id="parties">
+      <button type="button" class="party" data-p="f" aria-pressed="false" id="party-f">
+        <span class="sw s-f" aria-hidden="true"></span>
+        <h4>Scholar or faculty founders</h4>
+        <p>Lead the company and hold a clear majority.</p>
+        <span class="stake" data-stake="f">Founders 78% · ESOP pool 10%</span>
+      </button>
+      <button type="button" class="party" data-p="i" aria-pressed="false" id="party-i">
+        <span class="sw s-i" aria-hidden="true"></span>
+        <h4>The institution</h4>
+        <p>Provides IP, lab access and a host incubator, and takes a small stake and/or royalty.</p>
+        <span class="stake" data-stake="i">7% illustrative</span>
+      </button>
+      <button type="button" class="party" data-p="g" aria-pressed="false" id="party-g">
+        <span class="sw" style="border:1.5px dashed var(--band-subtle)" aria-hidden="true"></span>
+        <h4>The GCC or industry partner</h4>
+        <p>Brings the problem, funds the proof of concept and can become the first customer. Takes equity only if it invests cash.</p>
+        <span class="stake">0% unless it invests cash</span>
+      </button>
+      <button type="button" class="party" data-p="s" aria-pressed="false" id="party-s">
+        <span class="sw s-s" aria-hidden="true"></span>
+        <h4>StartNet</h4>
+        <p>Runs the programme, venture building, capital and market access, and takes a small founding stake.</p>
+        <span class="stake" data-stake="s">5% illustrative</span>
+      </button>
+    </div>
+    <div class="nisp">
+      <p>Faculty can use leave or sabbatical provisions under AICTE's National Innovation and Startup Policy, where their institution has adopted it.</p>
+      <p>Final terms follow each institution's IP policy. Ranges: institution 5–10%, StartNet 3–7%.</p>
+    </div>
+    <p class="sr" aria-live="polite" id="ts-live"></p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="sec" aria-labelledby="h-faq" style="border-top:0">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Questions</span>
+      <h2 id="h-faq">Questions scholars, faculty and institutions ask first.</h2>
+    </div>
+    <div class="faq-wrap">
+      <div class="tabs" role="tablist" aria-label="FAQ by audience" id="faq-tabs">
+        <button type="button" class="tab" role="tab" id="ft-1" aria-controls="fp-1" aria-selected="true">For scholars</button>
+        <button type="button" class="tab" role="tab" id="ft-2" aria-controls="fp-2" aria-selected="false" tabindex="-1">For faculty</button>
+        <button type="button" class="tab" role="tab" id="ft-3" aria-controls="fp-3" aria-selected="false" tabindex="-1">For institutions</button>
+        <button type="button" class="tab" role="tab" id="ft-4" aria-controls="fp-4" aria-selected="false" tabindex="-1">For GCCs and industry</button>
+      </div>
+      <div role="tabpanel" id="fp-1" aria-labelledby="ft-1">
+        <details id="q1"><summary>Who can join a Lab?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>PhD scholars, post-docs and faculty in the field. Final-year master's students join by invitation.</p></div></details>
+        <details id="q2"><summary>What do I get?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>A place in the Scholar Founders Fellowship, mentors from industry, a funded proof of concept if selected, help with grants, and standard terms if you form a company.</p></div></details>
+        <details id="q3"><summary>What does the Fellowship cost?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>The fee is <span class="ph">[placeholder]</span>. Seats are mostly sponsor- or grant-funded.</p></div></details>
+        <details id="q4"><summary>How much of the company do founders keep?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>A clear majority. In the illustrative split, founders hold 78% at formation, with a 10% ESOP pool. The split is a draft and subject to legal review. <a href="#terms">Try the split</a>.</p></div></details>
+      </div>
+      <div role="tabpanel" id="fp-2" aria-labelledby="ft-2" hidden>
+        <details id="q5"><summary>Will my university allow it?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Faculty can use leave or sabbatical provisions under AICTE's National Innovation and Startup Policy, where their institution has adopted it. Institutions that join the Institution Partner Programme get a policy kit and IP committee set-up aligned with that policy.</p></div></details>
+        <details id="q6"><summary>Who owns the IP?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>The institution provides IP, lab access and a host incubator, and takes a small stake and/or royalty. Final terms follow each institution's IP policy.</p></div></details>
+        <details id="q7"><summary>Can I apply to the Fellowship as faculty?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Yes. The Scholar Founders Fellowship is a 7-week customer-discovery sprint for scholars and faculty.</p></div></details>
+      </div>
+      <div role="tabpanel" id="fp-3" aria-labelledby="ft-3" hidden>
+        <details id="q8"><summary>What does the Institution Partner Programme include?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Membership of a StartNet Lab, a policy kit and IP committee set-up aligned with AICTE's innovation and startup policy, faculty development, AI-readiness services, and a Campus Innovation Index score.</p></div></details>
+        <details id="q9"><summary>What does it cost?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Indicatively from ₹5 L a year, by size. This is an estimate [C] until the rate card is published.</p></div></details>
+        <details id="q10"><summary>Do we negotiate terms for every company?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>No. We publish one set of terms and agree them once per institution, not company by company.</p></div></details>
+        <details id="q11"><summary>What happens if a Lab doesn't produce companies?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>No company formed in 24 months means the Lab closes or pivots, and we publish the decision.</p></div></details>
+      </div>
+      <div role="tabpanel" id="fp-4" aria-labelledby="ft-4" hidden>
+        <details id="q12"><summary>What does an industry partner do?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>The GCC or industry partner brings the problem, funds the proof of concept and can become the first customer. It takes equity only if it invests cash.</p></div></details>
+        <details id="q13"><summary>What do GCCs get?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Problem-solving research and access to IP and talent.</p></div></details>
+        <details id="q14"><summary>How do we post a problem statement?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Each problem statement is co-signed by an industry, GCC or government sponsor. <a href="https://x.startnet.in/join?persona=gcc&amp;intent=post-problem&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener">Post a problem statement on StartNet X</a>.</p></div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="register" class="cta" aria-labelledby="h-cta">
+  <div class="container cta-grid">
+    <div>
+      <span class="eyebrow">Register interest</span>
+      <h2 id="h-cta" style="margin-top:16px">Have research that could solve someone's problem? Tell us about it<span class="fs" aria-hidden="true" style="width:.18em;height:.18em"></span><span class="sr">.</span></h2>
+      <div class="contact">
+        <span class="small" style="font-weight:600" data-ta="எங்களிடம் பேசுங்கள்">Talk to the Research team</span>
+        <div class="addr"><code id="mail">research@startnet.in</code><button type="button" class="copy" id="copy-mail">Copy address</button><span class="ph">[address to be confirmed]</span></div>
+        <span class="caption" id="copy-status" aria-live="polite"></span>
+      </div>
+    </div>
+    <div>
+      <form class="reg" id="reg-form" novalidate>
+        <div class="two">
+          <div class="field" id="f-name">
+            <label for="reg-name">Full name</label>
+            <input type="text" id="reg-name" name="name" autocomplete="name" required aria-describedby="e-name">
+            <span class="err" id="e-name"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 4.5v4.5M8 11v.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span><span class="sr">Error: </span>Enter your name.</span></span>
+          </div>
+          <div class="field" id="f-email">
+            <label for="reg-email">Email</label>
+            <input type="email" id="reg-email" name="email" autocomplete="email" required aria-describedby="e-email">
+            <span class="err" id="e-email"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 4.5v4.5M8 11v.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span><span class="sr">Error: </span>Enter an email address like name@university.ac.in.</span></span>
+          </div>
+        </div>
+        <div class="two">
+          <div class="field" id="f-role">
+            <label for="reg-role">I am</label>
+            <select id="reg-role" name="role" required aria-describedby="e-role">
+              <option value="">Choose one</option>
+              <option value="scholar">A PhD scholar</option>
+              <option value="postdoc">A post-doc</option>
+              <option value="faculty">Faculty</option>
+              <option value="institution">From an institution</option>
+              <option value="gcc">From a GCC or industry</option>
+              <option value="government">From government</option>
+            </select>
+            <span class="err" id="e-role"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 4.5v4.5M8 11v.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span><span class="sr">Error: </span>Choose who you are.</span></span>
+          </div>
+          <div class="field" id="f-lab">
+            <label for="reg-lab">Lab of interest <span class="opt">(optional)</span></label>
+            <select id="reg-lab" name="lab">
+              <option value="">Not sure yet</option>
+              <option value="agentic-ai">Agentic AI Lab</option>
+              <option value="ontology-knowledge">Ontology &amp; Knowledge Lab</option>
+              <option value="physical-ai">Physical AI Lab</option>
+              <option value="drug-discovery">Drug Discovery Lab</option>
+            </select>
+          </div>
+        </div>
+        <div class="field" id="f-summary">
+          <label for="reg-summary">Your research and the problem it could solve <span class="opt">(optional)</span></label>
+          <textarea id="reg-summary" name="summary" maxlength="600" aria-describedby="c-summary"></textarea>
+          <span class="caption" id="c-summary">Up to 600 characters. No confidential or unpublished IP details.</span>
+        </div>
+        <div class="field" id="f-consent">
+          <label class="check" for="reg-consent"><input type="checkbox" id="reg-consent" name="consent" required aria-describedby="e-consent"><span>StartNet may contact me about StartNet Research programmes.</span></label>
+          <span class="err" id="e-consent"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 4.5v4.5M8 11v.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span><span class="sr">Error: </span>Tick the box so we can contact you.</span></span>
+        </div>
+        <div class="btn-row">
+          <button type="submit" class="btn btn-accent" id="reg-submit"><span data-ta="பதிவு செய்யுங்கள்">Register interest</span></button>
+        </div>
+        <p class="form-note">This preview keeps your details on this page only. Nothing is sent from here.</p>
+      </form>
+      <div class="success" id="reg-success" hidden tabindex="-1">
+        <svg class="tick" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20"/><path d="M13 22.5l6 6 12-13"/></svg>
+        <h3>You're in<span class="fs land" aria-hidden="true" style="--land-delay:120ms"></span><span class="sr">.</span></h3>
+        <p id="success-msg">Your interest is noted on this page. To be counted and hear when Labs open, finish on StartNet X.</p>
+        <div class="btn-row">
+          <a class="btn btn-accent btn-sm" id="success-link" href="https://x.startnet.in/join?persona=scholar&amp;intent=lab&amp;src=artifact-research&amp;brand=research" target="_blank" rel="noopener"><span data-ta="உங்கள் இலவச சுயவிவரத்தை உருவாக்குங்கள்">Create your free profile</span></a>
+          <button type="button" class="btn btn-ghost btn-sm" id="reg-edit">Edit details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot bleed">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a class="wordmark" href="https://startnet.in" target="_blank" rel="noopener">StartNet<span class="fs" aria-hidden="true"></span><span class="lockup-desc" style="font-weight:400;margin-left:.42em">Research</span></a>
+        <p class="tagline" style="margin-top:6px"><span data-ta="ஒவ்வொரு திறமையும், ஒரு நிறுவனர்">Every talent, a founder</span><span class="fs" aria-hidden="true"></span><span class="sr">.</span></p>
+        <p class="partof">Part of StartNet · <a href="https://startnet.in" target="_blank" rel="noopener">startnet.in</a></p>
+      </div>
+      <div>
+        <h3 data-ta="எங்கள் பிராண்டுகள்">Our brands</h3>
+        <ul>
+          <li><a href="#overview" aria-current="page">StartNet Research</a></li>
+          <li><a href="https://startnet.in/vibe" target="_blank" rel="noopener">StartNet Vibe</a></li>
+          <li><a href="https://startnet.in/connect" target="_blank" rel="noopener">StartNet Connect</a></li>
+          <li><a href="https://startnet.in/women" target="_blank" rel="noopener">StartNet Women</a></li>
+          <li><a href="https://x.startnet.in/?src=artifact-research&amp;brand=research" target="_blank" rel="noopener">StartNet X</a></li>
+        </ul>
+      </div>
+      <div class="foot-ctl">
+        <h3>Settings</h3>
+        <div class="row"><span>Language</span>
+          <div class="seg" role="group" aria-label="Language">
+            <button type="button" id="lang-en-foot" data-lang="en" aria-pressed="true">EN</button>
+            <button type="button" id="lang-ta-foot" data-lang="ta" aria-pressed="false" lang="ta">தமிழ்</button>
+          </div>
+        </div>
+        <div class="row"><span id="motion-label">Reduce motion</span>
+          <div class="seg" role="group" aria-labelledby="motion-label">
+            <button type="button" id="motion-on" data-motion="on" aria-pressed="false">On</button>
+            <button type="button" id="motion-off" data-motion="off" aria-pressed="false">Off</button>
+            <button type="button" id="motion-system" data-motion="system" aria-pressed="true">Device</button>
+          </div>
+        </div>
+        <p class="caption" style="color:var(--band-muted)">Tamil covers the tagline and main buttons for now. These are drafts awaiting native review.</p>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>Figures carry A/B/C tags: A verified against a primary source, B an organisation's own claim, C an estimate or planning assumption.</span>
+      <span>StartNet Research · Chennai, Tamil Nadu</span>
+    </div>
+  </div>
+</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function store(k, v) { try { if (v === undefined) return window.localStorage.getItem(k); window.localStorage.setItem(k, v); } catch (e) { return null; } return null; }
+
+  /* ---------- Motion preference ---------- */
+  var motionPref = store("sn-motion") || "system";
+  function reduced() { return motionPref === "on" || (motionPref === "system" && mqReduce.matches); }
+  function applyMotion() {
+    root.setAttribute("data-motion", reduced() ? "reduced" : "full");
+    document.querySelectorAll("[data-motion]").forEach(function (b) {
+      if (b.tagName === "BUTTON") b.setAttribute("aria-pressed", String(b.getAttribute("data-motion") === motionPref));
+    });
+    if (window.__heroArt) window.__heroArt.motionChanged();
+  }
+  document.querySelectorAll("button[data-motion]").forEach(function (b) {
+    b.addEventListener("click", function () { motionPref = b.getAttribute("data-motion"); store("sn-motion", motionPref); applyMotion(); });
+  });
+  if (mqReduce.addEventListener) mqReduce.addEventListener("change", applyMotion); else if (mqReduce.addListener) mqReduce.addListener(applyMotion);
+  applyMotion();
+
+  /* ---------- Language toggle (strings with Tamil drafts only) ---------- */
+  var taEls = Array.prototype.slice.call(document.querySelectorAll("[data-ta]"));
+  taEls.forEach(function (el) { el.setAttribute("data-en", el.textContent); });
+  function applyLang(lang) {
+    taEls.forEach(function (el) {
+      if (lang === "ta") { el.textContent = el.getAttribute("data-ta"); el.setAttribute("lang", "ta"); }
+      else { el.textContent = el.getAttribute("data-en"); el.removeAttribute("lang"); }
+    });
+    document.querySelectorAll("button[data-lang]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang)); });
+  }
+  document.querySelectorAll("button[data-lang]").forEach(function (b) {
+    b.addEventListener("click", function () { var l = b.getAttribute("data-lang"); store("sn-lang", l); applyLang(l); });
+  });
+  applyLang(store("sn-lang") === "ta" ? "ta" : "en");
+
+  /* ---------- Kinetic headline (word reveal; text stays in the DOM) ---------- */
+  var kin = document.querySelector(".kin-text");
+  if (kin) {
+    var words = kin.textContent.split(" ");
+    kin.textContent = "";
+    words.forEach(function (w, i) {
+      var s = document.createElement("span"); s.className = "word"; s.style.setProperty("--i", i); s.textContent = w;
+      kin.appendChild(s); if (i < words.length - 1) kin.appendChild(document.createTextNode(" "));
+    });
+    var landEl = document.querySelector("#h-hero .land");
+    if (landEl) landEl.style.setProperty("--land-delay", (words.length * 70 + 420) + "ms");
+  }
+
+  /* ---------- Sticky sub-nav: scroll-spy ---------- */
+  var nav = document.getElementById("subnav");
+  var navList = document.getElementById("subnav-links");
+  var navLinks = Array.prototype.slice.call(navList.querySelectorAll("a"));
+  function setScrollPad() { root.style.scrollPaddingTop = (nav.offsetHeight + 16) + "px"; }
+  setScrollPad(); window.addEventListener("resize", setScrollPad);
+  var sections = navLinks.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
+  function activate(id) {
+    navLinks.forEach(function (a) {
+      var on = a.getAttribute("href") === "#" + id;
+      if (on) {
+        if (a.getAttribute("aria-current") !== "true") {
+          a.setAttribute("aria-current", "true");
+          if (navList.scrollWidth > navList.clientWidth) {
+            var left = a.offsetLeft - navList.clientWidth / 2 + a.offsetWidth / 2;
+            navList.scrollTo({ left: Math.max(0, left), behavior: reduced() ? "auto" : "smooth" });
+          }
+        }
+      } else a.removeAttribute("aria-current");
+    });
+  }
+  var ticking = false;
+  function spy() {
+    ticking = false;
+    var line = nav.offsetHeight + window.innerHeight * 0.25;
+    var current = sections[0].id;
+    sections.forEach(function (s) { if (s && s.getBoundingClientRect().top <= line) current = s.id; });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+      var terms = document.getElementById("terms");
+      if (terms.getBoundingClientRect().top < window.innerHeight) current = "terms";
+    }
+    activate(current);
+  }
+  window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+  spy();
+
+  /* ---------- Confidence-tag popovers ---------- */
+  var tagWraps = Array.prototype.slice.call(document.querySelectorAll(".tagw"));
+  function place(w) {
+    var pop = w.querySelector(".tag-pop"); pop.style.left = "0px";
+    var r = pop.getBoundingClientRect(), vw = document.documentElement.clientWidth, shift = 0;
+    if (r.right > vw - 12) shift = (vw - 12) - r.right;
+    if (r.left + shift < 12) shift = 12 - r.left;
+    pop.style.left = shift + "px";
+  }
+  function openTag(w, on) {
+    w.classList.toggle("open", on);
+    w.querySelector(".tag").setAttribute("aria-expanded", String(on));
+    if (on) place(w);
+  }
+  tagWraps.forEach(function (w) {
+    var btn = w.querySelector(".tag"); w._pinned = false;
+    btn.addEventListener("click", function () { w._pinned = !w.classList.contains("open") || !w._pinned; openTag(w, w._pinned); });
+    w.addEventListener("mouseenter", function () { openTag(w, true); });
+    w.addEventListener("mouseleave", function () { if (!w._pinned) openTag(w, false); });
+    var esc = false;
+    btn.addEventListener("focus", function () { if (!esc) openTag(w, true); esc = false; });
+    w.addEventListener("focusout", function (e) { if (!w.contains(e.relatedTarget)) { w._pinned = false; openTag(w, false); } });
+    w.addEventListener("keydown", function (e) { if (e.key === "Escape" && w.classList.contains("open")) { e.stopPropagation(); w._pinned = false; openTag(w, false); if (document.activeElement !== btn) { esc = true; btn.focus(); } } });
+  });
+  document.addEventListener("click", function (e) { tagWraps.forEach(function (w) { if (!w.contains(e.target)) { w._pinned = false; openTag(w, false); } }); });
+
+  /* ---------- Generic tabs (automatic activation, arrow keys) ---------- */
+  function tabs(listId, onChange) {
+    var list = document.getElementById(listId); if (!list) return null;
+    var ts = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]'));
+    function select(t, focus) {
+      ts.forEach(function (x) {
+        var on = x === t; x.setAttribute("aria-selected", String(on)); x.tabIndex = on ? 0 : -1;
+        var p = document.getElementById(x.getAttribute("aria-controls")); if (p) p.hidden = !on;
+      });
+      if (focus) t.focus();
+      if (onChange) onChange(ts.indexOf(t));
+    }
+    ts.forEach(function (t, i) {
+      t.addEventListener("click", function () { select(t, false); });
+      t.addEventListener("keydown", function (e) {
+        var k = e.key, n = null;
+        if (k === "ArrowRight" || k === "ArrowDown") n = ts[(i + 1) % ts.length];
+        else if (k === "ArrowLeft" || k === "ArrowUp") n = ts[(i - 1 + ts.length) % ts.length];
+        else if (k === "Home") n = ts[0]; else if (k === "End") n = ts[ts.length - 1];
+        if (n) { e.preventDefault(); select(n, true); }
+      });
+    });
+    return { select: function (i) { select(ts[i], false); }, tabs: ts };
+  }
+  tabs("journey-tabs");
+  tabs("lab-tabs");
+  tabs("faq-tabs");
+
+  /* ---------- Lab pipeline ---------- */
+  var pipeline = document.getElementById("pipeline");
+  pipeline.querySelectorAll(".pdots").forEach(function (box) {
+    var n = +box.getAttribute("data-n"), extra = +(box.getAttribute("data-range") || 0);
+    for (var i = 0; i < n + extra; i++) { var d = document.createElement("span"); d.className = "pdot" + (i >= n ? " range" : ""); box.appendChild(d); }
+  });
+  var pipeLive = document.getElementById("pipe-live");
+  var stageNames = ["Problem statements: 10 or more", "Fellows in the sprint: 20", "Funded prototypes: 6", "Spinouts: 2 to 3"];
+  var pipeTabs = tabs("pipe-tabs", function (i) { pipeLive.textContent = stageNames[i]; });
+  var playBtn = document.getElementById("pipe-play"), playTimers = [];
+  function stopPlay() { playTimers.forEach(clearTimeout); playTimers = []; pipeline.classList.remove("playing"); pipeline.querySelectorAll(".pdot").forEach(function (d) { d.classList.remove("lit"); }); playBtn.disabled = false; }
+  playBtn.addEventListener("click", function () {
+    stopPlay();
+    if (reduced()) { pipeTabs.select(3); pipeLive.textContent = "A Lab year: " + stageNames.join(", then ") + "."; return; }
+    pipeline.classList.add("playing"); playBtn.disabled = true;
+    var t = 0;
+    pipeTabs.tabs.forEach(function (tab, si) {
+      var dots = Array.prototype.slice.call(tab.querySelectorAll(".pdot"));
+      playTimers.push(setTimeout(function () { pipeTabs.select(si); }, t));
+      dots.forEach(function (d, di) { playTimers.push(setTimeout(function () { d.classList.add("lit"); }, t + 120 + di * 40)); });
+      t += 260 + dots.length * 40 + 420;
+    });
+    playTimers.push(setTimeout(function () { pipeline.classList.remove("playing"); pipeline.querySelectorAll(".pdot").forEach(function (d) { d.classList.remove("lit"); }); playBtn.disabled = false; }, t + 300));
+  });
+
+  /* ---------- Lab art: pulli grid + joined lines ---------- */
+  var arts = {
+    agentic: { e: [[[0,4],[1,3],[2,3],[3,2],[4,2],[5,1],[6,0]], [[3,2],[3,4]], [[5,1],[6,2]]], n: [[0,4],[3,2],[6,0],[3,4],[6,2]] },
+    ontology: { e: [[[3,0],[1,2],[0,4]], [[1,2],[2,4]], [[3,0],[3,2]], [[3,0],[5,2],[4,4]], [[5,2],[6,4]]], n: [[3,0],[1,2],[3,2],[5,2],[0,4],[2,4],[4,4],[6,4]] },
+    physical: { e: [[[0,4],[1,4],[2,2],[4,1],[5,2],[6,2]], [[5,2],[5,3]], [[6,2],[6,3]]], n: [[0,4],[2,2],[4,1],[5,3],[6,3]] },
+    drug: { e: [[[2,1],[4,1],[5,2],[4,3],[2,3],[1,2],[2,1]], [[5,2],[6,2],[6,4]], [[1,2],[0,0]]], n: [[3,2],[6,4],[0,0]] }
+  };
+  var NS = "http://www.w3.org/2000/svg";
+  function drawArt(svg, spec, cols, rows, sx, sy, ox, oy) {
+    function P(p) { return [ox + p[0] * sx, oy + p[1] * sy]; }
+    for (var y = 0; y < rows; y++) for (var x = 0; x < cols; x++) { var c = document.createElementNS(NS, "circle"); var q = P([x, y]); c.setAttribute("cx", q[0]); c.setAttribute("cy", q[1]); c.setAttribute("r", 1.8); c.setAttribute("class", "g"); svg.appendChild(c); }
+    spec.e.forEach(function (path) { var pl = document.createElementNS(NS, "polyline"); pl.setAttribute("points", path.map(function (p) { return P(p).join(","); }).join(" ")); pl.setAttribute("class", "e"); svg.appendChild(pl); });
+    spec.n.forEach(function (p) { var c = document.createElementNS(NS, "circle"); var q = P(p); c.setAttribute("cx", q[0]); c.setAttribute("cy", q[1]); c.setAttribute("r", 4.2); c.setAttribute("class", "n"); svg.appendChild(c); });
+  }
+  document.querySelectorAll(".lab-art").forEach(function (svg) { drawArt(svg, arts[svg.getAttribute("data-art")], 7, 5, 20, 16, 10, 10); });
+  drawArt(document.getElementById("empty-art"), { e: [[[0,3],[1,2],[2,2],[3,1]], [[3,1],[4,1],[5,0]]], n: [[0,3],[5,0]] }, 6, 4, 20, 18, 10, 9);
+
+  /* ---------- Problem statement filters (honest empty state) ---------- */
+  var fchips = Array.prototype.slice.call(document.querySelectorAll("#prob-filters .fchip"));
+  var emptyH = document.getElementById("prob-empty-h");
+  fchips.forEach(function (c) {
+    c.addEventListener("click", function () {
+      fchips.forEach(function (x) { x.setAttribute("aria-pressed", String(x === c)); });
+      var f = c.getAttribute("data-f");
+      emptyH.textContent = f === "all" ? "No problem statements are published yet." : "No " + f + " problem statements are published yet.";
+    });
+  });
+
+  /* ---------- Fellowship: 100 interview dots ---------- */
+  var igrid = document.getElementById("igrid");
+  for (var k = 0; k < 100; k++) { var d = document.createElement("span"); d.className = "idot"; d.style.setProperty("--i", k); igrid.appendChild(d); }
+
+  /* ---------- Count-up and once-only plays ---------- */
+  var nf = new Intl.NumberFormat("en-IN");
+  function countUp(el) {
+    var to = +el.getAttribute("data-to"), from = Math.round(to * 0.8), dur = 1200, t0 = null;
+    function step(ts) {
+      if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / dur); var e = 1 - Math.pow(1 - p, 3);
+      el.textContent = nf.format(Math.round(from + (to - from) * e)); if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return; io.unobserve(en.target);
+        if (reduced()) return;
+        if (en.target.classList.contains("count")) countUp(en.target);
+        if (en.target.id === "interviews") en.target.classList.add("play");
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll(".count").forEach(function (el) { io.observe(el); });
+    io.observe(document.getElementById("interviews"));
+  }
+
+  /* ---------- Term sheet ---------- */
+  var rI = document.getElementById("r-inst"), rS = document.getElementById("r-sn");
+  var oI = document.getElementById("o-inst"), oS = document.getElementById("o-sn"), oF = document.getElementById("o-f");
+  var segs = { f: document.getElementById("seg-f"), e: document.getElementById("seg-e"), i: document.getElementById("seg-i"), s: document.getElementById("seg-s") };
+  var tsLive = document.getElementById("ts-live"), liveT = null, barEl = document.getElementById("ts-bar");
+  function fmt(v) { return (Math.round(v * 10) / 10).toString().replace(/\.0$/, "") + "%"; }
+  function renderTS() {
+    var inst = +rI.value, sn = +rS.value, esop = 10, f = 100 - esop - inst - sn;
+    var vals = { f: f, e: esop, i: inst, s: sn };
+    Object.keys(segs).forEach(function (k) {
+      segs[k].style.flex = "0 0 calc(" + vals[k] + "% - 3px)";
+      segs[k].querySelector(".pct").textContent = fmt(vals[k]);
+      segs[k].classList.toggle("narrow", (barEl.clientWidth || 600) * vals[k] / 100 < 96);
+      segs[k].setAttribute("aria-label", segs[k].querySelector(".lbl").textContent + " " + fmt(vals[k]));
+    });
+    oI.textContent = fmt(inst); oS.textContent = fmt(sn); oF.textContent = fmt(f);
+    rI.setAttribute("aria-valuetext", fmt(inst).replace("%", " percent")); rS.setAttribute("aria-valuetext", fmt(sn).replace("%", " percent"));
+    document.querySelector('[data-stake="f"]').textContent = "Founders " + fmt(f) + " · ESOP pool 10%";
+    document.querySelector('[data-stake="i"]').textContent = fmt(inst) + " illustrative";
+    document.querySelector('[data-stake="s"]').textContent = fmt(sn) + " illustrative";
+    clearTimeout(liveT);
+    liveT = setTimeout(function () { tsLive.textContent = "Founders " + fmt(f) + ", ESOP pool 10%, institution " + fmt(inst) + ", StartNet " + fmt(sn) + "."; }, 400);
+  }
+  rI.addEventListener("input", renderTS); rS.addEventListener("input", renderTS);
+  document.getElementById("ts-reset").addEventListener("click", function () { rI.value = 7; rS.value = 5; renderTS(); });
+  var partyBtns = Array.prototype.slice.call(document.querySelectorAll(".party"));
+  function selectParty(p) {
+    var same = document.getElementById("party-" + p) && document.getElementById("party-" + p).getAttribute("aria-pressed") === "true";
+    var target = same ? null : p;
+    partyBtns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-p") === target)); });
+    Object.keys(segs).forEach(function (k) {
+      var on = target !== null && (k === target || (target === "f" && k === "e"));
+      segs[k].setAttribute("aria-pressed", String(on));
+    });
+  }
+  partyBtns.forEach(function (b) { b.addEventListener("click", function () { selectParty(b.getAttribute("data-p")); }); });
+  Object.keys(segs).forEach(function (k) { segs[k].addEventListener("click", function () { selectParty(k === "e" ? "f" : k); }); });
+  renderTS();
+  window.addEventListener("resize", renderTS);
+
+  /* ---------- Copy address ---------- */
+  var copyStatus = document.getElementById("copy-status");
+  document.getElementById("copy-mail").addEventListener("click", function () {
+    var text = document.getElementById("mail").textContent;
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById("mail"));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      copyStatus.textContent = "Address selected. Press Ctrl+C or Cmd+C to copy.";
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { copyStatus.textContent = "Copied research@startnet.in"; }, fallback);
+      else fallback();
+    } catch (e) { fallback(); }
+  });
+
+  /* ---------- Register interest form (page UI only) ---------- */
+  var form = document.getElementById("reg-form"), success = document.getElementById("reg-success");
+  var checks = {
+    "reg-name": function (el) { return el.value.trim().length >= 2; },
+    "reg-email": function (el) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(el.value.trim()); },
+    "reg-role": function (el) { return el.value !== ""; },
+    "reg-consent": function (el) { return el.checked; }
+  };
+  function validate(id) {
+    var el = document.getElementById(id), ok = checks[id](el);
+    var field = el.closest(".field"); field.classList.toggle("invalid", !ok);
+    el.setAttribute("aria-invalid", String(!ok));
+    return ok;
+  }
+  Object.keys(checks).forEach(function (id) {
+    var el = document.getElementById(id);
+    el.addEventListener("blur", function () { if (el.value || el.type === "checkbox" || el.closest(".field").classList.contains("invalid")) validate(id); });
+    el.addEventListener("change", function () { if (el.closest(".field").classList.contains("invalid")) validate(id); });
+  });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var first = null;
+    Object.keys(checks).forEach(function (id) { if (!validate(id) && !first) first = id; });
+    if (first) { document.getElementById(first).focus(); return; }
+    var role = document.getElementById("reg-role").value;
+    var persona = ({ scholar: "scholar", postdoc: "scholar", faculty: "scholar", institution: "institution", gcc: "gcc", government: "government" })[role] || "scholar";
+    var lab = document.getElementById("reg-lab").value;
+    document.getElementById("success-link").href = "https://x.startnet.in/join?persona=" + persona + "&intent=lab" + (lab ? "&lab=" + lab : "") + "&src=artifact-research&brand=research";
+    form.hidden = true; success.hidden = false;
+    var land = success.querySelector(".land"); if (land) { land.style.animation = "none"; void land.offsetWidth; land.style.animation = ""; }
+    success.focus();
+  });
+  document.getElementById("reg-edit").addEventListener("click", function () { success.hidden = true; form.hidden = false; document.getElementById("reg-name").focus(); });
+
+  /* ---------- Hero art: pulli grid → network → red full stop ---------- */
+  (function () {
+    var cv = document.getElementById("hero-canvas"); if (!cv || !cv.getContext) return;
+    var ctx = cv.getContext("2d"), W = 0, H = 0, dpr = 1, colors = {}, model = null, start = 0, raf = 0, visible = true;
+    function readColors() {
+      var cs = getComputedStyle(root);
+      colors = { dot: cs.getPropertyValue("--control").trim(), line: cs.getPropertyValue("--line").trim(), accent: cs.getPropertyValue("--accent-text").trim(), soft: cs.getPropertyValue("--accent-400").trim(), red: cs.getPropertyValue("--red").trim(), text: cs.getPropertyValue("--fg-2").trim(), bg: cs.getPropertyValue("--surface").trim() };
+    }
+    function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+    function build() {
+      var s = Math.max(20, Math.min(30, W / 15));
+      var cols = Math.floor((W - s) / s) + 1, rows = Math.floor((H - s) / s) + 1;
+      var ox = (W - (cols - 1) * s) / 2, oy = (H - (rows - 1) * s) / 2;
+      var R = rng(11);
+      var target = [Math.round((cols - 1) * 0.6), Math.round((rows - 1) * 0.58)];
+      var origins = [
+        { p: [1, 1], label: "Scholar", ax: "left", ay: -1 },
+        { p: [cols - 2, 1], label: "Industry partner", ax: "right", ay: -1 },
+        { p: [1, rows - 2], label: "Institution", ax: "left", ay: 1 },
+        { p: [cols - 2, rows - 2], label: "StartNet", ax: "right", ay: 1 }
+      ];
+      var paths = origins.map(function (o) {
+        var cur = o.p.slice(), path = [cur.slice()], guard = 0;
+        while ((cur[0] !== target[0] || cur[1] !== target[1]) && guard++ < 80) {
+          var dx = Math.sign(target[0] - cur[0]), dy = Math.sign(target[1] - cur[1]);
+          var opts = [];
+          if (dx) opts.push([dx, 0]); if (dy) opts.push([0, dy]); if (dx && dy && R() < 0.45) opts.push([dx, dy]);
+          if (R() < 0.18 && dx && cur[1] > 0 && cur[1] < rows - 1) opts.push([0, R() < 0.5 ? 1 : -1]);
+          var m = opts[Math.floor(R() * opts.length)];
+          cur = [cur[0] + m[0], cur[1] + m[1]]; path.push(cur.slice());
+        }
+        var pts = path.map(function (q) { return [ox + q[0] * s, oy + q[1] * s]; });
+        var len = 0, segs = []; for (var i = 1; i < pts.length; i++) { var l = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); segs.push(l); len += l; }
+        return { o: o, pts: pts, segs: segs, len: len };
+      });
+      var amb = [];
+      for (var a = 0; a < Math.round(cols * rows * 0.06); a++) {
+        var x = Math.floor(R() * cols), y = Math.floor(R() * rows), dir = [[1,0],[0,1],[1,1],[1,-1]][Math.floor(R() * 4)];
+        var x2 = x + dir[0], y2 = y + dir[1]; if (x2 < cols && y2 >= 0 && y2 < rows) amb.push([ox + x * s, oy + y * s, ox + x2 * s, oy + y2 * s]);
+      }
+      model = { s: s, cols: cols, rows: rows, ox: ox, oy: oy, target: [ox + target[0] * s, oy + target[1] * s], paths: paths, amb: amb };
+    }
+    function size() {
+      var r = cv.getBoundingClientRect(); dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = Math.max(1, r.width); H = Math.max(1, r.height);
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      build();
+    }
+    function pointAt(path, d) {
+      var acc = 0; for (var i = 0; i < path.segs.length; i++) { if (acc + path.segs[i] >= d) { var t = (d - acc) / path.segs[i]; var a = path.pts[i], b = path.pts[i + 1]; return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, i]; } acc += path.segs[i]; }
+      var L = path.pts[path.pts.length - 1]; return [L[0], L[1], path.segs.length];
+    }
+    function easeEnter(t) { return 1 - Math.pow(1 - t, 3); }
+    function easeDot(t) { var c1 = 1.70158 * 1.1, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); }
+    function draw(now) {
+      var m = model; if (!m) return;
+      var el = reduced() ? 1e9 : now - start;
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = colors.dot; ctx.globalAlpha = 0.55;
+      for (var y = 0; y < m.rows; y++) for (var x = 0; x < m.cols; x++) { ctx.beginPath(); ctx.arc(m.ox + x * m.s, m.oy + y * m.s, 1.6, 0, 6.2832); ctx.fill(); }
+      ctx.globalAlpha = 0.5; ctx.strokeStyle = colors.dot; ctx.lineWidth = 1.2; ctx.lineCap = "round";
+      m.amb.forEach(function (a) { ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(a[2], a[3]); ctx.stroke(); });
+      ctx.globalAlpha = 1;
+      var drawDur = 1500, allDone = true;
+      m.paths.forEach(function (p, pi) {
+        var t = Math.max(0, Math.min(1, (el - 200 - pi * 120) / drawDur)); if (t < 1) allDone = false;
+        var d = p.len * easeEnter(t), end = pointAt(p, d);
+        ctx.strokeStyle = colors.accent; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(p.pts[0][0], p.pts[0][1]);
+        for (var i = 1; i <= end[2] && i < p.pts.length; i++) ctx.lineTo(p.pts[i][0], p.pts[i][1]);
+        ctx.lineTo(end[0], end[1]); ctx.stroke();
+        ctx.fillStyle = colors.accent;
+        for (var j = 1; j <= end[2] && j < p.pts.length - 1; j++) { ctx.beginPath(); ctx.arc(p.pts[j][0], p.pts[j][1], 3, 0, 6.2832); ctx.fill(); }
+        var o = p.pts[0]; ctx.beginPath(); ctx.arc(o[0], o[1], 6, 0, 6.2832); ctx.fill();
+        ctx.fillStyle = colors.text; ctx.font = "600 12px Inter, system-ui, sans-serif"; ctx.textBaseline = p.o.ay < 0 ? "bottom" : "top";
+        ctx.textAlign = p.o.ax === "left" ? "left" : "right";
+        ctx.fillText(p.o.label, o[0] + (p.o.ax === "left" ? -6 : 6), o[1] + p.o.ay * 12);
+        if (t >= 1 && !reduced()) {
+          var period = 3600, ph = ((el - 200 - pi * 120 - drawDur + pi * 700) % period) / period;
+          if (ph >= 0 && ph < 0.7) {
+            var q = pointAt(p, p.len * (ph / 0.7)); ctx.fillStyle = colors.soft; ctx.globalAlpha = Math.sin(Math.PI * ph / 0.7);
+            ctx.beginPath(); ctx.arc(q[0], q[1], 4.5, 0, 6.2832); ctx.fill(); ctx.globalAlpha = 1;
+          }
+        }
+      });
+      var lt = Math.max(0, Math.min(1, (el - 200 - 3 * 120 - drawDur) / 480));
+      var r = 11 * (lt > 0 ? easeDot(lt) : 0);
+      if (r > 0) { ctx.fillStyle = colors.bg; ctx.beginPath(); ctx.arc(m.target[0], m.target[1], r + 4, 0, 6.2832); ctx.fill(); ctx.fillStyle = colors.red; ctx.beginPath(); ctx.arc(m.target[0], m.target[1], r, 0, 6.2832); ctx.fill(); }
+      if (lt >= 1) { ctx.font = "600 12px Inter, system-ui, sans-serif"; ctx.textAlign = "left"; ctx.textBaseline = "middle"; var tw = ctx.measureText("A company").width; var lx = m.target[0] + 18; if (lx + tw + 8 > W) lx = m.target[0] - 18 - tw; ctx.fillStyle = colors.bg; ctx.globalAlpha = 0.92; ctx.fillRect(lx - 5, m.target[1] - 10, tw + 10, 20); ctx.globalAlpha = 1; ctx.fillStyle = colors.text; ctx.fillText("A company", lx, m.target[1]); }
+      if (!reduced() && visible && !document.hidden) raf = requestAnimationFrame(draw); else raf = 0;
+      void allDone;
+    }
+    function kick() { if (!raf) raf = requestAnimationFrame(draw); }
+    readColors(); size(); start = performance.now(); kick();
+    if ("ResizeObserver" in window) new ResizeObserver(function () { size(); kick(); }).observe(cv);
+    var mqDark = window.matchMedia("(prefers-color-scheme: dark)"); var onScheme = function () { readColors(); kick(); };
+    if (mqDark.addEventListener) mqDark.addEventListener("change", onScheme); else if (mqDark.addListener) mqDark.addListener(onScheme);
+    new MutationObserver(function () { readColors(); kick(); }).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) kick(); }).observe(cv);
+    document.addEventListener("visibilitychange", function () { if (!document.hidden) kick(); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(kick);
+    window.__heroArt = { motionChanged: kick };
+  })();
+})();
+</script>

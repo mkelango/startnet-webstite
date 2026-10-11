@@ -1,0 +1,68 @@
+/* /about/evidence-standard */
+.evs-main { display: grid; gap: var(--space-20); }
+.evs-block { display: flex; flex-direction: column; gap: var(--space-5); scroll-margin-top: calc(var(--header-h) + var(--space-8)); }
+.evs-block > .eyebrow { display: flex; gap: var(--space-2); align-items: center; }
+.evs-lede { color: var(--color-text-2); max-width: var(--measure); }
+
+/* The three tags: flat cards; C (estimate) keeps a dashed hairline. */
+.evs-tags { list-style: none; display: grid; gap: var(--space-4); margin-top: var(--space-4); }
+@media (min-width: 768px) { .evs-tags { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 768px) and (max-width: 1279.98px) { .evs-tags > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
+@media (min-width: 1280px) { .evs-tags { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.evs-tags > * { min-width: 0; }
+.evs-tag {
+  display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-6); border-radius: var(--media-radius); background: var(--card);
+  border: 1px solid var(--color-border);
+}
+.evs-tag--c { border-style: dashed; border-color: color-mix(in srgb, var(--color-text) 20%, var(--color-border)); }
+.evs-tag__head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
+.evs-tag__name { margin: 0; min-width: 0; overflow-wrap: break-word; font-weight: 500; letter-spacing: -0.01em; }
+.evs-tag__short { font-weight: 500; }
+.evs-tag__long { color: var(--color-text-2); font-size: var(--text-small); }
+.evs-tag__example { margin-top: auto; padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+.evs-tag__k { font-size: var(--text-small); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--color-text-muted); margin-bottom: var(--space-3); }
+/* The C-tag rule: a quiet filled note (no coloured bar). */
+.evs-rule { padding: var(--space-4) var(--space-5); background: var(--sheet-2); border-radius: var(--media-radius); color: var(--color-text-2); }
+.evs-rule strong { font-weight: 500; color: var(--color-text); }
+
+/* Sourcing rules: hairline rows. */
+.evs-rules { list-style: none; border-top: 1px solid var(--color-border); }
+.evs-rules__item { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: var(--space-4); padding-block: var(--space-4); border-bottom: 1px solid var(--color-border); align-items: baseline; }
+.evs-rules__item p { color: var(--color-text-2); }
+
+/* Corrections flow: one blueprint frame, cells between 1px dividers, big light numerals. */
+.evs-flow {
+  list-style: none; display: grid; gap: 1px; counter-reset: flow;
+  background: var(--color-border); border: 1px solid var(--color-border); border-radius: var(--media-radius); overflow: hidden;
+}
+@media (min-width: 768px) { .evs-flow { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1280px) { .evs-flow { grid-template-columns: repeat(4, 1fr); } }
+.evs-flow__step { position: relative; display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-6); background: var(--card); }
+.evs-flow__step .h5 { margin: var(--space-3) 0 0; font-weight: 500; letter-spacing: -0.01em; }
+.evs-flow__step p { color: var(--color-text-2); font-size: var(--text-small); }
+.evs-flow__n {
+  display: block; font-size: var(--text-h2); font-weight: 400; line-height: 1; letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums lining-nums; color: var(--color-text);
+}
+.evs-flow__step:last-child .evs-flow__n { color: var(--color-text); } /* the outcome (Ink: red stays with the headline stop) */
+
+/* Severity grades: quiet 4px chips; the grade is a small status dot. */
+.evs-severity { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.evs-severity__k { font-size: var(--text-small); font-weight: 500; color: var(--color-text-muted); }
+.evs-severity__list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.evs-severity__chip {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-1) var(--space-3); border-radius: var(--btn-radius);
+  font-size: var(--text-caption); font-weight: 500; color: var(--color-text);
+  background: var(--sheet-2);
+}
+.evs-severity__chip::before { content: ''; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--color-text-muted); }
+.evs-severity__chip--material::before { background: var(--color-warning-icon); }
+.evs-severity__chip--critical::before { background: var(--color-error); }
+.evs-actions { padding-top: var(--space-2); }
+.evs-textlink { font-weight: 500; color: var(--color-link-standalone); }
+/* Tamil: the tag name wraps under the chip as a whole word (base.css would let தெரிவிக்கப்பட்டது break anywhere
+   beside the chip in the 3-column layout at 1280+). */
+:lang(ta) .evs-tag__name { overflow-wrap: break-word; min-width: auto; }
+:lang(ta) :is(.evs-tag__name, .evs-flow__step .h5) { letter-spacing: 0; }

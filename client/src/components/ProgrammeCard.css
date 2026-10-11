@@ -1,0 +1,15 @@
+/* Programme card (DESIGN-v2 3.7, framed family): key/value facts as hairline rows (Card.css .card-facts). */
+.programme-card .card__meta { margin-top: var(--space-1); }
+.programme-card__stage {
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: var(--radius-btn);
+  box-shadow: inset 0 0 0 1px var(--color-border-control);
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+.programme-card--closed .card__title { color: var(--color-text-2); }
+
+/* Phones: the stage chip at the 14px text minimum */
+@media (max-width: 767.98px) { .programme-card__stage { font-size: 0.875rem; } }

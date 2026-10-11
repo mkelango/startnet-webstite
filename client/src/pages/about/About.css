@@ -1,0 +1,76 @@
+/* /about · Our story — stacked statement sections alternating text / art (AngelList feature rows). */
+.about-story__grid { display: grid; gap: var(--space-10); align-items: start; }
+@media (min-width: 1024px) {
+  .about-story__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-16); }
+  .about-story__grid--reverse { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .about-story__grid--reverse .about-story__text { order: 2; }
+  .about-story__grid--reverse .about-story__art { order: 1; }
+}
+.about-story__text > * + * { margin-top: var(--space-5); }
+.about-story__text .eyebrow { display: flex; gap: var(--space-2); align-items: center; }
+.about-story__text h2 { max-width: 20ch; }
+.about-story__prose { color: var(--color-text-2); max-width: 36rem; }
+.about-story__actions { padding-top: var(--space-3); }
+.about-story__art { border-radius: var(--media-radius); overflow: hidden; }
+/* Single-column tablets (768–1023): the full-width 4/5 or 1/1 art was ~975 × 1219 px. Cap it to a wide crop. */
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .about-story__art { aspect-ratio: 16 / 9; max-height: 60vh; }
+  /* ArtImage sets its ratio inline; the crop wins here (its SVG uses preserveAspectRatio="xMidYMid slice"). */
+  .about-story__art > .art-image { width: 100%; height: 100%; aspect-ratio: auto !important; }
+}
+
+.about-story__facts { margin-top: var(--space-16); }
+
+/* The pull statement: large, regular weight, no rule (AngelList / USVC statement). */
+.about-story__pull {
+  margin: clamp(var(--space-16), 2rem + 4vw, var(--space-24)) 0 0;
+  padding: 0;
+  border: 0;
+  /* the measure is set at the statement's own size */
+  font-size: var(--text-h2);
+  max-width: 28ch;
+}
+.about-story__pull p {
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  text-wrap: pretty;
+}
+@media (min-width: 1024px) {
+  .about-story__pull { margin-left: calc(100% / 12 * 2); }
+}
+
+.about-story__model { margin-top: var(--space-16); }
+
+/* Principles: full-width hairline rows — [num] [name] [text] */
+.about-principles { list-style: none; display: grid; gap: 0; border-top: 1px solid var(--color-border); }
+.about-principles__item {
+  display: grid; gap: var(--space-2);
+  padding-block: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+.about-principles__name { margin: 0; font-size: var(--text-h4); font-weight: 400; letter-spacing: -0.015em; line-height: 1.2; }
+.about-principles__text { color: var(--color-text-2); max-width: 52ch; }
+@media (min-width: 768px) {
+  .about-principles__item { grid-template-columns: 4rem minmax(0, 4fr) minmax(0, 7fr); align-items: baseline; gap: var(--space-6); }
+}
+
+.about-story__partners { margin-top: var(--space-12); padding-top: var(--space-6); border-top: var(--border-hair); display: grid; gap: var(--space-4); }
+.about-story__partners-label { font-size: var(--text-small); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--color-text-muted); }
+
+.about-story__tl-note { margin-top: var(--space-8); }
+
+:lang(ta) .about-story__text h2 { max-width: 26ch; }
+:lang(ta) .about-story__pull { max-width: 48ch; }
+:lang(ta) .about-principles__name { letter-spacing: 0; line-height: 1.35; }
+
+/* History: the first-rooms films and the network-meeting testimonials (playlists: stage + rail need the width) */
+.about-history__film { margin-top: clamp(var(--space-10), 2rem + 3vw, var(--space-16)); max-width: 56rem; }
+.about-history__film.event-videos--playlist { max-width: 72rem; }
+.about-history__film .event-videos__title { font-size: var(--text-h3); }
+.about-history__network { margin-top: var(--space-12); padding-top: var(--space-10); border-top: var(--border-hair); }
+
+/* Tamil has no italic (Noto Sans Tamil / Anek Tamil): no synthetic slant. Emphasis is kept in the markup, shown by weight. */
+.about-note :is(em, i):lang(ta) { font-style: normal; } /* the whole note is <em>: no extra weight */

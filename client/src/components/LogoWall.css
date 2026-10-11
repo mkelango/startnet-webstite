@@ -1,0 +1,36 @@
+/* Logo wall (DESIGN-v2 3.13): mono logos in hairline cells (6-up ≥1024, 3-up on mobile); 0.72 → 1 on hover. */
+.logo-wall { display: grid; gap: var(--space-6); }
+.logo-wall__title { margin: 0; }
+.logo-wall__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  list-style: none;
+  margin: 0;
+  padding: 1px;
+  background: var(--hairline);
+  border-radius: var(--radius-media);
+  overflow: hidden;
+}
+@media (min-width: 1024px) { .logo-wall__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.logo-wall__grid > li { display: grid; background: var(--paper); }
+:root :is(.section--white, .section--sunken) .logo-wall__grid > li { background: var(--bone); }
+.logo-wall__item { display: grid; gap: var(--space-2); justify-items: center; align-content: center; margin: 0; padding: var(--space-5) var(--space-3); }
+:root .logo-wall__logo {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-width: 0;
+  height: 64px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.logo-wall__logo img { max-width: 100%; max-height: 40px; width: auto; object-fit: contain; filter: grayscale(1); opacity: 0.72; transition: opacity var(--dur-2) var(--ease-snap); }
+@media (hover: hover) { .logo-wall__item:hover img { opacity: 1; } }
+:root .logo-wall__name { font-weight: 500; text-align: center; color: var(--color-text-2); line-height: 1.25; font-size: var(--text-small); }
+.logo-wall__since { font-size: var(--text-caption); color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.logo-wall__link { justify-self: start; }
+:root [data-surface='night'] .logo-wall__grid { background: var(--night-line); }
+:root [data-surface='night'] .logo-wall__grid > li { background: var(--night-0); }

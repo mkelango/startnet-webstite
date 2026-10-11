@@ -1,0 +1,227 @@
+/* /go/:slug — T16 campaign landing. Campaign mode (Book 3 §1.2), AngelList-family finish: a calm night hero
+   (regular-weight headline; the brand accent on the one CTA and the endorsement), paper sheets below with flat
+   hairline cards and lists, one CTA repeated, WhatsApp as the only secondary. */
+
+.campaign { overflow-x: clip; }
+/* Long Tamil compounds and URLs never push a card wider than the 320px viewport. */
+.campaign :where(h2, h3, p, li, dt, dd) { overflow-wrap: break-word; }
+
+/* ---------- Hero (C13) ---------- */
+.campaign-hero { position: relative; overflow: hidden; isolation: isolate; }
+/* Calm ink band: no accent glow and no coloured bottom bar (the accent lives on the CTA). The kit's night
+   vignette (.section--night::before) stays as the only texture. */
+.campaign-hero__grid {
+  display: grid; gap: var(--space-10);
+  padding-block: var(--space-12) var(--space-16);
+}
+@media (min-width: 1024px) {
+  .campaign-hero__grid {
+    grid-template-columns: 7fr 5fr; align-items: center; gap: var(--space-16);
+    padding-block: var(--space-20) var(--space-24);
+  }
+}
+.campaign-hero__copy { display: grid; gap: var(--space-5); justify-items: start; min-width: 0; }
+.campaign-hero__chips { --cluster-gap: var(--space-2); }
+.campaign-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 1.5rem + 6vw, 6.5rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--color-text);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  margin: 0;
+}
+:lang(ta) .campaign-hero__title { letter-spacing: 0; }
+.campaign-hero__endorse {
+  margin: calc(var(--space-2) * -1) 0 0;
+  font-size: var(--text-body-lg);
+  font-weight: 500;
+  color: var(--accent-night, var(--color-text-2));
+}
+.campaign-hero__lede { margin: 0; max-width: 38rem; color: var(--color-text-2); }
+.campaign-hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); width: 100%; }
+.campaign-hero__actions > * { min-height: 44px; }
+@media (max-width: 479px) {
+  .campaign-hero__actions > * { width: 100%; justify-content: center; }
+}
+.campaign-hero__micro { margin: 0; font-size: var(--text-small); color: var(--color-text-muted); max-width: 38rem; }
+
+/* Art: desktop only, so the CTA stays above the fold on phones and tablets. */
+.campaign-hero__art { display: none; min-width: 0; }
+@media (min-width: 1024px) {
+  .campaign-hero__art { display: block; }
+  .campaign-hero__art .art-image { border-radius: var(--media-radius); overflow: hidden; }
+}
+
+/* ---------- Countdown ---------- */
+.campaign-countdown {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+  max-width: 100%;
+}
+.campaign-countdown__days { display: grid; justify-items: center; line-height: 1; flex: none; }
+.campaign-countdown__num { font-size: var(--text-h2); font-weight: 400; letter-spacing: -0.035em; font-variant-numeric: tabular-nums lining-nums; color: var(--color-text); }
+.campaign-countdown__unit { margin-top: var(--space-1); font-size: var(--text-caption); color: var(--color-text-muted); }
+.campaign-countdown__icon { flex: none; color: var(--accent-night, var(--color-text-2)); }
+.campaign-countdown__text { margin: 0; font-size: var(--text-small); color: var(--color-text-2); min-width: 0; overflow-wrap: anywhere; }
+.campaign-countdown--closed { border-color: var(--color-border); }
+
+/* ---------- Benefits ---------- */
+.campaign-benefits__grid {
+  list-style: none; margin: var(--space-10) 0 0; padding: 0;
+  display: grid; gap: var(--space-4);
+}
+@media (min-width: 768px) { .campaign-benefits__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); } }
+.campaign-benefits__item {
+  position: relative;
+  display: grid; gap: var(--space-3); align-content: start;
+  padding: var(--space-6);
+  background: var(--card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+  min-width: 0;
+}
+/* Line icon in a 40px hairline square (no tinted circle). */
+.campaign-benefits__icon {
+  display: inline-grid; place-items: center; margin-bottom: var(--space-3);
+  width: 40px; height: 40px; border-radius: var(--btn-radius);
+  border: 1px solid var(--color-border); background: transparent;
+  color: var(--color-text);
+}
+.campaign-benefits__icon svg { width: 20px; height: 20px; }
+.campaign-benefits__num {
+  position: absolute; top: var(--space-6); right: var(--space-6);
+  font-size: var(--text-caption); font-weight: 400; color: var(--color-text-muted);
+}
+.campaign-benefits__title, .campaign-benefits__body { margin: 0; }
+.campaign-benefits__title.h4 { font-weight: 500; letter-spacing: -0.01em; }
+.campaign-benefits__body { color: var(--color-text-2); }
+
+/* ---------- Tracks ---------- */
+.campaign-tracks__grid {
+  list-style: none; margin: var(--space-10) 0 0; padding: 0;
+  display: grid; gap: var(--space-4);
+}
+@media (min-width: 768px) { .campaign-tracks__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); } }
+@media (min-width: 1024px) { .campaign-tracks__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); } }
+.campaign-tracks__item {
+  display: grid; gap: var(--space-2); align-content: start;
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+  background: var(--sheet);
+  min-width: 0;
+}
+.campaign-tracks__num { margin-bottom: var(--space-2); font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.campaign-tracks__title, .campaign-tracks__body { margin: 0; }
+.campaign-tracks__title.h5 { font-weight: 500; letter-spacing: -0.01em; }
+.campaign-tracks__body { color: var(--color-text-2); }
+
+/* ---------- Key dates (accent track, marker per stage) ---------- */
+.campaign-dates__list {
+  list-style: none; margin: var(--space-10) 0 0; padding: 0;
+  display: grid; gap: var(--space-6);
+  position: relative;
+}
+.campaign-dates__list::before {
+  content: ""; position: absolute; left: 4.5px; top: 0.5rem; bottom: 0.5rem; width: 1px;
+  background: var(--color-border);
+}
+.campaign-dates__item {
+  position: relative;
+  display: grid; gap: var(--space-1);
+  padding-left: var(--space-8);
+  min-width: 0;
+}
+.campaign-dates__marker {
+  position: absolute; left: 0; top: 0.45rem;
+  width: 10px; height: 10px; border-radius: var(--radius-full);
+  background: var(--accent-fill, var(--accent, var(--sn-red)));
+  box-shadow: 0 0 0 4px var(--color-bg);
+}
+.campaign-dates__when { margin: 0; font-size: var(--text-small); font-weight: 500; color: var(--color-text-muted); }
+.campaign-dates__stage.h5 { font-weight: 500; letter-spacing: -0.01em; }
+.campaign-dates__stage, .campaign-dates__what { margin: 0; }
+.campaign-dates__what { color: var(--color-text-2); }
+@media (min-width: 1024px) {
+  .campaign-dates__list { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--space-8); row-gap: var(--space-10); }
+  .campaign-dates__list::before { display: none; }
+  .campaign-dates__item { padding-left: 0; padding-top: var(--space-8); border-top: 1px solid var(--color-border); }
+  .campaign-dates__marker { top: -5.5px; }
+}
+
+/* ---------- What comes next ---------- */
+.campaign-next__grid {
+  list-style: none; margin: var(--space-10) 0 0; padding: 0;
+  display: grid; gap: var(--space-4);
+}
+@media (min-width: 768px) { .campaign-next__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); } }
+/* Up to four items; when a placeholder-only item is hidden the rest share the row (no empty column). */
+@media (min-width: 1280px) { .campaign-next__grid { grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); } }
+.campaign-next__item {
+  display: grid; gap: var(--space-3); align-content: start;
+  padding: var(--space-6);
+  background: var(--card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+  min-width: 0;
+}
+.campaign-next__title.h5 { font-weight: 500; letter-spacing: -0.01em; }
+.campaign-next__title, .campaign-next__body { margin: 0; }
+.campaign-next__body { color: var(--color-text-2); }
+.campaign-next__ref { display: grid; gap: var(--space-2); padding-top: var(--space-3); border-top: 1px solid var(--color-border); }
+.campaign-next__lead { margin: 0; font-size: var(--text-caption); color: var(--color-text-muted); }
+
+/* ---------- FAQ ---------- */
+.campaign-faq .accordion { margin-top: var(--space-8); }
+.campaign-faq__more { margin: var(--space-8) 0 0; }
+.campaign-faq__link {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
+  font-weight: 500; color: var(--color-link-standalone, var(--color-link));
+  text-decoration: none;
+}
+.campaign-faq__link svg { transition: transform var(--dur-2) var(--ease-standard); }
+.campaign-faq__link:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+@media (hover: hover) and (pointer: fine) { .campaign-faq__link:hover svg { transform: translateX(4px); } }
+.campaign-faq__link:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--radius-sm); }
+@media (prefers-reduced-motion: reduce) { .campaign-faq__link:hover svg { transform: none; } }
+
+/* ---------- Close (M04) ---------- */
+.campaign-close .cta-band__actions > * { min-height: 44px; }
+@media (max-width: 479px) {
+  .campaign-close .cta-band__actions > * { width: 100%; justify-content: center; }
+}
+
+/* ---------- DESIGN-v2 3.7 framed cards: hairline ring (no border + shadow pair), 12px, Card on Paper / White on
+   Bone, a 2px Ink top rule that draws in on hover / focus-within; 24px / 32px grid gaps. ---------- */
+.campaign-benefits__item, .campaign-tracks__item, .campaign-next__item {
+  position: relative; overflow: hidden;
+  padding: 28px; border: 0; border-radius: var(--radius-media);
+  background: var(--card); box-shadow: inset 0 0 0 1px var(--hairline);
+  transition: box-shadow var(--dur-2) var(--ease-snap);
+}
+:is(.section--white, .section--sunken) :is(.campaign-benefits__item, .campaign-tracks__item, .campaign-next__item) { background: var(--white); }
+:is(.campaign-benefits__item, .campaign-tracks__item, .campaign-next__item)::before {
+  content: ''; position: absolute; inset: 0 0 auto; height: 2px; background: var(--color-text);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+:is(.campaign-benefits__item, .campaign-tracks__item, .campaign-next__item):focus-within { box-shadow: inset 0 0 0 1px var(--line-strong); }
+@media (hover: hover) and (pointer: fine) { :is(.campaign-benefits__item, .campaign-tracks__item, .campaign-next__item):hover { box-shadow: inset 0 0 0 1px var(--line-strong); } }
+:is(.campaign-benefits__item, .campaign-tracks__item, .campaign-next__item):focus-within::before { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { :is(.campaign-benefits__item, .campaign-tracks__item, .campaign-next__item):hover::before { transform: scaleX(1); } }
+.campaign-benefits__num { top: 28px; right: 28px; font-variant-numeric: tabular-nums; }
+@media (max-width: 767.98px) {
+  .campaign-benefits__item, .campaign-tracks__item, .campaign-next__item { padding: 24px; }
+  .campaign-benefits__num { top: 24px; right: 24px; }
+}
+@media (min-width: 768px) {
+  .campaign-benefits__grid, .campaign-tracks__grid, .campaign-next__grid { gap: 24px; }
+}
+@media (min-width: 1024px) {
+  .campaign-benefits__grid, .campaign-tracks__grid, .campaign-next__grid { gap: 32px; }
+}
+.campaign-dates__when { font-variant-numeric: tabular-nums; }

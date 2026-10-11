@@ -1,0 +1,109 @@
+/* v2b interaction layer: site-wide interaction styles that are not owned by a single component stylesheet.
+   Rules of the layer (see lib/pointerFx.js and styles/pointerFx.css for the pointer-only parts):
+   - transform / opacity only; one easing family (--ease-reveal for entrances, --ease-snap for hovers);
+   - fine-pointer effects are scoped to (hover: hover) and (pointer: fine) or html.has-pointer-fx;
+   - reduced motion (OS setting or <html data-motion="reduced">) gets the final, static state;
+   - nothing here hides content that the markup renders. */
+
+/* ---------- Back to top (layout/BackToTop.jsx) ---------- */
+.back-to-top {
+  position: fixed;
+  z-index: 54; /* under the bottom CTA bar (55), the header (60) and the consent card (80) */
+  right: max(16px, var(--page-margin, var(--gutter)));
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full, 999px);
+  background: var(--sn-ink);
+  color: var(--paper);
+  box-shadow: inset 0 0 0 1px rgb(244 243 239 / 0.14), 0 10px 28px -12px rgb(12 23 25 / 0.45);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.92);
+  transition:
+    opacity var(--dur-3) var(--ease-snap),
+    transform 0.5s var(--ease-reveal),
+    translate var(--dur-3) var(--ease-snap),
+    visibility 0s linear var(--dur-3),
+    background-color var(--dur-2) var(--ease-snap);
+}
+.back-to-top[data-shown] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity var(--dur-3) var(--ease-snap),
+    transform 0.5s var(--ease-reveal),
+    translate var(--dur-3) var(--ease-snap),
+    visibility 0s linear 0s,
+    background-color var(--dur-2) var(--ease-snap);
+}
+.back-to-top__icon { transition: transform var(--dur-2) var(--ease-snap); }
+@media (hover: hover) and (pointer: fine) {
+  .back-to-top:hover { background: var(--sn-red-600, #DC2626); }
+  .back-to-top:hover .back-to-top__icon { transform: translateY(-3px); }
+}
+.back-to-top:active { transform: scale(0.94); }
+.back-to-top:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+/* Above the mobile bottom CTA bar while it is shown (BottomCtaBar sets data-bottom-cta-shown): `bottom` stays put and
+   the button glides up with `translate`, instead of hopping ~53px (a layout shift) each time the bar comes and goes. */
+@media (max-width: 1023.98px) {
+  :root[data-bottom-cta-shown] .back-to-top { translate: 0 calc(24px + env(safe-area-inset-bottom, 0px) - var(--bottom-cta-h, 64px) - 12px); }
+  /* Focus scrolling keeps a focused control clear of the button too: it then sits 12px above the bar, 48px tall */
+  :root[data-bottom-cta-shown]:has(.back-to-top[data-shown]) {
+    scroll-padding-bottom: max(80px, calc(var(--consent-h, 0px) + 16px), calc(var(--bottom-cta-h, 64px) + 12px + 48px + 8px));
+  }
+}
+/* Step aside for the consent card and for modals (drawer, search, sheets) */
+:root:has(.cookie-banner) .back-to-top,
+:root[data-modal-open] .back-to-top { opacity: 0; visibility: hidden; pointer-events: none; }
+@media print { .back-to-top { display: none; } }
+
+/* ---------- Scroller edge fade (components/Scroller.jsx sets data-at-start / data-at-end) ----------
+   The side that still has cards fades out over 48px, so the rail reads as "more this way". */
+.scroller:not(.scroller--fits) > .scroller__track {
+  --fade-l: 0px;
+  --fade-r: 48px;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
+}
+.scroller:not(.scroller--fits):not([data-at-start]) > .scroller__track { --fade-l: 48px; }
+.scroller:not(.scroller--fits)[data-at-end] > .scroller__track { --fade-r: 0px; }
+@media (max-width: 767.98px) {
+  .scroller:not(.scroller--fits) > .scroller__track { --fade-r: 32px; }
+  .scroller:not(.scroller--fits):not([data-at-start]) > .scroller__track { --fade-l: 32px; }
+  .scroller:not(.scroller--fits)[data-at-end] > .scroller__track { --fade-r: 0px; }
+}
+/* Keyboard focus inside the rail lifts the fade so the focused card's ring is never washed out */
+.scroller:not(.scroller--fits) > .scroller__track:is(:focus-visible, :has(:focus-visible)) { -webkit-mask-image: none; mask-image: none; }
+
+/* ---------- Mega menu: links and the featured card stagger in after their column (layout/MegaMenu.jsx) ----------
+   The columns themselves rise with framer-motion (40ms apart); each link follows 28ms after the one above it, and
+   the featured card lands last. Opacity + 4px rise only; the panel re-mounts per section, so it replays on switch. */
+@keyframes sn-menu-item-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.mega-menu .mega-menu__list > li {
+  animation: sn-menu-item-in 0.36s var(--ease-reveal) both;
+  animation-delay: calc(70ms + var(--mi, 7) * 28ms);
+}
+.mega-menu .mega-menu__list > li:nth-child(1) { --mi: 0; }
+.mega-menu .mega-menu__list > li:nth-child(2) { --mi: 1; }
+.mega-menu .mega-menu__list > li:nth-child(3) { --mi: 2; }
+.mega-menu .mega-menu__list > li:nth-child(4) { --mi: 3; }
+.mega-menu .mega-menu__list > li:nth-child(5) { --mi: 4; }
+.mega-menu .mega-menu__list > li:nth-child(6) { --mi: 5; }
+.mega-menu .mega-menu__list > li:nth-child(7) { --mi: 6; }
+.mega-menu .mega-feature { animation: sn-menu-item-in 0.44s var(--ease-reveal) 0.16s both; }
+
+/* ---------- Reduced motion: final state, no travel ---------- */
+:root[data-motion='reduced'] .back-to-top,
+:root[data-motion='reduced'] .back-to-top__icon { transition: none; transform: none; }
+:root[data-motion='reduced'] .mega-menu :is(.mega-menu__list > li, .mega-feature) { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) :is(.back-to-top, .back-to-top__icon) { transition: none; transform: none; }
+  :root:not([data-motion='full']) .mega-menu :is(.mega-menu__list > li, .mega-feature) { animation: none; }
+}

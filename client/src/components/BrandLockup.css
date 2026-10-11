@@ -1,0 +1,21 @@
+.brand-lockup {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+  font-family: var(--font-display);
+}
+.brand-lockup--sm { --logo-size: 19px; font-size: 19px; }
+.brand-lockup--md { --logo-size: 24px; font-size: 24px; }
+.brand-lockup--lg { --logo-size: 40px; font-size: 40px; }
+/* Descriptor starts 1.5d after the full stop; no separator. */
+.brand-lockup__descriptor {
+  margin-left: 0.3em;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--accent-text);
+}
+.brand-lockup[data-brand='x'] .brand-lockup__descriptor { font-weight: 800; color: var(--sn-red-700); }
+.brand-lockup--reversed .brand-lockup__descriptor,
+[data-surface='night'] .brand-lockup__descriptor { color: var(--accent-night); }
+[data-surface='night'] .brand-lockup[data-brand='x'] .brand-lockup__descriptor { color: var(--sn-red); }

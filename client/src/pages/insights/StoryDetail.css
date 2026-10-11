@@ -1,0 +1,89 @@
+/* T09 Story: centred 7-col measure. Oct 2026: calm reading column (line-height 1.7), 12px media frames, the inline
+   stat as a light numeral between hairlines (no bar, no shadow), quiet 4px share buttons. */
+.story__measure { max-width: 68ch; margin-inline: auto; } /* DESIGN-v2 6.4: 68ch long-read column */
+:lang(ta) .story__measure { max-width: 40rem; }
+/* While the story loads, hold a full screen so the footer is not drawn in view and then pushed away (CLS). */
+.story__loading { display: grid; gap: var(--space-4); align-content: start; min-height: 100vh; min-height: 100svh; }
+/* The head is the ink band (header + title), like every page's hero. */
+.story__head-section { padding-top: clamp(var(--space-8), 1rem + 3vw, var(--space-12)); padding-bottom: var(--space-12); }
+.story__head-section .story__title { color: var(--night-text); }
+.story .story__head-section.section--night { background-image: none; }
+.story .story__head-section.section--night::before { display: none; }
+.story__chips { margin-top: var(--space-6); }
+.story__title { margin-top: var(--space-5); }
+.story__standfirst { margin-top: var(--space-5); color: var(--color-text-2); }
+.story__byline {
+  display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5);
+  margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-border);
+  font-size: var(--text-small); color: var(--color-text-muted);
+}
+.story__byline span { display: inline-flex; align-items: center; gap: var(--space-1); }
+.story__by { color: var(--color-text); font-weight: 500; }
+
+.story__media-band { margin-top: -1px; background: linear-gradient(to bottom, var(--night-0) 50%, var(--color-bg) 50%); }
+.story__media { max-width: calc(64rem + 2 * var(--gutter)); }
+.story__media > * { border-radius: var(--media-radius); overflow: hidden; }
+
+.story__body { font-size: var(--text-body-lg); line-height: 1.7; }
+.story__body > * + * { margin-top: 1.25em; }
+
+.story__inline-stat {
+  margin-block: var(--space-12) !important;
+  padding: 0 0 var(--space-8);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-body);
+}
+
+.story__ladder {
+  margin-top: var(--space-12) !important;
+  padding: var(--space-6) var(--space-8);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card);
+  font-size: var(--text-body);
+}
+.story__ladder-steps { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); margin: var(--space-3) 0; font-weight: 500; }
+.story__ladder-steps li { display: inline-flex; align-items: center; gap: var(--space-2); }
+.story__ladder-code {
+  display: inline-grid; place-items: center; min-width: 2.25rem; height: 2.25rem; padding: 0 var(--space-2);
+  border: 1px solid var(--color-text); border-radius: var(--radius-full);
+  font-size: var(--text-small); font-variant-numeric: tabular-nums;
+}
+.story__ladder-code--to { background: var(--color-text); color: var(--color-bg); }
+.story__ladder-arrow { color: var(--color-text-muted); }
+
+.story__share {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3);
+  margin-top: var(--space-12) !important; padding-top: var(--space-6); border-top: 1px solid var(--color-border);
+  font-size: var(--text-body);
+}
+.story__share-label { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); margin-right: var(--space-2); }
+.story__share-btn {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; padding: 0 var(--space-4);
+  border: 1px solid transparent; border-radius: var(--btn-radius);
+  background: var(--sheet-2); font-size: var(--text-small); font-weight: 500;
+  transition: border-color var(--dur-2) var(--ease-standard), background-color var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) { .story__share-btn:hover { background: color-mix(in srgb, var(--color-text) 7%, var(--sheet-2)); } }
+
+.story__person { max-width: 46rem; }
+.story__next { display: grid; gap: var(--space-6); align-items: center; }
+.story__next .h3 { margin-top: var(--space-2); }
+.story__next p.text-2 { margin-top: var(--space-2); }
+/* Title and lede on the full measure, actions beneath (calmer than squeezing the title beside two buttons). */
+/* V-I1: in Tamil the button pair took most of the 40rem measure, leaving the h3 ~170px wide at 1024–1440, so
+   long words (தொழில்முறையாளர், விரிவாக்கம்) split mid-word. Tamil keeps the stacked layout: heading on the full
+   measure, buttons beneath. */
+@media (min-width: 900px) { .story__next:lang(ta) { grid-template-columns: minmax(0, 1fr); } }
+
+.story__related-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-4); margin-bottom: var(--space-8); }
+
+/* Tamil (Book 3 §4.4): no uppercase or tracking; 14px floor. */
+.story__share-label:lang(ta) { font-size: 0.875rem; }
+.story .placeholder:lang(ta) { font-size: max(0.875rem, 0.9em); }
+
+/* Oct 2026: section titles at h3 size in regular weight. */
+.story .h3, .story__next .h3 { font-weight: 400; letter-spacing: -0.02em; }
+.story .h3:lang(ta), .story__next .h3:lang(ta) { letter-spacing: 0; }
+/* Placeholder story: the "on its way" panel sits under the title inside the ink band. */
+.story__head-section .empty-state { margin-top: var(--space-10); }
+.story__head-section:has(.empty-state) { padding-bottom: calc(var(--space-12) + var(--sheet-radius)); }

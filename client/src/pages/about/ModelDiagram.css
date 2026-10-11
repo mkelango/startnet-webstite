@@ -1,0 +1,76 @@
+/* Funnel → platform → capital (DESIGN-v2 6.4): framed cards (White on the Bone ground, hairline ring, 2px Ink
+   top rule on hover) under an Ink rail that draws in as the section scrolls. The travelling point is Ink: this
+   section's one red point is the "One platform." headline stop beside it. The StartNet X card is the Ink node. */
+.about-model { margin: 0; position: relative; }
+.about-model__rail { display: none; }
+.about-model__stages { list-style: none; display: grid; gap: var(--space-8); counter-reset: stage; }
+.about-model__stage {
+  position: relative;
+  display: flex; flex-direction: column; gap: var(--space-3);
+  padding: 28px;
+  background: var(--white);
+  border-radius: var(--radius-media);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+  overflow: hidden;
+  transition: box-shadow var(--dur-2) var(--ease-snap);
+}
+.about-model__stage::after {
+  content: ''; position: absolute; inset: 0 0 auto; height: 2px; background: var(--color-text);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+.about-model__stage:not(.about-model__stage--platform):focus-within { box-shadow: inset 0 0 0 1px var(--line-strong); }
+@media (hover: hover) and (pointer: fine) { .about-model__stage:not(.about-model__stage--platform):hover { box-shadow: inset 0 0 0 1px var(--line-strong); } }
+.about-model__stage:not(.about-model__stage--platform):focus-within::after { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { .about-model__stage:not(.about-model__stage--platform):hover::after { transform: scaleX(1); } }
+@media (max-width: 767.98px) { .about-model__stage { padding: 24px; } }
+.about-model__stage + .about-model__stage::before {
+  /* down arrow between stacked stages on phones */
+  /* centred in the gap between cards, clear of both borders */
+  content: '↓'; content: '↓' / ''; position: absolute; top: calc(-1 * var(--space-8) / 2 - 0.5em); left: var(--space-6);
+  color: var(--color-text-muted); font-size: var(--text-small); line-height: 1; height: 1em;
+}
+.about-model__stage .h4 { margin: 0; font-weight: 500; letter-spacing: -0.01em; }
+.about-model__stage--platform { background: var(--night-0); color: var(--night-text); box-shadow: none; }
+.about-model__stage--platform .about-model__step,
+.about-model__stage--platform .about-model__text { color: var(--night-text-2); }
+/* "01 · Funnel": sentence case, small, muted (was an uppercase tracked kicker). */
+.about-model__step { font-size: var(--text-small); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--color-text-muted); }
+.about-model__text { color: var(--color-text-2); font-size: var(--text-small); }
+.about-model__brands { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
+.about-model__brand {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; padding: 0 var(--space-3);
+  border-radius: var(--radius-btn); box-shadow: inset 0 0 0 1px var(--line-strong);
+  font-size: var(--text-caption); font-weight: 500; text-decoration: none; color: var(--color-text);
+  transition: box-shadow var(--dur-2) var(--ease-snap), background-color var(--dur-2) var(--ease-snap);
+}
+@media (hover: hover) and (pointer: fine) { .about-model__brand:hover { box-shadow: inset 0 0 0 1px var(--color-text); background: rgb(12 23 25 / 0.04); } }
+.about-model__swatch { width: 8px; height: 8px; border-radius: var(--radius-full); background: var(--accent-fill, var(--accent)); }
+.about-model__link { display: inline-flex; align-items: center; min-height: 44px; align-self: flex-start; color: var(--night-text); font-weight: 500; font-size: var(--text-small); margin-top: auto; text-decoration-color: rgb(244 243 239 / 0.4); }
+.about-model__link:hover { text-decoration-color: currentColor; }
+.about-model__cap { margin-top: var(--space-5); }
+
+@media (min-width: 1024px) {
+  .about-model { padding-top: var(--space-8); }
+  .about-model__stages { grid-template-columns: 1.3fr 1fr 1fr; gap: var(--space-6); }
+  /* desktop: the rail and the travelling dot carry the direction */
+  .about-model__stage + .about-model__stage::before { display: none; }
+  .about-model__rail {
+    display: block; position: absolute; top: 0; left: var(--space-6); right: var(--space-6);
+    height: 1px; background: var(--color-border);
+  }
+  .about-model__fill {
+    position: absolute; inset: 0; background: var(--color-text);
+    transform-origin: left center; transform: scaleX(0.5);
+  }
+  .about-model__dot {
+    position: absolute; top: 50%; left: 0;
+    width: 12px; height: 12px; margin: -6px 0 0 -6px;
+    border-radius: var(--radius-full); background: var(--color-text);
+    /* the diagram sits on the Bone ground */
+    box-shadow: 0 0 0 6px var(--bone);
+  }
+  .about-model--static .about-model__dot { left: 50%; }
+}
+
+:lang(ta) .about-model__stage .h4 { letter-spacing: 0; }

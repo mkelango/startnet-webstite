@@ -1,0 +1,156 @@
+/* Shared, page-local styles for /about/** pages. Prefix: .about- */
+
+/* ---------- In-page nav: sticky bar (DESIGN-v2 6.4) ---------- */
+/* A Paper strip docked under the header with a bottom hairline; inside it, a pill segmented control whose Ink pill
+   slides to the current section. The ring's left edge sits on the container edge (same x as every header below). */
+.about-bar {
+  position: sticky;
+  /* Docks under the visible header; Header.jsx publishes --shell-offset (0 while the header is hidden on scroll). */
+  top: var(--shell-offset, 0px);
+  z-index: 20;
+  transition: top var(--dur-header, 280ms) var(--ease-snap);
+  container-type: scroll-state;
+}
+.about-bar__sheet {
+  background: var(--paper);
+  border-bottom: 1px solid var(--hairline);
+  transition: border-radius var(--dur-2) var(--ease-snap), background-color var(--dur-2) var(--ease-snap);
+}
+/* Straight after the Ink hero the bar IS the page's one sheet rise (theme.css rounds the top of .page-hero + *):
+   the inner strip carries the Paper and the rounded corners, and squares off once docked under the header. */
+:root :is(.page-hero, .brand-hero) + .about-bar { position: sticky; background: transparent; }
+:root :is(.page-hero, .brand-hero) + .about-bar > .about-bar__sheet {
+  padding-top: var(--space-2);
+  border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
+}
+@container scroll-state(stuck: top) {
+  .about-bar__sheet {
+    background: rgb(244 243 239 / 0.92);
+    -webkit-backdrop-filter: saturate(1.2) blur(16px);
+    backdrop-filter: saturate(1.2) blur(16px);
+  }
+  :root :is(.page-hero, .brand-hero) + .about-bar > .about-bar__sheet { border-radius: 0; }
+}
+.about-bar + .section { padding-top: var(--space-section-tight, var(--space-section)); }
+
+.about-toc--bar { padding-block: var(--space-3); }
+.about-toc--bar .about-toc__list {
+  /* .segmented (components/Tabs.css): hairline ring, 4px padding, 36px items */
+  display: flex;
+  max-width: 100%;
+  width: max-content;
+  list-style: none;
+  margin: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-padding-inline: var(--space-6);
+}
+.about-toc--bar .about-toc__list::-webkit-scrollbar { display: none; }
+.about-toc--bar .about-toc__list > li { flex-shrink: 0; }
+/* The sliding Ink pill: one layer as wide as the scrolled row, clipped to the current chip (round ends kept). */
+.about-pill__ind {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: var(--ind-sw, 100%);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: var(--radius-full);
+  background: var(--sn-ink);
+  opacity: 0;
+  clip-path: inset(var(--ind-y, 0px) calc(var(--ind-sw, 100%) - var(--ind-x, 0px) - var(--ind-w, 0px)) calc(100% - var(--ind-y, 0px) - var(--ind-h, 0px)) var(--ind-x, 0px) round 9999px);
+  transition: clip-path var(--dur-3) var(--ease-snap), opacity var(--dur-2) var(--ease-snap);
+}
+[data-ind-ready] > .about-pill__ind { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .about-pill__ind { transition: opacity 0ms; } }
+:root[data-motion='reduced'] .about-pill__ind { transition: opacity 0ms; }
+/* Edge fades show only on the side(s) with hidden chips; toggled from scroll position in shared.jsx. */
+.about-toc--bar .about-toc__list[data-fade-end] {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+}
+.about-toc--bar .about-toc__list[data-fade-start] {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 32px);
+  mask-image: linear-gradient(to right, transparent, #000 32px);
+}
+.about-toc--bar .about-toc__list[data-fade-start][data-fade-end] {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+}
+.about-toc--bar .about-toc__link { font-size: var(--text-meta); }
+/* The chip row scrolls sideways (overflow clips): keep the focus ring inside the chip. */
+.about-toc--bar .about-toc__link:focus-visible { outline: 0; border-radius: var(--radius-full); box-shadow: inset 0 0 0 2px var(--color-focus), inset 0 0 0 4px var(--paper); }
+@media (max-width: 1023.98px) { .about-toc--bar { padding-block: var(--space-2); } }
+
+/* ---------- In-page nav: aside TOC (a 1px hairline list; the current item gets a 1px ink segment) ---------- */
+.about-toc--aside { font-size: var(--text-small); }
+.about-toc__title {
+  font-size: var(--text-small); font-weight: 500; letter-spacing: 0;
+  text-transform: none; color: var(--color-text-muted); margin-bottom: var(--space-3);
+}
+.about-toc--aside .about-toc__list { list-style: none; border-left: var(--border-hair); }
+.about-toc--aside .about-toc__link {
+  display: flex; gap: var(--space-3); align-items: baseline;
+  min-height: 44px; padding: var(--space-2) var(--space-4);
+  margin-left: -1px; border-left: 1px solid transparent;
+  color: var(--color-text-muted); text-decoration: none;
+  transition: color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard);
+}
+.about-toc--aside .about-toc__link:hover { color: var(--color-text); }
+.about-toc--aside .about-toc__link[aria-current] { color: var(--color-text); border-left-color: var(--color-text); font-weight: 500; }
+.about-toc__num { font-size: var(--text-caption); color: var(--color-text-muted); }
+
+/* ---------- Pending (placeholder) figures: a hairline cell like the figures beside it ---------- */
+.about-pending { display: flex; flex-direction: column; gap: var(--space-3); padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+.about-pending__label { font-weight: 500; font-size: var(--text-body); letter-spacing: -0.01em; }
+.about-pending__value { margin: 0; display: flex; flex-direction: column; gap: var(--space-2); align-items: flex-start; }
+.about-pending__tag { font-variant-numeric: tabular-nums; }
+
+/* ---------- Tag legend ---------- */
+.about-legend { list-style: none; display: grid; gap: var(--space-3); }
+.about-legend__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
+.about-legend__row > span:last-child { min-width: 0; flex: 1 1 12rem; }
+.about-legend--compact { grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); font-size: var(--text-small); }
+.about-legend strong { font-weight: 500; }
+
+/* ---------- Numbered marker ---------- */
+.about-num {
+  display: inline-block;
+  font-size: var(--text-small);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  letter-spacing: 0;
+}
+/* Inside a dot label ("● 01 · Why we exist") the number reads as part of the label, one step quieter. */
+.eyebrow .about-num { font-size: inherit; }
+
+/* ---------- Common blocks reused across about pages ---------- */
+.about-statement { font-size: var(--text-h2); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; max-width: 28ch; text-wrap: balance; }
+.about-rule { border: 0; border-top: var(--border-hair); margin: 0; }
+.about-note { font-size: var(--text-small); color: var(--color-text-muted); }
+.about-note em { font-style: italic; }
+/* Checklists: full-width hairline rows with a short ink dash. */
+.about-checklist { list-style: none; display: grid; gap: 0; border-top: 1px solid var(--color-border); }
+.about-checklist li { position: relative; padding: var(--space-4) 0 var(--space-4) var(--space-8); border-bottom: 1px solid var(--color-border); color: var(--color-text-2); }
+.about-checklist li::before {
+  content: ''; position: absolute; left: 0; top: calc(var(--space-4) + 0.75em);
+  width: var(--space-4); height: 1px; background: var(--color-text);
+}
+.about-two-col { display: grid; gap: var(--space-10); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) {
+  .about-two-col { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; }
+}
+.about-layout-toc { display: grid; gap: var(--space-10); }
+.about-layout-toc__aside { display: none; }
+@media (min-width: 1024px) {
+  .about-layout-toc { grid-template-columns: minmax(0, 8fr) minmax(0, 3fr); gap: var(--space-16); align-items: start; }
+  .about-layout-toc__aside { display: block; position: sticky; top: calc(var(--shell-offset, var(--header-h-compact)) + var(--space-8)); transition: top var(--dur-3) var(--ease-standard); order: 2; }
+  .about-layout-toc__main { order: 1; }
+}
+
+/* ---------- Tamil (Book 3 §4.4): no uppercase or letter-spacing on Tamil labels ---------- */
+:lang(ta) :is(
+  .about-toc__title, .about-num, .about-story__partners-label, .about-model__step,
+  .hww-matrix__pk, .hww-attrib__k, .mission-attrib__k, .mission-meter__k,
+  .gov-kill__k, .gov-table thead th, .evs-tag__k, .ttn-diagram__label, .ttn-diagram__walllabel
+) { text-transform: none; letter-spacing: 0; }
+:lang(ta) :is(.about-statement, .about-story__pull p) { letter-spacing: 0; line-height: 1.4; }

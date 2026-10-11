@@ -1,0 +1,66 @@
+/* StartNet X · Updates (T15 listing / changelog). AngelList-family: a quiet pill filter, hairline changelog rows
+   ([date] [release]), 4px labels. */
+.snx-updates__crumbs-band { background: var(--night-0); }
+.snx-updates__crumbs { padding-top: var(--space-4); }
+.snx-updates__anchor { scroll-margin-top: calc(var(--shell-offset, var(--header-h)) + var(--subnav-h) + var(--space-4)); }
+
+.snx-updates__bar { display: grid; gap: var(--space-5); padding-bottom: var(--space-6); border-bottom: 1px solid var(--color-border); }
+@media (min-width: 1024px) { .snx-updates__bar { grid-template-columns: 1fr auto; align-items: center; gap: var(--space-10); } }
+.snx-updates__rule { color: var(--color-text-2); max-width: 60ch; }
+/* Filter: a pill group like the header nav; the pressed option is a paper pill with a hairline. */
+.snx-updates__filters {
+  display: inline-flex; flex-wrap: wrap; gap: 2px; justify-self: start;
+  padding: 4px; border-radius: 26px; background: var(--sheet-2);
+}
+.snx-updates__filter {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
+  padding: var(--space-2) var(--space-4); border-radius: var(--radius-full);
+  border: 0; background: transparent; color: var(--color-text-2);
+  font: inherit; font-size: var(--text-small); font-weight: 500; cursor: pointer;
+  transition: background-color var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard);
+}
+.snx-updates__filter:hover { color: var(--color-text); }
+.snx-updates__filter:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.snx-updates__filter[aria-pressed="true"] {
+  background: var(--card); color: var(--color-text);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-text) 20%, var(--color-border));
+}
+/* On the sheet-2 track muted text would fall under 4.5:1: counts use text-2 (muted only on the paper pill). */
+.snx-updates__filter-count { font-size: var(--text-caption); font-variant-numeric: tabular-nums; color: var(--color-text-2); }
+.snx-updates__filter[aria-pressed="true"] .snx-updates__filter-count { color: var(--color-text-muted); }
+
+.snx-updates__group { margin-top: clamp(var(--space-10), 2rem + 2vw, var(--space-16)); }
+.snx-updates__group-title.h3 { margin-bottom: var(--space-6); font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; }
+
+/* Changelog: full-width hairline rows; date left, release right. No cards, no rail. */
+.snx-updates__list { list-style: none; display: grid; gap: 0; position: relative; border-top: 1px solid var(--color-border); }
+.snx-updates__entry { display: grid; gap: var(--space-3); padding-block: var(--space-8); border-bottom: 1px solid var(--color-border); scroll-margin-top: calc(var(--shell-offset, var(--header-h)) + var(--subnav-h) + var(--space-4)); min-width: 0; }
+@media (min-width: 768px) {
+  .snx-updates__entry { grid-template-columns: 13rem minmax(0, 1fr); gap: var(--space-8); align-items: start; }
+}
+.snx-updates__when { display: inline-flex; align-items: flex-start; gap: var(--space-2); font-size: var(--text-small); font-weight: 500; color: var(--color-text-2); padding-top: 2px; }
+.snx-updates__when svg { color: var(--color-text-muted); flex: none; margin-top: 1px; }
+.snx-updates__card { display: grid; gap: var(--space-4); padding: 0; background: transparent; border: 0; min-width: 0; position: relative; }
+.snx-updates__head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.snx-updates__title.h4 { margin: 0; font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; font-size: var(--text-h3); }
+.snx-updates__items { display: grid; gap: var(--space-2); padding-left: 1.25em; color: var(--color-text-2); max-width: 46rem; }
+.snx-updates__items li::marker { color: var(--color-text-muted); }
+.snx-updates__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-1); }
+.snx-updates__mods { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.snx-updates__mods li { font-size: var(--text-caption); font-weight: 500; padding: var(--space-1) var(--space-2); border-radius: var(--btn-radius); background: var(--sheet-2); color: var(--color-text-2); }
+.snx-updates__dates { margin-top: var(--space-8); color: var(--color-text-2); }
+
+/* Subscribe: two-column utility layout */
+.snx-updates__sub { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) { .snx-updates__sub { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; } }
+.snx-updates__sub-text { display: grid; gap: var(--space-6); justify-items: start; }
+.snx-updates__form { min-width: 0; }
+
+/* DESIGN-v2 3.12 pill segmented: hairline ring track, Ink pill + Paper text on the pressed option. */
+.snx-updates__filters { background: transparent; box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-full); }
+.snx-updates__filter { min-height: 36px; padding: 0 16px; transition: background-color var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap), transform var(--dur-1) var(--ease-standard); }
+.snx-updates__filter:active { transform: scale(0.97); }
+.snx-updates__filter[aria-pressed="true"] { background: var(--sn-ink); color: var(--paper); box-shadow: none; }
+.snx-updates__filter[aria-pressed="true"] .snx-updates__filter-count { color: var(--night-text-2); }
+.snx-updates__filter-count { color: var(--color-text-muted); }
+@media (pointer: coarse) { .snx-updates__filter { min-height: 44px; } }

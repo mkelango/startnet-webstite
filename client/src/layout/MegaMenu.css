@@ -1,0 +1,210 @@
+/* C03 · Mega menu (DESIGN-v2 3.2, AIWO P1): a full-width Paper sheet under the Ink bar, hairline top and bottom,
+   no shadow and no rounded corners; the page behind is dimmed by the header scrim (Ink 25%).
+   12-col grid: the intro and the link columns in cols 1–8, the featured card in cols 9–12 (led by a 3:2 photo or
+   motion visual, spanning the panel's height). Column titles 14px 500 muted sentence case; links 17px 500 Ink with
+   the existing description in 14px muted; Bone hover row with an Ink arrow (no red anywhere). */
+.mega-menu {
+  position: absolute; z-index: 1; left: 0; right: 0; top: 100%;
+  background: var(--paper);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  box-shadow: none;
+  color: var(--color-text);
+  max-height: calc(100vh - var(--header-h) - var(--utility-h));
+  overflow-y: auto; overscroll-behavior: contain;
+}
+.site-header[data-scrolled] .mega-menu { max-height: calc(100vh - var(--header-h-compact)); }
+
+.mega-menu__inner {
+  display: grid; gap: var(--space-8) var(--space-10);
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  grid-template-rows: auto 1fr;
+  column-gap: 32px;
+  padding-block: var(--space-10) var(--space-12);
+}
+.mega-menu__inner > .mega-menu__intro { grid-column: 1; grid-row: 1; }
+.mega-menu__inner > .mega-menu__cols { grid-column: 1; grid-row: 2; }
+.mega-menu__inner > .mega-menu__feature-slot { grid-column: 2; grid-row: 1 / span 2; min-width: 0; }
+.mega-menu__inner--brands { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+.mega-menu__inner--brands > * { grid-column: 1; grid-row: auto; }
+.mega-menu__intro {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2) var(--space-8);
+  padding-bottom: var(--space-6); border-bottom: 1px solid var(--color-border);
+}
+.mega-menu__title { font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); line-height: 1.15; }
+.mega-menu__title-link { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text); text-decoration: none; }
+.mega-menu__title-link:hover { text-decoration: none; }
+.mega-menu__title-arrow { color: var(--color-text); flex-shrink: 0; transition: transform var(--dur-2) var(--ease-snap); }
+@media (hover: hover) { .mega-menu__title-link:hover .mega-menu__title-arrow { transform: translateX(4px); } }
+.mega-menu__lede { color: var(--color-text-2); font-size: var(--text-body-lg); max-width: 60ch; }
+
+.mega-menu__cols { display: grid; gap: var(--space-8) var(--space-6); grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); align-content: start; }
+.mega-menu__col-title {
+  display: flex; align-items: baseline; gap: var(--space-2);
+  font-size: var(--text-meta); font-weight: 500; letter-spacing: 0; text-transform: none;
+  color: var(--color-text-muted); padding-bottom: var(--space-3); margin-bottom: var(--space-2); border-bottom: 1px solid var(--color-border);
+}
+.mega-menu__col-meta { margin-left: auto; font-variant-numeric: tabular-nums; letter-spacing: 0; color: var(--color-text-muted); font-weight: 500; }
+.mega-menu__list { list-style: none; }
+.mega-menu__link {
+  display: flex; flex-direction: column; justify-content: center; gap: 2px; min-height: 40px;
+  margin-inline: -12px; padding: 8px 12px; border-radius: var(--radius-btn);
+  color: var(--color-text); text-decoration: none; font-size: 1.0625rem; font-weight: 500; line-height: 1.3;
+  transition: background-color var(--dur-2) var(--ease-snap);
+}
+.mega-menu__link:hover { text-decoration: none; }
+.mega-menu__link-label { display: inline-flex; align-items: center; gap: 8px; width: fit-content; }
+.mega-menu__link-arrow { flex: none; opacity: 0; transform: translateX(-4px); transition: opacity var(--dur-2) var(--ease-snap), transform var(--dur-2) var(--ease-snap); }
+@media (hover: hover) {
+  .mega-menu__link:hover { background: var(--bone); }
+  .mega-menu__link:hover .mega-menu__link-arrow { opacity: 1; transform: translateX(0); }
+}
+.mega-menu__link:focus-visible { background: var(--bone); outline-offset: 0; }
+.mega-menu__link:focus-visible .mega-menu__link-arrow { opacity: 1; transform: none; }
+.mega-menu__link-note { font-size: var(--text-meta); font-weight: 400; color: var(--color-text-muted); }
+
+/* Featured card: a framed card whose media runs flush to its top edge (AIWO feature card: photo + display line) */
+.mega-feature {
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3);
+  padding: 28px; border-radius: var(--radius-media); background: var(--card); box-shadow: inset 0 0 0 1px var(--hairline); height: 100%;
+  overflow: hidden;
+}
+.mega-feature__media {
+  display: block; align-self: stretch;
+  margin: -28px -28px var(--space-3);
+  background: var(--bone);
+}
+.mega-feature__media .art-image, .mega-feature__media .mv { border-radius: 0; }
+.mega-feature__media .art-image--photo::after { border-radius: 0; }
+.mega-feature--ink .mega-feature__media { background: var(--night-1); }
+.mega-feature--ink {
+  background: var(--night-0); color: var(--night-text);
+  --color-text: var(--night-text); --color-text-2: var(--night-text-2); --color-text-muted: var(--night-text-muted);
+  --color-link: var(--night-text); --color-border: var(--night-line);
+}
+.mega-feature__eyebrow { display: inline-flex; align-items: center; gap: 0.6em; font-size: var(--text-meta); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--color-text); }
+.mega-feature__eyebrow::before { content: ''; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--color-label-dot); }
+.mega-feature__title { font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3); }
+.mega-feature__body { font-size: var(--text-small); color: var(--color-text-2); }
+.mega-feature__caption { font-size: var(--text-caption); color: var(--color-text-muted); }
+.mega-feature__stat { width: 100%; }
+.mega-feature__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-4); margin-top: auto; }
+.mega-feature__textlink { display: inline-flex; align-items: center; gap: var(--space-1); font-size: var(--text-small); font-weight: 500; color: inherit; min-height: 44px; }
+.mega-progress { width: 100%; height: 2px; border-radius: 0; background: var(--hairline); overflow: hidden; }
+.mega-progress__bar { display: block; height: 100%; background: var(--sn-ink); transform-origin: left center; transition: transform var(--dur-6) var(--ease-reveal); }
+.mega-feature--ink .mega-progress { background: var(--night-line); }
+.mega-feature--ink .mega-progress__bar { background: var(--paper); }
+
+.mega-calls { list-style: none; width: 100%; display: grid; gap: var(--space-2); }
+.mega-calls__link {
+  display: grid; justify-items: start; gap: var(--space-1); padding: var(--space-3); border-radius: var(--radius-btn);
+  background: var(--white); text-decoration: none; color: var(--color-text);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+  transition: box-shadow var(--dur-2) var(--ease-snap), background-color var(--dur-2) var(--ease-snap);
+}
+.mega-calls__link:hover { text-decoration: none; }
+@media (hover: hover) { .mega-calls__link:hover { box-shadow: inset 0 0 0 1px var(--line-strong); } }
+.mega-calls__title { font-weight: 500; font-size: var(--text-small); line-height: 1.3; }
+.mega-calls__date { font-size: var(--text-caption); color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+
+.mega-event__art { display: block; overflow: hidden; }
+.mega-event__title { color: var(--color-text); text-decoration: none; }
+.mega-event__title:hover { text-decoration: underline; text-decoration-color: var(--color-link-decoration); }
+.mega-event__meta { font-size: var(--text-small); color: var(--color-text-2); font-variant-numeric: tabular-nums; }
+.mega-event__chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+.mega-ledger { display: grid; gap: var(--space-3); width: 100%; margin: 0; }
+.mega-ledger__tile { padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border); }
+.mega-ledger__label { font-size: var(--text-caption); color: var(--color-text-muted); }
+.mega-ledger__value { margin: var(--space-1) 0 0; font-size: var(--text-caption); }
+
+/* Brands variant */
+.mega-menu__brands { display: grid; gap: var(--space-6); grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.mega-menu__brand { border-top: 2px solid var(--accent); padding-top: var(--space-4); display: flex; flex-direction: column; }
+.mega-menu__brand-head {
+  display: grid; gap: var(--space-1); padding-bottom: var(--space-3); margin-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border); text-decoration: none; color: var(--color-text);
+}
+.mega-menu__brand-head:hover { text-decoration: none; }
+.mega-menu__brand-journey { font-size: var(--text-meta); color: var(--accent-text); font-weight: 500; }
+.mega-menu__brand-visit {
+  display: inline-flex; align-items: center; gap: var(--space-2); margin-top: auto; padding-top: var(--space-3); min-height: 44px;
+  font-weight: 500; font-size: var(--text-small); color: var(--color-text); text-decoration: none;
+}
+.mega-menu__brand-visit svg { transition: transform var(--dur-2) var(--ease-snap); }
+@media (hover: hover) { .mega-menu__brand-visit:hover svg { transform: translateX(4px); } }
+
+.mega-menu__inkstrip { background: var(--night-0); color: var(--night-text); }
+.mega-menu__inkstrip-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); padding-block: var(--space-5); }
+.mega-menu__inkstrip-inner p { font-size: var(--text-body-lg); max-width: 60ch; }
+
+/* Footer strip */
+.mega-menu__strip { border-top: 1px solid var(--hairline); background: var(--bone); }
+.mega-menu__strip-inner {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-6);
+  min-height: 56px; padding-block: var(--space-2); font-size: var(--text-small);
+}
+.mega-menu__strip-list { list-style: none; display: flex; flex-wrap: wrap; align-items: center; }
+.mega-menu__strip-list li + li::before { content: "·"; margin: 0 var(--space-3); color: var(--color-text-muted); }
+.mega-menu__strip-list a { color: var(--color-text-2); text-decoration: none; }
+.mega-menu__strip-list a:hover { color: var(--color-text); text-decoration: underline; text-decoration-color: currentColor; }
+.mega-menu__seeall {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; margin-left: auto;
+  font-weight: 500; color: var(--color-text); text-decoration: none;
+}
+.mega-menu__seeall svg { transition: transform var(--dur-2) var(--ease-snap); }
+@media (hover: hover) { .mega-menu__seeall:hover svg { transform: translateX(4px); } }
+
+/* Short viewports (e.g. 1280×800, 1024×768): tighten the panel and keep "See all" in reach */
+@media (max-height: 820px) {
+  .mega-menu__inner { padding-block: var(--space-6); gap: var(--space-6) var(--space-8); }
+  .mega-menu__intro { padding-bottom: var(--space-4); }
+  .mega-menu__title { font-size: var(--text-h4); }
+  .mega-menu__lede { font-size: var(--text-body); }
+  .mega-menu__link { min-height: 36px; }
+  .mega-menu__col-title { padding-bottom: var(--space-2); }
+  .mega-menu__strip { position: sticky; bottom: 0; z-index: 1; }
+}
+
+/* Column titles: meta (L1–L3 …) never wraps, and titles reserve two lines so the link lists align across columns */
+.mega-menu__col-meta { white-space: nowrap; flex-shrink: 0; }
+.mega-menu__cols .mega-menu__col-title { line-height: 1.35; min-height: calc(2.7em + var(--space-3)); align-items: flex-end; }
+/* Tamil (Book 3 §4.4): no tracking or negative letter-spacing on Tamil text */
+:lang(ta) .mega-menu__col-title, :lang(ta) .mega-feature__eyebrow { letter-spacing: 0; font-size: 0.875rem; }
+:lang(ta) .mega-menu__link { font-size: 1rem; }
+:lang(ta) .mega-menu__title { letter-spacing: 0; line-height: 1.3; }
+
+/* Tamil panels fit 1280×800 and 1440×900 without scrolling (Tamil runs 30–60% longer), so no featured CTA starts
+   hidden under the sticky footer strip. The Ledger card gets a wider column so its labels and placeholders do not
+   wrap; the brands ink strip runs one size smaller across the full width. */
+:lang(ta) .mega-menu__inner[data-featured="ledger"] { grid-template-columns: minmax(0, 1fr) minmax(17rem, 22rem); }
+:lang(ta) .mega-menu__inkstrip-inner { padding-block: var(--space-4); }
+:lang(ta) .mega-menu__inkstrip-inner p { font-size: var(--text-body); max-width: none; }
+.mega-menu__inkstrip-inner > :last-child { flex-shrink: 0; }
+:lang(ta) .mega-menu__brand-visit { line-height: 1.35; }
+@media (max-height: 820px) {
+  /* Keyboard focus is never scrolled under the sticky strip */
+  .mega-menu { scroll-padding-bottom: 64px; }
+  .mega-feature__media { max-height: 8rem; overflow: hidden; }
+  .mega-feature__media :is(.art-image, .mv) { aspect-ratio: auto !important; height: 8rem; }
+  /* Tamil runs 30–60% longer: on short screens the card drops its media so the panel still fits without scrolling */
+  :lang(ta) .mega-feature__media { display: none; }
+  :lang(ta) .mega-menu__link { min-height: 32px; }
+  :lang(ta) .mega-ledger { gap: var(--space-2); }
+  :lang(ta) .mega-ledger__tile { padding-bottom: var(--space-2); }
+}
+/* Short-viewport tune for the larger 17px links */
+@media (max-height: 820px) { .mega-menu__link { padding-block: 6px; } }
+:root[data-motion='reduced'] :is(.mega-menu__link, .mega-menu__link-arrow) { transition: none; }
+
+/* 1024–1279: the link area is only ~630px wide, so auto-fit gave 3 columns and pushed a 4th group onto its own row
+   (Take part, Find customers and peers, Developers) under the sticky strip. Here the links take 9 of 12 columns and
+   always run as one row of up to four groups; the featured card narrows to 3. Order and links are unchanged. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .mega-menu__inner:has(> .mega-menu__cols > :nth-child(4)) { grid-template-columns: minmax(0, 9fr) minmax(0, 3fr); column-gap: 24px; }
+  .mega-menu__cols:has(> :nth-child(4)) { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 16px; }
+  .mega-menu__cols:has(> :nth-child(5)) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .mega-menu__cols:has(> :nth-child(4)) .mega-menu__link { font-size: 1rem; }
+  .mega-menu__inner:has(> .mega-menu__cols > :nth-child(4)) .mega-feature { padding: 20px; }
+  .mega-menu__inner:has(> .mega-menu__cols > :nth-child(4)) .mega-feature__media { margin: -20px -20px var(--space-3); }
+}

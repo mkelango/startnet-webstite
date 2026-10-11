@@ -1,0 +1,87 @@
+/* /careers/:slug — T09 article with a key-facts aside on desktop. Prefix: .job (mobile first)
+   AngelList family: head on the ink band, reading column + hairline key-facts aside on the sheet, hairline rows. */
+.job__loading { display: grid; gap: var(--space-4); max-width: 46rem; }
+
+/* Head: plain ink (no dot texture), room for the sheet's rounded top */
+.section.job__head-section {
+  background-image: none;
+  padding-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12));
+  padding-bottom: calc(clamp(var(--space-12), 2rem + 3vw, var(--space-16)) + var(--sheet-radius));
+}
+.job__head { max-width: 52rem; min-width: 0; }
+.job__chips { margin-top: var(--space-8); }
+.job__title { margin-top: var(--space-5); overflow-wrap: anywhere; }
+.job__standfirst { margin-top: var(--space-6); color: var(--color-text-2); max-width: 40rem; }
+.job__head-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-8); }
+.job__hint { margin-top: var(--space-4); font-size: var(--text-small); color: var(--color-text-muted); }
+
+.job__layout { display: grid; gap: var(--space-12); min-width: 0; }
+.job__main { display: grid; gap: var(--space-12); min-width: 0; max-width: 68ch; }
+:lang(ta) .job__main { max-width: 42rem; }
+@media (min-width: 1024px) {
+  .job__layout { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-16); align-items: start; }
+  /* theme.css sets `:root .key-facts { position: relative }` (for its dot), which beats KeyFacts' own sticky rule and,
+     with the sticky `top`, pushed this aside 128px down. Restore sticky here (0,2,0, loads after theme). */
+  .job__facts.key-facts--sticky { position: sticky; top: calc(var(--shell-offset, var(--header-h)) + var(--space-6)); }
+}
+
+.job__block { min-width: 0; }
+.job__block > .h4 { margin-bottom: var(--space-5); font-weight: 500; letter-spacing: -0.015em; }
+.job__block-title { display: flex; align-items: center; gap: var(--space-3); }
+.job__block-title svg { flex: none; color: var(--color-text); }
+/* The outcome is the role's statement: large, regular, no bar */
+.job__outcome.body-lg {
+  font-size: var(--text-h3); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; max-width: 30ch;
+  color: var(--color-text);
+}
+.job__prose p + p { margin-top: 1em; }
+.job__prose p { color: var(--color-text-2); line-height: 1.7; }
+.job__pending { color: var(--color-text-2); }
+
+/* Lists: hairline rows, quiet line icons */
+.job__list { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--color-border); }
+.job__list-item {
+  display: flex; gap: var(--space-3); align-items: flex-start; color: var(--color-text-2); line-height: 1.6;
+  padding-block: var(--space-4); border-bottom: 1px solid var(--color-border);
+}
+.job__list-item > span { min-width: 0; overflow-wrap: anywhere; }
+.job__list-icon { flex: none; margin-top: 0.25em; color: var(--color-text-muted); }
+.job__list-icon--check { color: var(--color-text); }
+.job__list-item a { font-weight: 500; color: var(--color-text); }
+
+/* Commitments: one hairline frame */
+.job__commit { padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card); }
+@media (min-width: 768px) { .job__commit { padding: var(--space-8); } }
+.job__eo { font-weight: 500; }
+.job__commit .job__pending { margin-top: var(--space-3); font-size: var(--text-small); }
+.job__commit-stat { margin-top: var(--space-6); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
+
+.job__facts-note { font-size: var(--text-small); color: var(--color-text-muted); }
+
+.job__hire { display: grid; gap: var(--space-10); }
+.job__hire-intro .h2 { margin-top: var(--space-4); }
+
+/* Other open roles: hairline rows (title, meta, arrow) */
+.job__more-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); }
+.job__more-head > :is(h2, h3).h4 { font-weight: 400; letter-spacing: -0.015em; }
+.job__more { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--color-border); }
+.job__more > li { border-bottom: 1px solid var(--color-border); }
+.job__more-card {
+  position: relative; display: grid; gap: var(--space-1); min-height: 44px;
+  padding: var(--space-5) var(--space-12) var(--space-5) 0;
+  color: var(--color-text); text-decoration: none;
+}
+@media (min-width: 768px) {
+  .job__more-card { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: var(--space-6); }
+}
+.job__more-card:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--btn-radius); }
+.job__more-title { font-weight: 500; font-size: var(--text-h5); letter-spacing: -0.01em; overflow-wrap: anywhere; }
+.job__more-card:hover .job__more-title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.job__more-meta { font-size: var(--text-small); color: var(--color-text-muted); }
+.job__more-arrow { position: absolute; right: 0; top: 50%; translate: 0 -50%; transition: transform var(--dur-2) var(--ease-standard); }
+@media (hover: hover) and (pointer: fine) { .job__more-card:hover .job__more-arrow { transform: translateX(var(--shift-1)); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .job__more-arrow { transition: none; }
+  .job__more-card:hover .job__more-arrow { transform: none; }
+}

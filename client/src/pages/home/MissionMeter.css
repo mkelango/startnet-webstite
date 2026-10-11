@@ -1,0 +1,25 @@
+/* Mission 1 Lakh meter (DESIGN-v2 6.1): a 2px hairline track, an Ink fill drawn in on view (scaleX, 800ms), and the
+   current value as the red point: a 12px dot at the fill end. Tabular scale labels underneath. */
+.home-meter { --meter-h: 2px; --meter-dot: 12px; display: grid; gap: var(--space-3); }
+.home-meter__track {
+  position: relative;
+  height: var(--meter-h);
+  margin-block: calc((var(--meter-dot) - var(--meter-h)) / 2);
+  background: var(--hairline);
+}
+.home-meter__fill { position: absolute; inset: 0 auto 0 0; background: var(--color-text); transform-origin: left center; }
+.home-meter__dot {
+  position: absolute;
+  top: 50%;
+  width: var(--meter-dot);
+  height: var(--meter-dot);
+  margin-left: calc(var(--meter-dot) / -2);
+  margin-top: calc(var(--meter-dot) / -2);
+  border-radius: var(--radius-full);
+  background: var(--color-point);
+}
+/* The dot never pokes outside the track's start */
+.home-meter__dot[style*='left: 0%'] { margin-left: 0; }
+.home-meter__scale { display: flex; justify-content: space-between; gap: var(--space-4); font-size: var(--text-meta); color: var(--color-text-muted); }
+.home-meter__readout { margin-top: var(--space-2); }
+

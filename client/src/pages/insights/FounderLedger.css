@@ -1,0 +1,319 @@
+/* T08 Founder Ledger. Oct 2026 redesign: the ink hero band, then the data on paper sheets in the calm USVC
+   "blueprint" manner — hairline frames, big light numerals between vertical dividers, sentence-case labels. */
+.ledger { color: var(--color-text); }
+
+.ledger__edition-meta { font-size: var(--text-small); color: var(--color-text-2); line-height: 1.6; }
+/* Reserve the room the loaded line takes so /api/ledger arriving does not shift the page (CLS). While pending,
+   the fallback text is hidden rather than swapped in place. */
+.ledger__edition-meta { min-height: calc(3 * 1.6em); }
+@media (min-width: 600px) { .ledger__edition-meta { min-height: calc(2 * 1.6em); } }
+@media (min-width: 1024px) { .ledger__edition-meta { min-height: 1.6em; } }
+.ledger__edition-meta:lang(ta) { min-height: calc(4 * 1.6em); }
+@media (min-width: 600px) { .ledger__edition-meta:lang(ta) { min-height: calc(3 * 1.6em); } }
+@media (min-width: 1024px) { .ledger__edition-meta:lang(ta) { min-height: calc(2 * 1.6em); } }
+.ledger__edition-meta.is-pending { visibility: hidden; }
+
+/* The first sheet (theme.css slides it over the hero) holds the edition bar and all data blocks. Its top padding is
+   the bar's room, not a full section space; overflow: clip rounds the bar's corners without breaking sticky. */
+.ledger .ledger__sheet {
+  background: var(--color-bg);
+  padding-top: var(--space-4);
+  overflow: clip;
+}
+
+/* Sticky edition bar (desktop): a quiet sub-navigation on the sheet, hairline beneath */
+.ledger__bar {
+  position: relative;
+  z-index: 5;
+  /* Opaque surface: charts and tables scrolling underneath must not show through. */
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+@media (min-width: 1024px) {
+  /* Sit directly under whatever part of the shell (header) is currently visible, moving in step with it. */
+  .ledger__bar { position: sticky; top: var(--shell-offset, 0px); transition: top var(--dur-header) var(--ease-snap); }
+  :root[data-header-hidden] .ledger__bar { transition-timing-function: var(--ease-header-exit); }
+}
+.ledger__bar-inner {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-6);
+  min-height: 72px; padding-block: var(--space-3);
+}
+.ledger__period { display: inline-flex; align-items: center; gap: var(--space-3); }
+.ledger__period-label { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); }
+.ledger__select-wrap { position: relative; display: inline-flex; align-items: center; }
+.ledger__select-wrap select {
+  appearance: none; -webkit-appearance: none;
+  min-height: 44px; padding: 0 var(--space-10) 0 var(--space-4);
+  background: var(--card); color: var(--color-text);
+  border: 1px solid var(--color-border-control); border-radius: var(--btn-radius);
+  font-weight: 500; font-variant-numeric: tabular-nums;
+}
+.ledger__select-wrap select:disabled { opacity: 1; cursor: default; }
+.ledger__select-wrap svg { position: absolute; right: var(--space-4); pointer-events: none; color: var(--color-text-muted); }
+.ledger__bar-note { font-size: var(--text-small); color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.ledger__bar-actions { display: inline-flex; flex-wrap: wrap; gap: var(--space-2); margin-left: auto; }
+@media (max-width: 767px) { .ledger__bar-actions { margin-left: 0; } }
+/* Download = the theme's quiet secondary button (filled sheet tone, no outline). */
+.ledger__dl {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; padding: 0 var(--space-4);
+  background: var(--sheet-2); color: var(--color-text);
+  border: 1px solid transparent; border-radius: var(--btn-radius);
+  font-size: var(--text-small); font-weight: 500;
+  transition: background-color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) { .ledger__dl:hover:not(:disabled):not(.ledger__dl--off) { background: color-mix(in srgb, var(--color-text) 7%, var(--sheet-2)); } }
+.ledger__dl:disabled { opacity: 0.5; cursor: not-allowed; }
+.ledger__dl--off { background: transparent; color: var(--color-text-muted); border-color: var(--color-border-control); border-style: dashed; cursor: default; }
+/* At 320 in Tamil the PDF pill squeezed its register chip until "[இடநிரப்பி]" split before "]". Label and chip stay
+   whole; the pill still fits the 288px column (≈280px in Tamil). */
+.ledger__dl { white-space: nowrap; max-width: 100%; }
+.ledger__dl .placeholder { flex: none; white-space: nowrap; }
+
+.ledger__notice {
+  margin-top: var(--space-6); padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  background: var(--card);
+  color: var(--color-text-2); font-size: var(--text-small);
+}
+
+.ledger__frame { transition: opacity var(--dur-3) var(--ease-standard); }
+.ledger__frame.is-refetching { opacity: 0.55; }
+
+/* Sections inside the sheet: the first one starts close under the edition bar. */
+.ledger .ledger__frame > .ledger-sec:first-child { padding-top: clamp(var(--space-10), 2rem + 2vw, var(--space-16)); }
+
+/* KPI band 4-up → 2×2 → 1: light numerals between vertical hairlines, ruled top and bottom */
+.ledger-kpis {
+  display: grid; gap: 0;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+@media (min-width: 600px) { .ledger-kpis { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .ledger-kpis { grid-template-columns: repeat(4, 1fr); } }
+.ledger-kpis > * { min-width: 0; }
+.ledger-kpis > * + * { border-top: 1px solid var(--color-border); }
+.ledger-kpis__item { padding: var(--space-8) var(--space-6) var(--space-8) 0; min-width: 0; height: 100%; }
+@media (min-width: 600px) and (max-width: 1023.98px) {
+  .ledger-kpis > * + * { border-top: 0; }
+  .ledger-kpis > :nth-child(n + 3) { border-top: 1px solid var(--color-border); }
+  .ledger-kpis > :nth-child(2n) { border-left: 1px solid var(--color-border); }
+  .ledger-kpis > .ledger-kpis__item:nth-child(2n) { padding-left: var(--space-6); }
+}
+@media (min-width: 1024px) {
+  .ledger-kpis > * + * { border-top: 0; border-left: 1px solid var(--color-border); }
+  .ledger-kpis__item { padding: var(--space-10) var(--space-6); }
+  .ledger-kpis > .ledger-kpis__item:first-child { padding-left: 0; }
+}
+.ledger-kpis .stat--hero .stat__value { font-size: clamp(2.75rem, 1.75rem + 3vw, 4.5rem); }
+.ledger-kpis__label { font-size: var(--text-small); color: var(--color-text-2); margin-bottom: var(--space-3); }
+.ledger-kpis__value { font-size: var(--text-small); }
+.ledger-kpis__rule {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-5);
+  margin-top: var(--space-5); font-size: var(--text-caption); color: var(--color-text-muted);
+}
+/* Each chip stays with its own description when the legend wraps. */
+.ledger-kpis__rule-item { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-2); max-width: 100%; }
+.ledger-kpis__rule-item > span:last-child { min-width: 0; }
+.ledger-kpis__rule-note { flex-basis: 100%; }
+@media (min-width: 1024px) { .ledger-kpis__rule-note { flex-basis: auto; } }
+
+/* Mission dial: the dial sits in a blueprint frame (hairline square, faint drafting grid); copy beside it */
+.ledger-mission { display: grid; gap: var(--space-10); align-items: center; }
+@media (min-width: 900px) { .ledger-mission { grid-template-columns: minmax(16rem, 5fr) 7fr; gap: var(--space-16); } }
+.ledger-mission__dial {
+  display: grid; place-items: center;
+  padding: clamp(var(--space-8), 1rem + 4vw, var(--space-16));
+  border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+  background-color: var(--card);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--color-border) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-border) 55%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: center center;
+}
+.ledger-mission__copy { --stack-gap: var(--space-5); }
+.ledger-mission__copy .h2 { max-width: 18ch; }
+.ledger-mission__target { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text-2); }
+/* The reality check reads as a quiet statement under a hairline, not a call-out box. */
+.ledger-mission__reality {
+  margin: var(--space-8) 0 0; padding: var(--space-6) 0 0;
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-h5); line-height: 1.45; letter-spacing: -0.01em;
+  color: var(--color-text);
+  max-width: 40rem;
+}
+.ledger-mission__reality:lang(ta) { letter-spacing: 0; }
+
+/* Charts 2-up (wide desktop) / 1 (below 1200px, where two cards are too narrow for the tables) */
+.ledger-charts { display: grid; gap: var(--space-6); margin-top: var(--space-4); }
+.ledger-charts > * { min-width: 0; }
+@media (min-width: 1200px) { .ledger-charts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Tables: hairline rows, sentence-case heads, no fills */
+.ledger-table-wrap { position: relative; margin-top: var(--space-8); max-width: 100%; min-width: 0; overflow-x: auto; }
+.ledger-table-wrap:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+/* Right/left edge fade while there is more to scroll (covers scroll with the content and hide each shadow at its end). */
+.ledger-table-wrap--fade {
+  overscroll-behavior-x: contain;
+  --lt-bg: var(--color-bg);
+  --lt-edge: color-mix(in srgb, var(--color-text) 22%, transparent);
+  background:
+    linear-gradient(to right, var(--lt-bg) 40%, transparent) left center / 2.5rem 100% no-repeat local,
+    linear-gradient(to left, var(--lt-bg) 40%, transparent) right center / 2.5rem 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, var(--lt-edge), transparent) left center / 0.875rem 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, var(--lt-edge), transparent) right center / 0.875rem 100% no-repeat scroll;
+}
+.section--white .ledger-table-wrap--fade { --lt-bg: var(--card); }
+.ledger-table__title { margin-top: var(--space-12); font-size: var(--text-body-lg); font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; color: var(--color-text); }
+.ledger-table__title + .ledger-table-wrap { margin-top: var(--space-4); }
+.ledger-table-wrap--scroll { max-height: 32rem; overflow: auto; border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card); }
+.ledger-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: var(--text-small); }
+.ledger-table caption { text-align: left; font-weight: 500; padding-bottom: var(--space-3); color: var(--color-text); font-size: var(--text-body); }
+.ledger-table th, .ledger-table td { padding: var(--space-4); border-bottom: 1px solid var(--color-border); text-align: right; vertical-align: top; }
+.ledger-table th:first-child { text-align: left; padding-left: 0; }
+.ledger-table td:last-child { padding-right: 0; }
+.ledger-table-wrap--scroll .ledger-table th:first-child { padding-left: var(--space-5); }
+.ledger-table-wrap--scroll .ledger-table td:last-child { padding-right: var(--space-5); }
+.ledger-table thead th {
+  position: sticky; top: 0; background: var(--color-bg);
+  font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted);
+  border-bottom-color: var(--color-border-control);
+}
+.section--white .ledger-table thead th,
+.ledger-table-wrap--scroll .ledger-table thead th { background: var(--card); }
+.ledger-table tbody th { font-weight: 500; }
+.ledger-table tbody tr { transition: background-color var(--dur-2) var(--ease-standard); }
+@media (hover: hover) and (pointer: fine) { .ledger-table tbody tr:hover { background: color-mix(in srgb, var(--sheet-2) 60%, transparent); } }
+.ledger-table--corrections td, .ledger-table--corrections th { text-align: left; }
+@media (max-width: 599px) {
+  .ledger-table th, .ledger-table td { padding: var(--space-3); }
+  .ledger-table-wrap { overflow-x: auto; }
+}
+.ledger-table__brand { display: inline-block; flex: none; width: 8px; height: 8px; border-radius: 50%; }
+/* Dot and brand name stay on one line; the first column never squeezes below the longest brand name. */
+.ledger-table__brand-name { display: inline-flex; align-items: center; gap: var(--space-2); white-space: nowrap; }
+.ledger-table--brands th:first-child { min-width: 9rem; }
+.ledger-table__brand--research { background: var(--sn-research); }
+.ledger-table__brand--vibe { background: var(--sn-vibe); }
+.ledger-table__brand--connect { background: var(--sn-connect); }
+.ledger-table__brand--women { background: var(--sn-women); }
+.ledger-table__ta { color: var(--color-text-muted); font-weight: 400; }
+.ledger-table__sort {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  min-height: 32px; padding: 0; background: none; border: 0;
+  font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit;
+}
+.ledger-table__sort:hover { color: var(--color-text); }
+.ledger-table__sort-ind { font-size: 0.9em; opacity: 0.8; }
+
+/* District: chart + an aside of blueprint cells */
+.ledger-district { display: grid; gap: var(--space-6); margin-top: var(--space-4); }
+@media (min-width: 1024px) { .ledger-district { grid-template-columns: 8fr 4fr; align-items: start; } }
+.ledger-district__aside { --stack-gap: var(--space-6); }
+.ledger-district__share { padding: var(--space-8) var(--space-6); border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card); }
+.ledger-district__share .stat__value { font-size: clamp(2.75rem, 1.75rem + 3vw, 4rem); }
+.ledger-district__share-label { font-size: var(--text-small); color: var(--color-text-2); margin-bottom: var(--space-3); }
+.ledger-district__map {
+  padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--color-border) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-border) 55%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.ledger-district__map .caption { display: inline-block; background: var(--color-bg); padding: var(--space-2) var(--space-3); border-radius: var(--btn-radius); color: var(--color-text-2); }
+
+/* Outcomes + women: blueprint cells and a hairline frame */
+.ledger-outcomes { display: grid; gap: var(--space-12); }
+@media (min-width: 1024px) { .ledger-outcomes { grid-template-columns: 7fr 5fr; gap: var(--space-16); } }
+/* No outcome figure published yet: the women-share block runs alone. */
+@media (min-width: 1024px) { .ledger-outcomes--solo { grid-template-columns: minmax(0, 1fr); } }
+/* 4 outcome cells: 1 → 2×2 (never 3 + 1), joined by 1px dividers inside one hairline frame. */
+.ledger-outcomes__grid {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 1px;
+  margin-top: var(--space-4);
+  background: var(--color-border);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  overflow: hidden;
+}
+@media (min-width: 640px) { .ledger-outcomes__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ledger-outcomes__item { padding: var(--space-6); background: var(--card); min-width: 0; }
+.ledger-outcomes__item .stat--compact .stat__value { font-size: var(--text-h2); }
+.ledger-outcomes__ph { margin-top: var(--space-2); }
+.ledger-outcomes__evidence { margin-top: var(--space-3); font-size: var(--text-caption); color: var(--color-text-muted); }
+.ledger-women {
+  display: grid; gap: var(--space-5); align-content: start;
+  padding: clamp(var(--space-6), 1rem + 2vw, var(--space-10));
+  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+}
+.ledger-outcomes--solo .ledger-women { max-width: 52rem; }
+.ledger-women .section-header { margin-bottom: 0; }
+.ledger-women .caption { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); }
+
+/* Method: a hairline disclosure */
+.ledger-method { border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.ledger-method > summary {
+  list-style: none; cursor: pointer;
+  display: grid; grid-template-columns: 1fr auto; gap: var(--space-3) var(--space-4); align-items: center;
+  padding-block: var(--space-8); min-height: 44px;
+}
+.ledger-method > summary::-webkit-details-marker { display: none; }
+.ledger-method > summary .h3 { font-weight: 400; letter-spacing: -0.02em; }
+.ledger-method > summary .h3:lang(ta) { letter-spacing: 0; }
+.ledger-method__eyebrow { grid-column: 1 / -1; display: inline-flex; align-items: center; gap: var(--space-2); }
+/* The dot label already marks the block; the book icon stays as a quiet glyph after the dot. */
+.ledger-method__eyebrow svg { color: var(--color-text-muted); }
+.ledger-method__chev { transition: transform var(--dur-3) var(--ease-standard); color: var(--color-text-muted); }
+.ledger-method[open] .ledger-method__chev { transform: rotate(180deg); }
+.ledger-method__body { display: grid; gap: var(--space-8); padding-bottom: var(--space-10); max-width: 56rem; }
+.ledger-method__body > .button { justify-self: start; }
+.ledger-method__list { padding-left: 1.25em; display: grid; gap: var(--space-3); color: var(--color-text-2); }
+.ledger-method__list li::marker { color: var(--ink-400); }
+.ledger-levels { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
+.ledger-levels li {
+  display: grid; grid-template-columns: 3rem 7rem 1fr; gap: var(--space-4); align-items: baseline;
+  padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border);
+}
+@media (max-width: 599px) { .ledger-levels li { grid-template-columns: 2.5rem 1fr; } .ledger-levels__rule { grid-column: 2; } }
+.ledger-levels__code { font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.ledger-levels__name { font-weight: 500; }
+.ledger-levels__rule { color: var(--color-text-2); font-size: var(--text-small); }
+
+/* Corrections + empty */
+.ledger-sev { display: inline-block; padding: 0 var(--space-2); border-radius: var(--btn-radius); border: 1px solid var(--color-border-control); font-size: var(--text-caption); font-weight: 500; }
+.ledger-sev--material { border-color: var(--color-warning); color: var(--color-warning); }
+.ledger-empty {
+  display: flex; align-items: center; gap: var(--space-3);
+  margin-top: var(--space-4); padding: var(--space-6) 0;
+  border-block: 1px solid var(--color-border);
+  color: var(--color-text-2);
+}
+.ledger-empty svg { color: var(--color-text-muted); flex: none; }
+.ledger-empty--inline { display: block; }
+
+/* Data band: a flat card on the sheet, the download as the one ink button */
+.ledger-data {
+  display: grid; gap: var(--space-6); align-items: center;
+  padding: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12));
+  border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+  background: var(--card);
+}
+.ledger-data .h3 { font-weight: 400; letter-spacing: -0.02em; }
+.ledger-data .h3:lang(ta) { letter-spacing: 0; }
+.ledger-data p { margin-top: var(--space-3); max-width: 46ch; }
+@media (min-width: 900px) { .ledger-data { grid-template-columns: 1fr auto; } }
+
+/* Tamil (Book 3 §4.4): 14px floor for small labels and placeholder chips. */
+.ledger__period-label:lang(ta), .ledger-table thead th:lang(ta) { text-transform: none; letter-spacing: 0; font-size: 0.875rem; }
+.ledger .placeholder:lang(ta) { font-size: max(0.875rem, 0.9em); }
+/* Longest Tamil level name (வளர்க்கப்பட்டவர்) is ~156px at 600 weight; 9rem split it mid-word at 768+. */
+.ledger-levels li:lang(ta) { grid-template-columns: 3rem 11rem 1fr; }
+@media (max-width: 599px) { .ledger-levels li:lang(ta) { grid-template-columns: 2.5rem 1fr; } }
+/* Short register marks in table cells never break mid-word ("[placeholde r]"). */
+.ledger-table td .placeholder { white-space: nowrap; overflow-wrap: normal; word-break: normal; }
+
+/* Tamil has no italic: no synthetic slant on the attribution-rule label; emphasis shown by weight. */
+.ledger-method__list :is(em, i):lang(ta) { font-style: normal; font-weight: 500; }

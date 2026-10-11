@@ -1,0 +1,31 @@
+/* Global shell */
+.site-shell { min-height: 100vh; display: flex; flex-direction: column; }
+.site-shell__page { flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+.site-shell__spacer { height: var(--header-h); flex-shrink: 0; }
+@media (min-width: 1024px) { .site-shell__spacer { height: calc(var(--utility-h) + var(--header-h)); } }
+.site-shell__main { flex: 1; outline: none; min-width: 0; }
+.site-shell__main:focus { box-shadow: none; }
+
+/* Clear the bottom CTA bar on phones and tablets (Book 3 C05: 64 px + safe area).
+   --bottom-cta-h is the bar's measured height (BottomCtaBar.jsx, includes the safe area);
+   html[data-no-bottom-cta] marks pages without a bar (form pages, self-links). */
+@media (max-width: 1023px) {
+  :root:not([data-no-bottom-cta]) .site-shell__page { padding-bottom: var(--bottom-cta-h, calc(64px + env(safe-area-inset-bottom, 0px))); }
+  :root:not([data-no-bottom-cta]) .site-shell__page .site-footer {
+    margin-bottom: calc(-1 * var(--bottom-cta-h, calc(64px + env(safe-area-inset-bottom, 0px))));
+    padding-bottom: calc(var(--space-8) + var(--bottom-cta-h, calc(64px + env(safe-area-inset-bottom, 0px))));
+  }
+}
+
+/* Route-change focus target: no ring for pointer users */
+.shell-focus-target:focus { outline: none; }
+.shell-focus-target:focus:not(:focus-visible) { box-shadow: none; }
+
+/* Skip link sits above the fixed header */
+.site-shell .skip-link { z-index: 1000; }
+
+/* Route-change enter (DESIGN-v2 3.22): opacity + 6px rise, 240ms --ease-snap; motion-safe only */
+@keyframes route-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) .site-shell__main[data-route-enter] { animation: route-in var(--dur-3) var(--ease-snap); }
+}

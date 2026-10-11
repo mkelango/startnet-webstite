@@ -1,0 +1,31 @@
+.event-gallery { display: grid; gap: var(--space-5); }
+.event-gallery__head { display: grid; gap: var(--space-1); }
+.event-gallery__title { font-size: var(--text-h3); }
+.event-gallery__caption { color: var(--color-text-2); font-size: var(--text-small); }
+.event-gallery__grid { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.event-gallery__item { min-width: 0; border-radius: var(--radius-lg); overflow: hidden; }
+.event-gallery__item:first-child { grid-column: 1 / -1; }
+/* Wide screens: the first photo leads at the left, the rest stack in a tidy grid beside it. */
+@media (min-width: 900px) {
+  .event-gallery__grid { grid-template-columns: 2fr 1fr 1fr; grid-auto-rows: 1fr; }
+  .event-gallery__item:first-child { grid-column: 1; grid-row: span 2; }
+  .event-gallery__item:first-child .art-image { aspect-ratio: auto !important; height: 100%; }
+  .event-gallery__grid--2 { grid-template-columns: 3fr 2fr; }
+  .event-gallery__grid--2 .event-gallery__item:first-child { grid-row: auto; }
+  .event-gallery__grid--2 .event-gallery__item:first-child .art-image { aspect-ratio: 3 / 2 !important; height: auto; }
+}
+.event-gallery__credit { color: var(--color-text-muted); font-size: var(--text-caption); }
+
+/* ---------- Moved unchanged from styles/theme.css (DESIGN-v2 section 8) ---------- */
+:root .event-gallery__item { border-radius: var(--media-radius); }
+:root .event-gallery__title { font-weight: 500; letter-spacing: var(--tracking-heading); }
+
+/* No orphan photo: below 900 the first photo is full width, so an even count leaves the last one alone (it takes the
+   row); from 900 a four-photo set has one photo under the two beside the lead (it spans both columns). */
+@media (max-width: 899.98px) {
+  .event-gallery__grid > .event-gallery__item:last-child:nth-child(even) { grid-column: 1 / -1; }
+}
+@media (min-width: 900px) {
+  .event-gallery__grid > .event-gallery__item:nth-child(4):last-child { grid-column: 2 / span 2; }
+  .event-gallery__grid > .event-gallery__item:nth-child(4):last-child .art-image { aspect-ratio: auto !important; height: 100%; }
+}

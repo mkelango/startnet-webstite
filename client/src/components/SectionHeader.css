@@ -1,0 +1,47 @@
+/* Section header (DESIGN-v2 3.8 / 2.3, AIWO blueprint 1.3 / top-15 #11): label → 24 → title → 32 → lede (20px,
+   Ink-2, 44ch, 1.5 leading); header block ≤ 832px; header → content --space-head-gap (64px at 1440).
+   8/4 grid at ≥1024 with the action on the title's last baseline. */
+.section-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--space-6);
+  column-gap: 32px;
+  margin-bottom: var(--space-head-gap);
+}
+.section-header__text { min-width: 0; max-width: var(--measure-head, 52rem); }
+.section-header__eyebrow { margin: 0 0 var(--space-label-gap, 1.5rem); }
+.section-header__title { color: var(--color-text); }
+:root .section-header__lede {
+  margin-top: var(--space-lede-gap, 2rem);
+  max-width: var(--measure-lede, 44ch);
+  color: var(--color-text-2);
+  font-size: var(--text-lede);
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+}
+:root :lang(ta) .section-header__lede { max-width: 36em; letter-spacing: 0; }
+.section-header__lede > * + * { margin-top: 0.75em; }
+.section-header__action { min-width: 0; justify-self: start; }
+
+@media (min-width: 1024px) {
+  .section-header--has-action:not(.section-header--center) {
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    grid-template-areas: 'label .' 'title action' 'lede .';
+    row-gap: 0;
+  }
+  .section-header--has-action:not(.section-header--center) .section-header__text { display: contents; }
+  .section-header--has-action:not(.section-header--center) .section-header__eyebrow { grid-area: label; justify-self: start; }
+  .section-header--has-action:not(.section-header--center) .section-header__title { grid-area: title; max-width: var(--measure-head, 52rem); }
+  .section-header--has-action:not(.section-header--center) .section-header__lede { grid-area: lede; }
+  .section-header--has-action:not(.section-header--center) .section-header__action { grid-area: action; justify-self: end; align-self: end; padding-bottom: 6px; }
+}
+
+/* Centre (CTA-band style statements only): label and title centred, the lede left-aligned in a centred 40ch box */
+.section-header--center { justify-items: center; text-align: center; }
+.section-header--center .section-header__text { margin-inline: auto; display: grid; justify-items: center; }
+.section-header--center .section-header__lede { margin-inline: auto; text-align: left; }
+.section-header--center .section-header__action { justify-self: center; }
+@media (min-width: 1024px) {
+  .section-header--center.section-header--has-action { grid-template-columns: minmax(0, 1fr); }
+  .section-header--center.section-header--has-action .section-header__action { justify-self: center; }
+}

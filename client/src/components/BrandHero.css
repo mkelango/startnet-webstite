@@ -1,0 +1,138 @@
+/* Brand hero (DESIGN-v2 3.5): Ink band; the brand accent only in the journey dot label (and the sub-nav rule).
+   Media: 16/10 landscape on cols 6–12 at ≥1024, bleeding to the right viewport edge (radius 12px 0 0 12px). */
+.brand-hero {
+  position: relative;
+  background: var(--night-0);
+  color: var(--color-text);
+  padding-top: var(--space-16);
+  overflow: clip;
+}
+.brand-hero__sweep { display: none; }
+
+.brand-hero__inner { display: grid; gap: var(--space-10); align-items: start; }
+.brand-hero__text { min-width: 0; }
+.brand-hero__id { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-5); margin-bottom: var(--space-6); }
+/* Journey as a dot label: accent dot (light step on Ink), Paper text */
+:root .brand-hero__journey {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 0.3em;
+  font-size: var(--text-label);
+  font-weight: 500;
+  color: var(--night-text);
+}
+.brand-hero__journey::before {
+  content: '';
+  flex: none;
+  width: 0.55em;
+  height: 0.55em;
+  margin-right: 0.3em;
+  border-radius: 50%;
+  background: var(--accent-night, var(--paper));
+}
+/* Headline measures are in em, not ch: ch is the width of "0" in the first loaded font, so before Inter arrives the
+   Arial fallback's narrower 0 made every ch measure ~6% shorter and the headline wrapped to an extra line, then
+   jumped back on the font swap (CLS 0.21 on /startnet-x/pricing). 1ch of Inter at 400 = 0.631em, so 18ch = 11.36em,
+   13ch = 8.2em, 22ch = 13.88em, 26ch = 16.4em: identical with Inter, stable with the fallback. */
+.brand-hero__title { max-width: 11.36em; color: var(--color-text); }
+.brand-hero__endorsement { margin-top: var(--space-3); font-weight: 500; color: var(--color-text-2); }
+.brand-hero__lede { margin-top: var(--space-6); max-width: 40ch; color: var(--color-text-2); }
+:lang(ta) .brand-hero__lede { max-width: 36em; }
+.brand-hero__actions { margin-top: var(--space-8); --cluster-gap: var(--space-3) var(--space-4); }
+/* Meta (formerly a floating card): in flow under the lede, hairline-topped */
+.brand-hero__meta {
+  margin-top: var(--space-8);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--night-line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.brand-hero__art { position: relative; min-width: 0; }
+.brand-hero__art .art-image { border-radius: var(--radius-media); aspect-ratio: 16 / 10 !important; }
+.brand-hero--compact { padding-top: var(--space-12); }
+.brand-hero--compact .brand-hero__title { max-width: 16.4em; }
+
+@media (max-width: 479px) { .brand-hero__actions > .button:not(.button--tertiary) { flex: 1 1 100%; } }
+@media (max-width: 359.98px) {
+  .brand-hero__title.brand-hero__title:lang(ta) { font-size: min(var(--text-display-xl), 1.75rem); overflow-wrap: anywhere; }
+}
+@media (min-width: 1024px) {
+  .brand-hero--with-art:not(.brand-hero--compact) .brand-hero__inner { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; }
+  .brand-hero--with-art:not(.brand-hero--compact) .brand-hero__art { margin-right: calc(-1 * var(--page-margin)); }
+  .brand-hero--with-art:not(.brand-hero--compact) .brand-hero__art .art-image { border-radius: var(--radius-media) 0 0 var(--radius-media); }
+}
+
+/* Journey line: "Student → Founder" */
+.journey-line { display: inline; }
+.journey-line__part { display: inline; }
+.journey-line__arrow { display: inline-block; vertical-align: -0.12em; margin: 0 0.3em; transition: transform var(--dur-2) var(--ease-snap); }
+
+/* ---------- Split hero (AIWO P2; layout="split", the default) ---------- */
+@media (min-width: 1024px) {
+  .brand-hero--split { min-height: clamp(560px, 76svh, 740px); display: flex; flex-direction: column; }
+  :root .brand-hero--split .brand-hero__inner { flex: 1 0 auto; width: 100%; grid-template-columns: minmax(0, 1fr); }
+  :root .brand-hero--split .brand-hero__text { max-width: calc(50% - 16px); padding-right: var(--space-8); }
+  .brand-hero--split .brand-hero__title { max-width: 8.2em; }
+  .brand-hero--split .brand-hero__title:lang(ta) { max-width: 11.36em; }
+  :root .brand-hero--split .brand-hero__art {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: calc(50% + 16px);
+    margin: 0;
+    background: var(--night-1);
+  }
+  :root .brand-hero--split .brand-hero__art .art-image {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    aspect-ratio: auto !important;
+    border-radius: 0;
+  }
+  :root .brand-hero--split .brand-hero__art .art-image::after { border-radius: 0; box-shadow: none; }
+  /* The caption clears the Paper sheet that rises over the media's foot. */
+  :root .brand-hero--split .brand-hero__art .art-image__label { bottom: calc(var(--sheet-radius, 24px) + 16px); left: 16px; }
+}
+@media (max-width: 1023.98px) {
+  .brand-hero--split .brand-hero__art:has(.art-image--photo) {
+    order: -1;
+    margin-inline: calc(-1 * var(--page-margin, var(--gutter)));
+  }
+  :root .brand-hero--split .brand-hero__art:has(.art-image--photo) .art-image { max-height: 60svh; border-radius: 0; }
+  :root .brand-hero--split .brand-hero__art:has(.art-image--photo) .art-image::after { border-radius: 0; box-shadow: none; }
+}
+@media (max-width: 639.98px) {
+  :root .brand-hero--split .brand-hero__art:has(.art-image--photo) .art-image { aspect-ratio: 4 / 5 !important; max-height: 58svh; }
+  .brand-hero--split:has(.brand-hero__art .art-image--photo) { padding-top: var(--space-8); }
+}
+.brand-hero--split .brand-hero__art :is(.art-image__picture, .art-image__photo) { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* Portrait or near-square screens at ≥1024 (e.g. 1024×1366 tablets): keep the < 1024 layout, so a 16:9 photo is not
+   cropped to a tall half-width strip. The photo leads, full bleed, 16/10, at most 60svh. */
+@media (min-width: 1024px) and (max-aspect-ratio: 1 / 1) {
+  .brand-hero--split { min-height: 0; display: block; }
+  :root .brand-hero--split .brand-hero__text { max-width: none; padding-right: 0; }
+  .brand-hero--split .brand-hero__title { max-width: 11.36em; }
+  .brand-hero--split .brand-hero__title:lang(ta) { max-width: 13.88em; }
+  :root .brand-hero--split .brand-hero__art { position: relative; inset: auto; background: none; }
+  :root .brand-hero--split .brand-hero__art .art-image {
+    height: auto;
+    aspect-ratio: 16 / 10 !important;
+    max-height: 60svh;
+    border-radius: var(--radius-media);
+  }
+  :root .brand-hero--split .brand-hero__art .art-image__label { bottom: 12px; left: 12px; }
+  .brand-hero--split .brand-hero__art:has(.art-image--photo) {
+    order: -1;
+    margin-inline: calc(-1 * var(--page-margin, var(--gutter)));
+  }
+  :root .brand-hero--split .brand-hero__art:has(.art-image--photo) .art-image { border-radius: 0; }
+}
+
+/* Tamil phones: a 17px lede keeps 24-letter compounds ("தொழில்முறையாளர்களுக்கும்", 271px) on one line at 320 */
+@media (max-width: 399.98px) {
+  .brand-hero__lede:lang(ta) { font-size: 1.0625rem; }
+}

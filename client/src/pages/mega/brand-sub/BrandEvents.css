@@ -1,0 +1,104 @@
+/* /<brand>/events. Prefix: .brand-events (mobile first; accent from the BrandLayout [data-brand]). */
+.brand-events__series {
+  list-style: none; margin: var(--space-8) 0 0; padding: 0; display: grid; gap: var(--space-6);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 768px) { .brand-events__series { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .brand-events__series { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); } }
+.brand-events__series > li { display: flex; min-width: 0; }
+.brand-events__series > li > * { flex: 1; min-width: 0; }
+
+.brand-events__head {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--space-4) var(--space-6); margin-bottom: var(--space-6);
+}
+/* Upcoming / Past: the pill segmented control with a sliding Ink thumb (DESIGN-v2 3.12) */
+.brand-events__when-btn { gap: var(--space-2); }
+.brand-events__n { font-variant-numeric: tabular-nums; font-weight: 500; opacity: 0.72; }
+
+.brand-events__filters {
+  display: grid; gap: var(--space-4);
+  padding: var(--space-5) 0; margin-bottom: var(--space-6);
+  border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);
+}
+
+.brand-events__count {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-6); font-size: var(--text-small); color: var(--color-text-muted); font-variant-numeric: tabular-nums;
+}
+.brand-events__clear {
+  min-height: 44px; padding: 0 var(--space-2); border: 0; background: none; cursor: pointer;
+  font: inherit; font-weight: 500; color: var(--color-text); text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-underline-offset: 0.2em;
+}
+.brand-events__clear:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; border-radius: var(--radius-sm); }
+
+.brand-events__grid {
+  list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-6);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 768px) { .brand-events__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .brand-events__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.brand-events__grid > li { display: flex; min-width: 0; }
+.brand-events__grid > li > * { flex: 1; min-width: 0; }
+
+.brand-events__more { display: flex; justify-content: flex-start; margin-top: var(--space-10); }
+.brand-events__actions { justify-content: center; }
+.brand-events__note { margin-top: var(--space-8); max-width: var(--measure); font-size: var(--text-small); color: var(--color-text-2); }
+
+.brand-events__foot {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--space-4) var(--space-6); margin-top: var(--space-12); padding-top: var(--space-6); border-top: 1px solid var(--color-border);
+}
+
+/* ≥1024: events as hairline rows (DESIGN-v2 6.2 / 6.3): a 4:3 thumbnail | kicker, title, summary | facts and the
+   arrow link. Below 1024 they stay media cards. Same data and order. */
+@media (min-width: 1024px) {
+  .brand-events__grid--rows { grid-template-columns: minmax(0, 1fr); gap: 0; border-top: 1px solid var(--color-border); }
+  .brand-events__grid--rows > li { border-bottom: 1px solid var(--color-border); }
+  :root .brand-events__grid--rows .event-card {
+    position: relative; isolation: isolate;
+    display: grid; grid-template-columns: 200px minmax(0, 1fr); column-gap: 32px; align-items: start;
+    padding-block: var(--space-8);
+  }
+  :root .brand-events__grid--rows .event-card .card__media { grid-column: 1; margin: 0; }
+  :root .brand-events__grid--rows .event-card .card__body {
+    grid-column: 2; display: grid; grid-template-columns: minmax(0, 1fr) 240px; column-gap: 32px; row-gap: var(--space-2);
+    align-content: start; padding: 0;
+  }
+  :root .brand-events__grid--rows .event-card .card__body > * { grid-column: 1; margin: 0; }
+  :root .brand-events__grid--rows .event-card .card__meta { grid-column: 2; grid-row: 1 / span 3; align-self: start; }
+  :root .brand-events__grid--rows .event-card .card__footer { grid-column: 2; grid-row: 4; align-self: end; margin-top: var(--space-3); }
+  @media (hover: hover) and (pointer: fine) {
+    .brand-events__grid--rows .event-card::before {
+      content: ''; position: absolute; inset: 0 calc(-1 * var(--space-4)); z-index: -1;
+      border-radius: var(--radius-btn); background: color-mix(in srgb, var(--color-text) 4%, transparent);
+      opacity: 0; transition: opacity var(--dur-2) var(--ease-snap);
+    }
+    .brand-events__grid--rows .event-card:hover::before { opacity: 1; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-events__when-btn { transition: none; }
+}
+
+/* Narrow phones (320 px /ta): the Upcoming/Past toggle must fit the container. */
+.brand-events__when { max-width: 100%; flex-wrap: wrap; }
+@media (max-width: 359px) {
+  .brand-events__when-btn { padding: 0 var(--space-2); }
+}
+
+/* Tablet 768–1023: no 2 + 1 orphan. A set of exactly three runs as one row of three (as .grid-3 in base.css); any
+   other odd last card takes the full row, and a card with media turns horizontal (media 5 / body 7). */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  :is(.brand-events__series, .brand-events__grid--rows):has(> :nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+  :is(.brand-events__series, .brand-events__grid--rows):not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+  :is(.brand-events__series, .brand-events__grid--rows):not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) {
+    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--space-6); align-items: stretch;
+  }
+  :is(.brand-events__series, .brand-events__grid--rows):not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media { width: 100%; height: 100%; min-width: 0; margin-bottom: 0; }
+  :is(.brand-events__series, .brand-events__grid--rows):not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media .art-image { aspect-ratio: auto !important; width: 100%; height: 100%; min-height: 12rem; }
+}
+/* 1024–1279: auto-fit fits three 16rem tracks, so four series ran 3 + 1. Four run 2 × 2 here and 4 across from 1280. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .brand-events__series:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

@@ -1,0 +1,544 @@
+[
+  {
+    "title": "Home",
+    "titleTa": "முகப்பு",
+    "url": "/",
+    "snippet": "Every talent, a founder. Events, learning, incubation, capital and market access for students, scholars, professionals and women in Tamil Nadu.",
+    "descriptionTa": "ஒவ்வொரு திறமையும், ஒரு நிறுவனர். தமிழ்நாட்டில் மாணவர்கள், ஆய்வாளர்கள், தொழில்முறையாளர்கள், பெண்களுக்கான நிகழ்வுகள், கற்றல், இன்குபேஷன், முதலீடு, சந்தை அணுகல்.",
+    "keywords": ["StartNet", "home", "founder-making network"],
+    "keywordsTa": ["முகப்பு", "ஒவ்வொரு திறமையும், ஒரு நிறுவனர்", "நிறுவனர்", "ஸ்டார்ட்நெட்"]
+  },
+  {
+    "title": "Join StartNet",
+    "url": "/join",
+    "snippet": "Free for individuals. One profile for every StartNet programme.",
+    "descriptionTa": "தனிநபர்களுக்கு இலவசம். ஒவ்வொரு StartNet திட்டத்துக்கும் ஒரே சுயவிவரம்.",
+    "keywords": ["sign up", "join", "profile", "register"],
+    "keywordsTa": ["இணையுங்கள்", "பதிவு", "சுயவிவரம்", "ஸ்டார்ட்நெட்"],
+    "titleTa": "StartNet-இல் இணையுங்கள்"
+  },
+  {
+    "title": "About StartNet",
+    "url": "/about",
+    "snippet": "Why StartNet exists, who we serve and how we work: four talent brands, six engines and one platform, StartNet X, counted in public.",
+    "descriptionTa": "StartNet ஏன் இருக்கிறது, யாருக்குச் சேவை செய்கிறது, எப்படிச் செயல்படுகிறது: நான்கு திறமை பிராண்டுகள், ஆறு இயந்திரங்கள், ஒரே தளம் StartNet X, அனைத்தும் பொதுவெளியில் கணக்கிடப்படுகின்றன.",
+    "keywords": ["about", "our story", "history", "who we are"],
+    "keywordsTa": ["எங்களைப் பற்றி", "ஸ்டார்ட்நெட்"],
+    "titleTa": "நாங்கள் யார்"
+  },
+  {
+    "title": "Our model: four brands, six engines, one platform",
+    "titleTa": "எங்கள் மாதிரி: நான்கு பிராண்டுகள், ஆறு இயந்திரங்கள், ஒரே தளம்",
+    "url": "/about/how-we-work",
+    "snippet": "How StartNet works: four talent brands, six shared engines and StartNet X, with a seven-level founder ladder counted in the public Founder Ledger.",
+    "descriptionTa": "StartNet எப்படிச் செயல்படுகிறது: நான்கு திறமை பிராண்டுகள், ஆறு பகிரப்பட்ட இயந்திரங்கள், StartNet X, பொது Founder Ledger-இல் கணக்கிடப்படும் ஏழு நிலை நிறுவனர் ஏணி.",
+    "keywords": [
+      "how we work",
+      "engines",
+      "Convene",
+      "Learn",
+      "Launch",
+      "Capital",
+      "Access",
+      "ladder",
+      "horizons"
+    ],
+    "keywordsTa": ["மாதிரி", "ஏணி"]
+  },
+  {
+    "title": "Mission 1 Lakh",
+    "titleTa": "Mission 1 Lakh",
+    "url": "/about/mission-1-lakh",
+    "snippet": "Founders nurtured, companies launched, capital raised and pilots signed, published quarterly with confidence tags and a public corrections log.",
+    "descriptionTa": "வளர்க்கப்பட்ட நிறுவனர்கள், தொடங்கப்பட்ட நிறுவனங்கள், திரட்டப்பட்ட முதலீடு, கையெழுத்தான பைலட்கள், நம்பகக் குறிகளுடனும் பொதுத் திருத்தப் பதிவுடனும் காலாண்டுதோறும் வெளியிடப்படுகின்றன.",
+    "keywords": ["mission", "1 lakh", "impact", "target", "nurtured", "ladder"],
+    "keywordsTa": ["மிஷன்", "ஒரு லட்சம்", "இலக்கு"]
+  },
+  {
+    "title": "Leadership & team",
+    "titleTa": "தலைமை & குழு",
+    "url": "/about/leadership",
+    "snippet": "Meet the people who run StartNet: the founding team, brand leads and the advisory councils that hold each brand to its targets.",
+    "descriptionTa": "StartNet-ஐ நடத்துபவர்களைச் சந்தியுங்கள்: நிறுவனக் குழு, பிராண்டுத் தலைவர்கள், ஒவ்வொரு பிராண்டையும் அதன் இலக்குகளுக்குப் பொறுப்பாக்கும் ஆலோசனைக் குழுக்கள்.",
+    "keywords": ["leadership", "team", "founders", "Elango", "Nagaraj", "Poonthamil", "advisory"],
+    "keywordsTa": ["தலைமை", "குழு"]
+  },
+  {
+    "title": "Evidence standard",
+    "titleTa": "சான்றுத் தரநிலை",
+    "url": "/about/evidence-standard",
+    "snippet": "Every figure shows its source and as-at date, or an A/B/C tag. Our own prices and targets are tagged C. Errors go in the public corrections log.",
+    "descriptionTa": "ஒவ்வொரு எண்ணும் அதன் ஆதாரத்தையும் தேதியையும், அல்லது A/B/C குறியையும் காட்டுகிறது. எங்கள் சொந்த விலைகளும் இலக்குகளும் C எனக் குறிக்கப்படுகின்றன. பிழைகள் பொதுத் திருத்தப் பதிவில் சேர்க்கப்படுகின்றன.",
+    "keywords": ["evidence", "A/B/C", "tags", "confidence", "sources", "corrections"],
+    "keywordsTa": ["சான்று", "தரநிலை"]
+  },
+  {
+    "title": "Governance",
+    "titleTa": "நிர்வாகம்",
+    "url": "/about/governance",
+    "snippet": "How StartNet is governed: confidence tags, stopping rules, a corrections log, AI guardrails, data protection under the DPDP Act and legal entities.",
+    "descriptionTa": "StartNet எப்படி நிர்வகிக்கப்படுகிறது: நம்பகக் குறிகள், நிறுத்த விதிகள், திருத்தப் பதிவு, AI பாதுகாப்பு வரம்புகள், DPDP சட்டத்தின் கீழ் தரவுப் பாதுகாப்பு, சட்ட அமைப்புகள்.",
+    "keywords": ["governance", "stopping rules", "AI guardrails", "DPDP", "data protection", "ethics"],
+    "keywordsTa": ["நிர்வாகம்"]
+  },
+  {
+    "title": "ThinkTN alliance",
+    "titleTa": "ThinkTN கூட்டணி",
+    "url": "/about/thinktn-alliance",
+    "snippet": "ThinkTN is an independent non-profit. StartNet adopts its evidence standard and keeps a firewall so commercial work never touches ThinkTN's findings.",
+    "descriptionTa": "ThinkTN ஒரு சுயாதீன இலாப நோக்கற்ற அமைப்பு. StartNet அதன் சான்றுத் தரநிலையைப் பின்பற்றுகிறது; வணிகப் பணிகள் ThinkTN-இன் கண்டுபிடிப்புகளைத் தொடாதபடி ஒரு தடுப்புச் சுவரைப் பேணுகிறது.",
+    "keywords": ["ThinkTN", "firewall", "related party"],
+    "keywordsTa": ["திங்க்டிஎன்", "கூட்டணி"]
+  },
+  {
+    "title": "Our brands",
+    "url": "/brands",
+    "snippet": "Four StartNet brands, each a door into founding: StartNet Research for scholars, Vibe for students, Connect for professionals, Women for women founders.",
+    "descriptionTa": "நான்கு StartNet பிராண்டுகள், ஒவ்வொன்றும் நிறுவனராவதற்கான ஒரு வாசல்: ஆய்வாளர்களுக்கு StartNet Research, மாணவர்களுக்கு Vibe, தொழில்முறையாளர்களுக்கு Connect, பெண் நிறுவனர்களுக்கு Women.",
+    "keywords": ["brands", "four doors"],
+    "titleTa": "எங்கள் பிராண்டுகள்",
+    "keywordsTa": ["பிராண்டுகள்"]
+  },
+  {
+    "title": "Districts",
+    "titleTa": "மாவட்டங்கள்",
+    "url": "/districts",
+    "snippet": "Where StartNet is active across Tamil Nadu: find events, circles and partners near you.",
+    "descriptionTa": "தமிழ்நாடு முழுவதும் StartNet எங்கே செயல்படுகிறது: உங்களுக்கு அருகிலுள்ள நிகழ்வுகள், Circles, கூட்டாளர்களைக் கண்டறியுங்கள்.",
+    "keywords": ["districts", "near me", "map", "Chennai", "Coimbatore", "Madurai", "Tiruchirappalli"],
+    "keywordsTa": ["மாவட்டங்கள்", "மாவட்டம்", "அருகில்"]
+  },
+  {
+    "title": "StartNet Research",
+    "titleTa": "StartNet Research",
+    "url": "/research",
+    "brand": "research",
+    "snippet": "For PhD scholars and faculty in Tamil Nadu: thematic labs, a 7-week founder sprint, GCC proofs of concept and clear terms for research spinouts.",
+    "descriptionTa": "தமிழ்நாட்டின் PhD ஆய்வாளர்களுக்கும் ஆசிரியர்களுக்கும்: கருப்பொருள் ஆய்வகங்கள், 7 வார நிறுவனர் sprint, GCC proof of concept-கள், ஆராய்ச்சி spinout-களுக்கான தெளிவான விதிமுறைகள்.",
+    "keywords": ["research", "scholar", "PhD", "faculty", "spinout"],
+    "keywordsTa": ["ஆராய்ச்சி", "ஆய்வாளர்", "ஆய்வாளர் → நிறுவனர்", "ரிசர்ச்"]
+  },
+  {
+    "title": "StartNet Labs",
+    "titleTa": "StartNet Labs",
+    "url": "/research/labs",
+    "brand": "research",
+    "snippet": "Hub-and-spoke labs that point research at real customers: Agentic AI, Ontology & Knowledge, Physical AI and Drug Discovery. Wave 1 launches 2027.",
+    "descriptionTa": "ஆராய்ச்சியை உண்மையான வாடிக்கையாளர்களை நோக்கித் திருப்பும் hub-and-spoke ஆய்வகங்கள்: Agentic AI, Ontology & Knowledge, Physical AI, Drug Discovery. முதல் அலை 2027-இல் தொடங்குகிறது.",
+    "keywords": ["labs", "agentic AI", "ontology", "physical AI", "drug discovery"],
+    "keywordsTa": ["லேப்ஸ்", "ஆய்வகங்கள்"]
+  },
+  {
+    "title": "Scholar Founders Fellowship",
+    "titleTa": "Scholar Founders Fellowship",
+    "url": "/research/fellowship",
+    "brand": "research",
+    "snippet": "A 7-week customer-discovery sprint for scholars and faculty. 100 interviews before money. Leave with evidence and a decision.",
+    "descriptionTa": "ஆய்வாளர்களுக்கும் ஆசிரியர்களுக்குமான 7 வார வாடிக்கையாளர் கண்டறிதல் sprint. பணத்துக்கு முன் 100 நேர்காணல்கள். சான்றுகளுடனும் ஒரு முடிவுடனும் செல்லுங்கள்.",
+    "keywords": ["fellowship", "sprint", "customer discovery"],
+    "keywordsTa": ["ஃபெலோஷிப்"]
+  },
+  {
+    "title": "Lab-to-Market Summit",
+    "titleTa": "Lab-to-Market Summit",
+    "url": "/research/lab-to-market-summit",
+    "brand": "research",
+    "snippet": "The annual day where lab teams demo to GCCs, investors and government, and next year's problem statements are set.",
+    "descriptionTa": "ஆய்வகக் குழுக்கள் GCC-கள், முதலீட்டாளர்கள், அரசுக்குத் தங்கள் படைப்புகளைக் காட்டும், அடுத்த ஆண்டின் சிக்கல் அறிக்கைகள் நிர்ணயிக்கப்படும் ஆண்டு நாள்.",
+    "keywords": ["summit", "demo"],
+    "keywordsTa": ["சம்மிட்"]
+  },
+  {
+    "title": "Institution Partner Programme",
+    "titleTa": "Institution Partner Programme",
+    "url": "/research/institution-partner-programme",
+    "brand": "research",
+    "snippet": "An annual package for universities and colleges: Lab membership, innovation policy set-up, faculty development and founder outcomes.",
+    "descriptionTa": "பல்கலைக்கழகங்களுக்கும் கல்லூரிகளுக்குமான ஆண்டுத் தொகுப்பு: Lab உறுப்பினர், புத்தாக்கக் கொள்கை அமைப்பு, ஆசிரியர் மேம்பாடு, நிறுவனர் விளைவுகள்.",
+    "keywords": ["institution", "university", "college", "IPP"],
+    "keywordsTa": ["கல்வி நிறுவனம்", "கல்லூரி"]
+  },
+  {
+    "title": "Problem statements",
+    "titleTa": "சிக்கல் அறிக்கைகள்",
+    "url": "/research/problem-statements",
+    "brand": "research",
+    "snippet": "Sponsor-co-signed problem statements for StartNet Labs, from industry, GCCs and government.",
+    "descriptionTa": "தொழில்துறை, GCC-கள், அரசிடமிருந்து, ஸ்பான்சர்கள் இணைந்து கையெழுத்திட்ட StartNet Labs சிக்கல் அறிக்கைகள்.",
+    "keywords": ["problem statements", "GCC", "sponsor"],
+    "keywordsTa": ["சிக்கல்", "அறிக்கை"]
+  },
+  {
+    "title": "Standard terms",
+    "titleTa": "நிலையான விதிமுறைகள்",
+    "url": "/research/terms",
+    "brand": "research",
+    "snippet": "One set of terms agreed once per institution. Illustrative split at formation: founders 78%, ESOP pool 10%, institution 7%, StartNet 5% [C], subject to legal review.",
+    "descriptionTa": "ஒவ்வொரு கல்வி நிறுவனத்துடனும் ஒருமுறை ஒப்புக்கொள்ளப்படும் ஒரே விதிமுறைத் தொகுப்பு. நிறுவனம் உருவாகும்போது எடுத்துக்காட்டுப் பங்கீடு: நிறுவனர்கள் 78%, ESOP தொகுப்பு 10%, கல்வி நிறுவனம் 7%, StartNet 5% [C], சட்ட மதிப்பாய்வுக்கு உட்பட்டது.",
+    "keywords": ["terms", "term sheet", "equity", "IP", "NISP"],
+    "keywordsTa": ["விதிமுறைகள்"]
+  },
+  {
+    "title": "StartNet Vibe",
+    "titleTa": "StartNet Vibe",
+    "url": "/vibe",
+    "brand": "vibe",
+    "snippet": "For college students across Tamil Nadu: Vibathon, Vibe Academy, campus build nights, a 12-week pre-incubation programme and student-run Vibe Clubs.",
+    "descriptionTa": "தமிழ்நாடு முழுவதும் உள்ள கல்லூரி மாணவர்களுக்கு: Vibathon, Vibe Academy, கல்லூரி build nights, 12 வார முன்-இன்குபேஷன் திட்டம், மாணவர்கள் நடத்தும் Vibe Clubs.",
+    "keywords": ["vibe", "students", "college"],
+    "keywordsTa": ["வைப்", "மாணவர்", "மாணவர் → நிறுவனர்", "கல்லூரி", "ஸ்டார்ட்நெட் வைப்"]
+  },
+  {
+    "title": "Vibathon 2027",
+    "titleTa": "Vibathon 2027",
+    "url": "/vibe/vibathon",
+    "brand": "vibe",
+    "snippet": "Tamil Nadu's state-level AI and vibe-coding hackathon, with district qualifiers, themed tracks and a direct route into Vibe Launchpad.",
+    "descriptionTa": "தமிழ்நாட்டின் மாநில அளவிலான AI மற்றும் vibe-coding ஹேக்கத்தான்; மாவட்டத் தகுதிச் சுற்றுகள், கருப்பொருள் பிரிவுகள், Vibe Launchpad-க்கு நேரடி வழி.",
+    "keywords": ["vibathon", "hackathon", "AI", "register"],
+    "keywordsTa": ["வைபத்தான்", "ஹேக்கத்தான்", "மாணவர்", "விபதான்", "வைபதான்"]
+  },
+  {
+    "title": "Vibe Academy",
+    "titleTa": "Vibe Academy",
+    "url": "/vibe/academy",
+    "brand": "vibe",
+    "snippet": "AI-assisted coding, product, design and go-to-market, taught in Tamil and English. Certified when you ship something people use.",
+    "descriptionTa": "AI உதவியுடன் கோடிங், தயாரிப்பு, வடிவமைப்பு, சந்தைக்குக் கொண்டு செல்லுதல், தமிழிலும் ஆங்கிலத்திலும். மக்கள் பயன்படுத்தும் ஒன்றை வெளியிடும்போது சான்றிதழ்.",
+    "keywords": ["academy", "courses"],
+    "keywordsTa": ["வைப் அகாடமி", "கற்றல்"]
+  },
+  {
+    "title": "Vibe Campus",
+    "titleTa": "Vibe Campus",
+    "url": "/vibe/campus",
+    "brand": "vibe",
+    "snippet": "Talks, build nights, founder fireside chats and idea pitches in your college, run with your Institution's Innovation Council.",
+    "descriptionTa": "உங்கள் கல்லூரியில் உரைகள், build nights, நிறுவனர்களுடன் உரையாடல்கள், யோசனை முன்வைப்புகள், உங்கள் கல்வி நிறுவனத்தின் புத்தாக்கக் குழுவுடன் இணைந்து.",
+    "keywords": ["campus", "build nights"],
+    "keywordsTa": ["வைப் கேம்பஸ்", "கல்லூரி"]
+  },
+  {
+    "title": "Vibe Launchpad",
+    "titleTa": "Vibe Launchpad",
+    "url": "/vibe/launchpad",
+    "brand": "vibe",
+    "snippet": "A 12-week pre-incubation programme for student teams, leading to partner incubators and state seed-grant applications.",
+    "descriptionTa": "மாணவர் குழுக்களுக்கான 12 வார முன்-இன்குபேஷன் திட்டம்; கூட்டாளர் இன்குபேட்டர்களுக்கும் மாநில விதை நிதி விண்ணப்பங்களுக்கும் வழிநடத்துகிறது.",
+    "keywords": ["launchpad", "pre-incubation"],
+    "keywordsTa": ["லாஞ்ச்பேட்"]
+  },
+  {
+    "title": "Vibe Clubs",
+    "titleTa": "Vibe Clubs",
+    "url": "/vibe/clubs",
+    "brand": "vibe",
+    "snippet": "Start or join a student-run Vibe Club on your campus. Vibe Captains run monthly builds and bring StartNet to their district.",
+    "descriptionTa": "உங்கள் கல்லூரியில் மாணவர்கள் நடத்தும் Vibe Club-ஐத் தொடங்குங்கள் அல்லது அதில் இணையுங்கள். Vibe Captains மாதாந்திர builds நடத்தி StartNet-ஐத் தங்கள் மாவட்டத்துக்குக் கொண்டு வருகிறார்கள்.",
+    "keywords": ["clubs", "Vibe Captains"],
+    "keywordsTa": ["வைப் கிளப்", "கிளப்"]
+  },
+  {
+    "title": "Vibe for colleges",
+    "titleTa": "கல்லூரிகளுக்கான Vibe",
+    "url": "/vibe/for-colleges",
+    "brand": "vibe",
+    "snippet": "Become a Vibathon host college and bring a year of Vibe Campus events to your students.",
+    "descriptionTa": "Vibathon நடத்தும் கல்லூரியாகி, உங்கள் மாணவர்களுக்கு ஓராண்டு Vibe Campus நிகழ்வுகளைக் கொண்டு வாருங்கள்.",
+    "keywords": ["host college", "colleges", "principal", "IIC"],
+    "keywordsTa": ["கல்லூரி", "கல்லூரிகளுக்கு"]
+  },
+  {
+    "title": "StartNet Connect",
+    "titleTa": "StartNet Connect",
+    "url": "/connect",
+    "brand": "connect",
+    "snippet": "Sector communities, founder circles, a 12-week Founder Switch programme and Scale Connect for startups past first revenue. Built for working professionals.",
+    "descriptionTa": "துறைச் சமூகங்கள், நிறுவனர் Circles, 12 வார Founder Switch திட்டம், முதல் வருவாயைத் தாண்டிய ஸ்டார்ட்அப்களுக்கான Scale Connect. பணியில் இருக்கும் தொழில்முறையாளர்களுக்காக உருவாக்கப்பட்டது.",
+    "keywords": ["connect", "professionals", "GCC"],
+    "keywordsTa": ["கனெக்ட்", "தொழில்முறையாளர்", "தொழில்முறையாளர் → நிறுவனர்", "ஸ்டார்ட்நெட் கனெக்ட்"]
+  },
+  {
+    "title": "Connect Series",
+    "titleTa": "Connect Series",
+    "url": "/connect/series",
+    "brand": "connect",
+    "snippet": "GenAI, SaaS, D2C, DeepTech, FinTech, Industry 4.0, HealthTech, AgriFood and Climate Connect: year-round sector communities with events.",
+    "descriptionTa": "GenAI, SaaS, D2C, DeepTech, FinTech, Industry 4.0, HealthTech, AgriFood, Climate Connect: நிகழ்வுகளுடன் ஆண்டு முழுவதும் இயங்கும் துறைச் சமூகங்கள்.",
+    "keywords": ["GenAI Connect", "SaaS Connect", "D2C Connect", "sectors"],
+    "keywordsTa": ["கனெக்ட் சீரிஸ்", "துறை"]
+  },
+  {
+    "title": "Connect Circles",
+    "titleTa": "Connect Circles",
+    "url": "/connect/circles",
+    "brand": "connect",
+    "snippet": "Closed chapters of 25–40 founders, one seat per sector, meeting monthly. Introductions tracked. Membership includes StartNet X Pro.",
+    "descriptionTa": "25–40 நிறுவனர்களின் மூடிய கிளைகள், துறைக்கு ஒரு இடம், மாதந்தோறும் சந்திப்பு. அறிமுகங்கள் கண்காணிக்கப்படுகின்றன. உறுப்பினர் கட்டணத்தில் StartNet X Pro அடங்கும்.",
+    "keywords": ["circles", "chapter"],
+    "keywordsTa": ["சர்க்கிள்"]
+  },
+  {
+    "title": "Founder Switch",
+    "titleTa": "Founder Switch",
+    "url": "/connect/founder-switch",
+    "brand": "connect",
+    "snippet": "A 12-week evening and weekend programme for professionals: validate an idea, find a co-founder, plan your runway, decide go or no-go.",
+    "descriptionTa": "தொழில்முறையாளர்களுக்கான 12 வார மாலை மற்றும் வார இறுதித் திட்டம்: யோசனையைச் சரிபாருங்கள், இணை நிறுவனரைக் கண்டறியுங்கள், நிதி இருப்பைத் திட்டமிடுங்கள், தொடரலாமா வேண்டாமா என முடிவு செய்யுங்கள்.",
+    "keywords": ["founder switch", "go/no-go", "co-founder"],
+    "keywordsTa": ["ஃபவுண்டர் ஸ்விட்ச்"]
+  },
+  {
+    "title": "Scale Connect",
+    "titleTa": "Scale Connect",
+    "url": "/connect/scale",
+    "brand": "connect",
+    "snippet": "Investor days, GCC and corporate pilot matchmaking, government procurement readiness and export desks for growing startups.",
+    "descriptionTa": "வளரும் ஸ்டார்ட்அப்களுக்கு முதலீட்டாளர் நாட்கள், GCC மற்றும் பெருநிறுவனப் பைலட் இணைப்பு, அரசுக் கொள்முதல் தயார்நிலை, ஏற்றுமதி மையங்கள்.",
+    "keywords": ["scale", "investor days", "pilots"],
+    "keywordsTa": ["ஸ்கேல்"]
+  },
+  {
+    "title": "StartNet Angels",
+    "titleTa": "StartNet Angels",
+    "url": "/connect/angels",
+    "brand": "connect",
+    "snippet": "An angel network of founders and Circle alumni investing in StartNet-pipeline companies through a SEBI-compliant structure. Not yet open for investment.",
+    "descriptionTa": "SEBI விதிகளுக்கு உட்பட்ட அமைப்பின் மூலம் StartNet திட்ட நிறுவனங்களில் முதலீடு செய்யும் நிறுவனர்கள் மற்றும் Circle முன்னாள் உறுப்பினர்களின் ஏஞ்சல் வலையமைப்பு. இன்னும் முதலீட்டுக்குத் திறக்கப்படவில்லை.",
+    "keywords": ["angels", "investors", "SEBI"],
+    "keywordsTa": ["ஏஞ்சல்", "முதலீடு"]
+  },
+  {
+    "title": "StartNet Women",
+    "titleTa": "StartNet Women",
+    "url": "/women",
+    "brand": "women",
+    "snippet": "District circles, an app-led academy with 1:1 mentors, investment readiness and the Women Founders Summit, for women building companies in Tamil Nadu.",
+    "descriptionTa": "தமிழ்நாட்டில் நிறுவனங்களை உருவாக்கும் பெண்களுக்கு: மாவட்ட Circles, ஒருவருக்கொருவர் வழிகாட்டிகளுடன் செயலி வழி academy, முதலீட்டுத் தயார்நிலை, Women Founders Summit.",
+    "keywords": ["women", "women founders"],
+    "keywordsTa": ["மகளிர்", "பெண்கள்", "பெண் நிறுவனர்", "பெண் → நிறுவனர்", "வெற்றி மகளிர்", "ஸ்டார்ட்நெட் விமன்"]
+  },
+  {
+    "title": "Women Circles",
+    "titleTa": "Women Circles",
+    "url": "/women/circles",
+    "brand": "women",
+    "snippet": "Monthly chapters of 20–30 women founders in your district, with peer accountability and introductions to buyers.",
+    "descriptionTa": "உங்கள் மாவட்டத்தில் 20–30 பெண் நிறுவனர்களின் மாதாந்திரக் கிளைகள்; சக பொறுப்புணர்வும் வாங்குபவர்களுக்கான அறிமுகங்களும்.",
+    "keywords": ["circles", "district"],
+    "keywordsTa": ["சர்க்கிள்", "மகளிர்"]
+  },
+  {
+    "title": "Rise Academy",
+    "titleTa": "Rise Academy",
+    "url": "/women/rise-academy",
+    "brand": "women",
+    "snippet": "Business model, finance, digital and ONDC selling, branding and compliance. App-led, with a 1:1 mentor. Tamil and English.",
+    "descriptionTa": "வணிக மாதிரி, நிதி, டிஜிட்டல் மற்றும் ONDC விற்பனை, பிராண்டிங், சட்ட இணக்கம். செயலி வழி, ஒருவருக்கொருவர் வழிகாட்டியுடன். தமிழிலும் ஆங்கிலத்திலும்.",
+    "keywords": ["rise", "academy", "ONDC"],
+    "keywordsTa": ["ரைஸ் அகாடமி", "மகளிர்"]
+  },
+  {
+    "title": "HerCapital",
+    "titleTa": "HerCapital",
+    "url": "/women/hercapital",
+    "brand": "women",
+    "snippet": "Investment readiness, a women angel circle, and help applying to state and national schemes for women-led businesses.",
+    "descriptionTa": "முதலீட்டுத் தயார்நிலை, பெண்கள் ஏஞ்சல் வட்டம், பெண்கள் தலைமையிலான வணிகங்களுக்கான மாநில மற்றும் தேசியத் திட்டங்களுக்கு விண்ணப்பிக்க உதவி.",
+    "keywords": ["HerCapital", "TANSEED", "Vetri Magalir", "schemes"],
+    "keywordsTa": ["ஹெர்கேபிடல்", "முதலீடு"]
+  },
+  {
+    "title": "Women Founders Summit & Awards",
+    "titleTa": "Women Founders Summit & Awards",
+    "url": "/women/summit",
+    "brand": "women",
+    "snippet": "The annual StartNet Women flagship, where the TN Women Founders Report is launched and women founders are recognised.",
+    "descriptionTa": "StartNet Women-இன் ஆண்டு முதன்மை நிகழ்வு; இங்கு TN Women Founders Report வெளியிடப்படுகிறது, பெண் நிறுவனர்கள் அங்கீகரிக்கப்படுகிறார்கள்.",
+    "keywords": ["summit", "awards", "nominate"],
+    "keywordsTa": ["சம்மிட்", "விருதுகள்", "மகளிர்"]
+  },
+  {
+    "title": "Programmes",
+    "url": "/programmes",
+    "snippet": "Answer two questions and see the StartNet programmes that fit: events, courses, fellowships, circles and pre-incubation across Tamil Nadu.",
+    "descriptionTa": "இரண்டு கேள்விகளுக்குப் பதிலளித்து உங்களுக்குப் பொருந்தும் StartNet திட்டங்களைப் பாருங்கள்: தமிழ்நாடு முழுவதும் நிகழ்வுகள், பாடங்கள், fellowships, Circles, முன்-இன்குபேஷன்.",
+    "keywords": ["programme finder", "programmes", "apply", "courses"],
+    "titleTa": "திட்டங்கள்",
+    "keywordsTa": ["திட்டம்", "உங்கள் திட்டத்தைக் கண்டறியுங்கள்", "விண்ணப்பியுங்கள்"]
+  },
+  {
+    "title": "Open calls",
+    "titleTa": "திறந்த அழைப்புகள்",
+    "url": "/programmes/open-calls",
+    "snippet": "StartNet programmes accepting applications now, with the date to apply by.",
+    "descriptionTa": "இப்போது விண்ணப்பங்களை ஏற்கும் StartNet திட்டங்கள், விண்ணப்பிக்க வேண்டிய கடைசித் தேதியுடன்.",
+    "keywords": ["open calls", "apply", "apply now", "deadline", "applications"],
+    "keywordsTa": ["இப்போதே விண்ணப்பியுங்கள்", "விண்ணப்பம்", "திட்டங்கள்"]
+  },
+  {
+    "title": "Events",
+    "url": "/events",
+    "snippet": "Vibathon, sector Connects, Women Founders Summit, Lab-to-Market Summit, campus build nights and district editions. Find one near you.",
+    "descriptionTa": "Vibathon, துறை Connects, Women Founders Summit, Lab-to-Market Summit, கல்லூரி build nights, மாவட்டப் பதிப்புகள். உங்களுக்கு அருகில் ஒன்றைக் கண்டறியுங்கள்.",
+    "keywords": ["events", "calendar", "upcoming"],
+    "titleTa": "நிகழ்வுகள்",
+    "keywordsTa": ["நிகழ்வு", "வரவிருக்கும் நிகழ்வுகள்", "பதிவு செய்யுங்கள்"]
+  },
+  {
+    "title": "Past events",
+    "titleTa": "கடந்த நிகழ்வுகள்",
+    "url": "/events/past",
+    "snippet": "StartNet rooms since 2023: GenAI Connect 2024 in Salem, D2C Connect 2024, SaaS Connect 2025, Vibathon 2025, the Vibe Marketing Summit and the Investors Summit.",
+    "descriptionTa": "2023 முதல் StartNet நிகழ்வுகள்: சேலத்தில் GenAI Connect 2024, D2C Connect 2024, SaaS Connect 2025, Vibathon 2025, Vibe Marketing Summit, Investors Summit.",
+    "keywords": ["archive", "past events", "recap"],
+    "keywordsTa": ["கடந்த நிகழ்வுகள்"]
+  },
+  {
+    "title": "Speak or mentor",
+    "titleTa": "பேசுங்கள் அல்லது வழிகாட்டுங்கள்",
+    "url": "/events/speak",
+    "snippet": "Share what you know at a StartNet event: sign up to speak, judge or mentor founders across Tamil Nadu.",
+    "descriptionTa": "StartNet நிகழ்வில் உங்களுக்குத் தெரிந்ததைப் பகிருங்கள்: தமிழ்நாடு முழுவதும் நிறுவனர்களுக்குப் பேச, நடுவராக இருக்க அல்லது வழிகாட்டப் பதிவு செய்யுங்கள்.",
+    "keywords": ["speak", "speaker", "mentor", "judge", "volunteer"],
+    "keywordsTa": ["பேச்சாளர்", "வழிகாட்டி", "நிகழ்வுகள்"]
+  },
+  {
+    "title": "Insights",
+    "url": "/insights",
+    "snippet": "The Founder Ledger, the TN Founder Report, indices and founder stories. What we count about Tamil Nadu's founders, and how we count it.",
+    "descriptionTa": "Founder Ledger, TN Founder Report, குறியீடுகள், நிறுவனர் கதைகள். தமிழ்நாட்டின் நிறுவனர்களைப் பற்றி நாங்கள் எதைக் கணக்கிடுகிறோம், எப்படிக் கணக்கிடுகிறோம்.",
+    "keywords": ["insights", "data", "reports", "indices"],
+    "titleTa": "நுண்ணறிவுகள்",
+    "keywordsTa": ["நுண்ணறிவு", "அறிக்கைகள்"]
+  },
+  {
+    "title": "Founder Ledger",
+    "titleTa": "Founder Ledger",
+    "url": "/insights/founder-ledger",
+    "snippet": "Founders nurtured, companies launched, capital raised and pilots signed, by level, brand and district, each with an A/B/C confidence tag.",
+    "descriptionTa": "வளர்க்கப்பட்ட நிறுவனர்கள், தொடங்கப்பட்ட நிறுவனங்கள், திரட்டப்பட்ட முதலீடு, கையெழுத்தான பைலட்கள், நிலை, பிராண்டு, மாவட்ட வாரியாக, ஒவ்வொன்றும் A/B/C நம்பகக் குறியுடன்.",
+    "keywords": ["ledger", "outcomes", "corrections", "quarterly"],
+    "keywordsTa": ["நிறுவனர் பேரேடு", "நிறுவனர்", "லெட்ஜர்"]
+  },
+  {
+    "title": "Corrections log",
+    "titleTa": "திருத்தப் பதிவு",
+    "url": "/insights/founder-ledger/corrections",
+    "snippet": "Every correction to the Founder Ledger and our reports, dated and rated by severity. Report a correction.",
+    "descriptionTa": "Founder Ledger-இலும் எங்கள் அறிக்கைகளிலும் செய்யப்பட்ட ஒவ்வொரு திருத்தமும், தேதியுடனும் தீவிர நிலையுடனும். ஒரு திருத்தத்தைத் தெரிவியுங்கள்.",
+    "keywords": ["corrections", "errata", "ledger", "report a correction"],
+    "keywordsTa": ["திருத்தங்கள்", "திருத்தம்"]
+  },
+  {
+    "title": "Founder stories",
+    "titleTa": "நிறுவனர் கதைகள்",
+    "url": "/insights/stories",
+    "snippet": "Founders, in their own words, and event recaps.",
+    "descriptionTa": "நிறுவனர்கள், அவர்களின் சொந்த வார்த்தைகளில், மற்றும் நிகழ்வுச் சுருக்கங்கள்.",
+    "keywords": ["stories", "founders", "recaps"],
+    "keywordsTa": ["கதைகள்", "கதை"]
+  },
+  {
+    "title": "Reports",
+    "titleTa": "அறிக்கைகள்",
+    "url": "/insights/reports",
+    "snippet": "The TN Founder Report, sector reports and indices, with sources and tags on every figure.",
+    "descriptionTa": "TN Founder Report, துறை அறிக்கைகள், குறியீடுகள், ஒவ்வொரு எண்ணுக்கும் ஆதாரங்களுடனும் குறிகளுடனும்.",
+    "keywords": ["reports", "TN Founder Report", "index"],
+    "keywordsTa": ["அறிக்கைகள்", "அறிக்கை", "செய்திமடல்"]
+  },
+  {
+    "title": "StartNet X",
+    "titleTa": "StartNet X",
+    "url": "/startnet-x",
+    "brand": "x",
+    "snippet": "StartNet X (SNX) gives you one profile across every StartNet event, course, circle and programme. Free for individuals. Tamil and English.",
+    "descriptionTa": "ஒவ்வொரு StartNet நிகழ்வு, பாடம், Circle, திட்டம் முழுவதற்கும் StartNet X (SNX) உங்களுக்கு ஒரே சுயவிவரத்தைத் தருகிறது. தனிநபர்களுக்கு இலவசம். தமிழிலும் ஆங்கிலத்திலும்.",
+    "keywords": ["SNX", "platform", "profile", "app"],
+    "keywordsTa": ["ஸ்டார்ட்நெட் எக்ஸ்", "சுயவிவரம்"]
+  },
+  {
+    "title": "StartNet X modules",
+    "titleTa": "StartNet X தொகுதிகள்",
+    "url": "/startnet-x/modules",
+    "brand": "x",
+    "snippet": "SNX ID, Events, Learn, Circles, Launch, Capital, Access, Insights & Ledger, and Agents that suggest while people decide.",
+    "descriptionTa": "SNX ID, Events, Learn, Circles, Launch, Capital, Access, Insights & Ledger, மக்கள் முடிவெடுக்கும்போது பரிந்துரைக்கும் Agents.",
+    "keywords": ["modules", "agents", "features"],
+    "keywordsTa": ["தொகுதிகள்"]
+  },
+  {
+    "title": "StartNet X pricing",
+    "titleTa": "StartNet X விலை",
+    "url": "/startnet-x/pricing",
+    "brand": "x",
+    "snippet": "Free for individuals. Pro ₹499/month, Team ₹2,999/month, Scale ₹7,999/month. Annual licences for institutions, GCCs and government.",
+    "descriptionTa": "தனிநபர்களுக்கு இலவசம். Pro மாதம் ₹499, Team மாதம் ₹2,999, Scale மாதம் ₹7,999. கல்வி நிறுவனங்கள், GCC-கள், அரசுக்கு ஆண்டு உரிமங்கள்.",
+    "keywords": ["pricing", "Pro", "Team", "Scale", "licence"],
+    "keywordsTa": ["விலை", "கட்டணம்"]
+  },
+  {
+    "title": "StartNet X trust & privacy",
+    "titleTa": "StartNet X நம்பிக்கை & தனியுரிமை",
+    "url": "/startnet-x/trust",
+    "brand": "x",
+    "snippet": "Your data stays in India. You choose who sees your profile. No automated rejections, ever.",
+    "descriptionTa": "உங்கள் தரவு இந்தியாவிலேயே இருக்கும். உங்கள் சுயவிவரத்தை யார் பார்க்கலாம் என்பதை நீங்களே தேர்வு செய்யுங்கள். தானியங்கி நிராகரிப்புகள் ஒருபோதும் இல்லை.",
+    "keywords": ["trust", "privacy", "DPDP", "data"],
+    "keywordsTa": ["தனியுரிமை", "நம்பிக்கை"]
+  },
+  {
+    "title": "Partner with us",
+    "url": "/partner",
+    "snippet": "For institutions, GCCs, government, sponsors, CSR funders and investors: programmes designed around the outcomes you need, reported in public.",
+    "descriptionTa": "கல்வி நிறுவனங்கள், GCC-கள், அரசு, ஸ்பான்சர்கள், CSR நிதியளிப்போர், முதலீட்டாளர்களுக்கு: உங்களுக்குத் தேவையான விளைவுகளைச் சுற்றி வடிவமைக்கப்பட்டு பொதுவெளியில் அறிக்கையிடப்படும் திட்டங்கள்.",
+    "keywords": ["partner", "sponsor", "CSR", "GCC", "government", "institutions", "investors"],
+    "titleTa": "எங்களுடன் கூட்டு சேருங்கள்",
+    "keywordsTa": ["கூட்டு", "கூட்டாளர்"]
+  },
+  {
+    "title": "Partner enquiry",
+    "titleTa": "கூட்டாண்மை விசாரணை",
+    "url": "/partner/enquire",
+    "snippet": "Tell us the outcome you need and we'll route your enquiry to the right owner.",
+    "descriptionTa": "உங்களுக்குத் தேவையான விளைவைச் சொல்லுங்கள்; உங்கள் விசாரணையைச் சரியான பொறுப்பாளரிடம் அனுப்புவோம்.",
+    "keywords": ["enquire", "enquiry", "talk to us"],
+    "keywordsTa": ["விசாரணை"]
+  },
+  {
+    "title": "Our partners",
+    "titleTa": "எங்கள் கூட்டாளர்கள்",
+    "url": "/partner/our-partners",
+    "snippet": "Signed partners only, each with its signing date.",
+    "descriptionTa": "கையெழுத்திட்ட கூட்டாளர்கள் மட்டும், ஒவ்வொருவரும் கையெழுத்திட்ட தேதியுடன்.",
+    "keywords": ["partners"]
+  },
+  {
+    "title": "Media centre",
+    "url": "/media",
+    "snippet": "Press releases, a fact sheet with sourced figures, spokespeople, brand assets and the media contact for StartNet.",
+    "descriptionTa": "பத்திரிகைச் செய்திகள், ஆதாரங்களுடன் கூடிய தகவல் தாள், செய்தித் தொடர்பாளர்கள், பிராண்டு வளங்கள், StartNet-இன் ஊடகத் தொடர்பு.",
+    "keywords": ["media", "press", "media kit", "boilerplate"],
+    "titleTa": "ஊடகம்",
+    "keywordsTa": ["செய்தி"]
+  },
+  {
+    "title": "Careers",
+    "url": "/careers",
+    "snippet": "Work on programmes, events, data and StartNet X across Tamil Nadu. See open roles, how we hire and what we expect of each other.",
+    "descriptionTa": "தமிழ்நாடு முழுவதும் திட்டங்கள், நிகழ்வுகள், தரவு, StartNet X-இல் பணியாற்றுங்கள். திறந்த பணியிடங்கள், நாங்கள் எப்படி ஆட்சேர்க்கிறோம், ஒருவரிடமிருந்து ஒருவர் என்ன எதிர்பார்க்கிறோம் என்பதைப் பாருங்கள்.",
+    "keywords": ["careers", "jobs", "hiring", "roles"],
+    "titleTa": "பணி வாய்ப்புகள்",
+    "keywordsTa": ["வேலை", "பணி"]
+  },
+  {
+    "title": "Contact",
+    "url": "/contact",
+    "snippet": "Reach the right StartNet team: programmes, events, partnerships, media, careers or data protection. WhatsApp, email or the contact form.",
+    "descriptionTa": "சரியான StartNet குழுவை அணுகுங்கள்: திட்டங்கள், நிகழ்வுகள், கூட்டாண்மைகள், ஊடகம், பணி வாய்ப்புகள் அல்லது தரவுப் பாதுகாப்பு. WhatsApp, மின்னஞ்சல் அல்லது தொடர்புப் படிவம்.",
+    "keywords": ["contact", "email", "WhatsApp", "grievance officer", "Salem", "office address"],
+    "titleTa": "தொடர்புக்கு",
+    "keywordsTa": ["தொடர்பு", "எங்களிடம் பேசுங்கள்", "WhatsApp-இல் பேசுங்கள்"]
+  }
+]

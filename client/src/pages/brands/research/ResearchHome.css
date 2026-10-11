@@ -1,0 +1,95 @@
+/* StartNet Research home as AngelList-family sheets: hairline stat rows, flat cards, calm numbered lists. */
+.research-home__journey { margin-top: var(--space-10); }
+
+/* Labs venture studio: the yearly commitments as big light numerals between hairlines (no tinted panel) */
+.research-home__commit { margin-top: var(--space-10); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
+.research-home__commit-head { font-weight: 500; margin-bottom: var(--space-8); color: var(--color-text); }
+.research-home__commit-head .muted { color: var(--color-text-muted); }
+.research-home__commit-grid { display: grid; gap: var(--space-8) var(--space-6); grid-template-columns: minmax(0, 1fr); }
+/* Four items: 2x2, then 4 across (never 3 + an orphan), with vertical dividers inside each row */
+@media (min-width: 640px) {
+  .research-home__commit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .research-home__commit-grid > :nth-child(2n) { border-left: 1px solid var(--color-border); padding-left: var(--space-6); }
+}
+@media (min-width: 1024px) {
+  .research-home__commit-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .research-home__commit-grid > * + * { border-left: 1px solid var(--color-border); padding-left: var(--space-6); }
+}
+.research-home__commit-grid .stat--compact .stat__value { font-size: var(--text-h1); }
+.research-home__stop { margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid var(--color-border); color: var(--color-text-2); font-size: var(--text-small); max-width: var(--measure); }
+.research-home__stop strong { font-weight: 500; color: var(--color-text); }
+.research-home__labs { margin-top: var(--space-12); display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr); }
+/* Four Labs: 1 / 2x2 / 4 across (auto-fill gave 3 + an orphan at laptop widths) */
+@media (min-width: 640px) { .research-home__labs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .research-home__labs { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-5); } }
+/* Phones: a 3:1 art strip keeps each Lab card short (3:2 art made them ~520px tall) */
+@media (max-width: 479px) { .research-home__labs .card__media .art-image { aspect-ratio: 3 / 1 !important; } }
+.research-home__nowrap { white-space: nowrap; }
+
+/* Fellowship feature: media frame + text column */
+.research-home__fellow-title { margin: var(--space-5) 0 var(--space-5); }
+.research-home__fellow-copy > * + * { margin-top: var(--space-5); }
+.research-home__fellow-copy .eyebrow + .research-home__fellow-title { margin-top: var(--space-5); }
+.research-home__fellow-art .art-image { border-radius: var(--media-radius); }
+.research-home__fellow-facts { margin: var(--space-6) 0 0; display: grid; border-top: 1px solid var(--color-border); }
+.research-home__fellow-facts div { display: flex; justify-content: space-between; gap: var(--space-4); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+.research-home__fellow-facts dt { color: var(--color-text-muted); }
+.research-home__fellow-facts dd { margin: 0; font-weight: 500; text-align: right; }
+.research-home__actions { --cluster-gap: var(--space-3) var(--space-5); margin-top: var(--space-6); }
+.research-home__progs { margin-top: var(--space-20); display: grid; gap: var(--space-6); }
+.research-home__progs > .h4 { font-weight: 400; font-size: var(--text-h3); letter-spacing: -0.015em; }
+@media (min-width: 1024px) { .research-home__fellow-art { max-width: 30rem; } }
+/* Single column: cap the ladder art (it ran 975x1219 at 1023px) */
+@media (max-width: 1023px) { .research-home__fellow-art { max-width: min(100%, 24rem); } }
+@media (min-width: 640px) and (max-width: 1023px) { .research-home__fellow-art { max-width: 20rem; } }
+
+/* Open calls: n=1 single readable card, n=4 as 2x2 (programme cards are too dense to run 4 across) */
+.research-home__grid-1 { display: grid; max-width: 46rem; }
+.research-home__grid-4 { display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) { .research-home__grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Standard terms: text left, the term sheet right */
+.research-home__terms { margin-top: var(--space-24); padding-top: var(--space-12); border-top: 1px solid var(--color-border); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); }
+@media (min-width: 1024px) { .research-home__terms { grid-template-columns: 4fr 8fr; gap: var(--space-12); align-items: start; } }
+.research-home__terms-copy > * + * { margin-top: var(--space-5); }
+.research-home__more {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
+  font-weight: 500; color: var(--accent-text); text-decoration: none;
+}
+.research-home__more svg { transition: transform var(--dur-2) var(--ease-standard); }
+@media (hover: hover) and (pointer: fine) {
+  .research-home__more:hover svg { transform: translateX(var(--shift-1)); }
+  .research-home__more:hover { text-decoration: underline; text-underline-offset: 0.22em; }
+}
+
+/* Who it's for: four columns between hairlines */
+.research-home__who { list-style: none; display: grid; gap: var(--space-8) var(--space-6); grid-template-columns: minmax(0, 1fr); margin-top: var(--space-10); }
+/* Four parties: 2x2, then 4 across (never 3 + an orphan) */
+@media (min-width: 560px) { .research-home__who { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .research-home__who { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; } }
+.research-home__who-item { align-content: start; padding-top: var(--space-5); border-top: 1px solid var(--color-border); }
+@media (min-width: 1024px) {
+  .research-home__who-item { padding: var(--space-6) var(--space-6) 0; }
+  .research-home__who > :first-child { padding-left: 0; }
+  .research-home__who > * + * { border-left: 1px solid var(--color-border); }
+}
+.research-home__who-item p { margin-top: var(--space-3); }
+
+/* Institution Night band */
+.research-home__ipp-title { margin-top: var(--space-5); }
+.research-home__ipp-copy > * + * { margin-top: var(--space-6); }
+.research-home__ipp-stat { padding: var(--space-5) 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+
+/* FAQ: three hairline columns */
+.research-home__faq { margin-top: var(--space-10); display: grid; gap: var(--space-12); }
+@media (min-width: 1024px) { .research-home__faq { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-8); } }
+.research-home__faq-title { padding-bottom: var(--space-4); margin-bottom: 0; font-weight: 400; color: var(--color-text-muted); font-size: var(--text-body); }
+.research-home__labs > * > *, .research-home__commit-grid > * > * { height: 100%; }
+
+/* Single upcoming event: horizontal feature card */
+@media (min-width: 768px) {
+  .research-home__event-feature .card { flex-direction: row; }
+  .research-home__event-feature .card__media { flex: 0 0 42%; align-self: stretch; border-radius: calc(var(--media-radius) - 1px) 0 0 calc(var(--media-radius) - 1px); }
+  .research-home__event-feature .card__media > * { height: 100%; }
+  .research-home__event-feature .card__body { min-width: 0; padding: var(--space-8); }
+}

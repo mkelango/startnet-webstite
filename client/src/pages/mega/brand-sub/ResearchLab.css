@@ -1,0 +1,151 @@
+/* /research/labs/:lab. Prefix: .research-lab (mobile first; accent from [data-brand="research"]). */
+.research-lab__hero-meta { --cluster-gap: var(--space-2); }
+
+.research-lab__layout { align-items: start; }
+.research-lab__main { min-width: 0; display: grid; gap: var(--space-16); }
+.research-lab__aside { min-width: 0; }
+@media (min-width: 1024px) and (min-height: 900px) {
+  .research-lab__aside {
+    position: sticky;
+    top: calc(var(--shell-offset, var(--header-h-compact)) + var(--subnav-h, 48px) + var(--space-6));
+  }
+}
+.research-lab__aside-actions { display: grid; gap: var(--space-2); justify-items: stretch; }
+
+.research-lab__block { display: grid; gap: var(--space-5); justify-items: start; min-width: 0; scroll-margin-top: var(--space-2); }
+.research-lab__block + .research-lab__block { padding-top: var(--space-8); border-top: 1px solid var(--color-border); }
+.research-lab__block .eyebrow { margin-bottom: var(--space-4); }
+.research-lab__block > * { max-width: 100%; }
+.research-lab__title { margin-top: 0; max-width: 30ch; }
+.research-lab__lede { color: var(--color-text-2); max-width: var(--measure); }
+.research-lab__note { color: var(--color-text-2); font-size: var(--text-small); max-width: var(--measure); }
+.research-lab__sub { margin-top: var(--space-2); }
+
+/* Charter table: fluid 3-column table from 36rem up; below that each row
+   stacks as a labelled card so no column is clipped or needs sideways scroll. */
+.research-lab__table-wrap {
+  width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius);
+  background: var(--bp-card);
+}
+.research-lab__table-wrap:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.research-lab__table { width: 100%; border-collapse: collapse; font-size: var(--text-small); }
+.research-lab__table th, .research-lab__table td { padding: var(--space-3) var(--space-4); text-align: left; vertical-align: top; border-bottom: var(--border-hair); overflow-wrap: anywhere; }
+.research-lab__table thead th { font-weight: 400; color: var(--color-text-muted); background: transparent; }
+.research-lab__table tbody tr:last-child > * { border-bottom: 0; }
+.research-lab__table tbody th { font-weight: 500; color: var(--color-text); min-width: 9rem; }
+.research-lab__table td { color: var(--color-text-2); }
+.research-lab__table td:last-child { white-space: nowrap; }
+@media (max-width: 35.99rem) {
+  .research-lab__table thead { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .research-lab__table, .research-lab__table tbody, .research-lab__table tr,
+  .research-lab__table tbody th, .research-lab__table td { display: block; width: 100%; min-width: 0; }
+  .research-lab__table tr { padding: var(--space-4); border-bottom: var(--border-hair); }
+  .research-lab__table tbody tr:last-child { border-bottom: 0; }
+  .research-lab__table tbody th, .research-lab__table td { padding: 0; border-bottom: 0; }
+  .research-lab__table td { margin-top: var(--space-2); }
+  .research-lab__table td:last-child { white-space: normal; }
+  .research-lab__table td[data-label]::before {
+    content: attr(data-label); display: block; margin-bottom: var(--space-1);
+    font-size: var(--text-caption); font-weight: 400; color: var(--color-text-muted);
+  }
+}
+
+/* Problems */
+.research-lab__problems { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; border-top: 1px solid var(--color-border); }
+.research-lab__problem {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-2) var(--space-5); align-items: start;
+  padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border);
+}
+.research-lab__problem > :last-child { grid-column: 2; justify-self: start; }
+@media (min-width: 768px) {
+  .research-lab__problem { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; }
+  .research-lab__problem > :last-child { grid-column: auto; }
+}
+.research-lab__problem-num { font-variant-numeric: tabular-nums lining-nums; font-weight: 400; font-size: var(--text-meta); line-height: 1.6; color: var(--color-text-muted); min-width: 2ch; }
+.research-lab__problem-body { display: grid; gap: var(--space-1); min-width: 0; }
+
+/* Who / what you get */
+.research-lab__who { max-width: var(--measure); }
+.research-lab__ticks { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; border-top: 1px solid var(--color-border); }
+.research-lab__ticks li { display: flex; gap: var(--space-3); align-items: flex-start; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+.research-lab__tick { flex: none; margin-top: 0.2em; color: var(--color-text); }
+
+/* Night band: commitments */
+.research-lab__stats {
+  margin: var(--space-8) 0 0; display: grid; gap: var(--space-8) var(--space-6);
+  grid-template-columns: minmax(0, 1fr);
+}
+.research-lab__stats > .stat { border-top: 0; padding-top: 0; }
+@media (min-width: 768px) {
+  .research-lab__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .research-lab__stats > :nth-child(2n) { border-left: 1px solid var(--color-border); padding-left: var(--space-6); }
+}
+@media (min-width: 1024px) {
+  .research-lab__stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .research-lab__stats > * + * { border-left: 1px solid var(--color-border); padding-left: var(--space-6); }
+}
+.research-lab__rule {
+  margin-top: var(--space-10); padding-top: var(--space-5); max-width: var(--measure);
+  border-top: 1px solid var(--color-border); color: var(--color-text-2);
+}
+.research-lab__rule strong { font-weight: 500; color: var(--color-text); }
+
+/* Form */
+.research-lab__form-grid { display: grid; gap: var(--space-10); align-items: start; }
+@media (min-width: 1024px) { .research-lab__form-grid { grid-template-columns: 5fr 7fr; gap: var(--space-16); } }
+.research-lab__form-intro { display: grid; gap: var(--space-4); }
+.research-lab__wa { display: grid; gap: var(--space-2); justify-items: start; margin-top: var(--space-4); }
+.research-lab__form { min-width: 0; }
+
+/* Sponsor */
+/* The sponsor call-out has the whole sheet to itself: no card frame inside it */
+.research-lab__sponsor {
+  display: grid; gap: var(--space-4); justify-items: start;
+  scroll-margin-top: var(--space-2);
+}
+.research-lab__sponsor p { max-width: var(--measure); color: var(--color-text-2); }
+
+/* Other Labs */
+.research-lab__others {
+  list-style: none; margin: var(--space-8) 0 0; padding: 0; display: grid; gap: var(--space-6);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 768px) { .research-lab__others { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .research-lab__others { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.research-lab__others > li { display: flex; min-width: 0; }
+.research-lab__others > li > * { flex: 1; min-width: 0; }
+
+.research-lab__wave2 { margin-top: var(--space-12); display: grid; gap: var(--space-4); justify-items: start; }
+.research-lab__wave2-list {
+  list-style: none; margin: 0; padding: 0; width: 100%; display: grid; gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+}
+.research-lab__wave2-card {
+  display: grid; gap: var(--space-1); padding: var(--space-5);
+  border: 1px dashed var(--line-strong); border-radius: var(--media-radius);
+  background: transparent; color: var(--color-text-muted);
+}
+.research-lab__wave2-card .caption { color: var(--color-text-muted); }
+.research-lab__wave2-name { font-weight: 500; color: var(--color-text-2); }
+
+/* Final verifier r3: whole Tamil words in the role table ("உறுதியானது" split at 1280; base.css gives Tamil th/td
+   overflow-wrap:anywhere at (0,2,0), so this needs (0,2,1)). Long section titles break only between words. */
+.research-lab__table-wrap .research-lab__table :is(th, td) { overflow-wrap: normal; }
+.research-lab .h5:lang(ta) { overflow-wrap: break-word; font-size: var(--text-h6); }
+
+/* Tablet 768–1023: no 2 + 1 orphan. A set of exactly three runs as one row of three (as .grid-3 in base.css); any
+   other odd last card takes the full row, and a card with media turns horizontal (media 5 / body 7). */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .research-lab__others:has(> :nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+  .research-lab__others:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .research-lab__others:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) {
+    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--space-6); align-items: stretch;
+  }
+  .research-lab__others:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media { width: 100%; height: 100%; min-width: 0; margin-bottom: 0; }
+  .research-lab__others:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media .art-image { aspect-ratio: auto !important; width: 100%; height: 100%; min-height: 12rem; }
+}
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  /* Four wave-2 labs: 2 × 2, not 3 + 1 */
+  .research-lab__wave2-list:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

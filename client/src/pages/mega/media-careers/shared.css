@@ -1,0 +1,33 @@
+/* Shared bits for /media/kit, /media/releases/:slug and /careers/:slug. Prefix: .mc-
+   AngelList family: 4px quiet controls, hairline share row, sentence-case labels. */
+.mc-copy {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; padding: 0 var(--space-4);
+  border: 1px solid var(--color-border-control); border-radius: var(--btn-radius);
+  background: transparent; color: var(--color-text);
+  font: inherit; font-size: var(--text-small); font-weight: 500; cursor: pointer;
+  transition: border-color var(--dur-2) var(--ease-standard), background-color var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) { .mc-copy:hover { border-color: var(--color-text); background: var(--color-bg-sunken); } }
+.mc-copy:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.mc-copy svg { flex: none; }
+
+.mc-share {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3);
+  padding-top: var(--space-6); border-top: 1px solid var(--color-border);
+}
+.mc-share__label {
+  margin-right: var(--space-2);
+  font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mc-copy { transition: none; }
+}
+
+/* Tamil has no case: drop uppercase + tracking on labels in this group */
+:lang(ta) .mc-share__label,
+:lang(ta) .mkit-toc__summary,
+:lang(ta) .mkit-table thead th,
+:lang(ta) .release__aside-title,
+:lang(ta) .release__ends { text-transform: none; letter-spacing: 0; }

@@ -1,0 +1,68 @@
+/* StartNet X · AI agents and guardrails (T19). AngelList-family: flat hairline cards, hairline rows,
+   one calm night band. */
+.snx-agents__crumbs-band { background: var(--night-0); }
+.snx-agents__crumbs { padding-top: var(--space-4); }
+.snx-agents__anchor { scroll-margin-top: calc(var(--shell-offset, var(--header-h)) + var(--subnav-h) + var(--space-4)); }
+
+.snx-agents__intro { display: grid; gap: var(--space-8); align-items: end; }
+@media (min-width: 1024px) { .snx-agents__intro { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-16); } }
+/* The count: a big light numeral in a hairline frame (no coloured top rule). */
+.snx-agents__count { padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius); min-width: 0; }
+.snx-agents__count .stat--default { padding-top: 0; border-top: 0; }
+
+.snx-agents__grid { display: grid; gap: var(--space-3); margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); grid-template-columns: 1fr; }
+@media (min-width: 768px) { .snx-agents__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1200px) { .snx-agents__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+/* Not links: flat cards, no hover lift. */
+.snx-agents__card {
+  display: grid; gap: var(--space-4); grid-template-rows: auto auto 1fr auto; align-content: start; min-width: 0;
+  padding: var(--space-6); background: var(--card);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius); box-shadow: none;
+}
+.snx-agents__card--more { background: transparent; border-style: dashed; border-color: color-mix(in srgb, var(--color-text) 20%, var(--color-border)); }
+.snx-agents__card-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); }
+/* Line icon in a 40px hairline square (no tinted circle). */
+.snx-agents__icon {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; flex: none;
+  border: 1px solid var(--color-border); border-radius: var(--btn-radius);
+  background: transparent; color: var(--color-text);
+}
+.snx-agents__icon svg { width: 20px; height: 20px; }
+.snx-agents__name.h4 { margin: var(--space-2) 0 0; font-weight: 500; letter-spacing: -0.01em; }
+.snx-agents__plan { align-self: end; }
+.snx-agents__plans-link { margin-top: var(--space-8); }
+
+/* Guardrails: the page's one night band, calm (regular title, hairline rows, quiet numbers). */
+.snx-agents__guard { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) { .snx-agents__guard { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; } }
+.snx-agents__guard-intro { display: grid; gap: var(--space-5); justify-items: start; }
+.snx-agents__guard-icon {
+  display: inline-grid; place-items: center; width: 40px; height: 40px;
+  border: 1px solid var(--night-line); border-radius: var(--btn-radius);
+  color: var(--night-text);
+}
+.snx-agents__guard-lede { color: var(--color-text-2); max-width: 40ch; }
+.snx-agents__guard-intro .button { margin-top: var(--space-3); }
+.snx-agents__guard-list { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
+.snx-agents__guard-item { display: grid; grid-template-columns: 3rem 1fr; gap: var(--space-4); padding: var(--space-6) 0; border-bottom: 1px solid var(--color-border); color: var(--color-text-2); }
+.snx-agents__guard-item strong { color: var(--color-text); font-weight: 500; }
+.snx-agents__guard-num { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; padding-top: 0.1em; }
+
+.snx-agents__steps { margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); }
+
+/* Your data: feature row; the four commitments as hairline rows (two columns from 768). */
+.snx-agents__data { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) { .snx-agents__data { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; } }
+.snx-agents__data-intro { display: grid; gap: var(--space-5); justify-items: start; }
+.snx-agents__data-intro .body-lg { max-width: 36rem; }
+.snx-agents__data-intro .cluster { margin-top: var(--space-3); }
+.snx-agents__data-list { list-style: none; display: grid; column-gap: var(--space-10); grid-template-columns: 1fr; border-top: 1px solid var(--color-border); }
+@media (min-width: 768px) { .snx-agents__data-list { grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 0; border-bottom: 1px solid var(--color-border); } }
+.snx-agents__data-item { display: grid; gap: var(--space-2); align-content: start; padding: var(--space-6) 0; border-bottom: 1px solid var(--color-border); min-width: 0; }
+@media (min-width: 768px) { .snx-agents__data-item { border-top: 1px solid var(--color-border); border-bottom: 0; } }
+.snx-agents__data-item .h5 { font-weight: 500; letter-spacing: -0.01em; }
+.snx-agents__grievance { margin-top: var(--space-10); padding-top: var(--space-6); border-top: 1px solid var(--color-border); display: grid; gap: var(--space-2); }
+.snx-agents__grievance .h5 { font-weight: 500; letter-spacing: -0.01em; }
+
+.snx-agents__faq { margin-top: var(--space-8); }
+.snx-agents__updates { margin-top: var(--space-8); }

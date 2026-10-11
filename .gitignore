@@ -1,0 +1,10 @@
+node_modules/
+client/dist/
+server/dist/
+server/storage/
+*.tsbuildinfo
+.env
+tools/seo/out/
+tools/audit/agents/
+tools/audit/out/
+.claude/scheduled_tasks.lock

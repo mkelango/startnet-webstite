@@ -1,0 +1,40 @@
+/* C01 · Utility bar (DESIGN-v2 3.1): 36px Ink with a bottom hairline; links 14px 400 → Paper on hover.
+   "Join StartNet" stays red (the one red point in the chrome): Red-600, white, 4px, 28px, 14px 500, hover Red-700. */
+.utilitybar { height: var(--utility-h); font-size: var(--text-meta); background: var(--night-0); color: var(--night-text-2); border-bottom: 1px solid var(--night-line); }
+.utilitybar__inner { height: 100%; display: flex; align-items: center; justify-content: flex-end; gap: var(--space-6); }
+.utilitybar__nav { margin-right: auto; }
+.utilitybar__list { list-style: none; display: flex; align-items: center; gap: var(--space-6); margin: 0; padding: 0; }
+.utilitybar__actions { display: flex; align-items: center; gap: var(--space-5); }
+.utilitybar__link {
+  display: inline-flex; align-items: center; gap: var(--space-1); min-height: 24px;
+  color: var(--night-text-2); font-weight: 400; text-decoration: none; transition: color var(--dur-2) var(--ease-snap);
+}
+.utilitybar__link:hover, .utilitybar__link[aria-current] { color: var(--paper); text-decoration: none; }
+.utilitybar__link[aria-current] { text-decoration: underline; text-decoration-color: rgb(244 243 239 / 0.4); text-underline-offset: 0.3em; }
+.utilitybar__link:focus-visible, .utilitybar__join:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; border-radius: var(--radius-btn); }
+.utilitybar__count {
+  display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px;
+  border-radius: var(--radius-full); background: var(--night-2); color: var(--night-text); font-size: 0.6875rem; font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.utilitybar .lang-switch__opt { color: var(--night-text-2); }
+.utilitybar .lang-switch__opt:hover, .utilitybar .lang-switch__opt[aria-current] { color: var(--paper); }
+.utilitybar .lang-switch__sep { color: var(--night-line-strong); }
+.utilitybar__join {
+  display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 14px;
+  border-radius: var(--radius-btn); background: var(--sn-red-600); color: #FFFFFF;
+  font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: background-color var(--dur-2) var(--ease-snap);
+}
+.utilitybar__join:hover { background: var(--sn-red-700); color: #FFFFFF; text-decoration: none; }
+.utilitybar__join svg { transition: transform var(--dur-2) var(--ease-snap); }
+.utilitybar__join:active { transform: scale(0.98); background: var(--sn-red-800); }
+@media (hover: hover) { .utilitybar__join:hover svg { transform: translateX(3px); } }
+/* Tamil: 14 px minimum (Book 3 §4.4) */
+:lang(ta) .utilitybar { font-size: 0.875rem; }
+
+/* Touch tablets/laptops: 40 px targets; the bar grows (Header.jsx and --utility-h follow) */
+@media (pointer: coarse) and (min-width: 1024px) {
+  :root { --utility-h: 40px; }
+  .utilitybar__link, .utilitybar .lang-switch__opt { min-height: 40px; padding-inline: var(--space-2); }
+  .utilitybar__join { height: 36px; }
+}

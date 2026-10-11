@@ -1,0 +1,445 @@
+/* Partner pages (/partner, /partner/:type, /partner/enquire, /partner/our-partners). Prefix: .partner-
+   AngelList-family finish (Oct 2026): hairline rows instead of boxed cards, dot markers instead of coloured bars,
+   regular-weight titles, flat var(--card) cards, blueprint numbers between hairlines, calm night bands. */
+
+.partner-link {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px;
+  /* Same as the themed tertiary button: ink text link with an arrow (brand rows use the brand's text accent). */
+  font-weight: 500; color: var(--color-text); text-decoration: none;
+}
+.partner-link svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+.partner-link:hover { text-decoration: underline; text-decoration-color: currentColor; text-underline-offset: 0.22em; }
+.partner-link:focus-visible svg { transform: translateX(var(--shift-1)); }
+@media (hover: hover) and (pointer: fine) { .partner-link:hover svg { transform: translateX(var(--shift-1)); } }
+
+.partner-hero-sla {
+  display: inline-flex; align-items: center; flex-wrap: wrap; gap: var(--space-2);
+  font-size: var(--text-small); color: var(--color-text-2);
+}
+
+/* Night bands: one per page, plain ink (no dot texture), like the shared CTA band. */
+.section--night:is(.partner-district, .partner-proofband) { background-image: none; }
+.section--night:is(.partner-district, .partner-proofband)::before { display: none; }
+
+/* ---------- Hub: partner-by-type doors (full-width hairline rows) ---------- */
+.partner-doors {
+  /* DESIGN-v2 6.4: PartnerType as framed top-rule columns. 1 col on phones, 2 from 768, and at ≥1024 a 6-col
+     grid where the first three span 2 and the last two span 3 (3 + 2, no orphan). */
+  list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px;
+  margin: 0; padding: 0;
+}
+@media (min-width: 768px) { .partner-doors { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; } }
+@media (min-width: 1024px) {
+  .partner-doors { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 32px; }
+  .partner-doors > * { grid-column: span 2; }
+  .partner-doors > :nth-child(n + 4) { grid-column: span 3; }
+}
+.partner-door {
+  /* AIWO P14: an open column under a 1px Ink top rule (no box); the rule thickens to 2px on hover / focus-within. */
+  position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3);
+  min-height: 100%;
+  padding: 28px 0 0;
+  border-top: 1px solid var(--color-text);
+}
+@media (min-width: 1024px) { .partner-doors { row-gap: 56px; } }
+.partner-door::before {
+  content: ''; position: absolute; inset: -1px 0 auto; height: 2px; background: var(--color-text);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+.partner-door:focus-within::before { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { .partner-door:hover::before { transform: scaleX(1); } }
+.partner-door__index { order: 0; font-size: var(--text-meta); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.partner-door__icon { order: 1; color: var(--color-text); margin-block: var(--space-4) var(--space-2); }
+.partner-door .partner-door__title {
+  order: 2; margin: 0;
+  font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3, -0.015em);
+  overflow-wrap: break-word; hyphens: auto;
+}
+.partner-door__link { color: inherit; text-decoration: none; }
+.partner-door__link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.partner-door__link:focus-visible { outline: 0; box-shadow: none; }
+.partner-door:has(.partner-door__link:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.partner-door__body { order: 3; color: var(--color-text-2); max-width: 40ch; }
+.partner-door__more {
+  order: 4; margin-top: auto; padding-top: var(--space-4); display: inline-flex; align-items: center; gap: 10px;
+  font-size: var(--text-body); font-weight: 500; color: var(--color-text);
+  transition: color var(--dur-2) var(--ease-standard);
+}
+.partner-door__more svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+@media (hover: hover) and (pointer: fine) {
+  .partner-door:hover .partner-door__more { color: var(--color-text); }
+  .partner-door:hover .partner-door__more svg { transform: translateX(4px); }
+  .partner-door:hover .partner-door__link { text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-decoration-thickness: 1.5px; text-underline-offset: 0.16em; }
+}
+
+.partner-also {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-6);
+  /* AIWO P11 tail: the remaining doors as one hairline row under the columns */
+  margin-top: var(--space-14, 56px); padding-top: var(--space-4); border-top: 1px solid var(--color-border);
+  font-size: var(--text-small);
+}
+.partner-also__label { color: var(--color-text-muted); font-weight: 400; }
+.partner-also a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* ---------- How it works ---------- */
+.partner-how { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) { .partner-how { grid-template-columns: 4fr 8fr; gap: var(--space-16); align-items: start; } }
+.partner-how__intro > * + * { margin-top: var(--space-5); }
+.partner-how__intro .text-2 { max-width: 36rem; }
+
+/* ---------- District band (the hub's one Night band): AngelList feature row ---------- */
+.partner-district__title { margin-top: var(--space-5); }
+.partner-district__body { margin-top: var(--space-5); color: var(--color-text-2); max-width: 36rem; }
+.partner-district__actions { margin-top: var(--space-8); }
+/* Single-column below 1024: keep the square map from filling a 975px-tall block. */
+@media (max-width: 1023px) { .partner-district__art { width: 100%; max-width: 30rem; } }
+
+/* ---------- Ready-made solutions: two-column hairline link list ---------- */
+.partner-solutions {
+  list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); margin-top: 0; padding: 0;
+  border-top: 1px solid var(--color-border);
+}
+@media (min-width: 900px) { .partner-solutions { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-12); } }
+.partner-solution { display: grid; border-bottom: 1px solid var(--color-border); }
+.partner-solution__link {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-1) var(--space-4); align-content: start; align-items: start;
+  padding: var(--space-6) 0; min-height: 44px; color: inherit; text-decoration: none;
+}
+.partner-solution .partner-solution__title { grid-column: 1; font-size: var(--text-h5); font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; }
+.partner-solution__body { grid-column: 1; color: var(--color-text-2); font-size: var(--text-small); }
+.partner-solution__arrow {
+  grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--color-text-muted);
+  transition: transform var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard);
+}
+.partner-solution__link:hover .partner-solution__title { text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-decoration-thickness: 1.5px; text-underline-offset: 0.18em; }
+.partner-solution__link:focus-visible .partner-solution__arrow { color: var(--color-text); transform: translateX(var(--shift-2)); }
+@media (hover: hover) and (pointer: fine) { .partner-solution__link:hover .partner-solution__arrow { color: var(--color-text); transform: translateX(var(--shift-2)); } }
+
+/* ---------- Proof ---------- */
+.partner-proof { display: grid; gap: var(--space-12); }
+.partner-proof__row { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) { .partner-proof__row { grid-template-columns: 7fr 5fr; gap: var(--space-16); } }
+.partner-proof .partner-proof__subhead { margin-bottom: var(--space-5); font-size: var(--text-h5); font-weight: 500; letter-spacing: -0.01em; }
+/* Proof links: a full-width hairline list (title left, arrow right). */
+.partner-proof__links { list-style: none; display: grid; align-content: start; margin: 0; padding: 0; border-top: 1px solid var(--color-border); }
+.partner-proof__links li { border-bottom: 1px solid var(--color-border); }
+.partner-proof__links .partner-link {
+  display: flex; justify-content: space-between; width: 100%; min-height: 56px; padding-block: var(--space-3);
+  color: var(--color-text); font-weight: 400;
+}
+.partner-proof__links .partner-link svg { color: var(--color-text-muted); }
+.partner-proof__links .partner-link:hover svg, .partner-proof__links .partner-link:focus-visible svg { color: var(--color-text); }
+.partner-proof__empty { color: var(--color-text-2); }
+/* Nothing signed yet: a flat note card (solid hairline, no dashed "slot"). */
+.partner-proof__none {
+  display: grid; gap: var(--space-3); justify-items: start;
+  padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  color: var(--color-text-2);
+}
+[data-surface='night'] .partner-proof__none { background: var(--night-1); border-color: var(--night-line); }
+.partner-proof__none p { max-width: var(--measure); margin: 0; }
+.partner-proof__none .partner-link { min-height: 44px; } /* WCAG 2.5.5-size tap target on phones */
+.partner-proof__names { list-style: none; display: grid; margin-top: var(--space-6); padding: 0; border-top: 1px solid var(--color-border); }
+.partner-proof__names li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-2); padding-block: var(--space-3); border-bottom: 1px solid var(--color-border); }
+.partner-proof__name { font-weight: 500; }
+.partner-proof__since { color: var(--color-text-muted); font-size: var(--text-small); font-variant-numeric: tabular-nums; }
+
+/* Founder Ledger figures: USVC blueprint numbers (light numerals between hairlines; theme draws the vertical dividers). */
+.partner-ledger .fact-band__title { font-weight: 500; letter-spacing: -0.01em; }
+.partner-ledger .fact-band__grid { border-top: 1px solid var(--color-border); }
+.partner-ledger .stat--default { border-top: 0; padding-top: var(--space-6); }
+
+/* Signed partners' logos: a blueprint grid of hairline cells (here and on /partner/our-partners). Each cell draws
+   all four hairlines with shadows that overlap their neighbours, so the frame wraps only the cells that exist. */
+:is(.partner-ourwall, .partner-proof__partners) .logo-wall__grid { gap: 0; padding: 1px 0 0 1px; }
+:is(.partner-ourwall, .partner-proof__partners) .logo-wall__grid > li {
+  display: grid;
+  box-shadow:
+    1px 0 0 0 var(--color-border), 0 1px 0 0 var(--color-border), 1px 1px 0 0 var(--color-border),
+    inset 1px 0 0 0 var(--color-border), inset 0 1px 0 0 var(--color-border);
+}
+:is(.partner-ourwall, .partner-proof__partners) .logo-wall__item { align-content: space-between; gap: var(--space-3); padding: var(--space-5); }
+:is(.partner-ourwall, .partner-proof__partners) .logo-wall__grid .logo-wall__logo {
+  min-width: 0; height: 88px; padding: 0; border: 0; border-radius: 0; background: transparent;
+}
+:is(.partner-ourwall, .partner-proof__partners) .logo-wall__name { font-weight: 500; color: var(--color-text); }
+:is(.partner-ourwall, .partner-proof__partners) .logo-wall__since { font-size: var(--text-small); }
+
+.partner-proofneeded__objection { margin-bottom: var(--space-8); }
+.partner-proofneeded__q { display: block; font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); margin-bottom: var(--space-3); }
+.partner-proofneeded__objection q {
+  display: block; max-width: 26ch;
+  font-size: var(--text-h3); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em;
+}
+.partner-proofneeded__lead { color: var(--color-text-2); margin-bottom: var(--space-4); }
+.partner-proofneeded__list { list-style: none; display: grid; gap: 0; padding: 0; border-top: 1px solid var(--color-border); }
+.partner-proofneeded__list li { border-bottom: 1px solid var(--color-border); }
+.partner-proofneeded__list a, .partner-proofneeded__list span {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  min-height: 56px; padding: var(--space-3) 0; color: inherit; text-decoration: none; font-weight: 400;
+}
+.partner-proofneeded__list a svg { flex: none; color: var(--color-text-muted); transition: transform var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard); }
+.partner-proofneeded__list a:focus-visible svg { color: var(--color-text); transform: translateX(var(--shift-1)); }
+@media (hover: hover) and (pointer: fine) { .partner-proofneeded__list a:hover svg { color: var(--color-text); transform: translateX(var(--shift-1)); } }
+.partner-proofneeded__list a:hover { text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-decoration-thickness: 1.5px; text-underline-offset: 0.18em; }
+
+/* ---------- Type page: offers (full-width hairline rows: index · title · text) ---------- */
+.partner-offers {
+  list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0;
+  margin: 0; padding: 0; counter-reset: none; border-top: 1px solid var(--color-border);
+}
+.partner-offer {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3);
+  padding-block: var(--space-6) var(--space-8);
+  border-bottom: 1px solid var(--color-border);
+  scroll-margin-top: calc(var(--header-h) + var(--space-8));
+}
+@media (min-width: 768px) {
+  .partner-offer { grid-template-columns: 3rem minmax(0, 5fr) minmax(0, 6fr); gap: var(--space-6); align-items: start; padding-block: var(--space-8); }
+  .partner-offer--brand { grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 6fr); }
+}
+@media (min-width: 1024px) { .partner-offer { gap: var(--space-10); } }
+.partner-offer:target { box-shadow: var(--focus-ring); border-radius: var(--btn-radius); }
+.partner-offer__index { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); padding-top: 0.45em; }
+.partner-offer .partner-offer__title { margin: 0; font-size: var(--text-h3); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; overflow-wrap: break-word; }
+.partner-offer__text { display: grid; gap: var(--space-4); justify-items: start; align-content: start; min-width: 0; }
+.partner-offer__body { color: var(--color-text-2); max-width: 40rem; }
+.partner-offer__stat { padding-top: var(--space-2); }
+.partner-offer__link { margin-top: calc(var(--space-2) * -1); }
+/* Brand rows: the brand marker is a small accent dot before the journey label (no coloured top bar). */
+.partner-offer__journey {
+  display: inline-flex; align-items: center; gap: var(--space-2); padding-top: 0.5em;
+  font-size: var(--text-small); font-weight: 500; color: var(--accent-text);
+}
+.partner-offer__journey::before {
+  content: ''; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-fill, var(--accent));
+}
+.partner-offer--brand .partner-link { color: var(--accent-text); }
+
+.partner-crosslink { margin-top: var(--space-6); }
+
+/* ---------- Type page: detail (what you can report + tier / rate card) ---------- */
+.partner-detail { display: grid; gap: var(--space-12); }
+@media (min-width: 1024px) { .partner-detail { grid-template-columns: 7fr 5fr; gap: var(--space-16); align-items: start; } }
+/* Some types only have an aside (investors: the legal note) or only a main column: no empty half-page column. */
+.partner-detail > :empty { display: none; }
+@media (min-width: 1024px) { .partner-detail:has(> .partner-detail__main:empty) .partner-detail__aside { grid-column: 1; } }
+.partner-detail__main > * + * { margin-top: var(--space-6); }
+.partner-detail__main > .partner-detail__how { margin-top: var(--space-12); }
+.partner-detail__aside { display: grid; gap: var(--space-5); }
+.partner-detail__how .body-lg { margin-top: var(--space-4); max-width: 36rem; color: var(--color-text-2); }
+
+.partner-checklist { list-style: none; display: grid; gap: 0; margin-top: var(--space-6) !important; padding: 0; border-top: 1px solid var(--color-border); }
+.partner-checklist li { display: flex; gap: var(--space-4); align-items: baseline; padding-block: var(--space-4); border-bottom: 1px solid var(--color-border); }
+.partner-checklist__icon { flex: none; align-self: center; color: var(--color-text); }
+.partner-checklist .h5 { font-weight: 400; letter-spacing: -0.01em; }
+
+.partner-note {
+  padding: var(--space-4) var(--space-5); border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  background: var(--card); color: var(--color-text-2);
+  font-size: var(--text-small); max-width: var(--measure);
+}
+.partner-rule { font-size: var(--text-small); color: var(--color-text-2); max-width: var(--measure); }
+.partner-rule strong { font-weight: 500; color: var(--color-text); }
+
+.partner-tier {
+  display: grid; gap: var(--space-4); align-content: start; justify-items: start;
+  padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  box-shadow: none;
+  scroll-margin-top: calc(var(--header-h) + var(--space-8));
+}
+@media (min-width: 768px) { .partner-tier { padding: var(--space-8); } }
+.partner-tier > .stat { justify-self: stretch; }
+/* The card is the frame: no second rule above the figure. */
+.partner-tier .stat--default { border-top: 0; padding-top: 0; }
+.partner-tier .h4 { font-weight: 500; letter-spacing: -0.01em; }
+.partner-tier__note { color: var(--color-text-2); font-size: var(--text-small); }
+
+.partner-legal {
+  padding: var(--space-5); border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card);
+  font-size: var(--text-small); display: grid; gap: var(--space-2);
+}
+.partner-legal strong { font-weight: 500; }
+
+/* ---------- Type page: proof band (the page's one Night band), blueprint frame ---------- */
+.partner-proofband__grid {
+  display: grid; gap: var(--space-10);
+  padding-top: var(--space-10); border-top: 1px solid var(--color-border);
+}
+@media (min-width: 1024px) {
+  .partner-proofband__grid { grid-template-columns: 7fr 5fr; gap: 0; }
+  .partner-proofband__grid > :first-child { padding-right: var(--space-12); }
+  .partner-proofband__partners { padding-left: var(--space-12); border-left: 1px solid var(--color-border); }
+}
+.partner-proofband__partners h3 { margin-bottom: var(--space-5); font-weight: 500; letter-spacing: -0.01em; }
+.partner-proofband__ledger { margin-top: var(--space-12); }
+.partner-proofband__ledger:has(.fact-band) { padding-top: var(--space-10); border-top: 1px solid var(--color-border); }
+
+/* ---------- Enquiry panel / page: context + form in a flat hairline card ---------- */
+.partner-enquire-panel { scroll-margin-top: var(--header-h); }
+.partner-enquire { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) {
+  .partner-enquire { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; }
+  /* /partner/enquire: context left, form right (the form stays first in reading order and on phones). */
+  .partner-enquire--page .partner-enquire__aside { grid-column: 1; grid-row: 1; }
+  .partner-enquire--page .partner-enquire__form { grid-column: 2; grid-row: 1; }
+  .partner-enquire__intro, .partner-enquire__aside { position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-6)); }
+}
+.partner-enquire__intro > * + * { margin-top: var(--space-5); }
+.partner-enquire__intro > .partner-route { margin-top: var(--space-8); }
+.partner-enquire__intro .text-2 { max-width: 36rem; }
+.partner-enquire__form {
+  /* DESIGN-v2 3.14: White form card, 12px, hairline ring, 32/24 padding */
+  padding: 24px; background: var(--white); border: 0; border-radius: var(--radius-media);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+}
+@media (min-width: 768px) { .partner-enquire__form { padding: 32px; } }
+.partner-enquire__alt { font-size: var(--text-small); color: var(--color-text-muted); }
+.partner-enquire__aside > * > * + * { margin-top: var(--space-6); }
+.partner-enquire__aside h2 { font-size: var(--text-h3); font-weight: 500; line-height: 1.1; letter-spacing: -0.02em; }
+.partner-enquire__wa { margin-top: var(--space-8); }
+
+/* Routing facts: hairline rows, quiet key / regular value. */
+.partner-route { display: grid; gap: 0; margin-inline: 0; margin-bottom: 0; padding: 0; border-top: 1px solid var(--color-border); }
+.partner-route div { display: grid; gap: var(--space-1); padding-block: var(--space-4); border-bottom: 1px solid var(--color-border); }
+@media (min-width: 480px) { .partner-route div { grid-template-columns: 9rem minmax(0, 1fr); gap: var(--space-4); align-items: baseline; } }
+.partner-route dt { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); }
+.partner-route dd { margin: 0; font-size: var(--text-body); color: var(--color-text); }
+
+/* What happens next: hairline rows, the line icon in a 40px hairline square. */
+.partner-next { list-style: none; display: grid; gap: 0; padding: 0; border-top: 1px solid var(--color-border); }
+.partner-next li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: var(--space-4); align-items: center; padding-block: var(--space-4); border-bottom: 1px solid var(--color-border); }
+.partner-next svg {
+  box-sizing: content-box; width: 20px; height: 20px; padding: 9px;
+  border: 1px solid var(--color-border); border-radius: var(--btn-radius); color: var(--color-text);
+}
+
+.partner-routing { display: grid; gap: var(--space-8); }
+.partner-routing__intro > * + * { margin-top: var(--space-5); }
+.partner-routing__intro .text-2 { max-width: 40rem; }
+.partner-routing__intro .h3 { font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+/* Hairline rows only: no frame, no header band. The cover gradients match the white sheet (var(--card)). */
+.partner-routing__table { overflow-x: auto; border-top: 1px solid var(--color-border); }
+.partner-routing__table table { width: 100%; min-width: 36rem; border-collapse: collapse; font-size: var(--text-small); }
+.partner-routing__table th, .partner-routing__table td { text-align: left; vertical-align: top; padding: var(--space-4) var(--space-3); border-bottom: 1px solid var(--color-border); }
+.partner-routing__table :is(th, td):first-child { padding-left: 0; }
+.partner-routing__table :is(th, td):last-child { padding-right: 0; }
+.partner-routing__table thead th { font-size: var(--text-small); font-weight: 500; color: var(--color-text-muted); background: none; }
+.partner-routing__table tbody th { font-weight: 500; }
+.partner-routing__table tbody td { color: var(--color-text-2); }
+.partner-routing__table {
+  /* Edge fade while the table overflows sideways (tablet widths). */
+  background:
+    linear-gradient(to right, var(--card), transparent) left / 1.5rem 100% no-repeat local,
+    linear-gradient(to left, var(--card), transparent) right / 1.5rem 100% no-repeat local,
+    linear-gradient(to right, color-mix(in srgb, var(--night-0) 12%, transparent), transparent) left / 0.75rem 100% no-repeat scroll,
+    linear-gradient(to left, color-mix(in srgb, var(--night-0) 12%, transparent), transparent) right / 0.75rem 100% no-repeat scroll,
+    var(--card);
+}
+/* Stacked label/value rows instead of a sideways scroller. Enquire.jsx sets --stacked below 600px, and below
+   1280px in Tamil (V-P1: Tamil headers split mid-word in a 3-column table at tablet/laptop widths). */
+.partner-routing__table--stacked { overflow: visible; background: none; }
+.partner-routing__table--stacked table { min-width: 0; }
+.partner-routing__table--stacked :is(table, tbody, tr, th, td) { display: block; }
+.partner-routing__table--stacked thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.partner-routing__table--stacked tbody tr { padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border); }
+.partner-routing__table--stacked tbody :is(th, td) { padding: var(--space-1) 0; border-bottom: 0; }
+.partner-routing__table--stacked tbody th { font-size: var(--text-body); font-weight: 500; }
+.partner-routing__table--stacked tbody td { display: grid; gap: var(--space-1); padding-top: var(--space-2); }
+.partner-routing__table--stacked tbody td::before {
+  content: attr(data-label); display: block;
+  font-size: var(--text-caption); font-weight: 400; color: var(--color-text-muted);
+}
+/* The wrapper is its own horizontal scroller: Tamil cells size to whole words rather than base.css's
+   overflow-wrap:anywhere, which split "முதலீட்டாளர்" / "இன்குபேட்டர்" mid-akshara (same rule as base.css scrollers). */
+:lang(ta) .partner-routing .partner-routing__table :is(th, td) { overflow-wrap: break-word; }
+.partner-routing__more { font-size: var(--text-small); color: var(--color-text-2); }
+
+/* ---------- Other ways: a hairline grid of links ---------- */
+.partner-others ul {
+  list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  column-gap: var(--space-8); margin-top: var(--space-6); padding: 0;
+}
+.partner-others li { border-top: 1px solid var(--color-border); }
+.partner-others a {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  min-height: 56px; color: var(--color-text); font-weight: 400; text-decoration: none;
+}
+.partner-others a svg { flex: none; color: var(--color-text-muted); transition: transform var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard); }
+.partner-others a:hover { text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-decoration-thickness: 1.5px; text-underline-offset: 0.18em; }
+.partner-others a:focus-visible svg { color: var(--color-text); transform: translateX(var(--shift-1)); }
+@media (hover: hover) and (pointer: fine) { .partner-others a:hover svg { color: var(--color-text); transform: translateX(var(--shift-1)); } }
+
+/* ---------- Hub FAQ: header left, hairline accordion right ---------- */
+.partner-faq__grid { display: grid; gap: 0; }
+@media (min-width: 1024px) {
+  .partner-faq__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; }
+  .partner-faq__grid .section-header { position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-6)); margin-bottom: 0; }
+}
+
+/* ---------- Our partners ---------- */
+.partner-ourwall { margin-bottom: var(--space-16); }
+.partner-groups { display: grid; gap: var(--space-12); }
+@media (min-width: 900px) { .partner-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-16); } }
+.partner-group .partner-group__title {
+  display: flex; align-items: baseline; gap: var(--space-2); padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border);
+  font-weight: 500; letter-spacing: -0.01em;
+}
+.partner-group__count { font-size: var(--text-small); color: var(--color-text-muted); font-weight: 400; }
+.partner-group__list { list-style: none; padding: 0; }
+.partner-group__item { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-2); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+.partner-group__name { font-weight: 500; }
+.partner-group__since { color: var(--color-text-muted); font-size: var(--text-small); font-variant-numeric: tabular-nums; }
+
+.partner-rules { list-style: none; display: grid; gap: 0; margin-top: 0; padding: 0; border-top: 1px solid var(--color-border); max-width: 48rem; }
+.partner-rules li { display: flex; gap: var(--space-4); align-items: flex-start; padding-block: var(--space-4); border-bottom: 1px solid var(--color-border); }
+.partner-rules__icon { flex: none; margin-top: 0.15em; color: var(--color-text); }
+/* Grid children may shrink below their content width (tables, long words) */
+.partner-enquire > *, .partner-routing > *, .partner-detail > *, .partner-how > *, .partner-proof__row > *, .partner-proofband__grid > *, .partner-faq__grid > * { min-width: 0; }
+
+/* ---------- Tamil (Book 3 §4.4: no uppercase or letter-spacing on Tamil; 14px minimum for small labels) ---------- */
+:lang(ta) :is(.partner-offer__journey, .partner-proofneeded__q, .partner-route dt, .partner-routing__table thead th) {
+  text-transform: none; letter-spacing: 0; font-size: 0.875rem;
+}
+:lang(ta) .partner-routing__table--stacked tbody td::before { text-transform: none; letter-spacing: 0; font-size: 0.875rem; }
+:lang(ta) .partner-proofneeded__objection q { letter-spacing: 0; line-height: var(--leading-heading); }
+:lang(ta) .partner-door__index { letter-spacing: 0; }
+/* Tamil door titles run ~40% longer: a smaller heading, and a wider title column while the rows are tight. */
+:lang(ta) .partner-door .partner-door__title { font-size: var(--text-h4); letter-spacing: 0; line-height: 1.3; }
+@media (min-width: 1024px) and (max-width: 1439px) {
+  :lang(ta) .partner-door { grid-template-columns: 2.5rem 2rem minmax(0, 5fr) minmax(0, 5fr) auto; }
+}
+:lang(ta) .partner-how .steps__title { font-size: 1.125rem; }
+@media (min-width: 1024px) {
+  :lang(ta) :is(.partner-offers--n4, .partner-offers--brands) .partner-offer__title { font-size: var(--text-h4); }
+}
+/* Tamil step copy needs wider columns: stack the intro above the steps until there is room for both. */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  :lang(ta) .partner-how { grid-template-columns: 1fr; gap: var(--space-10); }
+}
+/* No negative tracking on Tamil headings set here. */
+:lang(ta) :is(.partner-offer .partner-offer__title, .partner-enquire__aside h2, .partner-routing__intro .h3, .partner-solution .partner-solution__title, .partner-checklist .h5) { letter-spacing: 0; line-height: 1.3; }
+
+/* Solution rows (AIWO hairline rows): a quiet row wash on hover; the arrow nudges 4px. Section ground is Bone,
+   so the wash is White. Opacity only. */
+.partner-solution__link { position: relative; isolation: isolate; }
+.partner-solution__link::before {
+  content: ''; position: absolute; inset: 0 calc(-1 * var(--space-4)); z-index: -1;
+  border-radius: var(--radius-btn); background: var(--white); opacity: 0;
+  transition: opacity var(--dur-2) var(--ease-snap);
+}
+@media (hover: hover) and (pointer: fine) { .partner-solution__link:hover::before { opacity: 1; } }
+@media (hover: hover) and (pointer: fine) { .partner-solution__link:hover .partner-solution__arrow { transform: translateX(4px); } }
+
+/* QA v6 (Tamil partner-type heroes): "நிறுவனர்களிடமிருந்து" (/ta/partner/gccs, ~11.5em) and "பார்வையாளர்களைச்"
+   (/ta/partner/sponsors, ~11.2em) are wider than the 592px title column at 1440 (and the 18ch cap on phones), so they
+   split between aksharas. On the partner-type pages the Tamil title scales to its column (container units, CSS only). */
+:lang(ta) main:has(.partner-offer) .page-hero__text { container-type: inline-size; }
+:lang(ta) main:has(.partner-offer) .page-hero .page-hero__title.page-hero__title { max-width: 22ch; font-size: min(var(--text-display-xl), (100cqi - 1.5rem) / 11.8); }
+
+/* Tamil hero title at 1024–1279: the half-width column is narrower than 18ch of the 49px display size, so
+   "ஆதரவளியுங்கள்." broke mid-word and its full stop started a line. A smaller size fits the longest word whole. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .partner-hero.page-hero--split .page-hero__title:lang(ta) { font-size: min(var(--text-display-xl), 2.5rem); max-width: none; overflow-wrap: normal; }
+}

@@ -1,0 +1,282 @@
+/* T12 Pricing — AngelList-family: flat hairline plan cards, big light price numerals, a quiet pill toggle,
+   a clean hairline comparison table, flat licence cards. */
+.snx-price__hero-meta { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); font-size: var(--text-small); color: var(--color-text-2); }
+
+.snx-price__plans-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--space-6); margin-bottom: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); }
+
+/* Billing toggle (segmented radio): a quiet pill group like the header nav; the selected option is a paper pill
+   with a hairline, no shadow. */
+.snx-toggle {
+  position: relative; display: inline-grid; grid-template-columns: 1fr 1fr;
+  padding: 4px; border-radius: var(--radius-full);
+  background: var(--sheet-2); border: 0;
+}
+.snx-toggle__opt {
+  position: relative; z-index: 1;
+  display: grid; justify-items: center; align-content: center;
+  min-height: 44px; padding: var(--space-1) var(--space-6);
+  border: 0; background: transparent; border-radius: var(--radius-full);
+  font-weight: 500; font-size: var(--text-small); color: var(--color-text-2);
+  transition: color var(--dur-2) var(--ease-standard);
+}
+.snx-toggle__opt:hover { color: var(--color-text); }
+.snx-toggle__opt[aria-checked="true"] { color: var(--color-text); }
+/* Muted text on the sheet-2 track would fall under 4.5:1, so unselected labels and the hint use text-2. */
+.snx-toggle__hint { font-size: var(--text-caption); font-weight: 400; color: var(--color-text-2); line-height: 1.2; }
+.snx-toggle-wrap { display: grid; gap: var(--space-2); justify-items: start; max-width: 100%; }
+.snx-toggle__note { display: none; font-size: var(--text-caption); color: var(--color-text-2); font-weight: 400; }
+/* Phones up to 440px (and Tamil, whose hint runs longer, up to 560px): keep the two options on one line
+   each and move the hint below the toggle, so the Annual segment never wraps inside the pill. */
+@media (max-width: 440px) {
+  .snx-toggle__opt { padding-inline: var(--space-5); }
+  .snx-toggle__hint { display: none; }
+  .snx-toggle__note { display: block; }
+}
+@media (max-width: 560px) {
+  :lang(ta) .snx-toggle__hint { display: none; }
+  :lang(ta) .snx-toggle__note { display: block; }
+}
+.snx-toggle__thumb {
+  position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px);
+  background: var(--card); border-radius: var(--radius-full);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-text) 20%, var(--color-border));
+  transition: transform var(--dur-3) var(--ease-expressive);
+}
+.snx-toggle__thumb[data-pos="annual"] { transform: translateX(100%); }
+
+/* Plans: 4 (d) / 2 (t) / snap scroller (m) */
+.snx-plans { position: relative; }
+.snx-plans__track { display: grid; gap: var(--space-3); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 1200px) { .snx-plans__track { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.snx-plans__nav { display: none; }
+@media (max-width: 767px) {
+  .snx-plans__track {
+    display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter);
+    margin-inline: calc(-1 * var(--gutter)); padding: var(--space-1) var(--gutter) var(--space-4);
+    scrollbar-width: none;
+  }
+  .snx-plans__track::-webkit-scrollbar { display: none; }
+  .snx-plans__track > * { flex: 0 0 min(19rem, 84%); scroll-snap-align: start; }
+  .snx-plans__nav { display: flex; justify-content: flex-end; gap: var(--space-2); margin-top: var(--space-2); }
+}
+.snx-plans__btn {
+  display: inline-grid; place-items: center; width: 44px; height: 44px;
+  border-radius: var(--radius-full); border: 0; box-shadow: inset 0 0 0 1px var(--line-strong); background: transparent; color: var(--color-text);
+  transition: box-shadow var(--dur-2) var(--ease-snap), background-color var(--dur-2) var(--ease-snap);
+}
+@media (hover: hover) and (pointer: fine) { .snx-plans__btn:not(:disabled):hover { box-shadow: inset 0 0 0 1px var(--color-text); background: rgb(12 23 25 / 0.04); } }
+.snx-plans__btn:disabled { opacity: 0.4; cursor: default; }
+
+/* Plan card: flat var(--card), hairline, 12px frame, no resting shadow, no lift (the button is the link). */
+.snx-plan {
+  display: flex; flex-direction: column; gap: var(--space-5);
+  position: relative; overflow: hidden;
+  padding: 28px; min-width: 0;
+  background: var(--card); border: 0; border-radius: var(--radius-media);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+  transition: box-shadow var(--dur-2) var(--ease-snap);
+}
+.section--white .snx-plan, .section--sunken .snx-plan { background: var(--white); }
+/* Framed-card top rule (DESIGN-v2 3.7): 2px Ink, scaleX on hover / focus-within; no red badge, no lift. */
+.snx-plan::before {
+  content: ''; position: absolute; inset: 0 0 auto; height: 2px; background: var(--color-text);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+.snx-plan:focus-within { box-shadow: inset 0 0 0 1px var(--line-strong); }
+.snx-plan:focus-within::before { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) {
+  .snx-plan:hover { box-shadow: inset 0 0 0 1px var(--line-strong); }
+  .snx-plan:hover::before { transform: scaleX(1); }
+}
+.snx-plan .stat__value { font-variant-numeric: tabular-nums lining-nums; }
+.snx-plan__head { display: grid; gap: var(--space-1); }
+.snx-plan__name.h4 { font-weight: 500; letter-spacing: -0.01em; }
+.snx-plan__for { font-size: var(--text-small); color: var(--color-text-muted); }
+.snx-plan__price { padding-bottom: var(--space-5); border-bottom: 1px solid var(--color-border); min-height: 9rem; }
+/* The price block's rule under the plan head: a hairline, not the 2px ink rule of the default Stat. */
+.snx-plan .stat--default { padding-top: var(--space-5); border-top: 1px solid var(--color-border); }
+/* Price: big and light, capped at h1 so the figure never crowds a narrow card; the unit always sits on its own line
+   (the Free card reserves that line with a non-breaking space) so every card's rows line up. */
+.snx-plan .stat__value { font-size: min(var(--text-stat), var(--text-h1)); font-weight: 400; letter-spacing: -0.035em; row-gap: 0; }
+.snx-plan .stat__unit { flex-basis: 100%; margin-top: var(--space-2); line-height: 1.2; font-size: var(--text-small); font-weight: 400; letter-spacing: 0; color: var(--color-text-muted); }
+.snx-plan__alt { margin-top: var(--space-2); font-size: var(--text-small); color: var(--color-text-2); }
+.snx-plan__list { list-style: none; display: grid; gap: var(--space-2); font-size: var(--text-small); flex: 1; align-content: start; }
+.snx-plan__list li { display: grid; grid-template-columns: 16px 1fr; gap: var(--space-2); align-items: start; color: var(--color-text-2); }
+.snx-plan__list li svg { margin-top: 0.2em; color: var(--color-text); }
+.snx-plan__inherit { font-weight: 500; }
+.snx-plan__list li.snx-plan__inherit { color: var(--color-text); }
+.snx-plan__notes { list-style: none; display: grid; gap: var(--space-2); padding: var(--space-3); border-radius: var(--btn-radius); background: var(--bone); font-size: var(--text-caption); color: var(--color-text-2); }
+.snx-plan__cta { margin-top: auto; }
+/* Grid layouts (tablet 2-up, desktop 4-up): cards share row tracks so heads, prices, lists and buttons align. */
+@media (min-width: 768px) {
+  @supports (grid-template-rows: subgrid) {
+    .snx-plans__track { row-gap: var(--space-3); }
+    .snx-plan { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: var(--space-5); }
+    .snx-plan__head { grid-row: 1; }
+    .snx-plan__price { grid-row: 2; min-height: 0; }
+    .snx-plan__list { grid-row: 3; }
+    .snx-plan__notes { grid-row: 4; align-self: start; }
+    .snx-plan__cta { grid-row: 5; margin-top: 0; }
+  }
+}
+
+.snx-price__micro { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); margin-top: var(--space-8); font-size: var(--text-small); color: var(--color-text-2); }
+.snx-price__micro li::before { content: "·"; color: var(--color-text-muted); margin-right: var(--space-2); }
+
+/* Comparison table */
+.snx-price__compare-title.h3 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; }
+/* Below 768px the table scrolls sideways only: no max-height and no overscroll containment, so a vertical
+   swipe on the table always scrolls the page. The feature column sticks to the box's left edge, a right-edge
+   fade + "swipe" hint show there is more, and an aria-hidden copy of the header row (.snx-compare__sticky,
+   kept in step by JS) sticks to the page under the header + brand sub-nav. The real header row stays in the
+   table for assistive tech but is visually collapsed. From 768px the whole table fits, the box only clips
+   (overflow: clip is not a scroll container), the frame drops away to clean hairline rows and the real header
+   sticks to the page. Cells are painted var(--card), the white sheet they sit on, so sticky cells cover what scrolls. */
+.snx-compare-wrap { position: relative; margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); min-width: 0; max-width: 100%; }
+.snx-compare__frame { position: relative; }
+.snx-compare {
+  position: relative; min-width: 0; max-width: 100%;
+  overflow-x: auto; overflow-y: hidden;
+  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+}
+.snx-compare:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.snx-compare__table { width: 100%; min-width: 44rem; border-collapse: separate; border-spacing: 0; font-size: var(--text-small); }
+.snx-compare__table th, .snx-compare__table td { padding: var(--space-4) var(--space-3); border-bottom: 1px solid var(--color-border); text-align: center; vertical-align: middle; background: var(--card); }
+.snx-compare__table tbody th { text-align: left; font-weight: 400; color: var(--color-text); position: sticky; left: 0; z-index: 1; min-width: 12rem; box-shadow: 1px 0 0 var(--color-border); }
+.snx-compare__table thead th { position: sticky; top: 0; z-index: 2; text-align: center; vertical-align: bottom; padding-block: var(--space-5); }
+.snx-compare__corner { left: 0; z-index: 3 !important; box-shadow: 1px 0 0 var(--color-border); }
+@media (max-width: 39.99em) {
+  .snx-compare__table { min-width: 36rem; }
+  .snx-compare__table th, .snx-compare__table td { padding: var(--space-3); }
+  .snx-compare__table tbody th { min-width: 8rem; max-width: 9rem; }
+  .snx-compare__table thead th { padding-block: var(--space-3); }
+}
+/* Phone/tablet-portrait scroller chrome */
+.snx-compare__hint { display: none; }
+.snx-compare__sticky { display: none; }
+.snx-compare__fade { display: none; }
+@media (max-width: 767px) {
+  .snx-compare__hint {
+    display: flex; align-items: center; justify-content: flex-end; gap: var(--space-2);
+    margin-bottom: var(--space-2); font-size: var(--text-caption); color: var(--color-text-muted);
+    transition: opacity var(--dur-2) var(--ease-standard);
+  }
+  .snx-compare__hint svg { color: var(--color-text-muted); flex: none; }
+  .snx-compare-wrap[data-end] .snx-compare__hint { opacity: 0; }
+
+  .snx-compare__sticky {
+    display: block; position: sticky; z-index: 4;
+    top: calc(var(--shell-offset, 0px) + var(--subnav-h, 48px));
+    overflow: hidden;
+    border: 1px solid var(--color-border); border-bottom: 0;
+    border-radius: var(--media-radius) var(--media-radius) 0 0;
+    background: var(--card);
+    box-shadow: 0 1px 0 var(--color-border);
+    transition: top var(--dur-header) var(--ease-snap); /* in step with .brand-subnav, so no gap opens on reveal */
+  }
+  :root[data-header-hidden] .snx-compare__sticky { transition-timing-function: var(--ease-header-exit); }
+  .snx-compare__table--head { table-layout: fixed; min-width: 0; }
+  .snx-compare__table--head th { box-sizing: border-box; }
+  .snx-compare__table--head thead th { position: static; }
+  .snx-compare__table--head .snx-compare__corner { position: sticky; left: 0; }
+  .snx-compare { border-top: 0; border-radius: 0 0 var(--media-radius) var(--media-radius); }
+
+  /* Real header row: in the accessibility tree, zero height on screen. */
+  .snx-compare__thead th { padding-block: 0 !important; border-bottom: 0; height: 0; }
+  .snx-compare__thead th > * {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+
+  .snx-compare__fade {
+    display: block; position: absolute; top: 1px; right: 1px; bottom: 1px; width: 2.5rem; z-index: 3;
+    pointer-events: none; border-radius: 0 0 var(--media-radius) 0;
+    background: linear-gradient(to right, transparent, var(--card));
+    transition: opacity var(--dur-2) var(--ease-standard);
+  }
+  .snx-compare-wrap[data-end] .snx-compare__fade { opacity: 0; }
+}
+@media (min-width: 768px) {
+  /* Wide screens: no frame, just hairline rows (the table reads as part of the sheet). */
+  .snx-compare { overflow: clip; border: 0; border-radius: 0; }
+  .snx-compare__table { min-width: 0; }
+  .snx-compare__table thead th { top: calc(var(--shell-offset, 0px) + var(--subnav-h, 48px)); }
+  .snx-compare__table tbody th { box-shadow: none; padding-left: 0; }
+  .snx-compare__corner { box-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .snx-compare__hint, .snx-compare__fade { transition: none; }
+}
+.snx-compare__plan { display: block; font-weight: 500; font-size: var(--text-body); letter-spacing: -0.01em; color: var(--color-text); }
+.snx-compare__price { display: block; margin-top: var(--space-1); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.snx-compare__text { color: var(--color-text-2); }
+/* Group rows span the table: the cell itself is not sticky (it would be as wide as the table); its label is.
+   No fill, no uppercase: the label in ink, weight 500, with extra space above. Tamil: 14px minimum (Book 3 §4.4). */
+.snx-compare__table tbody .snx-compare__group th { position: static; min-width: 0; max-width: none; box-shadow: none; background: var(--card); text-align: left; padding-top: var(--space-8); padding-bottom: var(--space-3); font-size: var(--text-body); font-weight: 500; letter-spacing: -0.01em; text-transform: none; color: var(--color-text); }
+.snx-compare__group-label { position: sticky; left: var(--space-3); display: inline-block; }
+@media (min-width: 768px) {
+  .snx-compare__table tbody .snx-compare__group th { padding-left: 0; }
+  .snx-compare__group-label { left: 0; }
+}
+:lang(ta) .snx-compare__table tbody .snx-compare__group th { text-transform: none; letter-spacing: 0; font-size: var(--text-body); }
+:lang(ta) .snx-org__from-label { text-transform: none; letter-spacing: 0; }
+.snx-compare__yes { display: inline-block; color: var(--color-text); }
+.snx-compare__no { display: inline-block; color: color-mix(in srgb, var(--color-text) 20%, var(--color-border)); }
+.snx-compare__actions td, .snx-compare__actions th { border-bottom: 0; padding-block: var(--space-6); }
+.snx-compare__actions .button { white-space: nowrap; }
+/* Phones and Tamil: let table button labels wrap so they never widen a plan column past the screen. */
+@media (max-width: 767px) { .snx-compare__actions .button { white-space: normal; text-align: center; } }
+:lang(ta) .snx-compare__actions .button { white-space: normal; text-align: center; }
+/* Tamil words are long: from 768 to 1023 the table must still fit without scrolling (its header is sticky to the page),
+   so tighten the feature column, cell padding and table-button padding. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :lang(ta) .snx-compare__table tbody th { min-width: 9.5rem; }
+  :lang(ta) .snx-compare__table th, :lang(ta) .snx-compare__table td { padding-inline: var(--space-3); }
+  :lang(ta) .snx-compare__actions td { padding-inline: var(--space-2); }
+  :lang(ta) .snx-compare__actions .button { padding-inline: var(--space-3); }
+}
+/* Narrow columns: drop the external-link arrow on the table buttons (the label still says where it goes). */
+@media (max-width: 1023px) { .snx-compare__actions .button__icon { display: none; } }
+
+/* Organisations */
+/* 5 tiers: 1 → 2 (last spans) → 3 + 2 → 5-up. Never a lone orphan. */
+.snx-orgs { display: grid; gap: var(--space-3); margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) {
+  .snx-orgs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .snx-orgs > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  .snx-orgs { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .snx-orgs > * { grid-column: span 2; }
+  .snx-orgs > :nth-child(4), .snx-orgs > :nth-child(5) { grid-column: span 3; }
+  .snx-orgs > :last-child:nth-child(odd) { grid-column: span 3; }
+}
+@media (min-width: 1280px) {
+  .snx-orgs { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .snx-orgs > *, .snx-orgs > :nth-child(4), .snx-orgs > :nth-child(5), .snx-orgs > :last-child:nth-child(odd) { grid-column: auto; }
+}
+/* Licence card: flat hairline card, no coloured top bar. */
+.snx-org { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius); min-width: 0; }
+.snx-org__tier.h5 { font-weight: 500; letter-spacing: -0.01em; }
+.snx-org__includes { flex: 1; font-size: var(--text-small); color: var(--color-text-2); }
+/* "From" label, amount and tag on their own rows so every tier's footer has the same shape. */
+.snx-org__from { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+.snx-org__amount { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--space-2); }
+.snx-org__from-label { font-size: var(--text-small); color: var(--color-text-muted); font-weight: 400; }
+.snx-org__price { font-size: var(--text-h3); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; font-variant-numeric: tabular-nums lining-nums; }
+.snx-org__suffix { font-size: var(--text-small); color: var(--color-text-muted); }
+.snx-price__org-note { margin-top: var(--space-6); font-size: var(--text-small); color: var(--color-text-2); max-width: 60ch; }
+
+.snx-price__faq { margin-top: var(--space-8); }
+/* Verifier r1: Tamil feature names ("சான்றிதழ்களும்", "முன்னுரிமையும்") split inside the 9rem phone column. */
+@media (max-width: 39.99em) { :lang(ta) .snx-compare__table tbody th { min-width: 9.5rem; max-width: 10.5rem; } }
+
+/* ---- StartNet X strict red (DESIGN-v2 6.4) ---- */
+/* [data-brand='x'] uses red as its accent, so red is kept to one point per composition: the headline stop.
+   Dot labels, the hero journey line and arrow links go Ink (Paper on Ink); hero / CTA buttons are Ink primary. */
+.brand-layout[data-brand='x'],
+.brand-layout[data-brand='x'] [data-brand='x']:not([data-surface='night']) { --color-label-dot: var(--color-text); }
+.brand-layout[data-brand='x'] [data-surface='night'] { --color-label-dot: var(--paper); }
+:root .brand-layout[data-brand='x'] .button--tertiary { --button-fg: var(--color-link-standalone); --button-fg-hover: var(--color-link-standalone); }
+:root .brand-layout[data-brand='x'] [data-surface='night'] .button--tertiary { --button-fg: var(--paper); --button-fg-hover: var(--paper); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey { color: var(--night-text-2); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey::before { background: var(--paper); }

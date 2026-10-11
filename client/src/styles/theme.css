@@ -1,0 +1,157 @@
+/*
+ * StartNet UI v2 skin (docs/DESIGN-v2.md, Brand Book v1.0). Tokens live in tokens.css; chrome and component skins
+ * live in their own CSS files. This layer keeps only what is global:
+ *  - headline type and the serif accent word,
+ *  - "● dot" labels (dot = --color-label-dot: Ink on Paper, Paper on Ink, the accent in a brand scope; never red),
+ *  - grounds and surfaces (Paper / Bone / Ink), the same-ground hairline, and ONE sheet rise after the hero,
+ *  - media frames, the red full stop beside small headings, selection,
+ *  - layout utilities (.grid-12, .col-*, .bleed-right).
+ * Selectors start with :root so they outrank component CSS that loads later from lazy route chunks.
+ */
+
+/* ---------- Headlines: regular-weight grotesk (Brand Book 04.3) ---------- */
+:root :is(h1, .h1, .display-xl, .display-2xl, .page-hero__title, .brand-hero__title, .home-hero__title) {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+}
+:root :is(.display-xl, .display-2xl, .page-hero__title, .brand-hero__title, .home-hero__title) {
+  letter-spacing: var(--tracking-display);
+  line-height: 1.04;
+}
+:root :is(.display-2xl, .home-hero__title) { line-height: var(--leading-display); }
+:root :is(h1, .h1):not(.display-xl, .display-2xl, .page-hero__title, .brand-hero__title, .home-hero__title) {
+  letter-spacing: var(--tracking-h1);
+  line-height: var(--leading-h1, 1.08);
+}
+:root :is(.h2, .section-header__title) {
+  font-family: var(--font-display);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--tracking-heading);
+  line-height: var(--leading-heading);
+}
+:root :is(h2, h3).card__title,
+:root .card__title { font-weight: var(--weight-heading); letter-spacing: var(--tracking-h3); }
+
+/* Serif accent: ONE word per English headline; the full stop is never inside it. Never on Tamil. */
+:root .kinetic__accent,
+:root :is(h1, h2, .h1, .h2, .section-header__title, .cta-band__title) em {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-size: 1.04em;
+}
+:root:lang(ta) .kinetic__accent,
+:root:lang(ta) :is(h1, h2, .h1, .h2, .section-header__title, .cta-band__title) em { font-family: inherit; font-style: normal; font-size: 1em; }
+
+/* ---------- "● Dot" labels instead of uppercase eyebrows (Latin and Tamil alike) ---------- */
+:root .eyebrow {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  font-size: var(--text-label);
+  font-weight: var(--weight-label);
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-text);
+}
+:root .eyebrow::before {
+  content: '';
+  flex: none;
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--color-label-dot);
+  /* centred on the first line even when the label wraps */
+  margin-top: 0.425em;
+  margin-top: calc((1lh - 0.55em) / 2);
+}
+:root [data-surface='night'] .eyebrow { color: var(--night-text); }
+
+/* ---------- Heroes: the Ink band ---------- */
+:root :is(.home-hero, .page-hero, .brand-hero) {
+  background-color: var(--night-0);
+  color: var(--night-text);
+  padding-bottom: calc(var(--space-16) + var(--sheet-radius));
+}
+:root :is(.page-hero, .brand-hero) .page-hero__lede,
+:root .brand-hero__lede,
+:root .home-hero__lede { color: var(--night-text-2); }
+:root .brand-hero .brand-hero__journey { color: var(--accent-night); }
+
+/* Home hero: the split photo hero lives in pages/Home.css (the old stacked-media rules were retired). */
+:root .home-hero__title { color: var(--night-text); }
+:root .home-hero__partner { color: var(--night-text-2); }
+
+/* ---------- Grounds ---------- */
+/* surface="white" is the alternate ground: Bone (Brand Book 03.5 rule 02). */
+:root .section--white,
+:root .section--sunken { background-color: var(--bone); }
+:root .section--paper { background-color: var(--paper); }
+:root .section--night { background-color: var(--night-0); }
+/* Two adjacent sections on the same ground: a full-bleed hairline, never a gap in colour. */
+:root .section--white + .section--sunken,
+:root .section--sunken + .section--white,
+:root .section--white + .section--white,
+:root .section--sunken + .section--sunken,
+:root .section--paper + .section--paper { border-top: 1px solid var(--hairline); }
+:root .section--night + .section--night { border-top: 1px solid var(--night-line); }
+
+/* ---------- One sheet rise per page: the first Paper sheet slides over the Ink hero (Brand Book 05.8 item 5) ---------- */
+:root :is(.home-hero, .page-hero, .brand-hero) + :not(.section--night, [data-surface='night'], script, style) {
+  position: relative;
+  z-index: 1;
+  margin-top: calc(-1 * var(--sheet-radius));
+  border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
+}
+/* A sticky sub-nav that is the rising sheet keeps its own stacking level (z-index 20), so positioned content that
+   scrolls under it (evidence chips at z-index 2, cards) never paints over the docked bar or takes its taps. */
+:root :is(.home-hero, .page-hero, .brand-hero) + :is(.about-bar, .pill-subnav) { z-index: 20; }
+
+/* ---------- Media: 12px frames, quiet keyline, Bone placeholder ---------- */
+:root .art-image--photo { border-radius: var(--radius-media); }
+:root .art-image--photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgb(12 23 25 / 0.08);
+  pointer-events: none;
+}
+:root :is(.brand-hero__art, .page-hero__art, .vibathon__hero-art, .edition-hero__poster, .event-hero__poster) .art-image { border-radius: var(--radius-media); }
+
+/* ---------- The red full stop beside small headings (< 24 px): Red-700 reads at 5.8:1 on Paper ---------- */
+:root :is(h3, h4, h5, h6, .h4, .h5, .card__title) .dot { color: var(--sn-red-700); }
+:root [data-surface='night'] :is(h3, h4, h5, h6, .h4, .h5, .card__title) .dot { color: var(--sn-red-400); }
+
+/* ---------- Details ---------- */
+:root ::selection { background: rgb(239 68 68 / 0.2); color: inherit; }
+
+/* ---------- Layout utilities: the 12-column editorial grid ---------- */
+.grid-12 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--gutter); }
+.grid-12 > * { grid-column: 1 / -1; min-width: 0; }
+@media (min-width: 1024px) {
+  .grid-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; }
+  /* The span sits on grid-column-end, so a .col-start-* on the same element keeps it (7 / span 6, not one column). */
+  .grid-12 > .col-3 { grid-column: auto / span 3; }
+  .grid-12 > .col-4 { grid-column: auto / span 4; }
+  .grid-12 > .col-5 { grid-column: auto / span 5; }
+  .grid-12 > .col-6 { grid-column: auto / span 6; }
+  .grid-12 > .col-7 { grid-column: auto / span 7; }
+  .grid-12 > .col-8 { grid-column: auto / span 8; }
+  .grid-12 > .col-9 { grid-column: auto / span 9; }
+  .grid-12 > .col-10 { grid-column: auto / span 10; }
+  .grid-12 > .col-start-2 { grid-column-start: 2; }
+  .grid-12 > .col-start-3 { grid-column-start: 3; }
+  .grid-12 > .col-start-4 { grid-column-start: 4; }
+  .grid-12 > .col-start-5 { grid-column-start: 5; }
+  .grid-12 > .col-start-6 { grid-column-start: 6; }
+  .grid-12 > .col-start-7 { grid-column-start: 7; }
+  .grid-12 > .col-start-8 { grid-column-start: 8; }
+  .grid-12 > .col-start-9 { grid-column-start: 9; }
+}
+/* Scrollers: run off the right viewport edge while starting on the container edge */
+.bleed-right { margin-right: calc(-1 * var(--page-margin)); padding-right: var(--page-margin); }
+.bleed { margin-inline: calc(-1 * var(--page-margin)); padding-inline: var(--page-margin); }

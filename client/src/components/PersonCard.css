@@ -1,0 +1,28 @@
+/* Person card (DESIGN-v2 3.7, media family): unframed, 1/1 portrait at 12px radius, name (h3 500), role, org. */
+.person-card { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+:root .person-card { border: 0; background: transparent; box-shadow: none; border-radius: 0; }
+.person-card__portrait { overflow: hidden; border-radius: var(--radius-media); background: var(--bone); }
+[data-surface='night'] .person-card__portrait { background: var(--night-1); }
+.person-card__portrait .art-image { filter: grayscale(1); transition: filter var(--dur-3) var(--ease-snap); }
+@media (hover: hover) { .person-card:hover .person-card__portrait .art-image { filter: none; } }
+.person-card:focus-within .person-card__portrait .art-image { filter: none; }
+.person-card__body { display: grid; gap: 4px; }
+:root .person-card__name { font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3); }
+.person-card__name-ta { color: var(--color-text-2); font-size: var(--text-meta); }
+.person-card__role { color: var(--color-text-2); font-size: var(--text-small); }
+.person-card__org { color: var(--color-text-muted); font-size: var(--text-meta); }
+.person-card__badges { margin-top: var(--space-2); }
+.person-card--compact { flex-direction: row; align-items: center; gap: var(--space-4); }
+.person-card--compact .person-card__portrait { width: 72px; flex: none; border-radius: var(--radius-full); }
+.person-card--compact .person-card__name { font-size: var(--text-h5); }
+
+/* Phones: a 96px portrait beside the text instead of a full-width square (keeps /about/leadership short) */
+@media (max-width: 639px) {
+  .person-card:not(.person-card--compact) {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-4);
+  }
+  .person-card:not(.person-card--compact) .person-card__portrait { width: 96px; border-radius: var(--radius-md); }
+}

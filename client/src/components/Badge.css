@@ -1,0 +1,59 @@
+/* Badges (DESIGN-v2 3.18): 4px labels, 12px weight 500, 24px tall. Brand = accent tint + accent text with the
+   accent dot; neutral = Bone + Graphite. Status keeps its semantic colours (never red decoration). */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  min-height: 24px;
+  padding: 2px 8px;
+  border: 0;
+  border-radius: var(--radius-btn);
+  background: var(--bone);
+  color: var(--ink-600);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.badge__dot { width: 6px; height: 6px; flex: none; border-radius: var(--radius-full); background: currentColor; }
+:root :is(.section--white, .section--sunken, [data-ground='bone']) .badge:not(.badge--brand, .badge--status) { background: var(--card); }
+
+/* Brand: accent tint + accent text + accent dot */
+.badge--brand { background: var(--accent-tint); color: var(--accent-text); }
+.badge--brand .badge__dot { background: var(--accent); }
+:root [data-surface='night'] .badge--brand { background: var(--night-2); color: var(--accent-night); }
+:root [data-surface='night'] .badge--brand .badge__dot { background: var(--accent-night); }
+
+/* Status */
+.badge--open, .badge--rolling { background: var(--color-success-bg); color: var(--color-success); }
+.badge--closing { background: var(--color-warning-bg); color: var(--color-warning); }
+.badge--upcoming { background: var(--color-info-bg); color: var(--color-info); }
+:root :is(.badge--closed, .badge--past) { background: var(--bone); color: var(--ink-600); }
+:root [data-surface='night'] .badge--status { background: var(--night-2); }
+
+/* Type, level, language, count */
+.badge--type { background: transparent; box-shadow: inset 0 0 0 1px var(--line-strong); color: var(--color-text-2); }
+.badge--level { background: transparent; box-shadow: inset 0 0 0 1px var(--color-text); color: var(--color-text); }
+.badge--lang { background: var(--bone); }
+.badge--count { min-width: 24px; justify-content: center; padding-inline: 6px; background: var(--color-text); color: var(--color-bg); }
+:root [data-surface='night'] .badge { background: var(--night-1); color: var(--night-text-2); }
+:root [data-surface='night'] .badge--type { background: transparent; box-shadow: inset 0 0 0 1px var(--night-line-strong); }
+:root [data-surface='night'] .badge--count { background: var(--night-text); color: var(--night-0); }
+
+/* Icon + text stay on one line */
+.badge__text { min-width: 0; white-space: normal; overflow-wrap: break-word; }
+.badge svg { display: inline-block; flex: none; vertical-align: -0.15em; }
+.badge__text svg { margin-inline-end: 0.35em; }
+.badge--level .badge__text, .badge--count .badge__text { white-space: nowrap; }
+.card__badges .badge__text { white-space: nowrap; }
+:lang(ta) .badge { font-size: 0.8125rem; }
+
+/* Phones: 13px badges (14px Tamil) */
+@media (max-width: 767.98px) {
+  .badge { font-size: 0.8125rem; }
+  :lang(ta) .badge { font-size: 0.875rem; }
+}

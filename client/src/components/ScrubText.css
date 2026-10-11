@@ -1,0 +1,3 @@
+/* ScrubText (DESIGN-v2 3.21.1): per-word opacity .18 → 1 driven by one --p (0..1) on the block. */
+.scrub--on { --p: 0; }
+.scrub--on .scrub__w { opacity: clamp(0.18, calc(var(--p) * var(--n) - var(--i)), 1); }

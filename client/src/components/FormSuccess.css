@@ -1,0 +1,27 @@
+.form-success {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+  padding: 32px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-media);
+  background: var(--color-bg-form);
+  color: var(--color-text);
+}
+[data-surface='night'] .form-success { background: var(--night-1); border-color: var(--night-line); }
+.form-success__check { width: 48px; height: 48px; }
+/* Ink circle with a Paper check that draws in (480ms) */
+.form-success__ring { fill: var(--sn-ink); stroke: none; }
+[data-surface='night'] .form-success__ring { fill: var(--paper); }
+.form-success__tick { fill: none; stroke: var(--paper); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+[data-surface='night'] .form-success__tick { stroke: var(--sn-ink); }
+.form-success__title { font-size: var(--text-h2); font-weight: 500; letter-spacing: var(--tracking-heading); line-height: var(--leading-heading); }
+.form-success__title:focus { outline: none; }
+.form-success__title:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.form-success__body { color: var(--color-text-2); max-width: var(--measure); }
+.form-success__body > * + * { margin-top: 0.6em; }
+/* Entrance: opacity + y 8 -> 0 over 320ms (static under reduced motion) */
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) .form-success { animation: form-success-in var(--dur-4) var(--ease-reveal) both; }
+}
+@keyframes form-success-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }

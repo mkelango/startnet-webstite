@@ -1,0 +1,154 @@
+/*
+ * Web fonts (Book 3 §4: Inter for Latin, Noto Sans Tamil for Tamil body, Anek Tamil for Tamil display).
+ * Hand-written instead of the @fontsource imports so English pages download only Inter latin (~48 KB):
+ *  - Inter latin-ext no longer claims U+20B9 (₹), so a price does not pull 84 KB of latin-ext; ₹ falls back
+ *    to the system font (Segoe UI, SF, Roboto all have it).
+ *  - Tamil faces declare only the Tamil subset and are named only in the :root:lang(ta) stacks (tokens.css),
+ *    so Tamil snippets on English pages (the "த" toggle, bilingual badges, district names) use a system
+ *    Tamil font instead of downloading Noto/Anek.
+ *  - "… Fallback" faces are metric-adjusted local fonts listed right after each web font, so the swap does
+ *    not reflow text (CLS). Values measured in Chrome against the woff2 files below (Inter vs Arial over an
+ *    English sentence at 400/700; Noto Sans Tamil vs Nirmala UI over a Tamil sentence).
+ * Files are the @fontsource-variable woff2 subsets (SIL OFL 1.1), copied to ./fonts so their URLs are stable.
+ * vite.config.js preloads Inter latin from index.html; main.jsx preloads Noto Sans Tamil on /ta.
+ */
+
+/* Inter (variable 100–900): latin */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('./fonts/inter-latin-wght-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Inter latin-ext: only for real latin-ext characters (diacritics). U+20B9 (₹) is deliberately excluded. */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('./fonts/inter-latin-ext-wght-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20B8, U+20BA-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Arial (or metric-compatible Liberation Sans) scaled to Inter's width and vertical metrics. Regular and bold are
+   separate faces so bold text uses the real bold (not a synthesised one) and gets its own width match. */
+@font-face {
+  font-family: 'Inter Fallback';
+  font-weight: 100 500;
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('LiberationSans');
+  size-adjust: 106.2%;
+  ascent-override: 91.2%;
+  descent-override: 22.8%;
+  line-gap-override: 0%;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+20AC, U+2122, U+2212;
+}
+@font-face {
+  font-family: 'Inter Fallback';
+  font-weight: 600 900;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('LiberationSans-Bold');
+  size-adjust: 103.4%;
+  ascent-override: 93.7%;
+  descent-override: 23.4%;
+  line-gap-override: 0%;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+20AC, U+2122, U+2212;
+}
+
+/* Noto Sans Tamil (variable 100–900): Tamil subset only. A locally installed copy is used first; installs are usually
+   static Regular + Bold, so the light and bold halves are separate faces (no synthesised bold). Both fall back to the
+   same variable file, which is downloaded once. */
+@font-face {
+  font-family: 'Noto Sans Tamil Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 500;
+  src: local('Noto Sans Tamil'), local('NotoSansTamil-Regular'),
+       url('./fonts/noto-sans-tamil-tamil-wght-normal.woff2') format('woff2');
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;
+}
+@font-face {
+  font-family: 'Noto Sans Tamil Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600 900;
+  src: local('Noto Sans Tamil Bold'), local('NotoSansTamil-Bold'),
+       url('./fonts/noto-sans-tamil-tamil-wght-normal.woff2') format('woff2');
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;
+}
+/* Nirmala UI (Windows) / Latha scaled to Noto Sans Tamil. Also the Tamil font for Tamil snippets on English pages
+   (tokens.css --font-system-tamil), where it costs no download. */
+@font-face {
+  font-family: 'Noto Sans Tamil Fallback';
+  font-weight: 100 500;
+  src: local('Nirmala UI'), local('NirmalaUI'), local('Latha');
+  size-adjust: 96.6%;
+  ascent-override: 90.1%;
+  descent-override: 38.3%;
+  line-gap-override: 0%;
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;
+}
+@font-face {
+  font-family: 'Noto Sans Tamil Fallback';
+  font-weight: 600 900;
+  src: local('Nirmala UI Bold'), local('NirmalaUI-Bold'), local('Latha Bold'), local('Latha-Bold');
+  size-adjust: 99.4%;
+  ascent-override: 87.5%;
+  descent-override: 37.2%;
+  line-gap-override: 0%;
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;
+}
+
+/* Anek Tamil (variable 100–800), Tamil display. optional: never swaps in late, so headings do not reflow;
+   until it is cached, Tamil headings use Noto Sans Tamil (preloaded on /ta). */
+@font-face {
+  font-family: 'Anek Tamil Variable';
+  font-style: normal;
+  font-display: optional;
+  font-weight: 100 800;
+  src: url('./fonts/anek-tamil-tamil-wght-normal.woff2') format('woff2');
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+25CC;
+}
+
+/* Instrument Serif (400, SIL OFL 1.1, from @fontsource/instrument-serif): high-contrast display face for
+   the accent word in English headlines only (styles/theme.css). Latin subset; Tamil headlines keep Anek Tamil. */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('./fonts/instrument-serif-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url('./fonts/instrument-serif-latin-400-italic.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Metric-matched fallback: Instrument Serif sets 12% wider than Georgia (measured in Chrome over an English
+   headline), so the swap does not reflow the headline. */
+@font-face {
+  font-family: 'Instrument Serif Fallback';
+  src: local('Georgia');
+  size-adjust: 112%;
+  ascent-override: 88%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+/* The accent is always italic (styles/theme.css). Instrument Serif italic sets at 79% of Georgia Italic's width
+   (measured in Chrome over ten English headline words: 2644 vs 2651 px at 100px with this face). The overrides are
+   scaled by size-adjust, so 125% / 39% give Instrument's 0.99 / 0.31 em ascent / descent. Without this face the
+   fallback ran wider, wrapped the headline's last word and dropped it back on swap (CLS 0.13-0.16 on brand heroes). */
+@font-face {
+  font-family: 'Instrument Serif Fallback';
+  font-style: italic;
+  src: local('Georgia Italic'), local('Georgia-Italic');
+  size-adjust: 79%;
+  ascent-override: 125%;
+  descent-override: 39%;
+  line-gap-override: 0%;
+}

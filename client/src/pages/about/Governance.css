@@ -1,0 +1,80 @@
+/* /about/governance — text-led on Paper, one outline icon set (1.5 px, ink); hairline structure throughout. */
+.gov-main { display: grid; gap: var(--space-16); }
+.gov-block { display: grid; gap: var(--space-5); scroll-margin-top: calc(var(--header-h) + var(--space-8)); padding-top: var(--space-10); border-top: 1px solid var(--color-border); }
+.gov-block:first-child { border-top: 0; padding-top: 0; }
+.gov-block__head { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+/* Line icon in a 40px hairline square (no tinted tile). */
+.gov-block__icon {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; flex: none;
+  border-radius: var(--btn-radius); border: 1px solid var(--color-border); color: var(--color-text);
+}
+.gov-block__icon svg { width: 20px; height: 20px; }
+.gov-block__n { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); }
+.gov-block__title { margin: 0; flex-basis: 100%; font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+@media (min-width: 768px) { .gov-block__title { flex-basis: auto; } }
+.gov-block__body { display: grid; gap: var(--space-5); max-width: var(--measure); }
+.gov-block__body .body-lg { color: var(--color-text-2); }
+.gov-sub { color: var(--color-text-muted); font-size: var(--text-small); }
+.gov-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+
+/* Example stopping rule: one blueprint frame, four cells between 1px dividers. */
+.gov-kill {
+  list-style: none; display: grid; gap: 1px;
+  background: var(--color-border); border: 1px solid var(--color-border); border-radius: var(--media-radius); overflow: hidden;
+}
+@media (min-width: 768px) { .gov-kill { grid-template-columns: repeat(4, 1fr); } }
+.gov-kill__step {
+  position: relative; display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-5); background: var(--card); font-size: var(--text-small);
+}
+.gov-kill__k { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-small); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--color-text-muted); }
+/* The disclosure is the point of the rule: a small red full stop, not a coloured bar. */
+.gov-kill__step--end .gov-kill__k::before { content: ''; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--color-point); }
+
+/* Review path: quiet 4px chips joined by arrows; the evidence review is the one ink step. */
+.gov-flow { list-style: none; display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
+.gov-flow__item { display: flex; flex-direction: column; align-items: flex-start; }
+.gov-flow__step {
+  display: inline-flex; flex-direction: column; justify-content: center; min-height: 44px; padding: var(--space-2) var(--space-4);
+  border-radius: var(--btn-radius); border: 1px solid var(--color-border); background: var(--card); font-size: var(--text-small); font-weight: 500;
+}
+/* Arrows are in-flow between steps: a down arrow in the phone column, a right arrow in the desktop row. */
+.gov-flow__item + .gov-flow__item::before {
+  content: '↓'; content: '↓' / ''; display: block; padding-block: var(--space-1); padding-inline-start: var(--space-5);
+  color: var(--color-text-muted); font-weight: 400; line-height: 1;
+}
+@media (min-width: 768px) {
+  .gov-flow { flex-direction: row; flex-wrap: wrap; align-items: center; row-gap: var(--space-2); }
+  .gov-flow__item { flex-direction: row; align-items: center; }
+  .gov-flow__item + .gov-flow__item::before { content: '→'; content: '→' / ''; padding: 0; margin-inline: var(--space-2); }
+}
+.gov-flow__step.is-key { background: var(--night-0); color: var(--night-text); border-color: var(--night-0); }
+.gov-flow__note { font-size: var(--text-caption); font-weight: 400; color: var(--night-text-2); }
+
+/* Structure: stacked list on phones, table from 640 px (the ENTITY cell was ~130 px wide at 375). Hairline rows only. */
+.gov-table-wrap { display: none; overflow-x: auto; }
+.gov-entities { display: grid; margin: 0; border-top: 1px solid var(--color-border); font-size: var(--text-small); }
+.gov-entities__row { display: grid; gap: var(--space-2); padding-block: var(--space-4); border-bottom: 1px solid var(--color-border); }
+.gov-entities__name { font-weight: 500; }
+.gov-entities__role { margin: 0; color: var(--color-text-2); }
+@media (min-width: 640px) {
+  .gov-table-wrap { display: block; }
+  .gov-entities { display: none; }
+}
+.gov-table { width: 100%; border-collapse: collapse; font-size: var(--text-small); }
+.gov-table th, .gov-table td { text-align: left; vertical-align: top; padding: var(--space-4) var(--space-3); border-bottom: 1px solid var(--color-border); }
+.gov-table :is(th, td):first-child { padding-left: 0; }
+.gov-table thead th {
+  font-size: var(--text-small); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--color-text-muted);
+  padding-block: var(--space-3); border-bottom: 1px solid var(--color-border);
+}
+.gov-table tbody th { font-weight: 500; width: 38%; min-width: 9rem; color: var(--color-text); }
+.gov-table td { color: var(--color-text-2); }
+.gov-proposed { font-weight: 500; color: var(--color-warning); }
+
+.gov-policies { list-style: none; display: grid; gap: var(--space-3); }
+.gov-policies li { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: baseline; }
+.gov-policies li > span:first-child { font-weight: 500; }
+.gov-textlink { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-link-standalone); font-weight: 500; }
+
+:lang(ta) .gov-block__title { letter-spacing: 0; line-height: 1.35; }

@@ -1,0 +1,65 @@
+/* Dot locator inset for /districts/:district. Prefix: .dloc
+   Sits on the ink hero: a 12px hairline frame (--color-border / --color-bg-raised resolve to the night tones there). */
+.dloc {
+  margin: 0;
+  padding: var(--space-6);
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-media);
+  max-width: 24rem;
+  width: 100%;
+  justify-self: center;
+  overflow: hidden; /* never let a long label widen the page */
+}
+/* ≥1024 the split hero turns .page-hero__art into an edge-to-edge panel (PageHero.css); a photo fills it, but this
+   inset card would sit glued to the panel's top edge. Centre it in the panel, clear of the Paper sheet at its foot
+   ("safe" keeps the top on screen if the hero is ever shorter than the card). */
+@media (min-width: 1024px) {
+  .page-hero--split .page-hero__art:has(> .dloc) {
+    display: flex;
+    align-items: safe center;
+    justify-content: center;
+    padding: var(--space-8) var(--space-8) calc(var(--sheet-radius, 24px) + var(--space-8));
+  }
+}
+.dloc__svg { display: block; width: 100%; height: auto; overflow: visible; max-width: 100%; }
+
+.dloc__dot { fill: var(--color-border-control); opacity: 0.55; }
+.dloc__dot--near { fill: var(--color-text-2); opacity: 0.85; }
+/* DESIGN-v2 6.4: mono pulli dots; the selected district is the Ink point (Paper on the Ink hero) plus a ring.
+   Red stays with the headline stop. */
+.dloc__here { fill: var(--color-text); }
+.dloc__ring { fill: none; stroke: var(--color-text); stroke-width: 1.5; opacity: 0.6; }
+.dloc__pulse {
+  fill: var(--color-text);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dloc-pulse 2.4s var(--ease-standard, ease-out) 0.6s 3 both;
+}
+@keyframes dloc-pulse {
+  0% { opacity: 0.35; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.6); }
+}
+.dloc__label {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  fill: var(--color-text);
+  paint-order: stroke;
+  stroke: var(--color-bg-raised);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.dloc__cap {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dloc__pulse { animation: none; opacity: 0; }
+}
+:root[data-motion="reduced"] .dloc__pulse { animation: none; opacity: 0; }

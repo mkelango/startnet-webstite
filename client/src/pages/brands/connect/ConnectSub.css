@@ -1,0 +1,64 @@
+.connect-sub__layout { align-items: start; }
+.connect-sub__main { display: grid; gap: var(--space-12); min-width: 0; }
+.connect-sub__aside { min-width: 0; }
+@media (min-width: 1024px) { .connect-sub__aside { position: sticky; top: calc(var(--header-h) + var(--subnav-h) + var(--space-6)); } }
+
+.connect-sub__block { scroll-margin-top: calc(var(--header-h) + var(--subnav-h) + var(--space-4)); }
+.connect-sub__block + .connect-sub__block { padding-top: var(--space-10); border-top: 1px solid var(--color-border); }
+.connect-sub__blocktitle { margin-bottom: var(--space-6); }
+.connect-sub__blockbody { display: grid; gap: var(--space-4); max-width: var(--measure); }
+.connect-sub__blockbody > .connect-switch { max-width: none; }
+.connect-sub__block:has(.connect-switch) .connect-sub__blockbody { max-width: none; }
+.connect-sub__ph { margin-top: var(--space-2); }
+
+/* What happens here */
+.connect-sub__happens { list-style: none; display: grid; gap: var(--space-8) 32px; grid-template-columns: 1fr; }
+/* Four items: 2 × 2 (never 3 + 1); the main column of the 8/4 split is too narrow for four across. */
+@media (min-width: 640px) { .connect-sub__happens { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.connect-sub__happen {
+  display: grid; grid-template-columns: auto 1fr; gap: var(--space-4); align-items: start;
+  padding: 28px 0 0; border-top: 1px solid var(--color-text); /* AIWO top-rule column (P7) */
+}
+.connect-sub__happenicon {
+  display: inline-grid; place-items: center; width: 24px; height: 24px; margin-top: 2px;
+  color: var(--color-text);
+}
+.connect-sub__happen h3 { margin-bottom: var(--space-1); font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); }
+
+/* Circles */
+.connect-sub__circle { display: grid; gap: var(--space-8); align-items: center; }
+@media (min-width: 768px) { .connect-sub__circle { grid-template-columns: minmax(0, 18rem) 1fr; } }
+.connect-sub__ticks { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
+.connect-sub__ticks li { position: relative; padding: var(--space-3) 0 var(--space-3) var(--space-6); border-bottom: 1px solid var(--color-border); }
+.connect-sub__ticks li::before {
+  content: ""; position: absolute; left: 0; top: calc(var(--space-3) + 0.62em); width: 6px; height: 6px; border-radius: var(--radius-full); background: var(--color-text);
+}
+
+/* Scale offers */
+.connect-sub__offers { list-style: none; display: grid; gap: 0; border-top: 1px solid var(--color-border); }
+.connect-sub__offer { border-bottom: var(--border-hair); scroll-margin-top: calc(var(--header-h) + var(--subnav-h) + var(--space-4)); }
+.connect-sub__offerinner { display: grid; grid-template-columns: auto 1fr; gap: var(--space-6); padding: var(--space-8) 0; }
+.connect-sub__offernum { font-size: var(--text-meta); font-weight: 400; line-height: 1.6; color: var(--color-text-muted); min-width: 2.5ch; font-variant-numeric: tabular-nums; }
+.connect-sub__offer h2 { margin-bottom: var(--space-2); }
+.connect-sub__offer:target .connect-sub__offernum { color: var(--accent-text); }
+
+/* Angels legal */
+.connect-sub__legal {
+  display: grid; gap: var(--space-2); padding: var(--space-5) var(--space-6);
+  background: var(--color-warning-bg); color: var(--color-text); border: 1px solid color-mix(in srgb, var(--color-warning-icon) 45%, transparent); border-radius: var(--media-radius);
+  max-width: var(--measure);
+}
+
+/* Sector pages */
+.connect-sub__nextevent { max-width: 28rem; }
+.connect-sub__dl { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--color-border); }
+.connect-sub__dl > div { display: grid; grid-template-columns: 8rem 1fr; gap: var(--space-4); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+.connect-sub__dl dt { color: var(--color-text-muted); font-size: var(--text-small); }
+.connect-sub__dl dd { margin: 0; }
+.connect-sub__others { list-style: none; display: grid; gap: var(--space-2) var(--space-6); grid-template-columns: 1fr; }
+/* Eight links: 2 × 4, then 4 + 4 (never 5 + 3) (F-62). */
+@media (min-width: 480px) { .connect-sub__others { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 960px) { .connect-sub__others { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+/* Verifier r1: "நிதியுதவியாளர்கள்" (145px) split inside the 8rem label column at 320; Tamil labels get room. */
+:lang(ta) .connect-sub__dl > div { grid-template-columns: minmax(8rem, max-content) minmax(0, 1fr); }
+@media (max-width: 399.98px) { :lang(ta) .connect-sub__dl > div { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); } }

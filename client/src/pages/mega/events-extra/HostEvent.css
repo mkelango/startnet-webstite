@@ -1,0 +1,212 @@
+/* /events/host — T19 standard content page with in-page nav + T13 enquiry form. Prefix: .hostev- (mobile first) */
+
+/* The content is one paper sheet over the ink hero: theme.css gives the element after .page-hero its rounded top,
+   overlap and top padding; the sheet supplies the paper. */
+.hostev-sheet { background: var(--sheet); }
+
+/* Layout: one column on phones/tablets; 3/9 split with a sticky in-page nav on desktop (Book 3 §4 T19). */
+.hostev-layout {
+  display: grid;
+  gap: var(--space-10);
+  padding-top: 0;
+  padding-bottom: var(--space-section);
+  min-width: 0;
+}
+.hostev-main { display: grid; gap: var(--space-16); min-width: 0; }
+/* Anchor offset comes from html { scroll-padding-top } in base.css; adding scroll-margin here would double it. */
+.hostev-block { min-width: 0; }
+.hostev-block > .section-header { margin-bottom: var(--space-8); }
+
+/* In-page nav: horizontal chips on mobile (wrap, never scroll the page), sticky list on desktop */
+.hostev-toc { min-width: 0; }
+.hostev-toc__title { margin: 0 0 var(--space-3); }
+.hostev-toc__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.hostev-toc__link {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-4);
+  border: 1px solid var(--color-border); border-radius: var(--radius-full);
+  color: var(--color-text-2); font-size: var(--text-small); font-weight: 500; text-decoration: none;
+  background: var(--card);
+  transition: color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard);
+}
+.hostev-toc__link:hover, .hostev-toc__link:focus-visible { color: var(--color-text); border-color: var(--color-border-control); }
+
+@media (min-width: 1024px) {
+  .hostev-layout { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: var(--space-12); }
+  .hostev-toc { position: sticky; top: calc(var(--shell-offset, var(--header-h)) + var(--space-8)); align-self: start; transition: top var(--dur-3) var(--ease-standard); }
+  .hostev-toc__list { flex-direction: column; flex-wrap: nowrap; gap: 0; border-left: 1px solid var(--color-border); }
+  .hostev-toc__link {
+    border: 0; border-radius: 0; background: none; padding: 0 var(--space-4);
+    margin-left: -1px; border-left: 2px solid transparent;
+  }
+  .hostev-toc__link:hover, .hostev-toc__link:focus-visible { border-left-color: var(--color-text); }
+}
+
+/* Who can host */
+.hostev-who { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+@media (min-width: 768px) { .hostev-who { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); } }
+.hostev-who__item {
+  display: flex; flex-direction: column; gap: var(--space-3); height: 100%;
+  padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius);
+}
+.hostev-who__icon { color: var(--color-text-muted); }
+.hostev-who__title { margin: 0; font-weight: 500; }
+.hostev-who__body { margin: 0; color: var(--color-text-2); flex: 1; overflow-wrap: anywhere; }
+
+/* Formats */
+.hostev-formats { display: grid; gap: var(--space-4); }
+@media (min-width: 768px) { .hostev-formats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); } }
+@media (min-width: 1280px) { .hostev-formats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.hostev-format { height: 100%; }
+.hostev-format__who { margin: 0; font-size: var(--text-small); color: var(--color-text-muted); }
+.hostev-format__who-label { font-weight: 500; color: var(--color-text-2); }
+
+/* What StartNet provides / what you bring */
+.hostev-provide { display: grid; gap: var(--space-6); }
+@media (min-width: 768px) { .hostev-provide { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-8); } }
+.hostev-provide__col {
+  padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card);
+}
+.hostev-provide__col > h3 { margin: 0 0 var(--space-4); font-weight: 500; }
+.hostev-checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--color-border); }
+.hostev-checks__item { display: flex; align-items: flex-start; gap: var(--space-3); padding-block: var(--space-3); border-bottom: 1px solid var(--color-border); color: var(--color-text-2); }
+.hostev-checks__item > span:last-child { min-width: 0; overflow-wrap: anywhere; }
+.hostev-checks__icon { flex: none; margin-top: 0.15em; color: var(--color-text); }
+.hostev-checks__bullet {
+  flex: none; width: 8px; height: 8px; margin-top: 0.55em; border-radius: var(--radius-full); background: var(--color-text-muted);
+}
+.hostev-figures { margin-top: var(--space-10); min-width: 0; }
+
+/* Enquiry form (T13: one column, full-width controls, 16px+ text so iOS does not zoom) */
+.hostev-form {
+  display: grid; gap: var(--space-4);
+  padding: var(--space-5); background: var(--card); border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+}
+@media (min-width: 768px) { .hostev-form { padding: var(--space-10); } }
+.hostev-form > .eyebrow, .hostev-form > h2 { margin: 0; }
+.hostev-form > h2 { font-weight: 400; letter-spacing: -0.015em; }
+:lang(ta) .hostev-form > h2 { letter-spacing: 0; }
+.hostev-form__intro { display: flex; align-items: flex-start; gap: var(--space-2); margin: 0; color: var(--color-text-muted); font-size: var(--text-small); }
+.hostev-form__intro svg { flex: none; margin-top: 0.15em; }
+.hostev-form__form { width: 100%; min-width: 0; }
+.hostev-form__form .field__control { width: 100%; font-size: max(16px, var(--text-body)); }
+
+.hostev-alt { margin: var(--space-6) 0 0; color: var(--color-text-2); display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--space-3); }
+.hostev-alt__sep { color: var(--color-text-muted); }
+
+/* Links with the arrow nudge */
+.hostev-arrow-link {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
+  font-weight: 500; color: var(--color-link-standalone); text-decoration: none;
+}
+.hostev-arrow-link:hover { text-decoration: underline; }
+.hostev-arrow-link svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+.hostev-arrow-link:hover svg, .hostev-arrow-link:focus-visible svg { transform: translateX(var(--shift-1)); }
+.hostev-inline-link { color: var(--color-link); text-decoration-color: var(--color-link-decoration); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hostev-arrow-link svg, .hostev-toc, .hostev-toc__link { transition: none; }
+}
+
+/* Final verifier r3: the five steps sit in the narrow main column; 5-up at 1280+ leaves ~150px, which split the
+   Tamil "உறுதிசெய்யுங்கள்" mid-word. Tamil keeps the 2-column layout (last step spans the row) at every desktop width. */
+@media (min-width: 1024px) {
+  #steps .steps--row.steps--n5:lang(ta) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #steps .steps--row.steps--n5:lang(ta) > :last-child { grid-column: 1 / -1; }
+}
+
+/* ---------- DESIGN-v2 6.3 (Oct 2026) ---------- */
+/* The Paper sheet carries the section rhythm (it was flush with the sheet edge) */
+.hostev-sheet { background: var(--paper); }
+.hostev-layout { padding-top: calc(var(--space-section) * 0.75); }
+.hostev-main { gap: var(--space-section-tight, var(--space-16)); }
+.hostev-block > .section-header { margin-bottom: var(--space-head-gap, var(--space-8)); }
+
+/* In-page nav. Phones/tablets: 36px chips (Ink when current). Desktop: a sticky hairline rail with a 2px Ink
+   rule that glides to the section in view (scroll-spy + useSlidingIndicator, transform only). */
+.hostev-toc__list { position: relative; }
+.hostev-toc__link {
+  min-height: 36px; padding: 0 14px; border: 0; background: transparent; color: var(--color-text);
+  box-shadow: inset 0 0 0 1px var(--line-strong); font-size: var(--text-meta); font-weight: 500;
+  transition: color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap), background-color var(--dur-2) var(--ease-snap);
+}
+@media (pointer: coarse) { .hostev-toc__link { min-height: 44px; } }
+.hostev-toc__link[aria-current] { background: var(--sn-ink); color: var(--paper); box-shadow: inset 0 0 0 1px var(--sn-ink); }
+.hostev-toc__ind { display: none; }
+@media (min-width: 1024px) {
+  .hostev-layout { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 32px; }
+  .hostev-toc__list { border-left: 1px solid var(--hairline); }
+  .hostev-toc__link {
+    min-height: 40px; padding: 0 var(--space-4); box-shadow: none; background: none; border-left: 0; margin-left: 0;
+    color: var(--color-text-2); font-size: var(--text-meta);
+  }
+  .hostev-toc__link:hover, .hostev-toc__link:focus-visible { color: var(--color-text); border-left-color: transparent; }
+  .hostev-toc__link[aria-current] { background: none; color: var(--color-text); box-shadow: none; }
+  .hostev-toc__ind {
+    display: block; position: absolute; left: -1px; top: 0; width: 2px; height: 100px; background: var(--sn-ink);
+    transform-origin: top; opacity: 0;
+    transform: translateY(var(--ind-y, 0px)) scaleY(calc(var(--ind-h, 0) / 100));
+    transition: transform var(--dur-3) var(--ease-snap), opacity var(--dur-2) var(--ease-snap);
+    pointer-events: none;
+  }
+  [data-ind-ready] > .hostev-toc__ind { opacity: 1; }
+  /* Before measuring (no JS / prerender) the current link draws its own rule */
+  .hostev-toc__list:not([data-ind-ready]) .hostev-toc__link[aria-current] { box-shadow: inset 2px 0 0 var(--sn-ink); }
+}
+
+/* Who can host: AIWO top-rule columns (P14). No box: a 1px Ink rule over each column, 28px to the icon, title, a muted
+   line and the arrow link pinned to the foot (so links align across a row). Hover / focus: a 2px Ink rule draws in. */
+.hostev-who { row-gap: var(--space-10); }
+@media (min-width: 768px) { .hostev-who { row-gap: var(--space-14, 56px); } }
+@media (min-width: 768px) { .hostev-who { column-gap: 32px; } }
+.hostev-who__item {
+  position: relative; border: 0; border-top: 1px solid var(--sn-ink); background: none; box-shadow: none;
+  border-radius: 0; padding: 28px 0 0;
+}
+.hostev-who__item::before {
+  content: ''; position: absolute; top: -1px; left: 0; right: 0; height: 2px; background: var(--sn-ink);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+@media (hover: hover) { .hostev-who__item:hover::before { transform: scaleX(1); } }
+.hostev-who__item:focus-within::before { transform: scaleX(1); }
+.hostev-who__body { max-width: 38ch; line-height: 1.6; }
+.hostev-who__icon { color: var(--color-text); }
+.hostev-who__title { font-size: var(--text-h3); }
+.hostev-format__who { color: var(--ink-600); font-size: var(--text-meta); }
+
+/* What StartNet provides / what you bring: framed columns with hairline check rows */
+.hostev-provide__col { border: 0; background: var(--card); box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-media); padding: 28px; }
+.hostev-provide__col > h3 { font-size: var(--text-h3); }
+.hostev-checks, .hostev-checks__item { border-color: var(--hairline); }
+.hostev-checks__bullet { background: var(--sn-ink); width: 6px; height: 6px; }
+
+/* Enquiry: a White form card (3.14) */
+.hostev-form.form-card { border: 0; display: grid; gap: var(--space-4); }
+.hostev-form > h2 { font-weight: 500; }
+
+/* Arrow links: Ink, 4px nudge, underline sweep */
+.hostev-arrow-link { color: var(--color-text); font-weight: 500; }
+.hostev-arrow-link:hover { text-decoration: none; }
+.hostev-arrow-link svg { transition: transform var(--dur-2) var(--ease-snap); }
+.hostev-arrow-link:hover svg, .hostev-arrow-link:focus-visible svg { transform: translateX(4px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hostev-toc__ind, .hostev-toc__link, .hostev-who__item, .hostev-who__item::before { transition: none; }
+}
+:root[data-motion='reduced'] .hostev-toc__ind,
+:root[data-motion='reduced'] .hostev-who__item::before { transition: none; }
+
+/* Mobile audit (Oct 2026): on phones the two alternative links wrapped with the "·" separator dangling at the
+   end of the first line; they stack as two rows instead and the separator is dropped. */
+@media (max-width: 479px) {
+  .hostev-alt { flex-direction: column; align-items: flex-start; row-gap: var(--space-2); }
+  .hostev-alt__sep { display: none; }
+}
+
+/* Tamil phones (mobile audit, Oct 2026): the From StartNet / From you cards left a 192px text column at 320
+   (28px card padding + 32px icon), and தொழில்முறையாளர்கள் (217px at 17px) split mid-word. A 20px card and
+   16px list text keep every word whole from 320px up. */
+@media (max-width: 399.98px) {
+  :lang(ta) .hostev-provide__col { padding: 20px; }
+  :lang(ta) .hostev-checks__item { font-size: 1rem; }
+}

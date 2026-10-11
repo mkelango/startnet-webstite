@@ -1,0 +1,179 @@
+/* "I am a…" selector — Book 4 IX-10. Native radios; two looks (AngelList family, Oct 2026):
+   - tiles (default, /join): flat hairline cards, selected = Ink fill;
+   - list (Home): a calm hairline list, selected = the round mark fills and the row's rule turns ink. */
+.home-persona { display: grid; gap: var(--space-8); }
+.home-persona__legend { font-size: var(--text-h3); font-weight: 400; letter-spacing: var(--tracking-heading); line-height: var(--leading-heading); }
+.home-persona__group { border: 0; margin: 0; padding: 0; min-width: 0; }
+.home-persona__group-label { padding: 0; margin-bottom: var(--space-3); color: var(--color-text-2); }
+.home-persona__grid { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 560px) { .home-persona__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Two-column range: an odd last tile spans the row instead of sitting alone half-width. */
+@media (min-width: 560px) and (max-width: 1023.98px) { .home-persona__grid > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
+@media (min-width: 1024px) {
+  .home-persona__group--build .home-persona__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .home-persona__group--work .home-persona__grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
+.home-persona__item { position: relative; min-width: 0; }
+.home-persona__input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+
+.home-persona__tile {
+  position: relative; display: flex; align-items: center; gap: var(--space-3);
+  min-height: 4.5rem; height: 100%; padding: var(--space-4);
+  background: #FBFAF7; color: var(--color-text);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  cursor: pointer; overflow: hidden; font-weight: 500; line-height: 1.3; letter-spacing: -0.005em;
+  transition: background-color var(--dur-1) var(--ease-standard), color var(--dur-1) var(--ease-standard), border-color var(--dur-2) var(--ease-standard);
+}
+.home-persona__icon { flex: none; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: var(--radius-full); background: var(--accent-tint); color: var(--accent-text); }
+.home-persona__group--work .home-persona__icon { background: var(--color-bg-sunken); color: var(--color-text-2); }
+.home-persona__label { flex: 1; min-width: 0; }
+.home-persona__check { flex: none; display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border-control); color: transparent; transition: background-color var(--dur-1), color var(--dur-1), border-color var(--dur-1); }
+
+@media (hover: hover) {
+  .home-persona__tile:hover { border-color: color-mix(in srgb, var(--color-border), var(--sn-ink) 22%); }
+  .home-persona__tile:hover .home-persona__check { border-color: var(--color-text); }
+}
+.home-persona__input:focus-visible + .home-persona__tile { box-shadow: var(--focus-ring); }
+.home-persona__input:checked + .home-persona__tile { background: var(--sn-ink); color: var(--night-text); border-color: var(--sn-ink); }
+.home-persona__input:checked + .home-persona__tile .home-persona__icon { background: var(--night-2); color: var(--accent-night); }
+.home-persona__input:checked + .home-persona__tile .home-persona__check { background: var(--night-text); border-color: var(--night-text); color: var(--sn-ink); }
+
+.home-persona__extras { color: var(--color-text-2); }
+.home-persona__extras a { font-weight: 450; color: var(--color-text); text-decoration-color: var(--color-border-control); text-underline-offset: 0.2em; }
+.home-persona__extras a:hover { text-decoration-color: currentColor; }
+:lang(ta) .home-persona__tile { line-height: 1.45; }
+/* Long single words (e.g. "Institution", Tamil compounds) wrap inside the label instead of running under the check. */
+.home-persona__label { overflow-wrap: break-word; hyphens: auto; }
+/* 1024–1279: five partner tiles are too narrow (≈186px) — 3 + 2 with the last tile spanning. Five columns from 1280. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .home-persona__group--work .home-persona__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .home-persona__group--work .home-persona__grid > :last-child { grid-column: span 2; }
+}
+/* Invalid group (empty submit on /join): the tiles take the error border until a choice is made. */
+.home-persona[aria-invalid="true"] .home-persona__tile { border-color: var(--color-error); }
+
+/* ---------- List (Home): two hairline lists side by side, nothing heavier than a rule and a round mark ---------- */
+.home-persona--list { gap: var(--space-8); }
+@media (min-width: 768px) {
+  .home-persona--list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8) var(--space-10); align-items: start; }
+  .home-persona--list > :not(.home-persona__group) { grid-column: 1 / -1; }
+}
+.home-persona--list .home-persona__group-label { margin-bottom: var(--space-4); color: var(--color-text); }
+.home-persona--list .home-persona__grid { display: block; border-top: 1px solid var(--color-border); }
+.home-persona--list .home-persona__tile {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 3.75rem;
+  height: auto;
+  padding: var(--space-3) var(--space-1) var(--space-3) 0;
+  background: transparent;
+  color: var(--color-text);
+  border: 0;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+  overflow: visible;
+  font-size: var(--text-body-lg);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.home-persona--list .home-persona__icon,
+.home-persona--list .home-persona__group--work .home-persona__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0;
+  background: none;
+  color: var(--color-text-muted);
+  transition: color var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) {
+  .home-persona--list .home-persona__tile:hover { border-color: var(--color-border); }
+  .home-persona--list .home-persona__tile:hover .home-persona__icon { color: var(--color-text); }
+  .home-persona--list .home-persona__tile:hover .home-persona__label { text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: var(--color-border-control); text-underline-offset: 0.22em; }
+}
+.home-persona--list .home-persona__input:focus-visible + .home-persona__tile { box-shadow: var(--focus-ring); border-radius: var(--radius-sm); }
+.home-persona--list .home-persona__input:checked + .home-persona__tile {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-text);
+  font-weight: 500;
+}
+.home-persona--list .home-persona__input:checked + .home-persona__tile .home-persona__icon { background: none; color: var(--color-text); }
+.home-persona--list .home-persona__input:checked + .home-persona__tile .home-persona__check { background: var(--sn-ink); border-color: var(--sn-ink); color: var(--night-text); }
+.home-persona--list[aria-invalid="true"] .home-persona__tile { border-color: var(--color-error); }
+
+/* ---------- Chips (Home, DESIGN-v2 3.12 / 6.1): a pill chip grid. 44px pills with a 1px line-strong ring; hover ring
+   Ink; checked = Ink fill + Paper text with the tick drawn in; a 100ms press. Native radios underneath. ---------- */
+.home-persona--chips { gap: var(--space-8); }
+.home-persona--chips .home-persona__group-label { margin-bottom: var(--space-4); color: var(--color-text); }
+.home-persona--chips .home-persona__grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.home-persona--chips .home-persona__item { flex: 0 1 auto; }
+.home-persona--chips .home-persona__tile {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  height: auto;
+  padding: 6px 18px 6px 14px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: var(--color-text);
+  font-size: var(--text-body);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  overflow: visible;
+  transition: background-color var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap), transform var(--dur-1) var(--ease-standard);
+}
+.home-persona--chips .home-persona__icon,
+.home-persona--chips .home-persona__group--work .home-persona__icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 0;
+  background: none;
+  color: var(--color-text-2);
+  transition: color var(--dur-2) var(--ease-snap);
+}
+.home-persona--chips .home-persona__label { flex: 0 1 auto; }
+/* The tick takes the icon's place when checked: the icon fades out and the tick scales in over it (no reflow). */
+.home-persona--chips .home-persona__tile { position: relative; }
+.home-persona--chips .home-persona__check {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  width: 1.375rem;
+  height: 1.375rem;
+  margin-top: -0.6875rem;
+  border: 0;
+  background: var(--paper);
+  color: var(--sn-ink);
+  transform: scale(0);
+  transition: transform var(--dur-3) var(--ease-snap);
+}
+@media (hover: hover) and (pointer: fine) {
+  .home-persona--chips .home-persona__tile:hover { box-shadow: inset 0 0 0 1px var(--color-text); }
+  .home-persona--chips .home-persona__tile:hover .home-persona__icon { color: var(--color-text); }
+}
+.home-persona--chips .home-persona__tile:active { transform: scale(0.97); }
+.home-persona--chips .home-persona__input:focus-visible + .home-persona__tile { box-shadow: inset 0 0 0 1px var(--color-text); outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.home-persona--chips .home-persona__input:checked + .home-persona__tile { background: var(--sn-ink); color: var(--paper); box-shadow: inset 0 0 0 1px var(--sn-ink); }
+.home-persona--chips .home-persona__icon { transition: color var(--dur-2) var(--ease-snap), opacity var(--dur-2) var(--ease-snap); }
+.home-persona--chips .home-persona__input:checked + .home-persona__tile .home-persona__icon { background: none; color: var(--paper); opacity: 0; }
+.home-persona--chips .home-persona__input:checked + .home-persona__tile .home-persona__check { background: var(--paper); color: var(--sn-ink); transform: scale(1); }
+.home-persona--chips[aria-invalid="true"] .home-persona__tile { box-shadow: inset 0 0 0 1px var(--color-error); }
+@media (max-width: 479.98px) {
+  .home-persona--chips .home-persona__grid { gap: 8px; }
+  .home-persona--chips .home-persona__tile { min-height: 44px; padding-inline: 12px 16px; font-size: var(--text-small, 0.9375rem); }
+  .home-persona--chips .home-persona__check { left: 11px; }
+}
+:lang(ta) .home-persona--chips .home-persona__tile { letter-spacing: 0; line-height: 1.4; }
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) .home-persona--chips :is(.home-persona__tile, .home-persona__check, .home-persona__icon) { transition-duration: 0ms; }
+}
+:root[data-motion='reduced'] .home-persona--chips :is(.home-persona__tile, .home-persona__check, .home-persona__icon) { transition-duration: 0ms; }

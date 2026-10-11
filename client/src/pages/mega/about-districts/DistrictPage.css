@@ -1,0 +1,185 @@
+/* /districts/:district (T20). Prefix: .district- · mobile first: 1 col → 2 at 768 → 3 at 1024.
+   AngelList-family finish: hairline frames, quiet sentence-case labels, big light numerals in the Ledger band. */
+
+/* Hero title: long district names (Tiruchirappalli, திருச்சிராப்பள்ளி) must fit a 288px column at 320px,
+   because each KineticHeadline word sits in an overflow-hidden mask. */
+.district-hero__title { overflow-wrap: anywhere; }
+.district-hero__title--long { font-size: clamp(1.75rem, 0.6rem + 4.6vw, var(--text-display-xl)); }
+:lang(ta) .district-hero__title--long, .district-hero__title--long:lang(ta) { font-size: clamp(1.5rem, 0.35rem + 4.4vw, var(--text-display-xl)); }
+
+/* Hero meta (other-language name, HQ): key small and muted, value regular, facts split by a vertical hairline.
+   The hero is the ink band, so --color-border resolves to the night hairline here. */
+.district-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: var(--space-4) 0;
+  margin: var(--space-8) 0 0;
+  padding: var(--space-5) 0 0;
+  border-top: 1px solid var(--color-border);
+}
+.district-hero__fact { min-width: 0; padding-right: var(--space-8); }
+.district-hero__fact + .district-hero__fact { padding-left: var(--space-6); border-left: 1px solid var(--color-border); }
+.district-hero__fact dt {
+  font-size: var(--text-small);
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+.district-hero__fact dd {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-body-lg);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+:lang(ta) .district-hero__fact dd { letter-spacing: 0; }
+
+/* Card grids */
+.district-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 768px) { .district-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); } }
+@media (min-width: 1024px) { .district-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); } }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .district-grid--3 > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+
+/* Sub-heads inside a section: small titles in medium weight */
+.district-online { margin-top: var(--space-16); }
+.district-online__title,
+.district-programmes__title { margin-bottom: var(--space-6); font-weight: 500; letter-spacing: -0.01em; }
+.district-programmes { margin-top: var(--space-16); display: grid; gap: var(--space-5); justify-items: start; }
+.district-programmes > .district-grid { width: 100%; }
+.district-programmes > .district-programmes__title { margin-bottom: var(--space-1); }
+
+.district-more { margin-top: var(--space-8); }
+.district-note { color: var(--color-text-2); max-width: var(--measure); margin: var(--space-2) 0 var(--space-4); }
+
+/* Standalone text link with arrow nudge, 44px target */
+.district-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font-weight: 500;
+  color: var(--color-link-standalone);
+  text-decoration: none;
+}
+.district-link:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.district-link svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+@media (hover: hover) { .district-link:hover svg { transform: translateX(var(--shift-1)); } }
+.district-link:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--btn-radius); }
+
+/* Partners strip: line icon in a 40px hairline square, no tinted tile */
+.district-partners { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-5); align-items: start; max-width: 52rem; }
+.district-partners__icon {
+  display: inline-grid; place-items: center;
+  width: 40px; height: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--btn-radius);
+  color: var(--color-text);
+}
+.district-partners h2 { font-weight: 500; letter-spacing: -0.01em; }
+
+/* Ledger slice (the page's one Night band): a calm "blueprint" frame. Outer 1px hairline, inner 1px dividers,
+   big light numerals with the label beneath; --color-border is the night hairline on this surface. */
+.district-ledger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+}
+@media (min-width: 768px) { .district-ledger { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.district-ledger__cell {
+  min-width: 0;
+  padding: var(--space-6);
+}
+.district-ledger__cell + .district-ledger__cell { border-top: 1px solid var(--color-border); }
+@media (min-width: 768px) {
+  .district-ledger__cell { padding: var(--space-8); }
+  .district-ledger__cell + .district-ledger__cell { border-top: 0; border-left: 1px solid var(--color-border); }
+}
+/* The frame carries the structure, so the stat's own top rule is dropped inside it. */
+.district-ledger__cell > .stat { padding-top: 0; border-top: 0; }
+.district-ledger__note { margin-top: var(--space-8); color: var(--color-text-2); max-width: var(--measure); }
+.district-ledger__actions { margin-top: var(--space-6); }
+[data-surface="night"] .district-link { color: var(--color-text); }
+
+/* Host (M04): info left, form right in a flat card */
+.district-host { display: grid; gap: var(--space-10); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) {
+  .district-host { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; }
+}
+.district-host__intro .h2 { margin-top: var(--space-4); }
+.district-host__lede { margin-top: var(--space-5); color: var(--color-text-2); max-width: 36rem; }
+/* Contact-style hairline rows */
+.district-host__links { list-style: none; margin: var(--space-8) 0 0; padding: 0; border-top: 1px solid var(--color-border); max-width: 30rem; }
+.district-host__links > li { border-bottom: 1px solid var(--color-border); }
+.district-host__links .district-link {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 56px;
+  color: var(--color-text);
+  font-weight: 500;
+}
+.district-host__links .district-link svg { color: var(--color-text-muted); }
+.district-host__links .district-link:hover svg { color: var(--color-text); }
+.district-host__form {
+  min-width: 0;
+  padding: var(--space-6);
+  background: var(--card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+}
+@media (min-width: 768px) { .district-host__form { padding: var(--space-8); } }
+
+/* Nearby + jump */
+.district-nearby { display: grid; gap: var(--space-8); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) { .district-nearby { grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: end; } }
+.district-nearby h2 { font-weight: 500; letter-spacing: -0.01em; }
+.district-nearby__list { list-style: none; margin: var(--space-4) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.district-nearby__chip {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; padding: 0 var(--space-4);
+  background: var(--card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--btn-radius);
+  color: var(--color-text); font-weight: 500; text-decoration: none;
+  transition: border-color var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard), transform var(--dur-2) var(--ease-standard);
+}
+.district-nearby__chip svg { flex: none; color: var(--color-text-muted); }
+@media (hover: hover) and (pointer: fine) {
+  .district-nearby__chip:hover {
+    border-color: color-mix(in srgb, var(--color-text) 20%, var(--color-border));
+    transform: translateY(calc(var(--shift-1) * -0.5));
+    box-shadow: 0 18px 40px -24px color-mix(in srgb, var(--night-0) 35%, transparent);
+  }
+}
+.district-nearby__chip:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+.district-jump { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-2); min-width: 0; }
+.district-jump__label { font-weight: 500; }
+.district-jump__row { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+.district-jump__select {
+  flex: 1 1 12rem; width: 100%; max-width: 100%; min-width: 0; min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  font: inherit; font-size: max(16px, var(--text-body)); color: var(--color-text);
+  background: var(--card);
+  border: 1px solid var(--color-border-control); border-radius: var(--btn-radius);
+}
+.district-jump__select:focus-visible { outline: none; box-shadow: var(--focus-ring); border-color: var(--color-text); }
+
+@media (prefers-reduced-motion: reduce) {
+  .district-link svg, .district-nearby__chip { transition: none; }
+  .district-link:hover svg, .district-nearby__chip:hover { transform: none; }
+}
+
+/* QA v6 (Tamil): "திருவண்ணாமலை." (~9.8em) was 7px wider than the 592px hero column at 1440 and split between
+   aksharas. Long Tamil district names also fit the column (container units, CSS only). */
+:lang(ta) .page-hero__text:has(.district-hero__title--long) { container-type: inline-size; }
+:lang(ta) .page-hero__text .district-hero__title--long { font-size: min(clamp(1.5rem, 0.35rem + 4.4vw, var(--text-display-xl)), 100cqi / 10.2); }

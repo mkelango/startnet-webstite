@@ -1,0 +1,15 @@
+/* Story card (DESIGN-v2 3.7, media family, 4/5 media) */
+.story-card__kicker > * + *::before { content: '\00b7'; display: inline-block; margin-inline: 0.5em; color: var(--color-text-muted); }
+.story-card .card__meta { display: grid; gap: var(--space-3); }
+.story-card__excerpt { display: inline; }
+.story-card__facts { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); font-size: var(--text-meta); }
+.story-card__ladder {
+  padding: 0 6px;
+  border-radius: var(--radius-btn);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: var(--color-text);
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  font-variant-numeric: tabular-nums;
+}

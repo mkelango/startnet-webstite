@@ -1,0 +1,29 @@
+/* URL-synced page tabs (DESIGN-v2 3.12 underline): 16px labels, muted 400 → Ink 500 when selected, on a 1px
+   hairline base, with one 2px Ink indicator that glides between tabs (components/_indicator.css draws it). */
+.urltabs { display: grid; gap: var(--space-10); min-width: 0; }
+.urltabs__list-wrap {
+  position: relative; overflow-x: auto; scrollbar-width: none; box-shadow: inset 0 -1px 0 var(--hairline);
+  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 24px), transparent);
+          mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 24px), transparent);
+}
+@media (min-width: 768px) { .urltabs__list-wrap { -webkit-mask-image: none; mask-image: none; } }
+.urltabs__list-wrap::-webkit-scrollbar { display: none; }
+.urltabs__list { position: relative; display: flex; gap: var(--space-8); min-width: max-content; padding-right: var(--space-6); }
+.urltabs__tab {
+  position: relative; z-index: 1; min-height: 48px; padding: var(--space-3) 0 var(--space-4); border: 0; background: none;
+  color: var(--color-text-2); font-size: 1rem; font-weight: 400; letter-spacing: 0; white-space: nowrap;
+  transition: color var(--dur-2) var(--ease-snap);
+}
+.urltabs__tab[aria-selected='true'] { color: var(--color-text); font-weight: 500; }
+@media (hover: hover) { .urltabs__tab:hover { color: var(--color-text); } }
+.urltabs__tab:focus-visible { border-radius: var(--radius-btn); outline-offset: 2px; }
+/* Before the glide is measured, the selected tab carries its own underline */
+.urltabs__list:not([data-ind-ready]) .urltabs__tab[aria-selected='true'] { box-shadow: inset 0 -2px 0 var(--color-text); }
+.urltabs__indicator { z-index: 2; }
+.urltabs__panel:focus-visible { outline-offset: 4px; border-radius: var(--radius-btn); }
+/* The new panel settles in (opacity + 6px, transform only); off when motion is reduced */
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) .urltabs__panel-in { animation: urltabs-in var(--dur-3) var(--ease-snap); }
+}
+@keyframes urltabs-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .urltabs__tab { transition: none; } }

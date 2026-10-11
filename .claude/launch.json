@@ -1,0 +1,36 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "startnet-start",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "start"
+      ],
+      "port": 4000,
+      "autoPort": false
+    },
+    {
+      "name": "startnet-vite",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "client"
+      ],
+      "port": 5173,
+      "autoPort": false
+    },
+    {
+      "name": "startnet",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "preview:full"
+      ],
+      "port": 4000,
+      "autoPort": false
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+/* /women/summit/awards. Prefix: .women-awards (mobile first; accent from [data-brand="women"]). */
+.women-awards__hero-meta { --cluster-gap: var(--space-2); }
+
+/* Why + context stat */
+.women-awards__why { display: grid; gap: var(--space-10); align-items: center; }
+@media (min-width: 1024px) { .women-awards__why { grid-template-columns: 7fr 5fr; gap: var(--space-16); } }
+.women-awards__why-text { display: grid; gap: var(--space-4); justify-items: start; }
+.women-awards__why-text .h2 { max-width: 22ch; }
+.women-awards__why-text .body-lg { max-width: var(--measure); }
+.women-awards__why-stat {
+  min-width: 0; padding: var(--space-8);
+  background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius);
+}
+.women-awards__why-stat .stat { border-top: 0; padding-top: 0; }
+
+/* Categories */
+.women-awards__cats {
+  list-style: none; margin: var(--space-8) 0 0; padding: 0; display: grid; gap: var(--space-6);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 768px) { .women-awards__cats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .women-awards__cats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.women-awards__cats > li { min-width: 0; } /* the li is the card (RevealGroup reuses it) */
+.women-awards__cat {
+  display: grid; gap: var(--space-3); align-content: start; justify-items: start; width: 100%; height: 100%;
+  padding: var(--space-6); background: var(--bp-card);
+  box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius);
+  position: relative; overflow: hidden;
+  transition: box-shadow var(--dur-3) var(--ease-snap);
+}
+/* Framed-card top rule (DESIGN-v2 3.7) */
+.women-awards__cat::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--color-text);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+@media (hover: hover) and (pointer: fine) {
+  .women-awards__cat:hover { box-shadow: inset 0 0 0 1px var(--bp-line-strong); }
+  .women-awards__cat:hover::before { transform: scaleX(1); }
+}
+.women-awards__cat .h4, .women-awards__cat h3 { font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); }
+.women-awards__cat-num { font-variant-numeric: tabular-nums lining-nums; font-weight: 400; font-size: var(--text-meta); line-height: 1; color: var(--color-text-muted); }
+.women-awards__note { margin-top: var(--space-6); font-size: var(--text-small); color: var(--color-text-2); }
+
+/* Criteria + jury */
+.women-awards__split { align-items: start; }
+.women-awards__criteria { list-style: none; margin: var(--space-6) 0 0; padding: 0; display: grid; counter-reset: wa-crit; border-top: 1px solid var(--color-border); }
+.women-awards__criterion {
+  counter-increment: wa-crit; position: relative; display: grid; gap: var(--space-1);
+  padding: var(--space-5) 0 var(--space-5) var(--space-12); border-bottom: 1px solid var(--color-border);
+}
+.women-awards__criterion::before {
+  content: counter(wa-crit, decimal-leading-zero); position: absolute; left: 0; top: var(--space-5);
+  font-weight: 400; font-size: var(--text-meta); line-height: 1.6; color: var(--color-text-muted); font-variant-numeric: tabular-nums lining-nums;
+}
+.women-awards__criterion p { max-width: var(--measure); }
+.women-awards__jury {
+  display: grid; gap: var(--space-4); align-content: start;
+  padding: var(--space-6); background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius);
+}
+.women-awards__jury-dl { margin: 0; display: grid; font-size: var(--text-small); border-top: var(--border-hair); }
+.women-awards__jury-dl div { display: grid; gap: var(--space-1); padding: var(--space-3) 0; border-bottom: var(--border-hair); }
+.women-awards__jury-dl dt { color: var(--color-text-muted); }
+.women-awards__jury-dl dd { margin: 0; }
+
+/* Timeline: vertical on phones and tablets, a row from desktop */
+.women-awards__timeline-wrap { margin-top: var(--space-8); }
+.women-awards__timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-6); position: relative; }
+.women-awards__step { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-4); align-items: start; position: relative; }
+.women-awards__step-dot {
+  position: relative; z-index: 1; display: grid; place-items: center; width: 2.5rem; height: 2.5rem;
+  border-radius: var(--radius-full); background: var(--color-bg); color: var(--color-text-2);
+  box-shadow: inset 0 0 0 1px var(--color-border-control);
+  font-weight: 500; font-size: var(--text-meta); font-variant-numeric: tabular-nums lining-nums;
+}
+.women-awards__step:first-child .women-awards__step-dot { background: var(--accent-fill); box-shadow: none; color: var(--accent-on-fill); }
+.women-awards__step:not(:last-child)::after {
+  content: ''; position: absolute; left: calc(1.25rem - 0.5px); top: 2.5rem; bottom: calc(-1 * var(--space-6));
+  width: 1px; background: var(--color-border);
+}
+.women-awards__step-body { display: grid; gap: var(--space-1); padding-top: var(--space-2); }
+@media (min-width: 1024px) {
+  .women-awards__timeline { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-4); }
+  .women-awards__step { grid-template-columns: minmax(0, 1fr); }
+  .women-awards__step:not(:last-child)::after {
+    left: 2.5rem; right: calc(-1 * var(--space-4)); top: calc(1.25rem - 0.5px); bottom: auto; width: auto; height: 1px;
+  }
+  .women-awards__step-body { padding-top: 0; }
+}
+
+/* Form */
+.women-awards__form-grid { display: grid; gap: var(--space-10); align-items: start; }
+@media (min-width: 1024px) { .women-awards__form-grid { grid-template-columns: 5fr 7fr; gap: var(--space-16); } }
+.women-awards__form-intro { display: grid; gap: var(--space-4); }
+.women-awards__form { min-width: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .women-awards__cat { transition: none; }
+  .women-awards__cat:hover { transform: none; }
+}
+
+/* Tablet 768–1023: no 2 + 1 orphan. A set of exactly three runs as one row of three (as .grid-3 in base.css); any
+   other odd last card takes the full row, and a card with media turns horizontal (media 5 / body 7). */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .women-awards__cats:has(> :nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+  .women-awards__cats:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .women-awards__cats:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) {
+    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--space-6); align-items: stretch;
+  }
+  .women-awards__cats:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media { width: 100%; height: 100%; min-width: 0; margin-bottom: 0; }
+  .women-awards__cats:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media .art-image { aspect-ratio: auto !important; width: 100%; height: 100%; min-height: 12rem; }
+}

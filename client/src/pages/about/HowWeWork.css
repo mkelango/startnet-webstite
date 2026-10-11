@@ -1,0 +1,95 @@
+/* /about/how-we-work */
+.hww-arch { margin-top: var(--space-10); }
+
+/* Four doors: flat var(--card) cards, hairline, 12px frame; the brand is a small accent dot, not a top bar. */
+.hww-doors { list-style: none; display: grid; gap: var(--space-6); margin-top: var(--space-10); grid-template-columns: minmax(0, 1fr); }
+/* Four doors: 2 × 2 from 640 to 1279, one row of four from 1280 (never 3 + 1). */
+@media (min-width: 640px) { .hww-doors { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .hww-doors { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.hww-door {
+  display: flex; flex-direction: column; overflow: hidden;
+  position: relative;
+  background: var(--white); box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-media);
+  transition: box-shadow var(--dur-2) var(--ease-snap);
+}
+/* Framed-card top rule (DESIGN-v2 3.7) */
+.hww-door::before {
+  content: ''; position: absolute; inset: 0 0 auto; height: 2px; z-index: 2; background: var(--color-text);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+.hww-door:focus-within { box-shadow: inset 0 0 0 1px var(--line-strong); }
+@media (hover: hover) and (pointer: fine) { .hww-door:hover { box-shadow: inset 0 0 0 1px var(--line-strong); } }
+.hww-door:focus-within::before { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { .hww-door:hover::before { transform: scaleX(1); } }
+.hww-door__art { filter: grayscale(1) contrast(1.05); transition: filter var(--dur-4) var(--ease-standard); }
+.hww-door:hover .hww-door__art, .hww-door:focus-within .hww-door__art { filter: none; }
+.hww-door__body { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-6); flex: 1; align-items: flex-start; }
+.hww-door__name { margin: 0; display: flex; align-items: center; gap: var(--space-3); font-weight: 500; letter-spacing: -0.01em; }
+.hww-door__name::before {
+  content: ''; flex: none; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent-fill, var(--accent));
+}
+.hww-door__journey { font-weight: 500; color: var(--accent-text); font-size: var(--text-small); }
+.hww-door__text { color: var(--color-text-2); font-size: var(--text-small); }
+.hww-door__subs { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-1); font-size: var(--text-small); margin-bottom: auto; padding-bottom: var(--space-2); margin-inline-start: calc(-1 * var(--space-2)); }
+.hww-door__subs a { color: var(--color-text-muted); text-decoration-color: var(--accent); display: inline-flex; align-items: center; min-height: 44px; padding-inline: var(--space-2); border-radius: var(--btn-radius); }
+.hww-door__subs a:hover { color: var(--color-text); }
+
+.hww-engines { margin-top: var(--space-10); }
+
+/* One platform: AngelList feature row (text left, framed media right). */
+.hww-split { display: grid; gap: var(--space-10); align-items: center; }
+@media (min-width: 1024px) { .hww-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-16); } }
+.hww-split__text { display: flex; flex-direction: column; gap: var(--space-5); align-items: flex-start; }
+.hww-split__text .eyebrow { gap: var(--space-2); }
+.hww-split__text .body-lg { color: var(--color-text-2); max-width: 36rem; }
+.hww-split__text .button { margin-top: var(--space-3); }
+.hww-split__art { border-radius: var(--media-radius); overflow: hidden; }
+
+/* Night band: the founder ladder. The attribution rule closes it under a hairline (no coloured bar). */
+.hww-ladder { margin-top: var(--space-10); }
+.hww-attrib { margin-top: var(--space-12); padding-top: var(--space-6); border-top: 1px solid var(--color-border); max-width: 60ch; color: var(--color-text-2); }
+.hww-attrib__k { font-size: var(--text-small); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--color-text-muted); margin-bottom: var(--space-2); }
+
+/* How the money works: hairline rows. */
+.hww-money__title { font-size: var(--text-h2); max-width: 16ch; margin-top: var(--space-4); }
+.hww-money { list-style: none; border-top: 1px solid var(--color-border); }
+.hww-money__row { display: grid; gap: var(--space-1); padding-block: var(--space-5); border-bottom: 1px solid var(--color-border); }
+@media (min-width: 768px) { .hww-money__row { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--space-6); align-items: baseline; } }
+.hww-money__who { font-weight: 400; font-size: var(--text-h4); letter-spacing: -0.015em; line-height: 1.25; }
+.hww-money__what { color: var(--color-text-2); }
+
+/* Three horizons: one blueprint frame, three cells between hairlines; the horizon rises cell by cell. */
+.hww-horizons {
+  list-style: none; display: grid; gap: 1px; margin-top: var(--space-10);
+  background: var(--hairline); border: 1px solid var(--hairline); border-radius: var(--radius-media); overflow: hidden;
+}
+@media (min-width: 768px) { .hww-horizons { grid-template-columns: repeat(3, 1fr); } }
+.hww-horizon {
+  position: relative; display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-8) var(--space-6) calc(var(--space-8) + 4rem); min-height: 16rem;
+  background: var(--white); overflow: hidden;
+}
+.hww-horizon::before {
+  /* rising horizon: a soft Lagoon light under a hairline, each step a little higher */
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+  height: calc((var(--n) + 1) * 1.5rem + 1rem);
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--lagoon, #117780) 9%, transparent), color-mix(in srgb, var(--lagoon, #117780) 2%, transparent));
+  border-top: 1px solid var(--line-strong); z-index: 0;
+}
+.hww-horizon > * { position: relative; z-index: 1; }
+.hww-horizon__years { font-weight: 500; font-size: var(--text-small); color: var(--color-text-muted); }
+.hww-horizon__name { margin: 0; font-weight: 500; letter-spacing: var(--tracking-h3, -0.015em); line-height: 1.15; }
+.hww-horizon__years { font-variant-numeric: tabular-nums; }
+.hww-horizon__focus { color: var(--color-text-2); max-width: 32ch; }
+.hww-horizons__tag { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-6); font-size: var(--text-small); color: var(--color-text-muted); }
+
+:lang(ta) .hww-money__title { max-width: 20ch; }
+:lang(ta) .hww-money__who { font-size: var(--text-body-lg); }
+:lang(ta) :is(.hww-door__name, .hww-horizon__name) { letter-spacing: 0; }
+:lang(ta) .hww-money__who { letter-spacing: 0; }
+
+/* Touch screens have no hover to bring the colour back, so the door images show in colour there. */
+@media (hover: none) {
+  .hww-door__art { filter: none; }
+}

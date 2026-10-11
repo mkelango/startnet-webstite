@@ -1,0 +1,93 @@
+/* CTA band (DESIGN-v2 3.15 / AIWO P15): straight edges, --space-section padding, a left-aligned statement at
+   --text-display-xl (400), lede 40ch below, filled + ring buttons left, one thin hairline arc bottom-right. */
+.cta-band {
+  position: relative;
+  padding-block: var(--space-section);
+  background: var(--bone);
+  color: var(--color-text);
+  overflow: clip;
+  isolation: isolate;
+}
+.cta-band--night { background: var(--night-0); }
+:root .section--night + .cta-band--night,
+:root .cta-band--night + .cta-band--night { border-top: 1px solid var(--night-line); }
+.cta-band--accent {
+  --color-bg: var(--accent-fill);
+  --color-text: var(--accent-on-fill);
+  --color-text-2: var(--accent-on-fill);
+  --color-text-muted: var(--accent-on-fill);
+  --color-link: var(--accent-on-fill);
+  --color-link-standalone: var(--accent-on-fill);
+  --color-focus: var(--accent-on-fill);
+  --color-label-dot: var(--accent-on-fill);
+  --accent-text: var(--accent-on-fill);
+  background: var(--accent-fill);
+  color: var(--accent-on-fill);
+}
+/* On an accent fill the primary button inverts */
+.cta-band--accent .button--primary,
+.cta-band--accent .button--brand {
+  --button-bg: var(--accent-on-fill);
+  --button-fg: var(--accent-fill);
+  --button-bg-hover: color-mix(in srgb, var(--accent-on-fill) 88%, var(--accent-fill));
+  --button-fg-hover: var(--accent-fill);
+}
+.cta-band--accent .dot { color: inherit; }
+
+/* One thin hairline arc (AIWO P15): a 1px circle outline partly off-canvas at the bottom right. Static, decorative,
+   behind the text. Paper / Bone: --line-strong; Ink: --night-line-strong; brand fill: the on-fill colour at 24%. */
+.cta-band__arc {
+  position: absolute;
+  z-index: -1;
+  right: max(-22rem, -24vw);
+  bottom: max(-30rem, -34vw);
+  width: min(62rem, 72vw);
+  height: auto;
+  aspect-ratio: 1;
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+.cta-band--night .cta-band__arc { stroke: var(--night-line-strong); }
+.cta-band--accent .cta-band__arc { stroke: color-mix(in srgb, var(--accent-on-fill) 24%, transparent); }
+@media (max-width: 767.98px) { .cta-band__arc { right: -40vw; bottom: -52vw; width: 110vw; } }
+
+/* Left-aligned statement on the 12-col grid: text in cols 1–8, the buttons under it */
+.cta-band__inner { display: grid; justify-items: start; gap: var(--space-10); text-align: left; }
+.cta-band__text { min-width: 0; display: grid; justify-items: start; max-width: 54rem; }
+@media (min-width: 1024px) { .cta-band__text { max-width: calc((100% - 11 * 32px) / 12 * 8 + 7 * 32px); } }
+.cta-band__eyebrow { margin-bottom: var(--space-6); }
+:root .cta-band__title {
+  margin: 0;
+  font-size: var(--text-display-xl);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: var(--tracking-display);
+  max-width: 16ch;
+  text-align: left;
+  text-wrap: balance;
+}
+/* Tamil words run long: one step down so a single word never widens the band (Book 3 §4.4). */
+:root .cta-band__title:lang(ta) { font-size: min(var(--text-h2, 2rem), 2rem); letter-spacing: 0; line-height: 1.3; overflow-wrap: break-word; max-width: 26ch; }
+@media (max-width: 359.98px) { :root .cta-band__title:lang(ta) { font-size: 1.375rem; overflow-wrap: anywhere; } }
+.cta-band__body { margin-top: var(--space-8); width: 100%; max-width: 40ch; text-align: left; color: var(--color-text-2); }
+:lang(ta) .cta-band__body { max-width: 36em; }
+.cta-band__actions { display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: center; gap: var(--space-3); }
+/* AIWO 1.5: the CTA band is the one place with a filled button and a ring side by side, both 56px. */
+:root .cta-band__actions > .button:not(.button--tertiary):not(.button--sm) { min-height: 56px; padding-inline: 32px; font-size: 1rem; }
+:root .cta-band__actions > .button ~ .button:is(.button--primary, .button--inverse) {
+  --button-bg: transparent; --button-fg: var(--color-text); --button-ring: var(--line-strong);
+  --button-bg-hover: rgb(12 23 25 / 0.04); --button-fg-hover: var(--color-text); --button-ring-hover: var(--color-text);
+  --button-bg-active: rgb(12 23 25 / 0.08);
+}
+:root .cta-band--night .cta-band__actions > .button ~ .button:is(.button--primary, .button--inverse),
+:root [data-surface='night'] .cta-band__actions > .button ~ .button:is(.button--primary, .button--inverse) {
+  --button-fg: var(--paper); --button-ring: rgb(244 243 239 / 0.32);
+  --button-bg-hover: rgb(244 243 239 / 0.08); --button-fg-hover: var(--paper); --button-ring-hover: var(--paper);
+  --button-bg-active: rgb(244 243 239 / 0.12);
+}
+@media (max-width: 479px) { .cta-band__actions > .button:not(.button--tertiary) { flex: 1 1 100%; } }
+/* A footnote passed with the actions: a full-width line under the buttons, left-aligned, muted */
+.cta-band__actions > :is(p, small) { flex: 1 1 100%; max-width: 48ch; margin: var(--space-3) 0 0; text-align: left; font-size: var(--text-meta); color: var(--color-text-muted); }

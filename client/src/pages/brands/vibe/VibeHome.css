@@ -1,0 +1,78 @@
+/* StartNet Vibe home: the student brand hub as AngelList-family sheets. The Vibe orange stays in the hero frame,
+   the pulse, dots and the brand button; everything else is ink on paper with hairlines. */
+
+/* ---------- Hero: the foundation BrandHero (16/10 media bleeding right, meta row in flow) ---------- */
+.vibe-home__hero-meta { --cluster-gap: var(--space-2); }
+
+/* ---------- Journey ---------- */
+.vibe-home__journey { margin-top: var(--space-12); }
+
+/* ---------- Four ways in: FeatureTabs (4/8 at ≥1024, accordion below) ---------- */
+.vibe-home__ways { margin-top: var(--space-2); }
+.vibe-ways__body { display: grid; gap: var(--space-3); justify-items: start; padding-bottom: var(--space-6); }
+.vibe-ways__body > p { margin: 0; max-width: 44ch; }
+.vibe-ways__meta { display: inline-flex; align-items: center; gap: 0.6em; font-size: var(--text-meta); font-weight: 500; color: var(--color-text); }
+.vibe-ways__meta::before { content: ''; flex: none; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--color-label-dot); }
+.vibe-home__ways .feature-tabs__panel .art-image { aspect-ratio: 4 / 3; }
+/* Collapsed tabs and inactive media panels leave the tab order (they stay in the DOM and in the prerender) */
+.vibe-home__ways .feature-tabs__body:not([data-open]) .feature-tabs__body-inner { visibility: hidden; transition: visibility 0s 400ms; }
+.vibe-home__ways .feature-tabs__panel:not(.is-active) { visibility: hidden; transition: opacity 400ms var(--ease-standard), visibility 0s 400ms; }
+.vibe-home__ways-more { margin-top: var(--space-10); padding-top: var(--space-5); border-top: 1px solid var(--color-border); display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
+
+/* ---------- Statement: Academy (text left, media frame right) ---------- */
+.vibe-home__statement-text { display: grid; gap: var(--space-5); justify-items: start; }
+.vibe-home__statement-text .eyebrow { margin-bottom: 0; }
+.vibe-home__statement-title { max-width: 14ch; }
+.vibe-home__langs { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.vibe-home__lang {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 40px; padding: var(--space-1) var(--space-4);
+  border: 1px solid var(--color-border); border-radius: var(--btn-radius);
+  background: transparent; font-weight: 500;
+}
+.vibe-home__lang svg { color: var(--color-text-2); }
+.vibe-home__lang--ta { font-family: "Anek Tamil Variable", var(--font-sans); font-size: 1.05em; }
+/* English pages: system Tamil face instead of the 50 KB Anek webfont (the /ta pages already load Anek) */
+html:not([lang="ta"]) .vibe-home__lang--ta,
+html:not([lang="ta"]) .vibe-home__academy-glyph:not(.vibe-home__academy-glyph--en) {
+  font-family: "Nirmala UI", "Tamil Sangam MN", "Noto Sans Tamil Variable", sans-serif;
+}
+.vibe-home__fee { padding: var(--space-5) 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); width: 100%; }
+.vibe-home__academy-frame { display: block; }
+.vibe-home__academy-art { position: relative; border-radius: var(--media-radius); overflow: hidden; }
+/* The two scripts as quiet paper glyphs on the photo (regular weight; orange only on the Tamil letter) */
+.vibe-home__academy-glyph {
+  /* Bottom-right, clear of the photo caption (bottom-left) */
+  position: absolute; right: 7%; bottom: 2%; z-index: 2;
+  font-family: "Anek Tamil Variable", var(--font-display);
+  font-size: clamp(6rem, 4rem + 10vw, 13rem); font-weight: 400; line-height: 1;
+  color: var(--accent-night);
+  pointer-events: none;
+}
+.vibe-home__academy-glyph--en {
+  right: auto; left: 7%; top: 5%; bottom: auto;
+  color: var(--night-text); font-family: var(--font-display); font-weight: 400; letter-spacing: -0.04em;
+}
+
+/* ---------- Programmes, events, stories ---------- */
+.vibe-home__programmes, .vibe-home__stories { margin-top: var(--space-8); }
+.vibe-home__story-slot {
+  display: grid; grid-template-rows: auto 1fr;
+  background: var(--bp-card); border-radius: var(--media-radius); overflow: hidden;
+  border: 1px dashed var(--color-border-control);
+}
+.vibe-home__story-body { display: grid; gap: var(--space-2); padding: var(--space-5); align-content: start; }
+
+/* ---------- Colleges: one flat hairline row ---------- */
+/* The band has its own sheet, so the row needs no card frame */
+.vibe-home__colleges { display: grid; gap: var(--space-6); align-items: end; }
+.vibe-home__colleges > div:first-child { display: grid; gap: var(--space-4); }
+.vibe-home__colleges .eyebrow { margin-bottom: var(--space-1); }
+.vibe-home__colleges .h3 { font-size: var(--text-h2); font-weight: 500; letter-spacing: var(--tracking-heading); }
+@media (min-width: 1024px) { .vibe-home__colleges { grid-template-columns: 1fr auto; gap: var(--space-12); } }
+
+/* V-R1: Tamil colleges strip. With the CTA beside it at 1024–1279 the heading column shrank to ~180 px and
+   "உருவாக்குநர்களைக்" split mid-word; Tamil keeps the stacked layout until 1280. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  :lang(ta) .vibe-home__colleges { grid-template-columns: minmax(0, 1fr); justify-items: start; }
+}

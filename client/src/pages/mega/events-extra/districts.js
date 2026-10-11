@@ -1,0 +1,50 @@
+// The 38 districts of Tamil Nadu (English, Tamil). Page-local list for the host and interest forms.
+export const TN_DISTRICTS = [
+  ['ariyalur', 'Ariyalur', 'அரியலூர்'],
+  ['chengalpattu', 'Chengalpattu', 'செங்கல்பட்டு'],
+  ['chennai', 'Chennai', 'சென்னை'],
+  ['coimbatore', 'Coimbatore', 'கோயம்புத்தூர்'],
+  ['cuddalore', 'Cuddalore', 'கடலூர்'],
+  ['dharmapuri', 'Dharmapuri', 'தருமபுரி'],
+  ['dindigul', 'Dindigul', 'திண்டுக்கல்'],
+  ['erode', 'Erode', 'ஈரோடு'],
+  ['kallakurichi', 'Kallakurichi', 'கள்ளக்குறிச்சி'],
+  ['kancheepuram', 'Kancheepuram', 'காஞ்சிபுரம்'],
+  ['kanniyakumari', 'Kanniyakumari', 'கன்னியாகுமரி'],
+  ['karur', 'Karur', 'கரூர்'],
+  ['krishnagiri', 'Krishnagiri', 'கிருஷ்ணகிரி'],
+  ['madurai', 'Madurai', 'மதுரை'],
+  ['mayiladuthurai', 'Mayiladuthurai', 'மயிலாடுதுறை'],
+  ['nagapattinam', 'Nagapattinam', 'நாகப்பட்டினம்'],
+  ['namakkal', 'Namakkal', 'நாமக்கல்'],
+  ['nilgiris', 'Nilgiris', 'நீலகிரி'],
+  ['perambalur', 'Perambalur', 'பெரம்பலூர்'],
+  ['pudukkottai', 'Pudukkottai', 'புதுக்கோட்டை'],
+  ['ramanathapuram', 'Ramanathapuram', 'இராமநாதபுரம்'],
+  ['ranipet', 'Ranipet', 'இராணிப்பேட்டை'],
+  ['salem', 'Salem', 'சேலம்'],
+  ['sivaganga', 'Sivaganga', 'சிவகங்கை'],
+  ['tenkasi', 'Tenkasi', 'தென்காசி'],
+  ['thanjavur', 'Thanjavur', 'தஞ்சாவூர்'],
+  ['theni', 'Theni', 'தேனி'],
+  ['thoothukudi', 'Thoothukudi', 'தூத்துக்குடி'],
+  ['tiruchirappalli', 'Tiruchirappalli', 'திருச்சிராப்பள்ளி'],
+  ['tirunelveli', 'Tirunelveli', 'திருநெல்வேலி'],
+  ['tirupathur', 'Tirupathur', 'திருப்பத்தூர்'],
+  ['tiruppur', 'Tiruppur', 'திருப்பூர்'],
+  ['tiruvallur', 'Tiruvallur', 'திருவள்ளூர்'],
+  ['tiruvannamalai', 'Tiruvannamalai', 'திருவண்ணாமலை'],
+  ['tiruvarur', 'Tiruvarur', 'திருவாரூர்'],
+  ['vellore', 'Vellore', 'வேலூர்'],
+  ['viluppuram', 'Viluppuram', 'விழுப்புரம்'],
+  ['virudhunagar', 'Virudhunagar', 'விருதுநகர்'],
+];
+
+/** Select options for a district field. `t` comes from useLang(). */
+export function districtOptions(t, { emptyLabel } = {}) {
+  return [
+    { value: '', label: emptyLabel || t('Choose a district', 'மாவட்டத்தைத் தேர்ந்தெடுக்கவும்') },
+    ...TN_DISTRICTS.map(([value, en, ta]) => ({ value, label: t(en, ta) })),
+    { value: 'outside-tn', label: t('Outside Tamil Nadu', 'தமிழ்நாட்டுக்கு வெளியே') },
+  ];
+}

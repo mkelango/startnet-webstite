@@ -1,0 +1,32 @@
+/* Empty state (DESIGN-v2 3.18): a Card-framed block (min-height 240px) with a mono line mini-art and the
+   existing sentence. Left-aligned like every other paragraph. */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  gap: var(--space-3);
+  min-height: 240px;
+  padding: 32px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-media);
+  background: var(--card);
+}
+:root :is(.section--white, .section--sunken) .empty-state { background: var(--white); }
+:root [data-surface='night'] .empty-state { background: var(--night-1); border-color: var(--night-line); }
+.empty-state__art { width: 80px; height: auto; margin-bottom: var(--space-2); }
+.empty-state__base { fill: none; stroke: var(--ink-200); stroke-width: 1; }
+.empty-state__line { fill: none; stroke: var(--ink-300); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 3 4; }
+.empty-state__ring { fill: var(--card); stroke: var(--ink-900); stroke-width: 2; }
+:root [data-surface='night'] .empty-state__base { stroke: var(--night-line-strong); }
+:root [data-surface='night'] .empty-state__ring { fill: var(--night-1); stroke: var(--paper); }
+.empty-state__title { color: var(--color-text); }
+.empty-state__body { color: var(--color-text-2); max-width: 44ch; }
+.empty-state__action { margin-top: var(--space-3); }
+
+/* Phones: 24px padding (was 32); Tamil titles at 17px so "பட்டியலிடப்படவில்லை." stays whole at 320 */
+@media (max-width: 399.98px) {
+  .empty-state { padding: 24px; }
+  .empty-state__title:lang(ta) { font-size: 1.0625rem; }
+}

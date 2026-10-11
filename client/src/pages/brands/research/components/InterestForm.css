@@ -1,0 +1,6 @@
+.rinterest { display: grid; gap: var(--space-10); scroll-margin-top: calc(var(--header-h) + var(--subnav-h) + var(--space-6)); }
+@media (min-width: 1024px) { .rinterest { grid-template-columns: 5fr 7fr; gap: var(--space-16); align-items: start; } }
+.rinterest__title { margin-top: var(--space-5); }
+.rinterest__body { margin-top: var(--space-5); max-width: 40ch; }
+.rinterest__wa { margin-top: var(--space-8); display: grid; gap: var(--space-3); justify-items: start; }
+.rinterest__form { min-width: 0; } /* framed by the global .form-card (White, 12px, hairline ring) */

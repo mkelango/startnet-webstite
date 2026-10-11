@@ -1,0 +1,194 @@
+/* Vibathon 2027: the campaign page in the AngelList family. A flat ink hero (the wordmark, the pulse and an offset
+   orange frame carry the campaign), then paper sheets with hairline rows and flat cards. */
+
+/* ---------- Hero (DESIGN-v2 3.5 / 6.2): Ink band, copy top-aligned, the photo clips in once (CSS, SSR-safe). No offset
+   frame and no floating pulse card. The first Paper sheet rises over the band (the page's one rise). ---------- */
+.vibathon__hero { position: relative; overflow: hidden; isolation: isolate; }
+.vibathon__hero-crumbs { padding-top: var(--space-6); }
+.vibathon__hero-grid {
+  display: grid; gap: var(--space-12);
+  padding-block: var(--space-10) calc(var(--space-16) + var(--sheet-radius));
+}
+@media (min-width: 1024px) {
+  .vibathon__hero-grid { grid-template-columns: 7fr 5fr; align-items: start; gap: 32px; padding-block: var(--space-12) calc(var(--space-16) + var(--sheet-radius)); }
+}
+.vibathon__hero-copy { display: grid; gap: var(--space-5); justify-items: start; min-width: 0; }
+.vibathon__hero-chips { --cluster-gap: var(--space-2); }
+
+/* The Vibathon wordmark: large, tight, regular weight; the year in tabular lining figures */
+.vibathon__title {
+  font-family: var(--font-display);
+  font-size: clamp(3.25rem, 1.5rem + 8vw, 8.5rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums lining-nums;
+  text-wrap: balance;
+}
+:lang(ta) .vibathon__title { letter-spacing: 0; }
+.vibathon__endorse {
+  margin-top: calc(var(--space-2) * -1);
+  font-size: var(--text-lede); font-weight: 400;
+  color: var(--color-text-2);
+}
+.vibathon__endorse a { color: var(--color-text); text-decoration-color: var(--accent-night); text-decoration-thickness: 1px; text-underline-offset: 0.2em; font-weight: 500; }
+@media (hover: hover) { .vibathon__endorse a:hover { text-decoration-thickness: 2px; } }
+.vibathon__lede { font-size: var(--text-lede); line-height: 1.45; color: var(--color-text-2); max-width: 40ch; }
+:lang(ta) .vibathon__lede { max-width: 36em; }
+.vibathon__hero-actions { --cluster-gap: var(--space-3); margin-top: var(--space-2); }
+/* Mobile audit: as on every other brand hero (BrandHero.css), full-width stacked CTAs on phones. */
+@media (max-width: 479.98px) {
+  .vibathon__hero-actions { width: 100%; }
+  .vibathon__hero-actions > .button:not(.button--tertiary) { flex: 1 1 100%; }
+}
+.vibathon__micro { font-size: var(--text-meta); color: var(--color-text-muted); max-width: 56ch; font-variant-numeric: tabular-nums lining-nums; }
+
+.vibathon__hero-art { position: relative; max-width: 30rem; width: 100%; justify-self: end; }
+.vibathon__hero-art > :first-child { border-radius: var(--media-radius); overflow: hidden; background: var(--night-1); }
+@media (max-width: 1023.98px) { .vibathon__hero-art { justify-self: start; max-width: 36rem; } }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) .vibathon__hero-art > :first-child { animation: vibathon-media-in 900ms var(--ease-reveal) 120ms both; }
+}
+@keyframes vibathon-media-in {
+  from { clip-path: inset(6% 6% 6% 6% round 12px); transform: scale(1.04); }
+  to { clip-path: inset(0 round 12px); transform: none; }
+}
+/* The one sheet rise: the figures sheet slides over the Ink hero band (no shadow) */
+:root .vibathon__hero + .section {
+  position: relative; z-index: 1;
+  margin-top: calc(-1 * var(--sheet-radius));
+  border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
+}
+
+/* ---------- What it is: three numbered columns between hairlines ---------- */
+.vibathon__what { list-style: none; display: grid; margin-top: var(--space-10); border-top: 1px solid var(--color-border); }
+@media (min-width: 768px) { .vibathon__what { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.vibathon__what > * { min-width: 0; }
+.vibathon__what-item { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-6) 0 var(--space-8); border-bottom: 1px solid var(--color-border); }
+@media (min-width: 768px) {
+  .vibathon__what-item { height: 100%; padding: var(--space-8) var(--space-6) var(--space-4); border-bottom: 0; }
+  .vibathon__what > :first-child, .vibathon__what > :first-child .vibathon__what-item { padding-left: 0; }
+  .vibathon__what > * + * { border-left: 1px solid var(--color-border); }
+}
+.vibathon__what-num { font-size: var(--text-meta); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.vibathon__what-icon-wrap { display: inline-flex; justify-self: start; margin-block: var(--space-2); }
+.vibathon__what-icon { display: inline-flex; color: var(--color-text); }
+.vibathon__what-icon svg { width: 32px; height: 32px; }
+
+/* ---------- Season ---------- */
+.vibathon__timeline { margin-top: var(--space-12); }
+.vibathon__district {
+  margin-top: var(--space-12);
+  display: grid; gap: var(--space-4); align-items: center;
+  padding: var(--space-6); border-radius: var(--media-radius);
+  background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line);
+}
+.vibathon__district > div { display: grid; gap: var(--space-1); }
+.vibathon__district-icon { color: var(--color-text); }
+@media (min-width: 768px) { .vibathon__district { grid-template-columns: auto 1fr auto; padding: var(--space-6) var(--space-8); gap: var(--space-6); } }
+
+/* ---------- Tracks ---------- */
+.vibathon__tracks { margin-top: var(--space-10); }
+
+/* ---------- Rules: hairline rows with a small accent point ---------- */
+.vibathon__rules { align-items: start; }
+.vibathon__rules-copy { display: grid; gap: var(--space-8); }
+.vibathon__rules-list { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
+.vibathon__rules-list li {
+  position: relative; padding: var(--space-4) 0 var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-2);
+}
+.vibathon__rules-list li::before {
+  content: ""; position: absolute; left: 0; top: calc(var(--space-4) + 0.62em);
+  width: 6px; height: 6px; border-radius: 50%; background: var(--color-text);
+}
+.vibathon__rules-list strong { color: var(--color-text); font-weight: 500; }
+
+/* ---------- Prizes: flat cards; the one accent mark is the dot on what comes next ---------- */
+.vibathon__prizes { display: grid; gap: var(--space-10) 32px; margin-top: var(--space-12); grid-template-columns: 1fr; }
+@media (min-width: 640px) and (max-width: 767.98px) { .vibathon__prizes { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 768px) { .vibathon__prizes { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); } }
+.vibathon__prize {
+  position: relative; display: grid; gap: var(--space-3); align-content: start; height: 100%;
+  padding: 28px 0 0; border-top: 1px solid var(--color-text); /* AIWO top-rule columns (P7 / P14) */
+}
+.vibathon__prize .h5 { font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); }
+.vibathon__prize--launchpad .h5 { display: inline-flex; align-items: center; gap: 0.5em; }
+.vibathon__prize--launchpad .h5::before { content: ""; flex: none; width: 0.4em; height: 0.4em; border-radius: 50%; background: var(--color-label-dot); }
+.vibathon__prize-stat { margin-top: var(--space-2); padding-top: var(--space-4); border-top: 1px solid var(--color-border); display: grid; gap: var(--space-1); }
+.vibathon__jury { margin-top: var(--space-8); }
+
+/* ---------- Partners ---------- */
+.vibathon__paths { display: grid; gap: var(--space-6); margin-top: var(--space-10); }
+@media (min-width: 768px) { .vibathon__paths { grid-template-columns: 1fr 1fr; } }
+.vibathon__path {
+  display: grid; gap: var(--space-4); align-content: start;
+  position: relative; overflow: hidden;
+  padding: var(--space-8); border-radius: var(--media-radius);
+  background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line);
+  transition: box-shadow var(--dur-3) var(--ease-snap);
+}
+/* Framed-card top rule (DESIGN-v2 3.7) */
+.vibathon__path::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--color-text);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+.vibathon__path:focus-within { box-shadow: inset 0 0 0 1px var(--bp-line-strong); }
+.vibathon__path:focus-within::before { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) {
+  .vibathon__path:hover { box-shadow: inset 0 0 0 1px var(--bp-line-strong); }
+  .vibathon__path:hover::before { transform: scaleX(1); }
+}
+.vibathon__path .h4 { font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); }
+.vibathon__path-icon { color: var(--color-text); width: 28px; height: 28px; }
+
+.vibathon__tiers { margin-top: var(--space-16); display: grid; gap: var(--space-4); }
+.vibathon__tiers-head { display: grid; gap: var(--space-2); }
+.vibathon__tiers-scroll {
+  overflow-x: auto; border-radius: var(--media-radius); box-shadow: inset 0 0 0 1px var(--bp-line);
+  /* Scroll cue: a right-edge shade that shows while more columns sit off-screen. The "local" cover
+     scrolls with the table and hides the shade once the end is reached. */
+  background:
+    linear-gradient(to left, var(--bp-card) 40%, transparent) right center / 48px 100% no-repeat local,
+    linear-gradient(to left, rgb(0 0 0 / .14), transparent) right center / 20px 100% no-repeat scroll,
+    var(--bp-card);
+}
+.vibathon__tiers-hint { display: none; }
+@media (max-width: 639px) { .vibathon__tiers-hint { display: block; } }
+.vibathon__tiers-table { width: 100%; min-width: 36rem; background: transparent; border-collapse: collapse; font-size: var(--text-meta); font-variant-numeric: tabular-nums lining-nums; }
+.vibathon__tiers-table th, .vibathon__tiers-table td { padding: var(--space-4) var(--space-5); text-align: left; vertical-align: top; border-bottom: 1px solid var(--color-border); }
+.vibathon__tiers-table thead th { font-size: var(--text-meta); font-weight: 400; color: var(--color-text-muted); background: var(--bp-card); }
+.vibathon__tiers-table tbody tr:last-child > * { border-bottom: 0; }
+.vibathon__tiers-table tbody th { font-weight: 500; white-space: nowrap; }
+/* The Tier column stays put while the rest scrolls sideways */
+.vibathon__tiers-table th:first-child {
+  position: sticky; left: 0; z-index: 1;
+  background: var(--bp-card);
+  box-shadow: inset -1px 0 0 var(--color-border);
+}
+.vibathon__tiers-price { white-space: nowrap; font-weight: 500; }
+.vibathon__sponsors-note { margin-top: var(--space-2); }
+
+/* ---------- FAQ ---------- */
+.vibathon__faq { margin-top: var(--space-8); }
+
+/* Small phones: more width for long (Tamil) button labels, so none runs past two lines (M-07) */
+@media (max-width: 400px) {
+  .vibathon__path, .vibathon__district { padding: var(--space-5) var(--space-4); }
+  :lang(ta) .vibathon__path .cluster > .button,
+  :lang(ta) .vibathon__district > .button { width: 100%; }
+}
+@media (min-width: 401px) and (max-width: 767px) {
+  .vibathon__path { padding: var(--space-6); }
+}
+@media (max-width: 767px) {
+  .vibathon__tiers-table tbody th { white-space: normal; }
+}
+
+/* V-R1: three "What it is" columns are ~213 px at 768; the Tamil h3 "போட்டியிடுங்கள்" split mid-word.
+   Tamil takes one heading size smaller in this grid from 768 to 1279. */
+@media (min-width: 768px) and (max-width: 1279.98px) {
+  :lang(ta) .vibathon__what .h3 { font-size: var(--text-h4); line-height: 1.3; }
+}

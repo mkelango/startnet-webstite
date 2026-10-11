@@ -1,0 +1,121 @@
+/* Tabs, segmented controls and filter chips (DESIGN-v2 3.12). The indicator is drawn by components/_indicator.css. */
+.tabs { min-width: 0; }
+.tabs__scroller {
+  position: relative;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  /* 4px of room above and below (offset by the margins) so the selected tab's focus ring is not clipped */
+  padding-block: 4px;
+  margin-top: -4px;
+  margin-bottom: calc(var(--space-8) - 4px);
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent);
+}
+.tabs__scroller::-webkit-scrollbar { display: none; }
+@media (min-width: 768px) { .tabs__scroller { -webkit-mask-image: none; mask-image: none; } }
+.tabs__list { position: relative; display: flex; gap: var(--space-6); width: max-content; min-width: 100%; padding: 4px 4px 0; }
+@media (max-width: 767px) {
+  .tabs__scroller { scroll-padding-inline: 4px 40px; }
+  .tabs__list { padding-inline-end: 40px; }
+}
+.tabs__tab {
+  position: relative;
+  z-index: 1;
+  min-height: 48px;
+  padding: var(--space-3) 0 var(--space-4);
+  border: 0;
+  background: none;
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  white-space: nowrap;
+  transition: color var(--dur-2) var(--ease-snap);
+}
+.tabs__tab:focus-visible { outline-offset: 2px; border-radius: var(--radius-btn); }
+@media (hover: hover) { .tabs__tab:hover { color: var(--color-text); } }
+/* Static selected state (no JS / before measuring): Ink 500 */
+.tabs__tab[aria-selected='true'] { color: var(--color-text); font-weight: 500; }
+.tabs__panel:focus-visible { outline-offset: 4px; border-radius: var(--radius-btn); }
+
+/* Underline: 1px hairline base, 2px Ink indicator */
+.tabs--underline .tabs__list { box-shadow: inset 0 -1px 0 var(--color-border); }
+.tabs--underline .tabs__list:not([data-ind-ready]) .tabs__tab[aria-selected='true'] { box-shadow: inset 0 -2px 0 var(--color-text); }
+
+/* Pill segmented: hairline ring, 4px padding, 36px items; Ink pill + Paper text on the active item */
+.tabs--pill .tabs__scroller { mask-image: none; -webkit-mask-image: none; }
+.tabs--pill .tabs__list,
+.segmented {
+  position: relative;
+  display: inline-flex;
+  gap: 2px;
+  width: auto;
+  min-width: 0;
+  padding: 4px;
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+.tabs--pill .tabs__tab,
+.segmented__item {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--color-text-2);
+  font-size: var(--text-meta);
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--dur-2) var(--ease-snap), background-color var(--dur-2) var(--ease-snap);
+}
+.tabs--pill .tabs__tab[aria-selected='true'],
+.segmented__item:is([aria-selected='true'], [aria-pressed='true'], [aria-current]) { color: var(--paper); }
+/* Before measuring, the active item paints its own pill */
+.tabs--pill .tabs__list:not([data-ind-ready]) .tabs__tab[aria-selected='true'],
+.segmented:not([data-ind-ready]) .segmented__item:is([aria-selected='true'], [aria-pressed='true'], [aria-current]) { background: var(--sn-ink); }
+@media (hover: hover) {
+  .tabs--pill .tabs__tab:not([aria-selected='true']):hover,
+  .segmented__item:not([aria-selected='true'], [aria-pressed='true'], [aria-current]):hover { color: var(--color-text); }
+}
+:root [data-surface='night'] :is(.tabs--pill .tabs__tab, .segmented__item):is([aria-selected='true'], [aria-pressed='true'], [aria-current]) { color: var(--sn-ink); }
+:root [data-surface='night'] :is(.tabs--pill .tabs__list, .segmented):not([data-ind-ready]) :is([aria-selected='true'], [aria-pressed='true'], [aria-current]) { background: var(--paper); }
+@media (pointer: coarse) { .tabs--pill .tabs__tab, .segmented__item { min-height: 44px; } }
+
+/* Filter chips (FacetBar, event filters, persona pickers): 36px pills, 1px line-strong ring, aria-pressed = Ink fill */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: var(--color-text);
+  font-size: var(--text-meta);
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap), transform var(--dur-1) var(--ease-standard);
+}
+@media (hover: hover) { .chip:hover { box-shadow: inset 0 0 0 1px var(--color-text); } }
+.chip:active { transform: scale(0.97); }
+.chip[aria-pressed='true'], .chip[aria-selected='true'], .chip[aria-current] { background: var(--sn-ink); color: var(--paper); box-shadow: inset 0 0 0 1px var(--sn-ink); }
+.chip__count { font-variant-numeric: tabular-nums; opacity: 0.72; }
+:root [data-surface='night'] .chip { box-shadow: inset 0 0 0 1px var(--night-line-strong); color: var(--night-text); }
+:root [data-surface='night'] .chip:is([aria-pressed='true'], [aria-selected='true'], [aria-current]) { background: var(--paper); color: var(--sn-ink); }
+@media (pointer: coarse) { .chip { min-height: 44px; } }
+:lang(ta) .chip, :lang(ta) .segmented__item { white-space: normal; text-align: center; }
+
+/* Short labels ("curl") still get a 44px-wide target */
+.tabs__tab { min-width: 44px; }

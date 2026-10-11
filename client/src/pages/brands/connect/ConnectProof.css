@@ -1,0 +1,17 @@
+/* Proof: big light numerals between vertical hairlines */
+.connect-proof { padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
+.connect-proof__grid { margin: 0; display: grid; gap: var(--space-8) var(--space-6); grid-template-columns: 1fr; }
+/* Four slots: 1 → 2 × 2 → 4 across, never 3 + 1 (F-62). */
+@media (min-width: 480px) {
+  .connect-proof__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .connect-proof__grid > :nth-child(2n) { border-left: 1px solid var(--color-border); padding-left: var(--space-6); }
+}
+@media (min-width: 1024px) {
+  .connect-proof__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .connect-proof__grid > * + * { border-left: 1px solid var(--color-border); padding-left: var(--space-6); }
+}
+.connect-proof__item { display: grid; gap: var(--space-3); align-content: start; }
+.connect-proof__item > .stat { border-top: 0; padding-top: 0; }
+.connect-proof__label { color: var(--color-text-2); font-weight: 400; }
+.connect-proof__value { margin: 0; font-size: var(--text-h4); font-weight: 400; }
+.connect-proof__foot { margin-top: var(--space-8); display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }

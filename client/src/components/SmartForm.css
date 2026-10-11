@@ -1,0 +1,57 @@
+.smart-form { display: grid; gap: var(--space-6); min-width: 0; }
+.smart-form__fields { display: grid; gap: var(--space-5); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) {
+  .smart-form__fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .smart-form__fields > .field { grid-column: 1 / -1; }
+  .smart-form__fields > .smart-form__half { grid-column: auto; }
+}
+.smart-form__consents { display: grid; gap: var(--space-2); margin: 0; padding: 0; border: 0; min-width: 0; }
+.smart-form__legend { margin-bottom: var(--space-2); padding: 0; font-weight: 500; font-size: var(--text-small); color: var(--color-text); }
+.smart-form__submit { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); }
+@media (max-width: 479px) { .smart-form__submit .button { width: 100%; } }
+.smart-form__note { font-size: var(--text-small); color: var(--color-text-muted); }
+.smart-form__restored {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-btn);
+  background: var(--color-info-bg);
+  color: var(--color-info);
+  font-size: var(--text-small);
+}
+
+/* Error summary: takes focus, links to each field */
+.smart-form__summary {
+  padding: var(--space-5);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-btn);
+  background: var(--color-error-bg);
+  color: var(--color-text);
+}
+[data-surface='night'] .smart-form__summary { background: var(--night-1); }
+.smart-form__summary:focus { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.smart-form__summary-title { display: flex; align-items: center; gap: var(--space-2); font-weight: 600; color: var(--color-error); }
+.smart-form__summary-list { margin-top: var(--space-3); padding-left: calc(18px + var(--space-2)); display: grid; gap: var(--space-1); }
+.smart-form__summary-list a { color: var(--color-error); font-weight: 600; }
+
+/* Server / offline alert with WhatsApp fallback */
+.smart-form__alert {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border: 1px solid var(--color-warning-icon);
+  border-radius: var(--radius-btn);
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+[data-surface='night'] .smart-form__alert { background: var(--night-1); }
+.smart-form__alert:focus { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.smart-form__alert-icon { flex: none; margin-top: 0.15em; }
+.smart-form__alert-body { display: grid; gap: var(--space-3); justify-items: start; font-weight: 500; }
+/* Form card (DESIGN-v2 3.14): put .form-card on the element that frames a form. White on Paper or Bone. */
+.form-card {
+  padding: 32px;
+  border-radius: var(--radius-media);
+  background: var(--color-bg-form);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+}
+:root [data-surface='night'] .form-card { box-shadow: inset 0 0 0 1px var(--night-line); }
+@media (max-width: 767.98px) { .form-card { padding: 24px; } }

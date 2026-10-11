@@ -1,0 +1,81 @@
+/* Fact band (DESIGN-v2 3.9): straight edges; stats in a row with vertical hairlines (2×2 on mobile with a hairline
+   between rows); a link with no title becomes the footnote row (hairline-topped, 14px muted arrow link). */
+.fact-band { position: relative; display: flex; flex-direction: column; color: var(--color-text); }
+:root .fact-band--night {
+  padding: clamp(var(--space-8), 1.5rem + 3vw, var(--space-16)) clamp(var(--space-6), 1rem + 3vw, var(--space-16));
+  border-radius: var(--radius-media);
+  background-color: var(--night-0);
+  background-image: none;
+  border: 0;
+}
+/* Already inside a Night band: no second panel */
+:root .section--night .fact-band--night { padding: 0; border: 0; border-radius: 0; background: transparent; }
+
+.fact-band__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-6);
+  margin-bottom: var(--space-10);
+}
+:root .fact-band__title { color: var(--color-text); max-width: 40ch; font-weight: 500; }
+/* Footnote row: the orphan link sits under the stats, presentation only */
+.fact-band__head--link-only {
+  order: 2;
+  margin: var(--space-6) 0 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+.fact-band__head--link-only .fact-band__link { font-size: var(--text-meta); color: var(--color-text-muted); min-height: 32px; }
+
+.fact-band__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+}
+.fact-band--n1 .fact-band__grid { grid-template-columns: minmax(0, 1fr); }
+/* Mobile 2×2: a vertical hairline between the pair, a horizontal hairline between rows */
+:root .fact-band__grid > .stat { border-top: 0; padding: var(--space-6) var(--space-4) var(--space-6) 0; }
+:root .fact-band__grid > .stat:nth-child(even) { border-left: 1px solid var(--color-border); padding-left: var(--space-4); padding-right: 0; }
+:root .fact-band__grid > .stat:nth-child(n + 3) { border-top: 1px solid var(--color-border); }
+:root .fact-band__grid > .stat:nth-child(-n + 2) { padding-top: 0; }
+:root .fact-band__grid > .stat:nth-last-child(-n + 2):nth-child(odd),
+:root .fact-band__grid > .stat:last-child { padding-bottom: 0; }
+@media (min-width: 1024px) {
+  .fact-band--n3 .fact-band__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .fact-band--n4 .fact-band__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  :is(.fact-band--n3, .fact-band--n4) .fact-band__grid > .stat { border-top: 0 !important; padding: 0 32px !important; }
+  :root :is(.fact-band--n3, .fact-band--n4) .fact-band__grid > .stat:first-child { padding-left: 0 !important; }
+  :root :is(.fact-band--n3, .fact-band--n4) .fact-band__grid > .stat + .stat { border-left: 1px solid var(--color-border); }
+}
+/* 1024–1279: four stats share ~900px, so the numeral steps down and the unit stays on the number's line
+   (no "52.2" / "%" split that drops the label below its neighbours). */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  :root .fact-band--n4 .fact-band__grid > .stat { padding-inline: 20px !important; }
+  :root .fact-band--n4 .stat__value { flex-wrap: nowrap; font-size: min(var(--text-stat), 5.2vw); }
+}
+:root [data-surface='night'] .fact-band__grid > .stat { border-color: var(--night-line); }
+.fact-band__footnote {
+  order: 3;
+  margin-top: var(--space-6);
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  max-width: var(--measure);
+}
+
+/* Phones: 44px link targets; below 400px the stats stack one per row (a 48px "15,037" or a Tamil
+   "A சரிபார்க்கப்பட்டது" chip does not fit a ~130px half column, and labels split mid-word). */
+@media (max-width: 767.98px) {
+  :root .fact-band .fact-band__link { min-height: 44px; }
+}
+@media (max-width: 399.98px) {
+  :root .fact-band__grid:not(#_) { grid-template-columns: minmax(0, 1fr); }
+  :root .fact-band__grid > .stat:not(#_) { border-left: 0; padding: var(--space-5) 0; }
+  :root .fact-band__grid > .stat:not(#_) + .stat { border-top: 1px solid var(--color-border); }
+  :root [data-surface='night'] .fact-band__grid > .stat:not(#_) + .stat { border-top-color: var(--night-line); }
+  :root .fact-band__grid > .stat:not(#_):first-child { padding-top: 0; }
+  :root .fact-band__grid > .stat:not(#_):last-child { padding-bottom: 0; }
+  :root .fact-band__grid .stat__label { max-width: none; }
+}

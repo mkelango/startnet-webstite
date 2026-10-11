@@ -1,0 +1,131 @@
+/* Page hero (DESIGN-v2 3.5): flat Ink band (no dot texture). 64px top; bottom 64 + sheet radius (theme.css).
+   Grid 7/5 at ≥1024, copy top-aligned: crumbs → 24 → label → 16 → h1 → 24 → lede (40ch) → 32 → buttons.
+   Media: 12px radius, 4/3, max 560px tall; 16/10 under the copy below 1024. */
+.page-hero {
+  position: relative;
+  background: var(--night-0);
+  color: var(--color-text);
+  padding-top: var(--space-16);
+  overflow: clip;
+}
+.page-hero--night,
+.page-hero { background-image: none; }
+.page-hero__crumbs { margin-bottom: var(--space-6); }
+.page-hero__grid { display: grid; gap: var(--space-10); align-items: start; }
+.page-hero__text { min-width: 0; max-width: 60rem; }
+.page-hero__eyebrow { margin-bottom: var(--space-4); }
+/* Headline measures are in em, not ch: ch is the width of "0" in the first loaded font, so before Inter arrives the
+   Arial fallback's narrower 0 made every ch measure ~6% shorter and the headline wrapped to an extra line, then
+   jumped back on the font swap (CLS 0.21 on /startnet-x/pricing). 1ch of Inter at 400 = 0.631em, so 18ch = 11.36em,
+   13ch = 8.2em, 22ch = 13.88em, 26ch = 16.4em: identical with Inter, stable with the fallback. */
+.page-hero__title { color: var(--color-text); max-width: 11.36em; }
+.page-hero:not(.page-hero--with-art) .page-hero__title { max-width: 13.88em; }
+.page-hero__lede { margin-top: var(--space-6); color: var(--color-text-2); max-width: 40ch; }
+:lang(ta) .page-hero__lede { max-width: 36em; }
+.page-hero__lede > * + * { margin-top: 0.75em; }
+.page-hero__actions { margin-top: var(--space-8); --cluster-gap: var(--space-3) var(--space-4); }
+.page-hero__meta { margin-top: var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.page-hero__art { min-width: 0; }
+.page-hero__art .art-image { border-radius: var(--radius-media); aspect-ratio: 4 / 3 !important; max-height: 560px; }
+.page-hero__art .art-image__photo { object-fit: cover; }
+
+@media (max-width: 479px) {
+  .page-hero__actions > .button:not(.button--tertiary) { flex: 1 1 100%; }
+}
+/* Below the 2-column layout the copy comes first and the media follows as a 16/10 band. */
+@media (max-width: 1023.98px) {
+  .page-hero__art .art-image { aspect-ratio: 16 / 10 !important; }
+}
+
+/* Media entrance: clip-in on first paint (CSS only, SSR-safe; the prerender runs reduced, so it shows the end frame) */
+@keyframes hero-media-in {
+  from { clip-path: inset(6% 6% 6% 6% round 12px); transform: scale(1.04); }
+  to { clip-path: inset(0 round 0); transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) :is(.page-hero__art, .brand-hero__art) .art-image {
+    animation: hero-media-in 900ms var(--ease-reveal) 120ms both;
+  }
+}
+
+/* Tamil display type (Book 3 §4.4): the no-art 2xl headline follows the ×0.85 Tamil scale; long words
+   stay whole (no break-all). Below 360px, one more step down and wrapping inside a word only as a last resort. */
+.page-hero__title.display-2xl:lang(ta) { font-size: calc(var(--text-display-2xl) * 0.85); }
+@media (max-width: 359.98px) {
+  .page-hero__title.page-hero__title:lang(ta) { font-size: min(var(--text-display-xl), 1.75rem); overflow-wrap: anywhere; }
+}
+@media (min-width: 1024px) {
+  .page-hero--with-art .page-hero__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px; }
+  .page-hero--with-art .page-hero__text { padding-right: var(--space-8); }
+}
+
+/* ---------- Split hero (AIWO P2; layout="split", the default with art) ----------
+   ≥1024: copy in cols 1–6, the media edge to edge in cols 7–12 (col 7 starts 16px right of the centre line).
+   Event-series heroes keep their own 5/7 poster layout (SeriesPage.css). */
+@media (min-width: 1024px) {
+  .page-hero--split:not(.series-hero) {
+    min-height: clamp(560px, 78svh, 760px);
+    display: flex;
+    flex-direction: column;
+  }
+  .page-hero--split:not(.series-hero) .page-hero__inner { flex: 1 0 auto; width: 100%; }
+  .page-hero--split:not(.series-hero) .page-hero__grid { grid-template-columns: minmax(0, 1fr); }
+  :root .page-hero--split:not(.series-hero) .page-hero__text { max-width: calc(50% - 16px); padding-right: var(--space-8); }
+  .page-hero--split:not(.series-hero) .page-hero__title { max-width: 8.2em; }
+  .page-hero--split:not(.series-hero) .page-hero__title:lang(ta) { max-width: 11.36em; }
+  .page-hero--split:not(.series-hero) .page-hero__art {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: calc(50% + 16px);
+    background: var(--night-1);
+  }
+  :root .page-hero--split:not(.series-hero) .page-hero__art .art-image {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    aspect-ratio: auto !important;
+    border-radius: 0;
+  }
+  :root .page-hero--split:not(.series-hero) .page-hero__art .art-image::after { border-radius: 0; box-shadow: none; }
+  /* The caption clears the Paper sheet that rises over the media's foot. */
+  :root .page-hero--split:not(.series-hero) .page-hero__art .art-image__label { bottom: calc(var(--sheet-radius, 24px) + 16px); left: 16px; }
+}
+/* Below 1024: a photograph leads, full bleed; a motion visual stays under the copy. */
+@media (max-width: 1023.98px) {
+  .page-hero--split .page-hero__art:has(.art-image--photo) {
+    order: -1;
+    margin-inline: calc(-1 * var(--page-margin, var(--gutter)));
+  }
+  :root .page-hero--split .page-hero__art:has(.art-image--photo) .art-image { max-height: 60svh; border-radius: 0; }
+  :root .page-hero--split .page-hero__art:has(.art-image--photo) .art-image::after { border-radius: 0; box-shadow: none; }
+}
+@media (max-width: 639.98px) {
+  :root .page-hero--split .page-hero__art:has(.art-image--photo) .art-image { aspect-ratio: 4 / 5 !important; max-height: 58svh; }
+  .page-hero--split:has(.page-hero__art .art-image--photo) { padding-top: var(--space-8); }
+}
+.page-hero--split .page-hero__art :is(.art-image__picture, .art-image__photo) { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* Portrait or near-square screens at ≥1024 (e.g. 1024×1366 tablets): a half-width column as tall as the hero kept
+   only ~40% of a 16:9 photo's width. These keep the < 1024 layout instead: the photo leads, full bleed, 16/10 and at
+   most 60svh tall; a motion visual stays under the copy. */
+@media (min-width: 1024px) and (max-aspect-ratio: 1 / 1) {
+  .page-hero--split:not(.series-hero) { min-height: 0; display: block; }
+  :root .page-hero--split:not(.series-hero) .page-hero__text { max-width: 60rem; padding-right: 0; }
+  .page-hero--split:not(.series-hero) .page-hero__title { max-width: 11.36em; }
+  .page-hero--split:not(.series-hero) .page-hero__title:lang(ta) { max-width: 13.88em; }
+  :root .page-hero--split:not(.series-hero) .page-hero__art { position: relative; inset: auto; background: none; }
+  :root .page-hero--split:not(.series-hero) .page-hero__art .art-image {
+    height: auto;
+    aspect-ratio: 16 / 10 !important;
+    max-height: 60svh;
+    border-radius: var(--radius-media);
+  }
+  :root .page-hero--split:not(.series-hero) .page-hero__art .art-image__label { bottom: 12px; left: 12px; }
+  .page-hero--split:not(.series-hero) .page-hero__art:has(.art-image--photo) {
+    order: -1;
+    margin-inline: calc(-1 * var(--page-margin, var(--gutter)));
+  }
+  :root .page-hero--split:not(.series-hero) .page-hero__art:has(.art-image--photo) .art-image { border-radius: 0; }
+}

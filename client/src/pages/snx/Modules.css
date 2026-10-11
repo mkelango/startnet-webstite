@@ -1,0 +1,62 @@
+/* StartNet X modules — T19 with in-page nav. AngelList-family: hairline rows, each module a feature row
+   (number + icon + regular-weight name left, line + plan list right). */
+.snx-mods { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) { .snx-mods { grid-template-columns: 15rem 1fr; gap: var(--space-16); align-items: start; } }
+
+.snx-mods__nav { display: none; }
+@media (min-width: 1024px) {
+  .snx-mods__nav { display: block; position: sticky; top: calc(var(--header-h) + var(--subnav-h) + var(--space-8)); }
+}
+.snx-mods__nav-title { font-size: var(--text-small); font-weight: 500; color: var(--color-text-muted); margin-bottom: var(--space-3); }
+.snx-mods__nav ol { list-style: none; border-left: 1px solid var(--color-border); }
+.snx-mods__nav a {
+  position: relative; display: flex; gap: var(--space-3); align-items: baseline;
+  padding: var(--space-2) var(--space-4); margin-left: -1px;
+  border-left: 1px solid transparent;
+  color: var(--color-text-muted); text-decoration: none; font-size: var(--text-small); font-weight: 500;
+  transition: color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard);
+}
+.snx-mods__nav a:hover { color: var(--color-text); }
+.snx-mods__nav a[aria-current="location"] { color: var(--color-text); border-left-color: var(--color-text); }
+.snx-mods__nav-num { font-size: var(--text-caption); color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+
+.snx-mods__list { display: grid; border-top: 1px solid var(--color-border); min-width: 0; }
+.snx-mod { padding-block: var(--space-10); border-bottom: 1px solid var(--color-border); scroll-margin-top: calc(var(--header-h) + var(--subnav-h) + var(--space-4)); }
+.snx-mod__inner { display: grid; gap: var(--space-6); }
+@media (min-width: 768px) { .snx-mod__inner { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-10); } }
+.snx-mod__head { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: var(--space-3) var(--space-4); align-content: start; }
+.snx-mod__num { grid-column: 1 / -1; font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+/* Line icon in a 40px hairline square (no tinted circle). */
+.snx-mod__icon {
+  display: inline-grid; place-items: center; width: 40px; height: 40px;
+  border: 1px solid var(--color-border); border-radius: var(--btn-radius);
+  background: transparent; color: var(--color-text);
+}
+.snx-mod__icon svg { width: 20px; height: 20px; }
+.snx-mod__name.h3 { margin: 0; font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+.snx-mod__head .snx-status { grid-column: 1 / -1; justify-self: start; }
+.snx-mod__body { display: grid; gap: var(--space-5); justify-items: start; }
+.snx-mod__line { font-size: var(--text-body-lg); line-height: 1.5; color: var(--color-text-2); max-width: 40ch; }
+.snx-mod__plans { width: 100%; }
+.snx-mod__plans-title { font-size: var(--text-small); font-weight: 500; color: var(--color-text-muted); margin-bottom: var(--space-2); }
+.snx-mod__plans ul { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
+.snx-mod__plans li { display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-3); align-items: center; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); font-size: var(--text-small); }
+.snx-mod__plans li svg { color: var(--color-text); }
+.snx-mod__plan { font-size: var(--text-caption); font-weight: 400; color: var(--color-text-muted); white-space: nowrap; }
+@media (max-width: 479px) { .snx-mod__plans li { grid-template-columns: auto 1fr; } .snx-mod__plan { grid-column: 2; } }
+/* Guardrails: a flat hairline card, no coloured bar. */
+.snx-mod__guard { width: 100%; padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius); scroll-margin-top: calc(var(--header-h) + var(--subnav-h) + var(--space-4)); }
+.snx-mod__guard-intro { font-weight: 500; margin-bottom: var(--space-3); }
+.snx-mod__guard ul { padding-left: 1.2em; display: grid; gap: var(--space-2); color: var(--color-text-2); font-size: var(--text-small); }
+.snx-mod__guard li::marker { color: var(--color-text-muted); }
+
+/* ---- StartNet X strict red (DESIGN-v2 6.4) ---- */
+/* [data-brand='x'] uses red as its accent, so red is kept to one point per composition: the headline stop.
+   Dot labels, the hero journey line and arrow links go Ink (Paper on Ink); hero / CTA buttons are Ink primary. */
+.brand-layout[data-brand='x'],
+.brand-layout[data-brand='x'] [data-brand='x']:not([data-surface='night']) { --color-label-dot: var(--color-text); }
+.brand-layout[data-brand='x'] [data-surface='night'] { --color-label-dot: var(--paper); }
+:root .brand-layout[data-brand='x'] .button--tertiary { --button-fg: var(--color-link-standalone); --button-fg-hover: var(--color-link-standalone); }
+:root .brand-layout[data-brand='x'] [data-surface='night'] .button--tertiary { --button-fg: var(--paper); --button-fg-hover: var(--paper); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey { color: var(--night-text-2); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey::before { background: var(--paper); }

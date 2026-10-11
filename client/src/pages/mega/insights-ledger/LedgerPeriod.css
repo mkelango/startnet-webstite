@@ -1,0 +1,214 @@
+/* /insights/founder-ledger/:period — T08 frozen snapshot. Prefix: .ledger-period (mobile first).
+   Oct 2026 redesign: ink hero band, then paper sheets in the USVC "blueprint" manner (hairline frames, light
+   numerals between vertical dividers, sentence-case labels) — the same language as the live Ledger. */
+.ledger-period { color: var(--color-text); }
+
+.ledger-period__meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4);
+  font-size: var(--text-small); color: var(--color-text-2);
+}
+.ledger-period__edition { font-weight: 500; color: var(--color-text); }
+
+/* First sheet (theme.css slides it over the hero): holds the edition bar and the data blocks. */
+.ledger-period .ledger-period__sheet {
+  background: var(--color-bg);
+  padding-top: var(--space-4);
+  overflow: clip;
+}
+
+/* Edition bar — sticky on desktop under the visible shell; a quiet sub-navigation with a hairline beneath */
+.ledger-period__bar {
+  scroll-margin-top: var(--shell-offset, var(--header-h));
+  position: relative; z-index: 5;
+  background: var(--color-bg); /* opaque: content scrolling underneath must not show through */
+  border-bottom: 1px solid var(--color-border);
+}
+@media (min-width: 1024px) {
+  .ledger-period__bar { position: sticky; top: var(--shell-offset, var(--header-h)); transition: top var(--dur-header) var(--ease-snap); }
+  :root[data-header-hidden] .ledger-period__bar { transition-timing-function: var(--ease-header-exit); }
+}
+.ledger-period__bar-inner {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-6);
+  min-height: 72px; padding-block: var(--space-3);
+}
+.ledger-period__editions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); min-width: 0; }
+.ledger-period__editions ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-1); }
+.ledger-period__bar-label { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); }
+/* Edition links: the header's pill-nav pattern (current = quiet filled pill). */
+.ledger-period__chip {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-4);
+  border-radius: var(--radius-full);
+  color: var(--color-text-2); text-decoration: none; font-weight: 500; font-variant-numeric: tabular-nums;
+  transition: background-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) { .ledger-period__chip:hover { background: var(--sheet-2); color: var(--color-text); } }
+.ledger-period__chip.is-current { background: var(--sheet-2); color: var(--color-text); box-shadow: inset 0 0 0 1px var(--color-border); }
+.ledger-period__bar-actions { display: inline-flex; flex-wrap: wrap; gap: var(--space-2); min-width: 0; max-width: 100%; }
+@media (min-width: 768px) { .ledger-period__bar-actions { margin-left: auto; } }
+/* Download = the theme's quiet secondary button. */
+.ledger-period__dl {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; padding: 0 var(--space-4);
+  background: var(--sheet-2); color: var(--color-text);
+  border: 1px solid transparent; border-radius: var(--btn-radius);
+  font-size: var(--text-small); font-weight: 500; cursor: pointer;
+  transition: background-color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) { .ledger-period__dl:hover:not(:disabled):not(.ledger-period__dl--off) { background: color-mix(in srgb, var(--color-text) 7%, var(--sheet-2)); } }
+.ledger-period__dl:disabled { opacity: 0.5; cursor: not-allowed; }
+.ledger-period__dl--off {
+  background: transparent; color: var(--color-text-muted); border-color: var(--color-border-control); border-style: dashed; cursor: default;
+  flex-wrap: wrap; max-width: 100%; min-width: 0; padding-block: var(--space-2);
+}
+.ledger-period__dl--off .placeholder { overflow-wrap: anywhere; white-space: normal; }
+
+.ledger-period__notice {
+  display: flex; gap: var(--space-3); align-items: flex-start;
+  margin-top: var(--space-6); padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  background: var(--card);
+  color: var(--color-text-2); font-size: var(--text-small);
+}
+.ledger-period__notice svg { flex: none; margin-top: 0.15em; color: var(--color-text-muted); }
+
+/* KPI band: 1 → 2×2 → 4-up, light numerals between vertical hairlines, ruled top and bottom */
+.ledger-period-kpis {
+  display: grid; grid-template-columns: minmax(0, 1fr);
+  border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);
+}
+@media (min-width: 600px) { .ledger-period-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .ledger-period-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.ledger-period-kpis > * { min-width: 0; }
+.ledger-period-kpis > * + * { border-top: 1px solid var(--color-border); }
+.ledger-period-kpis__item { padding: var(--space-8) var(--space-6) var(--space-8) 0; height: 100%; min-width: 0; }
+@media (min-width: 600px) and (max-width: 1023.98px) {
+  .ledger-period-kpis > * + * { border-top: 0; }
+  .ledger-period-kpis > :nth-child(n + 3) { border-top: 1px solid var(--color-border); }
+  .ledger-period-kpis > .ledger-period-kpis__item:nth-child(2n) { border-left: 1px solid var(--color-border); padding-left: var(--space-6); }
+}
+@media (min-width: 1024px) {
+  .ledger-period-kpis > * + * { border-top: 0; border-left: 1px solid var(--color-border); }
+  .ledger-period-kpis__item { padding: var(--space-10) var(--space-6); }
+  .ledger-period-kpis > .ledger-period-kpis__item:first-child { padding-left: 0; }
+}
+.ledger-period-kpis .stat--hero .stat__value { font-size: clamp(2.75rem, 1.75rem + 3vw, 4.5rem); }
+.ledger-period-kpis__ph { font-size: var(--text-small); }
+.ledger-period-kpis__rule {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); max-width: 70ch;
+  margin-top: var(--space-5); font-size: var(--text-caption); color: var(--color-text-muted);
+}
+
+/* Charts: 1 → 2-up on wide desktop */
+.ledger-period-charts { display: grid; gap: var(--space-6); margin-top: var(--space-4); }
+.ledger-period-charts > * { min-width: 0; }
+@media (min-width: 1200px) { .ledger-period-charts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Tables (inside overflow-x containers): hairline rows, sentence-case heads, no fills */
+/* The title sits above the scroller (not a <caption> inside it), so it wraps to the screen and is never clipped. */
+.ledger-period-tablebox { margin-top: var(--space-12); max-width: 100%; min-width: 0; }
+.ledger-period-table__cap { margin: 0 0 var(--space-4); font-weight: 500; font-size: var(--text-body-lg); letter-spacing: -0.01em; color: var(--color-text); }
+.ledger-period-table__cap:lang(ta) { letter-spacing: 0; }
+.ledger-period-table-wrap { margin-top: var(--space-8); max-width: 100%; min-width: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ledger-period-tablebox > .ledger-period-table-wrap { margin-top: 0; }
+.ledger-period-table-wrap:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+.ledger-period-table { width: 100%; min-width: 28rem; border-collapse: collapse; font-size: var(--text-small); font-variant-numeric: tabular-nums; }
+.ledger-period-table caption { caption-side: top; text-align: left; font-weight: 500; font-size: var(--text-body); padding-bottom: var(--space-3); color: var(--color-text); }
+.ledger-period-table th, .ledger-period-table td { padding: var(--space-4); border-bottom: 1px solid var(--color-border); text-align: right; vertical-align: top; }
+.ledger-period-table th:first-child { padding-left: 0; }
+.ledger-period-table td:last-child { padding-right: 0; }
+/* Tamil: base.css gives th/td overflow-wrap:anywhere, which lets the auto layout split words mid-syllable
+   ("பிரா/ண்டு", "StartNe/t") instead of widening the table. Keep words whole; the wrap scrolls instead. */
+.ledger-period-table-wrap .ledger-period-table :is(th, td) { overflow-wrap: normal; }
+.ledger-period-table-wrap .ledger-period-table tbody th { min-width: 8rem; }
+.ledger-period-table th:first-child { text-align: left; }
+.ledger-period-table thead th {
+  font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted);
+  border-bottom-color: var(--color-border-control);
+}
+.ledger-period-table tbody th { font-weight: 500; color: var(--color-text); }
+.ledger-period-table tbody tr { transition: background-color var(--dur-2) var(--ease-standard); }
+@media (hover: hover) and (pointer: fine) { .ledger-period-table tbody tr:hover { background: color-mix(in srgb, var(--sheet-2) 60%, transparent); } }
+.ledger-period-table tr.is-tracked th { color: var(--color-text-2); }
+.ledger-period-table--text { min-width: 40rem; }
+.ledger-period-table--text td, .ledger-period-table--text th { text-align: left; }
+.ledger-period-table__code { font-weight: 400; color: var(--color-text-muted); margin-right: var(--space-1); }
+.ledger-period-table__dot {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  margin-right: var(--space-2); vertical-align: 0.1em; background: var(--accent-fill, var(--accent));
+}
+@media (max-width: 599px) {
+  .ledger-period-table th, .ledger-period-table td { padding: var(--space-3); }
+}
+
+/* Stat inside a table cell: body-size figure, tag chip alongside */
+.ledger-period-table .ledger-period-cell { gap: var(--space-1); justify-items: end; align-items: end; }
+.ledger-period-table .ledger-period-cell .stat__value { font-size: var(--text-body); font-weight: 400; letter-spacing: 0; justify-content: flex-end; }
+.ledger-period-table .ledger-period-cell .stat__meta { justify-content: flex-end; }
+.ledger-period-table .ledger-period-cell.stat--empty .stat__value { font-size: var(--text-caption); }
+
+.ledger-period__empty {
+  margin-top: var(--space-6); padding: var(--space-6) 0;
+  border-block: 1px solid var(--color-border);
+  color: var(--color-text-2);
+}
+
+/* Outcomes + women: blueprint cells and a hairline frame */
+.ledger-period-outcomes { display: grid; gap: var(--space-12); }
+@media (min-width: 1024px) { .ledger-period-outcomes { grid-template-columns: 7fr 5fr; gap: var(--space-16); } }
+/* No outcome figure published yet: the women-share block runs alone. */
+@media (min-width: 1024px) { .ledger-period-outcomes--solo { grid-template-columns: minmax(0, 1fr); } }
+.ledger-period-outcomes__main, .ledger-period-outcomes__women { min-width: 0; }
+.ledger-period-outcomes__grid {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 1px;
+  margin-top: var(--space-4);
+  background: var(--color-border);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  overflow: hidden;
+}
+@media (min-width: 640px) { .ledger-period-outcomes__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ledger-period-outcomes__item { padding: var(--space-6); background: var(--card); min-width: 0; height: 100%; }
+.ledger-period-outcomes__item .stat--compact .stat__value { font-size: var(--text-h2); }
+.ledger-period-outcomes__ev { margin-top: var(--space-3); font-size: var(--text-caption); color: var(--color-text-muted); }
+.ledger-period-outcomes__women {
+  display: grid; gap: var(--space-6); align-content: start;
+  padding: clamp(var(--space-6), 1rem + 2vw, var(--space-10));
+  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+}
+.ledger-period-outcomes--solo .ledger-period-outcomes__women { max-width: 52rem; }
+.ledger-period-outcomes__women .section-header { margin-bottom: 0; }
+
+/* The reality check: a quiet statement under a hairline, not a call-out box */
+.ledger-period__reality {
+  margin: var(--space-12) 0 0; padding: var(--space-6) 0 0;
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-h5); line-height: 1.45; letter-spacing: -0.01em;
+  color: var(--color-text); max-width: 44rem;
+}
+.ledger-period__reality:lang(ta) { letter-spacing: 0; }
+
+/* Method + archive: two columns inside one hairline frame, divided by a vertical hairline */
+.ledger-period-more {
+  display: grid; gap: var(--space-8);
+  padding: var(--space-8) var(--space-6);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card);
+}
+.ledger-period-more > * { display: grid; gap: var(--space-3); align-content: start; min-width: 0; }
+.ledger-period-more .h4 { font-weight: 500; letter-spacing: -0.01em; }
+.ledger-period-more .h4:lang(ta) { letter-spacing: 0; }
+.ledger-period-more__cta { justify-self: start; }
+@media (min-width: 768px) {
+  .ledger-period-more { grid-template-columns: 1fr 1fr; padding: var(--space-10); gap: var(--space-12); }
+  .ledger-period-more > * + * { border-left: 1px solid var(--color-border); padding-left: var(--space-12); }
+}
+.ledger-period-more__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-1); }
+.ledger-period-more__list a {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
+  color: var(--color-link-standalone); font-weight: 500; text-decoration: none;
+}
+.ledger-period-more__list a:hover { text-decoration: underline; }
+.ledger-period-more__list svg { transition: transform var(--dur-2) var(--ease-standard); }
+.ledger-period-more__list a:focus-visible svg { transform: translateX(var(--shift-1)); }
+@media (hover: hover) and (pointer: fine) { .ledger-period-more__list a:hover svg { transform: translateX(var(--shift-1)); } }
+
+/* When the first published block is a white one (no KPI band yet), it still arrives as a sheet over the paper. */
+.ledger-period__frame > .ledger-period-sec.section--white:first-child { border-top: 1px solid var(--hairline); } /* straight edge */

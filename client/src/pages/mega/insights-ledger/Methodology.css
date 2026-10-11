@@ -1,0 +1,225 @@
+/* /insights/founder-ledger/methodology — T19 standard page: 8-col prose + TOC aside (desktop), collapsible TOC (mobile).
+   Prefix: .method- (mobile first). One Night panel (#tags).
+   Oct 2026: calm reading column, hairline TOC, hairline tables with sentence-case heads, flat frames (no bars). */
+.method { background: var(--color-bg); }
+
+.method-hero__meta {
+  display: inline-flex; align-items: flex-start; gap: var(--space-2);
+  font-size: var(--text-small); color: var(--color-text-2);
+}
+.method-hero__meta svg { flex: none; margin-top: 0.2em; }
+
+/* Layout */
+.method-layout { display: grid; gap: var(--space-8); min-width: 0; }
+.method-main { display: grid; gap: var(--space-16); min-width: 0; }
+.method-block { min-width: 0; scroll-margin-top: calc(var(--shell-offset, var(--header-h)) + var(--space-6)); }
+.method-block > * + * { margin-top: var(--space-6); }
+
+/* TOC */
+.method-toc { min-width: 0; }
+.method-toc__desktop { display: none; }
+.method-toc__mobile {
+  border-block: var(--border-hair);
+}
+.method-toc__mobile > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  min-height: 52px; padding: 0; cursor: pointer; list-style: none;
+  font-weight: 500; color: var(--color-text);
+}
+.method-toc__mobile > summary::-webkit-details-marker { display: none; }
+.method-toc__mobile > summary svg { transition: transform var(--dur-2) var(--ease-standard); }
+.method-toc__mobile[open] > summary svg { transform: rotate(180deg); }
+.method-toc__mobile .method-toc__list { margin-bottom: var(--space-4); }
+.method-toc__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-left: var(--border-hair); }
+.method-toc__link {
+  display: flex; align-items: center; gap: var(--space-3);
+  min-height: 44px; padding: var(--space-2) var(--space-4);
+  margin-left: -1px; border-left: 1px solid transparent; border-radius: 0;
+  color: var(--color-text-muted); text-decoration: none; font-size: var(--text-small);
+  transition: color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard), background-color var(--dur-2) var(--ease-standard);
+}
+.method-toc__link:hover { color: var(--color-text); }
+.method-toc__link.is-active { color: var(--color-text); border-left-color: var(--color-text); }
+.method-toc__num { color: var(--color-text-muted); font-size: var(--text-caption); min-width: 1.5em; }
+
+/* 1 · Measures */
+.method-measures { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: var(--border-hair); }
+.method-measures > li { border-bottom: var(--border-hair); min-width: 0; }
+.method-measures__item {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+  min-height: 52px; padding: var(--space-3) 0;
+}
+.method-measures__label { color: var(--color-text); overflow-wrap: anywhere; }
+.method-measures__level {
+  flex: none; padding: var(--space-0-5) var(--space-2);
+  border: var(--border-hair); border-radius: var(--btn-radius);
+  font-size: var(--text-caption); font-weight: 500; color: var(--color-text-2);
+}
+
+.method-note { color: var(--color-text-2); font-size: var(--text-small); max-width: var(--measure); overflow-wrap: anywhere; }
+.method-note__icon { display: inline; vertical-align: -0.2em; margin-right: var(--space-2); color: var(--color-text-muted); }
+
+.method-link {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
+  font-weight: 500; color: var(--color-link-standalone); text-decoration: none;
+}
+.method-link:hover { text-decoration: underline; }
+.method-link svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+.method-link:focus-visible svg { transform: translateX(var(--shift-1)); }
+@media (hover: hover) and (pointer: fine) { .method-link:hover svg { transform: translateX(var(--shift-1)); } }
+
+/* Tables (always inside an overflow container) */
+/* The card holds the title outside the scroller, so the title stays in view when the table scrolls sideways. */
+.method-table-card {
+  max-width: 100%; min-width: 0; overflow: hidden;
+  border: var(--border-hair); border-radius: var(--media-radius); background: var(--card);
+}
+.method-table__cap {
+  margin: 0; padding: var(--space-5) var(--space-5) var(--space-3);
+  font-size: var(--text-body); font-weight: 500; color: var(--color-text);
+}
+.method-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+.method-table-wrap:focus-visible { outline: var(--focus-ring); outline-offset: -2px; }
+.method-table { width: 100%; min-width: 30rem; border-collapse: collapse; font-size: var(--text-small); }
+/* Tamil: base.css gives th/td overflow-wrap:anywhere, which lowers each column's min-content so the auto layout
+   splits words mid-syllable instead of widening the table. Here words keep whole, the rule column keeps a
+   readable width and the wrap scrolls sideways instead. */
+.method-table-wrap .method-table :is(th, td) { overflow-wrap: normal; }
+.method-table-wrap .method-table :is(th, td):not(:first-child) { min-width: 9rem; }
+.method-table-wrap .method-table td:nth-child(2):not(:last-child) { min-width: 16rem; }
+.method-table th, .method-table td { padding: var(--space-4) var(--space-5); text-align: left; vertical-align: top; border-top: var(--border-hair); }
+.method-table thead th { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); }
+.method-table tbody th { font-weight: 500; color: var(--color-text); white-space: nowrap; }
+.method-table td { color: var(--color-text-2); }
+.method-table__code { color: var(--color-text-muted); margin-right: var(--space-1); }
+.method-yes, .method-no { display: inline-flex; align-items: center; gap: var(--space-1); white-space: nowrap; }
+.method-yes { color: var(--color-text); font-weight: 500; }
+.method-yes svg { color: var(--color-success); }
+.method-no { color: var(--color-text-muted); }
+
+/* Phones: a 30rem table in a sideways scroller hid most of each rule. Below 600px each row stacks as a block
+   (level, then its rule, then the labelled extra column), so every word is readable without scrolling. The
+   column heads stay in the accessibility tree (visually hidden); explicit roles keep row/cell semantics in
+   browsers that drop them when table display changes. */
+@media (max-width: 599.98px) {
+  .method-table-wrap { overflow-x: visible; }
+  .method-table { min-width: 0; }
+  .method-table :is(tbody, tr, th, td) { display: block; }
+  .method-table thead {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+  .method-table tbody tr { padding: var(--space-4) var(--space-5); border-top: var(--border-hair); }
+  .method-table-wrap .method-table :is(th, td) { min-width: 0; padding: 0; border-top: 0; }
+  .method-table tbody th { white-space: normal; margin-bottom: var(--space-1); }
+  .method-table td + td { margin-top: var(--space-2); }
+  .method-table td[data-label] { display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--space-2); }
+  .method-table td[data-label]::before { content: attr(data-label) ":"; color: var(--color-text-muted); font-weight: 400; }
+}
+
+/* 3 · Attribution */
+.method-rule {
+  margin: 0; padding: var(--space-6) 0 0;
+  border-top: var(--border-hair);
+}
+/* The rule itself, set as a statement: big, regular weight, no bar. */
+.method-rule p { font-size: var(--text-h4); font-weight: 400; line-height: 1.3; letter-spacing: -0.015em; color: var(--color-text); max-width: 34ch; text-wrap: balance; }
+.method-rule p:lang(ta) { letter-spacing: 0; max-width: 40ch; }
+.method-attr { display: grid; gap: var(--space-4); }
+.method-attr__case {
+  display: grid; gap: var(--space-3); align-content: start; padding: var(--space-6);
+  border: var(--border-hair); border-radius: var(--media-radius); background: var(--card); min-width: 0;
+}
+.method-attr__case--no { background: transparent; }
+.method-attr__verdict { display: inline-flex; align-items: center; gap: var(--space-2); font-weight: 500; color: var(--color-text); }
+.method-attr__case--yes .method-attr__verdict svg { color: var(--color-success); }
+.method-attr__case--no .method-attr__verdict svg { color: var(--color-text-muted); }
+.method-attr__steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); counter-reset: none; }
+.method-attr__steps li { min-width: 0; overflow-wrap: anywhere; display: flex; gap: var(--space-3); align-items: baseline; color: var(--color-text-2); }
+.method-attr__steps .tnum {
+  flex: none; min-width: 2.5rem; text-align: center; padding: var(--space-0-5) var(--space-2);
+  border-radius: var(--btn-radius); border: var(--border-hair); font-size: var(--text-caption); font-weight: 500; color: var(--color-text);
+}
+.method-attr__aside { font-size: var(--text-small); color: var(--color-text-muted); }
+
+/* 4 · Night panel (the one Night surface on this page) */
+.method-night {
+  padding: var(--space-8) var(--space-5);
+  border-radius: var(--media-radius);
+  background: var(--night-0); color: var(--color-text);
+}
+.method-tags { display: grid; gap: var(--space-4); margin: 0; }
+.method-tags__item {
+  overflow-wrap: anywhere;
+  display: grid; gap: var(--space-3); align-content: start; padding: var(--space-5);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--night-1); min-width: 0;
+}
+.method-tags__item dt { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+.method-tags__word { font-weight: 500; color: var(--color-text); }
+.method-tags__item dd { margin: 0; display: grid; gap: var(--space-2); color: var(--color-text-2); }
+.method-tags__style { font-size: var(--text-caption); color: var(--color-text-muted); }
+.method-rules { margin: 0; padding-left: 1.25em; display: grid; gap: var(--space-2); color: var(--color-text-2); max-width: var(--measure); }
+.method-rules li::marker { color: var(--ink-400); }
+.method-specimens { padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
+.method-specimens__grid { display: grid; gap: var(--space-6); margin-top: var(--space-4); }
+.method-specimens__grid > * { min-width: 0; }
+
+/* 5 · Sources */
+.method-sources { display: grid; gap: 0; margin: 0; border-top: var(--border-hair); }
+.method-sources__item { display: grid; gap: var(--space-1); padding: var(--space-4) 0; border-bottom: var(--border-hair); }
+.method-sources__item dt { font-weight: 500; color: var(--color-text); }
+.method-sources__item dd { margin: 0; color: var(--color-text-2); max-width: var(--measure); }
+
+/* 6 · Editions */
+.method-facts { display: grid; gap: 0; margin: 0; border-top: var(--border-hair); }
+.method-facts > div { display: grid; gap: var(--space-1); padding: var(--space-4) 0; border-bottom: var(--border-hair); min-width: 0; }
+.method-facts dt { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); }
+.method-facts dd { margin: 0; color: var(--color-text); overflow-wrap: anywhere; }
+
+/* 7 · Revisions */
+.method-sev { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.method-sev__label { font-weight: 500; color: var(--color-text); }
+.method-sev__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.method-sev__item {
+  display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--space-3);
+  border: 1px solid var(--color-border-control); border-radius: var(--btn-radius);
+  font-size: var(--text-small); font-weight: 500; color: var(--color-text-2);
+}
+.method-sev__item--material { border-color: var(--color-warning); color: var(--color-warning); background: var(--color-warning-bg); }
+.method-sev__item--critical { border-color: var(--color-error); color: var(--color-error); background: var(--color-error-bg); }
+.method-reality {
+  margin: 0; padding: var(--space-6) 0 0; display: grid; gap: var(--space-4);
+  border-top: var(--border-hair);
+}
+.method-reality p:last-child { font-size: var(--text-h5); line-height: 1.45; letter-spacing: -0.01em; color: var(--color-text); max-width: 44rem; }
+.method-reality p:last-child:lang(ta) { letter-spacing: 0; }
+.method-actions { --cluster-gap: var(--space-3) var(--space-6); }
+
+/* Tablet: two-up where it helps */
+@media (min-width: 768px) {
+  .method-attr { grid-template-columns: 1fr 1fr; }
+  .method-tags { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .method-tags > :last-child:nth-child(odd) { grid-column: 1 / -1; } /* 2 + 1 spanning, no orphan */
+  .method-specimens__grid { grid-template-columns: 1fr 1fr; }
+  .method-night { padding: var(--space-10) var(--space-8); }
+  .method-facts > div { grid-template-columns: 12rem 1fr; gap: var(--space-6); }
+  .method-sources__item { grid-template-columns: 12rem 1fr; gap: var(--space-6); }
+}
+
+/* Three tag cards fit three across once the prose column is wide enough */
+@media (min-width: 1280px) {
+  .method-tags { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .method-tags > :last-child:nth-child(odd) { grid-column: auto; }
+}
+
+/* Desktop: TOC aside + 8-col prose */
+@media (min-width: 1024px) {
+  .method-layout { grid-template-columns: minmax(13rem, 3fr) 9fr; gap: var(--space-12); align-items: start; }
+  /* The aside stretches to the full row so its sticky child has room to stick. */
+  .method-toc { align-self: stretch; }
+  .method-toc__mobile { display: none; }
+  .method-toc__desktop {
+    display: grid; gap: var(--space-3);
+    position: sticky; top: calc(var(--shell-offset, var(--header-h)) + var(--space-6));
+    max-height: calc(100vh - var(--shell-offset, var(--header-h)) - var(--space-12)); overflow-y: auto;
+  }
+}

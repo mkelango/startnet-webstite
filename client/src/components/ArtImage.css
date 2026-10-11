@@ -1,0 +1,109 @@
+/* Image slot (DESIGN-v2 3.7). Decorative slots draw a MotionVisual (its own palette, one red point); portraits without a
+   photo draw a mono figure and "the point" in Ink (Paper on Ink) on Bone (Night-1 on Ink). */
+.art-image {
+  --art-bg: var(--bone);
+  --art-ink: var(--ink-300);
+  --art-point: var(--ink-900);
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  background: var(--art-bg);
+  color: var(--art-ink);
+  container-type: inline-size;
+  isolation: isolate;
+}
+.art-image--brand { --art-bg: var(--bone); }
+.section--white .art-image:not(.art-image--photo),
+.section--sunken .art-image:not(.art-image--photo) { --art-bg: var(--card); }
+.art-image--night,
+[data-surface='night'] .art-image {
+  --art-bg: var(--night-1);
+  --art-ink: var(--ink-500);
+  --art-point: var(--paper);
+}
+/* Motion visual (MotionVisual.jsx) fills the slot box; the slot keeps its own aspect-ratio (no CLS). */
+.art-image .art-image__mv { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: inherit; }
+/* Server markup cannot see the surrounding surface; on Ink the static fallback must not render as Paper (the client
+   reads the surface before first paint, so this only matters for raw SSR output). */
+[data-surface='night'] .art-image .art-image__mv.mv--day {
+  --mv-ground: #0c1719 !important;
+  --mv-ground2: #1b292c !important;
+  --mv-glow: rgba(136, 199, 206, 0.2) !important;
+  --mv-glow2: rgba(136, 199, 206, 0.14) !important;
+}
+.art-image__svg { display: block; width: 100%; height: 100%; }
+
+.art__bg { fill: var(--art-bg); }
+.art__figure { fill: currentColor; opacity: 0.16; }
+.art__point { fill: var(--art-point); }
+
+/* Initials portrait (people without photographs): "AK" + red full stop */
+.art-image__initials {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.04em;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-size: 30cqi;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--ink-700);
+}
+.art-image__initials-text { display: inline-flex; align-items: baseline; }
+.art-image__initials-dot {
+  display: inline-block;
+  width: 0.17em;
+  height: 0.17em;
+  margin-left: 0.05em;
+  border-radius: var(--radius-full);
+  background: var(--art-point);
+}
+[data-surface='night'] .art-image__initials { color: var(--night-text-2); }
+
+/* Caption chip (e.g. "Vibathon 2025, Madurai"): wraps to at most 2 lines, never an ellipsis */
+.art-image__label {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 1;
+  max-width: calc(100% - 24px);
+  padding: 4px 8px;
+  border-radius: var(--radius-btn);
+  background: rgb(12 23 25 / 0.72);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--paper);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+/* ===== Real photographs (photo prop): same box, ratio and radius as the art ===== */
+.art-image--photo { --art-bg: var(--color-bg-sunken); }
+.art-image__picture { position: absolute; inset: 0; display: block; }
+.art-image__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Focal point from the manifest: phones crop around --focus-m (faces stay in frame), wider screens around --focus. */
+  object-position: var(--focus-m, 50% 50%);
+}
+@media (min-width: 768px) {
+  .art-image__photo { object-position: var(--focus, 50% 50%); }
+}
+/* Captions stay legible on any photo. */
+.art-image--photo .art-image__label { z-index: 1; }
+

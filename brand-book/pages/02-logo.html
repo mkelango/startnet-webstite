@@ -1,0 +1,560 @@
+<style>
+  /* ---------- 02 · Logo: chapter-only styles ---------- */
+  .c02-dim { position: absolute; height: 0; border-top: 1.5px solid var(--red-700); }
+  .c02-dim::before, .c02-dim::after { content: ''; position: absolute; top: -7px; width: 0; height: 13px; border-left: 1.5px solid var(--red-700); }
+  .c02-dim::before { left: 0; } .c02-dim::after { right: -1.5px; }
+  .c02-dim > span { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); white-space: nowrap;
+    font-size: 19px; font-weight: 600; letter-spacing: 0.04em; color: var(--red-700); font-variant-numeric: tabular-nums; }
+  .c02-dim--up > span { top: auto; bottom: 10px; }
+  .c02-dim > span, .c02-vdim > span { font-style: normal; }
+  .c02-dim--s::before, .c02-dim--s::after { top: -5px; height: 9px; }
+  .c02-dim--s > span { top: 8px; }
+  .c02-vdim--s::before, .c02-vdim--s::after { left: -5px; width: 9px; }
+  .c02-vdim--s > span { left: 12px; }
+  .c02-vdim { position: absolute; width: 0; border-left: 1.5px solid var(--red-700); }
+  .c02-vdim::before, .c02-vdim::after { content: ''; position: absolute; left: -7px; width: 13px; height: 0; border-top: 1.5px solid var(--red-700); }
+  .c02-vdim::before { top: 0; } .c02-vdim::after { bottom: -1.5px; }
+  .c02-vdim > span { position: absolute; top: 50%; left: 14px; transform: translateY(-50%); white-space: nowrap;
+    font-size: 19px; font-weight: 600; letter-spacing: 0.04em; color: var(--red-700); }
+  .c02-tag { font-size: 17px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-3); }
+
+  /* 02.1 lockup */
+  .c02-lock { display: grid; grid-template-columns: 1000px 1fr; gap: 80px; align-items: start; }
+  .c02-lock .rules > li { font-size: 23px; padding: 17px 0; }
+  .c02-lock .rules .sub { font-size: 20px; }
+  .c02-art { height: 560px; display: grid; place-items: center; padding: 0; }
+  .c02-fig { position: relative; display: inline-block; line-height: 1; }
+  .c02-brk { position: absolute; height: 12px; border: 1.5px solid var(--ink-300); border-top: 0; }
+  .c02-brk > span { position: absolute; left: 50%; top: 22px; transform: translateX(-50%); font-size: 18px; font-weight: 600; letter-spacing: 0.16em; color: var(--text-3); font-style: normal; }
+  .c02-art__foot { position: absolute; left: 34px; right: 34px; bottom: 26px; display: flex; justify-content: space-between; }
+
+  /* 02.2 construction */
+  .c02-con { display: grid; grid-template-columns: 940px 1fr; gap: 80px; align-items: start; }
+  .c02-cons { position: relative; height: 290px; --F: 220px; --x0: 2px; --bl: 212px; }
+  .c02-cons .sn-logo { position: absolute; left: var(--x0); top: calc(var(--bl) - var(--F) * 0.864); font-size: var(--F); z-index: 2; }
+  .c02-cons .sn-logo .d { width: 0.1908em; height: 0.1908em; margin-left: 0.1136em; transform: none; }
+  .c02-guide { position: absolute; left: 0; right: 0; height: 0; border-top: 1.5px dashed var(--ink-300); z-index: 1; }
+  .c02-guide--base { border-top: 1.5px solid var(--ink-400); }
+  .c02-stem { position: absolute; z-index: 3; background: rgb(239 68 68 / 0.30); }
+  .c02-lines { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 30px; }
+  .c02-lines > div { border-top: 1px solid var(--line); padding-top: 16px; }
+  .c02-lines b { display: block; font-size: 21px; font-weight: 600; color: var(--ink); }
+  .c02-lines span { display: block; font-size: 20px; color: var(--text-2); margin-top: 4px; line-height: 1.4; }
+  .c02-key { display: inline-block; width: 34px; height: 0; border-top: 1.5px dashed var(--ink-300); vertical-align: middle; margin-right: 12px; }
+  .c02-key--solid { border-top-style: solid; border-color: var(--ink-400); }
+  .c02-key--tint { height: 16px; width: 16px; border: 0; background: rgb(239 68 68 / 0.30); margin-right: 12px; }
+  .c02-unit { display: grid; grid-template-columns: 96px 1fr; gap: 24px; align-items: center; padding-bottom: 26px; border-bottom: 1px solid var(--line); }
+  .c02-unit__sym { width: 96px; height: 96px; border-radius: 50%; border: 1.5px solid var(--ink); display: grid; place-items: center;
+    font-size: 46px; font-weight: 500; letter-spacing: -0.02em; line-height: 1; padding-bottom: 6px; }
+  .c02-con .spec td, .c02-con .spec th { padding: 13px 0; font-size: 22px; }
+  .c02-con .spec th { font-size: 17px; }
+  .c02-ext { position: absolute; width: 0; border-left: 1px solid var(--red-700); z-index: 3; }
+  .c02-con .spec td:nth-child(2), .c02-con .spec th:nth-child(2) { padding-left: 20px; }
+
+  /* 02.3 clear space */
+  .c02-csw { display: grid; grid-template-columns: 904px 1fr; gap: 104px; align-items: start; }
+  .c02-cs { position: relative; --F: 170px; width: calc(var(--F) * 5.32); height: calc(var(--F) * 1.947); border: 1.5px dashed var(--red-700); }
+  .c02-cs .sn-logo { position: absolute; font-size: var(--F); left: calc(var(--F) * 0.562); top: calc(var(--F) * 0.473); z-index: 2; }
+  .c02-cs__ink { position: absolute; inset: calc(var(--F) * 0.6); border: 1px solid var(--ink-200); }
+  .c02-cs__o { position: absolute; width: calc(var(--F) * 0.2); height: calc(var(--F) * 0.2); border-radius: 50%; border: 1.5px solid var(--ink-300); }
+  .c02-cs__l { position: absolute; font-size: 19px; font-weight: 600; letter-spacing: 0.04em; color: var(--red-700); }
+  .c02-min { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .c02-min__spec { height: 92px; position: relative; display: flex; align-items: flex-end; border-bottom: 1px solid var(--line); padding-bottom: 14px; }
+  .c02-min__w { position: absolute; top: 40px; left: 0; }
+  .c02-min .cap { margin-top: 14px; font-size: 21px; }
+  .c02-min .cap span { font-size: 19px; }
+  .c02-csw .spec td { padding: 13px 0; font-size: 22px; }
+
+  /* 02.4 colour versions */
+  .c02-tile { height: 236px; display: grid; place-items: center; }
+  .c02-tile--line { border: 1px solid var(--line-strong); }
+  .c02-cv .label { margin-top: 22px; }
+  .c02-cv p { font-size: 21px; line-height: 1.45; color: var(--text-2); margin-top: 8px; }
+  .c02-cv p b { color: var(--ink); font-weight: 600; }
+  .c02-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; border-top: 1px solid var(--line); padding-top: 26px; }
+  .c02-three p { font-size: 21px; line-height: 1.45; color: var(--text-2); margin-top: 10px; }
+
+  /* 02.5 brand lockups */
+  .c02-bl { display: grid; grid-template-columns: 180px 330px 262px 318px 304px 1fr; align-items: end; padding: 0 36px; }
+  .c02-bl--night { background: var(--ink); color: var(--night-text); padding-top: 34px; padding-bottom: 28px; }
+  .c02-bl--day { padding-top: 6px; padding-bottom: 28px; }
+  .c02-bl__mode { align-self: start; padding-top: 6px; }
+  .c02-bl__hex { margin-top: 16px; font-size: 19px; line-height: 1.4; font-variant-numeric: tabular-nums; color: var(--text-2); }
+  .c02-bl__hex b { color: var(--ink); font-weight: 600; display: flex; align-items: center; gap: 9px; }
+  .c02-bl__hex b i { width: 13px; height: 13px; border-radius: 50%; flex: none; }
+  .c02-bl--night .c02-bl__hex { color: var(--night-text-3); }
+  .c02-bl--night .c02-bl__hex b { color: var(--night-text); }
+  .c02-bl--night .label--muted { color: var(--night-text-3); }
+  .c02-blrules { display: grid; grid-template-columns: 700px 1fr 1fr; gap: 56px; margin-top: 44px; }
+  .c02-blrules h4 { font-size: 23px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+  .c02-blrules p { font-size: 20px; line-height: 1.45; color: var(--text-2); margin-top: 8px; }
+  .c02-blrules .hair-top { padding-top: 20px; }
+  .c02-stk { position: relative; display: inline-flex; flex-direction: column; align-items: flex-start; --F: 46px; font-size: var(--F); line-height: 1; }
+  .c02-stk__d { font-weight: 400; letter-spacing: -0.02em; line-height: 1; margin-top: calc(var(--F) * -0.072); }
+  .c02-label-prog { display: flex; align-items: center; gap: 14px; font-size: 21px; font-weight: 600; color: var(--ink); margin-top: 14px; }
+  .c02-label-prog i { width: 36px; height: 3px; background: var(--vibe); }
+
+  /* 02.6 monogram */
+  .c02-mono { display: grid; grid-template-columns: 1004px 1fr; gap: 80px; align-items: start; }
+  .c02-mono .spec td:last-child { white-space: nowrap; padding-left: 16px; }
+  .c02-icons { display: grid; grid-template-columns: 240px 180px 180px 180px; gap: 0 48px; align-items: start; }
+  .c02-icbox { display: flex; align-items: flex-end; }
+  .c02-icons2 { display: grid; grid-template-columns: 240px 228px 1fr; gap: 0 48px; align-items: start; margin-top: 46px; }
+  .c02-ic { position: relative; color: #fff; line-height: 1; letter-spacing: -0.035em; }
+  .c02-mg { display: inline-flex; align-items: baseline; line-height: 1; transform: translateX(-0.02em); }
+  .c02-safe { position: absolute; left: 10%; top: 10%; width: 80%; height: 80%; border-radius: 50%; border: 1.5px dashed rgb(244 244 240 / 0.45); }
+  .c02-px { position: absolute; inset: 0; background-image: linear-gradient(to right, rgb(244 244 240 / 0.10) 1px, transparent 1px), linear-gradient(to bottom, rgb(244 244 240 / 0.10) 1px, transparent 1px); }
+  .c02-fav { display: flex; align-items: flex-end; gap: 22px; }
+  .c02-mono .cap { margin-top: 16px; font-size: 20px; }
+  .c02-mono .cap span { font-size: 18px; }
+  .c02-mono .spec td { padding: 13px 0; font-size: 21px; }
+  .c02-mono .spec td .s { display: block; font-size: 18px; color: var(--text-3); margin-top: 2px; }
+
+  /* 02.7 co-branding */
+  .c02-cb { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+  .c02-panel { height: 222px; background: var(--white); border: 1px solid var(--line); position: relative; padding: 28px 26px; }
+  .c02-ph { display: grid; place-items: center; background: var(--bone); border: 1px dashed var(--line-strong); color: var(--text-3);
+    font-size: 13px; font-weight: 600; letter-spacing: 0.06em; white-space: nowrap; }
+  .c02-with { font-size: 15px; font-weight: 500; color: var(--text-2); }
+  .c02-cb h4 { font-size: 23px; font-weight: 600; letter-spacing: -0.01em; margin-top: 22px; display: flex; gap: 12px; }
+  .c02-cb h4 b { color: var(--red-700); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .c02-cb p { font-size: 20px; line-height: 1.45; color: var(--text-2); margin-top: 8px; }
+  .c02-wall { display: grid; grid-template-columns: 520px 1fr; gap: 64px; align-items: center; }
+  .c02-wall p { font-size: 20px; line-height: 1.45; color: var(--text-2); margin-top: 8px; }
+  .c02-wallrow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+
+  /* 02.8 misuse */
+  .c02-mis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px 34px; }
+  .c02-mis__t { height: 196px; border: 1px solid var(--night-line); display: grid; place-items: center; overflow: hidden; position: relative; }
+  .c02-mis__c { margin-top: 14px; font-size: 21px; line-height: 1.35; color: var(--night-text-2); }
+</style>
+
+<!-- ============ 02 · LOGO: CHAPTER DIVIDER ============ -->
+<section class="page page--ink chapter" id="ch-logo" data-section="Chapter">
+  <div class="pulli" style="left:0; top:136px; width:1920px; height:944px; --pulli: rgb(244 244 240 / .06)"></div>
+  <div class="fullstop" style="width:520px; height:520px; right:-110px; top:-190px;"></div>
+  <div class="page__body">
+    <div class="chapter__num">02</div>
+    <div class="chapter__title">Logo</div>
+    <div class="chapter__nav" style="gap:14px 38px"><span>The lockup</span><span>Construction</span><span>Clear space</span><span>Colour versions</span><span>Brand lockups</span><span>Monogram</span><span>Co-branding</span><span>Misuse</span></div>
+  </div>
+</section>
+
+<!-- ============ 02.1 THE LOCKUP ============ -->
+<section class="page" id="lockup" data-section="02 · Logo">
+  <div class="page__body">
+    <div class="kicker">02.1</div>
+    <h1 class="title">The lockup</h1>
+    <div class="c02-lock mt-l">
+      <div class="box c02-art"><i class="x1"></i><i class="x2"></i>
+        <div class="c02-fig" style="--F:200px; font-size:200px; margin-top:-34px">
+          <span class="sn-logo" style="font-size:200px">StartNet<span class="d"></span></span>
+          <i class="c02-brk" style="left:calc(var(--F) * 0.038); width:calc(var(--F) * 3.868); top:calc(var(--F) * 0.864 + 46px)"><span>01</span></i>
+          <i class="c02-brk" style="left:calc(var(--F) * 3.958); width:calc(var(--F) * 0.2); top:calc(var(--F) * 0.864 + 46px)"><span>02</span></i>
+        </div>
+        <div class="c02-art__foot"><span class="c02-tag">Masterbrand · primary version</span><span class="c02-tag">Ink + SNX Red on Paper</span></div>
+      </div>
+      <div>
+        <p class="lede" style="font-size:28px; line-height:1.4">One artwork in three parts. The parts are never separated, or rebuilt from type.</p>
+        <ol class="rules mt-m">
+          <li><b>01</b><span><b>Wordmark.</b> “StartNet”, one word, capital S and N.<span class="sub">Drawn from Inter at a heavy weight with tightened spacing, outlined as artwork. Never typed live.</span></span></li>
+          <li><b>02</b><span><b>The full stop.</b> A perfect circle in SNX Red.<span class="sub">Heavier than a typed period, so it reads as a mark, not punctuation.</span></span></li>
+          <li><b>03</b><span><b>Descriptor.</b> Optional.<span class="sub">Used only in brand lockups, page <span data-page-of="brand-lockups"></span>.</span></span></li>
+        </ol>
+        <p class="small mt-m" style="font-size:19px; line-height:1.45">Final outlined vector artwork is produced from the construction on page <span data-page-of="construction"></span>.<br><span style="color:var(--ink)">[Existing StartNet logo files to be supplied by StartNet to confirm the letterforms · Book 3 open item 1]</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02.2 CONSTRUCTION AND THE FULL STOP ============ -->
+<section class="page" id="construction" data-section="02 · Logo">
+  <div class="page__body">
+    <div class="kicker">02.2</div>
+    <h1 class="title">Construction and the full stop</h1>
+    <div class="c02-con mt-l">
+      <div>
+        <div class="c02-cons">
+          <div class="c02-guide" style="top:calc(var(--bl) - var(--F) * 0.728)"></div>
+          <div class="c02-guide" style="top:calc(var(--bl) - var(--F) * 0.546)"></div>
+          <div class="c02-guide c02-guide--base" style="top:var(--bl)"></div>
+          <span class="sn-logo">StartNet<span class="d"></span></span>
+          <div class="c02-stem" style="left:calc(var(--x0) + var(--F) * 3.632); width:calc(var(--F) * 0.159); top:calc(var(--bl) - var(--F) * 0.676); height:calc(var(--F) * 0.576)"></div>
+          <div class="c02-ext" style="left:calc(var(--x0) + var(--F) * 3.632); top:calc(var(--bl) - var(--F) * 0.1); height:calc(var(--F) * 0.1 + 22px)"></div>
+          <div class="c02-ext" style="left:calc(var(--x0) + var(--F) * 3.791); top:calc(var(--bl) - var(--F) * 0.1); height:calc(var(--F) * 0.1 + 22px)"></div>
+          <div class="c02-dim c02-dim--up" style="left:calc(var(--x0) + var(--F) * 4.0014); width:calc(var(--F) * 0.1908); top:calc(var(--bl) - var(--F) * 0.1908 - 18px)"><span>d</span></div>
+          <div class="c02-dim" style="left:calc(var(--x0) + var(--F) * 3.632); width:calc(var(--F) * 0.159); top:calc(var(--bl) + 22px)"><span>s</span></div>
+          <div class="c02-dim" style="left:calc(var(--x0) + var(--F) * 3.906); width:calc(var(--F) * 0.0954); top:calc(var(--bl) + 22px)"><span>0.6 s</span></div>
+        </div>
+        <div class="c02-lines">
+          <div><b><i class="c02-key"></i>Cap height and x-height</b><span>0.728 em and 0.546 em above the baseline in Inter</span></div>
+          <div><b><i class="c02-key c02-key--solid"></i>Baseline</b><span>The full stop sits on it, like the foot of every letter</span></div>
+          <div><b><i class="c02-key c02-key--tint"></i>Stem, s</b><span>The wordmark's vertical stem, shown on the final “t”</span></div>
+        </div>
+        <p class="small mt-m" style="font-size:20px; max-width:900px">Drawn to the master construction (Book 3 §2.1). The stop is a perfect circle, never an ellipse or a rounded square, and slightly heavier than a typed period so it holds at small sizes.</p>
+      </div>
+      <div>
+        <div class="c02-unit">
+          <div class="c02-unit__sym">d</div>
+          <p class="body" style="font-size:23px; line-height:1.45"><b style="color:var(--ink); font-weight:600">The unit.</b> d is the diameter of the full stop. Every clear space and lockup distance in this chapter is measured in d.</p>
+        </div>
+        <table class="spec mt-m">
+          <tr><th></th><th>Master</th><th>On screen</th></tr>
+          <tr><td><b>Diameter, d</b></td><td>1.2 s</td><td>0.20 em</td></tr>
+          <tr><td><b>Gap to the “t”</b></td><td>0.6 s (0.5 d)</td><td>0.07 em margin</td></tr>
+          <tr><td><b>Position</b></td><td>On the baseline</td><td>0.01 em overshoot</td></tr>
+          <tr><td><b>Tracking</b></td><td>Tightened</td><td>−3.5%</td></tr>
+          <tr><td><b>Weight</b></td><td>Heavy, outlined</td><td>Inter 750</td></tr>
+        </table>
+        <p class="small mt-m" style="font-size:19px; line-height:1.45">“On screen” is the website's CSS logo. In Inter 750, s measures 0.159 em, so its 0.20 em stop is 1.26 s, and the ink gap to the “t” is about 0.05 em. <span style="color:var(--ink)">[Reconcile with the master files when supplied · open item 1]</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02.3 CLEAR SPACE AND MINIMUM SIZE ============ -->
+<section class="page" id="clearspace" data-section="02 · Logo">
+  <div class="page__body">
+    <div class="kicker">02.3</div>
+    <h1 class="title">Clear space and minimum size</h1>
+    <div class="c02-csw mt-l">
+      <div>
+        <div class="c02-cs">
+          <div class="c02-cs__ink"></div>
+          <span class="sn-logo">StartNet<span class="d"></span></span>
+          <!-- three d-circles above the stop, three to its right -->
+          <i class="c02-cs__o" style="left:calc(var(--F) * 4.52); top:0"></i>
+          <i class="c02-cs__o" style="left:calc(var(--F) * 4.52); top:calc(var(--F) * 0.2)"></i>
+          <i class="c02-cs__o" style="left:calc(var(--F) * 4.52); top:calc(var(--F) * 0.4)"></i>
+          <i class="c02-cs__o" style="left:calc(var(--F) * 4.72); top:calc(var(--F) * 1.147)"></i>
+          <i class="c02-cs__o" style="left:calc(var(--F) * 4.92); top:calc(var(--F) * 1.147)"></i>
+          <i class="c02-cs__o" style="left:calc(var(--F) * 5.12); top:calc(var(--F) * 1.147)"></i>
+          <span class="c02-cs__l" style="left:50%; top:calc(var(--F) * 0.3); transform:translate(-50%, -50%)">3d</span>
+          <span class="c02-cs__l" style="left:50%; bottom:calc(var(--F) * 0.3); transform:translate(-50%, 50%)">3d</span>
+          <span class="c02-cs__l" style="left:calc(var(--F) * 0.3); top:50%; transform:translate(-50%, -50%)">3d</span>
+          <span class="c02-cs__l" style="right:calc(var(--F) * 0.3); top:calc(var(--F) * 0.62); transform:translate(50%, -50%)">3d</span>
+        </div>
+        <p class="body mt-m" style="font-size:22px; line-height:1.5; max-width:880px">3d on every side, measured from the outermost ink: the S at the left and top, the full stop at the right. No text, edge or other logo enters it. Three stops of clear space are about the cap height of the S.</p>
+      </div>
+      <div>
+        <div class="c02-min">
+          <div>
+            <div class="c02-min__spec">
+              <div class="c02-dim c02-dim--up c02-min__w" style="width:88px"><span>88 px</span></div>
+              <span class="sn-logo" style="font-size:21.16px">StartNet<span class="d"></span></span>
+            </div>
+            <div class="cap">Masterbrand<span>88 px · 22 mm</span></div>
+          </div>
+          <div>
+            <div class="c02-min__spec">
+              <div class="c02-dim c02-dim--up c02-min__w" style="width:132px"><span>132 px</span></div>
+              <span class="sn-logo" style="font-size:15.15px">StartNet<span class="d"></span><span class="desc" style="color:var(--research)">Research</span></span>
+            </div>
+            <div class="cap">Brand lockup<span>132 px · 32 mm</span></div>
+          </div>
+          <div>
+            <div class="c02-min__spec">
+              <span class="sn-mono c02-ic" style="width:32px; height:32px; font-size:19px; border-radius:2px"><span class="c02-mg">S<span class="d"></span></span></span>
+            </div>
+            <div class="cap">Below minimum<span>Use the monogram</span></div>
+          </div>
+        </div>
+        <table class="spec" style="margin-top:44px">
+          <tr><th>Rule</th><th>Value</th></tr>
+          <tr><td>Clear space, every lockup</td><td><b>3d, all sides</b></td></tr>
+          <tr><td>From a page or screen edge</td><td><b>3d or the margin, if larger</b></td></tr>
+          <tr><td>Minimum, masterbrand</td><td><b>88 px · 22 mm</b></td></tr>
+          <tr><td>Minimum, brand lockup</td><td><b>132 px · 32 mm</b></td></tr>
+          <tr><td>Below minimum</td><td><b>Monogram “S.” or the name as text</b></td></tr>
+          <tr><td>Header on startnet.in</td><td><b>28 px desktop · 22 px mobile</b></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02.4 COLOUR VERSIONS ============ -->
+<section class="page" id="colour-versions" data-section="02 · Logo">
+  <div class="page__body">
+    <div class="kicker">02.4</div>
+    <h1 class="title">Colour versions</h1>
+    <div class="grid g4 mt-l c02-cv">
+      <div>
+        <div class="c02-tile c02-tile--line" style="background:var(--paper)"><span class="sn-logo" style="font-size:62px">StartNet<span class="d"></span></span></div>
+        <div class="label">Primary</div>
+        <p>Ink wordmark, red full stop, on Paper or white. First choice everywhere. The stop is <b>3.39:1</b> on Paper, above the 3:1 for graphics.</p>
+      </div>
+      <div>
+        <div class="c02-tile" style="background:var(--ink)"><span class="sn-logo sn-logo--rev" style="font-size:62px">StartNet<span class="d"></span></span></div>
+        <div class="label">Reversed</div>
+        <p>Paper wordmark, red full stop, on Ink, night surfaces and dark photography. The stop is <b>4.84:1</b> on Ink.</p>
+      </div>
+      <div>
+        <div class="c02-tile c02-tile--line" style="background:var(--paper)"><span class="sn-logo sn-logo--mono" style="font-size:62px">StartNet<span class="d"></span></span></div>
+        <div class="label">Mono Ink</div>
+        <p>Ink wordmark and stop. Single-colour print, embossing, mono partner material, and Vibe or Connect fills.</p>
+      </div>
+      <div>
+        <div class="c02-tile" style="background:var(--research)"><span class="sn-logo sn-logo--white sn-logo--mono" style="font-size:62px">StartNet<span class="d"></span></span></div>
+        <div class="label">Mono White</div>
+        <p>White wordmark and stop. Research, Women or red fills, dark photographs with busy colour, low-grade print.</p>
+      </div>
+    </div>
+    <div class="c02-three mt-auto" style="margin-bottom:6px">
+      <div><div class="label">Grounds that are allowed</div><p>Primary on Paper, white and light photography. Reversed on Ink, night surfaces and dark photography.</p></div>
+      <div><div class="label">Never colour on an accent</div><p>On an accent, red or mid-tone photo the red stop disappears. Use mono: the stop keeps its shape and gives up its colour.</p></div>
+      <div><div class="label">Beside imagery, not over it</div><p>Set the logo on a solid field next to the image. Where it must sit on a photograph, use a calm area; busy colour takes Mono White.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02.5 BRAND LOCKUPS ============ -->
+<section class="page" id="brand-lockups" data-section="02 · Logo">
+  <div class="page__body">
+    <div class="kicker">02.5</div>
+    <h1 class="title">Brand lockups</h1>
+    <div class="c02-bl c02-bl--day mt-m">
+      <div class="c02-bl__mode label label--muted">Day</div>
+      <div>
+        <div class="c02-fig" style="--F:32px">
+          <span class="sn-logo" style="font-size:32px">StartNet<span class="d"></span><span class="desc" style="color:var(--research)">Research</span></span>
+        </div>
+        <div class="c02-bl__hex"><b><i style="background:#4A3AA7"></i>#4A3AA7</b>Research</div>
+      </div>
+      <div>
+        <span class="sn-logo" style="font-size:32px">StartNet<span class="d"></span><span class="desc" style="color:var(--vibe)">Vibe</span></span>
+        <div class="c02-bl__hex"><b><i style="background:#E2581F"></i>#E2581F</b>#9F3605 under 24 px</div>
+      </div>
+      <div>
+        <span class="sn-logo" style="font-size:32px">StartNet<span class="d"></span><span class="desc" style="color:var(--connect)">Connect</span></span>
+        <div class="c02-bl__hex"><b><i style="background:#0E8F63"></i>#0E8F63</b>#006F4B under 24 px</div>
+      </div>
+      <div>
+        <span class="sn-logo" style="font-size:32px">StartNet<span class="d"></span><span class="desc" style="color:var(--women)">Women</span></span>
+        <div class="c02-bl__hex"><b><i style="background:#C2386F"></i>#C2386F</b>Women</div>
+      </div>
+      <div>
+        <span class="sn-logo" style="font-size:32px">StartNet<span class="d"></span><span class="desc" style="color:var(--red); font-weight:800">X</span></span>
+        <div class="c02-bl__hex"><b><i style="background:#EF4444"></i>#EF4444</b>SNX Red, ExtraBold</div>
+      </div>
+    </div>
+    <div class="c02-bl c02-bl--night">
+      <div class="c02-bl__mode label label--muted">Night</div>
+      <div>
+        <span class="sn-logo sn-logo--rev" style="font-size:32px">StartNet<span class="d"></span><span class="desc" style="color:#9894FF">Research</span></span>
+        <div class="c02-bl__hex"><b><i style="background:#9894FF"></i>#9894FF</b>Research-400</div>
+      </div>
+      <div>
+        <span class="sn-logo sn-logo--rev" style="font-size:32px">StartNet<span class="d"></span><span class="desc" style="color:#F37C52">Vibe</span></span>
+        <div class="c02-bl__hex"><b><i style="background:#F37C52"></i>#F37C52</b>Vibe-400</div>
+      </div>
+      <div>
+        <span class="sn-logo sn-logo--rev" style="font-size:32px">StartNet<span class="d"></span><span class="desc" style="color:#5DB88F">Connect</span></span>
+        <div class="c02-bl__hex"><b><i style="background:#5DB88F"></i>#5DB88F</b>Connect-400</div>
+      </div>
+      <div>
+        <span class="sn-logo sn-logo--rev" style="font-size:32px">StartNet<span class="d"></span><span class="desc" style="color:#F0749E">Women</span></span>
+        <div class="c02-bl__hex"><b><i style="background:#F0749E"></i>#F0749E</b>Women-400</div>
+      </div>
+      <div>
+        <span class="sn-logo sn-logo--rev" style="font-size:32px">StartNet<span class="d"></span><span class="desc" style="color:var(--red); font-weight:800">X</span></span>
+        <div class="c02-bl__hex"><b><i style="background:#EF4444"></i>#EF4444</b>SNX Red, 4.84:1</div>
+      </div>
+    </div>
+    <div class="c02-blrules">
+      <div class="hair-top">
+        <div class="label">Spacing, in d</div>
+        <div style="display:flex; align-items:flex-start; gap:72px; margin-top:30px">
+          <div class="c02-fig" style="--F:54px">
+            <span class="sn-logo" style="font-size:var(--F)">StartNet<span class="d"></span><span class="desc" style="color:var(--vibe)">Vibe</span></span>
+            <i class="c02-dim c02-dim--s" style="left:calc(var(--F) * 4.158); width:calc(var(--F) * 0.3); top:calc(var(--F) * 0.864 + 14px)"><span>1.5d</span></i>
+          </div>
+          <div class="c02-stk" style="--F:54px">
+            <span class="sn-logo" style="font-size:var(--F)">StartNet<span class="d"></span></span>
+            <span class="c02-stk__d" style="color:var(--vibe)">Vibe</span>
+            <i class="c02-vdim c02-vdim--s" style="left:calc(var(--F) * 4.32); top:calc(var(--F) * 0.864); height:calc(var(--F) * 0.2)"><span>1d</span></i>
+          </div>
+        </div>
+        <p style="margin-top:22px">The descriptor starts 1.5d after the stop, with nothing between: never a separator, a slash or a second dot. Stacked, for square spaces, it sits under the wordmark, ranged left, 1d below the baseline.</p>
+      </div>
+      <div class="hair-top">
+        <h4>Programmes are labels, not logos</h4>
+        <p>The programme name in Inter SemiBold, followed by the brand accent rule, set under the brand lockup. Only the lockup is a logo.</p>
+        <div style="margin-top:24px">
+          <span class="sn-logo" style="font-size:30px">StartNet<span class="d"></span><span class="desc" style="color:var(--vibe)">Vibe</span></span>
+          <div class="c02-label-prog">Vibe Academy<i></i></div>
+        </div>
+      </div>
+      <div class="hair-top">
+        <h4>One endorsed wordmark: Vibathon</h4>
+        <p>Vibathon is the only programme with its own wordmark. Its endorsement line reads “a StartNet Vibe programme”, in Inter Medium, ranged left under the wordmark, 1d below it.</p>
+        <p class="mt-s" style="color:var(--ink)">[Vibathon wordmark artwork to be supplied]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02.6 MONOGRAM AND APP ICONS ============ -->
+<section class="page" id="monogram" data-section="02 · Logo">
+  <div class="page__body">
+    <div class="kicker">02.6</div>
+    <h1 class="title">Monogram and app icons</h1>
+    <div class="c02-mono mt-l">
+      <div>
+        <div class="c02-icons">
+          <div>
+            <div class="c02-icbox" style="height:240px"><span class="sn-mono c02-ic" style="width:240px; height:240px; font-size:136px; border-radius:0"><span class="c02-mg">S<span class="d"></span></span><i class="c02-safe"></i></span></div>
+            <div class="cap">PWA, maskable<span>512, shown at 47%</span></div>
+          </div>
+          <div>
+            <div class="c02-icbox" style="height:240px"><span class="sn-mono c02-ic" style="width:180px; height:180px; font-size:102px; border-radius:0"><span class="c02-mg">S<span class="d"></span></span></span></div>
+            <div class="cap">Apple touch<span>180, actual size</span></div>
+          </div>
+          <div>
+            <div class="c02-icbox" style="height:240px"><span class="sn-mono c02-ic" style="width:180px; height:180px; font-size:102px; color:var(--paper)"><span class="c02-mg">X<span class="d"></span></span></span></div>
+            <div class="cap">SNX app icon<span>192 · 512 · 1024</span></div>
+          </div>
+          <div>
+            <div class="c02-icbox" style="height:240px"><span class="sn-mono c02-ic" style="width:180px; height:180px; font-size:102px; background:var(--vibe); color:var(--ink)"><span class="c02-mg">V<span class="d" style="background:var(--ink)"></span></span></span></div>
+            <div class="cap">Vibathon icon<span>192 · 512</span></div>
+          </div>
+        </div>
+        <div class="c02-icons2">
+          <div>
+            <div class="c02-icbox" style="height:128px; gap:22px">
+              <span class="sn-mono c02-ic" style="width:128px; height:128px; font-size:76px; border-radius:8px"><span class="c02-mg">S<span class="d"></span></span><i class="c02-px" style="background-size:4px 4px"></i></span>
+              <span class="sn-mono c02-ic" style="width:32px; height:32px; font-size:19px; border-radius:2px"><span class="c02-mg">S<span class="d"></span></span></span>
+            </div>
+            <div class="cap">Favicon, 32<span>Shown ×4 and actual size</span></div>
+          </div>
+          <div>
+            <div class="c02-icbox" style="height:128px; gap:22px">
+              <span class="sn-mono c02-ic" style="width:128px; height:128px; border-radius:0"><i style="width:48px; height:48px; border-radius:50%; background:var(--red)"></i><i class="c02-px" style="background-size:8px 8px"></i></span>
+              <span class="sn-mono c02-ic" style="width:16px; height:16px; border-radius:0"><i style="width:6px; height:6px; border-radius:50%; background:var(--red)"></i></span>
+            </div>
+            <div class="cap">Favicon, 16<span>Shown ×8 and actual size</span></div>
+          </div>
+          <div>
+            <p class="small" style="font-size:19px; line-height:1.45; padding-top:20px">At 16 px the S breaks up, so the favicon keeps the stop alone. The dashed ring marks the 80% safe zone of a maskable icon.</p>
+          </div>
+        </div>
+      </div>
+      <table class="spec">
+        <tr><th>Asset</th><th>Sizes</th></tr>
+        <tr><td><b>Monogram “S.”</b><span class="s">White S from the wordmark, red stop, on Ink</span></td><td>Avatars · print</td></tr>
+        <tr><td><b>Favicon</b><span class="s">S. at 32 with a 2 px radius; red dot only at 16</span></td><td>svg · ico 16/32/48</td></tr>
+        <tr><td><b>Apple touch icon</b><span class="s">Monogram on Ink, no transparency</span></td><td>180</td></tr>
+        <tr><td><b>PWA</b><span class="s">Monogram centred in the 80% safe zone</span></td><td>192 · 512</td></tr>
+        <tr><td><b>SNX app icon</b><span class="s">X in Paper, red stop, on Ink</span></td><td>192 · 512 · 1024</td></tr>
+        <tr><td><b>Vibathon icon</b><span class="s">V. in Ink on Vibe; red would vanish (1.01:1)</span></td><td>192 · 512</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02.7 CO-BRANDING ============ -->
+<section class="page" id="cobranding" data-section="02 · Logo" data-note="Partner logos appear only when the agreement is signed, and come down when it lapses">
+  <div class="page__body">
+    <div class="kicker">02.7</div>
+    <h1 class="title">Co-branding</h1>
+    <div class="c02-cb mt-l">
+      <div>
+        <div class="c02-panel">
+          <span class="sn-logo" style="font-size:38px">StartNet<span class="d"></span><span class="desc" style="color:var(--connect)">Connect</span></span>
+          <div class="c02-with" style="margin-top:34px">Supported by</div>
+          <div style="display:flex; gap:10px; margin-top:12px">
+            <span class="c02-ph" style="width:108px; height:20px; font-size:11px">[Partner logo]</span>
+            <span class="c02-ph" style="width:108px; height:20px; font-size:11px">[Partner logo]</span>
+            <span class="c02-ph" style="width:108px; height:20px; font-size:11px">[Partner logo]</span>
+          </div>
+        </div>
+        <h4><b>01</b>StartNet-led</h4>
+        <p>StartNet first and largest. “With” or “Supported by”, then partners in mono at 60–75% of StartNet's cap height.</p>
+      </div>
+      <div>
+        <div class="c02-panel" style="display:flex; align-items:center; justify-content:center">
+          <span class="sn-logo" style="font-size:36px">StartNet<span class="d"></span></span>
+          <span style="width:1px; height:58px; background:var(--line-strong); margin:0 21.6px"></span>
+          <span class="c02-ph" style="width:140px; height:40px">[Partner logo]</span>
+        </div>
+        <h4><b>02</b>Equal partnership</h4>
+        <p>An institution co-hosts. Equal optical size, a 1 px vertical rule, and 3d from each mark to the rule.</p>
+      </div>
+      <div>
+        <div class="c02-panel" style="display:flex; flex-direction:column; justify-content:space-between">
+          <span class="c02-ph" style="width:210px; height:64px">[Partner identity]</span>
+          <div style="display:flex; align-items:baseline; gap:12px"><span class="c02-with">Delivered by</span><span class="sn-logo sn-logo--mono" style="font-size:24px">StartNet<span class="d"></span></span></div>
+        </div>
+        <h4><b>03</b>Partner-led</h4>
+        <p>The partner's identity and guidelines lead. StartNet appears as “Delivered by” with the mono logo at 88 px or more, or as “Programme partner”.</p>
+      </div>
+      <div>
+        <div class="c02-panel" style="display:flex; flex-direction:column; justify-content:space-between">
+          <div style="display:flex; gap:14px">
+            <span class="c02-ph" style="width:150px; height:64px">[Government mark]</span>
+            <span class="c02-ph" style="width:150px; height:64px">[Government mark]</span>
+          </div>
+          <div><div class="c02-with">In association with</div><span class="sn-logo" style="font-size:30px; margin-top:10px">StartNet<span class="d"></span></span></div>
+        </div>
+        <h4><b>04</b>Government co-hosting</h4>
+        <p>Government marks first, in their supplied colours and never recoloured, then “In association with”. The State Emblem only when the department supplies it and approves it in writing.</p>
+      </div>
+    </div>
+    <div class="c02-wall hair-top mt-auto" style="padding-top:26px; margin-bottom:4px">
+      <div>
+        <div class="label">Logo walls</div>
+        <p>Mono, equal optical size, one row per tier. No logo larger than 1.2× the median. A static grid on the web; a marquee only with a pause control.</p>
+      </div>
+      <div class="c02-wallrow">
+        <span class="c02-ph" style="height:64px">[Partner logo]</span>
+        <span class="c02-ph" style="height:64px">[Partner logo]</span>
+        <span class="c02-ph" style="height:64px">[Partner logo]</span>
+        <span class="c02-ph" style="height:64px">[Partner logo]</span>
+        <span class="c02-ph" style="height:64px">[Partner logo]</span>
+        <span class="c02-ph" style="height:64px">[Partner logo]</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02.8 MISUSE ============ -->
+<section class="page page--ink" id="misuse" data-section="02 · Logo" data-foot-rule="1" data-note="One red point per surface · if two things are red, neither is the point">
+  <div class="page__body">
+    <div class="kicker">02.8</div>
+    <h1 class="title" style="color:var(--night-text)">Misuse</h1>
+    <div class="c02-mis mt-l">
+      <div>
+        <div class="c02-mis__t"><span class="sn-logo sn-logo--rev" style="font-size:54px; transform:scale(1.42, 0.86)">StartNet<span class="d"></span></span></div>
+        <div class="c02-mis__c">Do not stretch or condense it</div>
+      </div>
+      <div>
+        <div class="c02-mis__t"><span class="sn-logo sn-logo--rev" style="font-size:54px; transform:rotate(-14deg)">StartNet<span class="d"></span></span></div>
+        <div class="c02-mis__c">Do not rotate it; it is always level</div>
+      </div>
+      <div>
+        <div class="c02-mis__t"><span class="sn-logo sn-logo--rev" style="font-size:54px">StartNet<span class="d" style="background:var(--connect)"></span></span></div>
+        <div class="c02-mis__c">Do not recolour the full stop</div>
+      </div>
+      <div>
+        <div class="c02-mis__t" style="background:var(--vibe); border-color:var(--vibe)"><span class="sn-logo" style="font-size:54px">StartNet<span class="d"></span></span></div>
+        <div class="c02-mis__c">Do not use the colour logo on accents</div>
+      </div>
+      <div>
+        <div class="c02-mis__t"><span style="font-family:var(--serif); font-size:66px; color:var(--night-text); letter-spacing:0">Startnet.</span></div>
+        <div class="c02-mis__c">Do not retype it or change its case</div>
+      </div>
+      <div>
+        <div class="c02-mis__t"><span class="sn-logo" style="font-size:54px; color:transparent; -webkit-text-stroke:1.5px var(--night-text); text-shadow:0 0 18px rgb(244 244 240 / .55)">StartNet<span class="d"></span><span class="d" style="margin-left:0.06em"></span></span></div>
+        <div class="c02-mis__c">Do not add outlines, glows or dots</div>
+      </div>
+      <div>
+        <div class="c02-mis__t"><span class="sn-logo sn-logo--rev" style="font-size:31px">StartNet<span class="d"></span><span class="desc" style="color:#F37C52">Vibe Academy</span></span></div>
+        <div class="c02-mis__c">Do not stack a second descriptor</div>
+      </div>
+      <div>
+        <div class="c02-mis__t"><span class="sn-logo sn-logo--rev" style="font-size:54px">StartNet<span class="d" style="margin-left:0.75em; transform:translateY(-0.42em)"></span></span></div>
+        <div class="c02-mis__c">Do not detach or move the full stop</div>
+      </div>
+    </div>
+  </div>
+</section>

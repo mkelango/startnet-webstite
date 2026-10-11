@@ -1,0 +1,104 @@
+/* How it works × dot → grid → network → full stop (Book 2 §1.4, Book 3 §1.1). AIWO-BLUEPRINT P7 + P8: a Paper
+   section; the header (max 832px), a full-bleed image band, then the four steps as columns under a 1px Ink rule with a
+   node on the rule per step. No pin, no scroll-linked state: every step is static in the markup. */
+.home-story { position: relative; }
+.home-story .section-header { margin-bottom: var(--space-head-gap); }
+
+/* The image band: edge to edge (no radius, no keyline), 21:9 ≥1024, 16:9 on tablets, 4:5 on phones (AIWO P8). */
+:root .home-story__band { margin: 0; border-radius: 0; background: var(--bone); }
+:root .home-story__band .art-image,
+:root .home-story__band .art-image--photo { border-radius: 0; }
+:root .home-story__band .art-image--photo::after { content: none; }
+@media (min-width: 640px) and (max-width: 1023.98px) { :root .home-story__band .art-image { aspect-ratio: 16 / 9 !important; } }
+@media (max-width: 639.98px) { :root .home-story__band .art-image { aspect-ratio: 4 / 5 !important; } }
+
+/* Steps: an ordered list of columns; each column under an Ink rule, the node sitting on the rule. */
+.home-story__steps {
+  --node: 11px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-10) 32px;
+  margin: clamp(var(--space-12), 2rem + 3vw, var(--space-16)) 0 0;
+  padding: 0;
+  counter-reset: none;
+}
+@media (min-width: 640px) { .home-story__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-14, 56px); } }
+@media (min-width: 1024px) { .home-story__steps { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.home-story__step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-text);
+}
+/* One continuous rule across the four columns at ≥1024 (the column gaps would otherwise break it). */
+@media (min-width: 1024px) {
+  .home-story__steps { position: relative; padding-top: 0; }
+  .home-story__steps::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: var(--color-text);
+  }
+  .home-story__step { border-top: 0; padding-top: var(--space-10); }
+}
+.home-story__node {
+  position: absolute;
+  top: calc(var(--node) / -2 - 0.5px);
+  left: 0;
+  z-index: 1;
+  width: var(--node);
+  height: var(--node);
+  border-radius: var(--radius-full);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1.5px var(--color-text);
+}
+.home-story__step:last-child .home-story__node { background: var(--color-text); }
+.home-story__num {
+  font-size: var(--text-meta);
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--color-text-muted);
+}
+.home-story__concept { margin: var(--space-5) 0 0; font-size: var(--text-meta); line-height: 1.4; color: var(--color-text-2); }
+:root .home-story__title {
+  margin: var(--space-2) 0 0;
+  font-size: clamp(1.5rem, 1.3rem + 0.6vw, 1.875rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--color-text);
+}
+:root .home-story__title:lang(ta) { font-size: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem); line-height: 1.35; letter-spacing: 0; }
+.home-story__body { margin: var(--space-4) 0 0; max-width: 34ch; font-size: var(--text-body); line-height: 1.6; color: var(--color-text-2); }
+:lang(ta) .home-story__body { max-width: none; }
+
+.home-story__foot {
+  margin-top: clamp(var(--space-12), 2rem + 3vw, var(--space-16));
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-2);
+}
+.home-story__link { display: inline-flex; color: var(--color-text); white-space: nowrap; }
+:lang(ta) .home-story__link { white-space: normal; }
+
+/* Skip link: only rendered while the section is taller than the screen; visible on focus. */
+.home-story__skip {
+  position: absolute;
+  left: var(--gutter);
+  top: var(--space-4);
+  z-index: 2;
+  padding: var(--space-2) var(--space-4);
+  background: var(--sn-ink);
+  color: var(--night-text);
+  border-radius: var(--radius-btn);
+  font-size: var(--text-small);
+  font-weight: 500;
+  transform: translateY(-200%);
+  opacity: 0;
+}
+.home-story__skip:focus, .home-story__skip:focus-visible { transform: none; opacity: 1; }

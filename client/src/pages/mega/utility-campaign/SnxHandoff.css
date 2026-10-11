@@ -1,0 +1,90 @@
+/* /signin and /signup hand-off to StartNet X. AngelList-family: the crumbs sit on the ink band, a paper sheet
+   slides over it; calm two-column content (what is happening left, one action + fallbacks in a flat card right). */
+.snx-handoff { position: relative; }
+.snx-handoff__band {
+  background: var(--night-0);
+  padding-bottom: calc(var(--space-6) + var(--sheet-radius));
+}
+.snx-handoff__crumbs { padding-top: var(--space-4); }
+.snx-handoff__sheet {
+  position: relative;
+  margin-top: calc(-1 * var(--sheet-radius));
+  border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
+  background: var(--color-bg);
+  padding-block: clamp(var(--space-12), 2rem + 4vw, var(--space-20)) var(--space-section);
+  min-height: min(60vh, 36rem);
+}
+.snx-handoff__inner { display: grid; gap: var(--space-10); align-items: center; }
+@media (min-width: 1024px) {
+  .snx-handoff__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 28rem); gap: var(--space-16); }
+}
+.snx-handoff__intro { display: grid; gap: var(--space-5); justify-items: start; min-width: 0; }
+
+.snx-handoff__brand { display: flex; align-items: center; gap: var(--space-4); }
+
+/* The pulsing full stop: "something is happening" without a spinner. */
+.snx-handoff__pulse {
+  width: 0.625rem; height: 0.625rem; flex: none;
+  border-radius: var(--radius-full);
+  background: var(--color-point);
+  animation: snx-handoff-pulse var(--dur-6, 1.2s) var(--ease-standard) infinite alternate;
+}
+@keyframes snx-handoff-pulse {
+  from { transform: scale(0.7); opacity: 0.55; }
+  to { transform: scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .snx-handoff__pulse { animation: none; }
+}
+:root[data-motion="reduced"] .snx-handoff__pulse { animation: none; }
+
+.snx-handoff__title.h2 {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-h1); font-weight: 400; letter-spacing: -0.025em; line-height: 1.08;
+  max-width: 16ch; text-wrap: balance; overflow-wrap: anywhere;
+}
+:lang(ta) .snx-handoff__title.h2 { letter-spacing: 0; line-height: 1.3; max-width: 22ch; }
+.snx-handoff__body { margin: 0; color: var(--color-text-2); max-width: 32rem; }
+
+/* The action card: flat var(--card), hairline, 12px frame, no coloured bar, no shadow. */
+.snx-handoff__card {
+  width: 100%;
+  display: grid;
+  gap: var(--space-5);
+  /* DESIGN-v2 3.14: the action sits on a White card */
+  padding: 24px;
+  background: var(--white);
+  border: 0;
+  border-radius: var(--radius-media);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+  min-width: 0;
+}
+@media (min-width: 768px) {
+  .snx-handoff__card { padding: 32px; }
+}
+.snx-handoff__action { margin: 0; }
+.snx-handoff__hint {
+  margin: 0;
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+.snx-handoff__hint.is-slow { color: var(--color-text); }
+
+.snx-handoff__links {
+  list-style: none; margin: 0; padding: var(--space-2) 0 0;
+  border-top: 1px solid var(--color-border);
+  display: grid; gap: 0;
+  font-size: var(--text-small);
+  color: var(--color-text-2);
+}
+.snx-handoff__links li { padding-block: var(--space-1); }
+.snx-handoff__links a {
+  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--color-text);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--color-link-decoration);
+  text-underline-offset: 0.2em;
+}
+.snx-handoff__links a:hover { text-decoration-color: currentColor; }
+.snx-handoff__links a:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--radius-sm); }

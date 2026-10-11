@@ -1,0 +1,123 @@
+.field { display: grid; gap: var(--space-2); min-width: 0; align-content: start; }
+/* Fields (DESIGN-v2 3.14): 48px, 4px radius, Ink-500 border (4.51:1), White; hover Ink; focus Ink + 1px ring. */
+.field__label { font-weight: 500; font-size: var(--text-label); color: var(--color-text); line-height: 1.35; }
+.field__hint { margin-top: calc(var(--space-1) * -1); font-size: var(--text-meta); color: var(--color-text-muted); }
+.field__control {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-control);
+  border-radius: var(--radius-btn);
+  background: var(--white);
+  color: var(--color-text);
+  font-size: var(--text-body);
+  line-height: 1.4;
+  transition: border-color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field__control::placeholder { color: var(--color-text-muted); opacity: 1; }
+@media (hover: hover) { .field__control:hover:not(:disabled) { border-color: var(--color-text); } }
+/* Transparent outline (not none) so Windows forced-colours mode still draws a focus ring. */
+.field__control:focus { outline: 2px solid transparent; outline-offset: 0; border-color: var(--color-text); box-shadow: 0 0 0 1px var(--color-text); }
+.field__control:disabled { opacity: 0.5; cursor: not-allowed; }
+.field__control--textarea { min-height: 8rem; resize: vertical; }
+.field__select-wrap { position: relative; }
+.field__select-wrap::after {
+  content: '';
+  position: absolute;
+  right: var(--space-4);
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--color-text-2);
+  border-bottom: 2px solid var(--color-text-2);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+.field__control--select { padding-right: var(--space-10); cursor: pointer; }
+
+/* +91 prefix: fixed, shown as part of the control */
+.field__tel { display: flex; align-items: stretch; }
+.field__prefix {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border-control);
+  border-right: 0;
+  border-radius: var(--radius-btn) 0 0 var(--radius-btn);
+  background: var(--bone);
+  color: var(--color-text-2);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.field__control--tel { border-radius: 0 var(--radius-btn) var(--radius-btn) 0; font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+
+/* Error: border + icon + text, never colour alone */
+.field--error .field__control { border-color: var(--color-error); box-shadow: 0 0 0 1px var(--color-error); }
+.field--error .field__prefix { border-color: var(--color-error); }
+.field__error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--text-meta);
+  font-weight: 600;
+  color: var(--color-error);
+  animation: field-error-in var(--dur-3) var(--ease-enter) both;
+}
+.field__error-icon { flex: none; margin-top: 0.15em; }
+@keyframes field-error-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+/* Checkbox */
+.field__check-row { display: flex; align-items: flex-start; gap: var(--space-3); }
+.checkbox-control { position: relative; display: inline-grid; flex: none; width: 24px; height: 24px; margin-top: 0.1em; }
+.field__checkbox {
+  grid-area: 1 / 1;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+  border: 1.5px solid var(--color-border-control);
+  border-radius: var(--radius-btn);
+  background: var(--white);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background-color var(--dur-1) var(--ease-standard), border-color var(--dur-1) var(--ease-standard);
+}
+.checkbox-control__tick {
+  grid-area: 1 / 1;
+  width: 16px;
+  height: 16px;
+  place-self: center;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity var(--dur-1) var(--ease-snap), transform var(--dur-1) var(--ease-snap);
+}
+.field__checkbox:checked { background: var(--color-text); border-color: var(--color-text); }
+.field__checkbox:checked + .checkbox-control__tick { opacity: 1; transform: none; }
+.field__checkbox:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.field__checkbox[aria-invalid='true'] { border-color: var(--color-error); border-width: 2px; }
+.field__check-label { cursor: pointer; color: var(--color-text); line-height: 1.5; padding-top: 0.1em; }
+/* 44px target: the label row is the hit area */
+.field--checkbox .field__check-row { min-height: 44px; align-items: center; }
+
+[data-surface='night'] .field__control,
+[data-surface='night'] .field__checkbox { background: var(--night-1); }
+[data-surface='night'] .field__prefix { background: var(--night-2); }
+[data-surface='night'] .checkbox-control__tick { stroke: var(--night-0); }
+/* Ticked state must win over the night fill above, so the dark tick sits on a light box */
+[data-surface='night'] .field__checkbox:checked { background: var(--color-text); border-color: var(--color-text); }
+/* On Ink (footer newsletter): Night-1 fields, Ink-400 border, Paper text and a Paper focus ring */
+:root [data-surface='night'] .field__control { background: var(--night-1); border-color: var(--ink-400); color: var(--paper); }
+:root [data-surface='night'] .field__control:focus { border-color: var(--paper); box-shadow: 0 0 0 1px var(--paper); }
+@media (hover: hover) { :root [data-surface='night'] .field__control:hover:not(:disabled) { border-color: var(--night-text-2); } }
+:root [data-surface='night'] .field__prefix { background: var(--night-2); border-color: var(--ink-400); }
+.field__checkbox:checked + .checkbox-control__tick { transform: scale(1); }
+/* The whole label is the hit area: at least 44px tall */
+.field__check-label { flex: 1; min-width: 0; min-height: 44px; padding-block: 10px; }

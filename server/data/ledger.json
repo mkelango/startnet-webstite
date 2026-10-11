@@ -1,0 +1,195 @@
+{
+  "period": "2026-Q4",
+  "asAt": null,
+  "status": "upcoming",
+  "edition": "Ledger v0",
+  "editionTa": "Ledger v0",
+  "published": null,
+  "publishedLabel": "Planned January 2027 [first edition date placeholder]",
+  "publishedLabelTa": "ஜனவரி 2027-இல் திட்டமிடப்பட்டுள்ளது [first edition date placeholder]",
+  "nextEdition": null,
+  "nextEditionLabel": "[placeholder — to be supplied by StartNet]",
+  "kpiIds": [
+    "founders-nurtured",
+    "startups-launched",
+    "capital-raised",
+    "pilots-signed",
+    "women-share",
+    "districts-active"
+  ],
+  "mission": {
+    "target": 100000,
+    "targetDate": "2031-03-31",
+    "targetLabel": "1,00,000 nurtured (L2+) by March 2031",
+    "targetLabelTa": "மார்ச் 2031-க்குள் 1,00,000 பேர் வளர்க்கப்பட்டவர்கள் (L2+)",
+    "tag": "C",
+    "current": null,
+    "currentPlaceholder": "[placeholder — to be supplied by StartNet]"
+  },
+  "ladder": [
+    {
+      "level": "L1",
+      "name": "Aware",
+      "nameTa": "அறிமுகம்",
+      "definition": "Attended an event or joined the community. Tracked, not counted as nurtured.",
+      "definitionTa": "ஒரு நிகழ்வில் பங்கேற்றவர் அல்லது சமூகத்தில் இணைந்தவர். கண்காணிக்கப்படுகிறது; வளர்க்கப்பட்டவராகக் கணக்கிடப்படுவதில்லை.",
+      "count": null,
+      "change": null,
+      "tag": null
+    },
+    {
+      "level": "L2",
+      "name": "Nurtured",
+      "nameTa": "வளர்க்கப்பட்டவர்",
+      "definition": "A StartNet X profile plus at least two meaningful touchpoints.",
+      "definitionTa": "StartNet X சுயவிவரமும் குறைந்தது இரண்டு அர்த்தமுள்ள தொடர்புகளும்.",
+      "count": null,
+      "change": null,
+      "tag": null
+    },
+    {
+      "level": "L3",
+      "name": "Skilled",
+      "nameTa": "திறன் பெற்றவர்",
+      "definition": "Completed a structured programme.",
+      "definitionTa": "ஒரு கட்டமைக்கப்பட்ட திட்டத்தை நிறைவு செய்தவர்.",
+      "count": null,
+      "change": null,
+      "tag": null
+    },
+    {
+      "level": "L4",
+      "name": "Building",
+      "nameTa": "உருவாக்குபவர்",
+      "definition": "A team with a prototype or MVP in progress.",
+      "definitionTa": "முன்மாதிரி அல்லது MVP உருவாக்கத்தில் உள்ள குழு.",
+      "count": null,
+      "change": null,
+      "tag": null
+    },
+    {
+      "level": "L5",
+      "name": "Launched",
+      "nameTa": "தொடங்கியவர்",
+      "definition": "A registered company.",
+      "definitionTa": "பதிவு செய்யப்பட்ட நிறுவனம்.",
+      "count": null,
+      "change": null,
+      "tag": null
+    },
+    {
+      "level": "L6",
+      "name": "Funded",
+      "nameTa": "நிதி பெற்றவர்",
+      "definition": "First external capital, or ₹10 L+ revenue.",
+      "definitionTa": "முதல் வெளி மூலதனம், அல்லது ₹10 லட்சம்+ வருவாய்.",
+      "count": null,
+      "change": null,
+      "tag": null
+    },
+    {
+      "level": "L7",
+      "name": "Scaling",
+      "nameTa": "விரிவடைபவர்",
+      "definition": "₹1 Cr+ revenue, Series A, or 25+ jobs.",
+      "definitionTa": "₹1 கோடி+ வருவாய், Series A, அல்லது 25+ வேலைகள்.",
+      "count": null,
+      "change": null,
+      "tag": null
+    }
+  ],
+  "byBrand": [
+    {
+      "brand": "research",
+      "name": "StartNet Research",
+      "nurtured": null,
+      "launched": null,
+      "funded": null,
+      "tag": null
+    },
+    {
+      "brand": "vibe",
+      "name": "StartNet Vibe",
+      "nurtured": null,
+      "launched": null,
+      "funded": null,
+      "tag": null
+    },
+    {
+      "brand": "connect",
+      "name": "StartNet Connect",
+      "nurtured": null,
+      "launched": null,
+      "funded": null,
+      "tag": null
+    },
+    {
+      "brand": "women",
+      "name": "StartNet Women",
+      "nurtured": null,
+      "launched": null,
+      "funded": null,
+      "tag": null
+    }
+  ],
+  "byDistrict": [],
+  "byDistrictNote": "[placeholder — to be supplied by StartNet]. We highlight the share outside Chennai, Coimbatore and Kancheepuram.",
+  "byDistrictNoteTa": "[placeholder — to be supplied by StartNet]. சென்னை, கோயம்புத்தூர், காஞ்சிபுரத்துக்கு வெளியே உள்ள பங்கை முன்னிலைப்படுத்துகிறோம்.",
+  "outcomes": [
+    {
+      "label": "Companies registered",
+      "labelTa": "பதிவு செய்யப்பட்ட நிறுவனங்கள்",
+      "value": null,
+      "evidence": "registry",
+      "evidenceTa": "பதிவேடு",
+      "tag": null
+    },
+    {
+      "label": "Capital raised",
+      "labelTa": "திரட்டப்பட்ட முதலீடு",
+      "value": null,
+      "evidence": "self-reported",
+      "evidenceTa": "சுயமாகத் தெரிவித்தது",
+      "tag": null
+    },
+    {
+      "label": "Pilots signed",
+      "labelTa": "கையெழுத்தான பைலட்கள்",
+      "value": null,
+      "evidence": "document",
+      "evidenceTa": "ஆவணம்",
+      "tag": null
+    },
+    {
+      "label": "Jobs created",
+      "labelTa": "உருவான வேலைகள்",
+      "value": null,
+      "evidence": "self-reported",
+      "evidenceTa": "சுயமாகத் தெரிவித்தது",
+      "tag": null
+    }
+  ],
+  "womenShare": {
+    "value": null,
+    "floor": 40,
+    "floorTag": "C",
+    "placeholder": "[placeholder]"
+  },
+  "corrections": [],
+  "correctionsEmpty": "No corrections this quarter.",
+  "correctionsEmptyTa": "இந்தக் காலாண்டில் திருத்தங்கள் எதுவும் இல்லை.",
+  "method": [
+    "Definitions of L1–L7 are on Our model. Only Level 2 and above counts as \"nurtured\".",
+    "Attribution rule: a startup counts only if a founder reached L3 in a StartNet programme before the company was registered.",
+    "Tags: A verified against a primary source; B reported by the founder or organisation; C estimate.",
+    "Data comes from StartNet X with founders' consent. Individual founders are never named without their permission."
+  ],
+  "methodTa": [
+    "L1–L7 வரையறைகள் \"எங்கள் மாதிரி\" பக்கத்தில் உள்ளன. நிலை 2 மற்றும் அதற்கு மேல் உள்ளவர்கள் மட்டுமே \"வளர்க்கப்பட்டவர்\" எனக் கணக்கிடப்படுவர்.",
+    "பங்களிப்பு விதி: நிறுவனம் பதிவு செய்யப்படுவதற்கு முன், அதன் நிறுவனர் ஒருவர் StartNet திட்டத்தில் L3-ஐ அடைந்திருந்தால் மட்டுமே அந்த ஸ்டார்ட்அப் கணக்கில் சேரும்.",
+    "குறிகள்: A முதன்மை ஆதாரத்துடன் சரிபார்க்கப்பட்டது; B நிறுவனர் அல்லது அமைப்பு தெரிவித்தது; C மதிப்பீடு.",
+    "தரவு நிறுவனர்களின் ஒப்புதலுடன் StartNet X-இலிருந்து பெறப்படுகிறது. தனிப்பட்ட நிறுவனர்களின் அனுமதியின்றி அவர்களின் பெயர் ஒருபோதும் வெளியிடப்படாது."
+  ],
+  "realityCheck": "Mission 1 Lakh is ambitious. If our 2028 review shows it is out of reach, we will reset the goal in public rather than change what 'nurtured' means.",
+  "realityCheckTa": "Mission 1 Lakh ஒரு லட்சிய இலக்கு. 2028 மதிப்பாய்வில் அது எட்ட முடியாதது எனத் தெரிந்தால், \"வளர்க்கப்பட்டவர்\" என்பதன் பொருளை மாற்றாமல், இலக்கையே பொதுவெளியில் மாற்றியமைப்போம்."
+}

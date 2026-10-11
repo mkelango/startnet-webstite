@@ -1,0 +1,108 @@
+/* /about/thinktn-alliance — neutral ink; no StartNet Red on ThinkTN's side. */
+/* External link styled as the theme's primary button (4px, regular weight): ink on sheets, paper on the ink band. */
+.ttn-ext {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; padding: 0 1.125rem; border-radius: var(--btn-radius);
+  background: var(--color-text); color: var(--color-bg); font-weight: 500; letter-spacing: -0.005em; text-decoration: none;
+  transition: background-color var(--dur-2) var(--ease-standard);
+}
+.ttn-ext--lg { min-height: 52px; padding: 0 1.5rem; font-size: var(--text-body); }
+@media (hover: hover) and (pointer: fine) { .ttn-ext:hover { background: var(--color-text-2); } }
+@media (hover: hover) and (pointer: fine) { .ttn-ext:hover svg { transform: translate(2px, -2px); } }
+.ttn-ext svg { transition: transform var(--dur-2) var(--ease-standard); }
+.ttn-ext:focus-visible { border-radius: var(--btn-radius); }
+
+/* Diagram: one hairline frame on var(--card); sentence-case labels; a 1px ink firewall. */
+.ttn-diagram {
+  margin: 0; display: grid; gap: var(--space-4);
+  grid-template-columns: 1fr; padding: var(--space-6);
+  border-radius: var(--media-radius); background: var(--card); border: 1px solid var(--color-border);
+}
+@media (min-width: 768px) {
+  .ttn-diagram { grid-template-columns: minmax(0, 1fr) 6rem minmax(0, 1fr); padding: var(--space-12) var(--space-10) var(--space-8); gap: 0; }
+}
+.ttn-diagram__side { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-4); }
+.ttn-diagram__side ul { list-style: none; display: grid; gap: var(--space-2); color: var(--color-text-2); font-size: var(--text-small); margin-top: var(--space-2); }
+.ttn-diagram__side li { padding-left: var(--space-5); position: relative; }
+.ttn-diagram__side li::before { content: ''; position: absolute; left: 0; top: 0.7em; width: var(--space-3); height: 1px; background: var(--color-text-muted); }
+.ttn-diagram__label { font-size: var(--text-small); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--color-text-muted); }
+.ttn-diagram__name { font-size: var(--text-h2); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+.ttn-diagram__side--thinktn .ttn-diagram__name { color: var(--color-text-2); }
+@media (min-width: 768px) { .ttn-diagram__side--thinktn { text-align: right; } .ttn-diagram__side--thinktn li { padding-left: 0; padding-right: var(--space-5); } .ttn-diagram__side--thinktn li::before { left: auto; right: 0; } }
+
+.ttn-diagram__wall { position: relative; display: flex; align-items: center; justify-content: center; min-height: 3rem; }
+.ttn-diagram__line {
+  position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--color-text);
+  transform-origin: center;
+}
+.ttn-diagram__walllabel {
+  position: relative; padding: var(--space-1) var(--space-3); background: var(--card);
+  font-size: var(--text-small); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--color-text);
+}
+@media (min-width: 768px) {
+  .ttn-diagram__line { left: 50%; right: auto; top: 0; bottom: 0; width: 1px; height: auto; margin-left: 0; }
+  .ttn-diagram__walllabel { writing-mode: vertical-rl; transform: rotate(180deg); padding: var(--space-3) var(--space-1); }
+}
+.ttn-diagram__shared {
+  grid-column: 1 / -1; display: flex; justify-content: center; padding-top: var(--space-5); margin-top: var(--space-4);
+  border-top: 1px dashed color-mix(in srgb, var(--color-text) 20%, var(--color-border)); font-size: var(--text-small); color: var(--color-text-muted);
+}
+
+/* What we adopt: full-width hairline feature rows. */
+.ttn-adopt { list-style: none; border-top: 1px solid var(--color-border); }
+.ttn-adopt__item { padding-block: var(--space-5); border-bottom: 1px solid var(--color-border); color: var(--color-text-2); }
+.ttn-adopt__item strong { color: var(--color-text); font-weight: 500; }
+
+/* Firewall rules: one blueprint frame, five cells between 1px dividers, big light numerals. */
+.ttn-rules {
+  list-style: none; display: grid; gap: 1px; margin-top: var(--space-10); grid-template-columns: minmax(0, 1fr);
+  background: var(--color-border); border: 1px solid var(--color-border); border-radius: var(--media-radius); overflow: hidden;
+}
+/* Five rules: no 4 + 1 / 2 + 2 + 1 orphans (every layout fills the frame). */
+.ttn-rules > * { min-width: 0; }
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .ttn-rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ttn-rules > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .ttn-rules { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .ttn-rules > * { grid-column: span 2; }
+  .ttn-rules > :nth-child(n + 4) { grid-column: span 3; }
+}
+@media (min-width: 1280px) { .ttn-rules { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+/* Tamil: five ~190 px columns cannot hold the longer Tamil words; keep the 3 + 2 rows at every desktop width. */
+@media (min-width: 1280px) {
+  :lang(ta) .ttn-rules { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  :lang(ta) .ttn-rules > * { grid-column: span 2; }
+  :lang(ta) .ttn-rules > :nth-child(n + 4) { grid-column: span 3; }
+}
+.ttn-rules__item p { overflow-wrap: break-word; }
+.ttn-rules__item {
+  display: flex; flex-direction: column; gap: var(--space-5);
+  padding: var(--space-6); background: var(--card);
+}
+.ttn-rules__n {
+  display: block; font-size: var(--text-h2); font-weight: 400; line-height: 1; letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums lining-nums; color: var(--color-text);
+}
+.ttn-rules__item p { font-weight: 400; color: var(--color-text); }
+/* Phones: one column of rows — numeral beside its rule keeps the frame short. */
+@media (max-width: 639.98px) {
+  .ttn-rules__item { flex-direction: row; align-items: baseline; gap: var(--space-5); padding: var(--space-5); }
+  .ttn-rules__n { flex: none; min-width: 1.25em; font-size: var(--text-h3); }
+}
+
+.ttn-related { display: grid; gap: var(--space-4); }
+.ttn-related .body-lg { color: var(--color-text-2); }
+
+:lang(ta) .ttn-diagram__name { letter-spacing: 0; }
+
+/* Tamil (mobile audit, Oct 2026): the "go to ThinkTN" label wraps to two lines on phones and kept the body line
+   height (30px lines in a 61px button, label hard left, arrow hard right). Same Tamil treatment as .button:
+   small type, 1.35 line height, balanced lines, 10px block padding. */
+:lang(ta) .ttn-ext { font-size: var(--text-small); line-height: 1.35; letter-spacing: 0; text-wrap: balance; padding-block: 10px; }
+/* Tamil at 320–359px: the rule text box was 194px and வெளியிடப்படுவதற்கு / நிதியளிப்பவருக்கான (197px) split
+   mid-word. A 16px row padding and numeral gap give the text 206px. */
+@media (max-width: 359.98px) {
+  :lang(ta) .ttn-rules__item { gap: var(--space-4); padding-inline: var(--space-4); }
+}

@@ -1,0 +1,18 @@
+/* FitLabel: a shorter button label on phones, so CTAs stay on one line (F-62). Tamil runs ~40% longer, so it switches wider. */
+.connect-fit__short { display: none; }
+@media (max-width: 479px) {
+  .connect-fit__long { display: none; }
+  .connect-fit__short { display: inline; }
+}
+@media (min-width: 480px) and (max-width: 639px) {
+  :lang(ta) .connect-fit__long { display: none; }
+  :lang(ta) .connect-fit__short { display: inline; }
+}
+
+/* Tamil words agglutinate and run long (Book 3 §4.4): as a last resort, headings and ledes may break between
+   aksharas rather than push the page wider than a 320px screen. overflow-wrap only breaks a word that cannot fit. */
+:lang(ta) :is(.connect-heading__title, .connect-heading__lede, .connect-sub__blocktitle, .connect-home__angelstitle,
+  .connect-home__angelsbody, .connect-switch__title, .connect-series__name, .connect-network__how, .connect-home__whocard h3) {
+  overflow-wrap: anywhere;
+}
+:lang(ta) .connect-home__angelshead .badge { white-space: normal; }

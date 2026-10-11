@@ -1,0 +1,52 @@
+/* The four-party model: four flat hairline cards around one quiet circle; dashed hairlines join them. */
+.fourparty { position: relative; }
+.fourparty__lines { display: none; }
+.fourparty__core {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-1); text-align: center;
+  width: 9.5rem; height: 9.5rem; margin: 0 auto var(--space-8);
+  border-radius: 50%; background: var(--bp-card, var(--color-bg-raised)); color: var(--color-text);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+.fourparty__core::before {
+  content: ''; width: 8px; height: 8px; margin-bottom: var(--space-1); border-radius: 50%; background: var(--accent-fill);
+}
+.fourparty__core-label { font-weight: 400; font-size: var(--text-h5); letter-spacing: -0.01em; }
+.fourparty__core-sub { font-size: var(--text-caption); color: var(--color-text-muted); max-width: 8rem; }
+
+.fourparty__list { list-style: none; display: grid; gap: var(--space-4); }
+.fourparty__party {
+  position: relative; padding: var(--space-6);
+  background: var(--bp-card, var(--color-bg-raised)); box-shadow: inset 0 0 0 1px var(--bp-line, var(--color-border)); border-radius: var(--media-radius);
+  overflow: hidden;
+  transition: box-shadow var(--dur-3) var(--ease-snap);
+}
+/* Framed-card top rule (DESIGN-v2 3.7): a 2px Ink bar draws in across the top on hover; no lift */
+.fourparty__party::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px;
+  background: var(--color-text); transform: scaleX(0); transform-origin: left center;
+  transition: transform var(--dur-3) var(--ease-snap);
+}
+@media (hover: hover) and (pointer: fine) {
+  .fourparty__party:hover { box-shadow: inset 0 0 0 1px var(--bp-line-strong, var(--line-strong)); }
+  .fourparty__party:hover::before { transform: scaleX(1); }
+}
+.fourparty__num {
+  display: block; margin-bottom: var(--space-5);
+  font-weight: 400; font-size: var(--text-meta); line-height: 1; color: var(--color-text-muted); font-variant-numeric: tabular-nums lining-nums;
+}
+.fourparty__name { font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); }
+.fourparty__body { margin-top: var(--space-3); color: var(--color-text-2); font-size: var(--text-body); max-width: 44ch; }
+
+@media (min-width: 768px) {
+  .fourparty__list { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1024px) {
+  .fourparty { min-height: 34rem; }
+  .fourparty__lines { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+  .fourparty__line { stroke: var(--color-border-control); stroke-width: 1; stroke-dasharray: 3 6; transition: stroke var(--dur-2) var(--ease-standard), opacity var(--dur-2) var(--ease-standard); }
+  .fourparty__line.is-active { stroke: var(--color-text); stroke-dasharray: none; stroke-width: 1.5; }
+  .fourparty__core { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; z-index: 1; width: 11rem; height: 11rem; }
+  .fourparty__list { position: relative; grid-template-columns: 1fr 1fr; column-gap: 16rem; row-gap: 8rem; }
+  .fourparty__party { z-index: 2; }
+}

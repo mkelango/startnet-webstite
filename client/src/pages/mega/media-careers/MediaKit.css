@@ -1,0 +1,311 @@
+/* /media/kit — T19 standard content page. Prefix: .mkit (mobile first)
+   AngelList family: chapters separated by hairlines (no white cards), blueprint grids of hairline cells for the
+   logo versions, lock-ups and colours, hairline rows for tables and downloads, a hairline TOC with an ink "current". */
+.mkit__layout { display: grid; gap: var(--space-8); min-width: 0; }
+.mkit__main { display: grid; min-width: 0; }
+@media (min-width: 1024px) {
+  .mkit__layout { grid-template-columns: 15rem minmax(0, 1fr); gap: var(--space-16); align-items: start; }
+}
+
+/* In-page nav: collapsible on phones, sticky hairline aside on desktop */
+.mkit-toc { min-width: 0; }
+.mkit-toc__details {
+  border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card);
+  padding: 0 var(--space-4);
+}
+.mkit-toc__summary {
+  display: flex; align-items: center; min-height: 48px; cursor: pointer;
+  font-size: var(--text-small); font-weight: 500; color: var(--color-text); list-style: none;
+}
+.mkit-toc__summary::-webkit-details-marker { display: none; }
+.mkit-toc__summary::after { content: '+'; margin-left: auto; font-size: 1.25rem; font-weight: 400; line-height: 1; color: var(--color-text); }
+.mkit-toc__details[open] .mkit-toc__summary::after { content: '–'; }
+.mkit-toc__list { list-style: none; margin: 0 0 var(--space-3); padding: 0; display: grid; border-left: 1px solid var(--color-border); }
+.mkit-toc__link {
+  display: flex; align-items: center; min-height: 44px; padding-left: var(--space-4); margin-left: -1px;
+  border-left: 1px solid transparent; color: var(--color-text-muted); text-decoration: none;
+  font-size: var(--text-small);
+  transition: color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard);
+}
+.mkit-toc__link:hover { color: var(--color-text); border-left-color: var(--color-text); }
+.mkit-toc__link[aria-current='true'] { color: var(--color-text); font-weight: 500; border-left-color: var(--color-text); }
+.mkit-toc__link:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--btn-radius); }
+@media (min-width: 1024px) {
+  .mkit-toc {
+    position: sticky;
+    top: calc(var(--shell-offset, var(--header-h)) + var(--space-6));
+    max-height: calc(100vh - var(--shell-offset, var(--header-h)) - var(--space-12));
+    overflow-y: auto;
+  }
+  .mkit-toc__details { border: 0; background: transparent; padding: 0; }
+  .mkit-toc__summary { color: var(--color-text-muted); }
+}
+
+/* Chapters: hairline-separated, no card chrome */
+.mkit-block {
+  min-width: 0;
+  padding-block: var(--space-10);
+  border-top: 1px solid var(--color-border);
+  scroll-margin-top: calc(var(--shell-offset, var(--header-h)) + var(--space-4));
+}
+.mkit-block:first-child { border-top: 0; padding-top: 0; }
+@media (min-width: 768px) { .mkit-block { padding-block: var(--space-16); } }
+.mkit-block > .h3, .mkit-block .h3 { margin-top: var(--space-4); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+.mkit-lede { margin-top: var(--space-5); max-width: var(--measure); color: var(--color-text-2); }
+.mkit-note { margin-top: var(--space-6); font-size: var(--text-small); color: var(--color-text-muted); max-width: var(--measure); }
+.mkit-k { font-weight: 500; color: var(--color-text); }
+#mkit-contact { scroll-margin-top: calc(var(--shell-offset, var(--header-h)) + var(--space-4)); }
+
+/* Boilerplate: the copy-ready text in a hairline frame (no coloured bar) */
+.mkit-boiler {
+  margin: var(--space-8) 0 0; padding: var(--space-6);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card);
+  line-height: 1.6; overflow-wrap: anywhere;
+}
+@media (min-width: 768px) { .mkit-boiler { padding: var(--space-8); } }
+.mkit-boiler__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5); }
+.mkit-boiler__stat { margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
+
+/* Blueprint grid: one hairline frame, 1px gaps show the frame colour between cells */
+.mkit-versions,
+.mkit-colours {
+  list-style: none; margin: var(--space-8) 0 0; padding: 0; display: grid; gap: 1px;
+  background: var(--color-border); border: 1px solid var(--color-border); border-radius: var(--media-radius); overflow: hidden;
+}
+
+/* Logo versions: colour tile flush at the top of each cell, spec beneath */
+@media (min-width: 768px) { .mkit-versions { grid-template-columns: 1fr 1fr; } }
+.mkit-version { display: grid; grid-template-rows: auto 1fr; min-width: 0; background: var(--card); }
+.mkit-version__tile {
+  display: grid; place-items: center; min-height: 10rem; padding: var(--space-8) var(--space-6); overflow: hidden;
+}
+.mkit-version__tile--primary { background: var(--sn-paper); box-shadow: inset 0 -1px 0 var(--color-border); }
+.mkit-version__tile--reversed { background: var(--sn-ink); }
+.mkit-version__tile--mono-ink { background: var(--sn-vibe); }
+.mkit-version__tile--mono-ink .logo { color: var(--sn-ink); }
+.mkit-version__tile--mono-white { background: var(--sn-research); }
+.mkit-version__tile--mono-white .logo { color: var(--sn-white); }
+.mkit-version__tile .logo { font-size: clamp(28px, 7vw, 40px); }
+.mkit-version__text { padding: var(--space-5) var(--space-6) var(--space-6); }
+.mkit-version__text .h5 { font-weight: 500; letter-spacing: -0.01em; }
+.mkit-version__spec { margin-top: var(--space-1); color: var(--color-text-2); font-size: var(--text-small); }
+.mkit-version__use { margin-top: var(--space-1); color: var(--color-text-2); font-size: var(--text-small); }
+
+/* Lock-ups: hairline cells (square frame, no overflow:hidden: a lock-up that outgrows its tile must show,
+   never clip silently; this page asks for 3d clear space on every side). */
+.mkit-lockups { display: grid; gap: 1px; margin-top: var(--space-8); background: var(--color-border); border: 1px solid var(--color-border); }
+@media (min-width: 768px) { .mkit-lockups { grid-template-columns: 1fr 1fr; } }
+.mkit-lockup { display: grid; grid-template-columns: 1fr; gap: 0; min-width: 0; }
+.mkit-lockup__tile { display: grid; place-items: center; min-height: 6rem; padding: var(--space-5) var(--space-3); background: var(--sn-paper); min-width: 0; }
+.mkit-lockup__tile--dark { background: var(--sn-ink); }
+/* Side by side only where each tile is wide enough for the longest lock-up (Connect, ~182px) plus padding:
+   phones up to 480px and the two-up grid at 768-1279 stack the light and dark tiles. */
+@media (min-width: 480px) and (max-width: 767.98px), (min-width: 1280px) {
+  .mkit-lockup { grid-template-columns: 1fr 1fr; }
+}
+
+/* Clear space */
+.mkit-space { display: grid; gap: var(--space-8); margin-top: var(--space-8); min-width: 0; }
+@media (min-width: 1280px) { .mkit-space { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; } }
+.mkit-space__figure { margin: 0; display: grid; gap: var(--space-3); }
+.mkit-space__demo {
+  display: grid; place-items: center; padding: var(--space-10) var(--space-4);
+  background: var(--sn-paper); border: 1px solid var(--color-border); border-radius: var(--media-radius); overflow: hidden;
+}
+/* 3d around the mark: d = the full stop = 0.2em of the logo size */
+.mkit-space__zone {
+  display: inline-block; padding: 0.6em; font-size: clamp(28px, 7vw, 40px);
+  outline: 1px dashed var(--sn-red-300, var(--color-point)); outline-offset: 0;
+  background: repeating-linear-gradient(135deg, transparent 0 6px, var(--sn-red-50, transparent) 6px 7px);
+}
+.mkit-space__zone .logo { font-size: 1em; }
+
+/* Tables: hairline rows only, quiet heads (the scroll wrapper stays for narrow screens) */
+.mkit-table-wrap { overflow-x: auto; max-width: 100%; border-top: 1px solid var(--color-border); -webkit-overflow-scrolling: touch; }
+.mkit-table-wrap:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--btn-radius); }
+.mkit-table { width: 100%; border-collapse: collapse; font-size: var(--text-small); }
+.mkit-table th, .mkit-table td { padding: var(--space-4) var(--space-3); text-align: left; vertical-align: top; border-bottom: 1px solid var(--color-border); }
+.mkit-table :is(th, td):first-child { padding-left: 0; }
+.mkit-table thead th {
+  background: none; font-size: var(--text-small); font-weight: 500; color: var(--color-text-muted);
+  padding-block: var(--space-3); white-space: nowrap;
+}
+.mkit-table thead th svg { display: inline-block; vertical-align: -2px; margin-right: 0.2em; }
+.mkit-table tbody th { font-weight: 500; color: var(--color-text); }
+/* Naming rules disclosure: closed on phones, opened from 768px by MediaKit.jsx (its toggle is hidden there once open) */
+.mkit-naming__details { margin-top: var(--space-6); }
+.mkit-naming__summary {
+  display: flex; align-items: center; gap: var(--space-3); min-height: 48px; padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border-control); border-radius: var(--btn-radius); background: var(--card);
+  font-weight: 500; font-size: var(--text-small); color: var(--color-text); cursor: pointer; list-style: none;
+}
+.mkit-naming__summary::-webkit-details-marker { display: none; }
+.mkit-naming__summary::after { content: '+'; margin-left: auto; font-size: 1.25rem; font-weight: 400; line-height: 1; }
+.mkit-naming__details[open] > .mkit-naming__summary { margin-bottom: var(--space-4); }
+.mkit-naming__details[open] > .mkit-naming__summary::after { content: '–'; }
+@media (hover: hover) and (pointer: fine) { .mkit-naming__summary:hover { border-color: var(--color-text); } }
+.mkit-naming__summary:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+@media (min-width: 768px) { .mkit-naming__details[open] > .mkit-naming__summary { display: none; } }
+.mkit-table--naming { min-width: 40rem; }
+.mkit-table--naming tbody th { width: 22%; }
+.mkit-table__right { color: var(--color-text); }
+.mkit-table__wrong { color: var(--color-text-muted); text-decoration: line-through; text-decoration-color: var(--color-point); }
+
+/* Don'ts: a two-column hairline list; the × in ink (the text says "Don't") */
+.mkit-donts { list-style: none; margin: var(--space-8) 0 0; padding: 0; display: grid; border-top: 1px solid var(--color-border); counter-reset: none; }
+@media (min-width: 1024px) { .mkit-donts { grid-template-columns: 1fr 1fr; column-gap: var(--space-8); } }
+.mkit-dont {
+  display: flex; gap: var(--space-3); align-items: flex-start; min-width: 0;
+  padding-block: var(--space-4); border-bottom: 1px solid var(--color-border); color: var(--color-text-2);
+}
+.mkit-dont > span { min-width: 0; overflow-wrap: anywhere; }
+.mkit-dont__icon { flex: none; margin-top: 0.2em; color: var(--color-text); }
+
+/* Colours: blueprint cells, swatch flush at the top */
+.mkit-colours { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 1280px) { .mkit-colours { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.mkit-colour { display: grid; grid-template-rows: auto 1fr; background: var(--card); min-width: 0; }
+.mkit-colour__swatch { display: block; height: 5rem; box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--color-text) 8%, transparent); }
+.mkit-colour__body { display: grid; gap: var(--space-1); padding: var(--space-5); align-content: start; }
+.mkit-colour__name { font-weight: 500; letter-spacing: -0.01em; }
+.mkit-colour__role { font-size: var(--text-small); color: var(--color-text-muted); }
+.mkit-colour__values { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); margin: var(--space-2) 0 0; font-size: var(--text-small); }
+.mkit-colour__values div { display: flex; gap: var(--space-2); }
+.mkit-colour__values dt { color: var(--color-text-muted); font-weight: 400; }
+.mkit-colour__values dd { margin: 0; }
+.mkit-colour__values code { font-variant-numeric: tabular-nums; }
+.mkit-colour__copy { justify-self: start; margin-top: var(--space-3); }
+/* Phones and small tablets: compact one-line swatch rows (colour strip, name and role, HEX and RGB on one line)
+   with an icon-only copy button; the label stays in the button as visually hidden text, so its name is unchanged. */
+@media (max-width: 639.98px) {
+  .mkit-colours { grid-template-columns: minmax(0, 1fr); }
+  .mkit-colour { grid-template-rows: none; grid-template-columns: 3rem minmax(0, 1fr); }
+  .mkit-colour__swatch { height: auto; min-height: 100%; box-shadow: inset -1px 0 0 color-mix(in srgb, var(--color-text) 8%, transparent); }
+  .mkit-colour__body {
+    padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4); gap: 2px var(--space-3); align-items: center;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .mkit-colour__name, .mkit-colour__role, .mkit-colour__values { grid-column: 1; }
+  .mkit-colour__role { line-height: 1.4; }
+  .mkit-colour__values { gap: 0 var(--space-3); margin-top: var(--space-1); }
+  .mkit-colour__values div { gap: var(--space-1); white-space: nowrap; }
+  .mkit-colour__copy {
+    position: relative; grid-column: 2; grid-row: 1 / span 3; align-self: center;
+    width: 44px; padding: 0; justify-content: center; margin-top: 0;
+  }
+  .mkit-colour__copy span {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+}
+
+/* Phone compaction: shorter specimen tiles and asset rows (the content is unchanged) */
+@media (max-width: 479.98px) {
+  .mkit-lockup__tile { min-height: 4.5rem; padding: var(--space-3); }
+}
+@media (max-width: 767.98px) {
+  .mkit-version__tile { min-height: 6.5rem; padding: var(--space-5) var(--space-4); }
+  .mkit-version__text { padding: var(--space-4) var(--space-4) var(--space-5); }
+}
+
+/* Back to contents: phones and tablets only (the contents list is a sticky aside from 1024px) */
+.mkit-top { display: flex; justify-content: flex-end; margin-top: var(--space-6); }
+.mkit-top__link {
+  display: inline-flex; text-align: right; align-items: center; gap: var(--space-1); min-height: 44px; padding: 0 var(--space-2);
+  font-size: var(--text-small); font-weight: 500; color: var(--color-text-2); text-decoration: none; border-radius: var(--btn-radius);
+}
+.mkit-top__link svg { flex: none; }
+.mkit-top__link:hover { color: var(--color-text); text-decoration: underline; text-underline-offset: 3px; }
+.mkit-top__link:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+@media (min-width: 1024px) { .mkit-top { display: none; } }
+.mkit-toc { scroll-margin-top: calc(var(--shell-offset, var(--header-h)) + var(--space-4)); }
+
+/* Photos: hairline rows; check / cross shapes in ink (the text carries the meaning) */
+.mkit-rules { list-style: none; margin: var(--space-8) 0 0; padding: 0; display: grid; border-top: 1px solid var(--color-border); }
+.mkit-rules li {
+  display: flex; gap: var(--space-3); align-items: flex-start; color: var(--color-text-2);
+  padding-block: var(--space-4); border-bottom: 1px solid var(--color-border);
+}
+.mkit-rules svg { flex: none; margin-top: 0.2em; color: var(--color-text); }
+.mkit-takedown { display: grid; gap: var(--space-5); margin-top: var(--space-8); }
+@media (min-width: 768px) { .mkit-takedown { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: var(--space-10); } }
+.mkit-takedown__text { color: var(--color-text-2); }
+
+/* Downloads: hairline rows (available now), then the asset list (files to come) */
+.mkit-dl-now { display: grid; margin-top: var(--space-8); border-top: 1px solid var(--color-border); }
+@media (min-width: 768px) { .mkit-dl-now { grid-template-columns: 1fr 1fr; column-gap: var(--space-8); } }
+.mkit-dl {
+  display: flex; align-items: center; gap: var(--space-4); min-height: 72px; width: 100%;
+  padding: var(--space-4) 0; text-align: left; cursor: pointer;
+  background: transparent; color: var(--color-text); font: inherit;
+  border: 0; border-bottom: 1px solid var(--color-border); border-radius: 0;
+  transition: border-color var(--dur-2) var(--ease-standard);
+}
+.mkit-dl:hover { border-bottom-color: var(--color-text); }
+.mkit-dl:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--btn-radius); }
+.mkit-dl__icon { flex: none; color: var(--color-text); }
+.mkit-dl__text { display: grid; min-width: 0; }
+.mkit-dl__title { font-weight: 500; }
+.mkit-dl__meta { font-size: var(--text-small); color: var(--color-text-muted); }
+.mkit-dl__arrow { flex: none; margin-left: auto; transition: transform var(--dur-2) var(--ease-standard); }
+@media (hover: hover) and (pointer: fine) { .mkit-dl:hover .mkit-dl__arrow { transform: translateY(var(--shift-1)); } }
+
+.mkit-assets { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: grid; }
+@media (min-width: 768px) { .mkit-assets { grid-template-columns: 1fr 1fr; column-gap: var(--space-8); } }
+.mkit-asset {
+  display: flex; gap: var(--space-4); align-items: flex-start; min-width: 0;
+  padding-block: var(--space-5); border-bottom: 1px solid var(--color-border);
+}
+.mkit-asset__icon { flex: none; margin-top: 0.15em; color: var(--color-text-muted); }
+.mkit-asset__body { min-width: 0; }
+.mkit-asset__title.h6 { font-weight: 500; letter-spacing: -0.005em; }
+.mkit-asset__desc { margin-top: var(--space-1); font-size: var(--text-small); color: var(--color-text-2); }
+.mkit-asset__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-top: var(--space-2); font-size: var(--text-small); }
+.mkit-dl-all { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); margin-top: var(--space-8); }
+
+/* Contact: info left (hairline rows), form right in one hairline frame */
+.mkit-contact { display: grid; gap: var(--space-10); min-width: 0; }
+@media (min-width: 1024px) { .mkit-contact { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; } }
+.mkit-contact__card { display: grid; gap: var(--space-5); align-content: start; justify-items: start; }
+.mkit-contact__card > .h3 { font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+.mkit-contact__list { list-style: none; margin: 0; padding: 0; display: grid; width: 100%; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.mkit-contact__list li { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); padding-block: var(--space-1); }
+.mkit-contact__list svg { flex: none; color: var(--color-text-muted); }
+.mkit-contact__list a { display: inline-flex; align-items: center; min-height: 44px; overflow-wrap: anywhere; color: var(--color-text); }
+.mkit-contact__note { color: var(--color-text-2); max-width: var(--measure); }
+.mkit-inline-link { display: inline-flex; align-items: center; gap: var(--space-1); min-height: 44px; font-weight: 500; color: var(--color-text); }
+.mkit-inline-link svg { transition: transform var(--dur-2) var(--ease-standard); }
+@media (hover: hover) and (pointer: fine) { .mkit-inline-link:hover svg { transform: translateX(var(--shift-1)); } }
+.mkit-contact__form {
+  display: grid; gap: var(--space-5); min-width: 0;
+  padding: var(--space-6); background: transparent; border: 1px solid var(--color-border); border-radius: var(--media-radius);
+}
+.mkit-contact__form > .h4 { font-weight: 500; letter-spacing: -0.015em; }
+@media (min-width: 768px) { .mkit-contact__form { padding: var(--space-8); } }
+.mkit-contact__form .field__control { width: 100%; font-size: max(16px, var(--text-body)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mkit-dl, .mkit-dl__arrow, .mkit-toc__link, .mkit-inline-link svg { transition: none; }
+  .mkit-dl:hover .mkit-dl__arrow, .mkit-inline-link:hover svg { transform: none; }
+}
+@media (min-width: 1024px) {
+  .mkit-toc__summary { pointer-events: none; min-height: 0; margin-bottom: var(--space-3); }
+  .mkit-toc__summary::after { display: none; }
+}
+
+/* Final verifier r3: base.css gives Tamil th/td overflow-wrap:anywhere, which split Tamil words mid-syllable in the
+   naming table. The table already scrolls sideways inside .mkit-table-wrap, so cells keep whole words. */
+.mkit-table-wrap .mkit-table--naming :is(th, td) { overflow-wrap: normal; } /* (0,2,1) beats base.css :lang(ta) :is(th, td) */
+.mkit-table--naming:lang(ta) tbody th { min-width: 8rem; }
+/* Same for every Media kit table (they all scroll inside .mkit-table-wrap), and Tamil card titles break between words. */
+.mkit-table-wrap .mkit-table :is(th, td) { overflow-wrap: normal; }
+h3.mkit-asset__title:lang(ta), .mkit-main h3.h6:lang(ta) { overflow-wrap: break-word; }
+/* Final verifier r3: below 400px the icon sits above the text, giving Tamil asset titles ("அங்கீகரிக்கப்பட்ட",
+   ~190px) the full card width instead of 166px. */
+@media (max-width: 399.98px) { .mkit-asset { flex-direction: column; gap: var(--space-2); } .mkit-asset__body { width: 100%; } }
+
+/* Tamil small phones (mobile audit, Oct 2026): the boilerplate frame left 230px at 320 for 18px text and
+   தொழில்முறையாளர்கள், (222px) broke mid-word. A 20px frame and 17px text keep words whole. */
+@media (max-width: 399.98px) {
+  .mkit-boiler:lang(ta) { padding: var(--space-5); font-size: 1.0625rem; }
+}

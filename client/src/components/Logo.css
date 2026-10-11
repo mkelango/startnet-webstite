@@ -1,0 +1,31 @@
+.logo {
+  --logo-size: 24px;
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-size: var(--logo-size);
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--sn-ink);
+  white-space: nowrap;
+  font-feature-settings: 'ss01', 'cv11';
+}
+.logo--sm { --logo-size: 19px; }
+.logo--md { --logo-size: 24px; }
+.logo--lg { --logo-size: 40px; }
+.logo--xl { --logo-size: 64px; } /* the footer wordmark sets its own container-relative size */
+.logo__word { display: inline-block; }
+/* Full stop: a perfect circle, slightly heavier than a typed period, on the baseline. */
+.logo__dot {
+  display: inline-block;
+  width: 0.2em;
+  height: 0.2em;
+  margin-left: 0.07em;
+  border-radius: var(--radius-full);
+  background: var(--sn-red);
+  transform: translateY(0.01em);
+}
+.logo--reversed, [data-surface='night'] .logo { color: var(--sn-paper); }
+/* Mono (Brand Book 04.4 rule 02): one colour, the stop included; fill follows `color` */
+.logo--mono .logo__dot { background: currentColor; }

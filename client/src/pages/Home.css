@@ -1,0 +1,499 @@
+/* Home (T01) — DESIGN-v2 6.1. Ground plan: Ink hero → sheet rise → Paper (#i-am) → Ink (#where-things-stand) → Paper
+   (#brands) → Paper story (hairline) → Bone (#mission) → Paper (#why-tamil-nadu) → Ink (#on-film) → Bone (#coming-up)
+   → Paper (#open-now) → Bone (#updates) → Paper (#stories) → Bone (#partner) → Paper (#questions) → Ink CTA → footer.
+   Shared parts (Section, SectionHeader, cards, Scroller, FactBand, Stat, Tabs, Accordion, CTABand) come from the
+   foundation; this file only lays the sections out on the 12-col editorial grid and tunes the home-only pieces. */
+
+/* ---------- Shared ---------- */
+.home .section-header__title { text-wrap: balance; }
+.home-block { min-width: 0; }
+/* Arrow links that wrap (long Tamil labels): left-aligned, the arrow follows the text instead of the far edge. */
+.home .button--tertiary { text-align: start; justify-content: flex-start; }
+/* Below-the-fold sections skip rendering until near the viewport. */
+.home-lazy { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+
+/* Section header rhythm (AIWO-BLUEPRINT 1.3 / P2 item 11): label → 24px → h2 → 32px → lede (20px, ≤44ch); the header
+   block is capped at 832px; header → content stays --space-head-gap (64px at 1440). */
+:root .home .section-header__text { max-width: 52rem; }
+:root .home .section-header__eyebrow { margin-bottom: var(--space-6); }
+:root .home .section-header__lede { margin-top: var(--space-8); max-width: 44ch; line-height: 1.5; }
+:root .home :lang(ta) .section-header__lede { max-width: 38em; }
+
+/* =====================================================================================================
+   Hero (M01, AIWO-BLUEPRINT P2): split on the Ink band. ≥1024: copy top-aligned in cols 1–6, the image slot edge to
+   edge in cols 7–12 (right edge, band top to band bottom; the Paper sheet rises over its foot). <1024: image first
+   (4:5 phones, 16:10 tablets), full bleed, then the copy. The slot box is sized by CSS before paint (no CLS).
+   ===================================================================================================== */
+:root .home .home-hero--split {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0;
+  padding-bottom: calc(var(--sheet-radius) + clamp(var(--space-10), 1.5rem + 2.5vw, var(--space-16)));
+  overflow: clip;
+}
+.home-hero__media { order: -1; position: relative; margin: 0 0 clamp(var(--space-8), 1rem + 3vw, var(--space-12)); background: var(--night-1); }
+:root .home .home-hero__media .art-image,
+:root .home .home-hero__media .art-image--photo { aspect-ratio: 4 / 5 !important; border-radius: 0; }
+:root .home .home-hero__media .art-image--photo::after { content: none; }
+/* Tablets, and portrait screens ≥1024 (iPad Pro 1024×1366): the stacked layout with a 16:10 photo. A split column
+   that tall would crop a landscape photo to a sliver and leave an empty Ink block under the copy. */
+@media (min-width: 640px) and (max-width: 1023.98px), (min-width: 1024px) and (max-aspect-ratio: 4/5) {
+  :root .home .home-hero__media .art-image { aspect-ratio: 16 / 10 !important; }
+}
+.home-hero__grid { position: relative; z-index: 1; }
+.home-hero__copy { min-width: 0; }
+@media (min-width: 1024px) and (min-aspect-ratio: 801/1000) {
+  :root .home .home-hero--split {
+    display: block;
+    /* Height follows the viewport, capped by its width so near-square screens keep a sane photo column. */
+    min-height: max(40rem, min(calc(100svh - var(--header-h, 72px) - var(--utility-h, 36px)), 62vw));
+    padding-top: clamp(var(--space-16), 1rem + 4vw, var(--space-24));
+    padding-bottom: calc(var(--sheet-radius) + clamp(var(--space-16), 2rem + 4vw, var(--space-24)));
+  }
+  .home-hero__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; }
+  .home-hero__copy { grid-column: 1 / span 6; padding-right: clamp(0px, 2vw - 8px, var(--space-8)); }
+  .home-hero__media { position: absolute; inset: 0 0 0 calc(50% + 16px); margin: 0; }
+  :root .home .home-hero__media .art-image,
+  :root .home .home-hero__media .art-image--photo { aspect-ratio: auto !important; height: 100%; }
+}
+
+.home-hero__eyebrow { margin: 0 0 var(--space-8); color: var(--night-text); }
+:root .home .home-hero__title {
+  max-width: 11ch;
+  margin: 0;
+  font-size: var(--text-display-2xl);
+  font-weight: 400;
+  line-height: var(--leading-display, 1.02);
+  letter-spacing: var(--tracking-display, -0.04em);
+  text-wrap: balance;
+}
+:root .home .home-hero__title:lang(ta) { max-width: 16ch; font-size: calc(var(--text-display-2xl) * 0.74); line-height: 1.22; letter-spacing: 0; }
+
+/* Lede → 40px → actions → 24px → the partner line (AIWO P2 rhythm). */
+:root .home .home-hero__lede { max-width: 36ch; margin: var(--space-8) 0 0; color: var(--night-text-2); font-size: var(--text-lede); line-height: 1.5; text-align: left; }
+:root .home :lang(ta) .home-hero__lede { max-width: 34em; }
+.home-hero__cta { margin-top: var(--space-10); }
+.home-hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+@media (max-width: 479px) { .home-hero__actions > * { flex: 1 1 100%; } }
+/* "Partner with us" as an arrow link in Night text 2 → Paper, 24px under the buttons */
+:root .home .home-hero__partner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  margin: var(--space-6) 0 0;
+  max-width: 34rem;
+  font-size: var(--text-meta);
+  color: var(--night-text-muted);
+}
+:root .home .home-hero__partner-link {
+  --button-fg: var(--night-text-2);
+  --button-fg-hover: var(--paper);
+  min-height: 0;
+  padding: 0;
+  font-size: var(--text-meta);
+  font-weight: 500;
+}
+@media (pointer: coarse) { :root .home .home-hero__partner-link { min-height: 44px; } }
+
+/* Transform-only entrance: the copy is visible from first paint (no opacity-0 gate on LCP text). */
+.home-hero__rise { animation: home-hero-rise var(--dur-reveal, 600ms) var(--ease-reveal) both; }
+.home-hero__rise--1 { animation-delay: 80ms; }
+.home-hero__rise--2 { animation-delay: 160ms; }
+@keyframes home-hero-rise { from { transform: translateY(var(--shift-reveal, 12px)); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .home-hero__rise { animation: none; } }
+:root[data-motion="reduced"] .home-hero__rise { animation: none; }
+
+/* =====================================================================================================
+   "I am a…" (M02): question cols 1–4, chips cols 5–12, Continue under the chips.
+   ===================================================================================================== */
+.home-persona-band__form { display: grid; gap: var(--space-8); }
+.home-persona-band__head { display: grid; gap: var(--space-5); align-content: start; }
+.home-persona-band__title { margin: 0; }
+.home-persona-band__lede { max-width: 30rem; margin: 0; color: var(--color-text-2); }
+:lang(ta) .home-persona-band__lede { max-width: 34rem; }
+.home-persona-band__pick { min-width: 0; }
+.home-persona-band__error { margin: var(--space-4) 0 0; padding: var(--space-3) var(--space-4); border-radius: var(--btn-radius); background: var(--color-error-bg); color: var(--color-error); font-weight: 500; }
+.home-persona-band__go {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+.home-persona-band__hint { flex: 1 1 18rem; max-width: 40rem; margin: 0; color: var(--color-text-2); }
+.home-persona-band__go > .button { margin-left: auto; }
+@media (max-width: 559px) { .home-persona-band__go > .button { flex: 1 1 100%; } }
+@media (min-width: 1024px) {
+  .home-persona-band__form { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; row-gap: var(--space-10); }
+  .home-persona-band__head { grid-column: 1 / span 4; grid-row: 1 / span 2; padding-right: var(--space-6); }
+  .home-persona-band__pick,
+  .home-persona-band__go { grid-column: 5 / -1; }
+}
+/* Continue before a choice: reads inactive, not broken (Bone, Ink-500 text, hairline ring; still focusable). */
+:root .home .home-persona-band__submit.is-inactive,
+:root .home .home-persona-band__submit[aria-disabled='true'] {
+  opacity: 1;
+  --button-bg: var(--bone);
+  --button-fg: var(--ink-500);
+  --button-bg-hover: var(--bone);
+  --button-fg-hover: var(--ink-500);
+  background: var(--bone);
+  color: var(--ink-600);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =====================================================================================================
+   Proof band (M12, #where-things-stand), AIWO-BLUEPRINT P4: the Ink band as "card + key points". The figures sit in a
+   framed card (inset 1px Night line, 12px radius): the first figure as one giant count-up numeral in Marigold (the
+   band's one colour point), the others as hairline rows (label left, tabular value right). ≥1024: card in cols 1–7,
+   the heading, the Founder Ledger link and the footnote in cols 9–12 (DOM order unchanged: heading → figures → note).
+   ===================================================================================================== */
+:root .home-proof .fact-band { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--space-10); }
+:root .home-proof .fact-band__head {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-6);
+  margin: 0;
+}
+:root .home-proof .fact-band__title {
+  margin: 0;
+  max-width: 16ch;
+  font-size: var(--text-h2);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  text-wrap: balance;
+}
+:root .home-proof .fact-band__title:lang(ta) { letter-spacing: 0; line-height: 1.35; max-width: 22ch; }
+.home-proof .fact-band__title::before { content: none; }
+:root .home-proof .fact-band__grid {
+  display: block;
+  padding: clamp(var(--space-6), 1rem + 2.5vw, var(--space-12));
+  border-radius: var(--radius-media);
+  box-shadow: inset 0 0 0 1px var(--night-line-strong);
+}
+/* The headline figure */
+:root .home .home-proof .fact-band .fact-band__grid > .stat.stat {
+  padding: 0 !important;
+  border: 0 !important;
+}
+:root .home-proof .fact-band__grid > .stat:first-child .stat__value {
+  font-size: clamp(3.75rem, 1.5rem + 7.5vw, 9rem);
+  letter-spacing: -0.045em;
+  color: var(--marigold);
+}
+:root .home-proof .fact-band__grid > .stat:first-child .stat__unit { color: var(--marigold); }
+:root .home-proof .fact-band__grid > .stat:first-child .stat__label { margin-top: var(--space-5); max-width: 32ch; font-size: var(--text-lede); line-height: 1.4; color: var(--paper); }
+:root .home-proof .fact-band__grid > .stat:first-child .stat__meta { margin-top: var(--space-3); }
+/* The supporting figures: hairline rows, label + tag left, value right */
+:root .home .home-proof .fact-band .fact-band__grid > .stat.stat:not(:first-child) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--space-6);
+  align-items: start;
+  padding: var(--space-6) 0 0 !important;
+  margin-top: var(--space-6);
+  border-top: 1px solid var(--night-line-strong) !important;
+}
+:root .home .home-proof .fact-band .fact-band__grid > .stat.stat:nth-child(2) { margin-top: clamp(var(--space-8), 1rem + 2vw, var(--space-12)); }
+:root .home-proof .fact-band__grid > .stat:not(:first-child) .stat__label { grid-column: 1; grid-row: 1; margin: 0; max-width: 34ch; font-size: var(--text-body); color: var(--night-text-2); }
+:root .home-proof .fact-band__grid > .stat:not(:first-child) .stat__meta { grid-column: 1; grid-row: 2; }
+:root .home-proof .fact-band__grid > .stat:not(:first-child) .stat__value {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  justify-content: flex-end;
+  font-size: clamp(2rem, 1.5rem + 1.6vw, 3rem);
+  color: var(--paper);
+}
+@media (max-width: 479.98px) {
+  :root .home-proof .fact-band__grid > .stat:not(:first-child) .stat__value { font-size: 1.75rem; }
+}
+/* Mobile audit: below 400px (480px in Tamil) the label column beside the figure was ~160px, so the note ran one or
+   two words a line and Tamil words split mid-word (தலைமையிலான|வை). Put the figure on its own line above the label. */
+@media (max-width: 399.98px) {
+  :root .home .home-proof .fact-band .fact-band__grid > .stat.stat:not(:first-child) { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2); }
+  :root .home .home-proof .fact-band__grid > .stat:not(:first-child) .stat__value { grid-column: 1; grid-row: 1; justify-content: flex-start; }
+  :root .home .home-proof .fact-band__grid > .stat:not(:first-child) .stat__label { grid-row: 2; }
+  :root .home .home-proof .fact-band__grid > .stat:not(:first-child) .stat__meta { grid-row: 3; }
+}
+@media (max-width: 479.98px) {
+  :root .home:lang(ta) .home-proof .fact-band .fact-band__grid > .stat.stat:not(:first-child) { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2); }
+  :root .home:lang(ta) .home-proof .fact-band__grid > .stat:not(:first-child) .stat__value { grid-column: 1; grid-row: 1; justify-content: flex-start; }
+  :root .home:lang(ta) .home-proof .fact-band__grid > .stat:not(:first-child) .stat__label { grid-row: 2; }
+  :root .home:lang(ta) .home-proof .fact-band__grid > .stat:not(:first-child) .stat__meta { grid-row: 3; }
+}
+/* Footnote: hairline-topped, 14px muted arrow link */
+:root .home-proof .fact-band__footnote {
+  margin: 0;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--night-line);
+  max-width: none;
+  font-size: var(--text-meta);
+}
+:root .home .home-proof__footnote-link { color: var(--night-text-2); font-weight: 400; font-size: var(--text-meta); }
+:root .home .home-proof__footnote-link:hover { color: var(--paper); }
+@media (min-width: 1024px) {
+  :root .home-proof .fact-band { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; row-gap: var(--space-8); align-items: start; }
+  :root .home-proof .fact-band__head { grid-column: 9 / -1; grid-row: 1; padding-top: var(--space-4); }
+  :root .home-proof .fact-band__grid { grid-column: 1 / span 7; grid-row: 1 / span 3; }
+  :root .home-proof .fact-band__footnote { grid-column: 9 / -1; grid-row: 2; align-self: start; }
+}
+
+/* =====================================================================================================
+   Four doors (M03, #brands): media cards 4-up ≥1280, 2-up ≥768; a snap scroller on phones.
+   ===================================================================================================== */
+.home-doors__item { display: grid; min-width: 0; }
+.home-doors__item > .brand-tile { height: 100%; }
+/* QA v6: the shared tile clamps its promise to 2 lines, which cut each brand's one-line promise mid-sentence
+   (and the Tamil promises down to 2 of 5-7 lines). On Home the promise is the tile's copy, so show all of it. */
+.home-doors .brand-tile__promise { display: block; -webkit-line-clamp: unset; line-clamp: none; overflow: visible; }
+@media (min-width: 768px) {
+  .home-doors__rail .scroller__controls,
+  .home-doors__rail .scroller__progress { display: none; }
+  :root .home-doors__rail .scroller__track {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-14, 56px) 32px;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .home-doors__rail .scroller__item { flex: none; }
+}
+@media (min-width: 1280px) {
+  :root .home-doors__rail .scroller__track { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+/* 2-up range: a landscape crop keeps each door from becoming a full screen. */
+@media (min-width: 768px) and (max-width: 1279.98px) {
+  .home-doors .brand-tile__art .art-image { aspect-ratio: 4 / 3 !important; }
+}
+
+/* =====================================================================================================
+   Mission 1 Lakh (#mission): 5/7, the copy top-aligned beside a White figure panel on Bone.
+   ===================================================================================================== */
+.home-mission__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); align-items: start; }
+@media (min-width: 1024px) {
+  .home-mission__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; }
+  .home-mission__copy { grid-column: 1 / span 5; }
+  .home-mission__panel { grid-column: 6 / -1; }
+}
+.home-mission__inner > * { min-width: 0; }
+.home-mission__copy .section-header { margin-bottom: var(--space-6); }
+.home-mission__body { max-width: 34rem; margin: 0; color: var(--color-text-2); }
+.home-mission__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-8); margin-top: var(--space-8); }
+.home-mission__panel {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-8) var(--space-6);
+  background: var(--card, var(--white));
+  border-radius: var(--radius-media);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+}
+@media (min-width: 768px) { .home-mission__panel { padding: var(--space-12); } }
+.home-mission__targets { display: grid; gap: var(--space-8); }
+.home-mission__targets .stat--default { padding-top: 0; border-top: 0; }
+/* AIWO P6: one giant numeral per stat band (tabular, Indian grouping as the data gives it). */
+:root .home-mission__targets .stat--default .stat__value { font-size: clamp(3.5rem, 1.5rem + 6.5vw, 8.5rem); letter-spacing: -0.045em; }
+:root .home-mission__targets .stat--default .stat__label { margin-top: var(--space-5); font-size: var(--text-lede); line-height: 1.4; color: var(--color-text-2); }
+.home-mission__targets .stat--default .stat__label { max-width: 34ch; }
+.home-mission__targets .stat--compact { padding-top: var(--space-6); border-top: 1px solid var(--hairline); }
+.home-mission__tagline { margin: 0; font-size: var(--text-meta); color: var(--color-text-muted); }
+
+/* =====================================================================================================
+   Why Tamil Nadu: 7/5, the copy and a 2×2 stat grid left (hairlines), the map art right (clip-in).
+   ===================================================================================================== */
+.home-why__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); align-items: start; }
+@media (min-width: 1024px) {
+  .home-why__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; }
+  .home-why__copy { grid-column: 1 / span 7; }
+  .home-why__art { grid-column: 8 / -1; position: sticky; top: calc(var(--header-h, 72px) + 32px); }
+}
+.home-why__inner > * { min-width: 0; }
+.home-why__stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--color-border); }
+.home-why__stats > * { min-width: 0; }
+:root .home-why__stats .stat--default { padding: var(--space-6) var(--space-5) var(--space-6) 0; border-top: 0; }
+:root .home-why__stats > :nth-child(even) { padding-left: var(--space-5); padding-right: 0; border-left: 1px solid var(--color-border); }
+:root .home-why__stats > :nth-child(n + 3) { border-top: 1px solid var(--color-border); }
+/* An odd last figure spans the row, so the hairline under the pair runs the full width. */
+:root .home-why__stats > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+/* QA v6: at phone width the half-column is ~134px; in Tamil the wider digit face pushed "%" onto its own line under
+   "52.3". Keep figure and unit on one line and size the figure to the column. */
+@media (max-width: 479.98px) {
+  :root .home-why__stats .stat__value { flex-wrap: nowrap; font-size: clamp(2rem, 10.5vw, 3.0625rem); }
+}
+/* Mobile audit: below 400px (480px in Tamil) the half-column left ~110px, so each label broke every one or two
+   words. Stack the figures one per row there, each under a full-width hairline. */
+@media (max-width: 399.98px) {
+  .home-why__stats { grid-template-columns: minmax(0, 1fr); }
+  :root .home .home-why__stats > * { padding: 0; border-left: 0; }
+  :root .home .home-why__stats > * + * { border-top: 1px solid var(--color-border); }
+  :root .home .home-why__stats .stat.stat--default { padding: var(--space-5) 0; }
+}
+@media (max-width: 479.98px) {
+  .home:lang(ta) .home-why__stats { grid-template-columns: minmax(0, 1fr); }
+  :root .home:lang(ta) .home-why__stats > * { padding: 0; border-left: 0; }
+  :root .home:lang(ta) .home-why__stats > * + * { border-top: 1px solid var(--color-border); }
+  :root .home:lang(ta) .home-why__stats .stat.stat--default { padding: var(--space-5) 0; }
+}
+@media (min-width: 1024px) {
+  :root .home-why__stats .stat--default { padding: var(--space-8) var(--space-8) var(--space-8) 0; }
+  :root .home-why__stats > :nth-child(even) { padding-left: var(--space-8); padding-right: 0; }
+}
+.home-why__more { margin-top: var(--space-8); }
+.home-why__art { width: 100%; }
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .home-why__art .art-image { aspect-ratio: 16 / 9 !important; }
+}
+@media (max-width: 767.98px) { .home-why__art .art-image { aspect-ratio: 4 / 3 !important; } }
+
+/* =====================================================================================================
+   On film (#on-film): the Ink band; the video 16/9 at full container width inside ClipReveal.
+   ===================================================================================================== */
+.home-film__media { overflow: hidden; }
+.home-film .video-feature { margin: 0; }
+.home-film .video-feature__frame { aspect-ratio: 16 / 9; border-radius: var(--radius-media); }
+.home-film .video-feature__caption { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: var(--space-6); }
+.home-film .video-feature__title { grid-column: 1; }
+.home-film .video-feature__meta { grid-column: 1; }
+.home-film .video-feature__source { grid-column: 2; grid-row: 1 / span 2; align-self: start; }
+.home-film__more { margin-top: var(--space-8); }
+@media (max-width: 639.98px) {
+  .home-film .video-feature__caption { grid-template-columns: minmax(0, 1fr); }
+  .home-film .video-feature__source { grid-column: 1; grid-row: auto; }
+}
+
+/* =====================================================================================================
+   Coming up / Stories: the Scroller's counter and ring buttons share the section header's action row (≥1024),
+   so there is no extra controls row above the cards. The "See all" link moves left to make room.
+   ===================================================================================================== */
+@media (min-width: 1024px) {
+  .home-rail .home-block { position: relative; }
+  .home-rail .scroller__controls {
+    position: absolute;
+    right: 0;
+    top: calc(-1 * (var(--space-head-gap) + 48px));
+    margin: 0;
+  }
+  .home-rail:has(.scroller:not(.scroller--fits)) .section-header__action { margin-right: 13rem; }
+  .home-rail .section-header__action .button { white-space: nowrap; }
+  :root .home-rail :lang(ta) .section-header__action .button { white-space: normal; }
+}
+/* 1024–1279: the 8/4 split leaves the link ~100px beside the counter; give the action half the row. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  :root .home-rail .section-header--has-action:not(.section-header--center) { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); }
+}
+
+/* =====================================================================================================
+   Open now: framed ProgrammeCards, 3-up ≥1024, 2-up ≥768.
+   ===================================================================================================== */
+.home-open__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
+.home-open__grid > * { min-width: 0; display: grid; }
+@media (min-width: 768px) { .home-open__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8) 24px; } }
+@media (min-width: 1024px) { .home-open__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 32px; } }
+
+/* =====================================================================================================
+   Partner band: 5/7, the copy left (cols 1–5), the art and the signed-partner wall right (cols 6–12).
+   ===================================================================================================== */
+.home-partner__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); align-items: start; }
+@media (min-width: 1024px) {
+  .home-partner__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; }
+  .home-partner__copy { grid-column: 1 / span 5; grid-row: 1; padding-right: var(--space-4); }
+  .home-partner__aside { grid-column: 7 / -1; grid-row: 1; }
+}
+.home-partner__inner > *, .home-partner__copy > * { min-width: 0; }
+.home-partner__copy { display: grid; gap: var(--space-5); align-content: start; }
+.home-partner__copy .eyebrow { margin: 0; }
+.home-partner__title { margin: 0; max-width: 18ch; overflow-wrap: break-word; color: var(--color-text); text-wrap: balance; }
+:lang(ta) .home-partner__title { max-width: 26ch; }
+.home-partner__lede { max-width: 36rem; margin: 0; color: var(--color-text-2); }
+.home-partner__aside { display: grid; gap: var(--space-10); min-width: 0; }
+.home-partner__links { list-style: none; margin: var(--space-4) 0 0; padding: 0; border-top: 1px solid var(--color-border); }
+.home-partner__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 4.5rem;
+  padding-block: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  text-decoration: none;
+  transition: border-color var(--dur-3) var(--ease-snap);
+  color: var(--color-text);
+  font-size: var(--text-lede);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.home-partner__link-label {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  padding-bottom: 0.1em;
+  transition: background-size var(--dur-3) var(--ease-snap);
+}
+.home-partner__link svg { flex: none; color: var(--color-text-2); transition: transform var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap); }
+@media (hover: hover) and (pointer: fine) {
+  .home-partner__link:hover { border-bottom-color: var(--color-text); }
+  .home-partner__link:hover svg { transform: translateX(4px); color: var(--color-text); }
+  .home-partner__link:hover .home-partner__link-label { background-size: 100% 1px; }
+}
+.home-partner__link:focus-visible svg { transform: translateX(4px); color: var(--color-text); }
+.home-partner__link:focus-visible .home-partner__link-label { background-size: 100% 1px; }
+/* AIWO P11: the media at 4:3 beside the copy (16:9 on tablets so it never fills a screen). */
+:root .home-partner__art .art-image { aspect-ratio: 4 / 3 !important; }
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  :root .home-partner__art .art-image { aspect-ratio: 16 / 9 !important; }
+}
+
+/* =====================================================================================================
+   Questions (#questions): 4/8, the header sticky in cols 1–4 at ≥1024, the accordion in cols 5–12.
+   ===================================================================================================== */
+.home-faq__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; align-items: start; }
+@media (min-width: 1024px) {
+  .home-faq__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; }
+  .home-faq__head { grid-column: 1 / span 4; position: sticky; top: calc(var(--header-h, 72px) + 32px); }
+  .home-faq__head .section-header { margin-bottom: 0; }
+  .home-faq__list { grid-column: 5 / -1; }
+}
+.home-faq__list { min-width: 0; }
+/* AIWO P16 rows: 20px questions at 400, 28px padding, Ink +/−, hairlines; the list hairline turns Ink on hover. */
+:root .home-faq .accordion__trigger { padding-block: 28px; font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem); font-weight: 400; }
+:root .home-faq .accordion__item { transition: border-color var(--dur-3) var(--ease-snap); }
+@media (hover: hover) and (pointer: fine) { :root .home-faq .accordion__item:hover { border-bottom-color: var(--color-text); } }
+:root .home-faq .accordion__answer { max-width: 62ch; }
+
+/* =====================================================================================================
+   Closing CTA (M04), AIWO-BLUEPRINT P15: left-aligned on the 12-col grid (statement cols 1–8 at the display size, lede
+   below, the existing buttons left: Paper filled + WhatsApp). The soft light is replaced by one hairline arc,
+   partly off-canvas bottom right; no dot grid. The statement keeps its red stop (the band's one red point).
+   ===================================================================================================== */
+:root .home-close { padding-block: clamp(var(--space-20), 3rem + 7vw, 10rem); }
+:root .home-close .cta-band__inner { justify-items: start; text-align: left; gap: var(--space-10); }
+:root .home-close .cta-band__text { justify-items: start; }
+:root .home-close .cta-band__title {
+  max-width: 14ch;
+  font-size: var(--text-display-xl);
+  line-height: 1.04;
+  text-align: left;
+}
+:root .home-close .cta-band__title:lang(ta) { max-width: 20ch; font-size: min(var(--text-h1), 2.5rem); }
+:root .home-close .cta-band__body { max-width: 40ch; margin: var(--space-8) 0 0; }
+:root .home-close .cta-band__actions { justify-content: flex-start; }
+:root .home-close .cta-band__actions > .home-close__micro { flex: 0 0 100%; max-width: none; margin: var(--space-3) 0 0; text-align: left; }
+.home-close__micro > span { display: block; max-width: 40ch; }
+@media (min-width: 1024px) {
+  :root .home-close .cta-band__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; }
+  :root .home-close .cta-band__text,
+  :root .home-close .cta-band__actions { grid-column: 1 / span 8; }
+}
+
+/* Tablet 768–1023: no 2 + 1 orphan. Three columns are too narrow for these programme cards (badges truncate), so an
+   odd last card takes the full row instead of sitting next to an empty half. */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .home-open__grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}

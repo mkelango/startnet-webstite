@@ -1,0 +1,72 @@
+/* StartNet X Trust & privacy — AngelList-family: flat hairline cards, hairline rights list, one calm night band. */
+.snx-trust-page__meta { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-small); color: var(--color-text-2); }
+.snx-trust-page__meta svg { color: var(--color-text-muted); }
+
+.snx-trust-page__grid { display: grid; gap: var(--space-3); margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); grid-template-columns: minmax(0, 1fr); }
+/* Four cards: 1 → 2 × 2 → 4-up (auto-fill gave 3 + 1 at 900–1024). */
+@media (min-width: 640px) { .snx-trust-page__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .snx-trust-page__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.snx-trust-card { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius); box-shadow: none; min-width: 0; }
+.snx-trust-card .h5 { font-weight: 500; letter-spacing: -0.01em; }
+/* Line icon in a 40px hairline square (no tinted circle). */
+.snx-trust-card__icon {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; margin-bottom: var(--space-3);
+  border: 1px solid var(--color-border); border-radius: var(--btn-radius);
+  background: transparent; color: var(--color-text);
+}
+.snx-trust-card__icon svg { width: 20px; height: 20px; }
+
+/* Data rights: feature row; the four rights as full-width hairline rows. */
+.snx-rights { display: grid; gap: var(--space-10); align-items: start; }
+@media (min-width: 1024px) { .snx-rights { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); } }
+.snx-rights__intro { display: grid; gap: var(--space-5); justify-items: start; }
+.snx-rights__intro .body-lg { max-width: 36rem; }
+.snx-rights__intro .cluster { margin-top: var(--space-3); }
+.snx-rights__list { list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--color-border); }
+.snx-rights__item { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: var(--space-4); align-items: baseline; padding-block: var(--space-6); border-bottom: 1px solid var(--color-border); }
+.snx-rights__num { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.snx-rights__item { min-width: 0; align-content: start; }
+.snx-rights__label { font-size: var(--text-h3); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; overflow-wrap: break-word; hyphens: auto; }
+/* Tamil labels run longer: no negative tracking, a step down in size and roomier leading (Book 3 §4.4). */
+:lang(ta) .snx-rights__label { font-size: var(--text-h5); letter-spacing: 0; line-height: var(--leading-heading); }
+@media (max-width: 399px) { .snx-rights__item { grid-template-columns: 2.25rem minmax(0, 1fr); padding-block: var(--space-5); } }
+.snx-rights__grievance { margin-top: var(--space-10); padding-top: var(--space-6); border-top: 1px solid var(--color-border); display: grid; gap: var(--space-2); }
+
+/* AI guardrails: the page's one night band, calm (regular statement, hairline rows, quiet markers). */
+.snx-guard { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) { .snx-guard { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; } }
+.snx-guard__intro { display: grid; gap: var(--space-5); justify-items: start; }
+.snx-guard__icon {
+  display: inline-grid; place-items: center; width: 40px; height: 40px;
+  border: 1px solid var(--night-line); border-radius: var(--btn-radius);
+  color: var(--night-text);
+}
+.snx-guard__lede { color: var(--color-text-2); max-width: 40ch; }
+.snx-guard__list { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
+.snx-guard__item { padding: var(--space-6) 0 var(--space-6) var(--space-8); border-bottom: 1px solid var(--color-border); position: relative; color: var(--color-text-2); }
+.snx-guard__item::before { content: ""; position: absolute; left: 0; top: calc(var(--space-6) + 0.6em); width: 6px; height: 6px; border-radius: 50%; background: var(--color-text-muted); }
+.snx-guard__item strong { color: var(--color-text); font-weight: 500; }
+
+/* Governance links: a flat hairline card. */
+.snx-trust-links { display: grid; gap: var(--space-6); align-items: center; padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card); min-width: 0; }
+@media (min-width: 640px) { .snx-trust-links { padding: var(--space-8); } }
+.snx-trust-links .h4 { font-weight: 500; letter-spacing: -0.01em; }
+.snx-trust-links p { margin-top: var(--space-2); max-width: 52ch; }
+/* Phones: the secondary button takes the full row so its label sits on one line; the tertiary link follows. */
+.snx-trust-links__actions { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-3); }
+.snx-trust-links__actions .button--tertiary { align-self: flex-start; }
+@media (min-width: 640px) {
+  .snx-trust-links__actions { flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-6); }
+}
+@media (min-width: 900px) { .snx-trust-links { grid-template-columns: 1fr auto; } }
+
+/* ---- StartNet X strict red (DESIGN-v2 6.4) ---- */
+/* [data-brand='x'] uses red as its accent, so red is kept to one point per composition: the headline stop.
+   Dot labels, the hero journey line and arrow links go Ink (Paper on Ink); hero / CTA buttons are Ink primary. */
+.brand-layout[data-brand='x'],
+.brand-layout[data-brand='x'] [data-brand='x']:not([data-surface='night']) { --color-label-dot: var(--color-text); }
+.brand-layout[data-brand='x'] [data-surface='night'] { --color-label-dot: var(--paper); }
+:root .brand-layout[data-brand='x'] .button--tertiary { --button-fg: var(--color-link-standalone); --button-fg-hover: var(--color-link-standalone); }
+:root .brand-layout[data-brand='x'] [data-surface='night'] .button--tertiary { --button-fg: var(--paper); --button-fg-hover: var(--paper); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey { color: var(--night-text-2); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey::before { background: var(--paper); }

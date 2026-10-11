@@ -1,0 +1,53 @@
+/* StartNet X shared parts (AngelList-family finish: flat hairline cards, quiet 4px status labels) */
+.snx-status {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  font-size: var(--text-caption); font-weight: 500; line-height: 1.6;
+}
+.snx-status--live, .snx-status--beta, .snx-status--coming { padding: 0 var(--space-2); border-radius: var(--btn-radius); }
+.snx-status--live { background: var(--color-success-bg); color: var(--color-success); }
+.snx-status--beta { background: var(--color-info-bg); color: var(--color-info); }
+.snx-status--coming { box-shadow: inset 0 0 0 1px var(--color-border); color: var(--color-text-muted); }
+
+/* Module card: flat var(--card) sheet, 1px hairline, 12px frame; linked cards lift a touch on hover. */
+.snx-module {
+  position: relative;
+  display: flex; flex-direction: column; gap: var(--space-3);
+  padding: 28px;
+  background: var(--card);
+  border: 0;
+  border-radius: var(--radius-media);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+  overflow: hidden;
+  transition: box-shadow var(--dur-2) var(--ease-snap);
+  min-width: 0;
+}
+/* Framed card (DESIGN-v2 3.7 B): White on Bone, a 2px Ink top rule draws in on hover / focus-within; no lift. */
+.section--white .snx-module, .section--sunken .snx-module { background: var(--white); }
+.snx-module::before {
+  content: ''; position: absolute; inset: 0 0 auto; height: 2px; background: var(--color-text); z-index: 1;
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+.snx-module:has(.snx-module__link):focus-within { box-shadow: inset 0 0 0 1px var(--line-strong); }
+@media (hover: hover) and (pointer: fine) { .snx-module:has(.snx-module__link):hover { box-shadow: inset 0 0 0 1px var(--line-strong); } }
+.snx-module:has(.snx-module__link):focus-within::before { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { .snx-module:has(.snx-module__link):hover::before { transform: scaleX(1); } }
+@media (hover: hover) and (pointer: fine) {
+  .snx-module:hover .snx-module__arrow { transform: translateX(4px); color: var(--color-text); }
+}
+@media (max-width: 767.98px) { .snx-module { padding: 24px; } }
+.snx-module__top { display: flex; justify-content: space-between; align-items: center; }
+/* Line icon in a 40px hairline square (no tinted circle). */
+.snx-module__icon {
+  display: inline-grid; place-items: center; width: 40px; height: 40px;
+  border: 1px solid var(--hairline); border-radius: var(--radius-btn);
+  background: transparent; color: var(--color-text);
+}
+.snx-module__num { font-size: var(--text-caption); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.snx-module__name.h5 { margin-top: var(--space-3); font-weight: 500; letter-spacing: -0.01em; }
+.snx-module__link { color: inherit; text-decoration: none; }
+.snx-module__link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.snx-module__link:focus-visible { box-shadow: none; }
+.snx-module:has(.snx-module__link:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.snx-module__line { color: var(--color-text-2); font-size: var(--text-small); flex: 1; }
+.snx-module__foot { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); min-height: 1.5rem; padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+.snx-module__arrow { margin-left: auto; color: var(--color-text-muted); transition: transform var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard); flex: none; }

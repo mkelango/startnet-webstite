@@ -1,0 +1,95 @@
+/* T06 Insights hub */
+/* V-I1: at 1024–1279 the hero text column is ~456px; the Tamil title word "எண்ணுகிறோம்," at the 49px display size
+   measures 440–456px with Anek Tamil, so it split mid-word. One step smaller (44px) in that band only. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .insights-hero .page-hero__title:lang(ta) { font-size: min(var(--text-display-xl), 2.75rem); }
+}
+.insights-hero__chart { width: 100%; padding: var(--space-6); gap: var(--space-3); }
+.insights-hero__chart-cap { display: grid; gap: var(--space-1); }
+.insights-hero__chart-title { font-size: var(--text-small); color: var(--color-text-2); }
+
+/* Featured + at a glance (Oct 2026): a blueprint row under a hairline — title left, lede and action right
+   (USVC "Our portfolio…" layout); the glance figures sit as light numerals between vertical hairlines. */
+.insights-glance { display: grid; gap: var(--space-12); align-items: start; padding-top: var(--space-8); border-top: 1px solid var(--color-border); }
+@media (min-width: 1024px) { .insights-glance { grid-template-columns: 5fr 7fr; gap: var(--space-16); } }
+/* No Ledger figure supplied yet: the feature runs alone, split across the row. */
+@media (min-width: 1024px) { .insights-glance--solo { grid-template-columns: minmax(0, 1fr); } }
+.insights-glance__feature { display: grid; gap: var(--space-5); justify-items: start; }
+.insights-glance__feature .h2 { max-width: 18ch; }
+/* AIWO P13 (featured story): the 16:10 media in cols 1–7, the feature copy in cols 9–12, centred on the media. */
+.insights-glance--solo { border-top: 0; padding-top: 0; }
+.insights-glance__media { min-width: 0; border-radius: var(--radius-media); overflow: hidden; }
+@media (min-width: 1024px) {
+  .insights-glance--solo { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: calc(100% / 12 + 32px); align-items: center; }
+  /* DESIGN-v2 6.4: the 'Founder Ledger' h2 is a section head (--text-h2), not an 88px display line. */
+  .insights-glance--solo .insights-glance__feature > .h2 { font-size: var(--text-h2); max-width: 16ch; }
+}
+.insights-glance__feature .eyebrow { margin-bottom: var(--space-1); }
+.insights-glance__label { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); padding-bottom: var(--space-4); }
+.insights-glance__grid { display: grid; border-top: 1px solid var(--color-border); }
+.insights-glance__stat { padding: var(--space-6) 0; min-width: 0; }
+.insights-glance__stat + .insights-glance__stat { border-top: 1px solid var(--color-border); }
+@media (min-width: 768px) {
+  .insights-glance__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .insights-glance__stat { padding: var(--space-6) var(--space-6) 0 0; }
+  .insights-glance__stat + .insights-glance__stat { border-top: 0; border-left: 1px solid var(--color-border); padding-left: var(--space-6); }
+}
+.insights-glance__ph-label { font-size: var(--text-small); color: var(--color-text-2); margin-bottom: var(--space-2); }
+
+/* Collections */
+.insights-collections {
+  display: grid; gap: var(--space-6); margin-top: var(--space-10);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+}
+.insights-collections > * { min-width: 0; }
+/* 9 collections: 3 × 3 from 768 so no row is left with a single orphan; on the 2-up band (640–767) the
+   ninth card takes the full last row instead of sitting alone. */
+@media (min-width: 640px) and (max-width: 767px) {
+  .insights-collections { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .insights-collections > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 768px) { .insights-collections { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); } }
+/* V-I1: Tamil cards at 768–1023 were ~177px wide, too narrow for the Latin index name ("Commercialisation") and
+   longer Tamil labels; Tamil keeps 2 columns there (odd last card spans the row), 3 from 1024. */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .insights-collections:lang(ta) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .insights-collections:lang(ta) > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) { .insights-collections { gap: var(--space-6); } }
+/* English 3-up at 768–1023 is ~226px a card: let a long single word ("Commercialisation") hyphenate/wrap instead of
+   running into the card padding. */
+.insights-collections .card__title { overflow-wrap: break-word; hyphens: auto; }
+.insights-status { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); font-size: var(--text-caption); }
+.insights-status__text { color: var(--color-text-2); }
+.insights-notify {
+  position: relative; z-index: 2;
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; font-weight: 500; font-size: var(--text-small);
+  color: var(--color-link-standalone); text-decoration: none;
+}
+.insights-notify svg { transition: transform var(--dur-2) var(--ease-snap); }
+.insights-notify:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+@media (hover: hover) and (pointer: fine) { .insights-notify:hover svg { transform: rotate(-12deg); } }
+
+.insights-reports { margin-top: var(--space-10); }
+.insights-stories-empty { margin-top: var(--space-8); max-width: 60ch; }
+
+/* Newsletter strip */
+.insights-news { display: grid; gap: var(--space-6); align-items: center; }
+@media (min-width: 900px) { .insights-news { grid-template-columns: 1fr 1.3fr; gap: var(--space-12); } }
+
+/* Tamil (Book 3 §4.4): 14px floor for small labels and placeholder chips. */
+.insights-glance__label:lang(ta) { font-size: 0.875rem; }
+.insights-status:lang(ta) .placeholder, .insights-glance .placeholder:lang(ta) { font-size: max(0.875rem, 0.9em); }
+
+/* Split photo hero (restKit .rk-hero): the Ledger chart, when it replaces the media, sits centred in the bleed panel. */
+@media (min-width: 1024px) {
+  .rk-hero .page-hero__art > .insights-hero__chart {
+    height: 100%;
+    margin: 0;
+    display: grid;
+    align-content: center;
+    padding: var(--space-16) var(--page-margin) var(--space-16) var(--space-12);
+    background: var(--night-1);
+  }
+}

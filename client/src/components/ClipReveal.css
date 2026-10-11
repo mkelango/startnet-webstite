@@ -1,0 +1,3 @@
+/* ClipReveal (DESIGN-v2 3.13): the clip is written inline from the scroll position; the end state is no clip. */
+.clip-reveal { position: relative; border-radius: var(--radius-media); }
+.clip-reveal--live { will-change: clip-path; }

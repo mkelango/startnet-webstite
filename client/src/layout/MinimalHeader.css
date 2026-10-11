@@ -1,0 +1,5 @@
+/* C02 `minimal` header variant: logo + language switch (MinimalHeader.jsx) */
+.site-header--minimal .site-header__inner--minimal { justify-content: space-between; }
+.site-header--minimal .site-header__lang--minimal { display: inline-flex; margin-left: auto; }
+/* No utility bar above the minimal header, at any width */
+.site-shell__spacer.site-shell__spacer--minimal { height: var(--header-h); }

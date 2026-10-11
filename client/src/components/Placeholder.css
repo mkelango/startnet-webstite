@@ -1,0 +1,19 @@
+/* Placeholder register marker. Readable size (≥ 12px; Tamil ≥ 14px) and wraps anywhere inside the line box.
+   Decoration is sliced, not cloned: Chrome does not count cloned inline padding when it breaks lines, so a
+   cloned fragment ran 3–5px past its container. Sliced, the padding sits only at the real start and end. */
+.placeholder-chip {
+  display: inline;
+  max-width: 100%;
+  font-family: var(--font-sans);
+  font-size: max(0.75rem, 0.9em);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: slice;
+  box-decoration-break: slice;
+}
+.placeholder-chip:lang(ta) { font-size: max(0.875rem, 0.9em); }
+/* Neutral dashed 4px chip (DESIGN-v2 3.7): amber is reserved for warnings */
+[data-surface='night'] .placeholder-chip { background: transparent; color: var(--night-text-muted); border-color: var(--night-line-strong); }

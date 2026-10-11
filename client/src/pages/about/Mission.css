@@ -1,0 +1,84 @@
+/* /about/mission-1-lakh */
+.mission-statement { display: grid; gap: var(--space-12); }
+@media (min-width: 1024px) { .mission-statement { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-16); align-items: start; } }
+.mission-statement__lead > * + * { margin-top: var(--space-5); }
+.mission-statement__text {
+  font-size: var(--text-h2); font-weight: 400; line-height: 1.12; letter-spacing: var(--tracking-heading, -0.02em); max-width: 24ch;
+  text-wrap: pretty;
+}
+.mission-statement__body { color: var(--color-text-2); max-width: 36rem; }
+.mission-statement__tag { display: flex; align-items: center; gap: var(--space-3); font-size: var(--text-small); color: var(--color-text-muted); }
+
+/* Dated commitments: hairline rows (each figure keeps its own Stat rule). */
+.mission-commit { list-style: none; display: grid; gap: 0; border-top: 1px solid var(--color-border); }
+.mission-commit__item { display: grid; gap: var(--space-2); padding-block: var(--space-6); border-bottom: 1px solid var(--color-border); }
+.mission-commit__when { font-weight: 500; font-size: var(--text-small); letter-spacing: 0; }
+.mission-commit__text { color: var(--color-text-2); }
+
+.mission-how { margin-top: var(--space-12); font-size: var(--text-body-lg); color: var(--color-text-2); }
+.mission-how a { font-weight: 500; color: var(--color-text); }
+
+/* Night band: the meter, then the reality check as a large regular statement. */
+.mission-meterband__meter { margin-top: var(--space-12); }
+.mission-meterband__check {
+  margin-top: var(--space-16); padding-top: var(--space-8); border-top: 1px solid var(--night-line);
+  max-width: 30ch; font-size: var(--text-h3); font-weight: 400; line-height: 1.25; letter-spacing: -0.02em;
+  color: var(--color-text); text-wrap: pretty;
+}
+
+/* The ladder follows the Ink meter band with a straight edge (one sheet rise per page: the hero's). */
+.mission-ladderwrap { position: relative; background: var(--paper); }
+.mission-ladderwrap__lede { color: var(--color-text-2); }
+/* The ladder already closes with a full section of space. */
+.mission-ladderwrap + .section--paper { padding-top: 0; }
+.mission-attrib {
+  padding: var(--space-5) var(--space-6); max-width: 52ch;
+  background: var(--card); box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-media);
+}
+.mission-attrib__k { font-size: var(--text-small); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--color-text-muted); margin-bottom: var(--space-2); }
+.mission-attrib__v { font-size: var(--text-small); color: var(--color-text-2); }
+
+.mission-figures { margin: var(--space-10) 0 0; display: grid; gap: var(--space-10) var(--space-8); grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
+@media (min-width: 1024px) { .mission-figures { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.mission-figures > * { min-width: 0; }
+.mission-figures__stat { padding: 0; }
+.mission-figures__asat { margin-top: var(--space-8); }
+
+.mission-tags { display: grid; gap: var(--space-6); justify-items: start; }
+
+.mission-hold { list-style: none; display: grid; gap: var(--space-4); margin-top: var(--space-10); grid-template-columns: minmax(0, 1fr); }
+/* Four items: 2 × 2 from 640 to 1279, one row of four from 1280 (never 3 + 1). */
+@media (min-width: 640px) { .mission-hold { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .mission-hold { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.mission-hold__item {
+  display: flex; flex-direction: column; gap: var(--space-3); align-items: flex-start;
+  position: relative; overflow: hidden;
+  padding: 28px; border-radius: var(--radius-media); background: var(--white); box-shadow: inset 0 0 0 1px var(--hairline);
+  transition: box-shadow var(--dur-2) var(--ease-snap);
+}
+/* Framed-card top rule (DESIGN-v2 3.7): a 2px Ink bar draws across the top on hover / focus-within. */
+.mission-hold__item::before {
+  content: ''; position: absolute; inset: 0 0 auto; height: 2px; background: var(--color-text);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+.mission-hold__item:focus-within { box-shadow: inset 0 0 0 1px var(--line-strong); }
+@media (hover: hover) and (pointer: fine) { .mission-hold__item:hover { box-shadow: inset 0 0 0 1px var(--line-strong); } }
+.mission-hold__item:focus-within::before { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { .mission-hold__item:hover::before { transform: scaleX(1); } }
+@media (max-width: 767.98px) { .mission-hold__item { padding: 24px; } }
+.mission-hold__item .h5 { margin: 0; font-weight: 500; letter-spacing: -0.01em; }
+.mission-hold__item p { color: var(--color-text-2); font-size: var(--text-small); }
+.mission-hold__item--diag { box-shadow: none; outline: 1px dashed var(--line-strong); outline-offset: -1px; }
+
+/* Tamil: headings carry no negative tracking and need more line height (Book 3 §4.4). */
+:lang(ta) .mission-statement__text { letter-spacing: 0; line-height: 1.35; max-width: 32ch; }
+:lang(ta) .mission-commit__when { letter-spacing: 0; }
+:lang(ta) .mission-meterband__check { letter-spacing: 0; line-height: 1.45; max-width: 40ch; }
+:lang(ta) .mission-hold__item .h5 { letter-spacing: 0; }
+
+/* V-A1: the pinned ladder's intro column (5fr of 12) is too narrow for the long Tamil verb
+   “கண்காணிக்கிறோம்” at --text-h2 between 1024 and 1279, so it was split mid-word.
+   In that range only, step the Tamil heading down to --text-h3; LadderScroll.css also widens the Tamil copy column. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  :lang(ta) .mission-ladderwrap .h2 { font-size: var(--text-h3); line-height: 1.35; }
+}

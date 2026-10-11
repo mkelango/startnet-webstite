@@ -1,0 +1,137 @@
+/* /media — Media centre. Prefix: .media-  (AngelList-family: hairline rows, blueprint cells, one calm night band) */
+.media-link {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
+  font-weight: 500; color: var(--color-text); text-decoration: none;
+}
+.media-link svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+.media-link:hover { text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+@media (hover: hover) and (pointer: fine) { .media-link:hover svg { transform: translateX(var(--shift-1)); } }
+
+/* Newsroom (left) + media contact (right) */
+.media-updates { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) { .media-updates { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-16); align-items: start; } }
+.media-updates__main > .section-header { margin-bottom: 0; }
+.media-updates__tabs { margin-top: var(--space-8); }
+
+.media-list { list-style: none; border-top: 1px solid var(--color-border); }
+.media-list__item {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-2);
+  padding-block: var(--space-5); border-bottom: 1px solid var(--color-border);
+}
+@media (min-width: 768px) { .media-list__item { grid-template-columns: 8rem minmax(0, 1fr) auto; gap: var(--space-6); align-items: baseline; } }
+.media-list__date { font-size: var(--text-small); color: var(--color-text-muted); }
+.media-list__title.h5 { font-weight: 500; letter-spacing: -0.01em; }
+.media-list__outlet { font-size: var(--text-small); color: var(--color-text-muted); margin-top: var(--space-1); }
+.media-list__read {
+  display: inline-flex; align-items: center; gap: var(--space-1); min-height: 44px;
+  font-weight: 500; color: var(--color-text); text-decoration: none;
+}
+.media-list__read:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.media-list__read svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+@media (hover: hover) and (pointer: fine) { .media-list__read:hover svg { transform: translate(var(--shift-1), 0); } }
+
+/* Media contact: one hairline frame, no bar, no fill */
+.media-contact {
+  display: grid; gap: var(--space-4); padding: var(--space-6);
+  background: transparent; border: 1px solid var(--color-border); border-radius: var(--media-radius);
+}
+@media (min-width: 1024px) { .media-contact { position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-6)); padding: var(--space-8); } }
+.media-contact :is(h2, h3).h4 { font-weight: 400; letter-spacing: -0.015em; }
+.media-contact__list { list-style: none; display: grid; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.media-contact__list li { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); overflow-wrap: anywhere; padding-block: var(--space-1); }
+.media-contact__list a { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-text); }
+.media-contact__list svg { flex: none; color: var(--color-text-muted); }
+.media-contact__sla { font-size: var(--text-small); color: var(--color-text-muted); }
+
+/* Fact sheet: the page's one night band, plain ink (no dot texture), facts as hairline rows and the
+   mission figure as a light numeral beside a vertical hairline. */
+.section.media-factsheet { background-image: none; }
+.media-facts { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) {
+  .media-facts { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 0; align-items: stretch; }
+  .media-facts__mission { padding-left: var(--space-12); margin-left: var(--space-12); border-left: 1px solid var(--color-border); }
+}
+.media-facts__list { margin: 0; display: grid; border-top: 1px solid var(--color-border); }
+.media-facts__list div {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-1);
+  padding-block: var(--space-4); border-bottom: 1px solid var(--color-border);
+}
+@media (min-width: 640px) { .media-facts__list div { grid-template-columns: 10rem minmax(0, 1fr); gap: var(--space-6); } }
+.media-facts__list dt { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); padding-top: 0.1em; }
+.media-facts__list dd { margin: 0; color: var(--color-text); }
+.media-facts__list dd a { color: var(--color-text); }
+.media-facts__mission { display: grid; gap: var(--space-5); align-content: start; }
+.media-facts__ledger { margin-top: var(--space-12); }
+.media-facts__pending { color: var(--color-text-2); }
+
+/* Boilerplate: the copy-ready text in a hairline frame (no coloured bar) */
+.media-boiler > * > .h3 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; margin-top: var(--space-4); }
+.media-boiler__text {
+  margin: var(--space-6) 0 0; padding: var(--space-6); max-width: var(--measure);
+  border: 0; box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-media);
+  background: var(--white); color: var(--color-text); line-height: 1.6;
+}
+@media (min-width: 768px) { .media-boiler__text { padding: var(--space-8); } }
+.media-boiler__actions { display: grid; gap: var(--space-2); justify-items: start; align-content: start; }
+@media (min-width: 1024px) { .media-boiler__actions { align-self: end; padding-bottom: 2px; } }
+.media-boiler__status { font-size: var(--text-small); color: var(--color-success); min-height: 1.5em; }
+
+.media-people { margin-top: var(--space-8); }
+.media-pending { margin-top: var(--space-6); color: var(--color-text-2); }
+
+/* Brand assets: lock-up tiles in hairline frames, colours as a blueprint grid */
+.media-kit__pending { margin-top: var(--space-4); }
+.media-lockups {
+  display: grid; gap: var(--space-4);
+  grid-template-columns: minmax(0, 1fr);
+}
+/* Five lock-ups: 3 + 2 on tablets, one row of 5 on desktop, never a lone tile on its own row. */
+@media (min-width: 640px) { .media-lockups { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .media-lockups { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.media-lockup { display: grid; border: 1px solid var(--color-border); border-radius: var(--media-radius); overflow: hidden; }
+.media-lockup__tile { display: flex; align-items: center; justify-content: center; min-height: 6.5rem; padding: var(--space-4); }
+.media-lockup__tile--light { background: var(--sn-paper); }
+.media-lockup__tile--dark { background: var(--night-0); }
+
+.media-colours {
+  list-style: none; display: grid; gap: 1px; margin-top: var(--space-10);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  background: var(--color-border); border: 1px solid var(--color-border); border-radius: var(--media-radius); overflow: hidden;
+}
+/* Explicit counts so no row ends in empty hairline cells: 2-up, 4-up, then all seven in one row.
+   The last swatch fills what is left of its row. */
+@media (min-width: 640px) { .media-colours { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .media-colours { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
+@media (max-width: 639.98px) { .media-colour:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .media-colour:last-child:nth-child(4n + 3) { grid-column: span 2; }
+  .media-colour:last-child:nth-child(4n + 2) { grid-column: span 3; }
+}
+.media-colour { min-width: 0; overflow-wrap: anywhere; }
+.media-colour { display: grid; gap: var(--space-1); align-content: start; padding: var(--space-3) var(--space-3) var(--space-5); background: var(--card); }
+.media-colour__swatch {
+  display: block; height: 4.5rem; margin-bottom: var(--space-3);
+  border-radius: var(--btn-radius); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-text) 10%, transparent);
+}
+.media-colour__name { font-weight: 500; font-size: var(--text-small); }
+.media-colour__hex { font-size: var(--text-caption); color: var(--color-text-muted); }
+
+.media-usage {
+  display: flex; gap: var(--space-3); align-items: baseline;
+  margin-top: var(--space-8); padding-top: var(--space-5); max-width: var(--measure);
+  border-top: 1px solid var(--color-border); color: var(--color-text-2); font-size: var(--text-small);
+}
+.media-usage::before {
+  content: ''; flex: none; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent-fill, var(--color-point)); transform: translateY(-1px);
+}
+.media-updates > *, .media-facts > * { min-width: 0; }
+
+/* Fact sheet PDF / media kit ZIP: a plain caption until the files exist (no disabled buttons). */
+.media-pdf-pending { display: flex; align-items: flex-start; gap: var(--space-2); margin-top: var(--space-6); font-size: var(--text-small); }
+.media-pdf-pending > svg { flex: none; margin-top: 0.2em; opacity: 0.7; }
+
+@media (prefers-reduced-motion: reduce) { .media-link svg, .media-list__read svg { transition: none; } }
+
+/* Tamil (Book 3 §4.4): no uppercase on Tamil labels. */
+:lang(ta) .media-facts__list dt { text-transform: none; letter-spacing: 0; font-size: var(--text-small); }

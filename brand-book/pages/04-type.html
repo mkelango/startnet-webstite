@@ -1,0 +1,615 @@
+<style>
+/* ============ Chapter 04 · Type and element (chapter-only styles, all prefixed .c04-) ============ */
+.c04-stop { display: inline-block; width: .18em; height: .18em; border-radius: 50%; background: var(--red); margin-left: .05em; flex: none; }
+.c04-cols { display: grid; gap: 96px; height: 100%; }
+.c04-cap { font-size: 19px; font-weight: 600; color: var(--ink); margin-top: 14px; line-height: 1.3; }
+.c04-cap span { display: block; font-weight: 400; font-size: 17px; color: var(--text-2); margin-top: 3px; line-height: 1.4; }
+.page--ink .c04-cap { color: var(--night-text); }
+.page--ink .c04-cap span { color: var(--night-text-3); }
+
+/* 04.1 Pairing */
+.c04-pair { display: grid; grid-template-columns: 860px 1fr; gap: 96px; margin-top: 48px; }
+.c04-faces { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+.c04-face { border-top: 2px solid var(--ink); padding-top: 20px; }
+.c04-aa { font-size: 250px; font-weight: 500; letter-spacing: -0.055em; line-height: .9; margin: 22px 0 0 -10px; color: var(--ink); }
+.c04-aa--serif { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.02em; margin-left: -2px; }
+.c04-glyphs { font-size: 21px; line-height: 1.6; letter-spacing: .05em; color: var(--ink); margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+.c04-glyphs--serif { font-family: var(--serif); font-style: italic; font-size: 25px; letter-spacing: .03em; line-height: 1.34; }
+.c04-why { font-size: 20px; line-height: 1.5; color: var(--text-2); margin-top: 16px; }
+.c04-wt td { vertical-align: middle; padding: 8px 0; }
+.c04-wt .c04-role { font-size: 19px; font-weight: 600; color: var(--ink); width: 168px; }
+.c04-wt .c04-set { font-size: 18px; line-height: 1.38; color: var(--text-2); width: 236px; }
+.c04-wt .c04-smp { color: var(--ink); white-space: nowrap; }
+.c04-dl { display: inline-flex; align-items: center; gap: .6em; font-size: 20px; font-weight: 400; color: var(--ink); }
+.c04-dl::before { content: ''; width: .55em; height: .55em; border-radius: 50%; background: var(--red); flex: none; }
+.c04-notes { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin-top: 26px; }
+.c04-notes p { font-size: 18px; line-height: 1.45; color: var(--text-2); margin-top: 8px; }
+
+/* 04.2 Tamil */
+.c04-ta { grid-template-columns: 930px 1fr; }
+.c04-ta-big { font-size: 78px; font-weight: 600; line-height: 1.28; color: var(--ink); margin-top: 18px; letter-spacing: 0; }
+.c04-ta-meta { display: flex; justify-content: space-between; align-items: baseline; border-top: 2px solid var(--ink); padding-top: 18px; }
+.c04-draft { font-size: 18px; color: var(--text-3); margin-top: 10px; }
+.c04-ta-two { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 34px; }
+.c04-ta-fact { font-size: 18px; line-height: 1.45; color: var(--text-2); margin-top: 10px; }
+.c04-ta-two > div { border-top: 1px solid var(--line-strong); padding-top: 18px; }
+.c04-ta-txt { font-size: 28px; line-height: 1.8; color: var(--ink); margin-top: 8px; }
+.c04-ta-glyph { font-size: 27px; line-height: 1.55; color: var(--ink); letter-spacing: 0; margin-top: 12px; word-spacing: .1em; }
+.c04-ta-rules > li { grid-template-columns: 50px 1fr; padding: 12px 0; font-size: 21px; line-height: 1.35; }
+.c04-ta-rules .sub { font-size: 18px; line-height: 1.4; margin-top: 3px; }
+
+/* 04.3 Type scale */
+.c04-sc { grid-template-columns: 500px 1fr; }
+.c04-scale { border-top: 2px solid var(--ink); }
+.c04-scale__h, .c04-scale__r { display: grid; grid-template-columns: 196px 1fr 226px; gap: 24px; align-items: center; }
+.c04-scale__h { padding: 12px 0; font-size: 17px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--red-700); border-bottom: 1px solid var(--line-strong); }
+.c04-scale__h span:last-child, .c04-scale__r > div:last-child { text-align: right; }
+.c04-scale__r { padding: 11px 0; border-bottom: 1px solid var(--line-strong); }
+.c04-scale__n { font-size: 20px; font-weight: 600; color: var(--ink); }
+.c04-scale__n span, .c04-scale__t span { display: block; font-size: 16px; font-weight: 400; color: var(--text-2); margin-top: 3px; }
+.c04-scale__t { font-size: 17px; font-weight: 600; color: var(--ink); }
+.c04-scale__s { color: var(--ink); white-space: nowrap; overflow: hidden; }
+.c04-sc-rules > li { padding: 16px 0; font-size: 22px; grid-template-columns: 52px 1fr; line-height: 1.35; }
+.c04-sc-rules .sub { font-size: 18px; line-height: 1.4; }
+
+/* 04.4 Full stop system */
+.c04-fs { grid-template-columns: 520px 1fr; gap: 88px; }
+.c04-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px 28px; align-content: start; }
+.c04-tile { position: relative; height: 172px; background: var(--card); border: 1px solid var(--line); overflow: hidden; display: grid; place-items: center; }
+.c04-tile svg { display: block; }
+.c04-fs-rules > li { padding: 13px 0; font-size: 21px; grid-template-columns: 48px 1fr; line-height: 1.35; }
+.c04-fs-rules .sub { font-size: 18px; line-height: 1.4; margin-top: 3px; }
+.c04-list { list-style: none; display: grid; gap: 8px; margin-top: 14px; }
+.c04-list li { display: flex; align-items: center; gap: 12px; font-size: 18px; color: var(--text-2); }
+.c04-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--ink-400); }
+
+/* 04.5 Pulli */
+.c04-pl { display: grid; grid-template-columns: 240px 600px 1fr; gap: 64px; margin-top: 36px; }
+.c04-steps { display: grid; gap: 26px; align-content: start; }
+.c04-step svg { display: block; width: 240px; height: 112px; border: 1px solid var(--night-line); }
+.c04-pl-txt .spec td { font-size: 19px; padding: 10px 0; line-height: 1.4; }
+.c04-pl-txt .spec td:first-child { width: 112px; font-weight: 600; color: var(--night-text); }
+.c04-uses { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.c04-uses span { font-size: 17px; font-weight: 500; color: var(--night-text-2); border: 1px solid var(--night-line); border-radius: 999px; padding: 6px 15px; }
+
+/* 04.6 Iconography */
+.c04-ic { display: grid; grid-template-columns: 540px 1fr; gap: 88px; margin-top: 40px; }
+.c04-lu-row { display: flex; justify-content: space-between; padding: 22px 0 22px; margin-top: 14px; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); }
+.c04-lu { width: 44px; height: 44px; fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.c04-ic .spec td { font-size: 19px; padding: 10px 0; }
+.c04-ic .spec td:first-child { width: 120px; color: var(--ink); font-weight: 600; }
+.c04-pgs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 14px; }
+.c04-pgt { background: var(--card); border: 1px solid var(--line); padding: 14px 18px 14px; }
+.c04-pgt__box { width: 128px; height: 128px; margin: 0 auto; padding: 16px;
+  background-image: radial-gradient(circle at center, var(--ink-200) 1.6px, transparent 2.1px); background-size: 16px 16px; background-position: 8px 8px; }
+.c04-pg { width: 96px; height: 96px; display: block; fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+.c04-pg .dt { stroke-width: 4; }
+.c04-pg .pt { fill: var(--ink); stroke: none; }
+.c04-pg .halo { stroke: var(--card); stroke-width: 2; }
+.c04-pgt--on .c04-pg .pt { fill: var(--red); }
+.c04-pgt__n { display: flex; justify-content: space-between; align-items: baseline; margin-top: 8px; font-size: 19px; font-weight: 600; color: var(--ink); }
+.c04-pgt__n span { font-size: 15px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--text-3); }
+.c04-pgt--on .c04-pgt__n span { color: var(--red-700); }
+.c04-pgt__p { font-size: 16px; color: var(--text-2); margin-top: 2px; }
+.c04-ic-rules { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; margin-top: auto; border-top: 1px solid var(--line); padding-top: 16px; padding-bottom: 6px; }
+.c04-ic-rules b { float: left; width: 44px; color: var(--red-700); font-size: 19px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.45; }
+.c04-ic-rules p { font-size: 19px; line-height: 1.45; color: var(--ink); margin-left: 44px; }
+.c04-ic-rules p span { color: var(--text-2); }
+
+/* 04.7 Photography */
+.c04-ph { display: grid; grid-template-columns: 1000px 1fr; gap: 88px; }
+.c04-ph-row { display: grid; gap: 20px; }
+.c04-ph .cap { margin-top: 12px; font-size: 18px; line-height: 1.3; }
+.c04-ph .cap span { font-size: 16px; margin-top: 2px; }
+.c04-ph-ph { position: relative; display: grid; place-items: center; text-align: center; padding: 20px; background: var(--card); border: 1px dashed var(--line-strong); font-size: 17px; line-height: 1.45; color: var(--text-3); }
+.c04-duo img { filter: url(#c04-duotone); }
+.c04-ph-rules > li { padding: 11px 0; font-size: 20px; grid-template-columns: 44px 1fr; line-height: 1.35; }
+.c04-ph-rules .sub { font-size: 17px; margin-top: 2px; line-height: 1.4; }
+.c04-ph .say p, .c04-ph .not p { font-size: 18px; line-height: 1.4; margin-top: 6px; }
+.c04-ai { margin-top: 30px; border-top: 1px solid var(--line); padding-top: 16px; }
+.c04-ai p { font-size: 18px; line-height: 1.45; color: var(--text-2); margin-top: 8px; }
+.c04-ai p b { color: var(--ink); font-weight: 600; }
+
+/* 04.8 Layout */
+.c04-ly { display: grid; grid-template-columns: 576px 1fr; gap: 88px; margin-top: 44px; }
+.c04-gd { position: relative; width: 576px; height: 324px; background: var(--card); box-shadow: 0 0 0 1px var(--line-strong); }
+.c04-gd__cols { position: absolute; left: 31.2px; right: 31.2px; top: 40.8px; bottom: 27.6px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+.c04-gd__cols i { background: rgb(17 119 128 / .10); }
+.c04-gd__head { position: absolute; left: 31.2px; right: 31.2px; top: 40.8px; border-top: 1px solid var(--ink-300); }
+.c04-gd__foot { position: absolute; left: 31.2px; right: 31.2px; bottom: 27.6px; border-top: 1px solid var(--ink-300); }
+.c04-gd__blk { position: absolute; background: var(--ink); }
+.c04-gd__m { position: absolute; font-size: 14px; font-weight: 600; letter-spacing: .08em; color: var(--lagoon-700); font-variant-numeric: tabular-nums; }
+.c04-ly .spec td { font-size: 19px; padding: 12px 0; line-height: 1.4; }
+.c04-ly .spec td:first-child { width: 128px; }
+.c04-covers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.c04-cv { position: relative; height: 186px; overflow: hidden; }
+.c04-cv--ink { background: var(--ink); color: var(--night-text); }
+.c04-cv--paper { background: var(--card); box-shadow: 0 0 0 1px var(--line-strong); }
+.c04-cv .sn-logo { position: absolute; left: 18px; top: 16px; font-size: 16px; }
+.c04-cv__t { position: absolute; left: 18px; bottom: 18px; font-size: 22px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; }
+.c04-cv__t span { display: block; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; margin-top: 8px; opacity: .6; }
+.c04-ly-rules > li { padding: 14px 0; font-size: 21px; grid-template-columns: 48px 1fr; line-height: 1.35; }
+.c04-ly-rules .sub { font-size: 18px; margin-top: 3px; }
+</style>
+
+<!-- Shared SVG definitions for this chapter (duotone filter) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="c04-duotone" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0"/>
+    <feComponentTransfer>
+      <feFuncR type="table" tableValues="0.047 0.886"/>
+      <feFuncG type="table" tableValues="0.090 0.345"/>
+      <feFuncB type="table" tableValues="0.098 0.122"/>
+    </feComponentTransfer>
+  </filter>
+</svg>
+
+<!-- ============ 04 CHAPTER DIVIDER ============ -->
+<section class="page page--ink chapter" id="ch-type" data-section="Chapter">
+  <div class="pulli" style="left:0; top:136px; width:1920px; height:944px; --pulli: rgb(244 244 240 / .06)"></div>
+  <div class="fullstop" style="width:520px; height:520px; right:-110px; top:-190px;"></div>
+  <div class="page__body">
+    <div class="chapter__num">04</div>
+    <div class="chapter__title">Type and <em>element</em></div>
+    <div class="chapter__nav"><span>Type pairing</span><span>Tamil</span><span>Type scale</span><span>The full stop</span><span>Pulli grid</span><span>Icons</span><span>Photography</span><span>Layout</span></div>
+  </div>
+</section>
+
+<!-- ============ 04.1 TYPE PAIRING ============ -->
+<section class="page" id="type-pairing" data-section="04 · Type and element">
+  <div class="page__body">
+    <div class="kicker">04.1</div>
+    <h1 class="title">Inter and Instrument Serif</h1>
+    <div class="c04-pair">
+      <div class="c04-faces">
+        <div class="c04-face">
+          <div class="label label--muted">Primary · every word</div>
+          <div class="c04-aa">Aa</div>
+          <div class="c04-glyphs">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 ₹ → · , . ? !</div>
+          <p class="c04-why"><b style="color:var(--ink)">Inter.</b> Neutral, so the content and the full stop carry the voice. A variable family from 100 to 900, with wide Latin, Greek and Cyrillic coverage.</p>
+        </div>
+        <div class="c04-face">
+          <div class="label label--muted">Accent · one word</div>
+          <div class="c04-aa c04-aa--serif">Aa</div>
+          <div class="c04-glyphs c04-glyphs--serif">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz</div>
+          <p class="c04-why"><b style="color:var(--ink)">Instrument Serif Italic.</b> One accent word in an English headline. Never in Tamil, never in body text, never twice in one title.</p>
+        </div>
+      </div>
+      <div>
+        <table class="spec c04-wt">
+          <tr><th>Role</th><th style="text-align:left">Specimen</th><th>Setting</th></tr>
+          <tr><td class="c04-role">Headlines</td><td class="l c04-smp" style="font-size:42px; font-weight:500; letter-spacing:-0.04em">Every talent</td><td class="c04-set">Inter 400–500<br>tracking −3% to −4.5%</td></tr>
+          <tr><td class="c04-role">Accent word</td><td class="l c04-smp" style="font-family:var(--serif); font-style:italic; font-size:46px; letter-spacing:-0.01em">founder</td><td class="c04-set">Instrument Serif Italic<br>one English word</td></tr>
+          <tr><td class="c04-role">Section heads</td><td class="l c04-smp" style="font-size:32px; font-weight:500; letter-spacing:-0.02em">Section head</td><td class="c04-set">Inter 500<br>tracking −2%</td></tr>
+          <tr><td class="c04-role">Body</td><td class="l c04-smp" style="font-size:22px; color:var(--text-2)">Body text sets at 1.5.</td><td class="c04-set">Inter 400<br>leading 1.5</td></tr>
+          <tr><td class="c04-role">Labels</td><td class="l c04-smp"><span class="label" style="color:var(--ink); font-size:17px">Label</span><span class="c04-dl" style="margin-left:22px">Dot label</span></td><td class="c04-set">600 caps, +18% in print<br>dot labels on the web</td></tr>
+          <tr><td class="c04-role">Figures</td><td class="l c04-smp mono" style="font-size:32px; font-weight:500; letter-spacing:-0.02em">1,00,000</td><td class="c04-set">tabular, lining<br>Indian grouping</td></tr>
+        </table>
+        <div class="c04-notes">
+          <div><div class="label label--muted" style="font-size:17px">Heavier option</div><p>Inter Display 600–700 (Book 3) for campaign and print display only. The website runs 400–500.</p></div>
+          <div><div class="label label--muted" style="font-size:17px">Licence and logo</div><p>Both fonts are SIL OFL 1.1. The logo is drawn artwork, never retyped from either.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04.2 TAMIL TYPOGRAPHY ============ -->
+<section class="page" id="tamil-type" data-section="04 · Type and element">
+  <div class="page__body">
+    <div class="c04-cols c04-ta">
+      <div>
+        <div class="kicker">04.2</div>
+        <h1 class="title">Tamil typography</h1>
+        <div class="c04-ta-meta" style="margin-top:40px"><span class="label">The brand line in Tamil</span><span class="label label--muted">Anek Tamil 600 · 78 px · leading 1.28</span></div>
+        <div class="tamil-display c04-ta-big" lang="ta">ஒவ்வொரு திறமையும்<br>ஒரு நிறுவனர்<span class="c04-stop"></span></div>
+        <div class="c04-draft">[draft — for native editor review] · “Every talent, a founder.”</div>
+        <div class="c04-ta-two">
+          <div>
+            <div class="h4" style="font-size:26px">Noto Sans Tamil</div>
+            <div class="label label--muted" style="font-size:16px; margin-top:6px">Text and UI · 400 and 600</div>
+            <div class="tamil c04-ta-glyph" lang="ta">அ ஆ இ ஈ உ ஊ எ ஏ ஐ<br>க ச ட த ப ற · கி கீ கு கூ</div>
+            <p class="c04-ta-fact">Android ships Noto as its Tamil system font, so the fallback matches before the web font arrives. Weighted score 4.7 of 5, first of five candidates.</p>
+          </div>
+          <div>
+            <div class="h4" style="font-size:26px">Anek Tamil</div>
+            <div class="label label--muted" style="font-size:16px; margin-top:6px">Display · 28 px and above</div>
+            <div class="tamil-display c04-ta-glyph" lang="ta" style="font-weight:600">அ ஆ இ ஈ உ ஊ எ ஏ ஐ<br>க ச ட த ப ற · கி கீ கு கூ</div>
+            <p class="c04-ta-fact">Its width axis (75–125) keeps a long Tamil headline to two lines without dropping the size. If it misses the first render, Noto stands in.</p>
+          </div>
+        </div>
+      </div>
+      <div style="padding-top:6px">
+        <div class="label" style="padding-bottom:16px">Eight rules for Tamil</div>
+        <ol class="rules c04-ta-rules">
+          <li><b>01</b><span>Body one step up, display one step down.<span class="sub">Body ×1.06 with about 16% more leading; display ×0.82–0.9, as headlines run 30–40% longer.</span></span></li>
+          <li><b>02</b><span>No letter-spacing.<span class="sub">Tracking breaks conjuncts. All tracking resets to 0 in Tamil.</span></span></li>
+          <li><b>03</b><span>No all-caps styling.<span class="sub">No case in Tamil. Eyebrows: 14 px, weight 600, no transform.</span></span></li>
+          <li><b>04</b><span>Never split inside a syllable.<span class="sub">Animate by word or line; never word-break: break-all.</span></span></li>
+          <li><b>05</b><span>Indian digit grouping, no Tamil numerals.<span class="sub">1,00,000 in both languages. Write ₹6 கோடி; never ௧, ௨ in UI or data.</span></span></li>
+          <li><b>06</b><span>Brand names stay Latin.<span class="sub">“StartNet X” stays in Inter inside Tamil text, so it looks the same in both.</span></span></li>
+          <li><b>07</b><span>Weights 400 and 600.<span class="sub">Avoid 300 and below: hairline Tamil strokes break up on low-DPI screens.</span></span></li>
+          <li><b>08</b><span>Set the lang attributes.<span class="sub">lang="ta" on Tamil pages and lang="en" on English spans inside them.</span></span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04.3 TYPE SCALE ============ -->
+<section class="page page--bone" id="type-scale" data-section="04 · Type and element">
+  <div class="page__body">
+    <div class="c04-cols c04-sc">
+      <div style="display:flex; flex-direction:column">
+        <div class="kicker">04.3</div>
+        <h1 class="title">Type scale and rules</h1>
+        <ol class="rules c04-sc-rules" style="margin-top:auto">
+          <li><b>01</b><span>Line length 60–72 characters.<span class="sub">Set English body to 68ch. Cap Tamil at 36 em, since its ch unit misleads.</span></span></li>
+          <li><b>02</b><span>Tabular figures in data.<span class="sub">Every table, counter, date column and price, so figures never jitter.</span></span></li>
+          <li><b>03</b><span>Sentence case.<span class="sub">Headlines, buttons and labels. Capitals only for print labels.</span></span></li>
+          <li><b>04</b><span>Ranged left, ragged right.<span class="sub">No justified text, no centred paragraphs.</span></span></li>
+          <li><b>05</b><span>Two sizes per element.<span class="sub">A card, tile or slide block takes one head size and one text size.</span></span></li>
+        </ol>
+      </div>
+      <div>
+        <div class="c04-scale">
+          <div class="c04-scale__h"><span>Style · slide</span><span>Specimen at slide size</span><span>Web token · Tamil</span></div>
+          <div class="c04-scale__r"><div class="c04-scale__n">Display<span>150 px · 500 · −4.5%</span></div><div class="c04-scale__s" style="font-size:150px; font-weight:500; letter-spacing:-0.045em; line-height:.95; padding-bottom:4px">founder</div><div class="c04-scale__t">display-2xl 40→88<span>Tamil ×0.82 · 1.25</span></div></div>
+          <div class="c04-scale__r"><div class="c04-scale__n">Page title<span>84 px · 500 · −3.5%</span></div><div class="c04-scale__s" style="font-size:84px; font-weight:500; letter-spacing:-0.035em; line-height:1.02">Every talent</div><div class="c04-scale__t">h1 32→56<span>Tamil ×0.88 · 1.3</span></div></div>
+          <div class="c04-scale__r"><div class="c04-scale__n">Section head<span>40 px · 500 · −2%</span></div><div class="c04-scale__s" style="font-size:40px; font-weight:500; letter-spacing:-0.02em; line-height:1.15">One red point per composition</div><div class="c04-scale__t">h2 26→40<span>Tamil ×0.9 · 1.35</span></div></div>
+          <div class="c04-scale__r"><div class="c04-scale__n">Lead<span>34 px · 400 · 1.42</span></div><div class="c04-scale__s" style="font-size:34px; line-height:1.42; letter-spacing:-0.012em">Calm page, decisive point.</div><div class="c04-scale__t">body-lg 18→20<span>Tamil ×1.06 · 1.8</span></div></div>
+          <div class="c04-scale__r"><div class="c04-scale__n">Body<span>26 px · 400 · 1.5</span></div><div class="c04-scale__s" style="font-size:26px; line-height:1.5; color:var(--text-2); white-space:normal">Hierarchy comes from type size, weight and space, not colour. Ink and Paper do the work.</div><div class="c04-scale__t">body 16→17<span>Tamil ×1.06 · 1.8</span></div></div>
+          <div class="c04-scale__r"><div class="c04-scale__n">Caption<span>22 px · 400 · 1.5</span></div><div class="c04-scale__s" style="font-size:22px; line-height:1.5; color:var(--text-2)">StartNet Vibe at TNGSS 2025, Coimbatore</div><div class="c04-scale__t">caption 13<span>Tamil ×1.08, min 14</span></div></div>
+          <div class="c04-scale__r"><div class="c04-scale__n">Label<span>19 px · 600 · +18%</span></div><div class="c04-scale__s"><span class="label" style="color:var(--ink)">Our brands</span><span class="c04-dl" style="margin-left:36px; font-size:19px">Our brands</span></div><div class="c04-scale__t">eyebrow 12→13<span>Tamil 14 px, no caps</span></div></div>
+        </div>
+        <p class="small" style="font-size:18px; margin-top:16px; color:var(--text-3)">Web sizes interpolate from 360 to 1440 px viewports (rem + vw), so text still scales with browser zoom.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04.4 THE FULL STOP SYSTEM ============ -->
+<section class="page" id="fullstop-system" data-section="04 · Type and element">
+  <div class="page__body">
+    <div class="c04-cols c04-fs">
+      <div style="display:flex; flex-direction:column">
+        <div class="kicker">04.4</div>
+        <h1 class="title">The full stop system</h1>
+        <p class="lede" style="margin-top:28px; font-size:30px">One red point per composition. If two things are red, neither is the point.</p>
+        <ol class="rules c04-fs-rules" style="margin-top:auto">
+          <li><b>01</b><span>Always a true circle.<span class="sub">Never stretched, outlined, shaded or glowing.</span></span></li>
+          <li><b>02</b><span>Red or mono only.<span class="sub">SNX Red, or mono on accent fills and in one-colour print.</span></span></li>
+          <li><b>03</b><span>Never two red points.<span class="sub">Other emphasis takes Ink or the brand accent.</span></span></li>
+          <li><b>04</b><span>Never inside the logo’s clear space.<span class="sub">Keep 3d clear around any lock-up.</span></span></li>
+          <li><b>05</b><span>Only the full stop moves.<span class="sub">It lands once per session; letters stay still.</span></span></li>
+        </ol>
+      </div>
+      <div class="c04-tiles">
+        <!-- Mark -->
+        <div><div class="c04-tile"><span class="sn-logo" style="font-size:54px">StartNet<span class="d"></span></span></div>
+          <div class="c04-cap">Mark<span>The logo’s full stop, 0.2 em</span></div></div>
+        <!-- Headline -->
+        <div><div class="c04-tile"><div style="font-size:54px; font-weight:500; letter-spacing:-0.04em; line-height:1">a founder<span class="c04-stop"></span></div></div>
+          <div class="c04-cap">Headline<span>Ends a statement, not a hope</span></div></div>
+        <!-- Landing -->
+        <div><div class="c04-tile"><svg width="250" height="120" viewBox="0 0 250 120">
+            <text x="20" y="92" font-family="Inter" font-size="44" font-weight="500" letter-spacing="-1.7" fill="#0C1719">founder</text>
+            <circle cx="238" cy="14" r="6.5" fill="#0C1719" fill-opacity=".07"/>
+            <circle cx="229" cy="34" r="6.5" fill="#0C1719" fill-opacity=".12"/>
+            <circle cx="219" cy="53" r="6.5" fill="#0C1719" fill-opacity=".18"/>
+            <circle cx="208" cy="70" r="6.5" fill="#0C1719" fill-opacity=".28"/>
+            <circle cx="197" cy="85.5" r="6.5" fill="#EF4444"/>
+          </svg></div>
+          <div class="c04-cap">Landing<span>Plays once per session, after load</span></div></div>
+        <!-- Meter -->
+        <div><div class="c04-tile" style="align-content:center; gap:4px"><svg width="200" height="112" viewBox="0 0 200 112">
+            <path d="M30 100 A70 70 0 0 1 170 100" fill="none" stroke="#E8EEEF" stroke-width="12"/>
+            <path d="M30 100 A70 70 0 0 1 125.8 34.9" fill="none" stroke="#0C1719" stroke-width="12"/>
+            <g stroke="#ABBBBE" stroke-width="2"><path d="M18 100 H12"/><path d="M41.6 41.6 L37.4 37.4"/><path d="M100 18 V12"/><path d="M158.4 41.6 L162.6 37.4"/><path d="M182 100 H188"/></g>
+            <circle cx="125.8" cy="34.9" r="9.5" fill="#EF4444"/>
+          </svg><div style="font-size:15px; color:var(--text-3); text-align:center">[count · tag · as at date]</div></div>
+          <div class="c04-cap">Meter<span>The current verified count, Mission 1 Lakh</span></div></div>
+        <!-- Ledger chart -->
+        <div><div class="c04-tile"><svg width="250" height="124" viewBox="0 0 250 124">
+            <g stroke="#E8EEEF" stroke-width="1"><path d="M10 40 H240"/><path d="M10 72 H240"/></g>
+            <g fill="#CFDADC"><rect x="22" y="78" width="18" height="26" rx="2"/><rect x="52" y="70" width="18" height="34" rx="2"/><rect x="82" y="74" width="18" height="30" rx="2"/><rect x="112" y="58" width="18" height="46" rx="2"/><rect x="142" y="52" width="18" height="52" rx="2"/><rect x="172" y="44" width="18" height="60" rx="2"/><rect x="202" y="32" width="18" height="72" rx="2" fill="#82979A"/></g>
+            <path d="M10 104.5 H240" stroke="#0C1719" stroke-width="1.5"/>
+            <circle cx="211" cy="22" r="7" fill="#EF4444"/>
+          </svg></div>
+          <div class="c04-cap">Ledger chart<span>Grey data; the current value is the point</span></div></div>
+        <!-- Ladder -->
+        <div><div class="c04-tile"><svg width="250" height="124" viewBox="0 0 250 124">
+            <path d="M30 100 L210 28" stroke="#CFDADC" stroke-width="2"/>
+            <g fill="#0C1719"><circle cx="30" cy="100" r="7"/><circle cx="60" cy="88" r="7"/><circle cx="90" cy="76" r="7"/></g>
+            <circle cx="120" cy="64" r="9.5" fill="#EF4444"/>
+            <g fill="#FBFAF7" stroke="#ABBBBE" stroke-width="2"><circle cx="150" cy="52" r="6"/><circle cx="180" cy="40" r="6"/><circle cx="210" cy="28" r="6"/></g>
+            <text x="22" y="122" font-family="Inter" font-size="14" font-weight="600" fill="#6F7E80">L1</text>
+            <text x="200" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#6F7E80">L7</text>
+          </svg></div>
+          <div class="c04-cap">Ladder L1–L7<span>The current level is filled red</span></div></div>
+        <!-- Seal -->
+        <div><div class="c04-tile"><svg width="220" height="140" viewBox="0 0 220 140">
+            <rect x="0.5" y="0.5" width="219" height="139" fill="#FFFFFF" stroke="#DAD8D0"/>
+            <rect x="12" y="12" width="196" height="116" fill="none" stroke="#ABBBBE" stroke-width="3" stroke-linecap="round" stroke-dasharray="0 9.8"/>
+            <rect x="30" y="28" width="40" height="5" rx="2.5" fill="#0C1719"/>
+            <rect x="60" y="60" width="100" height="10" rx="2" fill="#2C3E41"/>
+            <rect x="74" y="80" width="72" height="5" rx="2.5" fill="#ABBBBE"/>
+            <rect x="84" y="92" width="52" height="5" rx="2.5" fill="#CFDADC"/>
+            <circle cx="208" cy="128" r="7" fill="#EF4444"/>
+          </svg></div>
+          <div class="c04-cap">Seal<span>One red dot on the certificate’s pulli border</span></div></div>
+        <!-- Bullet and dot label -->
+        <div><div class="c04-tile" style="place-items:center start; padding-left:40px"><div>
+            <span class="c04-dl" style="font-size:22px">Our brands</span>
+            <ul class="c04-list"><li>Research</li><li>Vibe</li><li>Connect</li></ul>
+          </div></div>
+          <div class="c04-cap">Bullet and dot label<span>Labels lead with the point; bullets stay grey</span></div></div>
+        <!-- Field crop -->
+        <div><div class="c04-tile" style="background:var(--ink); border-color:var(--ink)">
+            <div class="fullstop" style="width:230px; height:230px; right:-74px; bottom:-104px"></div>
+            <span class="sn-logo sn-logo--rev" style="position:absolute; left:20px; top:18px; font-size:17px">StartNet<span class="d"></span></span>
+          </div>
+          <div class="c04-cap">Field crop<span>Page scale, cropped by an edge</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04.5 PULLI GRID AND NETWORK ============ -->
+<section class="page page--ink" id="pulli-system" data-section="04 · Type and element">
+  <div class="page__body">
+    <div class="kicker">04.5</div>
+    <h1 class="title" style="color:var(--night-text)">Pulli grid and <em>network</em></h1>
+    <div class="c04-pl">
+      <!-- Construction steps -->
+      <div class="c04-steps">
+        <div class="c04-step">
+          <svg viewBox="0 0 240 112"><circle cx="120" cy="56" r="9" fill="#F4F4F0"/></svg>
+          <div class="c04-cap"><b style="color:var(--red-400); font-weight:600">01</b> Dot<span>One talent</span></div>
+        </div>
+        <div class="c04-step">
+          <svg viewBox="0 0 240 112"><defs><pattern id="c04-p1" width="32" height="32" patternUnits="userSpaceOnUse" x="8" y="-8"><circle cx="16" cy="16" r="3" fill="#F4F4F0" fill-opacity=".5"/></pattern></defs><rect width="240" height="112" fill="url(#c04-p1)"/><circle cx="120" cy="72" r="9" fill="#F4F4F0"/></svg>
+          <div class="c04-cap"><b style="color:var(--red-400); font-weight:600">02</b> Grid<span>The pulli: a community, a district</span></div>
+        </div>
+        <div class="c04-step">
+          <svg viewBox="0 0 240 112"><rect width="240" height="112" fill="url(#c04-p1)"/>
+            <g fill="none" stroke="#F4F4F0" stroke-opacity=".75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M24 104 L88 40 L152 40"/><path d="M88 40 L120 72 L152 104"/>
+              <path d="M152 40 L170 58 A20 20 0 1 0 198 86 L216 104"/>
+            </g>
+            <g fill="#F4F4F0"><circle cx="88" cy="40" r="6"/><circle cx="152" cy="40" r="6"/><circle cx="120" cy="72" r="9"/><circle cx="184" cy="72" r="4.5"/></g>
+          </svg>
+          <div class="c04-cap"><b style="color:var(--red-400); font-weight:600">03</b> Network<span>Lines join dots or loop around them</span></div>
+        </div>
+      </div>
+      <!-- Example composition -->
+      <div>
+        <svg viewBox="0 0 640 608" width="600" height="570" style="display:block">
+          <defs>
+            <pattern id="c04-p2" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="16" cy="16" r="2.4" fill="#F4F4F0" fill-opacity=".16"/></pattern>
+            <radialGradient id="c04-glow" cx="400" cy="432" r="190" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F4F4F0" stop-opacity=".07"/><stop offset="1" stop-color="#F4F4F0" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect width="640" height="608" fill="url(#c04-glow)"/>
+          <rect width="640" height="608" fill="url(#c04-p2)"/>
+          <!-- people lines (paper) -->
+          <g fill="none" stroke="#F4F4F0" stroke-opacity=".42" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M112 112 L208 240"/><path d="M336 80 L208 240"/><path d="M336 80 L432 240"/><path d="M560 112 L432 240"/>
+            <path d="M80 336 L208 240"/><path d="M80 336 L240 400"/><path d="M176 528 L240 400"/><path d="M528 528 L400 432"/>
+            <path d="M208 240 L432 240" stroke-opacity=".2"/><path d="M208 240 L240 400" stroke-opacity=".2"/>
+          </g>
+          <!-- hub to full stop (accent, kolam loop around one dot) -->
+          <g fill="none" stroke="#FBA62A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M208 240 L287 319 A24 24 0 1 1 321 353 L400 432"/>
+            <path d="M432 240 L400 432"/>
+            <path d="M240 400 L400 432"/>
+          </g>
+          <circle cx="304" cy="336" r="5" fill="#F4F4F0"/>
+          <!-- unconnected talents -->
+          <g fill="#F4F4F0" fill-opacity=".55"><circle cx="496" cy="336" r="5"/><circle cx="144" cy="208" r="5"/><circle cx="592" cy="304" r="5"/><circle cx="272" cy="560" r="5"/><circle cx="464" cy="560" r="5"/><circle cx="48" cy="48" r="5"/></g>
+          <!-- hubs: mentors, institutions, capital -->
+          <g fill="#FBA62A"><circle cx="208" cy="240" r="10"/><circle cx="432" cy="240" r="10"/><circle cx="240" cy="400" r="10"/></g>
+          <!-- people: dot head + arc body -->
+          <g fill="#F4F4F0"><circle cx="112" cy="112" r="9"/><circle cx="336" cy="80" r="9"/><circle cx="560" cy="112" r="9"/><circle cx="80" cy="336" r="9"/><circle cx="176" cy="528" r="9"/><circle cx="528" cy="528" r="9"/></g>
+          <g fill="none" stroke="#F4F4F0" stroke-width="3" stroke-linecap="round">
+            <path d="M98 142 A14 14 0 0 1 126 142"/><path d="M322 110 A14 14 0 0 1 350 110"/><path d="M546 142 A14 14 0 0 1 574 142"/>
+            <path d="M66 366 A14 14 0 0 1 94 366"/><path d="M162 558 A14 14 0 0 1 190 558"/><path d="M514 558 A14 14 0 0 1 542 558"/>
+          </g>
+          <!-- the full stop -->
+          <circle cx="400" cy="432" r="24" fill="#EF4444"/>
+        </svg>
+        <div class="c04-cap" style="margin-top:10px"><b style="color:var(--red-400); font-weight:600">04</b> Full stop<span>The network resolves into one decisive point: a founder, an outcome</span></div>
+      </div>
+      <!-- Text -->
+      <div class="c04-pl-txt">
+        <div class="label">Construction</div>
+        <table class="spec" style="margin-top:10px">
+          <tr><td class="l">Lattice</td><td class="l">Square dot grid: 4 px at icon size, 8–16 px at spot and hero</td></tr>
+          <tr><td class="l">Lines</td><td class="l">Join dots or loop around them, the kolam rule. Never freehand</td></tr>
+          <tr><td class="l">Colour</td><td class="l">Flat fills: Ink, Paper, one accent and the red point</td></tr>
+          <tr><td class="l">Stroke</td><td class="l">2 px at 24 px, rising to 8 px at 96 px; round caps</td></tr>
+          <tr><td class="l">People</td><td class="l">A dot head and an arc body. Never a stand-in for a real founder</td></tr>
+        </table>
+        <div class="label" style="margin-top:26px">Uses</div>
+        <div class="c04-uses"><span>Section dividers</span><span>Empty states</span><span>The 404 page</span><span>Ladder explorer</span><span>Vibathon season art</span><span>Certificate borders</span></div>
+        <div class="box" style="padding:22px 26px; margin-top:28px"><i class="x1"></i><i class="x2"></i>
+          <div class="label" style="color:var(--night-text)">Heritage, used with care</div>
+          <p class="body" style="font-size:19px; margin-top:8px; line-height:1.45">The kolam reference is structural: the dot grid and the joining rule. No traditional kolam patterns as wallpaper, and no religious motifs. A Tamil cultural adviser signs off the motif library: <span style="color:var(--night-text)">[adviser to be appointed by StartNet]</span>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04.6 ICONOGRAPHY ============ -->
+<section class="page" id="iconography" data-section="04 · Type and element">
+  <div class="page__body">
+    <div class="kicker">04.6</div>
+    <h1 class="title">Iconography</h1>
+    <div class="c04-ic">
+      <!-- Layer 1: Lucide -->
+      <div>
+        <div class="label">Layer 1 · Lucide UI icons</div>
+        <div class="c04-lu-row">
+          <svg class="c04-lu" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          <svg class="c04-lu" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <svg class="c04-lu" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+          <svg class="c04-lu" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+          <svg class="c04-lu" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+          <svg class="c04-lu" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <svg class="c04-lu" viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+          <svg class="c04-lu" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </div>
+        <table class="spec">
+          <tr><td class="l">Grid</td><td class="l">24 px box, 2 px padding</td></tr>
+          <tr><td class="l">Stroke</td><td class="l">2 px, round caps and joins</td></tr>
+          <tr><td class="l">Colour</td><td class="l">currentColor: Ink, or Ink 700 for secondary</td></tr>
+          <tr><td class="l">Licence</td><td class="l">ISC; imported one icon at a time</td></tr>
+        </table>
+        <div class="label" style="margin-top:44px">Layer 2 · Pictogram sizes</div>
+        <table class="spec" style="margin-top:6px">
+          <tr><td class="l">Sizes</td><td class="l">24 px UI · 48 px cards · 96 px spot</td></tr>
+          <tr><td class="l">Lattice</td><td class="l">4 px dots inside the 24 px box</td></tr>
+          <tr><td class="l">Point</td><td class="l">Ink at rest. Red or the accent from 32 px, active state only</td></tr>
+        </table>
+      </div>
+      <!-- Layer 2: StartNet pictograms -->
+      <div>
+        <div class="label">Layer 2 · StartNet pictograms, drawn on the pulli grid</div>
+        <div class="c04-pgs">
+          <div class="c04-pgt"><div class="c04-pgt__box"><svg class="c04-pg" viewBox="0 0 24 24"><path d="M8 4 Q0 12 8 20"/><path class="dt" d="M8 4h.01"/><path class="dt" d="M4 12h.01"/><path class="dt" d="M8 20h.01"/><circle class="pt" cx="16" cy="12" r="2.6"/></svg></div>
+            <div class="c04-pgt__n">Convene</div><div class="c04-pgt__p">Three dots facing a fourth</div></div>
+          <div class="c04-pgt"><div class="c04-pgt__box"><svg class="c04-pg" viewBox="0 0 24 24"><path d="M4 13 Q8 10.5 12 13 Q16 10.5 20 13"/><path d="M4 20 Q8 17.5 12 20 Q16 17.5 20 20"/><path d="M4 13v7M20 13v7M12 13v7"/><circle class="pt" cx="12" cy="6" r="2.6"/></svg></div>
+            <div class="c04-pgt__n">Learn</div><div class="c04-pgt__p">A dot above an open book</div></div>
+          <div class="c04-pgt"><div class="c04-pgt__box"><svg class="c04-pg" viewBox="0 0 24 24"><path d="M4 20v-4"/><path d="M12 20v-8"/><path d="M20 20v-12"/><circle class="pt" cx="20" cy="4" r="2.6"/></svg></div>
+            <div class="c04-pgt__n">Insights</div><div class="c04-pgt__p">The tallest bar ends in a dot</div></div>
+          <div class="c04-pgt c04-pgt--on"><div class="c04-pgt__box"><svg class="c04-pg" viewBox="0 0 24 24"><path d="M4 20H9.33V14.67H14.67V9.33H20V6.8"/><path class="dt" d="M4 20h.01"/><path class="dt" d="M9.33 14.67h.01"/><path class="dt" d="M14.67 9.33h.01"/><circle class="pt" cx="20" cy="4" r="2.6"/></svg></div>
+            <div class="c04-pgt__n">Launch<span>Active</span></div><div class="c04-pgt__p">Steps up to the final dot</div></div>
+          <div class="c04-pgt"><div class="c04-pgt__box"><svg class="c04-pg" viewBox="0 0 24 24"><path d="M4 12h3l2-6 4 12 2-6h2"/><circle class="pt" cx="20" cy="12" r="2.6"/></svg></div>
+            <div class="c04-pgt__n">Vibe</div><div class="c04-pgt__p">A pulse that ends in a dot</div></div>
+          <div class="c04-pgt"><div class="c04-pgt__box"><svg class="c04-pg" viewBox="0 0 24 24"><path d="M4 8 8 12 4 16"/><path d="M20 8 16 12 20 16"/><path d="M8 12h8"/><path class="dt" d="M4 8h.01"/><path class="dt" d="M4 16h.01"/><path class="dt" d="M20 8h.01"/><path class="dt" d="M20 16h.01"/><circle class="pt" cx="12" cy="12" r="2.6"/></svg></div>
+            <div class="c04-pgt__n">Connect</div><div class="c04-pgt__p">Two clusters and a bridge</div></div>
+          <div class="c04-pgt"><div class="c04-pgt__box"><svg class="c04-pg" viewBox="0 0 24 24"><path d="M4 20 A16 16 0 0 0 19.2 6.6"/><path class="dt" d="M4 20h.01"/><circle class="pt" cx="20" cy="4" r="2.6"/></svg></div>
+            <div class="c04-pgt__n">Women</div><div class="c04-pgt__p">A rising arc to a summit dot</div></div>
+          <div class="c04-pgt"><div class="c04-pgt__box"><svg class="c04-pg" viewBox="0 0 24 24"><path d="M5 5 19 19"/><path d="M19 5 5 19"/><circle class="pt" cx="12" cy="12" r="3.2" style="stroke:var(--card); stroke-width:2"/></svg></div>
+            <div class="c04-pgt__n">StartNet X</div><div class="c04-pgt__p">A dot where strokes cross</div></div>
+        </div>
+        <p class="small" style="font-size:17px; margin-top:12px; color:var(--text-3)">Shown at 96 px. Also in the set: Capital, Access, Research and Ladder L1–L7.</p>
+      </div>
+    </div>
+    <div class="c04-ic-rules">
+      <div><b>01</b><p>Pair every icon with a label. <span>Icon-only buttons carry an aria-label.</span></p></div>
+      <div><b>02</b><p>Stroke only. <span>Never mixed with filled styles; the point is the one fill.</span></p></div>
+      <div><b>03</b><p>No gradients, shadows or 3-D. <span>No emoji in the interface.</span></p></div>
+      <div><b>04</b><p>Accents stay home. <span>A brand’s accent only on its own pages.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04.7 PHOTOGRAPHY ============ -->
+<section class="page" id="photography" data-section="04 · Type and element">
+  <div class="page__body">
+    <div class="c04-ph">
+      <div>
+        <div class="kicker">04.7</div>
+        <h1 class="title">Photography</h1>
+        <div class="c04-ph-row" style="grid-template-columns: 620px 1fr; margin-top:44px">
+          <div><div class="photo" style="height:244px"><img src="../client/public/photos/event/saas-connect/2025-1220.webp" alt="" style="object-position:70% 50%"></div>
+            <div class="cap">SaaS Connect 2025<span>PSG Convention Centre, Coimbatore</span></div></div>
+          <div><div class="photo" style="height:244px"><img src="../client/public/photos/event/vibathon/2025-572.webp" alt="" style="transform:scale(1.03)"></div>
+            <div class="cap">Vibathon 2025<span>K.S.R. College of Engineering, Tiruchengode</span></div></div>
+        </div>
+        <div style="display:flex; align-items:baseline; gap:22px; margin-top:28px"><div class="label label--muted">Grade</div><div style="font-size:17px; color:var(--text-2)">Brand surfaces: near-monochrome with a warm paper tint, as live on startnet.in. No red overlays or tints.</div></div>
+        <div class="c04-ph-row" style="grid-template-columns: repeat(3, minmax(0,1fr)); margin-top:14px">
+          <div><div class="photo" style="height:170px"><img src="../client/public/photos/pool/stage/03-1280.webp" alt="" style="object-position:70% 40%"></div>
+            <div class="cap">Paper-ink · brand surfaces<span>StartNet event, February 2024</span></div></div>
+          <div><div class="c04-ph-ph" style="height:170px">[Founder portrait in full colour, to be supplied by StartNet]</div>
+            <div class="cap">Full colour · own story<span>A founder portrait in their own story</span></div></div>
+          <div><div class="photo c04-duo" style="height:170px"><img src="../client/public/photos/pool/vibereal/02-800.webp" alt="" style="object-position:50% 40%"></div>
+            <div class="cap">Duotone · Ink + one accent<span>Campaign graphics only (here Vibe). StartNet Vibe at TNGSS 2025, Coimbatore</span></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="label" style="padding:4px 0 16px">Principles</div>
+        <ol class="rules c04-ph-rules">
+          <li><b>01</b><span>Real Tamil Nadu.<span class="sub">Workshops, campuses, labs and districts, as they are.</span></span></li>
+          <li><b>02</b><span>Doing, not posing.<span class="sub">Hands on the work, a pitch mid-sentence, a circle in discussion.</span></span></li>
+          <li><b>03</b><span>Proof in the caption.<span class="sub">Name, organisation, place and date. Evidence is never a composite.</span></span></li>
+          <li><b>04</b><span>Representation by design.<span class="sub">Gender, district, age, disability, language and type of institution.</span></span></li>
+          <li><b>05</b><span>Accurate skin tones.<span class="sub">No lightening, “fairness” grading or reshaping.</span></span></li>
+        </ol>
+        <div class="grid g2" style="gap:24px; margin-top:30px">
+          <div class="say"><div class="label" style="font-size:16px">Do</div><p>A Tier-2 college hall at a build night. Women founders leading and building.</p></div>
+          <div class="not"><div class="label" style="font-size:16px">Don’t</div><p>Stock towers and handshakes. Uncaptioned crowds. Red overlays or tints.</p></div>
+        </div>
+        <div class="c04-ai">
+          <div class="label label--muted" style="font-size:16px">AI imagery</div>
+          <p><b>Never generated:</b> real or realistic people, campuses, events or places, anything used as evidence, and Tamil cultural or religious motifs.</p><p><b>Allowed with a label:</b> abstract textures and concept illustrations, captioned “AI-assisted illustration”, directed by a named designer and logged.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04.8 LAYOUT AND COVER ARCHITECTURE ============ -->
+<section class="page" id="layout" data-section="04 · Type and element">
+  <div class="page__body">
+    <div class="kicker">04.8</div>
+    <h1 class="title">Layout and cover architecture</h1>
+    <div class="c04-ly">
+      <div>
+        <div class="c04-gd">
+          <div class="c04-gd__cols"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="c04-gd__head"></div><div class="c04-gd__foot"></div>
+          <div class="c04-gd__blk" style="left:31.2px; top:58px; width:6px; height:6px; border-radius:50%; background:var(--ink-400)"></div>
+          <div class="c04-gd__blk" style="left:31.2px; top:72px; width:294.6px; height:22px"></div>
+          <div class="c04-gd__blk" style="left:31.2px; top:120px; width:163px; height:6px; opacity:.5"></div>
+          <div class="c04-gd__blk" style="left:31.2px; top:132px; width:163px; height:6px; opacity:.5"></div>
+          <div class="c04-gd__blk" style="left:31.2px; top:144px; width:120px; height:6px; opacity:.5"></div>
+          <div class="c04-gd__blk" style="left:206.4px; top:120px; width:338.4px; height:150px; background:var(--ink-300)"></div>
+          <div class="c04-gd__m" style="left:6px; top:150px; writing-mode:vertical-rl; transform:rotate(180deg)">104</div>
+          <div class="c04-gd__m" style="left:31.2px; top:14px">136 · header</div>
+          <div class="c04-gd__m" style="right:31.2px; bottom:6px">92 · footer</div>
+        </div>
+        <table class="spec" style="margin-top:22px">
+          <tr><td class="l"><b>Slide</b></td><td class="l">1920 × 1080: 12 columns of 106 px, 40 px gutters, 104 px margins</td></tr>
+          <tr><td class="l"><b>Web</b></td><td class="l">12 columns from 1024 px, 24–32 px gutters, 1280 px container; 4 columns on phones</td></tr>
+          <tr><td class="l"><b>Spacing</b></td><td class="l">4-point: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128</td></tr>
+          <tr><td class="l"><b>Baseline</b></td><td class="l">8 px; blocks and leading snap to it</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="c04-covers">
+          <div>
+            <div class="c04-cv c04-cv--ink">
+              <div class="fullstop" style="width:250px; height:250px; right:-96px; top:-58px"></div>
+              <span class="sn-logo sn-logo--rev">StartNet<span class="d"></span></span>
+              <div class="c04-cv__t">[Report title]<span>[Month year]</span></div>
+            </div>
+            <div class="c04-cap" style="font-size:20px">A · Field crop<span>Ink ground, a giant full stop cropped by an edge, type in the clean half. Reports, campaigns.</span></div>
+          </div>
+          <div>
+            <div class="c04-cv c04-cv--ink">
+              <div class="pulli" style="inset:0; background-size:14px 14px; --pulli: rgb(244 244 240 / .14); background-image: radial-gradient(circle at center, var(--pulli) 1.2px, transparent 1.7px)"></div>
+              <span class="sn-logo sn-logo--rev">StartNet<span class="d"></span></span>
+              <div style="position:absolute; inset:0; display:grid; place-items:center"><div style="font-size:24px; font-weight:500; letter-spacing:-0.03em">Every talent, a founder.</div></div>
+            </div>
+            <div class="c04-cap" style="font-size:20px">B · Night and pulli grid<span>A centred, quiet statement on the dot grid. Stage backdrops, chapter openers.</span></div>
+          </div>
+          <div>
+            <div class="c04-cv c04-cv--paper">
+              <span class="sn-logo">StartNet<span class="d"></span></span>
+              <div class="c04-cv__t" style="color:var(--ink)">[Proposal title]<span>[Partner] · [Date]</span></div>
+              <div class="fullstop" style="width:30px; height:30px; right:20px; bottom:20px"></div>
+            </div>
+            <div class="c04-cap" style="font-size:20px">C · Paper and corner full stop<span>Paper ground, the point in a corner. Proposals, letters.</span></div>
+          </div>
+        </div>
+        <ol class="rules c04-ly-rules mt-l">
+          <li><b>01</b><span>One cover architecture per piece.<span class="sub">Choose A, B or C and hold it through the document; never combine two.</span></span></li>
+          <li><b>02</b><span>Logo top-left on documents.<span class="sub">Covers, letters, proposals and reports, at the margin, outside any full stop.</span></span></li>
+          <li><b>03</b><span>Type never sits on the full stop.<span class="sub">The circle is a shape, not a panel. Headlines stay in the clean half.</span></span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>

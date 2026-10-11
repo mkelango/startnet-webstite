@@ -1,0 +1,53 @@
+/* Updates (DESIGN-v2 6.1 / 3.12): the shared pill segmented control (Tabs variant="pill", sliding Ink pill), then
+   dated hairline rows (Meridian's list): date | title + meta | arrow. The row hover is a Bone-to-white wash with the
+   title underline sweeping in and the arrow nudging 4px. */
+.home-updates__tabs .tabs__scroller { margin-bottom: var(--space-10); }
+.home-updates__tabs .tabs--pill .tabs__list,
+.home-updates__tabs.tabs--pill .tabs__list { background: color-mix(in srgb, var(--white) 55%, transparent); }
+.home-updates__tabs.tabs--pill .tabs__tab { min-height: 40px; padding-inline: 18px; font-size: var(--text-small, 0.9375rem); }
+@media (pointer: coarse) { .home-updates__tabs.tabs--pill .tabs__tab { min-height: 44px; } }
+/* Mobile audit: at 320px the third tab (Founder Ledger) ran past the edge; tighter padding fits all three. */
+@media (max-width: 399.98px) { .home-updates__tabs.tabs--pill .tabs__tab { padding-inline: 12px; } }
+
+.home-updates__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--color-border); }
+.home-updates__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-1) var(--space-8);
+  padding: var(--space-6) var(--space-3);
+  margin-inline: calc(-1 * var(--space-3));
+  border-bottom: 1px solid var(--color-border);
+  align-items: baseline;
+  transition: background-color var(--dur-2) var(--ease-snap);
+}
+@media (min-width: 768px) { .home-updates__item { grid-template-columns: 10rem minmax(0, 1fr) auto; } }
+.home-updates__date { font-size: var(--text-meta); color: var(--color-text-muted); }
+.home-updates__title {
+  font-weight: 400;
+  font-size: var(--text-lede);
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  text-decoration: none;
+  color: var(--color-text);
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size var(--dur-3) var(--ease-snap);
+}
+.home-updates__title::after { content: ""; position: absolute; inset: 0; }
+.home-updates__title:focus-visible { outline: none; }
+.home-updates__item:has(.home-updates__title:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 2px; border-radius: var(--radius-btn); }
+.home-updates__item:focus-within .home-updates__title { background-size: 100% 1px; }
+.home-updates__meta { margin-top: var(--space-1); font-size: var(--text-meta); }
+.home-updates__arrow { display: none; color: var(--color-text-muted); transition: transform var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap); }
+@media (min-width: 768px) { .home-updates__arrow { display: block; } }
+@media (hover: hover) and (pointer: fine) {
+  .home-updates__item:hover { background-color: color-mix(in srgb, var(--white) 60%, transparent); }
+  .home-updates__item:hover .home-updates__title { background-size: 100% 1px; }
+  .home-updates__item:hover .home-updates__arrow { transform: translateX(4px); color: var(--color-text); }
+}
+.home-updates__item:focus-within .home-updates__arrow { transform: translateX(4px); color: var(--color-text); }
+.home-updates__more { margin-top: var(--space-6); }
+.home-updates__ledger { display: grid; gap: var(--space-5); padding-top: var(--space-2); }
+.home-updates__ledger-head strong { font-weight: 500; }
+.home-updates__kpis { display: grid; gap: var(--space-6); grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr)); margin: 0; }
+.home-updates__kpis .stat__value { font-weight: 400; }

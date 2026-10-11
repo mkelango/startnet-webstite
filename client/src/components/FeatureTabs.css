@@ -1,0 +1,76 @@
+/* FeatureTabs (DESIGN-v2 3.21.3): 4/8 list + media at ≥1024; accordion with inline media below. */
+.feature-tabs { display: grid; gap: var(--space-10); }
+.feature-tabs__nav { display: grid; align-content: start; min-width: 0; }
+.feature-tabs__list { position: relative; display: grid; align-content: start; border-top: 1px solid var(--color-border); }
+.feature-tabs__item { position: relative; border-bottom: 1px solid var(--color-border); }
+.feature-tabs__title { margin: 0; font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); line-height: 1.2; }
+.feature-tabs__tab {
+  display: block;
+  width: 100%;
+  padding: var(--space-5) 0;
+  border: 0;
+  background: none;
+  color: var(--color-text-muted);
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--dur-2) var(--ease-snap);
+}
+.feature-tabs__tab[aria-expanded='true'] { color: var(--color-text); }
+@media (hover: hover) { .feature-tabs__tab:hover { color: var(--color-text); } }
+.feature-tabs__tab:focus-visible { outline-offset: 2px; border-radius: var(--radius-btn); }
+/* Body: always in the DOM, collapsed with grid rows (never display:none) */
+.feature-tabs__body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 400ms cubic-bezier(0.25, 1, 0.5, 1); }
+.feature-tabs__body[data-open] { grid-template-rows: 1fr; }
+.feature-tabs__body-inner { min-height: 0; overflow: hidden; color: var(--color-text-2); }
+/* 6px of room on each side (offset by negative margins) so a focused CTA's ring is not cut by the clip */
+.feature-tabs__body[data-open] .feature-tabs__body-inner { padding-inline: 6px; margin-inline: -6px; padding-bottom: 6px; margin-bottom: -6px; }
+.feature-tabs__body-inner > p { padding-bottom: var(--space-5); max-width: 44ch; }
+.feature-tabs__inline-media { display: none; padding-bottom: var(--space-5); }
+.feature-tabs__inline-media :is(.art-image, img, video) { border-radius: var(--radius-media); }
+/* Progress: 1px Ink line under the active item, scaleX 0 → 1 over the interval */
+.feature-tabs__progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; overflow: hidden; pointer-events: none; }
+.feature-tabs__progress-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-text);
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: ft-progress var(--ft-interval, 7500ms) linear forwards;
+}
+@keyframes ft-progress { to { transform: scaleX(1); } }
+.feature-tabs__toggle {
+  justify-self: start;
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-top: var(--space-5);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: var(--color-text);
+  transition: box-shadow var(--dur-2) var(--ease-snap), background-color var(--dur-2) var(--ease-snap);
+}
+@media (hover: hover) { .feature-tabs__toggle:hover { box-shadow: inset 0 0 0 1px var(--color-text); background: rgb(12 23 25 / 0.04); } }
+/* Media: all panels stacked in one cell; crossfade on opacity */
+.feature-tabs__media { display: none; }
+.feature-tabs__panel { grid-area: 1 / 1; min-width: 0; opacity: 0; transition: opacity 400ms var(--ease-standard); }
+.feature-tabs__panel.is-active { opacity: 1; }
+.feature-tabs__panel :is(.art-image, img, video) { border-radius: var(--radius-media); }
+
+@media (max-width: 1023.98px) {
+  .feature-tabs__item.is-active .feature-tabs__inline-media { display: block; }
+}
+@media (min-width: 1024px) {
+  .feature-tabs { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 32px; align-items: start; }
+  .feature-tabs__media { display: grid; position: sticky; top: calc(var(--header-h) + 32px); }
+}
+:root [data-surface='night'] :is(.feature-tabs__list, .feature-tabs__item) { border-color: var(--night-line); }
+:root [data-surface='night'] .feature-tabs__toggle { box-shadow: inset 0 0 0 1px var(--night-line-strong); }
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) :is(.feature-tabs__body, .feature-tabs__panel, .feature-tabs__tab) { transition: none; }
+}
+:root[data-motion='reduced'] :is(.feature-tabs__body, .feature-tabs__panel, .feature-tabs__tab) { transition: none; }

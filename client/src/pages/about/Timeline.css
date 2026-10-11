@@ -1,0 +1,77 @@
+/* Our story timeline (DESIGN-v2 6.4): a hairline vertical list. Rows: [node + tabular year] [title · body · metric]
+   [4/3 art ≥1024]. A 1px hairline rail runs through the nodes; a 2px Ink fill grows down it as the list scrolls
+   (transform only). Past nodes are Ink rings, the "now" node is the filled Ink point, future nodes are dashed. */
+.about-timeline { --tl-when: 0px; --tl-rail: 5px; position: relative; }
+.about-timeline__list { list-style: none; position: relative; margin: 0; padding: 0; }
+/* The rail: from the first node to the last */
+.about-timeline__list::before {
+  content: ''; position: absolute; left: var(--tl-rail); top: calc(var(--space-8) + 0.55em); bottom: var(--space-8);
+  width: 1px; background: var(--hairline);
+}
+.about-timeline__fill {
+  position: absolute; left: calc(var(--tl-rail) - 0.5px); top: calc(var(--space-8) + 0.55em); bottom: var(--space-8);
+  width: 2px; background: var(--color-text);
+  transform-origin: top center; transform: scaleY(var(--tl-p, 0));
+  pointer-events: none;
+}
+
+.about-timeline__item {
+  position: relative;
+  display: grid; gap: var(--space-4);
+  grid-template-columns: minmax(0, 1fr);
+  padding: var(--space-8) 0 var(--space-8) calc(var(--tl-rail) * 2 + var(--space-6));
+}
+/* Row hairline, kept clear of the rail */
+.about-timeline__item + .about-timeline__item::after {
+  content: ''; position: absolute; top: 0; right: 0; left: calc(var(--tl-rail) * 2 + var(--space-6)); height: 1px; background: var(--hairline);
+}
+.about-timeline__when { display: flex; align-items: baseline; gap: var(--space-3); min-width: 0; }
+.about-timeline__node {
+  position: absolute; left: 0; top: calc(var(--space-8) + 0.55em - 5px);
+  width: 11px; height: 11px; border-radius: var(--radius-full);
+  background: var(--paper); border: 1px solid var(--color-text);
+  z-index: 1;
+}
+.about-timeline__item--future .about-timeline__node { border-style: dashed; border-color: var(--ink-500); }
+/* "Now": the Ink point (DESIGN-v2 6.4: the current year uses the Ink dot; red stays with the headline stop) */
+.about-timeline__item--now .about-timeline__node {
+  background: var(--color-text); border-color: var(--color-text);
+  box-shadow: 0 0 0 4px var(--paper), 0 0 0 5px var(--color-text);
+}
+.about-timeline__date {
+  margin: 0;
+  font-size: var(--text-meta); font-weight: 500; line-height: 1.4; letter-spacing: 0;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.about-timeline__item--now .about-timeline__date { color: var(--color-text); }
+.about-timeline__main { display: grid; gap: var(--space-3); align-content: start; min-width: 0; }
+.about-timeline__title { margin: 0; font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3, -0.015em); }
+.about-timeline__body { color: var(--color-text-2); max-width: 56ch; margin: 0; }
+.about-timeline__item--future .about-timeline__title { color: var(--color-text-2); }
+.about-timeline__metric { padding-top: var(--space-2); }
+.about-timeline__pending { font-size: var(--text-meta); color: var(--color-text-muted); }
+.about-timeline__art { border-radius: var(--radius-media); overflow: hidden; background: var(--bone); max-width: 28rem; }
+.about-timeline__art .art-image { border-radius: var(--radius-media); }
+
+@media (min-width: 768px) {
+  .about-timeline__item { grid-template-columns: 9rem minmax(0, 1fr); column-gap: var(--space-8); }
+  .about-timeline__item--art { grid-template-columns: 9rem minmax(0, 1fr) minmax(0, 14rem); }
+  .about-timeline__art { align-self: start; }
+}
+@media (min-width: 1024px) {
+  .about-timeline__item { grid-template-columns: 12rem minmax(0, 1fr) minmax(0, 16rem); column-gap: var(--space-12, 48px); }
+  .about-timeline__item--art { grid-template-columns: 12rem minmax(0, 1fr) minmax(0, 16rem); }
+  .about-timeline__date { font-size: var(--text-lede); font-weight: 400; color: var(--color-text); }
+  .about-timeline__item--future .about-timeline__date { color: var(--color-text-muted); }
+  .about-timeline__node { top: calc(var(--space-8) + 0.62em - 5px); }
+}
+/* Hover: the row's art zooms 1.03 (fine pointers only) */
+@media (hover: hover) and (pointer: fine) {
+  .about-timeline__art :is(img, svg) { transition: transform var(--dur-media, 480ms) var(--ease-snap); }
+  .about-timeline__item:hover .about-timeline__art :is(img, svg) { transform: scale(1.03); }
+}
+@media (prefers-reduced-motion: reduce) { .about-timeline__art :is(img, svg) { transition: none; } }
+:root[data-motion='reduced'] .about-timeline__art :is(img, svg) { transition: none; }
+
+:lang(ta) .about-timeline__title { letter-spacing: 0; line-height: 1.35; }

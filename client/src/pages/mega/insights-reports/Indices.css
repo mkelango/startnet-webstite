@@ -1,0 +1,59 @@
+/* /insights/indices — indices hub. Oct 2026: the four rules as blueprint cells (1px dividers in one hairline frame),
+   quiet icons, hairline tag legend. */
+.indices-grid { display: grid; gap: var(--space-6); margin-top: var(--space-8); }
+@media (min-width: 768px) { .indices-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .indices-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* 2-up on tablets: an odd last card spans the row as a horizontal card (no 2+1 orphan) */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .indices-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .indices-grid > :last-child:nth-child(odd) > .card:has(> .card__media) { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .indices-grid > :last-child:nth-child(odd) > .card.card > .card__media { height: 100%; border-radius: calc(var(--media-radius) - 1px) 0 0 calc(var(--media-radius) - 1px); }
+  .indices-grid > :last-child:nth-child(odd) > .card > .card__media .art-image { aspect-ratio: auto !important; height: 100%; min-height: 12rem; }
+}
+.indices-grid__item { display: flex; min-width: 0; }
+.indices-grid__item > * { flex: 1; }
+.indices-card__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.indices-card__status { font-size: var(--text-small); color: var(--color-text-muted); }
+
+.indices-rules {
+  display: grid; gap: 1px; margin-top: var(--space-4);
+  background: var(--color-border); border: 1px solid var(--color-border); border-radius: var(--media-radius); overflow: hidden;
+}
+@media (min-width: 768px) { .indices-rules { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .indices-rules { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.indices-rules__item {
+  display: grid; gap: var(--space-3); align-content: start; min-width: 0;
+  padding: var(--space-8) var(--space-6);
+  background: var(--color-bg);
+}
+.indices-rules__item .h5 { font-weight: 500; letter-spacing: -0.01em; }
+.indices-rules__item .h5:lang(ta) { letter-spacing: 0; }
+.indices-rules__item p { color: var(--color-text-2); font-size: var(--text-small); }
+.indices-rules__icon { color: var(--color-text-muted); margin-bottom: var(--space-4); }
+
+.indices-tags { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-8); margin: var(--space-8) 0 0; padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
+.indices-tags__row { display: flex; align-items: center; gap: var(--space-3); }
+.indices-tags__row dd { margin: 0; color: var(--color-text-2); font-size: var(--text-small); }
+
+.indices-notify { display: grid; gap: var(--space-8); align-items: start; }
+@media (min-width: 1024px) { .indices-notify { grid-template-columns: 5fr 7fr; gap: var(--space-16); } }
+.indices-notify__copy { display: grid; gap: var(--space-4); justify-items: start; }
+.indices-notify__body { color: var(--color-text-2); max-width: 46ch; }
+
+.indices-grid, .indices-rules, .indices-notify { overflow-wrap: anywhere; }
+
+/* Tamil display words are long: step the hero down on small phones so nothing overflows at 320px. */
+@media (max-width: 479px) { .indices-hero__title { font-size: var(--text-h1); } }
+.indices-tags { overflow-wrap: anywhere; }
+.indices-tags__row { min-width: 0; max-width: 100%; }
+.indices-tags__row dd { min-width: 0; }
+
+/* Final verifier r3: "நிதியளிப்பாளர்களுக்குக்" was 1px wider than its 236px column at 1280 and split mid-word. */
+.indices-rules__item .h5:lang(ta) { font-size: var(--text-h6); overflow-wrap: break-word; }
+
+/* Tamil small phones (mobile audit, Oct 2026): next to the 145px "A சரிபார்க்கப்பட்டது" chip the meaning got
+   ~100px at 320 and சரிபார்க்கப்பட்டது. split mid-word. Below 375px each meaning sits under its chip (these rows
+   size to their content, so a flex-basis wrap would also break the short C row at 375+). */
+@media (max-width: 374.98px) {
+  .indices-tags__row:lang(ta) { flex-direction: column; align-items: flex-start; gap: var(--space-1); }
+}

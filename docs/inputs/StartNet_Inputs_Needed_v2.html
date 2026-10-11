@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>StartNet: inputs needed (v2)</title>
+<style>
+@font-face { font-family: 'Inter'; src: url('../../client/src/styles/fonts/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; }
+@font-face { font-family: 'Inter'; src: url('../../client/src/styles/fonts/inter-latin-ext-wght-normal.woff2') format('woff2'); font-weight: 100 900; unicode-range: U+0100-024F, U+20A0-20CF, U+2190-21FF; }
+@font-face { font-family: 'Instrument Serif'; src: url('../../client/src/styles/fonts/instrument-serif-latin-400-italic.woff2') format('woff2'); font-style: italic; }
+@page { size: A4; margin: 16mm 15mm 18mm; }
+@page :first { margin: 0; }
+:root { --ink:#0C1719; --paper:#F4F3EF; --red:#EF4444; --red7:#B91C1C; --g:#42575A; --line:#DAD8D0; --bone:#EBEAE5; --mari:#FBA62A; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, system-ui, sans-serif; color: var(--ink); font-size: 10pt; line-height: 1.5; }
+.cover { height: 297mm; background: var(--ink); color: #F4F4F0; margin: 0; padding: 24mm 20mm; position: relative; overflow: hidden; page-break-after: always; display:flex; flex-direction:column; }
+.cover .dot { position:absolute; width:150mm; height:150mm; border-radius:50%; background:var(--red); right:-55mm; bottom:-60mm; }
+.logo { font-weight: 750; letter-spacing: -0.035em; font-size: 26pt; }
+.logo i { display:inline-block; width:.2em; height:.2em; border-radius:50%; background:var(--red); margin-left:.07em; }
+.cover h1 { font-size: 40pt; font-weight: 500; letter-spacing: -0.035em; line-height: 1.02; margin: 38mm 0 6mm; }
+.cover h1 em { font-family: 'Instrument Serif', serif; font-weight: 400; }
+.cover p { color: #C4CBC8; font-size: 12pt; max-width: 120mm; }
+.meta { margin-top: auto; display: grid; grid-template-columns: repeat(3, 45mm); gap: 6mm; border-top: 1px solid #263937; padding-top: 6mm; font-size: 8.5pt; position:relative; }
+.meta b { display: block; color: #F4F4F0; font-size: 10pt; font-weight: 600; }
+.meta span { color: #95A09C; text-transform: uppercase; letter-spacing: .14em; font-size: 7pt; font-weight: 600; }
+h2 { font-size: 17pt; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 1mm; page-break-after: avoid; }
+.kick { color: var(--red7); font-size: 7.5pt; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; margin: 9mm 0 1mm; display:flex; align-items:center; gap:2mm; }
+.kick::before { content:''; width:2.2mm; height:2.2mm; border-radius:50%; background:var(--red); }
+.lede { color: var(--g); margin: 0 0 4mm; }
+table { width: 100%; border-collapse: collapse; margin: 2mm 0 2mm; page-break-inside: auto; }
+tr { page-break-inside: avoid; }
+th { text-align: left; font-size: 7pt; letter-spacing: .14em; text-transform: uppercase; color: var(--red7); font-weight: 600; padding: 2mm 2mm 2mm 0; border-bottom: 1.5px solid var(--ink); }
+td { padding: 2.2mm 2mm 2.2mm 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+td:first-child { width: 6mm; color: var(--g); font-variant-numeric: tabular-nums; }
+td b { font-weight: 600; }
+.pri { display:inline-block; font-size: 7pt; font-weight: 700; padding: .4mm 1.6mm; border-radius: 1mm; letter-spacing:.05em; white-space: nowrap; }
+.p1 { background: var(--red); color: #fff; } .p2 { background: var(--mari); color: var(--ink); } .p3 { background: var(--bone); color: var(--g); }
+.box { border: 1px solid var(--line); background: #FBFAF7; border-radius: 2mm; padding: 4mm 5mm; margin: 3mm 0; }
+.sum { display:grid; grid-template-columns: repeat(4,1fr); gap: 3mm; margin: 4mm 0 2mm; }
+.sum div { border-top: 1.5px solid var(--ink); padding-top: 2mm; }
+.sum b { display:block; font-size: 20pt; font-weight: 300; letter-spacing: -.03em; }
+.sum span { font-size: 8pt; color: var(--g); }
+.small { font-size: 8.5pt; color: var(--g); }
+.chk { display:inline-block; width:3.2mm; height:3.2mm; border:1px solid var(--g); border-radius:.6mm; vertical-align:-.5mm; margin-right:1.5mm; }
+.page { page-break-before: always; }
+</style></head><body>
+
+<section class="cover">
+  <div class="dot"></div>
+  <div class="logo">StartNet<i></i></div>
+  <h1>Inputs we need<br>from <em>StartNet</em></h1>
+  <p>Everything the website, the brand book and the launch are waiting on, after the v2 redesign and the end-to-end audit. Each item says what to send, why it matters and in what format.</p>
+  <div class="meta">
+    <div><span>Prepared</span><b>10 October 2026</b></div>
+    <div><span>Replaces</span><b>Inputs v1 (8 Oct)</b></div>
+    <div><span>Website</span><b>startnet.in · v2</b></div>
+  </div>
+</section>
+
+<div class="kick">Summary</div>
+<h2>What is blocking, what is waiting</h2>
+<p class="lede">The site is complete and works without these: every missing fact shows as a visible <b>[placeholder]</b> rather than an invented one. These inputs turn placeholders into real content and unblock launch.</p>
+<div class="sum">
+  <div><b>5</b><span>launch blockers open (3 of 8 done)</span></div>
+  <div><b>150+</b><span>placeholders in event, programme, story, people and metric data</span></div>
+  <div><b>17</b><span>photo shots to commission</span></div>
+  <div><b>6</b><span>event videos missing</span></div>
+</div>
+<p class="small"><span class="pri p1">P1</span> needed before launch · <span class="pri p2">P2</span> needed soon after launch; the page shows a placeholder until then · <span class="pri p3">P3</span> improves quality; nothing is broken without it.</p>
+
+<div class="kick">Section 1</div>
+<h2>Launch blockers</h2>
+<table>
+<tr><th></th><th>What we need</th><th>Why</th><th>Priority</th></tr>
+<tr><td>1</td><td><b>WhatsApp number</b> for every "Chat on WhatsApp" / "Get updates on WhatsApp" link. Send the number in international format.</td><td><b>Received 10 Oct: +91 98848 98206.</b> Live on every WhatsApp link.</td><td><span class="pri p3">DONE</span></td></tr>
+<tr><td>2</td><td><b>DNS record for x.startnet.in</b> (StartNet X sign-in / sign-up), or tell us the correct StartNet X address.</td><td>The domain does not resolve, so "Sign in", "Join StartNet" and StartNet X links fail.</td><td><span class="pri p1">P1</span></td></tr>
+<tr><td>3</td><td><b>Hosting details:</b> the production domain, the server or host, and the values for <code>TRUST_PROXY</code> and <code>CORS_ORIGINS</code>.</td><td>Needed to deploy the NestJS server with the right security headers, caching and redirects.</td><td><span class="pri p1">P1</span></td></tr>
+<tr><td>4</td><td><b>Sign-off on the brand palette</b>: SNX Red #EF4444 as primary, Ink #0C1719 secondary, Marigold #FBA62A and Lagoon #117780 tertiary (Brand Book v1.0, page 52).</td><td>The website already uses it; sign-off makes it official and closes the brand book.</td><td><span class="pri p1">P1</span></td></tr>
+<tr><td>5</td><td><b>Logo vector files</b> (SVG/AI/PDF) of the current StartNet logo.</td><td>To confirm the wordmark letterforms and produce final outlined artwork; the site draws the logo in type today.</td><td><span class="pri p1">P1</span></td></tr>
+<tr><td>6</td><td><b>Legal texts</b>: the two pages marked "[to be drafted by counsel]", and the link to the disclosure statement.</td><td>Legal pages cannot be invented.</td><td><span class="pri p1">P1</span></td></tr>
+<tr><td>7</td><td><b>Grievance and privacy contact</b>: name and email of the grievance officer, and the complaint route.</td><td><b>Email received 10 Oct: nagaraj@startnet.in</b> (live on Contact, Governance, legal pages, StartNet X Agents). Still needed: the officer's <b>name</b> and the response time.</td><td><span class="pri p2">PART</span></td></tr>
+<tr><td>8</td><td><b>Confirm the contact emails</b> hello@, partners@, press@ and careers@startnet.in are live and monitored.</td><td><b>Confirmed 10 Oct:</b> hello@, partners@, press@ and careers@startnet.in are live and monitored; published on Contact, Media and Careers. (Brand-team inboxes research@, vibe@, connect@, women@ are still marked [confirm].)</td><td><span class="pri p3">DONE</span></td></tr>
+</table>
+
+<div class="page"></div>
+<div class="kick">Section 2</div>
+<h2>Content and data</h2>
+<p class="lede">Send these as a spreadsheet or a document per area; we load them into <code>server/data/*.json</code>. Every figure needs a source, an as-at date and a confidence tag (A verified, B claimed, C estimate).</p>
+<table>
+<tr><th></th><th>Area · what to send</th><th>Where it shows</th><th>Priority</th></tr>
+<tr><td>1</td><td><b>Events (52 placeholders)</b>: for every upcoming edition, the dates, venue, fees, sponsors, jury, registration status; for past editions, attendance with its tag.</td><td>/events, every series and edition page, event cards on Home and brand pages</td><td><span class="pri p1">P1</span></td></tr>
+<tr><td>2</td><td><b>Programmes (34 placeholders)</b>: final fees or rate cards, funding source, eligibility confirmations (for example whether recent graduates are eligible), jury, terms and providers.</td><td>/programmes and every programme page</td><td><span class="pri p1">P1</span></td></tr>
+<tr><td>3</td><td><b>Metrics (22 of 51 have no value)</b>: founders nurtured, events run, institutions worked with, Mission 1 Lakh progress, startups launched, capital raised, pilots, brand-level counts, plus the missing as-at dates on 6 metrics.</td><td>Home stats, brand pages, Founder Ledger, Mission 1 Lakh meter</td><td><span class="pri p2">P2</span></td></tr>
+<tr><td>4</td><td><b>Founder stories (20 placeholders)</b>: real stories with the founder's written consent (name, company, district, outcome).</td><td>/insights/stories, story cards on brand pages</td><td><span class="pri p2">P2</span></td></tr>
+<tr><td>5</td><td><b>People (13 placeholders)</b>: leadership and brand-lead bios, advisory council members (with consent to be named), speakers, jury.</td><td>/about/leadership, event and programme pages</td><td><span class="pri p2">P2</span></td></tr>
+<tr><td>6</td><td><b>Signed partners and sponsors</b>: logos (SVG) and the signed agreement for each.</td><td>Logo walls stay empty by design until there are signed partners</td><td><span class="pri p2">P2</span></td></tr>
+<tr><td>7</td><td><b>Founder Ledger and reports</b>: ledger figures (5 placeholders), report files and dates (4), index scores.</td><td>/insights, Founder Ledger, reports and indices</td><td><span class="pri p2">P2</span></td></tr>
+<tr><td>8</td><td><b>Company history</b>: the first event and key milestones with dates.</td><td>/about timeline</td><td><span class="pri p2">P2</span></td></tr>
+<tr><td>9</td><td><b>Press releases and job openings</b>.</td><td>/media and /careers (templates exist; no entries yet)</td><td><span class="pri p3">P3</span></td></tr>
+<tr><td>10</td><td><b>Confirm childcare</b> at flagship events before it is published.</td><td>Women pages</td><td><span class="pri p3">P3</span></td></tr>
+</table>
+
+<div class="page"></div>
+<div class="kick">Section 3</div>
+<h2>Photographs to commission</h2>
+<p class="lede">The site uses 37 real StartNet photos and 39 licensed stock photos; 181 abstract slots use animated visuals. These shots replace stock and fill event pages that have no photos of their own. Rules: real Tamil Nadu, people doing the work, accurate skin tones, no AI imagery, landscape originals of at least 2400 px, a caption with event, place and month, and written consent for identifiable people.</p>
+<table>
+<tr><th></th><th>Shot</th><th>Replaces / fills</th><th>Priority</th></tr>
+<tr><td>G1</td><td><b>Vibathon 2025</b> (K.S.R. College of Engineering, 26 Sep 2025): full-size originals; the current file is only 572 px.</td><td>Vibathon heroes, posters, story</td><td><span class="pri p1">P1</span></td></tr>
+<tr><td>G2</td><td><b>High-resolution stage photos</b> (the current ones are 1280 px video frames).</td><td>/about, /events, /partner, /media heroes</td><td><span class="pri p1">P1</span></td></tr>
+<tr><td>G3</td><td><b>GenAI Connect 2024</b>, Radisson Salem: expo floor and a panel.</td><td>GenAI Connect pages (motion today)</td><td><span class="pri p2">P2</span></td></tr>
+<tr><td>G4</td><td><b>D2C Connect 2024</b>, Le Méridien Coimbatore: founders at product tables, on stage.</td><td>D2C Connect pages</td><td><span class="pri p2">P2</span></td></tr>
+<tr><td>G5–G10</td><td><b>Other events</b>: Vibe Marketing Summit, Vibe Campus build nights, Lab-to-Market Summit, Women Founders Summit and Awards, Vibe Summit, Investors Summit.</td><td>Their event pages (motion today)</td><td><span class="pri p2">P2</span></td></tr>
+<tr><td>G11</td><td><b>Research labs</b>: Agentic AI, Ontology &amp; Knowledge, Physical AI, Drug Discovery at work.</td><td>Lab pages (stock or motion today)</td><td><span class="pri p2">P2</span></td></tr>
+<tr><td>G12</td><td><b>Brand heroes</b>: one wide StartNet room (Home), a Women Circle, a scholar with a prototype.</td><td>Home, /women, /research heroes</td><td><span class="pri p2">P2</span></td></tr>
+<tr><td>G13</td><td><b>The Salem office</b>: entrance or the team at work.</td><td>/contact</td><td><span class="pri p3">P3</span></td></tr>
+<tr><td>G14</td><td><b>Leadership portraits</b> (M K Elango, V Nagaraj, Poonthamil): head and shoulders, plain background, with consent.</td><td>/about/leadership, /media</td><td><span class="pri p1">P1</span></td></tr>
+<tr><td>G15–G17</td><td><b>Rise Academy on a phone</b>, a GCC team reviewing a student pilot / partner-college graduates, the StartNet team at work.</td><td>/women, /partner/gccs, /partner/institutions, /careers</td><td><span class="pri p3">P3</span></td></tr>
+</table>
+<p class="small">Full shot descriptions: <code>docs/IMAGE-PLAN.md</code>, section 4. Drop files in <code>photos/originals/</code> and run <code>npm run photos</code>.</p>
+
+<div class="kick">Section 4</div>
+<h2>Videos</h2>
+<table>
+<tr><th></th><th>What we need</th><th>Why</th><th>Priority</th></tr>
+<tr><td>1</td><td><b>Highlight reels</b> (any length; Instagram or Facebook reels are fine, uploaded to YouTube) for Vibathon 2025, Vibe Marketing Summit 2025, StartNet Vibe at TNGSS 2025, SaaS Connect 2025, and more of GenAI Connect 2024.</td><td>No public video of these exists. Once on YouTube, each is one line in <code>videos.js</code>.</td><td><span class="pri p2">P2</span></td></tr>
+<tr><td>2</td><td><b>Titles and speaker names</b> for the seven February 2024 session recordings (C00xx files) and the July 2023 "ChatGPT for business" clip.</td><td>They cannot be published without knowing what they are.</td><td><span class="pri p3">P3</span></td></tr>
+<tr><td>3</td><td><b>Permission</b> to use the LocalKart product-launch keynote by M K Elango (Sep 2023), published by the host.</td><td>It would suit the Leadership page.</td><td><span class="pri p3">P3</span></td></tr>
+<tr><td>4</td><td><b>Confirm</b> whether the YouTube channel @startnetresearch belongs to StartNet.</td><td>It holds a NIRF Higher Ed Summit 2024 promo.</td><td><span class="pri p3">P3</span></td></tr>
+</table>
+
+<div class="page"></div>
+<div class="kick">Section 5</div>
+<h2>Tamil</h2>
+<table>
+<tr><th></th><th>What we need</th><th>Why</th><th>Priority</th></tr>
+<tr><td>1</td><td><b>Native Tamil review</b> of every Tamil string drafted during the build (UI labels, captions, the consent banner, Vibathon labels, video captions).</td><td>Machine and agent drafts are marked for review; Tamil must be written natively.</td><td><span class="pri p1">P1</span></td></tr>
+<tr><td>2</td><td><b>Tamil tagline</b> sign-off: "ஒவ்வொரு திறமையும் ஒரு நிறுவனர்." (comma or no comma).</td><td>Used on /ta and in the brand book.</td><td><span class="pri p1">P1</span></td></tr>
+<tr><td>3</td><td><b>Tamil body copy</b> for pages that are still English on /ta (most brand and event body text), and shorter Tamil event summaries for phones.</td><td>/ta pages show English marked <code>lang="en"</code> until translated; Tamil event heroes run long at 320 px.</td><td><span class="pri p2">P2</span></td></tr>
+</table>
+
+<div class="kick">Section 6</div>
+<h2>Brand book</h2>
+<table>
+<tr><th></th><th>What we need</th><th>Why</th><th>Priority</th></tr>
+<tr><td>1</td><td><b>Pantone and press CMYK</b> values from a print partner's press proof.</td><td>Needed before signage, stationery or merchandise is printed.</td><td><span class="pri p2">P2</span></td></tr>
+<tr><td>2</td><td><b>Tamil specimen test</b> on two mid-range Android phones (font sizes and Noto Sans Tamil / Anek Tamil sign-off).</td><td>Confirms Tamil readability at small sizes.</td><td><span class="pri p3">P3</span></td></tr>
+<tr><td>3</td><td><b>Vibathon wordmark</b> artwork, if one exists.</td><td>Vibathon is the only programme with its own wordmark.</td><td><span class="pri p3">P3</span></td></tr>
+<tr><td>4</td><td><b>Certificate signatories</b> and the certificate verification URL pattern in StartNet X.</td><td>Certificates carry real, named signatories only.</td><td><span class="pri p3">P3</span></td></tr>
+</table>
+
+<div class="kick">Section 7</div>
+<h2>Decisions</h2>
+<table>
+<tr><th></th><th>Question</th><th>Our recommendation</th></tr>
+<tr><td>1</td><td>Should placeholder founder stories stay live, or be hidden until real stories arrive?</td><td>Hide until real stories arrive (they are already out of the sitemap).</td></tr>
+<tr><td>2</td><td>Should edition <code>/agenda</code> and <code>/speakers</code> tabs be indexed by search engines?</td><td>Index them once they have real content.</td></tr>
+<tr><td>3</td><td>Should unknown URLs such as <code>/vibe/foo</code> return a true 404 status?</td><td>Yes (soft 404s hurt SEO).</td></tr>
+<tr><td>4</td><td>The cookie banner covers about half of a 320 px phone screen. Approve shorter wording?</td><td>Yes: a one-line first view.</td></tr>
+<tr><td>5</td><td>Are the 39 licensed stock photos acceptable until the commissioned shots arrive?</td><td>Yes, replaced slot by slot as photos arrive.</td></tr>
+</table>
+
+<div class="box"><b>How to send:</b> one folder per section (data as a spreadsheet, photos as original files with a one-line caption each, logos as SVG). Anything marked P1 unblocks launch; the rest can follow in any order, and the site updates as each item arrives.</div>
+
+</body></html>

@@ -1,0 +1,123 @@
+/* C09 · Footer (DESIGN-v2 3.16, AIWO P18): an Ink band with a night-line top hairline. Row 1 (6/6): the large mono
+   wordmark + tagline (its full stop is the footer's one red point) beside the newsletter; a hairline; Row 2 the link
+   grid at equal widths (6 / 3 / 2 columns) with dot-label heads; socials in 40px ring circles; the legal row last. */
+:root .site-footer {
+  padding-block: 96px 0;
+  background: var(--night-0);
+  border-top: 1px solid var(--night-line);
+  font-size: var(--text-small);
+  overflow: hidden;
+}
+.site-footer a { color: var(--night-text-2); }
+.site-footer a:hover { color: var(--paper); }
+.site-footer :focus-visible { outline-color: var(--paper); }
+.site-footer__row { padding-block: var(--space-12); border-top: 1px solid var(--night-line); }
+.site-footer__row:first-child { border-top: 0; padding-top: 0; padding-bottom: 64px; }
+/* Row heads are dot labels (Paper dot), never uppercase */
+.site-footer__row-h,
+.site-footer__col-title {
+  display: inline-flex; align-items: center; gap: 0.6em;
+  margin: 0 0 20px; font-size: var(--text-label); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--paper);
+}
+.site-footer__row-h::before,
+.site-footer__col-title::before { content: ''; flex: none; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--paper); }
+
+/* Row 1 · large wordmark + newsletter (6/6) */
+.site-footer__brand-row { display: grid; gap: var(--space-12); }
+@media (min-width: 1024px) { .site-footer__brand-row { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 32px; align-items: start; } }
+.site-footer__logo { display: inline-flex; color: var(--paper); text-decoration: none; border-radius: var(--radius-btn); }
+:root .site-footer__logo .logo { --logo-size: clamp(3.5rem, 2rem + 6.4vw, 7.5rem); color: var(--paper); letter-spacing: -0.045em; line-height: 0.9; }
+:root .site-footer__tagline {
+  margin-top: var(--space-6); font-family: var(--font-display);
+  font-size: var(--text-h3); font-weight: 400; line-height: 1.25; letter-spacing: var(--tracking-h3);
+  color: var(--paper); max-width: 24ch; text-wrap: balance;
+}
+:lang(ta) .site-footer__tagline { letter-spacing: 0; }
+.site-footer__positioning { margin-top: var(--space-3); color: var(--night-text-2); font-size: var(--text-body); max-width: 44ch; }
+:root .site-footer__newsletter { display: grid; gap: var(--space-3); padding: 0; border: 0; border-radius: 0; background: transparent; }
+@media (min-width: 1024px) { :root .site-footer__newsletter { padding: var(--space-2) 0 0; border: 0; } }
+.site-footer__nl-title { margin: 0 0 var(--space-1); font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem); font-weight: 400; line-height: 1.2; letter-spacing: -0.015em; color: var(--paper); max-width: 26ch; text-wrap: balance; }
+:lang(ta) .site-footer__nl-title { letter-spacing: 0; font-size: 1.25rem; }
+.site-footer__nl-body { color: var(--night-text-2); font-size: var(--text-body); max-width: 52ch; }
+.site-footer__dpdp { font-size: var(--text-caption); color: var(--night-text-muted); }
+.site-footer__dpdp a { color: var(--night-text-2); }
+
+/* Row 2 · link grid at equal widths: 2 columns on phones, 3 at ≥768, 6 at ≥1024; links ~44px apart (AIWO) */
+.site-footer__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-10) 32px; align-items: start; padding-top: var(--space-16); }
+@media (min-width: 768px) { .site-footer__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .site-footer__cols { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.site-footer__col-h { margin: 0; font-size: inherit; font-weight: inherit; }
+.site-footer__col-toggle { display: none; }
+.site-footer__col-title { display: inline-flex; }
+.site-footer__col { min-width: 0; }
+.site-footer__list { list-style: none; display: grid; gap: 14px; margin: 0; padding: 0; }
+.site-footer__link {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 24px;
+  font-size: var(--text-label); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.2em;
+  transition: color var(--dur-2) var(--ease-snap), text-decoration-color var(--dur-2) var(--ease-snap);
+}
+.site-footer__link:hover { color: var(--paper); text-decoration-color: rgb(244 243 239 / 0.6); }
+.site-footer__brand-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-night); flex: none; }
+
+/* Row 3 · social: 40px ring circles + the existing labels */
+.site-footer__social-list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-6); margin: 0; padding: 0; }
+.site-footer__social-item { display: inline-flex; align-items: center; gap: var(--space-3); min-height: 44px; color: var(--night-text-2); text-decoration: none; }
+.site-footer__social-icon {
+  display: inline-grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--night-line-strong); color: var(--paper);
+  transition: background-color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
+}
+.site-footer__social-item--link:hover { color: var(--paper); text-decoration: none; }
+.site-footer__social-item--link:hover .site-footer__social-icon { background: rgb(244 243 239 / 0.08); box-shadow: inset 0 0 0 1px var(--night-text-muted); }
+.site-footer__handles { margin-top: var(--space-4); font-size: var(--text-caption); color: var(--night-text-muted); }
+
+/* Row 4 · partners (grayscale wordmarks) */
+.site-footer__partner-list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-8); align-items: center; margin: 0; padding: 0; }
+.site-footer__partner {
+  display: inline-flex; align-items: center; min-height: 44px; font-weight: 500; font-size: var(--text-body-lg);
+  letter-spacing: -0.01em; color: var(--night-text-muted); text-decoration: none; filter: grayscale(1);
+}
+.site-footer__partner:hover { color: var(--paper); text-decoration: none; }
+
+/* Row 5 · ThinkTN */
+.site-footer__thinktn p { max-width: 72ch; color: var(--night-text-muted); font-size: var(--text-small); }
+.site-footer__thinktn-link { display: inline-flex; align-items: center; gap: var(--space-1); white-space: nowrap; font-weight: 500; min-height: 32px; }
+
+/* Row 6 · legal: 13px, one weight, 16px gaps (no bullets); the last row of the page */
+.site-footer__legal { display: grid; gap: var(--space-4); padding-block: var(--space-8) var(--space-10); font-size: var(--text-caption); color: var(--night-text-muted); }
+@media (min-width: 1024px) {
+  .site-footer__legal { grid-template-columns: 1fr auto; align-items: center; }
+  .site-footer__legal-list { grid-column: 1 / 2; }
+  .site-footer__motion { grid-column: 2; grid-row: 1 / span 2; justify-self: end; }
+}
+.site-footer__copy { color: var(--night-text-muted); }
+.site-footer__legal-list { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; padding: 0; }
+.site-footer a.site-footer__legal-link, .site-footer__legal-link { display: inline-flex; align-items: center; min-height: 32px; color: var(--night-text-muted); text-decoration: none; font-size: var(--text-caption); font-weight: 400; }
+@media (max-width: 767.98px) { .site-footer a.site-footer__legal-link, .site-footer .site-footer__legal-link { min-height: 44px; } .site-footer__legal-list { gap: 8px 20px; } }
+.site-footer a.site-footer__legal-link:hover, .site-footer__legal-btn:hover { color: var(--paper); text-decoration: underline; text-decoration-color: currentColor; }
+.site-footer__legal-btn { display: inline-flex; align-items: center; min-height: 32px; border: 0; background: transparent; padding: 0; font: inherit; font-size: var(--text-caption); line-height: inherit; cursor: pointer; font-weight: 400; color: var(--night-text-muted); }
+@media (max-width: 767.98px) { .site-footer .site-footer__legal-btn { min-height: 44px; } }
+
+/* Phones and tablets: 44 px targets for the logo and the ThinkTN link */
+@media (max-width: 1023px), (pointer: coarse) {
+  .site-footer__logo, .site-footer__thinktn-link { display: inline-flex; align-items: center; min-height: 44px; }
+}
+@media (pointer: coarse) {
+  .site-footer__link, .site-footer a.site-footer__legal-link, .site-footer .site-footer__legal-link, .site-footer .site-footer__legal-btn { min-height: 44px; }
+  .site-footer__legal-list { row-gap: 8px; }
+}
+/* Pages with their own newsletter sign-up: row 1 is the brand block only */
+@media (min-width: 1024px) { .site-footer__brand-row[data-no-newsletter] { grid-template-columns: 1fr; } }
+
+/* While the cookie banner is open (ConsentBanner sets html[data-consent-open] and --consent-h), the page ends with
+   room for it, so the last footer controls can scroll clear of the fixed banner (WCAG 2.4.11). */
+html[data-consent-open] .site-footer__legal { padding-bottom: calc(var(--space-10) + var(--consent-h, 0px)); }
+
+/* Tamil phones: one link column. Single Tamil words in the footer ("பல்கலைக்கழகங்கள்" ≈ 166px) are wider than a
+   124px half column at 320, so links ran into the next column. */
+@media (max-width: 399.98px) {
+  :lang(ta) .site-footer__cols { grid-template-columns: minmax(0, 1fr); gap: var(--space-8); }
+}
+.site-footer__link { max-width: 100%; }
+/* Phones: short labels ("Terms", "Media") still get a 44px-wide target */
+@media (max-width: 767.98px) { .site-footer__link, .site-footer .site-footer__legal-link { min-width: 44px; } }

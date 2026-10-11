@@ -1,0 +1,10 @@
+{
+  "tamil": {
+    "status": "draft — native review pending",
+    "source": "Book 2 §14 terms where they exist (nav, CTAs, ladder); everything else drafted for the site and NOT yet reviewed by a native Tamil copywriter (Book 2 Appendix A #14).",
+    "updated": "2026-10-06",
+    "convention": "Every user-visible field may carry a <field>Ta sibling (titleTa, summaryTa, headlineTa, statusNoteTa, priceNoteTa, durationTa, ctaLabelTa, dateLabelTa, cityTa, excerptTa, bodyTa, statusLabelTa, cadenceTa, labelTa, noteTa, asAtLabelTa, unitTa, roleTa, bioTa, bioNoteTa, descriptionTa, keywordsTa). Brand and programme names stay in Latin script. Editorial marks such as [placeholder — …], [C] and [date TBC] are kept in English inside Tamil strings so the client still renders them as marks. Pure placeholders get no Ta sibling; the client falls back to English.",
+    "files": ["programmes.json", "events.json", "stories.json", "reports.json", "metrics.json", "ledger.json", "people.json", "pages.json"],
+    "notTranslated": ["programmes.json eligibility, outcomes, forWhom", "people.json fullBio (placeholder)", "person names (each person confirms their own Tamil spelling)"]
+  }
+}

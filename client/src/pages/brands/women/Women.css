@@ -1,0 +1,316 @@
+/* StartNet Women — brand home, sub-pages and page-local components, as AngelList-family sheets. Accent tokens come
+   from [data-brand="women"]; the pink stays in dots, small marks, the rising path and the brand button. */
+
+.women-inline-icon { display: inline-block; vertical-align: -0.15em; margin-right: var(--space-1); }
+.women-proposed { font-size: 0.9em; color: var(--color-text-muted); border: 1px dashed var(--color-border-control); border-radius: var(--btn-radius); padding: 0 0.3em; }
+
+/* Hero source line (on the ink band) */
+.women-hero__source { display: grid; gap: var(--space-2); max-width: 34rem; }
+.women-hero__source .stat { border-top: 0; padding-top: 0; }
+
+/* ---------- Proof band: the shared .bp-statrow (brandPage.css) and its hairline footnote row ---------- */
+.women-proof__item { min-width: 0; }
+.women-proof__foot .caption { margin: 0; }
+
+/* ---------- Statement + rising path ---------- */
+.women-statement { max-width: 62rem; margin-bottom: var(--space-head-gap); }
+.women-statement .eyebrow { margin-bottom: var(--space-4); }
+.women-statement__title { text-wrap: balance; }
+/* The second clause in Graphite: a two-tone statement (the serif accent stays reserved for one word in an h1) */
+:root .women-statement .women-statement__em { font-family: inherit; font-style: normal; font-weight: inherit; font-size: 1em; letter-spacing: inherit; color: var(--color-text-2); }
+
+
+.women-path { position: relative; }
+.women-path__label { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--space-3); }
+.women-path__num { color: var(--color-text-muted); font-variant-numeric: tabular-nums lining-nums; }
+.women-path__go {
+  display: inline-block; padding-block: var(--space-2);
+  color: var(--color-text); font-weight: 400; text-decoration: none;
+}
+.women-path__go-label {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size var(--dur-3) var(--ease-snap);
+}
+.women-path__go-arrow { display: inline-block; vertical-align: -0.2em; margin-left: 10px; color: var(--accent-text); transition: transform var(--dur-2) var(--ease-snap); }
+@media (hover: hover) {
+  .women-path__go:hover .women-path__go-label { background-size: 100% 1px; }
+  .women-path__go:hover .women-path__go-arrow { transform: translateX(4px); }
+}
+.women-path__go:focus-visible .women-path__go-label { background-size: 100% 1px; }
+/* The step body clips its overflow (collapse animation), so an outside focus ring would be cut off (WCAG 2.4.7).
+   Give the body 8px of horizontal room (net zero layout) and draw the ring inside the link box. */
+.women-path .pulli-timeline__body-inner { padding-inline: 8px; margin-inline: -8px; }
+.women-path .pulli-timeline__body-inner > .women-path__go { padding-inline: 6px; margin-inline: -6px; border-radius: 4px; }
+.women-path .pulli-timeline__body-inner > .women-path__go:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }
+/* Collapsed steps leave the tab order (their text stays in the DOM and the prerender) */
+.women-path .pulli-timeline__body:not([data-open]) .pulli-timeline__body-inner { visibility: hidden; transition: visibility 0s 400ms; }
+.women-path .pulli-timeline__body-inner > .women-path__go { max-width: 44ch; }
+
+/* ---------- Who it's for / How we design ---------- */
+.women-who { display: grid; gap: var(--space-12); }
+@media (min-width: 1024px) { .women-who { grid-template-columns: 7fr 5fr; gap: var(--space-16); align-items: start; } }
+.women-who__list { list-style: none; display: grid; margin-top: var(--space-8); border-top: 1px solid var(--color-text); }
+/* AIWO hairline rows under an Ink rule (P11): no boxes */
+.women-who__item { display: grid; grid-template-columns: auto 1fr; gap: var(--space-4); padding: 28px 0; border-bottom: 1px solid var(--color-border); }
+.women-who__item .h5 { margin-bottom: var(--space-1); font-size: var(--text-h3); }
+.women-who__icon { display: grid; place-items: center; width: 24px; height: 24px; margin-top: 2px; color: var(--color-text); }
+.women-design { display: grid; gap: var(--space-6); }
+.women-design__list { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
+.women-design__item { display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); align-items: start; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+.women-design__item strong { font-weight: 500; }
+.women-design__icon { color: var(--color-text); margin-top: 0.15em; }
+.women-design__floor { padding: var(--space-6); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius); background: var(--bp-card); }
+.women-design__floor .stat { border-top: 0; padding-top: 0; }
+
+/* ---------- Circles head ---------- */
+.women-circles__head, .women-hc__head { display: grid; gap: var(--space-6); margin-bottom: var(--space-10); }
+@media (min-width: 1024px) { .women-circles__head, .women-hc__head { grid-template-columns: 7fr 5fr; gap: var(--space-16); align-items: end; } }
+.women-circles__head .eyebrow, .women-hc__head .eyebrow { margin-bottom: var(--space-5); }
+
+/* ---------- Circle finder ---------- */
+.women-finder { display: grid; gap: var(--space-6); }
+.women-finder__controls { display: grid; gap: var(--space-6); padding: var(--space-6); background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius); }
+@media (min-width: 768px) { .women-finder__controls { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: start; padding: var(--space-8); } }
+.women-finder__field { display: grid; gap: var(--space-2); }
+.women-finder__label { font-weight: 500; font-size: var(--text-label); padding: 0; margin-bottom: var(--space-2); }
+.women-finder__select-wrap { position: relative; }
+.women-finder__select-icon { position: absolute; left: var(--space-4); top: 50%; transform: translateY(-50%); color: var(--color-text); pointer-events: none; }
+.women-finder__select {
+  width: 100%; min-height: 48px; padding: var(--space-3) var(--space-4) var(--space-3) calc(var(--space-4) + 28px);
+  border: 1px solid var(--color-border-control); border-radius: var(--btn-radius); background: var(--bp-card);
+  font-size: var(--text-body); appearance: auto;
+}
+.women-finder__select { background: var(--color-bg-form, #fff); }
+.women-finder__select:hover { border-color: var(--color-text); }
+.women-finder__select:focus-visible { outline: none; border-color: var(--color-text); box-shadow: 0 0 0 1px var(--color-text); }
+.women-finder__hint { font-size: var(--text-caption); color: var(--color-text-muted); }
+.women-finder__formats { border: 0; margin: 0; padding: 0; min-width: 0; }
+.women-finder__chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.women-finder__chip { position: relative; }
+.women-finder__chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.women-finder__chip span {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: var(--radius-full);
+  box-shadow: inset 0 0 0 1px var(--line-strong); font-size: var(--text-meta); font-weight: 500;
+  transition: background-color var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap), transform var(--dur-1) var(--ease-standard);
+}
+@media (hover: hover) { .women-finder__chip:hover span { box-shadow: inset 0 0 0 1px var(--color-text); } }
+.women-finder__chip:active span { transform: scale(0.97); }
+.women-finder__chip input:checked + span { background: var(--sn-ink); color: var(--paper); box-shadow: inset 0 0 0 1px var(--sn-ink); }
+.women-finder__chip input:focus-visible + span { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+@media (pointer: coarse) { .women-finder__chip span { min-height: 44px; } }
+.women-finder__count { font-weight: 500; }
+.women-finder__results { list-style: none; display: grid; gap: var(--space-4); }
+.women-finder__card {
+  display: grid; grid-template-columns: auto 1fr; gap: var(--space-4) var(--space-5); padding: var(--space-5);
+  position: relative; overflow: hidden;
+  background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius);
+  transition: box-shadow var(--dur-3) var(--ease-snap);
+}
+.women-finder__card::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--color-text);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+.women-finder__card:focus-within { box-shadow: inset 0 0 0 1px var(--bp-line-strong); }
+.women-finder__card:focus-within::before { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) {
+  .women-finder__card:hover { box-shadow: inset 0 0 0 1px var(--bp-line-strong); }
+  .women-finder__card:hover::before { transform: scaleX(1); }
+}
+@media (min-width: 900px) { .women-finder__card { grid-template-columns: auto 1fr auto; align-items: center; } }
+.women-finder__card--tbc { grid-template-columns: 1fr; }
+@media (min-width: 900px) { .women-finder__card--tbc { grid-template-columns: 1fr auto; } }
+.women-finder__date { display: grid; place-items: center; width: 64px; height: 64px; border-radius: var(--btn-radius); background: transparent; font-variant-numeric: tabular-nums lining-nums; color: var(--color-text); line-height: 1; box-shadow: inset 0 0 0 1px var(--color-border); }
+.women-finder__day { font-size: var(--text-h4); font-weight: 400; }
+.women-finder__month { font-size: var(--text-caption); font-weight: 500; }
+.women-finder__body { display: grid; gap: var(--space-2); min-width: 0; }
+.women-finder__badges { --cluster-gap: var(--space-2); }
+.women-finder__meta { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); color: var(--color-text-2); font-size: var(--text-small); }
+.women-finder__meta li { display: inline-flex; align-items: center; gap: var(--space-1); }
+.women-finder__meta svg { color: var(--color-text); flex: none; }
+.women-finder__actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+@media (min-width: 900px) { .women-finder__actions { grid-column: auto; flex-direction: column; align-items: stretch; } }
+/* Empty state: a flat hairline card; the forming seats are the one accent */
+.women-finder__empty {
+  display: grid; gap: var(--space-8); padding: var(--space-8); border-radius: var(--media-radius);
+  background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line);
+}
+@media (min-width: 768px) { .women-finder__empty { grid-template-columns: 14rem 1fr; align-items: center; } }
+/* The forming Circle: 20 seats around a ring (not a dot grid), three already taken; a soft accent light in the middle. */
+.women-finder__forming {
+  position: relative; width: 100%; max-width: 11rem; aspect-ratio: 1;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 14%, transparent), transparent 72%);
+}
+.women-finder__seat {
+  position: absolute; width: 0.875rem; height: 0.875rem; margin: -0.4375rem 0 0 -0.4375rem;
+  left: calc(50% + sin(var(--i) * 18deg) * 42%); top: calc(50% - cos(var(--i) * 18deg) * 42%);
+  border-radius: var(--radius-full); border: 1px dashed var(--accent); opacity: 0.7;
+}
+.women-finder__seat:nth-child(-n + 3) { background: var(--accent); border-style: solid; opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion="reduced"]) .women-finder__seat:nth-child(-n + 3) { animation: women-seat var(--dur-5) var(--ease-enter) both; animation-delay: calc(var(--i) * 80ms); }
+}
+@keyframes women-seat { from { transform: scale(0.4); opacity: 0; } to { transform: none; opacity: 1; } }
+.women-finder__statewide { padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
+.women-finder__statewide-list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); margin-top: var(--space-3); }
+.women-finder__note { color: var(--color-text-muted); }
+
+/* ---------- Rise Academy: media frame left, text right ---------- */
+.women-rise__art { position: relative; }
+.women-rise__art .art-image { border-radius: var(--media-radius); }
+/* Single column below 1024: cap the 4/5 art so it is not ~975 × 1219 at tablet widths (F-63). */
+@media (max-width: 1023px) { .women-rise__art { width: 100%; max-width: 28rem; margin-inline: auto; } }
+.women-rise__phone {
+  position: absolute; right: var(--space-4); bottom: var(--space-4); z-index: 2; display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-1) var(--space-3); border-radius: var(--btn-radius); background: rgb(12 23 25 / 0.72);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  font-size: var(--text-caption); font-weight: 500; color: var(--paper);
+}
+.women-rise__phone svg { color: var(--paper); }
+.women-rise__copy { --stack-gap: var(--space-5); }
+.women-rise__modules { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.women-rise__modules li { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 36px; padding: 0 var(--space-3); border-radius: var(--btn-radius); box-shadow: inset 0 0 0 1px var(--color-border); color: var(--color-text); font-weight: 500; font-size: var(--text-meta); }
+.women-rise__modules .tnum { font-size: var(--text-caption); color: var(--color-text-muted); }
+
+/* ---------- Scheme explorer ---------- */
+.women-schemes { display: grid; gap: var(--space-6); }
+.women-schemes__picker { display: grid; gap: var(--space-4); }
+@media (min-width: 768px) { .women-schemes__picker { grid-template-columns: repeat(3, 1fr); } }
+.women-schemes__card {
+  position: relative; display: grid; gap: var(--space-2); align-content: start; text-align: left; padding: var(--space-6);
+  border: 0; overflow: hidden;
+  background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius); color: var(--color-text);
+  transition: box-shadow var(--dur-3) var(--ease-snap), transform var(--dur-1) var(--ease-standard);
+}
+.women-schemes__card::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--color-text); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-3) var(--ease-snap); }
+@media (hover: hover) and (pointer: fine) {
+  .women-schemes__card:hover { box-shadow: inset 0 0 0 1px var(--bp-line-strong); }
+  .women-schemes__card:hover::after { transform: scaleX(1); }
+}
+.women-schemes__card:active { transform: scale(0.99); }
+.women-schemes__card.is-active { box-shadow: inset 0 0 0 1px var(--color-text); }
+.women-schemes__card.is-active::after { transform: scaleX(1); }
+.women-schemes__icon { display: grid; place-items: center; width: 24px; height: 24px; color: var(--color-text); margin-bottom: var(--space-3); }
+.women-schemes__owner { font-size: var(--text-meta); font-weight: 400; color: var(--color-text-muted); }
+.women-schemes__name { font-family: var(--font-display); font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3); }
+.women-schemes__summary { font-size: var(--text-small); color: var(--color-text-2); }
+.women-schemes__panel { display: grid; gap: var(--space-6); padding: var(--space-6); background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius); }
+@media (min-width: 1024px) { .women-schemes__panel { grid-template-columns: 5fr 7fr; gap: var(--space-12); padding: var(--space-10); } }
+.women-schemes__detail { display: grid; gap: var(--space-4); align-content: start; }
+.women-schemes__detail .stat { border-top: 0; padding-top: 0; }
+.women-schemes__check { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: var(--space-4); }
+.women-schemes__check legend { padding: 0; margin-bottom: var(--space-2); }
+.women-schemes__list { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
+.women-schemes__list > li { border-bottom: 1px solid var(--color-border); }
+.women-schemes__item { position: relative; display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); align-items: start; padding: var(--space-3) var(--space-2); min-height: 44px; border-radius: var(--btn-radius); cursor: pointer; transition: background-color var(--dur-2) var(--ease-standard); }
+@media (hover: hover) { .women-schemes__item:hover { background: color-mix(in srgb, var(--color-text) 4%, transparent); } }
+.women-schemes__item input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.women-schemes__box { display: grid; place-items: center; width: 20px; height: 20px; border-radius: var(--btn-radius); border: 1px solid var(--color-border-control); color: transparent; background: var(--bp-card); transition: background-color var(--dur-1) var(--ease-standard), border-color var(--dur-1) var(--ease-standard); }
+.women-schemes__box svg { transform: scale(0.4); opacity: 0; transition: transform var(--dur-2) var(--ease-dot), opacity var(--dur-1) linear; }
+.women-schemes__item input:checked + .women-schemes__box { background: var(--color-text); border-color: var(--color-text); color: var(--color-bg-raised); }
+.women-schemes__item input:checked + .women-schemes__box svg { transform: none; opacity: 1; }
+.women-schemes__item input:focus-visible + .women-schemes__box { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.women-schemes__meter { height: 2px; background: var(--color-border); overflow: hidden; }
+.women-schemes__meter-fill { display: block; height: 100%; background: var(--accent); transform-origin: left; transition: transform var(--dur-6) var(--ease-reveal); }
+.women-schemes__result strong { color: var(--accent-text); font-weight: 500; }
+.women-schemes__micro { color: var(--color-text-muted); }
+
+/* ---------- Summit (Night band) ---------- */
+.women-summit__grid { display: grid; gap: var(--space-10); align-items: center; }
+@media (min-width: 1024px) { .women-summit__grid { grid-template-columns: 7fr 5fr; gap: var(--space-16); } }
+.women-summit__copy { --stack-gap: var(--space-6); }
+.women-summit__art { max-width: 28rem; width: 100%; justify-self: center; }
+.women-summit__art .art-image { border-radius: var(--media-radius); }
+
+/* ---------- Nomination ---------- */
+.women-nominate__wrap { align-items: start; }
+.women-nominate__aside { padding: var(--space-6); border-radius: var(--media-radius); background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); }
+.women-nominate { margin-top: var(--space-4); }
+
+/* ---------- Sub-pages ---------- */
+.women-sub__layout { align-items: start; }
+.women-sub__main { --stack-gap: var(--space-12); min-width: 0; }
+@media (min-width: 1024px) { .women-sub__aside { position: sticky; top: calc(var(--header-h) + var(--subnav-h) + var(--space-6)); } }
+.women-sub__points { list-style: none; display: grid; gap: var(--space-8) 32px; }
+@media (min-width: 640px) { .women-sub__points { grid-template-columns: repeat(3, 1fr); } }
+/* AIWO top-rule columns (P7 / P14) */
+.women-sub__point { display: grid; gap: var(--space-3); align-content: start; padding: 28px 0 0; border-top: 1px solid var(--color-text); }
+.women-sub__point-icon { color: var(--color-text); }
+.women-sub__finder { display: grid; gap: var(--space-6); }
+.women-sub__modules { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
+.women-sub__module { display: grid; grid-template-columns: 3.5rem 1fr; gap: var(--space-4); align-items: baseline; padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border); }
+.women-sub__module-num { color: var(--color-text-muted); font-weight: 400; font-size: var(--text-meta); line-height: 1; font-variant-numeric: tabular-nums lining-nums; }
+.women-sub__how { display: grid; gap: var(--space-8) 32px; }
+@media (min-width: 640px) { .women-sub__how { grid-template-columns: repeat(3, 1fr); } }
+.women-sub__how-item { display: grid; gap: var(--space-3); align-content: start; padding: 28px 0 0; border-top: 1px solid var(--color-text); }
+.women-sub__how-item svg { color: var(--color-text); }
+.women-sub__note { padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+.women-sub__summit-art { border-radius: var(--media-radius); overflow: hidden; }
+
+/* ---------- FitLabel: shorter CTA labels on phones (F-63) ---------- */
+.women-fit__short { display: none; }
+@media (max-width: 479px) {
+  .women-fit__long { display: none; }
+  .women-fit__short { display: inline; }
+}
+@media (min-width: 480px) and (max-width: 639px) {
+  :lang(ta) .women-fit__long { display: none; }
+  :lang(ta) .women-fit__short { display: inline; }
+}
+
+/* Tamil words agglutinate and run long (Book 3 §4.4): as a last resort, large headings may break between
+   aksharas rather than push the page wider than a 320px screen. overflow-wrap only breaks a word that cannot fit. */
+:lang(ta) :is(.women-statement__title, .women-circles__head h2, .women-rise__copy h2, .women-hc__head h2,
+  .women-summit__copy h2, .women-sub__main h2, .women-path__name, .women-finder__empty h3, .women-schemes__name) {
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Tamil fits between 1024 and 1279 (V-W1) ---------- */
+/* Two-column bands are at their narrowest here: step the Tamil headings down one size so the longest
+   agglutinated word (கற்றுக்கொள்ளுங்கள், நிறுவனர்களுக்கும்) fits whole instead of breaking between aksharas. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  :lang(ta) .women-rise__copy h2.h1 { font-size: var(--text-h2); }
+  :lang(ta) .women-summit__copy h2.h1 { font-size: var(--text-h2); }
+}
+/* Three Tamil point cards / scheme cards are too narrow for one word per line: two columns, and an odd
+   last card spans the row. */
+@media (min-width: 640px) {
+  :lang(ta) .women-sub__points { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  :lang(ta) .women-sub__point:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 768px) and (max-width: 1279.98px) {
+  :lang(ta) .women-schemes__picker { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  :lang(ta) .women-schemes__card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+/* Phones: the longest Tamil words in these headings (உரிமையாளரிலிருந்து, கற்றுக்கொள்ளுங்கள்) measure ~13
+   em, so cap the size at the column width / 13.5 and they stay whole down to 320px. */
+@media (max-width: 479.98px) {
+  :lang(ta) .women-statement__title { font-size: min(var(--text-h1), calc((100vw - 2rem) / 13.5)); }
+  :lang(ta) .women-rise__copy h2.h1 { font-size: min(var(--text-h1), calc((100vw - 2rem) / 13.5)); }
+}
+@media (max-width: 359.98px) { :lang(ta) .women-design__item p { font-size: var(--text-small); } }
+
+/* QA v6 (Tamil hero): "தலைமையிலானவை." is ~11.6em wide, wider than the 18ch title cap (~11.3em) and than the text
+   column at 1024–1440, so it split between aksharas at every width. The title scales to its column (container
+   units, CSS only: same in the prerender, no layout shift) and gets a 20ch cap. Scoped to the Women home hero. */
+:lang(ta) main:has(.women-statement) .brand-hero[data-brand='women'] .brand-hero__text { container-type: inline-size; }
+:lang(ta) main:has(.women-statement) .brand-hero[data-brand='women'] .brand-hero__title {
+  max-width: 20ch;
+  font-size: min(var(--text-display-xl), 100cqi / 11.8);
+}
+@media (forced-colors: active) {
+  .women-path .pulli-timeline__body-inner > .women-path__go:focus-visible { outline-offset: -2px !important; }
+}
+
+/* Mobile audit: below 480px PulliTimeline drops each step's 120px mini art under the text, where it sat alone at the
+   left like a shrunk desktop thumbnail. On the Women journey keep it beside the step, at 72px. */
+@media (max-width: 479.98px) {
+  .women-path .pulli-timeline__step { grid-template-columns: minmax(0, 1fr) 72px; column-gap: var(--space-4); }
+  .women-path .pulli-timeline__mini { grid-column: 2; grid-row: 1 / span 4; margin-top: 0; }
+  .women-path .pulli-art--mini { width: 72px; height: 72px; }
+}
+
+/* Mobile audit: on phones the "1:1 mentor" chip (bottom right) ran into the image caption (bottom left) and hid
+   its end ("Rise Academy, on yo…"). Below 768px the chip moves to the top right corner. */
+@media (max-width: 767.98px) {
+  .women-rise__phone { top: var(--space-4); bottom: auto; }
+}

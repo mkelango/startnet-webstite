@@ -1,0 +1,91 @@
+/* Spark → Learn → Build → Launch → Fund as a calm numbered hairline list.
+   Phones: stacked hairline rows. ≥768: five columns between vertical hairlines under a thin track; hovering or
+   focusing a stage moves the red full stop along the track to it ("the pulse travels"). */
+.vibe-journey { position: relative; }
+.vibe-journey__list { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
+.vibe-journey__step { position: relative; display: grid; border-bottom: 1px solid var(--color-border); }
+.vibe-journey__node { display: none; }
+
+.vibe-journey__link {
+  display: grid; grid-template-columns: 3rem 1fr; grid-template-areas: "num verb" "num via";
+  column-gap: var(--space-4); row-gap: var(--space-1); align-items: baseline;
+  min-height: 44px; padding: var(--space-5) var(--space-2);
+  color: inherit; text-decoration: none;
+  transition: background-color var(--dur-2) var(--ease-standard);
+}
+.vibe-journey__link--static { cursor: default; }
+@media (hover: hover) { a.vibe-journey__link:hover { background: var(--bone); } }
+.vibe-journey__num { grid-area: num; font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.vibe-journey__verb {
+  grid-area: verb;
+  font-family: var(--font-display); font-size: var(--text-h3); font-weight: 400;
+  letter-spacing: -0.02em; line-height: 1.1;
+}
+.vibe-journey__via { grid-area: via; font-size: var(--text-small); color: var(--color-text-2); }
+a.vibe-journey__link .vibe-journey__via {
+  text-decoration: underline; text-decoration-color: var(--color-link-decoration);
+  text-decoration-thickness: 1px; text-underline-offset: 0.25em;
+}
+a.vibe-journey__link:hover .vibe-journey__via { text-decoration-color: currentColor; }
+
+.vibe-journey__track { display: none; }
+
+@media (min-width: 768px) {
+  .vibe-journey { padding-top: var(--space-8); }
+  .vibe-journey__list { grid-template-columns: repeat(var(--vibe-journey-n), minmax(0, 1fr)); border-top: 0; }
+  .vibe-journey__step { border-bottom: 0; }
+  .vibe-journey__step + .vibe-journey__step { border-left: 1px solid var(--color-border); }
+  .vibe-journey__link {
+    grid-template-columns: 1fr; grid-template-areas: "num" "verb" "via";
+    row-gap: var(--space-2); align-content: start; height: 100%;
+    padding: var(--space-6) var(--space-5) var(--space-6);
+  }
+  .vibe-journey__step:first-child .vibe-journey__link { padding-left: 0; }
+  .vibe-journey__verb { margin-top: var(--space-6); }
+  @media (hover: hover) { a.vibe-journey__link:hover { background: transparent; } }
+  a.vibe-journey__link:hover .vibe-journey__verb { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.12em; text-decoration-color: var(--color-border-control); }
+
+  /* Stage nodes sit on the track at each column's left edge */
+  .vibe-journey__node {
+    display: block; position: absolute; left: 7px; top: calc(var(--space-8) * -1);
+    width: 9px; height: 9px; margin: -4px 0 0 -4.5px; border-radius: 50%;
+    background: var(--color-bg); box-shadow: inset 0 0 0 1px var(--color-border-control);
+    transition: background-color var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard);
+  }
+  .vibe-journey__step.is-reached .vibe-journey__node { background: var(--color-text); box-shadow: none; }
+
+  /* Track from the first node to the last; the fill and the moving full stop follow the active stage */
+  .vibe-journey__track {
+    display: block; position: absolute; top: 0;
+    /* inset 7px so the full stop at the first stage is not clipped by the journey's overflow clip */
+    left: 7px; right: calc(100% / var(--vibe-journey-n) - 7px);
+    height: 1px; background: var(--color-border);
+  }
+  .vibe-journey__fill {
+    position: absolute; inset: 0; background: var(--color-text);
+    transform-origin: left center;
+    transform: scaleX(calc(var(--vibe-journey-pos) / var(--vibe-journey-last)));
+    transition: transform var(--dur-4) var(--ease-snap);
+  }
+  .vibe-journey__rail {
+    position: absolute; inset: 0;
+    transform: translateX(calc(var(--vibe-journey-pos) / var(--vibe-journey-last) * 100%));
+    transition: transform var(--dur-4) var(--ease-snap);
+  }
+  .vibe-journey__dot {
+    position: absolute; left: 0; top: 50%;
+    width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px;
+    border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 5px var(--color-bg);
+  }
+}
+
+/* The rail is a full-width layer translated up to 100% of its width; clip horizontally so it never adds page scroll. */
+.vibe-journey { overflow-x: clip; overflow-y: visible; }
+
+/* Reduced motion: the stage dot and fill jump to the selected stage (--dur-4 stays 120ms under reduce, so a
+   transform transition would still glide). Same pattern as PulliTimeline.css. */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) .vibe-journey :is(.vibe-journey__fill, .vibe-journey__rail) { transition: none; }
+}
+:root[data-motion='reduced'] .vibe-journey :is(.vibe-journey__fill, .vibe-journey__rail) { transition: none; }

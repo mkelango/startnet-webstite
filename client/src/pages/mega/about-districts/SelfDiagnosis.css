@@ -1,0 +1,230 @@
+/* /about/self-diagnosis (T07 Report). Prefix: .sd- · 8/4 with chapter nav on desktop, single column on phones.
+   AngelList-family finish: one sheet under the hero holding a translucent pill chapter bar, hairline chapter heads,
+   flat cards, a hairline scorecard table in the one Night band. */
+.sd { --sd-bar-h: 56px; }
+
+/* Tamil headline words are long: keep "மதிப்பிடுகிறது." inside a 288px column at 320px. */
+.sd-hero__title:lang(ta), :lang(ta) .sd-hero__title { font-size: clamp(1.625rem, 0.5rem + 4.6vw, var(--text-display-xl)); }
+
+/* The sheet that slides over the hero (theme gives it the rounded top and shadow; it needs its own fill). The chapter
+   bar starts just below the curve, so it sticks without dragging the sheet's top padding along. */
+.sd .sd-sheet { background: var(--color-bg); padding-top: var(--sheet-radius); }
+.sd-layout-section { padding-top: clamp(var(--space-10), 1.5rem + 3vw, var(--space-16)); }
+
+/* Sticky chapter bar + reading progress. Sits under the site header (offset token when present). */
+.sd-bar {
+  position: sticky;
+  top: var(--shell-offset, var(--header-h));
+  z-index: 5;
+  background: var(--color-bg); /* opaque: content scrolling underneath must not show through */
+  border-bottom: 1px solid var(--color-border);
+  transition: top var(--dur-header) var(--ease-snap); /* moves in step with the header, no gap on reveal */
+}
+:root[data-header-hidden] .sd-bar { transition-timing-function: var(--ease-header-exit); }
+.sd-bar__inner { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.sd-bar__inner::-webkit-scrollbar { display: none; }
+.sd-bar__inner { padding-block: var(--space-2); }
+/* DESIGN-v2 6.4: the chapter stepper is a pill segmented control (components/Tabs.css .segmented) whose Ink pill
+   slides to the current chapter; the 1px Ink line under the bar is the reading progress. */
+.sd-bar__list { list-style: none; margin: 0; width: max-content; }
+.sd-bar__link { gap: var(--space-2); }
+.sd-bar__link:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--color-focus), inset 0 0 0 4px var(--paper); }
+.sd-bar__n { font-size: var(--text-caption); color: inherit; opacity: 0.7; font-variant-numeric: tabular-nums; }
+.sd-bar__progress {
+  position: absolute; left: 0; right: 0; bottom: -1px;
+  height: 1px;
+  background: var(--color-text);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+
+/* Layout: 8/4 on desktop (main + "At a glance"), single column on phones. */
+.sd-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); }
+.sd-layout__side { order: 2; min-width: 0; }
+@media (min-width: 1024px) {
+  .sd-layout { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-16); align-items: start; }
+  .sd-layout__side { order: 0; grid-column: 2; grid-row: 1; position: sticky; top: calc(var(--shell-offset, var(--header-h)) + var(--sd-bar-h) + var(--space-6)); }
+  .sd-layout__main { grid-column: 1; grid-row: 1; }
+  .sd-layout--tail { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
+}
+.sd-layout__side .key-facts { position: relative; top: auto; } /* not sticky itself (the column is); relative so the theme's accent dot stays inside the card */
+.sd-layout__main { min-width: 0; display: grid; gap: var(--space-16); }
+
+/* Summary + chapters */
+.sd-summary { display: grid; gap: var(--space-3); max-width: var(--measure); }
+.sd-summary__status { font-size: var(--text-small); color: var(--color-text-muted); }
+
+.sd-chapter, #sd-scorecard, #sd-sponsor, #sd-download { scroll-margin-top: calc(var(--shell-offset, var(--header-h)) + var(--sd-bar-h) + var(--space-6)); }
+/* Chapter head: number and title under one hairline (the report's blueprint rule). */
+.sd-chapter__head {
+  display: grid; gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+.sd-chapter__n { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; margin: 0; }
+.sd-chapter__title { margin: 0; font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+:lang(ta) .sd-chapter__title { letter-spacing: 0; line-height: 1.35; }
+.sd-chapter__body { display: grid; gap: var(--space-5); min-width: 0; }
+.sd-chapter__body > p, .sd-chapter__body > ul { max-width: var(--measure); }
+.sd-chapter__body > .body-lg { color: var(--color-text-2); }
+
+/* Measures: flat cards */
+.sd-measures { display: grid; gap: var(--space-4); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 768px) { .sd-measures { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); } }
+.sd-measure {
+  min-width: 0;
+  padding: var(--space-6);
+  background: var(--card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+  display: grid; gap: var(--space-3); align-content: start;
+}
+.sd-measure__title { margin: 0; font-weight: 500; letter-spacing: -0.01em; }
+:lang(ta) .sd-measure__title { letter-spacing: 0; }
+.sd-measure__body { margin: 0; color: var(--color-text-2); }
+.sd-measure__stats { margin: var(--space-2) 0 0; display: grid; gap: var(--space-3); }
+.sd-measure__stat { min-width: 0; padding-top: var(--space-3); border-top: 1px solid var(--color-border); }
+
+/* Scorecard (Night band): a hairline table in a 12px frame; --color-border is the night hairline here. */
+.sd-scorecard { display: grid; gap: var(--space-8); }
+.sd-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+}
+.sd-table-wrap:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.sd-table { width: 100%; min-width: 44rem; border-collapse: collapse; font-size: var(--text-small); }
+.sd-table th, .sd-table td {
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border);
+}
+.sd-table thead th {
+  font-size: var(--text-small);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-text-muted);
+  background: none;
+}
+.sd-table tbody th { font-weight: 500; color: var(--color-text); width: 26%; }
+.sd-table td { color: var(--color-text-2); }
+.sd-table tbody tr:last-child th, .sd-table tbody tr:last-child td { border-bottom: 0; }
+.sd-status { display: inline-block; }
+/* Phones: each commitment becomes a stacked card (Commitment, Target, Result, Status),
+   so no column is ever off-screen. Labels come from data-label (translated in JSX). */
+@media (max-width: 639.98px) {
+  .sd-table-wrap { overflow-x: visible; border: 0; border-radius: 0; }
+  .sd-table { min-width: 0; display: block; }
+  .sd-table thead {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  .sd-table tbody { display: grid; gap: var(--space-3); }
+  .sd-table tbody tr {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--media-radius);
+    background: var(--color-bg-raised);
+  }
+  .sd-table tbody th, .sd-table td {
+    display: block;
+    width: auto;
+    padding: 0;
+    border-bottom: 0;
+    overflow-wrap: anywhere;
+  }
+  .sd-table tbody th { font-size: var(--text-body, 1rem); }
+  .sd-table td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: var(--space-1);
+    font-size: var(--text-caption);
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 500;
+    color: var(--color-text-muted);
+  }
+  .sd-table td + td { padding-top: var(--space-3); border-top: 1px solid var(--color-border); }
+}
+.sd-scorecard__legend {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2);
+  font-size: var(--text-small); color: var(--color-text-2);
+}
+.sd-scorecard__sep { color: var(--color-text-muted); }
+
+/* Falling short + method */
+.sd-callout {
+  margin: 0;
+  padding: var(--space-6);
+  background: var(--card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+}
+/* Method checklist: full-width hairline rows */
+.sd-checklist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--color-border); }
+.sd-checklist > li { padding-block: var(--space-4); border-bottom: 1px solid var(--color-border); color: var(--color-text-2); }
+.sd-links { display: grid; gap: 0; justify-items: start; }
+.sd-link {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; width: fit-content;
+  font-weight: 500; color: var(--color-link-standalone); text-decoration: none;
+}
+.sd-link svg:first-child { color: var(--color-text-muted); }
+.sd-link:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.sd-link svg:last-child { transition: transform var(--dur-2) var(--ease-standard); }
+@media (hover: hover) { .sd-link:hover svg:last-child { transform: translateX(var(--shift-1)); } }
+.sd-link:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--btn-radius); }
+
+/* Funding disclosure band */
+.sd-disclosure { gap: var(--space-2); max-width: var(--measure); }
+.sd-disclosure h2 { font-weight: 500; letter-spacing: -0.01em; }
+:lang(ta) .sd-disclosure h2 { letter-spacing: 0; }
+.sd-disclosure p { margin: 0; color: var(--color-text-2); }
+
+/* Download: info left, form right in a flat card */
+.sd-download { display: grid; gap: var(--space-10); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) { .sd-download { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; } }
+.sd-download__intro .h2 { margin-top: var(--space-4); }
+.sd-download__lede { margin-top: var(--space-5); color: var(--color-text-2); max-width: 36rem; }
+/* Files: hairline rows */
+.sd-files { list-style: none; margin: var(--space-8) 0 0; padding: 0; border-top: 1px solid var(--color-border); max-width: 30rem; }
+.sd-file {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3);
+  min-height: 56px; padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 500;
+}
+.sd-file svg { flex: none; color: var(--color-text-muted); }
+.sd-file--pending { color: var(--color-text-2); }
+.sd-download__form {
+  min-width: 0;
+  padding: var(--space-6);
+  background: var(--card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+}
+@media (min-width: 768px) { .sd-download__form { padding: var(--space-8); } }
+
+/* Related: the white sheet slides over the report sheet, like every other change of surface. */
+.sd .sd-related-section { padding-top: var(--space-section); } /* straight edge: one sheet rise per page */
+.sd-related { display: grid; gap: var(--space-4); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 768px) { .sd-related { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); } }
+@media (min-width: 1024px) { .sd-related { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); } }
+/* 2-up on tablets: an odd last card spans the row as a horizontal card (no 2+1 orphan) */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .sd-related > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .sd-related > :last-child:nth-child(odd) > .card:has(> .card__media) { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .sd-related > :last-child:nth-child(odd) > .card.card > .card__media { height: 100%; border-radius: calc(var(--media-radius) - 1px) 0 0 calc(var(--media-radius) - 1px); }
+  .sd-related > :last-child:nth-child(odd) > .card > .card__media .art-image { aspect-ratio: auto !important; height: 100%; min-height: 12rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sd-bar__link, .sd-link svg:last-child { transition: none; }
+  .sd-link:hover svg:last-child { transform: none; }
+}

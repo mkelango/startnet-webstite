@@ -1,0 +1,103 @@
+/* StartNet Vibe sub-pages (T03 programme / T04 series / T11 partner type / T15 listing), AngelList-family sheets:
+   flat hairline tiles, a calm statement band, the brand colour only in small marks and the brand button. */
+.vibe-sub__crumbs { padding-top: var(--space-4); }
+.vibe-sub__meta { --cluster-gap: var(--space-2); }
+
+.vibe-sub__split { align-items: start; }
+.vibe-sub__split--top { align-items: start; }
+.vibe-sub__stack { display: grid; gap: var(--space-8); }
+
+/* Icon list: flat hairline tiles with a small accent icon. Every list has four items: 2x2 (phones included, so
+   short icon + title tiles do not take a full row each), and 4 across only where the list spans the full container
+   (--4). Never 3 + an orphan. */
+.vibe-sub__icons { list-style: none; display: grid; gap: var(--space-8) var(--space-5); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 640px) { .vibe-sub__icons { gap: var(--space-10) 32px; } }
+.vibe-sub__icons--4 { margin-top: var(--space-10); }
+@media (min-width: 1024px) { .vibe-sub__icons--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+/* AIWO top-rule columns (P7): no box, a 1px Ink rule over each item */
+.vibe-sub__icon-item {
+  display: grid; gap: var(--space-4); align-content: start;
+  padding: 28px 0 0;
+  border-top: 1px solid var(--color-text);
+}
+/* Very narrow phones: compact horizontal rows (icon beside title) instead of squeezed tiles */
+/* (Tamil runs ~40% longer with long compound words: it gets the row layout up to 479px.) */
+@media (max-width: 359px) {
+  .vibe-sub__icons { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+  .vibe-sub__icon-item { grid-template-columns: auto 1fr; align-items: center; column-gap: var(--space-3); padding: var(--space-4) 0 0; }
+  .vibe-sub__icon-body { grid-column: 1 / -1; }
+}
+@media (min-width: 360px) and (max-width: 479px) {
+  :lang(ta) .vibe-sub__icons { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+  :lang(ta) .vibe-sub__icon-item { grid-template-columns: auto 1fr; align-items: center; column-gap: var(--space-3); padding: var(--space-4) 0 0; }
+  :lang(ta) .vibe-sub__icon-body { grid-column: 1 / -1; }
+}
+@media (min-width: 360px) and (max-width: 639px) {
+  .vibe-sub__icon-item { padding-top: var(--space-5); }
+}
+.vibe-sub__icon { display: inline-flex; color: var(--color-text); }
+.vibe-sub__icon-title { font-family: var(--font-display); font-weight: 500; font-size: var(--text-h5); line-height: 1.25; letter-spacing: -0.01em; overflow-wrap: break-word; }
+:lang(ta) .vibe-sub__icon-title { font-size: var(--text-body); line-height: var(--leading-heading); }
+.vibe-sub__icon-body { font-size: var(--text-small); color: var(--color-text-2); }
+
+/* Statement band */
+/* The measure is set on the heading in em, so it scales with the display size (ch on the wrapper used the body font). */
+.vibe-sub__statement { display: grid; gap: var(--space-5); max-width: none; min-width: 0; }
+.vibe-sub__statement-text { text-wrap: balance; max-width: 16em; }
+
+/* Languages */
+.vibe-sub__langs { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
+.vibe-sub__lang { display: inline-flex; align-items: center; min-height: 40px; padding: var(--space-1) var(--space-4); border: 1px solid var(--color-border); border-radius: var(--btn-radius); font-weight: 500; }
+.vibe-sub__lang--ta { background: var(--bone); border-color: transparent; font-family: "Anek Tamil Variable", var(--font-sans); }
+/* English pages: one Tamil chip is not worth a 50 KB webfont; use the system Tamil face */
+html:not([lang="ta"]) .vibe-sub__lang--ta { font-family: "Nirmala UI", "Tamil Sangam MN", "Noto Sans Tamil Variable", sans-serif; }
+
+/* Launchpad 12-week strip (decorative): hairline cells, the last week marked with the accent */
+.vibe-sub__weeks { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; }
+.vibe-sub__week {
+  display: grid; place-items: center; aspect-ratio: 1 / 1.4;
+  border-radius: var(--btn-radius);
+  font-size: var(--text-caption); font-weight: 400; font-variant-numeric: tabular-nums;
+  background: var(--bp-card); color: var(--color-text-muted);
+  box-shadow: inset 0 0 0 1px var(--bp-line);
+}
+.vibe-sub__week:last-child { color: var(--accent-text); box-shadow: inset 0 0 0 1px var(--accent); font-weight: 500; }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion="reduced"]) .vibe-sub__week { animation: vibe-sub-week var(--dur-5) var(--ease-enter) both; animation-delay: calc(var(--i) * 40ms + 200ms); }
+}
+@keyframes vibe-sub-week { from { opacity: 0; transform: translateY(var(--shift-2)); } to { opacity: 1; transform: none; } }
+
+/* Paths (campus): two flat cards */
+.vibe-sub__paths { display: grid; gap: var(--space-6); }
+@media (min-width: 768px) { .vibe-sub__paths { grid-template-columns: 1fr 1fr; } }
+.vibe-sub__path {
+  display: grid; gap: var(--space-4); align-content: start; justify-items: start;
+  padding: var(--space-8); border-radius: var(--media-radius);
+  background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line);
+}
+.vibe-sub__path .eyebrow { margin-bottom: var(--space-1); }
+@media (max-width: 767px) { .vibe-sub__path { padding: var(--space-6); } }
+.vibe-sub__note { margin-top: var(--space-8); display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); align-items: center; color: var(--color-text-2); }
+
+/* Proof + package (for colleges): one flat card, the figure big and light */
+.vibe-sub__proof { display: grid; gap: var(--space-8); padding: var(--space-8); border-radius: var(--media-radius); background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); }
+.vibe-sub__proof > .stat { border-top: 0; padding-top: 0; }
+.vibe-sub__package { display: grid; gap: var(--space-2); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
+@media (max-width: 767px) { .vibe-sub__proof { padding: var(--space-6); } }
+
+.vibe-sub__steps { margin-top: var(--space-10); }
+.vibe-sub__programmes { margin-top: var(--space-8); }
+/* One programme: a single readable-width card instead of one cell of a 3-column grid */
+.vibe-sub__programmes--single { display: grid; max-width: 46rem; }
+.vibe-sub__find { margin-top: var(--space-8); }
+.vibe-sub__form { margin-top: var(--space-8); }
+.vibe-sub__split--top .vibe-sub__form { margin-top: 0; }
+
+/* QA v6 (Tamil, /ta/vibe/campus hero): "உருவாக்குநர்களைக்" is ~10.6em, wider than the 592px text column at 1440 (and
+   1024–1280), so it split between aksharas. The title scales to its column (container units, CSS only). Scoped to
+   the Campus page (the only page with #vibe-campus-formats). */
+:lang(ta) main:has(#vibe-campus-formats) .brand-hero__text { container-type: inline-size; }
+:lang(ta) main:has(#vibe-campus-formats) .brand-hero__title {
+  max-width: 20ch;
+  font-size: min(var(--text-display-xl), 100cqi / 10.8);
+}

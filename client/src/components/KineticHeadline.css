@@ -1,0 +1,12 @@
+/* Headline + red full stop (DESIGN-v2 3.19). Words are static; only the stop moves, once per session. */
+.kinetic { text-wrap: balance; }
+.kinetic__dot { display: inline-block; }
+/* The last letter (or the accented last word) and the stop share one unbreakable run, so the dot never drops alone. */
+.kinetic__end { white-space: nowrap; }
+@keyframes kinetic-land {
+  from { transform: translateY(-0.55em) scale(0.6); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) .kinetic__dot--land { animation: kinetic-land 0.48s var(--ease-dot) 200ms both; }
+}

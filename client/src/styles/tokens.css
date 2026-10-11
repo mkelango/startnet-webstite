@@ -1,0 +1,289 @@
+/* StartNet design tokens. Single source of truth (docs/DESIGN-v2.md section 1, StartNet Brand Book v1.0 03–05).
+   Brand values live here only; theme.css holds skins, components hold their own CSS. Do not hard-code hex values in
+   components. Contrast ratios in comments are measured on Paper #F4F3EF unless stated. */
+:root {
+  /* ===== Layer 1 · shared core (StartNet + ThinkTN) ===== */
+  /* Neutrals (legacy greys; prefer the Ink ramp below for new work) */
+  --neutral-0: #FFFFFF; --neutral-50: #F4F3EF; --neutral-100: #EFEDE8; --neutral-200: #E3E1DC; --neutral-300: #CFCEC8; --neutral-400: #B9B8B2;
+  --neutral-500: #8B8B93; --neutral-600: #6B6B73; --neutral-700: #4E4E55; --neutral-800: #3A3A40; --neutral-900: #2A2A2F; --neutral-950: #0C1719;
+  /* Night (Ink surfaces: header, hero band, footer, dark sections) */
+  --night-0: #0C1719; --night-1: #1B292C; --night-2: #2C3E41; --night-line: #263937; --night-line-strong: #39504D;
+  --night-subtle: #82979A;        /* 5.94:1 on Ink: UI only */
+  --night-text: #F4F3EF;          /* 16.41:1 on Ink */
+  --night-text-2: #CFDADC;        /* 12.77:1 on Ink */
+  --night-text-muted: #ABBBBE;    /* 9.19:1 on Ink */
+  /* Warning amber + Ledger Blue (data + info) */
+  --amber-50: #FFF6E0; --amber-100: #FDEBB8; --amber-300: #F6C64A; --amber-500: #EDA100; --amber-700: #9A5B00; --amber-800: #7A4700;
+  --ledger-50: #F0F6FF; --ledger-100: #DFEDFF; --ledger-200: #BEDAFF; --ledger-300: #92C1FE; --ledger-400: #63A5FA;
+  --ledger-500: #3C8CEF; --ledger-600: #2A78D6; --ledger-700: #145CAE; --ledger-800: #0A4689; --ledger-900: #022F61;
+  /* Data-viz categorical (light / night) */
+  --dv-1: #2A78D6; --dv-2: #D0670F; --dv-3: #0F4C45; --dv-4: #B73C7C; --dv-5: #5B2A86; --dv-context: #ABBBBE;
+  --dv-night-1: #4D97F5; --dv-night-2: #F5A04A; --dv-night-3: #7FE0C4; --dv-night-4: #E2589A; --dv-night-5: #B7A6FF; --dv-night-context: #39504D;
+
+  /* ===== Layer 2 · StartNet brand (Brand Book 03) ===== */
+  --sn-ink: #0C1719; --sn-red: #EF4444; --sn-paper: #F4F3EF; --sn-white: #FFFFFF;
+  --sn-research: #4A3AA7; --sn-vibe: #E2581F; --sn-connect: #0E8F63; --sn-women: #C2386F;
+  /* SNX Red ramp. Button fill Red-600 (white text 4.83:1). Red text: Red-700 on Paper 5.83 / Bone 5.37; Red-400 on Ink 6.59.
+     SNX Red itself is the full stop (3.39:1 on Paper: large / decorative only; 4.84:1 on Ink). */
+  --sn-red-50: #FEF2F2; --sn-red-100: #FEE2E2; --sn-red-200: #FECACA; --sn-red-300: #FCA5A5; --sn-red-400: #F87171;
+  --sn-red-500: #EF4444; --sn-red-600: #DC2626; --sn-red-700: #B91C1C; --sn-red-800: #991B1B; --sn-red-900: #7F1D1D;
+  --sn-research-50: #F4F5FF; --sn-research-100: #E8E9FF; --sn-research-200: #D2D3FF; --sn-research-300: #B5B5FE; --sn-research-400: #9894FF;
+  --sn-research-500: #8174FD; --sn-research-600: #6B55EC; --sn-research-700: #5641C5; --sn-research-800: #4A3AA7; --sn-research-900: #2C1D70;
+  --sn-vibe-50: #FFF3EF; --sn-vibe-100: #FEE5DC; --sn-vibe-200: #FECAB8; --sn-vibe-300: #FDA485; --sn-vibe-400: #F37C52;
+  --sn-vibe-500: #E2581F; --sn-vibe-600: #C44407; --sn-vibe-700: #9F3605; --sn-vibe-800: #7C2700; --sn-vibe-900: #571900;
+  --sn-connect-50: #EFF9F3; --sn-connect-100: #DDF1E6; --sn-connect-200: #BBE2CE; --sn-connect-300: #8FCEAF; --sn-connect-400: #5DB88F;
+  --sn-connect-500: #2AA375; --sn-connect-600: #0E8F63; --sn-connect-700: #006F4B; --sn-connect-800: #025639; --sn-connect-900: #013A26;
+  --sn-women-50: #FFF2F5; --sn-women-100: #FFE3EA; --sn-women-200: #FEC6D5; --sn-women-300: #FB9EBA; --sn-women-400: #F0749E;
+  --sn-women-500: #E05086; --sn-women-600: #C2386F; --sn-women-700: #A12659; --sn-women-800: #7E1944; --sn-women-900: #590C2D;
+
+  /* Ink ramp (Brand Book 03.5) */
+  --ink-50: #F4F7F8; --ink-100: #E8EEEF; --ink-200: #CFDADC; --ink-300: #ABBBBE;
+  --ink-400: #82979A;   /* 2.76:1 on Paper: decoration only, never text or field borders */
+  --ink-500: #5E7377;   /* 4.51 Paper · 4.80 Card · 5.01 White · 4.16 Bone (fails: use Graphite on Bone) */
+  --ink-600: #42575A;   /* Graphite: 6.90 Paper · 6.36 Bone */
+  --ink-700: #2C3E41;   /* Slate */
+  --ink-800: #1B292C;
+  --ink-900: #0C1719;   /* Ink: 16.41 Paper · 15.13 Bone */
+  /* Grounds */
+  --paper: #F4F3EF; --bone: #EBEAE5; --card: #FBFAF7; --white: #FFFFFF;
+  --hairline: #DAD8D0;      /* decorative rule */
+  --line-strong: #B9B7AE;   /* stronger decorative rule; not a control border */
+  /* Tertiary, each ≤5% of a layout, never status, never replaces the red stop */
+  --marigold: #FBA62A; --marigold-100: #FFEBD5; --marigold-300: #FFC580; --marigold-700: #A86B02;
+  --marigold-800: #7E4F04;  /* Marigold as text on Paper: 6.29:1. Never on Vibe material. */
+  --lagoon: #117780;        /* 4.76 Paper · 4.39 Bone (fails: Lagoon-700 on Bone). Never on Connect material. */
+  --lagoon-100: #D9F0F3; --lagoon-300: #88C7CE /* 9.64 on Ink */; --lagoon-700: #024C52 /* 8.08 Bone */;
+}
+
+/* ===== Layer 3 · semantic aliases (day) ===== */
+:root {
+  --color-bg: var(--paper);
+  --color-bg-raised: var(--card);           /* cards on Paper */
+  --color-bg-sunken: var(--bone);           /* alternate ground */
+  --color-bg-form: var(--white);            /* form cards (Brand Book 03.5 rule 01) */
+  --color-text: var(--ink-900);             /* 16.41:1 */
+  --color-text-2: var(--ink-600);           /* 6.90:1 */
+  --color-text-muted: var(--ink-500);       /* 4.51:1 on Paper, 4.80 on Card; Bone overrides to Graphite below */
+  --color-border: var(--hairline);          /* decorative */
+  --color-border-strong: var(--line-strong);
+  --color-border-control: var(--ink-500);   /* 4.51:1 (WCAG 1.4.11 ≥3:1) */
+  --color-action: var(--sn-red-600);        /* white label 4.83:1 */
+  --color-action-hover: var(--sn-red-700);  /* 6.47:1 */
+  --color-action-active: var(--sn-red-800);
+  --color-on-action: #FFFFFF;
+  --color-link: var(--ink-900);
+  --color-link-decoration: rgb(12 23 25 / .35); /* red is not decoration */
+  --color-link-standalone: var(--ink-900);
+  --color-link-longread: var(--lagoon);     /* 4.76:1 */
+  --color-focus: var(--ink-900);            /* 2px ring; Paper on Ink */
+  --color-point: var(--sn-red);             /* the full stop: one red point per composition */
+  --color-label-dot: var(--ink-900);        /* dot labels are never red */
+  --color-success: var(--sn-connect-700);  --color-success-bg: var(--sn-connect-50);
+  --color-error: var(--sn-red-700);        --color-error-bg: var(--sn-red-50);
+  --color-warning: var(--amber-800);       --color-warning-bg: var(--amber-50); --color-warning-icon: var(--amber-500);
+  --color-info: var(--ledger-700);         --color-info-bg: var(--ledger-50);
+
+  /* Brand accent slot: masterbrand default = Ink (no accent) */
+  --accent: var(--ink-900); --accent-text: var(--ink-900); --accent-tint: var(--bone);
+  --accent-fill: var(--ink-900); --accent-on-fill: var(--paper); --accent-night: var(--night-text);
+
+  /* Type */
+  /* Families are declared in fonts.css. English stacks name no Tamil web font, so a stray Tamil glyph on an
+     English page (the "த" toggle, bilingual badges) uses a system Tamil font instead of downloading one.
+     The Tamil web fonts join the stacks only on /ta (:root:lang(ta) below). */
+  /* "Noto Sans Tamil Fallback" is local Nirmala UI / Latha scaled to Noto's width (fonts.css): no download, same fit */
+  --font-system-tamil: "Noto Sans Tamil Fallback", "Nirmala UI", "Tamil Sangam MN", "Tamil MN", "Latha", "Noto Sans Tamil UI";
+  --font-sans: "Inter Variable", "Inter Fallback", system-ui, -apple-system, "Segoe UI", Roboto, var(--font-system-tamil), Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --font-accent: 'Instrument Serif', 'Instrument Serif Fallback', Georgia, serif; /* ONE word per English headline */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;          /* system only, no web font */
+  /* Brand Book 04.3 web tokens, 360 → 1440 interpolation */
+  --text-display-2xl: clamp(2.5rem, 1.6667rem + 3.7037vw, 5.5rem);   /* 40→88, home h1 only */
+  --text-display-xl:  clamp(2.25rem, 1.5rem + 3.3333vw, 4.5rem);     /* 36→72, page/brand hero h1 */
+  --text-h1:          clamp(2rem, 1.5rem + 2.2222vw, 3.5rem);        /* 32→56, non-hero h1, CTA-band statement */
+  --text-h2:          clamp(1.625rem, 1.3333rem + 1.2963vw, 2.5rem); /* 26→40 section heads */
+  --text-h3:          clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem);  /* 20→24 card / tab titles */
+  --text-h4: clamp(1.1875rem, 1.0833rem + 0.463vw, 1.5rem);
+  --text-h5: clamp(1.0625rem, 1rem + 0.2778vw, 1.25rem);
+  --text-h6: clamp(0.9375rem, 0.8958rem + 0.1852vw, 1.0625rem);
+  --text-lede:        clamp(1.125rem, 1.0833rem + 0.1852vw, 1.25rem);/* 18→20 */
+  --text-body-lg: var(--text-lede);
+  --text-body:        clamp(1rem, 0.9792rem + 0.0926vw, 1.0625rem);  /* 16→17 */
+  --text-small: clamp(0.875rem, 0.8542rem + 0.0926vw, 0.9375rem);    /* 14→15 */
+  --text-meta:        0.875rem;   /* 14: dates, meta lines, captions on cards */
+  --text-caption:     0.8125rem;  /* 13 */
+  --text-label:       0.9375rem;  /* 15: web dot labels */
+  --text-eyebrow: var(--text-label);
+  --text-stat:        clamp(3rem, 2.25rem + 3.3333vw, 5.25rem);      /* 48→84 */
+  --leading-display: 1.02; --leading-heading: 1.12; --leading-body: 1.5;
+  --tracking-display: -0.04em; --tracking-h1: -0.035em; --tracking-heading: -0.02em; --tracking-h3: -0.015em;
+  --tracking-stat: -0.04em; --tracking-eyebrow: 0;
+  --weight-display: 400; --weight-heading: 500; --weight-label: 500; --weight-body: 400;
+
+  /* Space, radius, elevation */
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-5: 1.25rem;
+  --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-14: 3.5rem; --space-16: 4rem;
+  --space-20: 5rem; --space-24: 6rem; --space-32: 8rem;
+  --space-section: clamp(4rem, 2.6667rem + 5.9259vw, 8rem);        /* 64→128 */
+  --space-section-tight: clamp(3rem, 2.3333rem + 2.963vw, 5rem);   /* 48→80 */
+  --space-head-gap: clamp(2.5rem, 2rem + 2.2222vw, 4rem);          /* section header → content, 40→64 */
+  /* Section-header rhythm (AIWO blueprint 1.3 / top-15 #11): label → 24 → title → 32 → lede; block ≤ 832px. */
+  --space-label-gap: 1.5rem;
+  --space-lede-gap: 2rem;
+  --measure-head: 52rem;
+  --measure-lede: 44ch;
+  --space-grid-row: 3.5rem;                                          /* card-grid row gap (AIWO 56px) */
+  --space-block: 3rem;                                              /* between stacked blocks in a section */
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 20px; --radius-full: 9999px;
+  --radius-media: 12px; --radius-btn: 4px; --radius-chip: 9999px;
+  --media-radius: var(--radius-media); --btn-radius: var(--radius-btn);   /* v1 names, kept for page CSS */
+  --sheet-radius: 32px;
+  --shadow-1: 0 1px 2px rgb(12 23 25 / .06), 0 1px 1px rgb(12 23 25 / .04);
+  --shadow-2: 0 4px 12px rgb(12 23 25 / .08), 0 2px 4px rgb(12 23 25 / .05);
+  --shadow-3: 0 12px 32px rgb(12 23 25 / .14), 0 4px 8px rgb(12 23 25 / .06);
+  --shadow-overlay: 0 16px 48px rgb(12 23 25 / .16), 0 2px 6px rgb(12 23 25 / .06);   /* floating overlays only */
+  --focus-ring: 0 0 0 2px var(--color-focus);
+  --container-max: 80rem;  /* 1280 */
+  --gutter: 20px; --measure: 68ch;
+  /* Left edge of the container content, from the viewport edge: scroller bleed and scroll-padding.
+     --sbw (scrollbar width) is published by layout/SiteLayout.jsx. */
+  --page-margin: max(var(--gutter), calc((100vw - var(--sbw, 0px) - var(--container-max)) / 2));
+  /* v1 sheet names (page CSS) */
+  --sheet: var(--paper); --sheet-2: var(--bone);
+}
+@media (min-width: 768px)  { :root { --gutter: 24px; } }
+@media (min-width: 1280px) { :root { --gutter: 32px; } }
+@media (max-width: 767.98px) { :root { --sheet-radius: 20px; --text-caption: 0.875rem; } } /* 14px minimum on phones */
+
+/* Brand pages: accents switch by token, not by forked components */
+[data-brand="research"] { --accent: var(--sn-research); --accent-text: var(--sn-research-700); --accent-tint: var(--sn-research-50);
+  --accent-fill: var(--sn-research); --accent-on-fill: #FFFFFF; --accent-night: var(--sn-research-400); --color-label-dot: var(--accent); }
+[data-brand="vibe"]     { --accent: var(--sn-vibe); --accent-text: var(--sn-vibe-700); --accent-tint: var(--sn-vibe-50);
+  --accent-fill: var(--sn-vibe); --accent-on-fill: var(--sn-ink); --accent-night: var(--sn-vibe-400); --color-label-dot: var(--accent); }
+[data-brand="connect"]  { --accent: var(--sn-connect); --accent-text: var(--sn-connect-700); --accent-tint: var(--sn-connect-50);
+  --accent-fill: var(--sn-connect-700); --accent-on-fill: #FFFFFF; --accent-night: var(--sn-connect-400); /* white on Connect-700 6.2:1 (Ink on Connect-600 was 4.45) */ --color-label-dot: var(--accent); }
+[data-brand="women"]    { --accent: var(--sn-women); --accent-text: var(--sn-women-700); --accent-tint: var(--sn-women-50);
+  --accent-fill: var(--sn-women); --accent-on-fill: #FFFFFF; --accent-night: var(--sn-women-400); --color-label-dot: var(--accent); }
+[data-brand="x"]        { --accent: var(--sn-red); --accent-text: var(--sn-red-700); --accent-tint: var(--sn-red-50);
+  --accent-fill: var(--sn-red-600); --accent-on-fill: #FFFFFF; --accent-night: var(--sn-red-400); --color-label-dot: var(--accent); }
+
+/* Bone grounds: Ink-500 fails on Bone (4.16), so muted text steps to Graphite (6.36) and long-read links to Lagoon-700 */
+.section--white, .section--sunken, [data-ground="bone"] { --color-text-muted: var(--ink-600); --color-link-longread: var(--lagoon-700); }
+
+/* Night surface (Ink) */
+[data-surface="night"] {
+  --color-bg: var(--night-0); --color-bg-raised: var(--night-1); --color-bg-sunken: var(--night-0); --color-bg-form: var(--night-1);
+  --color-text: var(--night-text); --color-text-2: var(--night-text-2); --color-text-muted: var(--night-text-muted);
+  --color-border: var(--night-line); --color-border-strong: var(--night-line-strong); --color-border-control: var(--ink-400); /* 5.94:1 */
+  --color-link: var(--night-text); --color-link-decoration: rgb(244 243 239 / .4); --color-link-standalone: var(--paper);
+  --color-link-longread: var(--lagoon-300);
+  --color-focus: var(--paper); --color-label-dot: var(--paper);
+  --accent-text: var(--accent-night);
+  --color-success: var(--sn-connect-400); --color-error: var(--sn-red-400);
+  --color-warning: var(--amber-300); --color-info: var(--ledger-300);
+  background: var(--color-bg); color: var(--color-text);
+}
+/* Brand dot labels keep the brand accent on Ink (light step) */
+[data-brand] [data-surface="night"], [data-surface="night"][data-brand] { --color-label-dot: var(--accent-night); }
+
+/* Tamil */
+/* Tamil pages: Latin stays Inter; Tamil glyphs fall through to Noto Sans Tamil (body) or Anek Tamil (display),
+   each followed by its metric-matched fallback so the swap does not reflow (fonts.css). */
+:root:lang(ta) {
+  --font-sans: "Inter Variable", "Noto Sans Tamil Variable", "Inter Fallback", "Noto Sans Tamil Fallback",
+    system-ui, -apple-system, "Segoe UI", Roboto, var(--font-system-tamil), Arial, sans-serif;
+  --font-display: "Inter Variable", "Anek Tamil Variable", "Noto Sans Tamil Variable", "Inter Fallback",
+    "Noto Sans Tamil Fallback", system-ui, -apple-system, "Segoe UI", Roboto, var(--font-system-tamil), Arial, sans-serif;
+}
+/* Tamil snippets on English pages: system Tamil font, no web-font download */
+html:not([lang="ta"]) [lang="ta"] {
+  --font-sans: "Inter Variable", "Inter Fallback", var(--font-system-tamil), system-ui, sans-serif;
+  --font-display: var(--font-sans);
+  font-family: var(--font-sans);
+}
+/* Book 3 §4.4 rule 1: Tamil display type at ×0.85 of the English scale, so long words fit at 320 px.
+   Each clamp() term is the English value × 0.85. (--text-display-2xl is scaled per page: Home.css uses ×0.82.) */
+:lang(ta) {
+  --text-display-xl: clamp(1.9125rem, 1.275rem + 2.8333vw, 3.825rem);
+  --text-display: var(--text-display-xl);
+  --text-h1: clamp(1.7rem, 1.275rem + 1.8889vw, 2.975rem);
+  --text-h2: clamp(1.4rem, 1.1333rem + 1.1019vw, 2.125rem);
+}
+:lang(ta) {
+  --tracking-display: 0; --tracking-heading: 0; --tracking-eyebrow: 0;
+  --tracking-h1: 0; --tracking-h3: 0; --tracking-stat: 0;
+  --leading-display: 1.25; --leading-heading: 1.35; --leading-body: 1.8;
+  --text-body: clamp(1.0625rem, 1.0417rem + 0.0926vw, 1.125rem);   /* 17 → 18 px */
+  --text-caption: 0.875rem;                                           /* 14 px minimum */
+}
+:lang(ta) .eyebrow { text-transform: none; font-size: 0.875rem; }
+
+/* ===== Motion tokens (DESIGN-v2 section 1.6 / 4) ===== */
+:root {
+  /* Durations */
+  --dur-0: 0ms;        /* reduced motion / instant */
+  --dur-1: 100ms;      /* press, toggle, checkbox: feels immediate */
+  --dur-2: 200ms;      /* hover, colour, arrow nudge */
+  --dur-3: 240ms;      /* menus, accordion icon, tabs, sliding indicators, underline sweep */
+  --dur-4: 320ms;      /* sheet/drawer enter, consent */
+  --dur-5: 480ms;      /* media zoom, the full-stop landing */
+  --dur-6: 800ms;      /* data draw-in: chart lines, map fill, ring meter */
+  --dur-reveal: 400ms; /* block reveal (AIWO: 8px / 400ms; media keeps --dur-media) */
+  --dur-media: 480ms;  /* media hover zoom 1.03 */
+  --dur-count: 1000ms; /* count-up */
+  --dur-header: 280ms; /* header hide */
+
+  /* Easing */
+  --ease-standard:   cubic-bezier(0.2, 0, 0.38, 0.9);   /* moves on screen */
+  --ease-enter:      cubic-bezier(0, 0, 0.3, 1);         /* things arriving */
+  --ease-exit:       cubic-bezier(0.2, 0, 1, 0.9);       /* things leaving */
+  --ease-expressive: cubic-bezier(0.4, 0.14, 0.3, 1);    /* signature moments */
+  --ease-snap:       cubic-bezier(0.2, 0, 0, 1);         /* hovers, arrows, panels, indicators */
+  --ease-reveal:     cubic-bezier(0.22, 1, 0.36, 1);     /* long decelerating reveal */
+  --ease-header-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-glide:      cubic-bezier(0.2, 0.8, 0.3, 0.97);  /* carousel glide */
+  --ease-dot:        cubic-bezier(0.34, 1.56, 0.64, 1);  /* slight overshoot: ONLY the red full stop */
+  --ease-linear:     linear;                              /* scroll-linked, marquee, progress */
+
+  /* Distance */
+  --shift-1: 4px;  --shift-2: 8px;  --shift-3: 16px;  --shift-4: 24px;
+  --shift-reveal: 8px;
+
+  /* Choreography */
+  --stagger: 60ms;          /* per item; cap at 6 items */
+  --hover-intent: 150ms;    /* mega-menu open delay */
+  --hover-exit: 300ms;      /* mega-menu close grace */
+  --marquee-speed: 32;      /* px per second */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) { --dur-2: 0ms; --dur-3: 0ms; --dur-4: 120ms; --dur-5: 0ms; --dur-6: 0ms; --dur-count: 0ms;
+          --dur-reveal: 0ms; --dur-media: 0ms; --dur-header: 0ms;
+          --shift-1: 0px; --shift-2: 0px; --shift-3: 0px; --shift-4: 0px; --shift-reveal: 0px; }
+}
+:root[data-motion="reduced"] { --dur-2: 0ms; --dur-3: 0ms; --dur-4: 120ms; --dur-5: 0ms; --dur-6: 0ms; --dur-count: 0ms;
+  --dur-reveal: 0ms; --dur-media: 0ms; --dur-header: 0ms;
+  --shift-1: 0px; --shift-2: 0px; --shift-3: 0px; --shift-4: 0px; --shift-reveal: 0px; }
+
+/* ===== Chrome dimensions ===== */
+:root {
+  --wa-500: #25D366;            /* WhatsApp brand green (token kept; the button itself is neutral) */
+  --header-h: 72px; --header-h-compact: 56px; --utility-h: 36px; --subnav-h: 48px;
+  --space-0-5: 2px;
+  --radius-0: 0;
+  --border-hair: 1px solid var(--color-border);
+}
+@media (max-width: 1023px) { :root { --header-h: 56px; } }
+
+/* Verifier r1: at phone widths the ×0.85 Tamil scale still left 17–19-letter words (உரிமையாளரிலிருந்து,
+   கற்றுக்கொள்ளுங்கள், திறமையாளர்களுக்கு) wider than a 288px column, so they split mid-word. Below 400px the
+   Tamil display/heading tokens follow the viewport (≈24px display, 23px h1, 21px h2 at 320; unchanged from 400px). */
+@media (max-width: 399.98px) {
+  :lang(ta) {
+    --text-display-xl: clamp(1.4rem, 7.4vw, 1.9125rem);
+    --text-display: var(--text-display-xl);
+    --text-h1: clamp(1.375rem, 7.2vw, 1.7rem);
+    --text-h2: clamp(1.25rem, 6.6vw, 1.4rem);
+    --text-h3: clamp(1.125rem, 5.9vw, 1.375rem);
+  }
+}

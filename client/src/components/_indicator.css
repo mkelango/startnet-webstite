@@ -1,0 +1,30 @@
+/* Sliding indicators (components/_indicator.js). Add `.ind .ind--line` or `.ind .ind--pill` as a child of the
+   measured container (position: relative). Hidden until measured; the active item keeps a static style meanwhile. */
+.ind { position: absolute; pointer-events: none; opacity: 0; z-index: 0; transition: opacity var(--dur-2) var(--ease-snap); }
+[data-ind-ready] > .ind { opacity: 1; }
+/* Underline: 2px Ink bar, translateX + scaleX on a 100px base */
+.ind--line {
+  left: 0;
+  bottom: 0;
+  width: 100px;
+  height: 2px;
+  background: var(--color-text);
+  transform-origin: left center;
+  transform: translateX(var(--ind-x, 0px)) scaleX(calc(var(--ind-w, 0) / 100));
+  transition: transform var(--dur-3) var(--ease-snap), opacity var(--dur-2) var(--ease-snap);
+}
+/* Pill: a full-size layer clipped to the active item (clip-path keeps the round ends while it glides) */
+.ind--pill {
+  inset: 0;
+  border-radius: var(--radius-full);
+  background: var(--sn-ink);
+  clip-path: inset(var(--ind-y, 0px) var(--ind-r, 100%) var(--ind-b, 0px) var(--ind-x, 0px) round 9999px);
+  transition: clip-path var(--dur-3) var(--ease-snap), opacity var(--dur-2) var(--ease-snap);
+}
+[data-surface='night'] .ind--pill { background: var(--paper); }
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) .ind { transition: opacity 0ms; }
+}
+:root[data-motion='reduced'] .ind { transition: opacity 0ms; }
+/* Snap (first measure, layout changed under the indicator): move without gliding; only the fade stays. */
+[data-ind-snap] .ind { transition-property: opacity !important; }

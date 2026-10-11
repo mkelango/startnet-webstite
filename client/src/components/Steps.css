@@ -1,0 +1,92 @@
+:where(.steps) { margin: 0; }
+.steps { list-style: none; padding: 0; }
+.steps__step { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; height: 100%; }
+.steps__top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.steps__num {
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.steps__icon { display: inline-flex; color: var(--color-text); }
+.steps__title { font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3); }
+.steps__body { color: var(--color-text-muted); font-size: var(--text-body); }
+.steps__body > * + * { margin-top: 0.6em; }
+
+/* Row (DESIGN-v2 3.18): a hairline-separated list on mobile; at >=1024 a row with a 1px Ink top rule that
+   thickens (::before scaleY) on hover. */
+.steps--row { display: grid; gap: 0; grid-template-columns: 1fr; }
+.steps--row .steps__step { position: relative; padding: var(--space-6) 0; border-top: 1px solid var(--color-border); }
+:root [data-surface='night'] .steps--row .steps__step { border-top-color: var(--night-line); }
+@media (min-width: 640px) { .steps--row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--space-8); } }
+/* Tablet band: no orphan steps. 3 → one row of three; 5 → three over two. */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .steps--row.steps--n3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
+  .steps--row.steps--n5 { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-8) var(--space-6); }
+  .steps--row.steps--n5 > * { grid-column: span 2; }
+  .steps--row.steps--n5 > :nth-child(n + 4) { grid-column: span 3; }
+}
+@media (min-width: 1024px) {
+  .steps--row.steps--n3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .steps--row.steps--n4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .steps--row.steps--n5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .steps--row { gap: var(--space-10) 32px; }
+  .steps--row .steps__step { padding: var(--space-5) 0 0; border-top: 1px solid var(--color-text); }
+  .steps--row .steps__step::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -1px;
+    height: 3px;
+    background: var(--color-text);
+    transform: scaleY(0.34);
+    transform-origin: top;
+    transition: transform var(--dur-3) var(--ease-snap);
+  }
+  :root [data-surface='night'] .steps--row .steps__step { border-top-color: var(--night-text); }
+  :root [data-surface='night'] .steps--row .steps__step::before { background: var(--night-text); }
+}
+@media (min-width: 1024px) and (hover: hover) {
+  .steps--row .steps__step:hover::before { transform: scaleY(1); }
+}
+
+/* Engines: framed cards in a scroller */
+.steps--engines .steps__step {
+  padding: 28px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-media);
+  background: var(--card);
+  transition: border-color var(--dur-2) var(--ease-snap);
+}
+:root :is(.section--white, .section--sunken) .steps--engines .steps__step { background: var(--white); }
+.steps--engines .steps__icon { width: 48px; height: 48px; justify-content: center; align-items: center; border-radius: var(--radius-full); background: transparent; box-shadow: inset 0 0 0 1px var(--hairline); color: var(--color-text); }
+:root [data-surface='night'] .steps--engines .steps__step { background: var(--night-1); border-color: var(--night-line); }
+:root [data-surface='night'] .steps--engines .steps__icon { box-shadow: inset 0 0 0 1px var(--night-line); color: var(--night-text); }
+@media (hover: hover) {
+  .steps--engines .steps__step:hover { border-color: var(--line-strong); }
+  :root [data-surface='night'] .steps--engines .steps__step:hover { border-color: var(--night-line-strong); }
+}
+
+/* Verifier r1: at 1024–1279 four or five Tamil step titles ("விண்ணப்பியுங்கள்") in a detail-page column split
+   mid-word; Tamil keeps two columns there (an odd last step spans the row). */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  :lang(ta) .steps--row.steps--n4, :lang(ta) .steps--row.steps--n5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  :lang(ta) .steps--row.steps--n5 > :last-child { grid-column: 1 / -1; }
+}
+:lang(ta) .steps__title { font-size: min(var(--text-h3), 1.125rem); letter-spacing: 0; } /* verifier r1: "விண்ணப்பியுங்கள்" fits a 3-up 181px column at 1024 */
+
+
+/* Tamil phones: engine cards in the rail are wider with less padding and 16px body, so compounds such as
+   "அடைகாப்பகங்களுக்கான" (219px at 16px) are not split across lines. */
+@media (max-width: 399.98px) {
+  :lang(ta) .steps--engines .scroller__item { flex-basis: 92%; }
+  :lang(ta) .steps--engines .steps__step { padding: 20px; }
+  :lang(ta) .steps--engines .steps__body { font-size: 1rem; }
+}
+@media (max-width: 359.98px) {
+  :lang(ta) .steps--engines .steps__step { padding: 16px; }
+}

@@ -1,0 +1,14 @@
+{
+  "research": ["labs", "fellowship", "lab-to-market-summit", "institution-partner-programme", "problem-statements", "terms"],
+  "vibe": ["vibathon", "academy", "campus", "launchpad", "clubs", "for-colleges", "summit"],
+  "connect": ["series", "circles", "founder-switch", "scale", "angels", "genai", "saas", "d2c", "deeptech", "fintech", "industry-4-0", "healthtech", "agrifood", "climate"],
+  "women": ["circles", "rise-academy", "hercapital", "summit"],
+  "partner": ["institutions", "gccs", "government", "sponsors", "csr", "investors", "incubators", "district-programme"],
+  "legal": ["privacy", "terms", "cookies", "data-rights", "grievance", "safeguarding", "accessibility", "refunds", "code-of-conduct", "sponsorship-terms"],
+  "lab": ["agentic-ai", "ontology-knowledge", "physical-ai", "drug-discovery"],
+  "index": ["campus-innovation-index", "research-commercialisation-index", "founder-readiness-index"],
+  "district": ["ariyalur", "chengalpattu", "chennai", "coimbatore", "cuddalore", "dharmapuri", "dindigul", "erode", "kallakurichi", "kancheepuram", "kanniyakumari", "karur", "krishnagiri", "madurai", "mayiladuthurai", "nagapattinam", "namakkal", "nilgiris", "perambalur", "pudukkottai", "ramanathapuram", "ranipet", "salem", "sivaganga", "tenkasi", "thanjavur", "theni", "thoothukudi", "tiruchirappalli", "tirunelveli", "tirupathur", "tiruppur", "tiruvallur", "tiruvannamalai", "tiruvarur", "vellore", "viluppuram", "virudhunagar"],
+  "campaign": ["vibathon-2027"],
+  "series": ["vibathon", "vibe-campus", "vibe-summit", "genai-connect", "saas-connect", "d2c-connect", "lab-to-market-summit", "women-founders-summit", "research-days", "investors-summit", "founders-day"],
+  "districtAliases": {"the-nilgiris": "nilgiris", "ooty": "nilgiris", "kanyakumari": "kanniyakumari", "kanchipuram": "kancheepuram", "trichy": "tiruchirappalli", "tiruchi": "tiruchirappalli", "tuticorin": "thoothukudi", "villupuram": "viluppuram", "thiruvallur": "tiruvallur", "thiruvarur": "tiruvarur", "thiruvannamalai": "tiruvannamalai", "tirupattur": "tirupathur", "sivagangai": "sivaganga", "tirupur": "tiruppur", "kallakurichchi": "kallakurichi"}
+}

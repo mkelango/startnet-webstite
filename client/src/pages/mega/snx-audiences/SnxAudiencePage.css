@@ -1,0 +1,200 @@
+/* StartNet X audience pages (T11 "For X"). AngelList-family: feature rows, hairline lists, flat hairline cards,
+   light numerals in a blueprint frame, one calm night band. Tokens only; accents from data-brand="x" (BrandLayout). */
+.snx-aud-page { overflow-x: clip; overflow-wrap: break-word; }
+/* Crumbs on the ink band, so header, crumbs and hero read as one band. */
+.snx-aud-page__crumbs-band { background: var(--night-0); }
+.snx-aud-page__crumbs { padding-top: var(--space-4); }
+
+/* Hero meta */
+.snx-aud-page__meta { display: grid; gap: var(--space-2); }
+.snx-aud-page__micro { font-size: var(--text-small); color: var(--color-text-2); overflow-wrap: anywhere; }
+
+/* Feature row: text left, content right (needs list, ladder) */
+.snx-aud-page__split { display: grid; gap: var(--space-8); align-items: start; }
+@media (min-width: 1024px) { .snx-aud-page__split { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); } }
+
+.snx-aud-page__needs { list-style: none; display: grid; gap: 0; border-top: 1px solid var(--color-border); }
+.snx-aud-page__need {
+  display: grid; grid-template-columns: auto 1fr; gap: var(--space-4); align-items: start;
+  padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-body-lg); line-height: 1.45;
+}
+.snx-aud-page__need-icon { color: var(--color-text-muted); margin-top: 4px; flex: none; }
+.snx-aud-page__ladder { min-width: 0; }
+
+/* What SNX gives you: three blocks in a hairline row (USVC/Meridian blueprint), stacked rows below 1024. */
+.snx-aud-page__gives {
+  list-style: none; display: grid; gap: 0; grid-template-columns: minmax(0, 1fr);
+  margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12));
+  border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);
+}
+@media (min-width: 1024px) { .snx-aud-page__gives { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.snx-aud-page__give { display: grid; align-content: start; gap: var(--space-3); padding: var(--space-6) 0; min-width: 0; }
+.snx-aud-page__give + .snx-aud-page__give { border-top: 1px solid var(--color-border); }
+@media (min-width: 1024px) {
+  .snx-aud-page__give { padding: var(--space-8) var(--space-8) var(--space-8) 0; }
+  .snx-aud-page__give + .snx-aud-page__give { border-top: 0; border-left: 1px solid var(--color-border); padding-left: var(--space-8); }
+}
+.snx-aud-page__give-num { font-weight: 400; font-size: var(--text-small); color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.snx-aud-page__give-title.h4 { margin-top: var(--space-2); font-weight: 500; letter-spacing: -0.01em; }
+.snx-aud-page__give-body { color: var(--color-text-2); max-width: 36rem; }
+
+/* Modules: 1 → 2 → 2/3 columns of flat hairline cards */
+.snx-aud-page__modules { display: grid; gap: var(--space-3); margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) { .snx-aud-page__modules { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Explicit column counts (no auto-fit 3+1 orphan at 1024-1279): 3 cards = 3 across; 4 cards = 2x2, then 4 across from 1280 */
+@media (min-width: 1024px) { .snx-aud-page__modules { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1024px) and (max-width: 1279.98px) { .snx-aud-page__modules:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .snx-aud-page__modules:has(> :nth-child(4):last-child) { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+/* 2 cols (640-1023): an odd last card spans the row (no 2+1 orphan). Five modules (Founders) >=1024: 3 + 2 on a 6-track grid */
+@media (min-width: 640px) and (max-width: 1023.98px) { .snx-aud-page__modules > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
+@media (min-width: 1024px) {
+  .snx-aud-page__modules--five { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .snx-aud-page__modules--five > * { grid-column: span 2; }
+  .snx-aud-page__modules--five > :nth-child(n + 4) { grid-column: span 3; }
+}
+.snx-aud-page__module {
+  position: relative; display: flex; flex-direction: column; gap: var(--space-3); min-width: 0;
+  padding: var(--space-6);
+  background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius); box-shadow: none;
+  transition: transform var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) {
+  .snx-aud-page__module:hover {
+    border-color: color-mix(in srgb, var(--color-text) 20%, var(--color-border));
+    transform: translateY(calc(var(--shift-1) * -0.5));
+    box-shadow: 0 18px 40px -24px color-mix(in srgb, var(--night-0) 35%, transparent);
+  }
+  .snx-aud-page__module:hover .snx-aud-page__module-arrow { transform: translateX(var(--shift-1)); color: var(--color-text); }
+}
+/* Line icon in a 40px hairline square (no tinted circle). */
+.snx-aud-page__module-icon {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; margin-bottom: var(--space-3);
+  border: 1px solid var(--color-border); border-radius: var(--btn-radius);
+  background: transparent; color: var(--color-text);
+}
+.snx-aud-page__module-icon svg { width: 20px; height: 20px; }
+.snx-aud-page__module-name.h5 { font-weight: 500; letter-spacing: -0.01em; }
+.snx-aud-page__module-link { color: inherit; text-decoration: none; }
+.snx-aud-page__module-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.snx-aud-page__module-link:focus-visible { box-shadow: none; }
+.snx-aud-page__module:has(.snx-aud-page__module-link:focus-visible) { box-shadow: var(--focus-ring); }
+.snx-aud-page__module-why { font-weight: 400; color: var(--color-text); }
+.snx-aud-page__module-line { color: var(--color-text-muted); font-size: var(--text-small); flex: 1; }
+.snx-aud-page__module-foot {
+  display: flex; justify-content: flex-end; align-items: center; gap: var(--space-3);
+  padding-top: var(--space-4); border-top: 1px solid var(--color-border); font-size: var(--text-caption);
+}
+.snx-aud-page__module-arrow { color: var(--color-text-muted); flex: none; transition: transform var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard); }
+
+.snx-aud-page__steps { margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); }
+
+/* Pricing hint: feature row; figures as big light numerals in a hairline blueprint frame. */
+.snx-aud-page__price { display: grid; gap: var(--space-10); align-items: center; }
+@media (min-width: 1024px) { .snx-aud-page__price { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); } }
+.snx-aud-page__price-text { display: grid; gap: var(--space-5); justify-items: start; min-width: 0; }
+.snx-aud-page__price-includes { color: var(--color-text-2); max-width: 36rem; }
+.snx-aud-page__price-notes { display: grid; gap: var(--space-2); padding-left: var(--space-5); color: var(--color-text-2); font-size: var(--text-small); max-width: 56ch; }
+.snx-aud-page__price-notes li::marker { color: var(--color-text-muted); }
+.snx-aud-page__price-stats {
+  display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr);
+  background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius);
+}
+.snx-aud-page__price-stats > .stat { padding: var(--space-6); border-top: 0; min-width: 0; }
+.snx-aud-page__price-stats > .stat + .stat { border-top: 1px solid var(--color-border); }
+.snx-aud-page__price-stats .stat__value { font-size: min(var(--text-stat), var(--text-h1)); }
+.snx-aud-page__price-stats .stat__unit { font-weight: 400; }
+@media (min-width: 640px) {
+  .snx-aud-page__price-stats { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+  .snx-aud-page__price-stats > .stat { padding: var(--space-8) var(--space-6); }
+  .snx-aud-page__price-stats > .stat + .stat { border-top: 0; border-left: 1px solid var(--color-border); }
+}
+
+/* Proof (the page's one night band): hairline columns, regular small titles. */
+.snx-aud-page__proof { display: grid; gap: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); }
+.snx-aud-page__proof-head { display: grid; gap: var(--space-5); max-width: 48rem; justify-items: start; }
+.snx-aud-page__proof-lede { color: var(--color-text-2); max-width: 40rem; }
+.snx-aud-page__proof-list { list-style: none; display: grid; gap: 0; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--color-border); }
+@media (min-width: 768px) {
+  .snx-aud-page__proof-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-10); }
+}
+/* 2 cols (768-1023): an odd last item spans the row. >=1024: explicit counts, no auto-fit 3+1 orphan
+   (3 items = 3 across; 4 items = 2x2 at 1024-1279, 4 across from 1280) */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .snx-aud-page__proof-list > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  .snx-aud-page__proof-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .snx-aud-page__proof-list:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1280px) {
+  .snx-aud-page__proof-list:has(> :nth-child(4):last-child) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.snx-aud-page__proof-item { display: grid; align-content: start; gap: var(--space-2); padding: var(--space-6) 0; border-bottom: 1px solid var(--color-border); min-width: 0; }
+.snx-aud-page__proof-item .h5 { font-weight: 500; letter-spacing: -0.01em; }
+.snx-aud-page__proof-body { color: var(--color-text-2); }
+.snx-aud-page__proof-action { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-top: var(--space-2); }
+.snx-aud-page__proof-slot { color: var(--color-text-2); }
+
+.snx-aud-page__faq { margin-top: var(--space-8); }
+
+/* Other audiences switcher: a quiet pill row; the current page is a filled pill. */
+.snx-aud-page__others { display: grid; gap: var(--space-4); }
+@media (min-width: 1024px) { .snx-aud-page__others { grid-template-columns: auto 1fr; align-items: center; gap: var(--space-8); } }
+.snx-aud-page__others-title.h5 { font-weight: 500; letter-spacing: -0.01em; }
+.snx-aud-page__others-list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-1); }
+.snx-aud-page__other {
+  display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; padding: var(--space-2) var(--space-4); line-height: 1.3;
+  border: 0; border-radius: var(--radius-full);
+  color: var(--color-text-muted); text-decoration: none; font-size: var(--text-small); font-weight: 500;
+  transition: color var(--dur-2) var(--ease-standard), background-color var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) { .snx-aud-page__other:hover { color: var(--color-text); background: color-mix(in srgb, var(--sheet-2) 60%, transparent); } }
+.snx-aud-page__other[aria-current="page"] { background: var(--sheet-2); color: var(--color-text); }
+
+/* Demo enquiry panel (orgs): two-column utility layout, 5/7 on desktop; the form in a flat hairline card. */
+.snx-aud-page__demo { display: grid; gap: var(--space-10); align-items: start; }
+@media (min-width: 1024px) { .snx-aud-page__demo { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); } }
+.snx-aud-page__demo-text { display: grid; gap: var(--space-5); min-width: 0; }
+.snx-aud-page__next { list-style: none; display: grid; gap: 0; margin-top: var(--space-3); border-top: 1px solid var(--color-border); }
+.snx-aud-page__next li { display: grid; grid-template-columns: auto 1fr; gap: var(--space-4); align-items: start; padding-block: var(--space-4); border-bottom: 1px solid var(--color-border); color: var(--color-text-2); }
+.snx-aud-page__next svg { color: var(--color-text); margin-top: 2px; }
+.snx-aud-page__demo-alt { font-size: var(--text-small); color: var(--color-text-2); }
+.snx-aud-page__demo-alt a { color: var(--color-text); font-weight: 500; }
+.snx-aud-page__demo-form {
+  min-width: 0; padding: var(--space-6);
+  background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius);
+}
+@media (min-width: 768px) { .snx-aud-page__demo-form { padding: var(--space-8); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .snx-aud-page__module, .snx-aud-page__module-arrow, .snx-aud-page__other { transition: none; }
+  .snx-aud-page__module:hover { transform: none; }
+  .snx-aud-page__module:hover .snx-aud-page__module-arrow { transform: none; }
+}
+
+/* ---- StartNet X strict red (DESIGN-v2 6.4) ---- */
+/* [data-brand='x'] uses red as its accent, so red is kept to one point per composition: the headline stop.
+   Dot labels, the hero journey line and arrow links go Ink (Paper on Ink); hero / CTA buttons are Ink primary. */
+.brand-layout[data-brand='x'],
+.brand-layout[data-brand='x'] [data-brand='x']:not([data-surface='night']) { --color-label-dot: var(--color-text); }
+.brand-layout[data-brand='x'] [data-surface='night'] { --color-label-dot: var(--paper); }
+:root .brand-layout[data-brand='x'] .button--tertiary { --button-fg: var(--color-link-standalone); --button-fg-hover: var(--color-link-standalone); }
+:root .brand-layout[data-brand='x'] [data-surface='night'] .button--tertiary { --button-fg: var(--paper); --button-fg-hover: var(--paper); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey { color: var(--night-text-2); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey::before { background: var(--paper); }
+
+/* QA v6 (Tamil, /ta/startnet-x/gccs): "முன்னோட்டங்களும்" (~10.4em) overran the 592px hero column at 1440 and split
+   between aksharas. The Tamil title on this page scales to its column (container units, CSS only). */
+:lang(ta) .snx-aud-page--gccs .brand-hero__text { container-type: inline-size; }
+:lang(ta) .snx-aud-page--gccs .brand-hero__title { max-width: 20ch; font-size: min(var(--text-display-xl), 100cqi / 10.7); }
+
+/* Tamil phones (mobile audit, Oct 2026): the module "why" line carries 30-letter compounds
+   (அறிமுகப்படுத்தக்கூடியவர்களையும் is 321px at 17px) against a 285px card text box at 375, so it split
+   mid-word. Below 414px a 16px inline card padding and a 15px line keep it whole from 360px up. */
+@media (max-width: 413.98px) {
+  :lang(ta) .snx-aud-page__module { padding-inline: var(--space-4); }
+  :lang(ta) .snx-aud-page__module-why { font-size: 0.9375rem; line-height: 1.6; }
+}

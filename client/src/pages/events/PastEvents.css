@@ -1,0 +1,78 @@
+/* /events/past — archive by year (DESIGN-v2 6.3). A sticky hairline bar of brand chips (.chip: 36px pills, Ink
+   when pressed) and tabular year links, then each year as a header row (a large tabular year numeral + count)
+   over the same hairline event rows as /events with muted dates (parts/eventList.css); EventCards below 1024. */
+.past-events__nav {
+  /* Docks under the visible header (--shell-offset is 0 while it is hidden), so nothing shows through above it. */
+  position: sticky; top: var(--shell-offset, 0px); z-index: 20;
+  transition: top var(--dur-3) var(--ease-standard);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3);
+  padding: var(--space-4) 0; margin-bottom: var(--space-6); background: var(--paper); border-bottom: 1px solid var(--hairline);
+}
+.past-events__brands { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+/* < 1024px: one row — brand chips scroll sideways, year links sit inline at the end */
+@media (max-width: 1023px) {
+  .past-events__nav { flex-wrap: nowrap; padding: var(--space-2) 0; }
+  .past-events__brands {
+    flex: 1 1 auto; min-width: 0; flex-wrap: nowrap; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
+    padding: 4px; margin: -4px; /* focus-ring room inside the scroller */
+  }
+  .past-events__brands::-webkit-scrollbar { display: none; }
+  .past-events__chip { flex: none; white-space: nowrap; }
+  .past-events__years { flex: 0 1 auto; min-width: 0; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-left: var(--space-2); border-left: 1px solid var(--hairline); }
+  .past-events__years::-webkit-scrollbar { display: none; }
+  /* Right-edge fade: chips that run past the edge read as "scroll for more", not as cut words. */
+  .past-events__brands {
+    -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 28px), transparent);
+            mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 28px), transparent);
+    padding-right: var(--space-6);
+  }
+}
+/* Phones: two rows — brand chips full width (scrolling, faded edge), year links below */
+@media (max-width: 479px) {
+  .past-events__nav { flex-wrap: wrap; row-gap: 0; }
+  .past-events__brands { flex: 1 1 100%; }
+  .past-events__years { flex: 1 1 100%; padding-left: 0; border-left: 0; border-top: 1px solid var(--hairline); margin-top: var(--space-2); }
+}
+/* Brand chips: the shared .chip (components/Tabs.css); the brand shows only as a small dot */
+.past-events__chip-dot { width: 7px; height: 7px; border-radius: var(--radius-full); background: var(--accent); flex: none; }
+.past-events__chip[aria-pressed='true'] .past-events__chip-dot { background: var(--accent-night, var(--paper)); }
+/* Year jump links: tabular numerals with a sweeping underline */
+.past-events__years { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+/* Touch: the 44px year links keep 8px between hit areas (4px let a thumb land on the neighbouring year). */
+@media (pointer: coarse), (max-width: 1023px) { .past-events__years { gap: var(--space-2); } }
+.past-events__year-link {
+  display: inline-grid; place-items: center; min-height: 44px; padding: 0 var(--space-3); border-radius: var(--radius-btn);
+  color: var(--color-text-2); font-size: var(--text-meta); font-weight: 500; text-decoration: none; font-variant-numeric: tabular-nums;
+  background: linear-gradient(currentColor, currentColor) 50% calc(100% - 10px) / 0 1px no-repeat;
+  transition: color var(--dur-2) var(--ease-snap), background-size var(--dur-3) var(--ease-snap);
+}
+.past-events__year-link:hover, .past-events__year-link:focus-visible { color: var(--color-text); background-size: calc(100% - 24px) 1px; }
+
+.past-events__year { display: grid; gap: var(--space-6); padding-block: var(--space-10); scroll-margin-top: calc(var(--header-h) + var(--space-20)); }
+@media (max-width: 1023px) { .past-events__year { scroll-margin-top: calc(var(--header-h) + var(--space-16)); } }
+.past-events__year + .past-events__year { padding-top: var(--space-16); }
+.past-events__year-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-2) var(--space-4); }
+.past-events__year-head .caption { color: var(--color-text-2); font-size: var(--text-meta); }
+/* The year: a large tabular numeral (stat scale), regular weight */
+.past-events__year-title {
+  font-size: clamp(2.5rem, 2rem + 2.2222vw, 4rem); font-weight: 400; line-height: 1; letter-spacing: var(--tracking-stat, -0.04em);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.past-events__grid { list-style: none; }
+/* Loading skeleton */
+div.past-events__grid { display: grid; gap: var(--space-6); }
+@media (min-width: 640px) { div.past-events__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.past-events__grid > li { display: flex; }
+.past-events__grid > li > * { flex: 1; min-width: 0; }
+.past-events__error {
+  display: grid; gap: var(--space-3); justify-items: start; padding: var(--space-8);
+  border-radius: var(--radius-media); background: var(--card); box-shadow: inset 0 0 0 1px var(--hairline);
+}
+.past-events__year-title.is-undated { font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3, -0.015em); overflow-wrap: normal; }
+.past-events__year-title.is-undated:lang(ta) { letter-spacing: 0; }
+:lang(ta) .past-events__year-title { letter-spacing: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .past-events__year-link, .past-events__nav { transition: none; }
+}
+:root[data-motion='reduced'] :is(.past-events__year-link, .past-events__nav) { transition: none; }

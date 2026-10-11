@@ -1,0 +1,605 @@
+<style>
+/* ---------- Chapter 01 · Brand (chapter-only styles, every selector prefixed .c01-) ---------- */
+.c01-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 96px; }
+.c01-head__aside { max-width: 760px; padding-bottom: 12px; }
+.c01-stop { display: inline-block; width: 0.17em; height: 0.17em; margin-left: 0.05em; border-radius: 50%; background: var(--red); }
+.c01-tag { display: inline-flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-2); border: 1px solid var(--line-strong); border-radius: 999px; padding: 7px 16px 7px 8px; white-space: nowrap; }
+.c01-tag b { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: var(--paper); letter-spacing: 0; font-size: 15px; }
+.c01-src { font-size: 17px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-400); }
+
+/* 01.1 Mission */
+.c01-mis { display: grid; grid-template-columns: 1.05fr 1fr; gap: 104px; }
+.c01-mis__big { font-size: 96px; font-weight: 500; letter-spacing: -0.045em; line-height: 0.98; margin-top: 22px; }
+.c01-mis__row + .c01-mis__row { margin-top: 34px; padding-top: 28px; border-top: 1px solid var(--line); }
+.c01-mis__row .h3 { margin-top: 14px; font-size: 42px; }
+.c01-mis__row .lede { margin-top: 14px; font-size: 29px; line-height: 1.38; }
+.c01-goal { display: grid; grid-template-columns: 1.05fr 1fr; gap: 104px; border-top: 2px solid var(--ink); padding-top: 24px; align-items: end; }
+.c01-goal__fig { display: flex; align-items: baseline; gap: 26px; margin-top: 12px; }
+.c01-goal__fig b { font-size: 84px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.c01-goal__fig span { font-size: 23px; line-height: 1.3; color: var(--text-2); }
+.c01-goal__txt { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; padding-bottom: 4px; }
+
+/* 01.2 Brand idea */
+.c01-steps { display: grid; grid-template-columns: 1fr 56px 1fr 56px 1fr 56px 1fr; align-items: start; }
+.c01-panel { position: relative; height: 162px; border: 1px solid var(--line); background: var(--card); overflow: hidden; }
+.c01-panel svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.c01-lattice { position: absolute; inset: 0; background-image: radial-gradient(circle at center, var(--c01-dot, rgb(12 23 25 / .42)) 3px, transparent 3.6px); background-size: 32px 32px; }
+.c01-arrow { height: 162px; display: grid; place-items: center; font-size: 30px; color: var(--ink-300); }
+.c01-step__cap { margin-top: 20px; }
+.c01-step__name { display: flex; align-items: baseline; gap: 14px; font-size: 30px; font-weight: 600; letter-spacing: -0.012em; }
+.c01-step__name i { font-style: normal; font-size: 18px; font-weight: 600; letter-spacing: 0.12em; color: var(--ink-400); font-variant-numeric: tabular-nums; }
+.c01-step__m { font-size: 21px; line-height: 1.42; color: var(--ink); margin-top: 8px; }
+.c01-step__w { font-size: 18px; line-height: 1.45; color: var(--text-2); margin-top: 8px; }
+.c01-step__w b { font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; font-size: 15px; color: var(--text-3); margin-right: 6px; }
+.c01-concept { display: grid; grid-template-columns: 1fr 460px; gap: 72px; align-items: start; }
+.c01-modes { width: 100%; border-collapse: collapse; font-size: 18px; }
+.c01-modes th { font-size: 15px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); text-align: left; padding: 0 0 10px; border-bottom: 1px solid var(--line-strong); }
+.c01-modes td { padding: 10px 24px 10px 0; border-bottom: 1px solid var(--line); color: var(--text-2); vertical-align: middle; line-height: 1.35; white-space: nowrap; }
+.c01-modes td:first-child { color: var(--ink); font-weight: 600; white-space: nowrap; }
+.c01-sw { display: inline-block; width: 40px; height: 26px; border: 1px solid var(--line-strong); vertical-align: -6px; margin-right: 14px; }
+.c01-note { border-left: 2px solid var(--ink); padding: 2px 0 2px 24px; }
+.c01-note p { font-size: 20px; line-height: 1.5; color: var(--text-2); margin-top: 10px; }
+.c01-note p b { color: var(--ink); font-weight: 600; }
+
+/* 01.3 Values: glyph markers built from circles */
+.c01-g { display: inline-block; width: 56px; height: 56px; border-radius: 50%; flex: none; vertical-align: top; }
+.c01-g--solid { background: var(--ink); }
+.c01-g--ring { border: 3px solid var(--ink); }
+.c01-g--target { border: 3px solid var(--ink); background: radial-gradient(circle closest-side, var(--ink) 0 34%, transparent 36%); }
+.c01-g--stop { background: var(--red); }
+.c01-g--half { border: 3px solid var(--ink); background: linear-gradient(90deg, var(--ink) 50%, transparent 50%); }
+.c01-g--s { width: 26px; height: 26px; border-width: 2px; }
+.c01-vals { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 44px; }
+.c01-val { border-top: 1px solid var(--line-strong); padding-top: 28px; }
+.c01-val__n { font-size: 18px; font-weight: 600; letter-spacing: 0.12em; color: var(--ink-400); margin-top: 24px; font-variant-numeric: tabular-nums; }
+.c01-val__name { font-size: 34px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; margin-top: 6px; min-height: 75px; }
+.c01-val__m { font-size: 21px; line-height: 1.45; color: var(--ink); margin-top: 8px; min-height: 92px; }
+.c01-val__l { margin-top: 24px; font-size: 15px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.c01-val ul { list-style: none; }
+.c01-val li { position: relative; padding: 9px 0 9px 20px; border-bottom: 1px solid var(--line); font-size: 18px; line-height: 1.4; color: var(--text-2); }
+.c01-val li::before { content: ''; position: absolute; left: 0; top: 18px; width: 7px; height: 7px; border-radius: 50%; background: var(--ink-400); }
+
+/* 01.4 Audiences (ink) */
+.c01-aud { --r4: #9894FF; --v4: #F37C52; --c4: #5DB88F; --w4: #F0749E; }
+.c01-grp { display: flex; align-items: baseline; gap: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--ink-500); }
+.c01-grp .h4 { font-size: 25px; color: var(--night-text); }
+.c01-grp span { font-size: 19px; color: var(--night-text-3); }
+.c01-pools { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px; margin-top: 22px; }
+.c01-pool__b { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); }
+.c01-pool__b::before { content: ''; width: 11px; height: 11px; border-radius: 50%; background: var(--acc); }
+.c01-pool__who { font-size: 27px; font-weight: 500; letter-spacing: -0.012em; color: var(--night-text); margin-top: 10px; }
+.c01-pool__p { font-size: 21px; line-height: 1.45; color: var(--night-text-2); margin-top: 8px; min-height: 91px; }
+.c01-pool__q { font-size: 19px; line-height: 1.45; color: var(--night-text-3); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--night-line); }
+.c01-pool__q b { font-size: 14px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--night-text-3); margin-right: 10px; }
+.c01-payers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 40px; margin-top: 20px; }
+.c01-payers b { display: block; font-size: 21px; font-weight: 600; color: var(--night-text); }
+.c01-payers p { font-size: 18px; line-height: 1.45; color: var(--night-text-2); margin-top: 6px; }
+.c01-amp { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 40px; align-items: baseline; border-top: 1px solid var(--night-line); padding-top: 18px; }
+.c01-amp > div { font-size: 18px; color: var(--night-text-3); line-height: 1.4; }
+.c01-amp > div b { display: block; color: var(--night-text); font-weight: 600; font-size: 19px; }
+
+/* 01.5 Architecture */
+.c01-archwrap { display: grid; grid-template-columns: 1.92fr 1fr; gap: 64px; }
+.c01-arch { display: grid; grid-template-columns: 116px 1fr; column-gap: 20px; }
+.c01-lvl { padding-top: 4px; }
+.c01-lvl b { display: block; font-size: 44px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.c01-lvl span { display: block; margin-top: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); line-height: 1.35; }
+.c01-master { border: 1px solid var(--line-strong); background: var(--card); height: 112px; display: flex; align-items: center; justify-content: center; gap: 28px; }
+.c01-master span.c01-desc { font-size: 20px; color: var(--text-2); padding-left: 28px; border-left: 1px solid var(--line); line-height: 1.3; }
+.c01-tree { position: relative; height: 34px; }
+.c01-tree::before { content: ''; position: absolute; left: 50%; top: 0; height: 17px; border-left: 1px solid var(--line-strong); }
+.c01-tree::after { content: ''; position: absolute; top: 17px; left: calc((100% - 36px) / 8); right: calc((100% - 36px) / 8); border-top: 1px solid var(--line-strong); }
+.c01-tree i { position: absolute; top: 17px; height: 17px; border-left: 1px solid var(--line-strong); }
+.c01-brands { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.c01-brand { border: 1px solid var(--line); border-top: 4px solid var(--acc); background: var(--card); padding: 14px 15px 14px; }
+.c01-brand__sn { display: block; font-size: 16px; font-weight: 600; color: var(--text-3); letter-spacing: -0.005em; }
+.c01-brand__aud { display: block; font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-top: 2px; }
+.c01-brand__path { font-size: 16px; line-height: 1.38; color: var(--ink); margin-top: 8px; min-height: 44px; white-space: nowrap; }
+.c01-brand__prog { font-size: 15px; line-height: 1.45; color: var(--text-2); margin-top: 8px; padding-top: 9px; border-top: 1px solid var(--line); min-height: 75px; white-space: nowrap; }
+.c01-brand__prog b { color: var(--ink); font-weight: 800; letter-spacing: -0.02em; }
+.c01-engines { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border: 1px solid var(--line-strong); }
+.c01-engines > div { padding: 14px 14px 13px; }
+.c01-engines > div + div { border-left: 1px solid var(--line); }
+.c01-engines b { display: block; font-size: 19px; font-weight: 600; }
+.c01-engines span { display: block; font-size: 15px; color: var(--text-3); margin-top: 3px; line-height: 1.3; }
+.c01-plat { background: var(--ink); color: var(--paper); display: flex; align-items: center; gap: 22px; padding: 0 24px; height: 70px; }
+.c01-plat b { font-size: 24px; font-weight: 600; letter-spacing: -0.015em; }
+.c01-plat .c01-snx { font-size: 15px; font-weight: 800; letter-spacing: 0.04em; border: 1px solid var(--night-text-3); border-radius: 6px; padding: 4px 9px; color: var(--night-text); }
+.c01-plat span:last-child { margin-left: auto; font-size: 18px; color: var(--night-text-2); }
+.c01-gap { height: 14px; }
+.c01-tight > li { font-size: 20px; padding: 13px 0; grid-template-columns: 48px 1fr; line-height: 1.38; }
+.c01-tight .sub { font-size: 17px; line-height: 1.42; }
+.c01-tight b + span > b { font-weight: 600; }
+
+/* 01.6 Voice */
+.c01-rule { font-size: 56px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.05; }
+.c01-ex { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 22px; }
+.c01-ex p { font-size: 24px; }
+.c01-voice { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 40px; }
+.c01-voice__h { display: flex; align-items: center; gap: 14px; font-size: 27px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.15; min-height: 66px; border-top: 2px solid var(--ink); padding-top: 18px; }
+.c01-voice .say, .c01-voice .not { margin-top: 18px; }
+.c01-voice .say p, .c01-voice .not p { font-size: 21px; }
+.c01-voice .say { min-height: 124px; }
+.c01-voice .label { font-size: 15px; }
+.c01-ta { margin-top: 18px; padding-left: 23px; }
+.c01-ta .label { color: var(--text-3); }
+.c01-ta p { font-size: 18px; line-height: 1.45; color: var(--text-2); margin-top: 6px; min-height: 79px; }
+
+/* 01.7 Writing */
+.c01-write { display: grid; grid-template-columns: 1.72fr 1fr; gap: 80px; }
+.c01-wrules { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; column-gap: 48px; border-top: 0; }
+.c01-wrules > li:nth-child(4n+1) { border-top: 1px solid var(--line); }
+.c01-wrules.c01-tight > li { font-size: 22px; padding: 18px 0; }
+.c01-wrules.c01-tight .sub { font-size: 19px; margin-top: 6px; }
+.c01-words { width: 100%; border-collapse: collapse; }
+.c01-words td { font-size: 19px; padding: 9px 0; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.35; }
+.c01-words td:first-child { color: var(--text-3); text-decoration: line-through; text-decoration-color: var(--ink-300); width: 46%; padding-right: 16px; }
+.c01-words td:last-child { color: var(--ink); }
+.c01-keep { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.c01-keep span { display: inline-flex; align-items: center; gap: 10px; font-size: 19px; color: var(--ink); border: 1px solid var(--line-strong); border-radius: 999px; padding: 7px 16px 7px 13px; }
+.c01-keep span::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
+
+/* 01.8 Messaging */
+.c01-msg { display: grid; grid-template-columns: 0.94fr 1.06fr; gap: 88px; }
+.c01-msg__top { display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; }
+.c01-msg .box { padding: 28px 32px 30px; }
+.c01-lockd { margin-top: 24px; }
+.c01-lockd div { font-size: 22px; color: var(--text-2); margin-top: 10px; letter-spacing: -0.01em; white-space: nowrap; }
+.c01-boiler { font-size: 19px; line-height: 1.52; color: var(--ink); margin-top: 14px; }
+.c01-hier { margin-top: 16px; border-top: 2px solid var(--ink); }
+.c01-hier > div { display: grid; grid-template-columns: 196px 1fr; gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--line-strong); }
+.c01-hier__l b { display: block; font-size: 21px; font-weight: 600; }
+.c01-hier__l span { display: block; font-size: 17px; color: var(--text-3); margin-top: 3px; }
+.c01-hier__eg { font-size: 20px; line-height: 1.45; color: var(--ink); }
+.c01-hier__r { font-size: 18px; line-height: 1.45; color: var(--text-2); margin-top: 6px; }
+</style>
+
+<!-- ============ CHAPTER DIVIDER ============ -->
+<section class="page page--ink chapter" id="ch-brand" data-section="Chapter">
+  <div class="pulli" style="left:0; top:136px; width:1920px; height:944px; --pulli: rgb(244 244 240 / .06)"></div>
+  <div class="fullstop" style="width:520px; height:520px; right:-110px; top:-190px;"></div>
+  <div class="page__body">
+    <div class="chapter__num">01</div>
+    <div class="chapter__title">Brand</div>
+    <div class="chapter__nav"><span>Mission and promise</span><span>The brand idea</span><span>What we value</span><span>Who we speak to</span><span>Architecture</span><span>Voice</span><span>Writing</span><span>Messaging</span></div>
+  </div>
+</section>
+
+<!-- ============ 01.1 MISSION AND PROMISE ============ -->
+<section class="page" id="mission" data-section="01 · Brand">
+  <div class="page__body">
+    <div class="kicker">01.1</div>
+    <h1 class="title">Mission and promise</h1>
+    <div class="c01-mis mt-l">
+      <div>
+        <div class="label">Promise</div>
+        <p class="c01-mis__big">Every talent,<br>a founder<span class="c01-stop"></span></p>
+        <p class="body mt-m" style="font-size:23px; max-width:720px">The full stop is deliberate: a statement, not a hope. It is where a founder’s story turns from “maybe” into “done”: the company registered, the pilot signed, the first ₹ raised.</p>
+      </div>
+      <div>
+        <div class="c01-mis__row">
+          <div class="label">Positioning</div>
+          <p class="h3">Tamil Nadu’s founder-making network</p>
+          <p class="small mt-s">It replaces “India’s first integrated startup ecosystem platform”.</p>
+        </div>
+        <div class="c01-mis__row">
+          <div class="label">Mission</div>
+          <p class="lede">We go to campuses, labs, workplaces and districts, and help people with the talent to build turn it into companies.</p>
+          <p class="small mt-s">As written on startnet.in.</p>
+        </div>
+      </div>
+    </div>
+    <div class="c01-goal mt-auto">
+      <div>
+        <div class="label">Goal · Mission 1 Lakh</div>
+        <div class="c01-goal__fig"><b>1,00,000</b><span>founders nurtured in<br>Tamil Nadu by March 2031</span></div>
+      </div>
+      <div class="c01-goal__txt">
+        <p class="body" style="font-size:22px; line-height:1.48; color:var(--ink)">Counted in a public, quarterly Founder Ledger. “Nurtured” means a StartNet X profile plus at least two meaningful programme touchpoints (L2 and above). <span style="color:var(--text-3)">A planning target, not a result.</span></p>
+        <span class="c01-tag"><b>C</b>Target</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01.2 THE BRAND IDEA ============ -->
+<section class="page" id="brand-idea" data-section="01 · Brand">
+  <div class="page__body">
+    <div class="c01-head">
+      <div>
+        <div class="kicker">01.2</div>
+        <h1 class="title">The brand <em>idea</em></h1>
+      </div>
+      <p class="lede c01-head__aside" style="font-size:28px">One device carries the promise. A dot is a person; dots on a kolam grid become a network; the network resolves into one decisive point: the red full stop.</p>
+    </div>
+
+    <div class="c01-steps mt-l">
+      <div class="c01-step">
+        <div class="c01-panel">
+          <svg viewBox="0 0 384 160" aria-hidden="true"><circle cx="192" cy="80" r="9" fill="var(--ink)"/></svg>
+        </div>
+        <div class="c01-step__cap">
+          <div class="c01-step__name"><i>01</i>Dot</div>
+          <p class="c01-step__m">One talent: a student, a scholar, a professional, a woman founder.</p>
+          <p class="c01-step__w"><b>Appears in</b>Bullets, list markers, the Ledger counter, avatar placeholders</p>
+        </div>
+      </div>
+      <div class="c01-arrow">→</div>
+      <div class="c01-step">
+        <div class="c01-panel"><div class="c01-lattice"></div></div>
+        <div class="c01-step__cap">
+          <div class="c01-step__name"><i>02</i>Grid</div>
+          <p class="c01-step__m">The <i>pulli</i> grid under the Tamil kolam: an ordered field of possibility.</p>
+          <p class="c01-step__w"><b>Appears in</b>Illustration grids, night-surface texture, icon construction</p>
+        </div>
+      </div>
+      <div class="c01-arrow">→</div>
+      <div class="c01-step">
+        <div class="c01-panel">
+          <div class="c01-lattice" style="--c01-dot: rgb(12 23 25 / .16)"></div>
+          <svg viewBox="0 0 384 160" aria-hidden="true">
+            <g stroke="var(--ink)" stroke-width="2" stroke-linecap="round">
+              <line x1="80" y1="80" x2="112" y2="48"/><line x1="80" y1="80" x2="144" y2="112"/><line x1="112" y1="48" x2="144" y2="112"/>
+              <line x1="112" y1="48" x2="176" y2="48"/><line x1="144" y1="112" x2="176" y2="48"/><line x1="144" y1="112" x2="208" y2="112"/>
+              <line x1="176" y1="48" x2="208" y2="112"/><line x1="176" y1="48" x2="240" y2="48"/><line x1="208" y1="112" x2="240" y2="48"/>
+              <line x1="208" y1="112" x2="272" y2="112"/><line x1="240" y1="48" x2="272" y2="112"/><line x1="240" y1="48" x2="304" y2="80"/>
+              <line x1="272" y1="112" x2="304" y2="80"/>
+            </g>
+            <g fill="var(--ink)">
+              <circle cx="80" cy="80" r="6"/><circle cx="112" cy="48" r="6"/><circle cx="144" cy="112" r="6"/><circle cx="176" cy="48" r="6"/>
+              <circle cx="208" cy="112" r="6"/><circle cx="240" cy="48" r="6"/><circle cx="272" cy="112" r="6"/><circle cx="304" cy="80" r="6"/>
+            </g>
+          </svg>
+        </div>
+        <div class="c01-step__cap">
+          <div class="c01-step__name"><i>03</i>Network</div>
+          <p class="c01-step__m">Dots joined by lines, as a kolam joins <i>pulli</i>: StartNet’s connective role.</p>
+          <p class="c01-step__w"><b>Appears in</b>Diagrams, the network graph, the district map, Vibathon season art</p>
+        </div>
+      </div>
+      <div class="c01-arrow">→</div>
+      <div class="c01-step">
+        <div class="c01-panel">
+          <div class="c01-lattice" style="--c01-dot: rgb(12 23 25 / .10)"></div>
+          <svg viewBox="0 0 384 160" aria-hidden="true">
+            <g stroke="var(--ink-200)" stroke-width="2" stroke-linecap="round">
+              <line x1="80" y1="80" x2="112" y2="48"/><line x1="80" y1="80" x2="144" y2="112"/><line x1="112" y1="48" x2="144" y2="112"/>
+              <line x1="112" y1="48" x2="176" y2="48"/><line x1="144" y1="112" x2="176" y2="48"/><line x1="144" y1="112" x2="208" y2="112"/>
+              <line x1="176" y1="48" x2="208" y2="112"/><line x1="176" y1="48" x2="240" y2="48"/><line x1="208" y1="112" x2="240" y2="48"/>
+              <line x1="208" y1="112" x2="272" y2="112"/><line x1="240" y1="48" x2="272" y2="112"/><line x1="240" y1="48" x2="304" y2="80"/>
+              <line x1="272" y1="112" x2="304" y2="80"/>
+            </g>
+            <circle cx="192" cy="80" r="30" fill="var(--red)"/>
+          </svg>
+        </div>
+        <div class="c01-step__cap">
+          <div class="c01-step__name"><i>04</i>Full stop</div>
+          <p class="c01-step__m">The outcome: a founder. The one red dot on any composition.</p>
+          <p class="c01-step__w"><b>Appears in</b>The logo, headline endings, the “landing” motion, the Mission 1 Lakh meter</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="c01-concept mt-auto">
+      <div>
+        <div class="label" style="margin-bottom:16px">Visual concept · Calm page, decisive point</div>
+        <table class="c01-modes">
+          <tr><th style="width:228px">Mode</th><th>Used for</th><th style="width:370px">Character</th></tr>
+          <tr><td><span class="c01-sw" style="background:var(--paper)"></span>Day · default</td><td>Masterbrand, brand hubs, programmes, partners, media</td><td>Calm, editorial, photography-led</td></tr>
+          <tr><td><span class="c01-sw" style="background:var(--ink); border-color:var(--ink)"></span>Night</td><td>Insights, Founder Ledger, Mission 1 Lakh, footer</td><td>The evidence room: data-led</td></tr>
+          <tr><td><span class="c01-sw" style="background:linear-gradient(90deg, var(--ink) 72%, var(--vibe) 72%); border-color:var(--ink)"></span>Campaign</td><td>vibathon.in, Founders Day, summit seasons</td><td>Same grammar, one louder accent (≤ 25%)</td></tr>
+        </table>
+      </div>
+      <div class="c01-note">
+        <div class="label">Heritage, used with care</div>
+        <p>The kolam reference is <b>structural, not decorative</b>: the dot grid and the joining rule. We never reproduce traditional kolam patterns as wallpaper, and we never use religious motifs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01.3 WHAT WE VALUE ============ -->
+<section class="page" id="values" data-section="01 · Brand">
+  <div class="page__body">
+    <div class="c01-head">
+      <div>
+        <div class="kicker">01.3</div>
+        <h1 class="title">What we value</h1>
+      </div>
+      <p class="body c01-head__aside" style="max-width:640px; font-size:24px">Five values. They decide how we behave before they decide how we sound.</p>
+    </div>
+    <div class="c01-vals mt-l">
+      <div class="c01-val">
+        <span class="c01-g c01-g--solid"></span>
+        <div class="c01-val__n">01</div>
+        <div class="c01-val__name">Grounded</div>
+        <p class="c01-val__m">We go to districts and campuses, and we work in Tamil and English.</p>
+        <div class="c01-val__l">Shows up as</div>
+        <ul><li>Naming the district, the college and the month</li><li>Real Tamil Nadu photography: founders, campuses, labs</li><li>Pages built for a ₹12–15k Android phone on 4G</li></ul>
+      </div>
+      <div class="c01-val">
+        <span class="c01-g c01-g--ring"></span>
+        <div class="c01-val__n">02</div>
+        <div class="c01-val__name">Generous</div>
+        <p class="c01-val__m">Founders become mentors. Partners get the credit for what they helped build.</p>
+        <div class="c01-val__l">Shows up as</div>
+        <ul><li>Crediting partners and founders by name</li><li>Saying plainly what is free</li><li>The respectful <span class="tamil" lang="ta">நீங்கள்</span> form in Tamil copy</li></ul>
+      </div>
+      <div class="c01-val">
+        <span class="c01-g c01-g--target"></span>
+        <div class="c01-val__n">03</div>
+        <div class="c01-val__name">Rigorous</div>
+        <p class="c01-val__m">Every figure carries a source or a confidence tag. Corrections are public.</p>
+        <div class="c01-val__l">Shows up as</div>
+        <ul><li>A/B/C tag, source and as-at date beside every figure</li><li>Never rounding differently in translation</li><li>Signed partners only; a public corrections log</li></ul>
+      </div>
+      <div class="c01-val">
+        <span class="c01-g c01-g--stop"></span>
+        <div class="c01-val__n">04</div>
+        <div class="c01-val__name">Bold</div>
+        <p class="c01-val__m">We set a public goal, Mission&nbsp;1&nbsp;Lakh, and report against it every quarter.</p>
+        <div class="c01-val__l">Shows up as</div>
+        <ul><li>Short declaratives that end on the outcome</li><li>One red point per composition</li><li>No exclamation marks, no superlatives</li></ul>
+      </div>
+      <div class="c01-val">
+        <span class="c01-g c01-g--half"></span>
+        <div class="c01-val__n">05</div>
+        <div class="c01-val__name">Tamil-proud<br>&amp; global</div>
+        <p class="c01-val__m">Built for Tamil Nadu, connected to the Tamil diaspora and to world markets.</p>
+        <div class="c01-val__l">Shows up as</div>
+        <ul><li>Tamil Nadu named first, then the world</li><li>Tamil designed, not translated, in every component</li><li>Brand names kept in Latin script in Tamil text</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01.4 WHO WE SPEAK TO ============ -->
+<section class="page page--ink" id="audiences" data-section="01 · Brand">
+  <div class="page__body c01-aud">
+    <div class="c01-head">
+      <div>
+        <div class="kicker">01.4</div>
+        <h1 class="title" style="color:var(--night-text)">Who we speak to</h1>
+      </div>
+      <p class="body c01-head__aside" style="max-width:700px; font-size:24px">Three groups. Talent is the product, and never the only payer. Payers and partners fund the work. Amplifiers extend reach.</p>
+    </div>
+
+    <div class="c01-grp" style="margin-top:44px"><span class="h4">Talent</span><span>Four pools, four doors. What we offer, and what they ask first.</span></div>
+    <div class="c01-pools">
+      <div style="--acc: var(--v4)">
+        <div class="c01-pool__b">StartNet Vibe</div>
+        <div class="c01-pool__who">Students</div>
+        <p class="c01-pool__p">Build something real in college, free to start, in Tamil or English, with a next step for every winner.</p>
+        <p class="c01-pool__q"><b>They ask</b>“Is this a fee trap?” “Only for Chennai?”</p>
+      </div>
+      <div style="--acc: var(--r4)">
+        <div class="c01-pool__b">StartNet Research</div>
+        <div class="c01-pool__who">Scholars and faculty</div>
+        <p class="c01-pool__p">Turn your research into a company you co-own, on standard terms your institution can sign.</p>
+        <p class="c01-pool__q"><b>They ask</b>“Will my university allow it?” “Who owns the IP?”</p>
+      </div>
+      <div style="--acc: var(--c4)">
+        <div class="c01-pool__b">StartNet Connect</div>
+        <div class="c01-pool__who">Professionals and startups</div>
+        <p class="c01-pool__p">Test your idea and find a co-founder before you leave your job. For startups: customers, capital and pilots.</p>
+        <p class="c01-pool__q"><b>They ask</b>“Networking without outcomes?”</p>
+      </div>
+      <div style="--acc: var(--w4)">
+        <div class="c01-pool__b">StartNet Women</div>
+        <div class="c01-pool__who">Women founders</div>
+        <p class="c01-pool__p">From business owner to investable founder: market access first, capital next.</p>
+        <p class="c01-pool__q"><b>They ask</b>“Only for tech founders?” “Is my business too small?”</p>
+      </div>
+    </div>
+
+    <div class="c01-grp" style="margin-top:38px"><span class="h4">Payers and partners</span><span>They fund the work, and check the evidence.</span></div>
+    <div class="c01-payers">
+      <div><b>Institutions</b><p>Founder outcomes you can report, not workshops you have to justify.</p></div>
+      <div><b>GCCs and corporates</b><p>Pilots, problem-solving research and AI talent from across Tamil Nadu, in one account.</p></div>
+      <div><b>Government</b><p>Measured delivery in every district, feeding StartupTN, iTNT and <span style="white-space:nowrap">EDII-TN</span> programmes.</p></div>
+      <div><b>Sponsors and CSR</b><p>Verified audiences and reportable outcomes, on one published rate card.</p></div>
+      <div><b>Investors</b><p>First look at founders who have climbed a measured ladder, with tagged evidence.</p></div>
+    </div>
+
+    <div class="c01-amp mt-auto">
+      <div><span class="h4" style="font-size:25px; color:var(--night-text)">Amplifiers</span></div>
+      <div><b>Media</b>Facts, images, spokespeople</div>
+      <div><b>Diaspora</b>Ways to mentor, invest or open&nbsp;markets</div>
+      <div><b>Job seekers</b>Roles at StartNet</div>
+      <div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01.5 BRAND ARCHITECTURE AND NAMING ============ -->
+<section class="page" id="architecture" data-section="01 · Brand">
+  <div class="page__body">
+    <div class="kicker">01.5</div>
+    <h1 class="title">Brand architecture and naming</h1>
+    <div class="c01-archwrap mt-l">
+      <div class="c01-arch">
+        <div class="c01-lvl"><b>1</b><span>Masterbrand</span></div>
+        <div class="c01-master">
+          <span class="sn-logo" style="font-size:54px">StartNet<span class="d"></span></span>
+          <span class="c01-desc">Promise and proof:<br>“Every talent, a founder.”</span>
+        </div>
+        <div></div>
+        <div class="c01-tree"><i style="left:calc((100% - 36px) / 8)"></i><i style="left:calc((100% - 36px) * 3 / 8 + 12px)"></i><i style="left:calc((100% - 36px) * 5 / 8 + 24px)"></i><i style="left:calc((100% - 36px) * 7 / 8 + 36px)"></i></div>
+        <div class="c01-lvl"><b>4</b><span>Talent<br>brands</span></div>
+        <div class="c01-brands">
+          <div class="c01-brand" style="--acc: var(--research)">
+            <span class="c01-brand__sn">StartNet</span><span class="c01-brand__aud">Research</span>
+            <div class="c01-brand__path">Scholar → Founder</div>
+            <div class="c01-brand__prog">StartNet Labs<br>Lab-to-Market Summit</div>
+          </div>
+          <div class="c01-brand" style="--acc: var(--vibe)">
+            <span class="c01-brand__sn">StartNet</span><span class="c01-brand__aud">Vibe</span>
+            <div class="c01-brand__path">Student → Founder</div>
+            <div class="c01-brand__prog">Vibe Academy<br>Vibe Campus<br><b>Vibathon</b> · endorsed</div>
+          </div>
+          <div class="c01-brand" style="--acc: var(--connect)">
+            <span class="c01-brand__sn">StartNet</span><span class="c01-brand__aud">Connect</span>
+            <div class="c01-brand__path">Professional → Founder<br>Startup → Scale</div>
+            <div class="c01-brand__prog">Connect Series<br>Connect Circles<br>StartNet Angels</div>
+          </div>
+          <div class="c01-brand" style="--acc: var(--women)">
+            <span class="c01-brand__sn">StartNet</span><span class="c01-brand__aud">Women</span>
+            <div class="c01-brand__path">Woman → Founder</div>
+            <div class="c01-brand__prog">Women Circles<br>Rise Academy<br>HerCapital</div>
+          </div>
+        </div>
+        <div class="c01-gap"></div><div class="c01-gap"></div>
+        <div class="c01-lvl"><b>6</b><span>Shared<br>engines</span></div>
+        <div class="c01-engines">
+          <div><b>Convene</b><span>Events</span></div>
+          <div><b>Learn</b><span>Learning</span></div>
+          <div><b>Insights</b><span>Ledger, data</span></div>
+          <div><b>Launch</b><span>Incubation</span></div>
+          <div><b>Capital</b><span>Grants, angels</span></div>
+          <div><b>Access</b><span>Markets, pilots</span></div>
+        </div>
+        <div class="c01-gap"></div><div class="c01-gap"></div>
+        <div class="c01-lvl"><b>1</b><span>Platform</span></div>
+        <div class="c01-plat"><b>StartNet X</b><span class="c01-snx">SNX</span><span>One profile, first event to first funding</span></div>
+      </div>
+
+      <div>
+        <div class="label" style="margin-bottom:16px">Naming rules</div>
+        <ol class="rules c01-tight">
+          <li><b>01</b><span><b>StartNet is one word, capital S and N.</b><span class="sub">Never Startnet, STARTNET or Start Net.</span></span></li>
+          <li><b>02</b><span><b>Talent brands are always StartNet + audience.</b><span class="sub">StartNet Research, Vibe, Connect, Women. Never SN Vibe or StartNetVibe.</span></span></li>
+          <li><b>03</b><span><b>Programmes are typographic labels, without logos.</b><span class="sub">Vibe Academy, Connect Circles, Women Circles, StartNet Labs.</span></span></li>
+          <li><b>04</b><span><b>Vibathon is the only endorsed wordmark.</b><span class="sub">Always with its line: “a StartNet Vibe programme”.</span></span></li>
+          <li><b>05</b><span><b>StartNet X in prose; SNX as the app mark.</b><span class="sub">Engines are never navigation labels.</span></span></li>
+          <li><b>06</b><span><b>Retired names stay retired.</b><span class="sub">SNX.One, SNXOne and StartNetVibe are not used.</span></span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01.6 VOICE AND TONE ============ -->
+<section class="page" id="voice" data-section="01 · Brand">
+  <div class="page__body">
+    <div class="c01-head">
+      <div>
+        <div class="kicker">01.6</div>
+        <h1 class="title">Voice and tone</h1>
+      </div>
+      <div class="c01-head__aside" style="max-width:820px">
+        <div class="label label--muted">The rule under all five values</div>
+        <p class="c01-rule" style="margin-top:12px">Plain, specific, outcome-first.</p>
+      </div>
+    </div>
+    <div class="c01-ex mt-l">
+      <div class="say"><div class="label">We say</div><p>“We helped [n] founders raise ₹[x] Cr.” <span class="muted">· [tag] · as at [date]</span></p></div>
+      <div class="not"><div class="label">Not</div><p>“We empower the ecosystem.”</p></div>
+    </div>
+    <div class="c01-voice mt-auto">
+      <div>
+        <div class="c01-voice__h"><span class="c01-g c01-g--s c01-g--solid"></span>Grounded</div>
+        <div class="say"><div class="label">We say</div><p>Name the district, the college, the month.</p></div>
+        <div class="c01-ta"><div class="label">In Tamil</div><p>Everyday contemporary Tamil, as an educated Coimbatore or Madurai founder speaks it.</p></div>
+        <div class="not"><div class="label">Not</div><p>“Pan-India ecosystem synergy.”</p></div>
+      </div>
+      <div>
+        <div class="c01-voice__h"><span class="c01-g c01-g--s c01-g--ring"></span>Generous</div>
+        <div class="say"><div class="label">We say</div><p>Credit partners and founders by name. Say what is free.</p></div>
+        <div class="c01-ta"><div class="label">In Tamil</div><p>The respectful <span class="tamil" lang="ta">நீங்கள்</span> form, used consistently.</p></div>
+        <div class="not"><div class="label">Not</div><p>Taking credit for founders’ outcomes.</p></div>
+      </div>
+      <div>
+        <div class="c01-voice__h"><span class="c01-g c01-g--s c01-g--target"></span>Rigorous</div>
+        <div class="say"><div class="label">We say</div><p>Every figure has a source, an as-at date and an A/B/C tag.</p></div>
+        <div class="c01-ta"><div class="label">In Tamil</div><p>The same figures and tags. Never rounded differently in translation.</p></div>
+        <div class="not"><div class="label">Not</div><p>“1000s of founders.”</p></div>
+      </div>
+      <div>
+        <div class="c01-voice__h"><span class="c01-g c01-g--s c01-g--stop"></span>Bold</div>
+        <div class="say"><div class="label">We say</div><p>Short declaratives. End on the outcome.</p></div>
+        <div class="c01-ta"><div class="label">In Tamil</div><p>Short sentences. No long Sanskritised compounds.</p></div>
+        <div class="not"><div class="label">Not</div><p>Exclamation marks, superlatives.</p></div>
+      </div>
+      <div>
+        <div class="c01-voice__h"><span class="c01-g c01-g--s c01-g--half"></span>Tamil-proud &amp; global</div>
+        <div class="say"><div class="label">We say</div><p>Tamil Nadu named first, then the world.</p></div>
+        <div class="c01-ta"><div class="label">In Tamil</div><p>Written natively by Tamil editors. Machine translation is a draft only.</p></div>
+        <div class="not"><div class="label">Not</div><p>Exotic clichés; Tamil as decoration.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01.7 WRITING RULES ============ -->
+<section class="page" id="writing" data-section="01 · Brand">
+  <div class="page__body">
+    <div class="kicker">01.7</div>
+    <h1 class="title">Writing rules</h1>
+    <div class="c01-write mt-l">
+      <ol class="rules c01-tight c01-wrules">
+          <li><b>01</b><span><b>StartNet is one word, capital S and N.</b><span class="sub">The red full stop belongs to the logo. In running text, StartNet takes no dot.</span></span></li>
+          <li><b>02</b><span><b>Numerals use Indian grouping.</b><span class="sub">1,00,000, not 100,000. Write ₹6 Cr and <span class="tamil" lang="ta" style="white-space:nowrap">₹6 கோடி</span>, in Indo-Arabic digits in both languages.</span></span></li>
+          <li><b>03</b><span><b>Every figure travels with its proof.</b><span class="sub">Source, A/B/C tag and as-at date, in one unit: [value] founders · [A] · as at [date].</span></span></li>
+          <li><b>04</b><span><b>Tamil is written natively, not translated.</b><span class="sub">Tamil editors write it. No letter-spacing and no all-caps styling on Tamil.</span></span></li>
+          <li><b>05</b><span><b>Calls to action start with a verb.</b><span class="sub">Join StartNet · Find a programme · Read the Ledger. Tamil CTAs stay under about 18 characters.</span></span></li>
+          <li><b>06</b><span><b>Tamil Nadu is two words.</b><span class="sub">Spell out GCC (Global Capability Centre) on first use.</span></span></li>
+          <li><b>07</b><span><b>No exclamation marks, no superlatives.</b><span class="sub">Short declaratives that end on the outcome.</span></span></li>
+          <li><b>08</b><span><b>British English, sentence case.</b><span class="sub">Programme, organisation, colour. Headlines and buttons in sentence case.</span></span></li>
+        </ol>
+      <div>
+        <div class="label">Words we do not use</div>
+        <table class="c01-words" style="margin-top:14px">
+          <tr><td>ecosystem synergy</td><td>the district, the college, the month</td></tr>
+          <tr><td>empower the ecosystem</td><td>what happened, to whom</td></tr>
+          <tr><td>1000s of founders</td><td>[n] founders · [tag] · as at [date]</td></tr>
+          <tr><td>Startnet · STARTNET</td><td>StartNet</td></tr>
+          <tr><td>SN Vibe · StartNetVibe</td><td>StartNet Vibe</td></tr>
+          <tr><td>Tamilnadu</td><td>Tamil Nadu</td></tr>
+          <tr><td>broucher</td><td>brochure</td></tr>
+        </table>
+        <div class="label mt-l">Words we keep</div>
+        <div class="c01-keep"><span>founder</span><span>talent</span><span>district</span><span>outcome</span><span>Ledger</span><span>verified</span><span>as at</span><span>every talent</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01.8 MESSAGING AND BOILERPLATE ============ -->
+<section class="page page--bone" id="messaging" data-section="01 · Brand">
+  <div class="page__body">
+    <div class="kicker">01.8</div>
+    <h1 class="title">Messaging and boilerplate</h1>
+    <div class="c01-msg mt-l">
+      <div>
+        <div class="c01-msg__top">
+          <div>
+            <div class="label">Descriptor</div>
+            <div class="c01-lockd">
+              <span class="sn-logo" style="font-size:48px">StartNet<span class="d"></span></span>
+              <div>Tamil Nadu’s founder-making network</div>
+            </div>
+            <p class="small" style="margin-top:18px; font-size:18px">In formal use, it always travels with the logo.</p>
+          </div>
+          <div>
+            <div class="label">One line, for bios</div>
+            <p class="h3" style="margin-top:20px; font-size:36px">Every talent,<br>a founder.</p>
+            <p class="small" style="margin-top:12px; font-size:18px">The promise, word for word.</p>
+          </div>
+        </div>
+        <div class="box" style="margin-top:44px"><i class="x1"></i><i class="x2"></i>
+          <div style="display:flex; justify-content:space-between; align-items:baseline"><div class="label">Boilerplate · copy-ready</div><div class="c01-src">75 words</div></div>
+          <p class="c01-boiler">StartNet is Tamil Nadu’s founder-making network. Its four brands, StartNet Research, StartNet Vibe, StartNet Connect and StartNet Women, help scholars, students, professionals and women become founders through events, learning, incubation, capital and market access, all run on one platform, StartNet X. StartNet’s goal, Mission 1 Lakh, is to nurture 1,00,000 founders in Tamil Nadu by March 2031, counted in a public, quarterly Founder Ledger. StartNet is based in Salem, Tamil Nadu. Every talent, a&nbsp;founder.</p>
+        </div>
+      </div>
+      <div>
+        <div class="label">Messaging hierarchy</div>
+        <div class="c01-hier">
+          <div><div class="c01-hier__l"><b>Masterbrand</b><span>Promise and proof</span></div><div><div class="c01-hier__eg"><span class="sn-logo" style="font-size:21px; vertical-align:-1px">StartNet<span class="d"></span></span>&nbsp; Every talent, a founder. · Mission&nbsp;1&nbsp;Lakh · Founder&nbsp;Ledger</div><div class="c01-hier__r">StartNet is one word. The red full stop is the logo device, not punctuation in running text.</div></div></div>
+          <div><div class="c01-hier__l"><b>Talent brand</b><span>Audience and path</span></div><div><div class="c01-hier__eg">StartNet Vibe: Student → Founder</div><div class="c01-hier__r">Always StartNet + audience; never SN Vibe or StartNetVibe. One accent colour each.</div></div></div>
+          <div><div class="c01-hier__l"><b>Programme</b><span>Offer and next step</span></div><div><div class="c01-hier__eg">Vibe Academy: AI building, product and go-to-market, in Tamil and&nbsp;English</div><div class="c01-hier__r">Short brand + plain format. “Vibathon, a StartNet Vibe programme”.</div></div></div>
+          <div><div class="c01-hier__l"><b>Platform</b><span>Where you act</span></div><div><div class="c01-hier__eg">Continue on StartNet X</div><div class="c01-hier__r">StartNet X in prose, SNX as the app mark. Engines are not navigation&nbsp;labels.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

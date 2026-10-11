@@ -1,0 +1,396 @@
+<style>
+  .c03 .title { font-size: 76px; margin-top: 12px; }
+  .c03 .page__body { padding-top: 32px; }
+  .c03 .rules > li { font-size: 22px; padding: 14px 0; }
+  .c03 .rules .sub { font-size: 20px; }
+  .c03 .spec td { padding: 11px 0; font-size: 21px; }
+  .c03 .spec th { padding: 10px 0; font-size: 17px; }
+  .c03 .mt-l { margin-top: 40px; }
+  #family .sw__name { flex-direction: column; align-items: flex-start; gap: 6px; }
+
+  .c03-big { position: relative; height: 560px; background: var(--red); color: #fff; padding: 40px 44px; display: flex; flex-direction: column; justify-content: space-between; }
+  .c03-big .nm { font-size: 72px; font-weight: 500; letter-spacing: -0.035em; line-height: 1; }
+  .c03-big .hx { font-size: 30px; font-weight: 500; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+  .c03-big .tag { font-size: 18px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; opacity: .85; }
+  .c03-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .c03-step { border: 1px solid var(--line); background: var(--card); }
+  .c03-step .chip { height: 58px; display: flex; align-items: center; padding: 0 18px; font-size: 22px; font-weight: 600; }
+  .c03-step .t { padding: 14px 18px 16px; font-size: 19px; line-height: 1.45; color: var(--text-2); }
+  .c03-step .t b { display: block; color: var(--ink); font-size: 20px; }
+  .c03-wheel { position: relative; width: 600px; height: 600px; border-radius: 50%;
+    background: conic-gradient(from 90deg, oklch(0.72 0.14 0), oklch(0.72 0.14 30), oklch(0.72 0.14 60), oklch(0.72 0.14 90), oklch(0.72 0.14 120), oklch(0.72 0.14 150), oklch(0.72 0.14 180), oklch(0.72 0.14 210), oklch(0.72 0.14 240), oklch(0.72 0.14 270), oklch(0.72 0.14 300), oklch(0.72 0.14 330), oklch(0.72 0.14 360)); }
+  .c03-wheel::after { content: ''; position: absolute; inset: 70px; border-radius: 50%; background: var(--paper); }
+  .c03-axis { position: absolute; left: 50%; top: 50%; width: 300px; height: 0; border-top: 1.5px dashed var(--ink); transform-origin: 0 0; z-index: 2; }
+  .c03-pin { position: absolute; width: 58px; height: 58px; border-radius: 50%; border: 4px solid var(--paper); box-shadow: 0 0 0 1.5px var(--ink); z-index: 3; transform: translate(-50%, -50%); }
+  .c03-pinl { position: absolute; z-index: 3; font-size: 19px; line-height: 1.3; color: var(--ink); white-space: nowrap; }
+  .c03-pinl b { display: block; font-size: 21px; }
+  .c03-centre { position: absolute; inset: 0; display: grid; place-items: center; z-index: 4; text-align: center; }
+  .c03-centre > div { background: var(--paper); padding: 10px 16px; border-radius: 8px; }
+  .c03-why { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; padding: 12px 0 0; border-top: 1px solid var(--line); }
+  .c03-why i { width: 44px; height: 44px; border-radius: 50%; display: block; }
+  .c03-why p { font-size: 19px; line-height: 1.45; color: var(--text-2); }
+  .c03-why p b { color: var(--ink); }
+  .c03-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0; height: 210px; }
+  .c03-sw2 { padding: 26px 28px; display: flex; flex-direction: column; justify-content: space-between; }
+  .c03-sw2 .nm { font-size: 44px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; }
+  .c03-sw2 .sub { font-size: 18px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; opacity: .8; }
+  .c03-mini { display: grid; gap: 10px; }
+  .c03-mini div { display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: 16px; font-size: 20px; color: var(--text-2); padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .c03-mini i { height: 40px; display: block; }
+  .c03-mini b { color: var(--ink); font-weight: 600; }
+  .c03-rampblk + .c03-rampblk { margin-top: 20px; }
+  .c03-rampblk .label { margin-bottom: 12px; }
+  .c03-rampblk .ramp__c { height: 52px; }
+  .c03-rampblk .ramp__t { font-size: 16px; margin-top: 8px; }
+  .c03-grad { height: 160px; position: relative; overflow: hidden; }
+  .c03-fusion { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+  .c03-fusion > div > div { height: 60px; }
+  .c03-fusion span { display: block; font-size: 16px; color: var(--text-2); margin-top: 8px; font-variant-numeric: tabular-nums; }
+  .c03-bar { display: flex; height: 64px; gap: 0; border: 1px solid var(--night-line); }
+  .c03-bar div { display: flex; align-items: flex-end; padding: 10px 12px; font-size: 17px; font-weight: 600; letter-spacing: .06em; }
+  .c03-fn { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .c03-fnrow { display: grid; grid-template-columns: 220px 1fr; gap: 26px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .c03-alert { display: flex; align-items: center; gap: 14px; padding: 14px 18px; font-size: 21px; border-left: 3px solid; border-radius: 4px; }
+  .c03-alert svg { flex: none; }
+  .c03-tag { white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px; border-radius: 4px; font-size: 18px; font-weight: 600; }
+</style>
+
+<!-- ============ CHAPTER 03 ============ -->
+<section class="page page--ink chapter" id="ch-colour" data-section="Chapter">
+  <div class="pulli" style="left:0; top:136px; width:1920px; height:944px; --pulli: rgb(244 244 240 / .06)"></div>
+  <div class="fullstop" style="width:520px; height:520px; right:-110px; top:-190px;"></div>
+  <div class="page__body">
+    <div class="chapter__num">03</div>
+    <div class="chapter__title">Colour</div>
+    <div class="chapter__nav"><span>Primary</span><span>Derivation</span><span>Secondary</span><span>Tertiary</span><span>Neutrals</span><span>Brand family</span><span>Functional</span><span>Tonal ramps</span><span>Gradients</span><span>Proportion</span></div>
+  </div>
+</section>
+
+<!-- ============ 03.1 PRIMARY ============ -->
+<section class="page c03" id="primary" data-section="03 · Colour" data-note="Pantone and press CMYK to be set from a press proof">
+  <div class="page__body">
+    <div class="kicker">03.1</div>
+    <h1 class="title">Primary colour: <em>SNX Red</em></h1>
+    <div class="split mt-l" style="grid-template-columns: 1fr 1fr; gap: 72px;">
+      <div class="c03-big">
+        <div class="tag">Primary · the full stop</div>
+        <div>
+          <div class="nm">SNX Red</div>
+          <div class="hx mt-s">#EF4444</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column">
+        <table class="spec">
+          <tr><td class="l">HEX</td><td><b>#EF4444</b></td></tr>
+          <tr><td class="l">RGB</td><td><b>239 · 68 · 68</b></td></tr>
+          <tr><td class="l">CMYK (screen conversion)</td><td><b>0 · 72 · 72 · 6</b></td></tr>
+          <tr><td class="l">HSL · OKLCH</td><td><b>0° 84% 60% · 0.637 0.208 25.3°</b></td></tr>
+          <tr><td class="l">Pantone</td><td><b>Match on press proof</b></td></tr>
+        </table>
+        <div class="label" style="margin-top:32px">Working steps of the same red</div>
+        <div class="c03-steps mt-m">
+          <div class="c03-step"><div class="chip" style="background:var(--red-600); color:#fff">Button</div><div class="t"><b>Red 600 #DC2626</b>Fills with white text, 4.83:1.</div></div>
+          <div class="c03-step"><div class="chip" style="background:var(--paper); color:var(--red-700); border-bottom:1px solid var(--line)">Text on paper</div><div class="t"><b>Red 700 #B91C1C</b>Red words at body size, 5.83:1.</div></div>
+          <div class="c03-step"><div class="chip" style="background:var(--ink); color:var(--red-400)">Text on ink</div><div class="t"><b>Red 400 #F87171</b>Small red on dark, 6.59:1.</div></div>
+        </div>
+        <p class="small mt-m">The full stop, one accent per surface and the main action. SNX Red clears 4.84:1 on Ink; on Paper (3.39:1) it is for large type and graphics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03.2 DERIVATION ============ -->
+<section class="page c03" id="derivation" data-section="03 · Colour">
+  <div class="page__body">
+    <div class="kicker">03.2</div>
+    <h1 class="title">How the palette is derived</h1>
+    <div class="split mt-m" style="grid-template-columns: 600px 1fr; gap: 72px; align-items: start;">
+      <div style="position:relative; width:600px; height:600px; margin-top: 44px; transform: scale(.86); transform-origin: 0 0;">
+        <div class="c03-wheel"></div>
+        <!-- hue angle θ maps to screen angle (θ − 90°) because the gradient starts at 3 o'clock going clockwise from 90deg… positions computed: radius 265 -->
+        <div class="c03-axis" style="transform: rotate(25deg);"></div>
+        <div class="c03-axis" style="transform: rotate(205deg);"></div>
+        <div class="c03-pin" style="left: calc(300px + 265px * cos(25deg)); top: calc(300px + 265px * sin(25deg)); background: var(--red)"></div>
+        <div class="c03-pin" style="left: calc(300px + 265px * cos(70deg)); top: calc(300px + 265px * sin(70deg)); background: var(--marigold)"></div>
+        <div class="c03-pin" style="left: calc(300px + 265px * cos(205deg)); top: calc(300px + 265px * sin(205deg)); background: var(--lagoon)"></div>
+        <div class="c03-pin" style="left: calc(300px + 150px * cos(205deg)); top: calc(300px + 150px * sin(205deg)); background: var(--ink); width:46px; height:46px"></div>
+        <div class="c03-centre"><div><div class="label label--muted">OKLCH hue</div><div class="h4 mt-s" style="font-size:24px">One axis,<br>two directions</div></div></div>
+        <div class="c03-pinl" style="left: 590px; top: 400px;"><b style="color:var(--red-700)">SNX Red · 25°</b>the given</div>
+        <div class="c03-pinl" style="left: 480px; top: 590px;"><b style="color:var(--marigold-700)">Marigold · 70°</b>analogous, +45°</div>
+        <div class="c03-pinl" style="left: -20px; top: -54px;"><b>Ink · Lagoon · 205°</b>complement, 180° across</div>
+      </div>
+      <div>
+        <ol class="rules" style="margin-top:4px">
+          <li><b>01</b><span><b>Secondary: take the complement to near-black.</b><span class="sub">Ink #0C1719 sits 180° across the wheel at lightness 0.20. It reads as black, yet its blue-green bias makes the red look warmer and brighter beside it.</span></span></li>
+          <li><b>02</b><span><b>Tertiary, cool: lift the same complement.</b><span class="sub">Lagoon #117780 is Ink's lighter sibling (lightness 0.52), so the cool tertiary is part of the same family rather than a new hue.</span></span></li>
+          <li><b>03</b><span><b>Tertiary, warm: step 45° toward yellow.</b><span class="sub">Marigold #FBA62A is the red's analogous neighbour at high lightness: warm and celebratory, the colour of a marigold garland.</span></span></li>
+        </ol>
+        <div class="label" style="margin-top:30px">Considered and rejected</div>
+        <div class="grid g3 mt-s" style="gap:24px">
+          <div class="c03-why"><i style="background:#395CB8"></i><p><b>Blue-violet, 265°.</b> Too close to Research and the data blue.</p></div>
+          <div class="c03-why"><i style="background:#D35181"></i><p><b>Rose, 0°.</b> Reads as Women and muddies the red.</p></div>
+          <div class="c03-why"><i style="background:#2E9E62"></i><p><b>Green, 145°.</b> Collides with Connect and "success".</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03.3 SECONDARY ============ -->
+<section class="page c03" id="secondary" data-section="03 · Colour">
+  <div class="page__body">
+    <div class="kicker">03.3</div>
+    <h1 class="title">Secondary palette</h1>
+    <div class="grid g2 mt-l" style="gap:56px">
+      <div class="sw">
+        <div class="sw__chip" style="background:var(--ink); height:190px; position:relative">
+          <span class="sn-logo sn-logo--rev" style="font-size:54px; position:absolute; left:34px; bottom:30px">StartNet<span class="d"></span></span>
+        </div>
+        <div class="sw__name"><b>Ink</b><span>Secondary · type and dark grounds</span></div>
+        <table class="spec">
+          <tr><td class="l">HEX · RGB</td><td><b>#0C1719 · 12 · 23 · 25</b></td></tr>
+          <tr><td class="l">CMYK (screen) · OKLCH</td><td><b>52 · 8 · 0 · 90 · 0.195 0.016 210°</b></td></tr>
+          <tr><td class="l">On Paper</td><td><b>16.41:1 · all text</b></td></tr>
+        </table>
+        <p class="small mt-s">Every word on paper, the header and footer band, covers, chapter dividers and evidence rooms. The same ink as startnet.in.</p>
+      </div>
+      <div class="sw">
+        <div class="sw__chip sw__chip--line" style="background:var(--paper); height:190px; position:relative">
+          <span class="sn-logo" style="font-size:54px; position:absolute; left:34px; bottom:30px">StartNet<span class="d"></span></span>
+        </div>
+        <div class="sw__name"><b>Paper</b><span>Secondary · the ground</span></div>
+        <table class="spec">
+          <tr><td class="l">HEX · RGB</td><td><b>#F4F3EF · 244 · 243 · 239</b></td></tr>
+          <tr><td class="l">CMYK (screen) · OKLCH</td><td><b>0 · 0 · 2 · 4 · 0.964 0.005 95°</b></td></tr>
+          <tr><td class="l">In print</td><td><b>Unprinted uncoated stock</b></td></tr>
+        </table>
+        <p class="small mt-s">Warm, not white. The default page and sheet. On uncoated stock, leave it unprinted rather than laying down a tint.</p>
+      </div>
+    </div>
+    <div class="grid g4 mt-l hair-top" style="gap:28px">
+      <div class="c03-mini"><div><i style="background:var(--ink-700)"></i><span><b>Slate</b> #2C3E41</span><span>raised dark panels</span></div></div>
+      <div class="c03-mini"><div><i style="background:var(--ink-600)"></i><span><b>Graphite</b> #42575A</span><span>6.90:1 text</span></div></div>
+      <div class="c03-mini"><div><i style="background:var(--bone); outline:1px solid var(--line-strong)"></i><span><b>Bone</b> #EBEAE5</span><span>alternate ground</span></div></div>
+      <div class="c03-mini"><div><i style="background:var(--card); outline:1px solid var(--line-strong)"></i><span><b>Card</b> #FBFAF7</span><span>cards on paper</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03.4 TERTIARY ============ -->
+<section class="page c03" id="tertiary" data-section="03 · Colour" data-note="Tertiary colours never replace the red full stop">
+  <div class="page__body">
+    <div class="kicker">03.4</div>
+    <h1 class="title">Tertiary palette</h1>
+    <div class="grid g2 mt-l" style="gap:56px">
+      <div>
+        <div class="c03-pair">
+          <div class="c03-sw2" style="background:var(--marigold); color:var(--ink)"><span class="sub">Tertiary · warm</span><span class="nm">Marigold</span></div>
+          <div class="c03-sw2" style="background:var(--ink); color:var(--marigold)"><span class="sub">On ink · 9.19:1</span><span style="font-size:30px; font-weight:500; letter-spacing:-0.02em">Highlights, campaign moments, the second data series</span></div>
+        </div>
+        <table class="spec mt-m">
+          <tr><td class="l">HEX · RGB</td><td><b>#FBA62A · 251 · 166 · 42</b></td></tr>
+          <tr><td class="l">OKLCH</td><td><b>0.791 0.160 70°</b></td></tr>
+          <tr><td class="l">Text on paper</td><td><b>Use Marigold 800 #7E4F04 (6.29:1)</b></td></tr>
+        </table>
+        <ul class="rules rules--plain mt-m">
+          <li>Up to 5% of a layout. Never as text on paper (1.79:1).</li>
+          <li>Never on StartNet Vibe material, where its orange accent leads.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="c03-pair">
+          <div class="c03-sw2" style="background:var(--lagoon); color:#fff"><span class="sub">Tertiary · cool</span><span class="nm">Lagoon</span></div>
+          <div class="c03-sw2" style="background:var(--paper); color:var(--lagoon); border:1px solid var(--line)"><span class="sub">On paper · 4.76:1</span><span style="font-size:30px; font-weight:500; letter-spacing:-0.02em">Links in long reads, cool data series, diagrams</span></div>
+        </div>
+        <table class="spec mt-m">
+          <tr><td class="l">HEX · RGB</td><td><b>#117780 · 17 · 119 · 128</b></td></tr>
+          <tr><td class="l">OKLCH</td><td><b>0.521 0.085 205°</b></td></tr>
+          <tr><td class="l">On ink</td><td><b>Use Lagoon 300 #88C7CE (9.64:1)</b></td></tr>
+        </table>
+        <ul class="rules rules--plain mt-m">
+          <li>Up to 5% of a layout. Passes AA as text on paper.</li>
+          <li>Never on StartNet Connect material, where its green accent leads.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03.5 NEUTRALS ============ -->
+<section class="page page--bone c03" id="neutrals" data-section="03 · Colour">
+  <div class="page__body">
+    <div class="kicker">03.5</div>
+    <h1 class="title">Neutrals and grounds</h1>
+    <div class="grid g5 mt-l" style="gap:20px">
+      <div class="sw"><div class="sw__chip sw__chip--line" style="background:#FFFFFF; height:120px"></div><div class="sw__name"><b style="font-size:28px">White</b></div><p class="small mt-s">#FFFFFF<br>Product surfaces, forms</p></div>
+      <div class="sw"><div class="sw__chip sw__chip--line" style="background:var(--card); height:120px"></div><div class="sw__name"><b style="font-size:28px">Card</b></div><p class="small mt-s">#FBFAF7<br>Cards on Paper</p></div>
+      <div class="sw"><div class="sw__chip sw__chip--line" style="background:var(--paper); height:120px"></div><div class="sw__name"><b style="font-size:28px">Paper</b></div><p class="small mt-s">#F4F3EF<br>Default ground</p></div>
+      <div class="sw"><div class="sw__chip sw__chip--line" style="background:var(--bone); height:120px"></div><div class="sw__name"><b style="font-size:28px">Bone</b></div><p class="small mt-s">#EBEAE5<br>Alternate ground</p></div>
+      <div class="sw"><div class="sw__chip" style="background:#DAD8D0; height:120px"></div><div class="sw__name"><b style="font-size:28px">Hairline</b></div><p class="small mt-s">#DAD8D0<br>Rules and dividers</p></div>
+    </div>
+    <div class="split mt-l" style="grid-template-columns: 1fr 1fr; gap: 80px">
+      <table class="spec">
+        <tr><th>Text colour</th><th>On Paper</th></tr>
+        <tr><td class="l"><b>Ink</b> #0C1719 · headings, body</td><td><b>16.41:1</b></td></tr>
+        <tr><td class="l"><b>Graphite</b> #42575A · secondary text</td><td><b>6.90:1</b></td></tr>
+        <tr><td class="l"><b>Ink 500</b> #5E7377 · captions, dates</td><td><b>4.51:1</b></td></tr>
+        <tr><td class="l">Ink 400 #82979A · disabled, axes</td><td>UI only</td></tr>
+      </table>
+      <ol class="rules">
+        <li><b>01</b><span>Paper is the page; White is for things you fill in. A form on Paper sits on a White card.</span></li>
+        <li><b>02</b><span>Alternate Paper and Bone so a spread or a long page reads as separate sections.</span></li>
+        <li><b>03</b><span>Ink 500 is the lightest colour allowed for words. Lighter greys are lines and UI only.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03.6 BRAND FAMILY ============ -->
+<section class="page c03" id="family" data-section="03 · Colour" data-note="One accent per asset · accents never mix">
+  <div class="page__body">
+    <div class="kicker">03.6</div>
+    <h1 class="title">Brand family accents</h1>
+    <p class="body mt-s" style="max-width: 1200px">Each talent brand is Ink + the red full stop + its own accent. Values are unchanged from Book 3; only the masterbrand red moves to SNX Red.</p>
+    <div class="grid g4 mt-l" style="gap:28px">
+      <div class="sw">
+        <div class="sw__chip" style="background:var(--research); height:200px; padding:24px; display:flex; align-items:flex-end"><span class="sn-logo sn-logo--white sn-logo--mono" style="font-size:30px">StartNet<span class="d"></span><span class="desc">Research</span></span></div>
+        <div class="sw__name"><b>Research</b><span>Scholar → Founder</span></div>
+        <table class="spec"><tr><td class="l">Base</td><td><b>#4A3AA7</b></td></tr><tr><td class="l">On ink</td><td><b>#9894FF</b></td></tr></table>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:var(--vibe); height:200px; padding:24px; display:flex; align-items:flex-end"><span class="sn-logo sn-logo--mono" style="font-size:30px">StartNet<span class="d"></span><span class="desc">Vibe</span></span></div>
+        <div class="sw__name"><b>Vibe</b><span>Student → Founder</span></div>
+        <table class="spec"><tr><td class="l">Base · small text</td><td><b>#E2581F · #9F3605</b></td></tr><tr><td class="l">On ink</td><td><b>#F37C52</b></td></tr></table>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:var(--connect); height:200px; padding:24px; display:flex; align-items:flex-end"><span class="sn-logo sn-logo--mono" style="font-size:30px">StartNet<span class="d"></span><span class="desc">Connect</span></span></div>
+        <div class="sw__name"><b>Connect</b><span>Professional → Founder</span></div>
+        <table class="spec"><tr><td class="l">Base · small text</td><td><b>#0E8F63 · #006F4B</b></td></tr><tr><td class="l">On ink</td><td><b>#5DB88F</b></td></tr></table>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:var(--women); height:200px; padding:24px; display:flex; align-items:flex-end"><span class="sn-logo sn-logo--white sn-logo--mono" style="font-size:30px">StartNet<span class="d"></span><span class="desc">Women</span></span></div>
+        <div class="sw__name"><b>Women</b><span>Woman → Founder</span></div>
+        <table class="spec"><tr><td class="l">Base</td><td><b>#C2386F</b></td></tr><tr><td class="l">On ink</td><td><b>#F0749E</b></td></tr></table>
+      </div>
+    </div>
+    <p class="small mt-m">On an accent fill the logo goes mono: the red full stop measures under 2:1 against every accent and would disappear.</p>
+  </div>
+</section>
+
+<!-- ============ 03.7 FUNCTIONAL ============ -->
+<section class="page page--bone c03" id="functional" data-section="03 · Colour">
+  <div class="page__body">
+    <div class="kicker">03.7</div>
+    <h1 class="title">Functional palette</h1>
+    <div class="split mt-l" style="grid-template-columns: 1.1fr 1fr; gap: 80px">
+      <div class="c03-fn">
+        <div class="c03-fnrow"><div class="c03-alert" style="background:#EFF9F3; border-color:#006F4B; color:#006F4B"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Success</div><span class="small"><b style="color:var(--ink)">#006F4B</b> on #EFF9F3 · saved, approved, complete</span></div>
+        <div class="c03-fnrow"><div class="c03-alert" style="background:#FFF6E0; border-color:#EDA100; color:#7A4700"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17.5v.1"/></svg>Warning</div><span class="small"><b style="color:var(--ink)">#7A4700</b> text · #EDA100 icon · closing soon, check this</span></div>
+        <div class="c03-fnrow"><div class="c03-alert" style="background:var(--red-50); border-color:var(--red-700); color:var(--red-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.1"/></svg>Error</div><span class="small"><b style="color:var(--ink)">#B91C1C</b> on #FEF2F2 · always with icon and the word "Error"</span></div>
+        <div class="c03-fnrow"><div class="c03-alert" style="background:#F0F6FF; border-color:#2A78D6; color:#145CAE"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5v.1"/></svg>Information</div><span class="small"><b style="color:var(--ink)">#145CAE</b> text · Ledger Blue #2A78D6 · data and info only</span></div>
+        <div style="padding:20px 0 0"><div style="display:flex; gap:12px"><span class="c03-tag" style="background:var(--ink); color:var(--paper)">A · Verified</span><span class="c03-tag" style="box-shadow: inset 0 0 0 1.5px var(--ink)">B · Claimed</span><span class="c03-tag" style="color:#42575A; outline: 1.5px dashed #82979A; outline-offset: -1.5px">C · Estimate</span></div><p class="small mt-s">Confidence tags on every figure work without colour: solid, outline, dashed.</p></div>
+      </div>
+      <ol class="rules">
+        <li><b>01</b><span>Functional colour lives in product, forms, dashboards and data. Never in marketing layouts or near the logo.</span></li>
+        <li><b>02</b><span>Error shares the brand's red hue, so it always carries an icon, the word "Error" and a 2 px left rule. Never fill a whole form red.</span></li>
+        <li><b>03</b><span>Marigold and Lagoon never signal status. Warning stays amber with its icon so the two never read as the same signal.</span></li>
+        <li><b>04</b><span>Every state pairs colour with an icon and a word. Colour alone is not an accessible state.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03.8 RAMPS ============ -->
+<section class="page c03" id="ramps" data-section="03 · Colour" data-foot-rule="1" data-note="50–300 tints and fills · 500 base · 700–900 text on tints">
+  <div class="page__body" style="padding-top:28px">
+    <div class="kicker">03.8</div>
+    <h1 class="title" style="font-size:72px">Tonal ramps</h1>
+    <div class="mt-m" id="c03-ramps"></div>
+  </div>
+</section>
+
+<!-- ============ 03.9 GRADIENTS ============ -->
+<section class="page c03" id="gradients" data-section="03 · Colour">
+  <div class="page__body">
+    <div class="kicker">03.9</div>
+    <h1 class="title">Gradients and texture</h1>
+    <div class="grid g5 mt-l" style="gap:20px">
+      <div><div class="c03-grad" style="background: radial-gradient(130% 125% at 100% 100% in oklab, #EF4444 0%, #0C1719 64%)"></div><div class="h4 mt-m" style="font-size:25px">Ember on Ink</div><p class="small mt-s">The signature. Long ink hold, red arriving in the last third. Covers and stage backdrops.</p></div>
+      <div><div class="c03-grad" style="background: var(--ink)"><div style="position:absolute; inset:0; background: radial-gradient(circle at 50% 50% in oklab, #8A2E2C 0%, #0C1719 60%)"></div><div style="position:absolute; left:50%; top:50%; width:46px; height:46px; transform:translate(-50%,-50%); border-radius:50%; background: var(--red)"></div></div><div class="h4 mt-m" style="font-size:25px">Halo</div><p class="small mt-s">A glow centred on a full stop. The only permitted glow, and only on ink.</p></div>
+      <div><div class="c03-grad" style="background: linear-gradient(160deg, var(--ink-800), var(--ink) 70%)"></div><div class="h4 mt-m" style="font-size:25px">Nightfall</div><p class="small mt-s">Ink through its own ramp. Depth on dark grounds where a flat field feels heavy.</p></div>
+      <div><div class="c03-grad" style="background: var(--ink)"><div class="pulli" style="inset:0; --pulli: rgb(244 244 240 / .14)"></div></div><div class="h4 mt-m" style="font-size:25px">Pulli texture</div><p class="small mt-s">The dot grid at 6–14% Paper on ink. The brand's only pattern.</p></div>
+      <div><div class="c03-grad" style="background: linear-gradient(180deg, #FBFAF7, var(--bone)); box-shadow: inset 0 0 0 1px var(--line)"></div><div class="h4 mt-m" style="font-size:25px">Paper warm</div><p class="small mt-s">Barely there. Gives a light page a direction of light without becoming a colour.</p></div>
+    </div>
+    <div class="split mt-l" style="grid-template-columns: 1.1fr 1fr; gap: 72px">
+      <div>
+        <div class="label">Fusion ladder: red mixed into ink, in OKLab</div>
+        <div class="c03-fusion mt-m">
+          <div><div style="background: color-mix(in oklab, var(--red) 10%, var(--ink))"></div><span>10%</span></div>
+          <div><div style="background: color-mix(in oklab, var(--red) 22%, var(--ink))"></div><span>22%</span></div>
+          <div><div style="background: color-mix(in oklab, var(--red) 35%, var(--ink))"></div><span>35%</span></div>
+          <div><div style="background: color-mix(in oklab, var(--red) 48%, var(--ink))"></div><span>48%</span></div>
+          <div><div style="background: color-mix(in oklab, var(--red) 61%, var(--ink))"></div><span>61%</span></div>
+          <div><div style="background: color-mix(in oklab, var(--red) 74%, var(--ink))"></div><span>74%</span></div>
+          <div><div style="background: color-mix(in oklab, var(--red) 87%, var(--ink))"></div><span>87%</span></div>
+          <div><div style="background: var(--red)"></div><span>100%</span></div>
+        </div>
+        <p class="small" style="margin-top:22px">For heat scales and stacked data that need more than two steps. Mixing in OKLab keeps the middle steps from going muddy.</p>
+      </div>
+      <ul class="rules rules--plain">
+        <li><span><span class="no" style="width:26px; height:26px; font-size:15px; margin-right:12px">×</span>No gradient behind body copy. Text sets on a flat field.</span></li>
+        <li><span><span class="no" style="width:26px; height:26px; font-size:15px; margin-right:12px">×</span>No red overlays, tints or gradients on photographs.</span></li>
+        <li><span><span class="no" style="width:26px; height:26px; font-size:15px; margin-right:12px">×</span>No gradient inside the logo. The full stop is always flat red.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03.10 PROPORTION ============ -->
+<section class="page page--ink c03" id="proportion" data-section="03 · Colour">
+  <div class="page__body">
+    <div class="kicker">03.10</div>
+    <h1 class="title" style="color:var(--night-text)">Proportion and contrast</h1>
+    <p class="lede mt-s" style="font-size:25px; color:var(--night-text-2); max-width:1560px">A working ratio, not a law: about 60 parts Paper, 25 Ink, up to 8 Red, up to 5 tertiary and the brand accent only on its own brand. Red earns its force from scarcity: one full stop, one action, one number per surface.</p>
+    <div class="c03-bar mt-m">
+      <div style="flex:60; background:var(--paper); color:var(--ink)">PAPER 60</div>
+      <div style="flex:25; background:var(--ink-800); color:var(--night-text)">INK 25</div>
+      <div style="flex:8; background:var(--red); color:#fff">RED 8</div>
+      <div style="flex:4; background:var(--marigold); color:var(--ink)"></div>
+      <div style="flex:3; background:var(--lagoon); color:#fff"></div>
+    </div>
+    <div class="split mt-l" style="grid-template-columns: 1.15fr 1fr; gap: 72px">
+      <table class="spec">
+        <tr><th>Pair</th><th style="text-align:left">Ratio</th><th>Cleared for</th></tr>
+        <tr><td class="l">Ink on Paper / Paper on Ink</td><td class="l"><b>16.41:1</b></td><td>All text</td></tr>
+        <tr><td class="l">Marigold on Ink</td><td class="l"><b>9.19:1</b></td><td>All text</td></tr>
+        <tr><td class="l">Red 400 on Ink</td><td class="l"><b>6.59:1</b></td><td>All text</td></tr>
+        <tr><td class="l">Red 700 on Paper</td><td class="l"><b>5.83:1</b></td><td>All text</td></tr>
+        <tr><td class="l">SNX Red on Ink</td><td class="l"><b>4.84:1</b></td><td>All text</td></tr>
+        <tr><td class="l">White on Red 600</td><td class="l"><b>4.83:1</b></td><td>Buttons, all text</td></tr>
+        <tr><td class="l">SNX Red on Paper</td><td class="l"><b>3.39:1</b></td><td>Large type, graphics</td></tr>
+        <tr class="hl"><td class="l" style="color:var(--red-400)">Marigold on Paper</td><td class="l" style="color:var(--red-400)">1.79:1</td><td style="color:var(--red-400)">Fails · decoration only</td></tr>
+      </table>
+      <div>
+        <ol class="rules">
+          <li><b>01</b><span>WCAG 2.2 AA is the floor: 4.5:1 for text, 3:1 for large text (24 px, or 19 px bold) and interface parts.</span></li>
+          <li><b>02</b><span>SNX Red on Ink passes for all text, so on dark grounds the red can be words. On Paper it is a mark, a rule or a big number; red words use Red 700.</span></li>
+          <li><b>03</b><span>Every ratio is measured against the brand grounds only. A partner's ground is checked separately before the mark goes on it.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Tonal ramps (values from palette.json; bases outlined).
+  (function () {
+    const R = {
+      'SNX Red · primary': [['50','#FEF2F2'],['100','#FEE2E2'],['200','#FECACA'],['300','#FCA5A5'],['400','#F87171'],['500','#EF4444',1],['600','#DC2626'],['700','#B91C1C'],['800','#991B1B'],['900','#7F1D1D']],
+      'Ink · secondary': [['50','#F4F7F8'],['100','#E8EEEF'],['200','#CFDADC'],['300','#ABBBBE'],['400','#82979A'],['500','#5E7377'],['600','#42575A'],['700','#2C3E41'],['800','#1B292C'],['900','#0C1719',1]],
+      'Marigold · tertiary warm': [['50','#FFF5EA'],['100','#FFEBD5'],['200','#FEDAB2'],['300','#FFC580'],['400','#FEB75F'],['500','#FBA62A',1],['600','#D98B09'],['700','#A86B02'],['800','#7E4F04'],['900','#593808']],
+      'Lagoon · tertiary cool': [['50','#EEF9FB'],['100','#D9F0F3'],['200','#B6E1E6'],['300','#88C7CE'],['400','#4FA0A9'],['500','#117780',1],['600','#046169'],['700','#024C52'],['800','#00383D'],['900','#012528']],
+    };
+    const host = document.getElementById('c03-ramps');
+    host.innerHTML = Object.entries(R).map(([name, steps]) => `<div class="c03-rampblk"><div class="label">${name}</div><div class="ramp">${steps.map(([s, h, base]) => `<div><div class="ramp__c${base ? ' base' : ''}" style="background:${h}"></div><div class="ramp__t"><b>${s}${base ? ' base' : ''}</b>${h}</div></div>`).join('')}</div></div>`).join('');
+  })();
+</script>

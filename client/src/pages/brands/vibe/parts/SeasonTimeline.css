@@ -1,0 +1,76 @@
+/* Vibathon season timeline (DESIGN-v2 6.2): a hairline track; the Ink progress draws along it and the Vibe accent marks
+   "now" (the current value). Mobile: vertical. ≥1024: horizontal columns between hairlines. */
+.vibe-timeline { display: grid; gap: var(--space-8); }
+.vibe-timeline__now-label { display: flex; gap: var(--space-3); align-items: flex-start; font-size: var(--text-body); color: var(--color-text-2); max-width: 60ch; }
+.vibe-timeline__now-label strong { font-weight: 500; color: var(--color-text); }
+.vibe-timeline__now-mark { flex: none; width: 10px; height: 10px; margin-top: 0.4em; border-radius: var(--radius-full); background: var(--accent); }
+
+.vibe-timeline__body { position: relative; --tl-x: 5px; }
+.vibe-timeline__list { list-style: none; display: grid; gap: var(--space-8); padding-left: var(--space-8); }
+.vibe-timeline__stage { position: relative; display: grid; gap: var(--space-1); align-content: start; }
+.vibe-timeline__node {
+  position: absolute; left: calc(var(--space-8) * -1 + var(--tl-x) - 5px); top: 0.3rem;
+  width: 11px; height: 11px; border-radius: var(--radius-full);
+  background: var(--color-bg); box-shadow: inset 0 0 0 1px var(--color-border-control);
+}
+.vibe-timeline__stage--past .vibe-timeline__node { background: var(--color-text); box-shadow: none; }
+.vibe-timeline__stage--now .vibe-timeline__node { background: var(--accent); box-shadow: 0 0 0 4px var(--color-bg); }
+.vibe-timeline__when { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; font-size: var(--text-meta); font-weight: 500; color: var(--color-text-muted); font-variant-numeric: tabular-nums lining-nums; }
+.vibe-timeline__now-chip {
+  padding: 0 var(--space-2); border-radius: var(--btn-radius);
+  background: var(--accent-fill); color: var(--accent-on-fill); font-size: var(--text-caption); font-weight: 500;
+}
+.vibe-timeline__title { font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); line-height: 1.2; }
+.vibe-timeline__stage--future .vibe-timeline__title { color: var(--color-text); }
+
+/* Rail (vertical on mobile) */
+.vibe-timeline__rail { position: absolute; top: 0.6rem; bottom: 0.6rem; left: var(--tl-x); width: 1px; }
+.vibe-timeline__track, .vibe-timeline__progress { position: absolute; inset: 0; }
+.vibe-timeline__track { background: var(--color-border); }
+.vibe-timeline__progress { background: var(--color-text); transform-origin: top center; }
+.vibe-timeline__now-dot { display: none; }
+/* Mobile: the current stage's node is the full stop */
+.vibe-timeline__stage--now .vibe-timeline__node { background: var(--accent); }
+
+@media (min-width: 1024px) {
+  .vibe-timeline__list { grid-template-columns: repeat(var(--vibe-timeline-n), minmax(0, 1fr)); gap: 0; padding-left: 0; padding-top: var(--space-10); }
+  .vibe-timeline__stage { padding: 0 var(--space-5); }
+  .vibe-timeline__stage:first-child { padding-left: 0; }
+  .vibe-timeline__stage + .vibe-timeline__stage { border-left: 1px solid var(--color-border); }
+  .vibe-timeline__node { left: -5px; top: calc(var(--space-10) * -1 - 5px); }
+  .vibe-timeline__stage:first-child .vibe-timeline__node { left: 0; }
+  .vibe-timeline__stage--now .vibe-timeline__node { background: var(--accent); }
+  .vibe-timeline__rail { top: 0; bottom: auto; left: 0; right: 0; width: auto; height: 1px; }
+  .vibe-timeline__track, .vibe-timeline__progress { right: calc(100% / var(--vibe-timeline-n)); }
+  .vibe-timeline__progress { transform-origin: left center; }
+  .vibe-timeline__now-dot {
+    display: block; position: absolute; top: 50%;
+    width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px;
+    border-radius: var(--radius-full); background: var(--accent);
+    box-shadow: 0 0 0 5px var(--color-bg);
+  }
+}
+
+/* V-R1: six stages across at 1024–1279 left ~131 px per Tamil title ("அழைப்பு தொடங்குகிறது" split mid-word).
+   Tamil uses three columns there (two rows): each stage carries its own segment of the track, the shared
+   rail and the scroll-drawn progress are hidden (SeasonTimeline.jsx starts the motion at 1280 in Tamil),
+   and the current stage's node is the red full stop, as on mobile. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  :lang(ta) .vibe-timeline__rail { display: none; }
+  :lang(ta) .vibe-timeline__list { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--space-10); padding-top: 0; }
+  :lang(ta) .vibe-timeline__stage { padding-top: var(--space-8); align-content: start; }
+  :lang(ta) .vibe-timeline__stage:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
+  :lang(ta) .vibe-timeline__stage::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--color-border);
+  }
+  :lang(ta) .vibe-timeline__stage:last-child::before { content: none; }
+  :lang(ta) .vibe-timeline__node { left: -5px; top: -5px; }
+  :lang(ta) .vibe-timeline__stage:nth-child(3n + 1) .vibe-timeline__node { left: 0; }
+  :lang(ta) .vibe-timeline__stage--now .vibe-timeline__node { background: var(--accent); }
+}
+
+/* QA v6: six Tamil stages across from 1280 leave ~157–190px per title; "தொடங்குகிறது" / "நேர்காணல்கள்" (~8.5em)
+   split between aksharas at h3 size. Tamil titles step down to fit the column. */
+@media (min-width: 1280px) {
+  :lang(ta) .vibe-timeline__title { font-size: min(var(--text-h5), 1.32vw); }
+}

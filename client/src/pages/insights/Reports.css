@@ -1,0 +1,88 @@
+/* Reports library + TN Founder Report landing. Oct 2026: quiet 4px filter chips, hairline findings grid,
+   sentence-case chapter list. */
+.reports-filter { display: flex; flex-wrap: wrap; gap: var(--space-2); padding-bottom: var(--space-6); border-bottom: 1px solid var(--color-border); }
+.reports-filter__chip {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; padding: 0 var(--space-4);
+  border: 1px solid var(--color-border); border-radius: var(--btn-radius);
+  background: var(--card); font-size: var(--text-small); font-weight: 500;
+  transition: background-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) { .reports-filter__chip:hover { border-color: var(--color-border-control); } }
+.reports-filter__chip[aria-pressed="true"] { background: var(--color-text); color: var(--color-bg); border-color: var(--color-text); }
+/* min-width: counts arriving (0 → 10) must not widen the chips and rewrap the row (CLS). */
+.reports-filter__count { display: inline-block; min-width: 2ch; text-align: center; font-size: var(--text-caption); font-variant-numeric: tabular-nums; opacity: 0.7; }
+
+.reports-group { margin-top: var(--space-10); }
+.reports-group__title { margin-bottom: var(--space-2); font-weight: 400; letter-spacing: -0.02em; }
+.reports-group__title:lang(ta) { letter-spacing: 0; }
+.reports-group + .reports-group { padding-top: var(--space-10); border-top: 1px solid var(--color-border); }
+.reports-group__note { color: var(--color-text-muted); font-size: var(--text-small); margin-bottom: var(--space-6); }
+.reports-grid { margin-top: var(--space-6); }
+.reports-grid__item { min-width: 0; display: flex; }
+.reports-grid__item > * { flex: 1; }
+
+/* TN Founder Report */
+.reports-tnfr { display: grid; gap: var(--space-10); align-items: start; }
+@media (min-width: 1024px) { .reports-tnfr { grid-template-columns: 5fr 7fr; gap: var(--space-16); } }
+.reports-tnfr__cover { position: relative; }
+@media (min-width: 1024px) { .reports-tnfr__cover { position: sticky; top: calc(var(--header-h) + var(--space-8)); } }
+.reports-tnfr__copy { display: grid; gap: var(--space-6); justify-items: start; }
+.reports-tnfr__title { max-width: 14ch; }
+.reports-tnfr__sub { color: var(--color-text-2); max-width: 46ch; }
+.reports-tnfr__body { max-width: 56ch; color: var(--color-text); }
+.reports-tnfr__actions { --cluster-gap: var(--space-3); }
+.reports-tnfr__survey { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.reports-tnfr__findings { width: 100%; }
+/* Key findings: blueprint cells joined by 1px dividers inside one hairline frame. */
+.reports-tnfr__grid {
+  display: grid; gap: 1px; margin-top: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+  background: var(--color-border); border: 1px solid var(--color-border); border-radius: var(--media-radius); overflow: hidden;
+}
+.reports-tnfr__finding { padding: var(--space-6); background: var(--night-1); min-width: 0; }
+.reports-tnfr__chapters { width: 100%; padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
+.reports-tnfr__chapters-title { color: var(--color-text-muted); font-size: var(--text-small); font-weight: 400; }
+.reports-tnfr__chapters ol { list-style: none; display: grid; gap: 0; margin-top: var(--space-3); }
+@media (min-width: 640px) { .reports-tnfr__chapters ol { grid-template-columns: 1fr 1fr; column-gap: var(--space-8); } }
+.reports-tnfr__chapters li { display: flex; gap: var(--space-4); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+.reports-tnfr__num { font-variant-numeric: tabular-nums; color: var(--color-text-muted); font-weight: 400; }
+.reports-tnfr__rules { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); font-size: var(--text-small); color: var(--color-text-2); max-width: 60ch; }
+
+.reports-news { display: grid; gap: var(--space-6); align-items: center; }
+@media (min-width: 900px) { .reports-news { grid-template-columns: 1fr 1.3fr; gap: var(--space-12); } }
+
+/* Report cards are hash targets (#<slug>): clear the sticky header when jumped to. */
+.reports-grid__item { scroll-margin-top: var(--space-6); }
+
+/* No orphan in the 3-up grid: on a 6-track grid each card spans 2; when one card would sit alone on the last
+   row, the last four share two rows of two (r1); when two would, they share the last row (r2). */
+@media (min-width: 1024px) {
+  .reports-grid--r1, .reports-grid--r2 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .reports-grid--r1 > *, .reports-grid--r2 > * { grid-column: span 2; }
+  .reports-grid--r1 > :nth-last-child(-n + 4), .reports-grid--r2 > :nth-last-child(-n + 2) { grid-column: span 3; }
+  /* Wider cards keep the same art height as the 3-up row (3/2 at 1.5× the width = 9/4); beats the inline ratio. */
+  .reports-grid--r1 > :nth-last-child(-n + 4) .art-image,
+  .reports-grid--r2 > :nth-last-child(-n + 2) .art-image { aspect-ratio: 9 / 4 !important; }
+}
+
+/* Tamil (Book 3 §4.4): 14px floor on small labels. */
+.reports-tnfr__chapters-title:lang(ta) { font-size: 0.875rem; }
+.reports-tnfr__survey .placeholder:lang(ta), .reports-tnfr__body .placeholder:lang(ta) { font-size: max(0.875rem, 0.9em); }
+.reports-tnfr__chips { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-2); }
+
+/* Oct 2026: small titles at 500, not 600. */
+.reports-tnfr .h5 { font-weight: 500; letter-spacing: -0.01em; }
+.reports-tnfr .h5:lang(ta) { letter-spacing: 0; }
+
+/* DESIGN-v2 3.12 filter chips: 36px pills, 1px line-strong ring, Ink fill + Paper text when pressed, 100ms press. */
+.reports-filter__chip {
+  min-height: 36px; padding: 0 14px;
+  border: 0; box-shadow: inset 0 0 0 1px var(--line-strong); border-radius: var(--radius-full);
+  background: transparent; color: var(--color-text); font-size: var(--text-meta); font-weight: 500;
+  transition: background-color var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap), transform var(--dur-1) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) { .reports-filter__chip:hover { border: 0; box-shadow: inset 0 0 0 1px var(--color-text); } }
+.reports-filter__chip:active { transform: scale(0.97); }
+.reports-filter__chip[aria-pressed="true"] { background: var(--sn-ink); color: var(--paper); box-shadow: inset 0 0 0 1px var(--sn-ink); }
+@media (pointer: coarse) { .reports-filter__chip { min-height: 44px; } }

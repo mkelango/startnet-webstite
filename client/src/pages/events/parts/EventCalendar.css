@@ -1,0 +1,101 @@
+/* Month view for /events (DESIGN-v2 6.3): a 7-column hairline grid on a Card frame, tabular day numbers, today
+   as an Ink ring, days with events carry an Ink dot (never red), and a 160ms opacity crossfade when the month
+   changes (the frame is keyed by month). Round 44px ring arrows either side of the month title. */
+.events-cal { display: grid; gap: var(--space-5); }
+.events-cal__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.events-cal__title { text-align: center; font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3, -0.015em); }
+:lang(ta) .events-cal__title { letter-spacing: 0; }
+.events-cal__count { font-size: var(--text-meta); font-weight: 400; letter-spacing: 0; color: var(--color-text-2); }
+.events-cal__count::before { content: "("; }
+.events-cal__count::after { content: ")"; }
+@media (max-width: 479px) {
+  .events-cal__month, .events-cal__count { display: block; }
+  .events-cal__count::before, .events-cal__count::after { content: none; }
+}
+.events-cal__nav {
+  display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: var(--radius-full);
+  border: 0; background: transparent; color: var(--color-text); box-shadow: inset 0 0 0 1px var(--line-strong);
+  transition: box-shadow var(--dur-2) var(--ease-snap), background-color var(--dur-2) var(--ease-snap), transform var(--dur-1) var(--ease-standard);
+}
+@media (hover: hover) { .events-cal__nav:hover { box-shadow: inset 0 0 0 1px var(--color-text); background: rgb(12 23 25 / 0.04); } }
+.events-cal__nav:active { transform: scale(0.95); }
+
+.events-cal__frame { border-radius: var(--radius-media); overflow: hidden; background: var(--card); box-shadow: inset 0 0 0 1px var(--hairline); }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) .events-cal__frame { animation: events-cal-in 160ms var(--ease-standard); }
+}
+@keyframes events-cal-in { from { opacity: 0; } to { opacity: 1; } }
+.events-cal__table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.events-cal__table thead th {
+  padding: var(--space-3); text-align: left; font-size: var(--text-caption); font-weight: 500; color: var(--color-text-2);
+  border-bottom: 1px solid var(--hairline);
+}
+.events-cal__table abbr { text-decoration: none; }
+.events-cal__cell {
+  vertical-align: top; height: 7.5rem; padding: var(--space-2) var(--space-2) var(--space-3);
+  border-right: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+}
+.events-cal__table tr > :last-child { border-right: 0; }
+.events-cal__table tbody tr:last-child > * { border-bottom: 0; }
+.events-cal__cell.is-blank { background: var(--paper); }
+.events-cal__date {
+  position: relative; display: inline-grid; place-items: center; min-width: 1.75rem; height: 1.75rem; padding-inline: 0.25rem;
+  border-radius: var(--radius-full); font-size: var(--text-meta); font-weight: 500; font-variant-numeric: tabular-nums lining-nums;
+}
+.events-cal__wd { display: none; }
+/* Today: an Ink ring */
+.events-cal__cell.is-today .events-cal__date { box-shadow: inset 0 0 0 1.5px var(--sn-ink); }
+/* Days with events: an Ink dot after the number */
+.events-cal__cell.has-events .events-cal__date::after {
+  content: ''; position: absolute; right: -6px; top: 4px; width: 6px; height: 6px; border-radius: 50%; background: var(--sn-ink);
+}
+.events-cal__cell.is-empty .events-cal__date { color: var(--color-text-2); font-weight: 400; }
+.events-cal__list { list-style: none; display: grid; gap: var(--space-1); margin-top: var(--space-2); }
+.events-cal__event {
+  display: grid; grid-template-columns: auto 1fr; gap: 0 var(--space-2); align-items: center;
+  padding: var(--space-1) var(--space-2); border-radius: var(--radius-btn); background: var(--bone);
+  color: var(--color-text); text-decoration: none; font-size: var(--text-caption); font-weight: 500; line-height: 1.3;
+  transition: background-color var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap);
+}
+@media (hover: hover) {
+  .events-cal__event:hover { background: var(--sn-ink); color: var(--paper); }
+  .events-cal__event:hover .events-cal__time { color: var(--night-text-2); }
+  .events-cal__event:hover .events-cal__dot { background: var(--paper); }
+}
+.events-cal__event:focus-visible { outline-offset: 2px; }
+.events-cal__dot { width: 6px; height: 6px; border-radius: var(--radius-full); background: var(--sn-ink); transition: background-color var(--dur-2) var(--ease-snap); }
+.events-cal__event-title { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.events-cal__time { grid-column: 2; font-weight: 400; color: var(--ink-600); font-variant-numeric: tabular-nums; }
+.events-cal__none { color: var(--color-text-2); }
+
+/* Mobile: the grid collapses into a day list; empty days drop out. */
+@media (max-width: 767px) {
+  .events-cal__frame { box-shadow: none; border-top: 1px solid var(--hairline); border-radius: 0; background: none; overflow: visible; }
+  .events-cal__table, .events-cal__table tbody, .events-cal__table tr, .events-cal__cell { display: block; }
+  .events-cal__table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .events-cal__cell.is-empty, .events-cal__cell.is-blank { display: none; }
+  .events-cal__cell {
+    height: auto; border: 0; border-bottom: 1px solid var(--hairline); padding: var(--space-3) 0;
+    display: grid; grid-template-columns: 4.5rem 1fr; gap: var(--space-3);
+  }
+  .events-cal__table tbody tr:last-child > * { border-bottom: 1px solid var(--hairline); }
+  .events-cal__wd { display: inline; font-weight: 400; color: var(--color-text-2); margin-right: var(--space-1); }
+  .events-cal__date { display: inline; height: auto; padding: 0; }
+  .events-cal__cell.has-events .events-cal__date::after { display: none; }
+  .events-cal__list { margin: 0; }
+  .events-cal__event { font-size: var(--text-meta); padding: var(--space-2) var(--space-3); min-height: 44px; }
+}
+
+/* Editions without a confirmed day sit above the grid in a Card panel */
+.events-cal__tbc {
+  display: grid; gap: var(--space-3); padding: var(--space-5);
+  border-radius: var(--radius-media); background: var(--card); box-shadow: inset 0 0 0 1px var(--hairline);
+}
+.events-cal__tbc-title { font-size: var(--text-meta); font-weight: 500; color: var(--color-text-2); }
+.events-cal__tbc-list { list-style: none; display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
+.events-cal__tbc .events-cal__event { font-size: var(--text-meta); padding: var(--space-2) var(--space-3); min-height: 44px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .events-cal__nav, .events-cal__event, .events-cal__dot { transition: none; }
+}
+:root[data-motion='reduced'] :is(.events-cal__nav, .events-cal__event, .events-cal__dot) { transition: none; }

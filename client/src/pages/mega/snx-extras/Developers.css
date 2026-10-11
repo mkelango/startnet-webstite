@@ -1,0 +1,108 @@
+/* StartNet X · Developers (T19). AngelList-family: flat hairline cards, hairline lists and tables, code in quiet
+   ink frames (12px), one night band. */
+.snx-dev__crumbs-band { background: var(--night-0); }
+.snx-dev__crumbs { padding-top: var(--space-4); }
+.snx-dev__anchor { scroll-margin-top: calc(var(--shell-offset, var(--header-h)) + var(--subnav-h) + var(--space-4)); }
+
+.snx-dev__layout { align-items: start; }
+.snx-dev__main { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-12); min-width: 0; }
+.snx-dev__aside { min-width: 0; }
+
+.snx-dev__principles { list-style: none; display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 768px) { .snx-dev__principles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.snx-dev__principle { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius); box-shadow: none; min-width: 0; }
+.snx-dev__principle .h5 { font-weight: 500; letter-spacing: -0.01em; }
+/* Line icon in a 40px hairline square (no tinted circle). */
+.snx-dev__icon {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; margin-bottom: var(--space-3);
+  border: 1px solid var(--color-border); border-radius: var(--btn-radius);
+  background: transparent; color: var(--color-text);
+}
+.snx-dev__icon svg { width: 20px; height: 20px; }
+
+.snx-dev__users { display: grid; gap: var(--space-5); justify-items: start; }
+.snx-dev__users > .h4 { font-weight: 500; letter-spacing: -0.01em; }
+.snx-dev__user-list { list-style: none; display: grid; width: 100%; border-top: 1px solid var(--color-border); }
+.snx-dev__user { display: grid; grid-template-columns: auto 1fr; gap: var(--space-4); padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border); }
+.snx-dev__user svg { color: var(--color-text); margin-top: 0.15em; }
+.snx-dev__user-title { font-weight: 500; }
+
+.snx-dev__inline { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; overflow-wrap: anywhere; }
+
+/* Night band: endpoints + samples */
+.snx-dev__table-wrap { margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); overflow-x: auto; -webkit-overflow-scrolling: touch; border-top: 1px solid var(--color-border); }
+.snx-dev__table-wrap:focus-visible { outline: 2px solid var(--accent-night); outline-offset: 2px; }
+.snx-dev__table { width: 100%; min-width: 34rem; border-collapse: collapse; font-size: var(--text-small); }
+.snx-dev__table th, .snx-dev__table td { text-align: left; vertical-align: top; padding: var(--space-4) var(--space-3); border-bottom: 1px solid var(--color-border); }
+.snx-dev__table :is(th, td):first-child { padding-left: 0; }
+.snx-dev__table :is(th, td):last-child { padding-right: 0; }
+.snx-dev__table thead th { font-size: var(--text-small); font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--color-text-muted); }
+.snx-dev__table tbody th { font-weight: 400; white-space: nowrap; }
+.snx-dev__table code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--color-text); }
+.snx-dev__table td { color: var(--color-text-2); }
+/* Phones and small tablets: the 3-column table cannot fit (min-width 34rem), so each endpoint
+   becomes a stacked row: monospace path, then what it returns, then its status chip. */
+@media (max-width: 599.98px) {
+  .snx-dev__table-wrap { overflow-x: visible; }
+  .snx-dev__table { min-width: 0; }
+  .snx-dev__table, .snx-dev__table tbody, .snx-dev__table tr,
+  .snx-dev__table tbody th, .snx-dev__table td { display: block; width: auto; }
+  .snx-dev__table thead { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .snx-dev__table tbody tr { padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+  .snx-dev__table tbody th, .snx-dev__table td { padding: 0; border-bottom: 0; }
+  .snx-dev__table tbody th { white-space: normal; }
+  .snx-dev__table tbody th code { overflow-wrap: anywhere; }
+  .snx-dev__table td { margin-top: var(--space-2); }
+  .snx-dev__table td:last-child { margin-top: var(--space-3); }
+}
+
+.snx-dev__samples { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8); margin-top: var(--space-12); }
+@media (min-width: 1024px) { .snx-dev__samples { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-10); } }
+.snx-dev__sample-col { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); align-content: start; min-width: 0; }
+.snx-dev__sample-col > * { min-width: 0; }
+.snx-dev__sample-col > .h5 { font-weight: 500; letter-spacing: -0.01em; }
+
+/* minmax(0,1fr) + min-width:0 keep long code lines scrolling inside <pre> instead of widening the page at 320px */
+.snx-dev__code { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-2); margin: 0; min-width: 0; max-width: 100%; }
+.snx-dev__code > * { min-width: 0; }
+.snx-dev__code-cap { font-size: var(--text-caption); color: var(--color-text-muted); }
+/* Code: a quiet ink frame (12px), no coloured bar. On the night band it steps up to night-1. */
+.snx-dev__pre {
+  margin: 0; padding: var(--space-6); overflow-x: auto; max-width: 100%;
+  /* DESIGN-v2 6.4: code on --night-1, 12px radius, the system mono stack (no web font), tabular figures */
+  background: var(--night-1); color: var(--night-text);
+  border: 1px solid var(--night-line);
+  border-radius: var(--radius-media);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: var(--text-small); line-height: 1.7;
+  font-variant-numeric: tabular-nums;
+  tab-size: 2;
+}
+.snx-dev__pre:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+[data-surface="night"] .snx-dev__pre { background: var(--night-1); border-color: var(--night-line); }
+[data-surface="night"] .snx-dev__pre:focus-visible { outline-color: var(--paper); }
+.snx-dev__tags { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); font-size: var(--text-small); color: var(--color-text-2); }
+
+/* Webhooks: feature row, text + event list left, payload in an ink frame right. */
+.snx-dev__two { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); }
+@media (min-width: 1024px) { .snx-dev__two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-16); align-items: start; } }
+.snx-dev__two-text { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8); min-width: 0; }
+.snx-dev__two-code { min-width: 0; }
+.snx-dev__hooks { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
+.snx-dev__hook { display: grid; gap: var(--space-2); justify-items: start; padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border); }
+.snx-dev__hook code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 500; overflow-wrap: anywhere; }
+.snx-dev__note { margin-top: var(--space-6); color: var(--color-text-2); }
+
+/* Status: hairline rows */
+.snx-dev__status { list-style: none; display: grid; margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); border-top: 1px solid var(--color-border); }
+.snx-dev__status-row { display: grid; gap: var(--space-2); justify-items: start; padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border); }
+@media (min-width: 768px) { .snx-dev__status-row { grid-template-columns: 1fr auto auto; align-items: center; gap: var(--space-6); } }
+.snx-dev__status-name { font-weight: 500; }
+.snx-dev__status-row .snx-dev__inline { color: var(--color-text-muted); }
+
+/* API key form: two-column utility layout, the form in a flat hairline card */
+.snx-dev__form-grid { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) { .snx-dev__form-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; } }
+.snx-dev__form-intro { display: grid; gap: var(--space-5); justify-items: start; }
+.snx-dev__form-intro .body-lg { max-width: 36rem; }
+.snx-dev__form { min-width: 0; padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius); }
+@media (min-width: 768px) { .snx-dev__form { padding: var(--space-8); } }

@@ -1,0 +1,51 @@
+/* /events/speak — T13 form page. Prefix: .speak- (mobile first)
+   AngelList-family two-column utility page: what we ask / what you get as hairline rows on the left (sticky on
+   desktop), the form in a flat var(--card) hairline card on the right. One column on phones and tablets. */
+.speak-grid { display: grid; gap: var(--space-12); grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 1024px) {
+  .speak-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); }
+  .speak-info { position: sticky; top: calc(var(--shell-offset, var(--header-h)) + var(--space-8)); }
+}
+.speak-info, .speak-form-col { min-width: 0; }
+
+.speak-lists { display: grid; gap: var(--space-10); }
+@media (min-width: 768px) and (max-width: 1023.98px) { .speak-lists { grid-template-columns: 1fr 1fr; gap: var(--space-12); } }
+.speak-list > h2 { margin-bottom: var(--space-4); font-weight: 500; letter-spacing: -0.01em; }
+:lang(ta) .speak-list > h2 { letter-spacing: 0; }
+.speak-list__items { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--color-border); }
+.speak-list__item {
+  display: flex; align-items: flex-start; gap: var(--space-4);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-2);
+}
+.speak-list__item > span { min-width: 0; overflow-wrap: anywhere; }
+/* Line icons alone, in ink (no accent or status colours: they are decorative). */
+.speak-list__icon { flex: none; margin-top: 0.15em; color: var(--color-text); }
+.speak-list__icon--check { color: var(--color-text); }
+
+/* Form column */
+.speak-form-col { scroll-margin-top: calc(var(--shell-offset, var(--header-h)) + var(--space-6)); }
+.speak-form {
+  display: grid; gap: var(--space-4);
+  padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border);
+  border-radius: var(--media-radius); box-shadow: none;
+}
+@media (min-width: 768px) { .speak-form { padding: var(--space-8); } }
+.speak-form > h2 { font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+:lang(ta) .speak-form > h2 { letter-spacing: 0; line-height: 1.3; }
+.speak-form__intro { display: flex; align-items: flex-start; gap: var(--space-2); margin-bottom: var(--space-2); color: var(--color-text-muted); font-size: var(--text-small); }
+.speak-form__intro svg { flex: none; margin-top: 0.15em; }
+/* T13: one column, full-width controls, 16px+ text so iOS does not zoom on focus */
+.speak-form__form { width: 100%; min-width: 0; }
+.speak-form__form .field__control { width: 100%; font-size: max(16px, var(--text-body)); }
+
+.speak-alt { margin-top: var(--space-6); color: var(--color-text-2); }
+.speak-link {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
+  font-weight: 500; color: var(--color-link-standalone); text-decoration: none;
+}
+.speak-link:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.speak-link svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+.speak-link:focus-visible svg { transform: translateX(var(--shift-1)); }
+@media (hover: hover) and (pointer: fine) { .speak-link:hover svg { transform: translateX(var(--shift-1)); } }

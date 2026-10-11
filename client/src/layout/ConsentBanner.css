@@ -1,0 +1,131 @@
+/* C43 · Consent banner (DESIGN-v2 3.17): a bottom sheet below 768, a 380px floating Card at ≥768 (12px radius,
+   hairline, overlay shadow). Non-modal, never blocks reading. Equal-prominence buttons (both secondary style).
+   The card floats bottom-RIGHT: bottom-left would cover the hero h1 / primary CTA at 1440×900, which the spec forbids. */
+.cookie-banner {
+  position: fixed; z-index: 80; left: 0; right: 0; bottom: 0;
+  background: var(--card); color: var(--ink-900);
+  border-top: 1px solid var(--hairline);
+  border-radius: 12px 12px 0 0;
+  box-shadow: var(--shadow-overlay);
+  max-height: 85vh; overflow-y: auto; overflow-x: hidden;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+/* Preferences view: cap at 70% of the screen and scroll inside */
+.cookie-banner[data-manage] { max-height: 70vh; max-height: 70dvh; overscroll-behavior: contain; }
+.cookie-banner:focus-visible { outline: 2px solid var(--ink-900); outline-offset: 2px; }
+@media (min-width: 768px) {
+  .cookie-banner {
+    left: auto; right: 24px; bottom: 24px; width: min(380px, calc(100vw - 32px));
+    border: 1px solid var(--hairline); border-radius: var(--radius-media);
+  }
+}
+.cookie-banner__inner { position: relative; display: grid; gap: var(--space-4); padding: 16px var(--gutter); }
+@media (min-width: 768px) { .cookie-banner__inner { padding: 20px; } }
+.cookie-banner__title { font-size: 1.0625rem; font-weight: 500; padding-right: var(--space-10); letter-spacing: -0.01em; }
+.cookie-banner__body { margin-top: var(--space-2); font-size: var(--text-meta); line-height: 1.5; color: var(--ink-600); }
+.cookie-banner__privacy { white-space: nowrap; font-weight: 500; color: var(--ink-900); }
+
+.cookie-banner__prefs { border: 0; margin: 0; padding: 0; display: grid; gap: var(--space-1); min-width: 0; }
+.cookie-banner__pref {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4);
+  padding: var(--space-3) 0; border-top: 1px solid var(--color-border);
+}
+.cookie-banner__pref-label { font-weight: 500; font-size: var(--text-small); }
+.cookie-banner__pref-body { font-size: var(--text-caption); color: var(--color-text-muted); margin-top: var(--space-1); }
+.cookie-banner__always { flex-shrink: 0; font-size: var(--text-caption); font-weight: 500; color: var(--color-success); padding-top: 2px; }
+.cookie-banner__notice { font-size: var(--text-caption); color: var(--color-text-muted); padding-top: var(--space-2); border-top: 1px solid var(--color-border); }
+
+/* Switch */
+.cookie-banner__switch {
+  flex-shrink: 0; appearance: none; -webkit-appearance: none; margin: 0;
+  position: relative; width: 44px; height: 26px; border-radius: var(--radius-full);
+  background: var(--color-border-control); cursor: pointer;
+  transition: background-color var(--dur-2) var(--ease-standard);
+}
+.cookie-banner__switch::after {
+  content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--color-bg-raised); box-shadow: var(--shadow-1);
+  transition: transform var(--dur-2) var(--ease-standard);
+}
+.cookie-banner__switch:checked { background: var(--color-text); }
+.cookie-banner__switch:checked::after { transform: translateX(18px); }
+.cookie-banner__switch:focus-visible { outline: 2px solid var(--ink-900); outline-offset: 2px; }
+
+/* Equal-weight actions. Two equal buttons side by side in both languages; labels wrap only at word boundaries
+   (never inside a Tamil word, never at the hyphen of "non‑essential"). "Choose" takes its own row. */
+.cookie-banner__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); align-items: stretch; min-width: 0; }
+.cookie-banner__btn {
+  min-width: 0; overflow-wrap: normal; word-break: normal; hyphens: manual;
+  min-height: 44px; padding: var(--space-2) var(--space-3); border-radius: var(--radius-btn);
+  border: 0; background: transparent; color: var(--ink-900); box-shadow: inset 0 0 0 1px var(--line-strong);
+  font-weight: 500; font-size: var(--text-small); line-height: 1.2;
+  transition: background-color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
+}
+.cookie-banner__btn:hover { background: rgb(12 23 25 / 0.04); box-shadow: inset 0 0 0 1px var(--ink-900); }
+.cookie-banner__btn:focus-visible, .cookie-banner__text-btn:focus-visible, .cookie-banner__dismiss:focus-visible { outline: 2px solid var(--ink-900); outline-offset: 2px; }
+.cookie-banner__btn:active { transform: scale(0.98); }
+.cookie-banner__text-btn {
+  grid-column: 1 / -1; justify-self: center; min-height: 44px; padding: 0 var(--space-3);
+  border: 0; background: transparent; color: var(--ink-900); font-weight: 500; font-size: var(--text-small);
+  text-decoration: underline; text-decoration-color: rgb(12 23 25 / 0.35); text-underline-offset: 0.2em;
+}
+.cookie-banner__dismiss {
+  position: absolute; top: var(--space-4); right: var(--space-4);
+  display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: var(--radius-full);
+  border: 0; background: transparent; color: var(--color-text-2);
+}
+.cookie-banner__dismiss:hover { background: var(--bone); }
+
+/* Confirmation toast: below the banner (z 80) and never catches clicks, so it can never cover the banner's buttons */
+.cookie-toast { position: fixed; z-index: 79; left: var(--gutter); right: var(--gutter); bottom: calc(80px + env(safe-area-inset-bottom, 0px)); pointer-events: none; display: flex; justify-content: center; }
+@media (min-width: 1024px) { .cookie-toast { bottom: var(--space-6); left: auto; right: var(--space-6); } }
+.cookie-toast__msg {
+  pointer-events: none; max-width: 28rem; padding: var(--space-3) var(--space-4); border-radius: var(--radius-btn);
+  background: var(--night-1); color: var(--night-text); font-size: var(--text-small); box-shadow: var(--shadow-overlay);
+  animation: consent-toast-in var(--dur-3) var(--ease-enter);
+}
+@keyframes consent-toast-in { from { opacity: 0; transform: translateY(var(--shift-2)); } to { opacity: 1; transform: none; } }
+
+/* Phones and small tablets (< 768 px, M-37 / F-23): compact first view, ≤ ~1/3 of the screen.
+   One key sentence + privacy link; the full explanation and switches wait behind "Choose". */
+@media (max-width: 767px) {
+  .cookie-banner:not([data-manage]) .cookie-banner__lead,
+  .cookie-banner:not([data-manage]) .cookie-banner__more { display: none; }
+  .cookie-banner__inner { gap: var(--space-2); padding-block: var(--space-3) var(--space-3); }
+  .cookie-banner__title { font-size: var(--text-h6); padding-right: var(--space-8); }
+  .cookie-banner__body { font-size: var(--text-caption); margin-top: var(--space-1); line-height: 1.45; }
+  .cookie-banner__dismiss { top: var(--space-1); right: var(--space-1); }
+  .cookie-banner__actions { gap: var(--space-2); }
+  .cookie-banner__btn { padding: var(--space-1) var(--space-2); font-size: var(--text-caption); line-height: 1.25; }
+  .cookie-banner__text-btn { font-size: var(--text-caption); }
+  /* English: the three actions share one row */
+  .cookie-banner:not([data-manage]) .cookie-banner__actions { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto; }
+  .cookie-banner:not([data-manage]) .cookie-banner__text-btn { grid-column: auto; padding: 0 var(--space-2); }
+  /* Tamil (+40% length): 2 + 1, "Choose" on its own short row */
+  /* Tracks never narrower than their longest Tamil word, so no word is clipped or split */
+  :lang(ta) .cookie-banner:not([data-manage]) .cookie-banner__actions { grid-template-columns: minmax(min-content, 1fr) minmax(min-content, 1fr); row-gap: 2px; }
+  :lang(ta) .cookie-banner:not([data-manage]) .cookie-banner__text-btn { grid-column: 1 / -1; min-height: 44px; }
+  :lang(ta) .cookie-banner:not([data-manage]) .cookie-banner__inner { padding-bottom: var(--space-2); }
+  :lang(ta) .cookie-banner__actions .cookie-banner__btn { padding-inline: var(--space-1); }
+}
+/* Tamil (Book 3 §4.4): no letter-spacing or uppercase on Tamil text */
+:lang(ta) .cookie-banner__title { letter-spacing: 0; }
+
+/* Tamil on tablets and desktops (V-S1): the same compact first view as phones, so the +40% Tamil copy does not
+   take ~45-55% of the screen. The full explanation stays one tap away behind "Choose" (data-manage).
+   Button labels stay on one line: equal-width tracks that are never narrower than the longer label. */
+@media (min-width: 768px) {
+  :lang(ta) .cookie-banner:not([data-manage]) .cookie-banner__lead,
+  :lang(ta) .cookie-banner:not([data-manage]) .cookie-banner__more { display: none; }
+  :lang(ta) .cookie-banner { width: min(36rem, calc(100vw - 2 * var(--space-6))); }
+  :lang(ta) .cookie-banner__actions { grid-template-columns: repeat(2, minmax(max-content, 1fr)); }
+  :lang(ta) .cookie-banner__btn { white-space: nowrap; width: auto; padding-inline: var(--space-3); }
+}
+
+
+/* Phones: the inline privacy link gets a larger invisible hit area (8px above and below, inside the 8px gap
+   to the actions row, so it never takes taps meant for the buttons) */
+@media (max-width: 767px) {
+  .cookie-banner__privacy { position: relative; }
+  .cookie-banner__privacy::after { content: ''; position: absolute; inset: -8px -4px; }
+}

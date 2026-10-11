@@ -1,0 +1,19 @@
+/* Connect Circle seats: Ink seats on a hairline ring; the accent arc marks the 25 seats every Circle fills
+   (the current value); open seats are dashed. Draws in once on view (800ms); static when reduced. */
+.connect-seats { position: relative; margin: 0; max-width: 26rem; margin-inline: auto; width: 100%; }
+.connect-seats__svg { width: 100%; height: auto; overflow: visible; }
+.connect-seats__table { fill: var(--bp-card, var(--color-bg-raised)); stroke: var(--color-border); stroke-width: 1; }
+.connect-seats__track { fill: none; stroke: var(--color-border); stroke-width: 1; }
+.connect-seats__arc { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; }
+.connect-seats__seat { fill: var(--color-text); }
+.connect-seats__seat--open { fill: var(--color-bg); stroke: var(--ink-500); stroke-width: 1; stroke-dasharray: 2 2.4; }
+.connect-seats__centre {
+  position: absolute; left: 0; right: 0; top: 0; aspect-ratio: 1 / 1;
+  display: grid; place-content: center; text-align: center; pointer-events: none;
+}
+.connect-seats__range { font-size: clamp(2.25rem, 1.5rem + 2.6vw, 3.5rem); font-weight: 400; line-height: 1; letter-spacing: var(--tracking-stat); font-variant-numeric: tabular-nums lining-nums; }
+.connect-seats__unit { color: var(--color-text-muted); margin-top: var(--space-2); }
+.connect-seats__caption { display: grid; gap: var(--space-1); margin-top: var(--space-5); justify-items: center; text-align: center; font-size: var(--text-meta); color: var(--color-text-2); }
+.connect-seats__key { display: inline-flex; align-items: center; gap: var(--space-2); }
+.connect-seats__swatch { width: 8px; height: 8px; border-radius: var(--radius-full); background: var(--color-text); flex: none; box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 3px var(--accent); }
+.connect-seats__swatch--open { background: transparent; border: 1px dashed var(--ink-500); box-shadow: none; }

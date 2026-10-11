@@ -1,0 +1,157 @@
+/* /legal/:slug — T17. Prefix: .legal-  (AngelList family: ink head, calm reading column on a sheet, hairline TOC) */
+.legal-head {
+  background: var(--night-0); color: var(--night-text);
+  padding-block: var(--space-10) calc(var(--space-12) + var(--sheet-radius));
+}
+@media (min-width: 1024px) { .legal-head { padding-block: var(--space-12) calc(var(--space-16) + var(--sheet-radius)); } }
+.legal-head__eyebrow { margin-top: var(--space-8); }
+.legal-head__title { margin-top: var(--space-4); max-width: 20ch; }
+
+.legal-meta { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-10); margin: var(--space-8) 0 0; font-size: var(--text-small); }
+.legal-meta dt { font-size: var(--text-caption); color: var(--color-text-muted); }
+.legal-meta dd { margin: 0; font-weight: 500; }
+
+/* Draft notice on ink: a hairline frame with the amber icon, not a yellow block */
+.legal-draft {
+  display: flex; gap: var(--space-3); align-items: flex-start; margin-top: var(--space-8); max-width: 48rem;
+  padding: var(--space-4) var(--space-5); border-radius: var(--media-radius);
+  background: transparent; color: var(--color-text-2); border: 1px solid var(--color-border-control);
+  font-size: var(--text-small);
+}
+.legal-draft strong { color: var(--color-text); font-weight: 500; }
+.legal-draft__icon { flex: none; margin-top: 0.15em; color: var(--color-warning); }
+
+/* The sheet: the document slides over the ink head */
+.legal-sheet {
+  position: relative; background: var(--color-bg);
+  margin-top: calc(-1 * var(--sheet-radius));
+  border-top-left-radius: var(--sheet-radius); border-top-right-radius: var(--sheet-radius);
+}
+.legal-layout { display: grid; gap: var(--space-10); padding-block: clamp(var(--space-10), 2rem + 3vw, var(--space-16)) var(--space-section); }
+@media (min-width: 1024px) {
+  .legal-layout { grid-template-columns: 15rem minmax(0, 1fr); gap: var(--space-16); align-items: start; }
+  .legal-aside { position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-6)); max-height: calc(100vh - var(--shell-offset, 0px) - var(--space-12)); overflow: auto; }
+}
+@media (min-width: 1280px) { .legal-layout { grid-template-columns: 16rem minmax(0, 1fr); gap: var(--space-24); } }
+.legal-aside { display: grid; gap: var(--space-10); font-size: var(--text-small); }
+.legal-aside__title { font-size: var(--text-small); font-weight: 500; color: var(--color-text-muted); margin-bottom: var(--space-3); }
+/* Hairline TOC: a 1px rule on the left; hover / current = ink, with a 1px ink segment on the rule */
+.legal-toc ol, .legal-all ul { list-style: none; display: grid; border-left: 1px solid var(--color-border); }
+.legal-toc a, .legal-all a {
+  display: flex; align-items: center; min-height: 44px; padding: var(--space-2) var(--space-4); margin-left: -1px;
+  border-left: 1px solid transparent; color: var(--color-text-muted); text-decoration: none; line-height: 1.35;
+  transition: color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard);
+}
+.legal-toc a:hover, .legal-all a:hover { color: var(--color-text); border-left-color: var(--color-text); }
+.legal-all a[aria-current="page"] { color: var(--color-text); font-weight: 500; border-left-color: var(--color-text); }
+
+/* Mobile/tablet: "On this page" collapses (Book 3 T17 "TOC collapsible (m)"). */
+.legal-toc__details { border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card); }
+.legal-toc__summary {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  min-height: 48px; padding: var(--space-2) var(--space-4); cursor: pointer; list-style: none;
+  font-size: var(--text-small); font-weight: 500; color: var(--color-text);
+  border-radius: var(--media-radius);
+}
+.legal-toc__summary::-webkit-details-marker { display: none; }
+.legal-toc__summary::after {
+  content: ""; flex: none; width: 0.5em; height: 0.5em; margin-right: 0.2em;
+  border-right: 1px solid currentColor; border-bottom: 1px solid currentColor;
+  transform: translateY(-25%) rotate(45deg); transition: transform var(--dur-2) var(--ease-standard);
+}
+.legal-toc__details[open] > .legal-toc__summary::after { transform: translateY(25%) rotate(-135deg); }
+.legal-toc__summary:hover { color: var(--color-text); }
+.legal-toc__details > ol { margin: 0 var(--space-4) var(--space-3); }
+.legal-all-wrap { padding-top: var(--space-8); border-top: 1px solid var(--color-border); font-size: var(--text-small); }
+@media (prefers-reduced-motion: reduce) { .legal-toc__summary::after, .legal-toc a, .legal-all a { transition: none; } }
+
+/* Reading column: ~42rem, 1.7 line height; h2 regular with a hairline above */
+.legal-body.prose { max-width: 68ch; line-height: 1.7; }
+.legal-intro { color: var(--color-text-2); line-height: 1.55; }
+.legal-section { scroll-margin-top: calc(var(--header-h) + var(--space-6)); }
+.legal-section > * + * { margin-top: 1em; }
+.legal-body .legal-section > h2 {
+  margin-top: var(--space-12); padding-top: var(--space-8); border-top: 1px solid var(--color-border);
+  font-size: var(--text-h3); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15;
+}
+.legal-body .legal-section > h2 + * { margin-top: var(--space-5); }
+.legal-body ul { padding-left: 1.25em; }
+.legal-body li::marker { color: var(--color-text-muted); }
+
+/* Data tables: hairline rows, quiet heads, no fills (scroll wrapper kept for narrow screens) */
+.legal-table {
+  overflow-x: auto; border-top: 1px solid var(--color-border);
+  /* Edge fade: shows only while more of the table is off-screen to that side. */
+  background:
+    linear-gradient(to right, var(--color-bg) 40%, transparent) left / 1.5rem 100% no-repeat local,
+    linear-gradient(to left, var(--color-bg) 40%, transparent) right / 1.5rem 100% no-repeat local,
+    linear-gradient(to right, rgb(0 0 0 / 0.08), transparent) left / 0.75rem 100% no-repeat scroll,
+    linear-gradient(to left, rgb(0 0 0 / 0.08), transparent) right / 0.75rem 100% no-repeat scroll;
+}
+.legal-body .legal-table { margin-top: var(--space-6); }
+.legal-table:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--btn-radius); }
+.legal-table table, .legal-changes table { width: 100%; border-collapse: collapse; font-size: var(--text-small); line-height: 1.5; }
+.legal-table table { min-width: 32rem; }
+.legal-table th, .legal-table td, .legal-changes th, .legal-changes td {
+  text-align: left; vertical-align: top; padding: var(--space-4) var(--space-3); border-bottom: 1px solid var(--color-border);
+}
+.legal-table thead th, .legal-changes thead th {
+  background: none; font-size: var(--text-small); font-weight: 500; color: var(--color-text-muted);
+  padding-top: var(--space-3); padding-bottom: var(--space-3);
+}
+.legal-table tbody th { font-weight: 500; color: var(--color-text); }
+.legal-table :is(th, td):first-child, .legal-changes :is(th, td):first-child { padding-left: 0; }
+
+.legal-links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-8); }
+.legal-link { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; font-weight: 500; color: var(--color-text); text-decoration: none; }
+.legal-link:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.legal-link svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+@media (hover: hover) and (pointer: fine) { .legal-link:hover svg { transform: translateX(var(--shift-1)); } }
+
+.legal-changes { margin-top: var(--space-16) !important; padding-top: var(--space-8); border-top: 1px solid var(--color-border); }
+.legal-body .legal-changes > h2 { font-weight: 500; letter-spacing: -0.01em; margin-top: 0; padding-top: 0; border-top: 0; font-size: var(--text-h5); }
+
+.legal-layout > * { min-width: 0; }
+.legal-changes th, .legal-changes td { overflow-wrap: break-word; padding-inline: var(--space-2); }
+.legal-changes th, .legal-changes__narrow { white-space: nowrap; }
+.legal-changes__narrow { width: 1%; }
+
+/* Phones: data tables become stacked label/value rows instead of a 512px sideways scroller. */
+@media (max-width: 599px) {
+  .legal-table { overflow: visible; background: none; }
+  .legal-table table { min-width: 0; }
+  .legal-table table, .legal-table tbody, .legal-table tr, .legal-table th, .legal-table td { display: block; }
+  .legal-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  .legal-table tbody tr { padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+  .legal-table tbody th, .legal-table tbody td { padding: var(--space-1) 0; border-bottom: 0; }
+  .legal-table tbody th { font-weight: 500; font-size: var(--text-body); }
+  .legal-table td::before, .legal-table tbody th::before {
+    content: attr(data-label); display: block;
+    font-size: var(--text-caption); font-weight: 400; color: var(--color-text-muted);
+  }
+}
+@media (min-width: 640px) { .legal-changes th, .legal-changes td { padding-inline: var(--space-4); } }
+.legal-cookie-settings { margin-top: var(--space-6); }
+
+/* Tamil (Book 3 §4.4): no uppercase or tracking on Tamil labels. */
+:lang(ta) .legal-aside__title,
+:lang(ta) .legal-toc__summary,
+:lang(ta) .legal-table thead th,
+:lang(ta) .legal-changes thead th,
+:lang(ta) .legal-table td::before,
+:lang(ta) .legal-table tbody th::before { text-transform: none; letter-spacing: 0; }
+/* Long Tamil compounds must not widen the change-log table past a 320px screen. */
+.legal-changes td:not(.legal-changes__narrow) { overflow-wrap: anywhere; }
+/* Tamil: the global `:lang(ta) th, td { overflow-wrap: anywhere }` split header words mid-akshara (இயல்புநிலை,
+   சந்தைப்படுத்தல்) because it lowers min-content width. .legal-table is already a horizontal scroller, so let
+   cells keep whole words and widen the table instead (same treatment as base.css's scroller list). */
+:lang(ta) .legal-table :is(th, td) { overflow-wrap: break-word; }
+/* Tamil phones (mobile audit, Oct 2026): in the 3-column change log the Change cell is ~120px at 320, so
+   மறுஆய்வுக்காகத் (157px at 14px) split mid-word. Below 400px each row stacks as a record: version and date on
+   one line, the change on its own full-width line, header labels above in the same order. */
+@media (max-width: 399.98px) {
+  .legal-changes :is(table, thead, tbody):lang(ta) { display: block; }
+  .legal-changes tr:lang(ta) { display: flex; flex-wrap: wrap; column-gap: var(--space-4); padding-block: var(--space-3); border-bottom: 1px solid var(--color-border); }
+  .legal-changes :is(th, td):lang(ta) { display: block; width: auto; padding: 0; border-bottom: 0; }
+  .legal-changes :is(th, td):lang(ta):last-child { flex: 1 0 100%; padding-top: var(--space-1); overflow-wrap: break-word; }
+}

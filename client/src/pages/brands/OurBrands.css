@@ -1,0 +1,140 @@
+/* /brands: four doors, the programme finder, the shared platform and the naming rules, as calm AngelList-family
+   sheets. Flat hairline cards; each brand shows its colour only in the lock-up, one dot and the arrow. */
+
+/* ===== Brand doors (DESIGN-v2 6.2): a 2x2 grid of large unframed media cards at ≥768 (16/10 media, 12px radius),
+   each with the brand accent only in its journey dot label, and the arrow link bottom-left. Staggered reveal. ===== */
+.ourbrands-doors { display: grid; gap: var(--space-12) 32px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 768px) { .ourbrands-doors { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-16) 24px; } }
+@media (min-width: 1024px) { .ourbrands-doors { gap: var(--space-20) 32px; } }
+
+.ourbrands-door { position: relative; display: flex; flex-direction: column; min-width: 0; }
+.ourbrands-door__art {
+  position: relative; display: block; overflow: hidden;
+  border-radius: var(--radius-media); background: var(--bone);
+  aspect-ratio: 16 / 10;
+}
+.ourbrands-door__art .art-image { border-radius: 0; aspect-ratio: 16 / 10 !important; height: 100%; }
+.ourbrands-door__art > :first-child { transition: transform var(--dur-media) var(--ease-snap); }
+@media (hover: hover) and (pointer: fine) {
+  .ourbrands-door:hover .ourbrands-door__art > :first-child { transform: scale(1.03); }
+}
+.ourbrands-door__index {
+  position: absolute; left: 12px; top: 12px; z-index: 2;
+  font-size: var(--text-caption); font-weight: 500; letter-spacing: 0; font-variant-numeric: tabular-nums;
+  padding: 2px var(--space-2); border-radius: var(--radius-btn);
+  background: var(--sn-ink); color: var(--paper);
+}
+
+.ourbrands-door__body { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); padding-top: var(--space-6); flex: 1; }
+.ourbrands-door__name { margin: 0; font-size: var(--text-h3); }
+/* Journey as a dot label: the dot carries the brand accent, the words stay Ink */
+.ourbrands-door__journey {
+  display: inline-flex; align-items: baseline; gap: 0.6em;
+  font-weight: 500; font-size: var(--text-label); color: var(--color-text);
+}
+.ourbrands-door__journey::before {
+  content: ''; flex: none; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--color-label-dot);
+  transform: translateY(-0.05em);
+}
+.ourbrands-door__who { font-size: var(--text-meta); color: var(--color-text-2); }
+.ourbrands-door__who-label { display: block; margin-bottom: 2px; font-size: var(--text-meta); font-weight: 500; color: var(--color-text-muted); }
+.ourbrands-door__text { color: var(--color-text-2); max-width: 52ch; }
+/* Programmes: hairline link rows (AIWO P11), full width under the copy; order unchanged */
+.ourbrands-door__subs { align-self: stretch; margin-top: var(--space-4); }
+:root .ourbrands-door__chip { font-size: var(--text-body); font-weight: 400; }
+@media (pointer: coarse) { .ourbrands-door__chip { min-height: 48px; } }
+.ourbrands-door__cta { margin-top: auto; padding-top: var(--space-5); color: var(--color-text); text-decoration: none; font-size: var(--text-body); }
+@media (hover: hover) and (pointer: fine) {
+  .ourbrands-door:hover .ourbrands-door__cta .arrow { transform: translateX(4px); }
+}
+
+/* ===== Not sure which door? (text left, hairline list right) ===== */
+.ourbrands-unsure__title { margin: var(--space-5) 0 var(--space-5); }
+.ourbrands-unsure__cta { margin-top: var(--space-8); }
+.ourbrands-unsure__lead { margin-bottom: var(--space-4); font-weight: 400; color: var(--color-text-2); }
+.ourbrands-unsure__list { list-style: none; border-top: 1px solid var(--color-border); }
+.ourbrands-unsure__persona {
+  display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "sw label arrow" "sw brand arrow";
+  align-items: center; column-gap: var(--space-4);
+  min-height: 76px; padding: var(--space-4) var(--space-2);
+  border-bottom: 1px solid var(--color-border); text-decoration: none; color: var(--color-text);
+  transition: background-color var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) { .ourbrands-unsure__persona:hover { background: color-mix(in srgb, var(--color-text) 4%, transparent); } }
+.ourbrands-unsure__swatch { grid-area: sw; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--color-label-dot); }
+.ourbrands-unsure__persona-label { grid-area: label; font-size: var(--text-h3); font-weight: 400; letter-spacing: var(--tracking-h3); }
+.ourbrands-unsure__persona-brand { grid-area: brand; font-size: var(--text-meta); color: var(--color-text-muted); }
+.ourbrands-unsure__arrow { grid-area: arrow; color: var(--color-text-muted); transition: transform var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap); }
+.ourbrands-unsure__persona:focus-visible .ourbrands-unsure__arrow { transform: translateX(4px); color: var(--color-text); }
+@media (hover: hover) and (pointer: fine) { .ourbrands-unsure__persona:hover .ourbrands-unsure__arrow { transform: translateX(4px); color: var(--color-text); } }
+
+/* ===== One platform (Night) ===== */
+.ourbrands-platform__title { margin-top: var(--space-5); }
+.ourbrands-platform__body { margin-top: var(--space-6); color: var(--color-text-2); max-width: 40ch; }
+.ourbrands-platform__engines { margin-top: var(--space-8); }
+.ourbrands-platform__engines-label { color: var(--color-text-muted); margin-bottom: var(--space-3); }
+.ourbrands-platform__engine-list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.ourbrands-platform__engine-list li {
+  padding: var(--space-1) var(--space-3); border-radius: var(--radius-btn);
+  box-shadow: inset 0 0 0 1px var(--night-line-strong); font-size: var(--text-meta); color: var(--color-text-2);
+}
+.ourbrands-platform__actions { margin-top: var(--space-8); }
+
+.ourbrands-platform__visual { position: relative; }
+.ourbrands-platform__visual svg { width: 100%; height: auto; overflow: visible; }
+.ourbrands-platform__path--research { stroke: var(--sn-research-400); fill: var(--sn-research-400); }
+.ourbrands-platform__path--vibe { stroke: var(--sn-vibe-400); fill: var(--sn-vibe-400); }
+.ourbrands-platform__path--connect { stroke: var(--sn-connect-400); fill: var(--sn-connect-400); }
+.ourbrands-platform__path--women { stroke: var(--sn-women-400); fill: var(--sn-women-400); }
+.ourbrands-platform__path path { fill: none; stroke-width: 1.75; }
+.ourbrands-platform__path circle { r: 5px; }
+.ourbrands-platform__profile { fill: var(--night-1); stroke: var(--night-line-strong); stroke-width: 1; }
+.ourbrands-platform__point { fill: var(--color-text); }
+.ourbrands-platform__labels { list-style: none; position: absolute; left: 0; top: 0; bottom: 0; display: none; }
+@media (min-width: 640px) {
+  .ourbrands-platform__labels {
+    display: grid; grid-template-rows: repeat(4, 1fr); padding: 6% 0 4%;
+    transform: translateX(-110%); text-align: right; font-size: var(--text-caption); font-weight: 400; color: var(--color-text-muted);
+  }
+  .ourbrands-platform__visual { margin-left: 4.5rem; }
+}
+.ourbrands-platform__profile-label { fill: var(--color-text-2); font-size: 12px; font-weight: 400; }
+
+/* ===== Naming / architecture: a calm numbered hairline list ===== */
+.ourbrands-levels { list-style: none; margin-top: var(--space-10); display: grid; border-top: 1px solid var(--color-border); }
+.ourbrands-level {
+  display: grid; gap: var(--space-2) var(--space-6); padding: var(--space-6) 0; border-bottom: 1px solid var(--color-border);
+  grid-template-columns: 2.5rem 1fr;
+}
+.ourbrands-level > :not(.ourbrands-level__num) { grid-column: 2; }
+@media (min-width: 1024px) {
+  .ourbrands-level { grid-template-columns: 4rem 14rem 1fr 1fr; align-items: baseline; padding: var(--space-8) 0; }
+  .ourbrands-level > :not(.ourbrands-level__num) { grid-column: auto; }
+}
+.ourbrands-level__num { font-size: var(--text-meta); font-weight: 400; line-height: 1.6; color: var(--color-text-muted); font-variant-numeric: tabular-nums lining-nums; }
+.ourbrands-level__head .h5 { font-weight: 500; font-size: var(--text-h3); letter-spacing: var(--tracking-h3); }
+.ourbrands-level__head .caption { color: var(--color-text-muted); }
+.ourbrands-level__example { font-size: var(--text-h5); font-weight: 400; letter-spacing: -0.01em; }
+
+.ourbrands-rules { margin-top: var(--space-16); display: grid; gap: 3.5rem 32px; }
+@media (min-width: 768px) { .ourbrands-rules { grid-template-columns: 3fr 2fr; } }
+.ourbrands-rules__col { padding: var(--space-8); min-width: 0; border-radius: var(--media-radius); background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); }
+.ourbrands-rules__title { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-5); font-weight: 500; }
+.ourbrands-rules__col--do .ourbrands-rules__title svg { color: var(--color-success); }
+.ourbrands-rules__col--dont .ourbrands-rules__title svg { color: var(--color-error); }
+.ourbrands-rules__col ul { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
+.ourbrands-rules__col li { padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+/* One red point per composition: the X in the title carries the red; the strikes stay ink (QA v6). */
+.ourbrands-rules__col--dont s { text-decoration-color: var(--color-text); text-decoration-thickness: 1.5px; color: var(--color-text-2); }
+.ourbrands-rules__note { margin-top: var(--space-5); color: var(--color-text-muted); }
+
+/* RevealGroup wraps each door in an item element: let the door fill it */
+.ourbrands-doors > * { display: flex; min-width: 0; }
+.ourbrands-doors > * > .ourbrands-door { flex: 1; }
+
+/* V-R1: in the half-width split at 1024–1279 the Tamil display heading ("இயங்குகின்றன" at ~49 px) split mid-word;
+   Tamil takes the h1 size there. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  :lang(ta) .ourbrands-platform__title { font-size: var(--text-h2); }
+}
+.ourbrands-unsure { align-items: start; }

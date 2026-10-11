@@ -1,0 +1,337 @@
+/* /events/:slug — T05 event edition (events without a series; series editions use mega/events-series/EditionPage).
+   AngelList-family finish (Oct 2026): the hero is the ink band (data-surface="night" in the JSX), with the facts
+   as a hairline strip on the band; the tabbed body is a sheet sliding over it, two columns with the key-facts panel. */
+.event-detail__loading { display: grid; gap: var(--space-6); padding-block: var(--space-16); }
+.event-detail__error { display: grid; gap: var(--space-4); justify-items: start; max-width: var(--measure); }
+
+/* Hero: the ink band. Copy left, framed poster right, fact strip below. */
+.event-hero {
+  position: relative; background: var(--night-0); color: var(--night-text);
+  padding-block: var(--space-8) calc(clamp(var(--space-12), 2rem + 4vw, var(--space-20)) + var(--sheet-radius));
+}
+/* The body slides over the band as a rounded sheet (same as theme.css does after .page-hero). */
+.event-detail .event-hero + .section {
+  position: relative;
+  margin-top: calc(-1 * var(--sheet-radius));
+  border-top-left-radius: var(--sheet-radius);
+  border-top-right-radius: var(--sheet-radius);
+  box-shadow: 0 -18px 40px -24px color-mix(in srgb, var(--night-0) 30%, transparent);
+  padding-top: calc(var(--space-section) * 0.7);
+}
+.event-hero__grid { display: grid; gap: var(--space-10); margin-top: var(--space-10); align-items: center; }
+@media (min-width: 1024px) { .event-hero__grid { grid-template-columns: 7fr 5fr; gap: var(--space-16); } }
+.event-hero__copy { display: grid; gap: var(--space-5); justify-items: start; min-width: 0; }
+.event-hero__chips { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+/* Series chip as a link: a 44px-tall target around the 26px chip (negative margins keep the row height). */
+.event-hero__series-chip {
+  display: inline-flex; align-items: center; min-height: 44px; margin-block: -9px;
+  border-radius: var(--btn-radius); color: inherit; text-decoration: none;
+}
+.event-hero__series-chip:hover .badge { border-color: var(--night-text-2); text-decoration: underline; }
+.event-hero__series-chip:focus-visible { box-shadow: var(--focus-ring); outline: none; }
+.event-hero__title { max-width: 16ch; overflow-wrap: anywhere; color: var(--night-text); }
+.event-hero__endorse { font-size: var(--text-small); font-weight: 500; color: var(--accent-night, var(--night-text-2)); margin-top: calc(-1 * var(--space-2)); }
+.event-hero__lede { color: var(--night-text-2); max-width: 46ch; }
+.event-hero__lede-wrap { display: grid; justify-items: start; min-width: 0; }
+/* Read more: only rendered when the clamped lede overflows (phones). 44px target, text-link look. */
+.event-hero__more {
+  min-height: 44px; padding: 0; border: 0; background: none; color: var(--night-text);
+  font-size: var(--text-small); font-weight: 500; text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-underline-offset: 0.25em;
+}
+.event-hero__actions { --cluster-gap: var(--space-3); }
+.event-hero__wa, .event-hero__micro { color: var(--night-text-2); }
+
+.event-hero__poster { position: relative; max-width: 30rem; width: 100%; justify-self: center; }
+@media (min-width: 1024px) { .event-hero__poster { justify-self: end; } }
+/* Single column (< 1024px): a short landscape poster (16:9 on phones, 21:9 above) capped at 220px, so the hero
+   is not a 1500px scroll before the first fact. */
+@media (max-width: 1023px) {
+  .event-hero__grid { gap: var(--space-8); }
+  .event-hero__poster { justify-self: start; max-height: 220px; overflow: hidden; border-radius: var(--media-radius); }
+  .event-hero__dateblock { left: var(--space-3); top: var(--space-3); min-width: 4.5rem; padding: var(--space-2) var(--space-3); }
+  .event-hero__dateblock-day { font-size: var(--text-h3); }
+}
+/* Date block over the poster: an ink label — small caps month over a big light numeral */
+.event-hero__dateblock {
+  position: absolute; left: var(--space-4); top: var(--space-4); z-index: 2; display: grid; justify-items: start; gap: 0.25em;
+  min-width: 5.5rem; padding: var(--space-3) var(--space-4);
+  border-radius: var(--btn-radius); background: var(--night-0); color: var(--night-text);
+  box-shadow: inset 0 0 0 1px var(--night-line-strong);
+}
+.event-hero__dateblock-month { font-size: 0.6875rem; font-weight: 500; line-height: 1; letter-spacing: 0; color: var(--night-text-2); }
+:lang(ta) .event-hero__dateblock-month { text-transform: none; letter-spacing: 0; font-size: var(--text-caption); }
+.event-hero__dateblock-day { font-size: var(--text-h1); font-weight: 400; line-height: 1; letter-spacing: -0.045em; }
+.event-hero__dateblock-day--word:lang(ta) { font-size: var(--text-h4); line-height: 1.3; padding-block: var(--space-1); letter-spacing: 0; }
+.event-hero__dateblock-wd { font-size: var(--text-caption); color: var(--night-text-muted); }
+
+/* Facts: a hairline strip on the band, label over value */
+.event-hero__facts {
+  display: grid; margin: var(--space-12) 0 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  border-top: 1px solid var(--night-line);
+}
+@media (min-width: 768px) and (max-width: 1279px) { .event-hero__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.event-hero__fact { min-width: 0; overflow-wrap: anywhere; }
+.event-hero__fact { padding: var(--space-4) var(--space-4) var(--space-4) 0; border-bottom: 1px solid var(--night-line); }
+.event-hero__fact dt {
+  display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-small); font-weight: 400;
+  letter-spacing: 0; text-transform: none; color: var(--night-text-muted);
+}
+.event-hero__fact dt svg { flex: none; color: var(--night-text-muted); }
+.event-hero__fact dd { margin: var(--space-1) 0 0; font-weight: 500; color: var(--night-text); }
+
+/* Phones (< 768px): a compact hero — copy, then the key facts as a 2-column list, then a short poster.
+   Lede clamps to three lines (Read more), and the gap to the tabs collapses. */
+@media (max-width: 767px) {
+  .event-hero { padding-block: var(--space-4) calc(var(--space-8) + var(--sheet-radius)); }
+  /* The WhatsApp register line repeats at the top of the Overview tab, right below the hero. */
+  .event-hero__wa, .event-hero__series { display: none; }
+  .event-detail .event-hero + .event-detail__body.section { padding-top: calc(var(--space-6) + var(--sheet-radius) * 0.25); }
+  .event-hero__inner { display: flex; flex-direction: column; }
+  .event-hero__grid { display: contents; }
+  .event-hero__copy { order: 1; margin-top: var(--space-5); gap: var(--space-3); }
+  .event-hero__facts { order: 2; }
+  .event-hero__poster { order: 3; max-height: min(40svh, 120px); margin-top: var(--space-5); }
+  .event-hero__actions { margin-top: var(--space-2); }
+  .event-hero__endorse { margin-top: calc(-1 * var(--space-1)); }
+  .event-hero__lede:not(.is-open) { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
+  .event-hero__more { margin-top: calc(-1 * var(--space-2)); margin-bottom: calc(-1 * var(--space-3)); }
+  /* Registration microcopy: two lines, opened by the lede's Read more (F-72). */
+  .event-hero__micro:not(.is-open) { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+  .event-hero__facts { margin-top: var(--space-6); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .event-hero__fact { padding: var(--space-3) var(--space-3) var(--space-3) 0; }
+  .event-hero__fact dt { line-height: 1.4; }
+  .event-hero__fact dd { line-height: 1.45; }
+  /* Long values, and a half fact that would sit alone (both set in JS, which counts the wide rows), take the
+     full row. No :nth-child(odd) fallback: it counted wide facts too and split pairs such as Language | Price. */
+  .event-hero__fact--wide { grid-column: 1 / -1; }
+}
+/* Smallest phones (< 360px, F-72): Tamil labels wrap to two lines (buttons, Registration closes, Language), so
+   the hero ran past 900px at 320. Tighten the vertical rhythm only; no copy or fact is dropped. */
+@media (max-width: 359px) {
+  .event-hero__copy { gap: var(--space-2); }
+  .event-hero__actions { --cluster-gap: var(--space-2); }
+  .event-hero__facts { margin-top: var(--space-5); }
+  .event-hero__fact dt { line-height: 1.3; }
+}
+
+/* Body: main 8 / aside 4, sticky key-facts panel */
+.event-detail__layout { display: grid; gap: var(--space-12); }
+@media (min-width: 1024px) {
+  .event-detail__layout { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); grid-template-areas: "main aside"; gap: var(--space-16); }
+  /* The hero fact strip is on screen: the aside holds just the register actions (no "Key facts" twice). */
+  .event-detail__aside .key-facts__list:empty { display: none; }
+  .event-detail__main { grid-area: main; }
+  .event-detail__aside { grid-area: aside; }
+  /* Docks under the visible header and never grows past the viewport; the register actions stay pinned at its foot. */
+  .event-detail__sticky {
+    position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-6));
+    max-height: calc(100vh - var(--shell-offset, 0px) - 2 * var(--space-6)); overflow: auto; overscroll-behavior: contain;
+    border-radius: var(--media-radius); scrollbar-width: thin;
+    transition: top var(--dur-3) var(--ease-standard), max-height var(--dur-3) var(--ease-standard);
+  }
+  .event-detail__sticky .key-facts__action {
+    position: sticky; bottom: 0; z-index: 1;
+    margin: var(--space-6) calc(-1 * var(--space-6)) calc(-1 * var(--space-6));
+    padding: var(--space-4) var(--space-6) var(--space-6);
+    background: var(--card); border-top: 1px solid var(--color-border);
+    border-radius: 0 0 calc(var(--media-radius) - 1px) calc(var(--media-radius) - 1px);
+  }
+}
+@media (max-width: 1023px) {
+  .event-detail__aside { order: 2; }
+  /* The hero already lists the facts on one-column layouts: keep only the actions here, so facts appear once. */
+  .event-detail__aside .key-facts__title, .event-detail__aside .key-facts__list { display: none; }
+  .event-detail__aside .key-facts::before { display: none; }
+  .event-detail__aside .key-facts__action { margin-top: 0; }
+}
+.event-detail__main { min-width: 0; }
+.event-detail__aside-actions { display: grid; gap: var(--space-3); }
+/* Full-width aside buttons: tighter side padding keeps "Get the date on WhatsApp" on one line in a 20rem aside. */
+@media (min-width: 1024px) { .event-detail .event-detail__aside-actions .button:not(.button--tertiary) { padding-inline: var(--space-4); } }
+
+/* Overview: regular-weight section titles, feature rows on hairlines */
+.event-detail__overview { display: grid; gap: var(--space-16); }
+.event-detail__overview h2.h3,
+.event-detail__agenda h2.h3, .event-detail__speakers h2.h3, .event-detail__venue h2.h3 { font-weight: 400; letter-spacing: -0.015em; }
+:lang(ta) :is(.event-detail__overview, .event-detail__agenda, .event-detail__speakers, .event-detail__venue) h2.h3 { letter-spacing: 0; }
+.event-detail__overview .prose > h2 + p { margin-top: var(--space-4); }
+.event-detail__wa { padding: var(--space-5) var(--space-6); border-radius: var(--media-radius); background: var(--bone); font-weight: 400; }
+.event-detail__wa-link { color: var(--color-text); font-weight: 500; text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-underline-offset: 0.25em; }
+.event-detail__faq { display: grid; gap: var(--space-5); }
+.event-detail__placeholder { display: grid; gap: var(--space-3); padding: var(--space-8); border: 1px solid var(--color-border); border-radius: var(--media-radius); }
+
+/* Agenda: time-grid table (d) / list (m) */
+.event-detail__agenda, .event-detail__speakers, .event-detail__venue { display: grid; gap: var(--space-6); }
+.event-agenda { width: 100%; border-collapse: collapse; }
+.event-agenda caption { text-align: left; caption-side: top; padding-bottom: var(--space-2); color: var(--color-text-muted); }
+.event-agenda thead th {
+  text-align: left; font-size: var(--text-small); font-weight: 400; letter-spacing: 0; text-transform: none;
+  color: var(--color-text-muted); padding: var(--space-3) var(--space-4) var(--space-3) 0; border-bottom: 1px solid var(--color-border);
+}
+.event-agenda td, .event-agenda tbody th { text-align: left; vertical-align: top; padding: var(--space-4) var(--space-4) var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+.event-agenda__time { width: 8rem; font-weight: 500; color: var(--color-text); white-space: nowrap; }
+.event-agenda__title { font-weight: 500; }
+.event-agenda__speaker { color: var(--color-text-2); }
+@media (max-width: 767px) {
+  .event-agenda thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .event-agenda, .event-agenda tbody, .event-agenda tr, .event-agenda td, .event-agenda tbody th { display: block; }
+  .event-agenda tr { padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+  .event-agenda td, .event-agenda tbody th { padding: 0; border: 0; width: auto; }
+  .event-agenda__speaker { font-size: var(--text-small); margin-top: var(--space-1); }
+  .event-agenda caption { display: block; width: 100%; }
+}
+
+.event-detail__speaker-grid { list-style: none; display: grid; gap: var(--space-6); grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr)); }
+/* Venue: a hairline fact list */
+.event-detail__venue-list { display: grid; gap: 0; margin: 0; border-top: 1px solid var(--color-border); }
+.event-detail__venue-list > div { display: grid; gap: var(--space-1); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+@media (min-width: 768px) { .event-detail__venue-list > div { grid-template-columns: 12rem 1fr; gap: var(--space-6); } }
+.event-detail__venue-list dt { font-weight: 400; color: var(--color-text-muted); font-size: var(--text-small); }
+.event-detail__venue-list dd { margin: 0; }
+
+.event-detail__related-grid { list-style: none; display: grid; gap: var(--space-6); margin-top: var(--space-8); grid-template-columns: minmax(0, 1fr); }
+/* Up to 3 related events, no 2+1 orphan: 2-up on tablets with an odd last card spanning the row (horizontal), 3-up from 1024px */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .event-detail__related-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .event-detail__related-grid > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .event-detail__related-grid > li:last-child:nth-child(odd) > .card:has(> .card__media) { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .event-detail__related-grid > li:last-child:nth-child(odd) > .card.card > .card__media { border-radius: calc(var(--media-radius) - 1px) 0 0 calc(var(--media-radius) - 1px); }
+  .event-detail__related-grid > li:last-child:nth-child(odd) > .card > .card__media { height: 100%; }
+  .event-detail__related-grid > li:last-child:nth-child(odd) > .card > .card__media .art-image { aspect-ratio: auto !important; height: 100%; min-height: 12rem; } /* art fills the row (svg slices) */
+}
+@media (min-width: 1024px) {
+  /* As many columns as related events (1–3), so no empty tracks */
+  .event-detail__related-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .event-detail__related-grid[data-count="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .event-detail__related-grid[data-count="1"] { grid-template-columns: minmax(0, 1fr); }
+  .event-detail__related-grid[data-count="1"] > li > .card:has(> .card__media) { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .event-detail__related-grid[data-count="1"] > li > .card.card > .card__media { height: 100%; border-radius: calc(var(--media-radius) - 1px) 0 0 calc(var(--media-radius) - 1px); }
+  .event-detail__related-grid[data-count="1"] > li > .card > .card__media .art-image { aspect-ratio: auto !important; height: 100%; min-height: 12rem; }
+}
+/* 1024–1279: a 20rem aside so the full-width register buttons keep one-line labels */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .event-detail__layout { grid-template-columns: minmax(0, 1fr) 20rem; gap: var(--space-10); }
+}
+.event-detail__related-grid > li { display: flex; }
+.event-detail__related-grid > li > * { flex: 1; min-width: 0; }
+
+/* Pillars ("what it is"): numbered feature rows on a hairline, big light numerals, no boxes */
+.event-detail__pillars { list-style: none; display: grid; gap: var(--space-8) var(--space-6); grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
+/* 1024–1279 (narrow main column): three equal pillars rather than 2 + 1 */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .event-detail__pillars[data-count="3"], .event-detail__pillars[data-count="6"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.event-detail__pillar { display: grid; gap: var(--space-2); align-content: start; padding-top: var(--space-5); border-top: 1px solid var(--color-border); }
+.event-detail__pillar h3 { font-weight: 500; letter-spacing: -0.01em; }
+.event-detail__pillar-num { font-size: var(--text-h2); font-weight: 400; line-height: 1; letter-spacing: -0.04em; color: var(--color-text-muted); margin-bottom: var(--space-2); }
+.event-detail__prizes { display: grid; gap: var(--space-4); }
+.event-detail__prize-list { list-style: none; display: grid; gap: 0; border-top: 1px solid var(--color-border); }
+.event-detail__prize-list li { display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); align-items: start; padding-block: var(--space-3); border-bottom: 1px solid var(--color-border); }
+.event-detail__prize-list svg { color: var(--accent-text); margin-top: 3px; }
+.event-detail__jury { display: grid; gap: var(--space-2); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
+.event-hero__micro { max-width: 52ch; }
+
+/* Phones < 480px: a short "TBC" chip stands in for a placeholder note (F-72); the notes are listed in Overview. */
+.event-hero__tbc { display: inline-block; font-size: var(--text-small); font-weight: 500; line-height: 1.5; white-space: nowrap; }
+.event-hero__tbc:lang(ta) { white-space: normal; }
+.event-hero__tbc abbr { text-decoration: none; cursor: help; }
+@media (max-width: 479px) {
+  /* A slim brand strip (the date block repeats the Date fact), and tighter fact rows. */
+  .event-hero__poster { max-height: 64px; margin-top: var(--space-4); }
+  .event-hero__dateblock { display: none; }
+  .event-hero__fact { padding-block: var(--space-2); }
+  /* Tamil lines are taller: two lines of lede and one of microcopy before Read more (F-72, target <= 900px). */
+  .event-hero__lede:lang(ta):not(.is-open) { -webkit-line-clamp: 2; line-clamp: 2; }
+  .event-hero__micro:lang(ta):not(.is-open) { -webkit-line-clamp: 1; line-clamp: 1; }
+  /* Same on /ta pages whose lede or microcopy has no Tamil yet (English fallback, lang="en"): the Tamil
+     buttons and fact labels around it are still the taller ones (F-72, vibathon-2027 at 320 was 915-945px). */
+  html[lang="ta"] .event-hero__lede:not(.is-open) { -webkit-line-clamp: 2; line-clamp: 2; }
+  html[lang="ta"] .event-hero__micro:not(.is-open) { -webkit-line-clamp: 1; line-clamp: 1; }
+}
+/* 320-359px: a long Tamil word (e.g. நிகழ்விடங்கள், 130px) only just fits a half-width fact; a step smaller
+   keeps it whole instead of splitting mid-word. */
+@media (max-width: 359px) {
+  .event-hero__fact dd:lang(ta) { font-size: 1rem; }
+}
+/* Still to be confirmed: a quiet hairline panel */
+.event-detail__tbc { display: grid; gap: var(--space-3); padding: var(--space-5); border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card); }
+.event-detail__tbc h2 { font-weight: 500; }
+.event-detail__tbc-list { display: grid; margin: 0; }
+.event-detail__tbc-list > div { display: grid; gap: var(--space-1); padding-block: var(--space-3); border-bottom: 1px solid var(--color-border); }
+.event-detail__tbc-list > div:last-child { border-bottom: 0; padding-bottom: 0; }
+.event-detail__tbc-list dt { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); }
+.event-detail__tbc-list dd { margin: 0; overflow-wrap: anywhere; }
+
+/* Tamil "What it is" pillars (768px+): the three or more columns are ~170–230px wide, so the h4-size imperatives
+   (போட்டியிடுங்கள், உருவாக்குங்கள்) split mid-word. One step smaller, and break only between whole words. */
+@media (min-width: 768px) {
+  .event-detail__pillar h3:lang(ta) { font-size: var(--text-h5); overflow-wrap: break-word; }
+}
+/* Tamil 1024–1279: three ~150px pillars still split the Tamil imperatives, so two columns with an odd last item
+   spanning the row (the pattern used on the Vibathon and Research pages). */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  :lang(ta) .event-detail__pillars[data-count="3"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  :lang(ta) .event-detail__pillars[data-count="3"] > :last-child { grid-column: 1 / -1; }
+}
+
+/* Real photo in the poster (< 1024px): fill the capped landscape band and crop around the focal point
+   (the smaller Tamil / short-screen caps above still apply through max-height). */
+@media (max-width: 1023px) {
+  .event-hero__poster:has(.art-image--photo) { height: 220px; }
+  .event-hero__poster .art-image--photo { aspect-ratio: auto !important; height: 100%; }
+}
+
+/* ---------- DESIGN-v2 6.3 (Oct 2026) ---------- */
+/* Hero: the plain Ink band (no dot texture, as PageHero); the sheet rises once, straight, no shadow. */
+.event-hero {
+  padding-top: var(--space-16);
+}
+.event-detail .event-hero + .section { box-shadow: none; z-index: 1; padding-top: calc(var(--space-section) * 0.75); }
+.event-hero__dateblock-month { font-size: var(--text-caption); letter-spacing: 0; }
+.event-hero__dateblock-day { font-weight: 400; font-variant-numeric: tabular-nums lining-nums; }
+.event-hero__fact dd { font-weight: 500; font-variant-numeric: tabular-nums; }
+.event-hero__fact dt { color: var(--night-text-2); }
+/* Poster entrance: the same CSS clip-in as PageHero media (SSR-safe; the prerender runs reduced) */
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) .event-hero__poster .art-image--photo { animation: event-media-in 900ms var(--ease-reveal) 120ms both; }
+}
+@keyframes event-media-in {
+  from { clip-path: inset(6% 6% 6% 6% round 12px); transform: scale(1.04); }
+  to { clip-path: inset(0 round 12px); transform: none; }
+}
+/* Sticky framed key-facts card: docks 32px under the visible header */
+@media (min-width: 1024px) {
+  .event-detail__sticky { top: calc(var(--shell-offset, var(--header-h)) + 32px); max-height: calc(100vh - var(--shell-offset, var(--header-h)) - 64px); border-radius: var(--radius-media); }
+  .event-detail__sticky .key-facts__action { background: var(--card); border-top-color: var(--hairline); }
+}
+/* "See upcoming events" and the other primary actions use the brand Ink (#0C1719) */
+.event-detail .key-facts__action .button--primary { background-color: var(--sn-ink); }
+/* Agenda: hairline rows with tabular times */
+.event-agenda__time { font-variant-numeric: tabular-nums lining-nums; font-weight: 500; }
+.event-agenda tbody tr { transition: background-color var(--dur-2) var(--ease-snap); }
+@media (hover: hover) { .event-agenda tbody tr:hover { background: var(--bone); } }
+.event-agenda thead th, .event-agenda td, .event-agenda tbody th { border-bottom-color: var(--hairline); }
+/* Section titles inside the tabs at 500 (h3 scale) */
+.event-detail__overview h2.h3,
+.event-detail__agenda h2.h3, .event-detail__speakers h2.h3, .event-detail__venue h2.h3 { font-weight: 500; }
+.event-detail__pillar-num { font-size: var(--text-meta); line-height: 1.45; letter-spacing: 0; color: var(--color-text-2); font-variant-numeric: tabular-nums; margin-bottom: var(--space-3); }
+.event-detail__pillar { border-top: 1px solid var(--sn-ink); }
+.event-detail__wa { background: var(--card); box-shadow: inset 0 0 0 1px var(--hairline); }
+.event-detail__prize-list svg { color: var(--color-text); }
+@media (prefers-reduced-motion: reduce) { .event-agenda tbody tr { transition: none; } }
+.event-detail__body .button--tertiary, .event-detail__related .button--tertiary { color: var(--color-text); }
+.event-hero__grid { align-items: start; }
+.event-hero .button--tertiary.event-hero__series { color: var(--night-text); }
+
+/* Mobile audit (Oct 2026) ------------------------------------------------------------------------------------
+   Phones: hero actions take the full row (as PageHero below 480px), not two ragged left-aligned buttons. */
+@media (max-width: 479px) {
+  .event-hero__actions > .button:not(.button--tertiary) { flex: 1 1 100%; }
+  /* The 64px brand strip showed only the top edge of the visual (a cut-off shape); centre the crop instead. */
+  .event-hero__poster:not(:has(.art-image--photo)) { display: flex; flex-direction: column; justify-content: center; }
+  .event-hero__poster:not(:has(.art-image--photo)) > * { flex: none; }
+  /* The visual's corner label sat below the 64px strip and showed as a cut-off word; the strip is decorative. */
+  .event-hero__poster:not(:has(.art-image--photo)) .art-image__label { display: none; }
+}
+/* Read more sat 4px above the hero buttons (negative bottom margin); keep 8px between the two tap targets. */
+@media (max-width: 767px) { .event-hero__more { margin-bottom: calc(-1 * var(--space-1)); } }

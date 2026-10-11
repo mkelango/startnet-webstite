@@ -1,0 +1,729 @@
+<style>
+/* ---------- Chapter 05 · Applications (every selector prefixed .c05-) ---------- */
+.c05-fig { display: flex; flex-direction: column; }
+.c05-fit { position: relative; flex: none; }
+.c05-fit > * { transform-origin: 0 0; }
+.c05-stop { display: inline-block; width: 0.17em; height: 0.17em; border-radius: 50%; background: var(--red); margin-left: 0.05em; flex: none; }
+.c05-ph { color: var(--text-3); }
+.c05-zero { font-feature-settings: 'ss01', 'cv11', 'zero', 'tnum'; line-height: 1.2; }
+/* The self-hosted Inter subset has no 'zero' alternate, so the mock-up draws the slash. */
+.c05-z { position: relative; display: inline-block; }
+.c05-z::after { content: ''; position: absolute; left: 50%; top: 52%; width: 0.5em; height: 0.075em; border-radius: 0.04em; background: currentColor; transform: translate(-50%, -50%) rotate(-62deg); }
+
+/* Stationery */
+.c05-stat { display: grid; grid-template-columns: 744px 1fr; gap: 96px; align-items: stretch; }
+.c05-stat__side { display: flex; flex-direction: column; }
+.c05-stat .spec td { padding: 12px 0; }
+.c05-a4 { width: 210mm; height: 297mm; padding: 18mm; background: #fff; color: var(--ink); display: flex; flex-direction: column; font-size: 9.5pt; line-height: 15pt; }
+.c05-a4 p { margin-bottom: 15pt; }
+.c05-a4__top { display: flex; justify-content: space-between; align-items: flex-start; height: 16mm; }
+.c05-a4__contact { font-size: 7.5pt; line-height: 11pt; color: var(--text-2); text-align: right; }
+.c05-a4__addr { margin-top: 20mm; }
+.c05-a4__text { margin-top: 6mm; max-width: 150mm; }
+.c05-a4__sign { margin-top: 2mm; }
+.c05-a4__sign .gap { height: 15mm; }
+.c05-a4__foot { margin-top: auto; border-top: 0.3mm solid var(--line); padding-top: 3.5mm; font-size: 6.5pt; line-height: 9.5pt; color: var(--text-3); display: flex; justify-content: space-between; gap: 10mm; }
+.c05-a4__dot { width: 4.5mm; height: 4.5mm; border-radius: 50%; background: var(--red); }
+.c05-env { width: 220mm; height: 110mm; background: var(--ink); padding: 14mm 18mm; position: relative; overflow: hidden; color: var(--night-text-3); }
+.c05-env__ret { margin-top: 5mm; font-size: 7pt; line-height: 10.5pt; }
+.c05-env__dot { position: absolute; width: 74mm; height: 74mm; border-radius: 50%; background: var(--red); right: -20mm; bottom: -32mm; }
+.c05-legal { font-size: 20px; line-height: 1.5; color: var(--text-2); }
+.c05-legal b { color: var(--ink); font-weight: 600; }
+
+/* Business card and badge */
+.c05-cards { display: grid; grid-template-columns: 940px 1fr; gap: 88px; }
+.c05-card { width: 85mm; height: 55mm; position: relative; overflow: hidden; padding: 6mm; }
+.c05-card--front { background: var(--ink); }
+.c05-card--back { background: var(--paper); color: var(--ink); display: flex; flex-direction: column; }
+.c05-card__dot { position: absolute; width: 46mm; height: 46mm; border-radius: 50%; background: var(--red); right: -13mm; bottom: -19mm; }
+.c05-card__name { font-size: 9pt; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
+.c05-card__role { font-size: 7pt; color: var(--text-2); margin-top: 1mm; }
+.c05-card__contact { margin-top: auto; font-size: 7pt; line-height: 1.55; color: var(--ink); }
+.c05-card__mini { position: absolute; right: 6mm; bottom: 6mm; width: 3mm; height: 3mm; border-radius: 50%; background: var(--red); }
+.c05-sublist { list-style: none; border-top: 2px solid var(--ink); }
+.c05-sublist li { padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 21px; line-height: 1.42; color: var(--text-2); }
+.c05-sublist li b { color: var(--ink); font-weight: 600; }
+.page--ink .c05-sublist { border-color: var(--night-text-2); }
+.page--ink .c05-sublist li { border-color: var(--night-line); color: var(--night-text-3); }
+.page--ink .c05-sublist li b { color: var(--night-text); }
+.c05-lan { position: relative; width: 270px; height: 548px; flex: none; }
+.c05-strap { position: absolute; width: 22px; height: 236px; background: var(--ink); overflow: hidden; top: -6px; transform-origin: 50% 100%; }
+.c05-strap__run { position: absolute; left: 0; top: 0; width: 236px; height: 22px; transform-origin: 0 0; transform: rotate(90deg) translateY(-22px); display: flex; align-items: center; gap: 30px; padding-left: 18px; white-space: nowrap; }
+.c05-clip { position: absolute; left: 121px; top: 222px; width: 28px; height: 30px; border-radius: 6px 6px 3px 3px; background: linear-gradient(180deg, #C9CED0, #8E9A9C); }
+.c05-clip::after { content: ''; position: absolute; left: 9px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--paper); }
+.c05-badge { position: absolute; left: 22px; top: 242px; width: 226px; height: 306px; background: #fff; border-radius: 10px; display: flex; flex-direction: column; overflow: hidden; }
+.c05-badge__slot { width: 46px; height: 7px; border-radius: 4px; background: var(--bone); margin: 12px auto 0; box-shadow: inset 0 1px 2px rgb(12 23 25 / .25); }
+.c05-badge__in { padding: 14px 18px 0; display: flex; flex-direction: column; flex: 1; }
+.c05-badge__event { font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em; margin-top: 8px; color: var(--ink); display: flex; align-items: center; gap: 7px; }
+.c05-badge__event::before { content: ''; width: 16px; height: 2.5px; background: var(--connect); }
+.c05-badge__name { font-size: 28px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.08; margin-top: 46px; }
+.c05-badge__meta { font-size: 12.5px; color: var(--text-2); line-height: 1.45; margin-top: 8px; }
+.c05-badge__band { height: 36px; margin-top: auto; display: flex; align-items: center; padding: 0 18px; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+.c05-roles { display: flex; flex-direction: column; border-top: 2px solid var(--ink); }
+.c05-role { display: grid; grid-template-columns: 124px 1fr; gap: 16px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.c05-role__chip { height: 32px; display: flex; align-items: center; padding: 0 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; border-radius: 2px; }
+.c05-role b { display: block; font-size: 20px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+.c05-role span { display: block; font-size: 17px; color: var(--text-3); line-height: 1.3; margin-top: 2px; }
+
+/* Event signage */
+.c05-sig { display: grid; grid-template-columns: 790px 250px 1fr; gap: 56px; align-items: start; }
+.c05-backdrop { width: 790px; height: 444px; background: var(--ink); position: relative; overflow: hidden; }
+.c05-backdrop__lock { position: absolute; left: 50px; top: 46px; }
+.c05-backdrop__title { position: absolute; left: 50px; bottom: 50px; color: var(--night-text); font-size: 96px; font-weight: 500; letter-spacing: -0.045em; line-height: 0.95; display: flex; align-items: baseline; }
+.c05-strip { width: 790px; height: 52px; margin-top: 12px; background: var(--paper); display: flex; align-items: center; justify-content: space-between; padding: 0 26px; font-size: 17px; font-weight: 600; color: var(--ink); }
+.c05-strip span { color: var(--text-3); font-weight: 500; }
+.c05-standee { width: 214px; height: 504px; position: relative; display: flex; flex-direction: column; background: var(--paper); }
+.c05-standee__photo { height: 60%; }
+.c05-standee__logo { position: absolute; left: 16px; top: 16px; z-index: 1; }
+.c05-standee__paper { position: relative; flex: 1; padding: 14px 16px 0; }
+.c05-standee__h { font-size: 18px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.08; }
+.c05-standee__qr { display: flex; align-items: center; gap: 9px; margin-top: 8px; font-size: 9.5px; line-height: 1.3; color: var(--text-2); }
+.c05-qr { flex: none; background:
+  linear-gradient(var(--ink), var(--ink)) 0 0 / 30% 30% no-repeat,
+  linear-gradient(var(--ink), var(--ink)) 100% 0 / 30% 30% no-repeat,
+  linear-gradient(var(--ink), var(--ink)) 0 100% / 30% 30% no-repeat,
+  radial-gradient(circle, var(--ink) 38%, transparent 42%) 0 0 / 12.5% 12.5%;
+  outline: 4px solid #fff; }
+.c05-standee__clear { position: absolute; left: 0; right: 0; bottom: 0; height: 20%; border-top: 1.5px dashed var(--red-700); background: repeating-linear-gradient(135deg, rgb(185 28 28 / .07) 0 2px, transparent 2px 9px); display: grid; place-items: center; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; color: var(--red-700); }
+.c05-standee__base { width: 234px; height: 12px; margin-left: -10px; border-radius: 3px; background: linear-gradient(180deg, #B7BDBF, #7F8A8C); }
+.c05-dim { position: absolute; right: -40px; bottom: 0; height: 20%; width: 14px; border: 1.5px solid var(--red-700); border-left: 0; }
+.c05-dim__t { position: absolute; right: -150px; bottom: 30px; width: 104px; font-size: 15px; line-height: 1.3; color: var(--red-700); font-weight: 600; }
+.c05-way { background: var(--paper); padding: 6px 30px; }
+.c05-way__row { display: grid; grid-template-columns: 1fr 52px; align-items: center; padding: 12px 0; border-bottom: 1.5px solid var(--ink); }
+.c05-way__row:last-child { border-bottom: 0; }
+.c05-way__ta { font-family: 'Noto Sans Tamil', var(--font); font-weight: 600; font-size: 25.5px; line-height: 1.22; }
+.c05-way__en { font-weight: 600; font-size: 24px; letter-spacing: -0.015em; line-height: 1.15; margin-top: 1px; }
+.c05-sig .spec td { padding: 11px 0; }
+.c05-way svg { width: 48px; height: 48px; justify-self: end; }
+
+/* Deck */
+.c05-slide { width: 1920px; height: 1080px; position: relative; overflow: hidden; font-family: var(--font); }
+.c05-slide--ink { background: var(--ink); color: var(--night-text); }
+.c05-slide--paper { background: var(--paper); color: var(--ink); }
+.c05-slide--bone { background: var(--bone); color: var(--ink); }
+.c05-slide__logo { position: absolute; left: 120px; top: 110px; }
+.c05-slide__foot { position: absolute; left: 120px; right: 120px; bottom: 80px; display: flex; justify-content: space-between; align-items: center; font-size: 26px; font-weight: 600; letter-spacing: 0.16em; color: var(--text-3); }
+.c05-cols { position: absolute; left: 120px; right: 120px; top: 470px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 72px; }
+.c05-cols > div { border-top: 4px solid var(--ink); padding-top: 34px; }
+.c05-cols h4 { font-size: 52px; font-weight: 600; letter-spacing: -0.02em; }
+.c05-cols p { font-size: 38px; line-height: 1.4; color: var(--text-2); margin-top: 20px; }
+
+/* Social */
+.c05-soc { display: grid; grid-template-columns: 1280px 1fr; gap: 72px; }
+.c05-posts { display: grid; grid-template-columns: repeat(4, 296px); gap: 32px; }
+.c05-post { width: 1080px; height: 1350px; position: relative; overflow: hidden; font-family: var(--font); }
+.c05-tag { display: inline-flex; align-items: center; height: 54px; padding: 0 20px; border: 2px solid currentColor; border-radius: 10px; font-size: 30px; font-weight: 600; }
+.c05-chip { display: inline-flex; align-items: center; height: 84px; padding: 0 34px; border-radius: 999px; font-size: 38px; font-weight: 600; }
+.c05-fmt { list-style: none; border-top: 2px solid var(--ink); }
+.c05-fmt li { display: grid; grid-template-columns: 62px 1fr; gap: 18px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.c05-fmt__box { justify-self: center; border: 1.5px solid var(--ink); position: relative; }
+.c05-fmt__box i { position: absolute; left: -1.5px; right: -1.5px; border-top: 1px dashed var(--red-700); border-bottom: 1px dashed var(--red-700); }
+.c05-fmt b { display: block; font-size: 21px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.c05-fmt span { display: block; font-size: 17px; color: var(--text-2); line-height: 1.35; margin-top: 2px; }
+.c05-mini b { display: block; font-size: 21px; font-weight: 600; color: var(--ink); }
+.c05-mini p { font-size: 19px; line-height: 1.45; color: var(--text-2); margin-top: 6px; }
+
+/* Certificate */
+.c05-cert { width: 297mm; height: 210mm; background: #fff; position: relative; overflow: hidden; color: var(--ink); font-family: var(--font); }
+.c05-cert__frame { position: absolute; inset: 9mm; background-image: radial-gradient(circle at center, #CFCEC8 0.55mm, transparent 0.7mm); background-size: 4mm 4mm; }
+.c05-cert__inner { position: absolute; inset: 21mm; background: #fff; }
+.c05-cert__seal { position: absolute; right: calc(9mm - 1.5mm); bottom: calc(9mm - 1.5mm); width: 7mm; height: 7mm; border-radius: 50%; background: var(--red); }
+.c05-cert__body { position: absolute; inset: 21mm; padding: 9mm 12mm 8mm; display: flex; flex-direction: column; }
+.c05-cert__top { display: flex; justify-content: space-between; align-items: flex-start; }
+.c05-cert__id { text-align: right; font-size: 7pt; line-height: 1.5; color: var(--text-3); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
+.c05-cert__id b { display: block; font-size: 9pt; letter-spacing: 0.04em; color: var(--ink); text-transform: none; font-weight: 600; }
+.c05-cert__mid { text-align: center; margin: auto 0; padding-bottom: 2mm; }
+.c05-cert__lbl { font-size: 7.5pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-3); font-weight: 600; }
+.c05-cert__name { font-size: 38pt; font-weight: 600; letter-spacing: -0.035em; line-height: 1.05; margin-top: 4mm; }
+.c05-cert__ta { font-family: 'Noto Sans Tamil', var(--font); font-weight: 600; font-size: 18pt; line-height: 1.3; margin-top: 2.5mm; color: var(--ink-700); }
+.c05-cert__what { font-size: 11.5pt; line-height: 1.6; color: var(--text-2); margin-top: 7mm; }
+.c05-cert__what b { color: var(--ink); font-weight: 600; }
+.c05-cert__foot { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12mm; align-items: end; }
+.c05-cert__sig { border-top: 0.35mm solid var(--ink); padding-top: 2mm; font-size: 7.5pt; line-height: 1.45; color: var(--text-2); }
+.c05-cert__sig b { display: block; color: var(--ink); font-weight: 600; font-size: 8pt; }
+.c05-cert__ver { display: flex; align-items: flex-end; gap: 3.5mm; font-size: 6.5pt; line-height: 1.45; color: var(--text-3); text-align: right; }
+
+.c05-certspec td { padding: 11px 0; }
+
+/* Merchandise */
+.c05-merch { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; }
+.c05-tile { height: 312px; background: var(--bone); position: relative; overflow: hidden; }
+.c05-tile svg { position: absolute; }
+.c05-tile .sn-logo, .c05-tile .c05-on { position: absolute; }
+.c05-vib { position: absolute; font-weight: 900; letter-spacing: -0.03em; line-height: 1; transform: scaleX(0.85); transform-origin: 0 50%; white-space: nowrap; }
+.c05-stk { position: absolute; display: grid; place-items: center; box-shadow: 0 0 0 4px #fff, 0 10px 18px -8px rgb(12 23 25 / .35); }
+
+/* Digital */
+.c05-dig { display: grid; grid-template-columns: 1052px 1fr; gap: 60px; }
+.c05-stage { position: relative; height: 600px; }
+.c05-browser { position: absolute; left: 0; top: 0; width: 860px; border-radius: 12px; overflow: hidden; background: #D8DEE0; box-shadow: 0 0 0 1px rgb(244 243 239 / .22); }
+.c05-browser__bar { height: 36px; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: #E8EEEF; }
+.c05-browser__bar i { width: 11px; height: 11px; border-radius: 50%; background: var(--ink-300); }
+.c05-url { margin-left: 18px; flex: 1; max-width: 380px; height: 22px; border-radius: 999px; background: #fff; font-size: 12.5px; color: var(--ink-600); display: flex; align-items: center; padding: 0 12px; }
+.c05-browser__screen { height: 500px; overflow: hidden; }
+.c05-browser__screen img { width: 860px; display: block; }
+.c05-phone { position: absolute; left: 796px; top: 50px; width: 256px; height: 532px; border-radius: 38px; background: #24353A; padding: 10px; box-shadow: 0 0 0 1px rgb(255 255 255 / .14), 0 30px 60px -20px rgb(0 0 0 / .6); }
+.c05-phone__screen { width: 236px; height: 512px; border-radius: 29px; overflow: hidden; background: var(--ink); }
+.c05-phone__screen img { width: 236px; display: block; }
+.c05-pin { position: absolute; width: 30px; height: 30px; border-radius: 50%; background: var(--paper); color: var(--ink); font-size: 15px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 0 0 2px var(--ink), 0 0 0 3.5px rgb(244 243 239 / .55); z-index: 2; font-variant-numeric: tabular-nums; }
+.c05-anno { list-style: none; border-top: 1px solid var(--night-line); }
+.c05-anno li { display: grid; grid-template-columns: 44px 1fr; gap: 6px; align-items: start; padding: 9px 0; border-bottom: 1px solid var(--night-line); font-size: 20px; line-height: 1.4; color: var(--night-text-3); }
+.c05-anno li b { color: var(--night-text); font-weight: 600; }
+.c05-anno li > i { font-style: normal; width: 26px; height: 26px; border-radius: 50%; background: var(--paper); color: var(--ink); font-size: 13px; font-weight: 700; display: grid; place-items: center; margin-top: 1px; }
+.c05-mail { background: var(--paper); border-radius: 12px; padding: 22px 26px 24px; color: var(--ink); }
+.c05-mail__head { display: flex; gap: 10px; font-size: 14px; color: var(--text-3); padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.c05-mail__msg { font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.5; color: var(--text-2); padding-bottom: 12px; border-bottom: 1px dashed var(--line-strong); }
+.c05-mail__sig { font-family: Arial, Helvetica, sans-serif; font-size: 14.5px; line-height: 1.5; color: var(--ink); margin-top: 14px; display: flex; justify-content: space-between; align-items: flex-end; }
+.c05-mail__sig u { text-decoration-thickness: 1px; text-underline-offset: 2px; }
+</style>
+
+<!-- ============ 05 · CHAPTER DIVIDER ============ -->
+<section class="page page--ink chapter" id="ch-apps" data-section="Chapter">
+  <div class="pulli" style="left:0; top:136px; width:1920px; height:944px; --pulli: rgb(244 244 240 / .06)"></div>
+  <div class="fullstop" style="width:520px; height:520px; right:-110px; top:-190px;"></div>
+  <div class="page__body">
+    <div class="chapter__num">05</div>
+    <div class="chapter__title">Applications</div>
+    <div class="chapter__nav"><span>Stationery</span><span>Card and badge</span><span>Event signage</span><span>Deck</span><span>Social</span><span>Certificates</span><span>Merchandise</span><span>Website and email</span></div>
+  </div>
+</section>
+
+<!-- ============ 05.1 STATIONERY ============ -->
+<section class="page" id="stationery" data-section="05 · Applications" data-note="Placeholders in [square brackets]">
+  <div class="page__body">
+    <div class="kicker">05.1</div>
+    <h1 class="title">Stationery</h1>
+    <div class="c05-stat mt-l">
+      <div>
+      <div style="display:flex; gap:44px">
+      <!-- Letterhead -->
+        <div class="mock c05-fit" style="width:350px; height:495px">
+          <div class="c05-a4" style="zoom:.441">
+            <div class="c05-a4__top">
+              <span class="sn-logo" style="font-size:7.7mm">StartNet<span class="d"></span></span>
+              <div class="c05-a4__contact">hello@startnet.in<br>startnet.in</div>
+            </div>
+            <div class="c05-a4__addr">
+              <p>[Date]</p>
+              <p><b style="font-weight:600">[Recipient name]</b><br>[Role]<br>[Organisation]<br>[Address line], [City] [PIN code]</p>
+            </div>
+            <div class="c05-a4__text">
+              <p>Dear [Recipient name],</p>
+              <p>This sheet shows how a StartNet letter is set. Body copy is Inter at 9.5 pt on 15 pt leading, ranged left, in Ink, with one line space between paragraphs and no indents.</p>
+              <p>The logo sits in the top-left corner at 32 mm wide, inside an 18 mm margin. Nothing else on the sheet carries colour: the full stop in the logo is the one red point.</p>
+              <p>A letter that runs past one page continues on the continuation sheet, which carries the full stop alone and a page number.</p>
+            </div>
+            <div class="c05-a4__sign">Yours sincerely,<div class="gap"></div><b style="font-weight:600">[Name]</b><br>[Role], StartNet</div>
+            <div class="c05-a4__foot"><span>StartNet Ventures Private Limited · CIN U70200TZ2023PTC028823 · 112/2F4, Fairlands, 3rd Cross Street, Fairlands, Salem 636016 · startnet.in</span></div>
+          </div>
+        </div>
+      <!-- Continuation -->
+        <div class="mock c05-fit" style="width:350px; height:495px">
+          <div class="c05-a4" style="zoom:.441">
+            <div class="c05-a4__top"><div class="c05-a4__dot" style="margin-top:2.6mm"></div></div>
+            <div class="c05-a4__text" style="margin-top:20mm">
+              <p>Continuation sheets keep the margins and the text column of the first page. The full stop alone stands in for the logo, at the same height.</p>
+              <p>The running line at the foot carries the page number. The legal line appears on the first page only.</p>
+              <p>[Closing paragraph.]</p>
+            </div>
+            <div class="c05-a4__sign">Yours sincerely,<div class="gap"></div><b style="font-weight:600">[Name]</b><br>[Role], StartNet</div>
+            <div class="c05-a4__foot"><span>startnet.in</span><span>Page 2 of 2</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cap">Letterhead and continuation sheet · A4<span style="font-size:19px">Footer: StartNet Ventures Private Limited · <span style="display:inline; white-space:nowrap; font-size:inherit; margin:0">CIN U70200TZ2023PTC028823</span><br>112/2F4, Fairlands, 3rd Cross Street, Fairlands, Salem 636016 · startnet.in</span></div>
+      </div>
+      <!-- Spec + envelope -->
+      <div class="c05-stat__side">
+        <table class="spec" style="font-size:21px">
+          <tr><th>Specification</th><th>Value</th></tr>
+          <tr><td>Margin, all sides</td><td><b>18 mm</b></td></tr>
+          <tr><td>Logo width</td><td><b>32 mm</b></td></tr>
+          <tr><td>Body type</td><td><b>Inter 9.5 / 15 pt</b></td></tr>
+          <tr><td>Stock</td><td><b>120 gsm uncoated</b></td></tr>
+          <tr><td>Inks</td><td><b>2 spot, or CMYK</b></td></tr>
+          <tr><td>Pantone references</td><td>[to be confirmed after proofing, Book 3 §3.2]</td></tr>
+        </table>
+        <div style="display:flex; gap:36px; align-items:flex-end; margin-top:auto; padding-bottom:6px">
+          <div class="mock c05-fit" style="width:440px; height:220px; flex:none">
+            <div class="c05-env" style="zoom:.5292">
+              <span class="sn-logo sn-logo--rev" style="font-size:6.6mm">StartNet<span class="d"></span></span>
+              <div class="c05-env__ret">StartNet Ventures Private Limited<br>112/2F4, Fairlands, 3rd Cross Street<br>Fairlands, Salem 636016</div>
+              <div class="c05-env__dot"></div>
+            </div>
+          </div>
+          <div class="cap" style="margin:0">Envelope · DL<span>220 × 110 mm on Ink, with a cropped full stop and the return address in Paper.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05.2 BUSINESS CARD AND EVENT BADGE ============ -->
+<section class="page" id="cards-badges" data-section="05 · Applications" data-note="Placeholders in [square brackets]">
+  <div class="page__body">
+    <div class="kicker">05.2</div>
+    <h1 class="title">Business card and event badge</h1>
+    <div class="c05-cards mt-l">
+      <div>
+        <div style="display:flex; gap:36px">
+          <div class="mock c05-fit" style="width:452px; height:292px">
+            <div class="c05-card c05-card--front" style="zoom:1.407"><span class="sn-logo sn-logo--rev" style="font-size:6.4mm">StartNet<span class="d"></span></span><div class="c05-card__dot"></div></div>
+          </div>
+          <div class="mock c05-fit" style="width:452px; height:292px">
+            <div class="c05-card c05-card--back" style="zoom:1.407">
+              <div class="c05-card__name">[Name]</div>
+              <div class="c05-card__role">[Role]</div>
+              <div class="c05-card__contact">name@startnet.in<br>startnet.in</div>
+              <div class="c05-card__mini"></div>
+            </div>
+          </div>
+        </div>
+        <div class="cap">Business card · 85 × 55 mm<span>Front on Ink, back on Paper · 400 gsm uncoated, square corners</span></div>
+        <div class="grid g2 mt-m" style="gap:40px">
+          <div>
+            <div class="label" style="margin-bottom:14px">Card rules</div>
+            <ul class="c05-sublist">
+              <li><b>The front is the mark only:</b> the logo and one cropped full stop on Ink.</li>
+              <li><b>The back is Paper,</b> so details read. One 3&nbsp;mm full stop, in the corner.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="label" style="margin-bottom:14px">Badge rules</div>
+            <ul class="c05-sublist">
+              <li><b>The name is 16&nbsp;pt or larger,</b> readable at 1.5&nbsp;m. Company and district below.</li>
+              <li><b>The role is a word on a 15&nbsp;mm band,</b> never a colour alone.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; gap:40px; align-items:flex-start">
+        <div class="c05-fig">
+          <div class="c05-lan">
+            <div class="c05-strap" style="left:113px; transform: rotate(-10deg)"><div class="c05-strap__run">
+              <span class="sn-logo sn-logo--rev" style="font-size:11px">StartNet<span class="d"></span></span><span class="sn-logo sn-logo--rev" style="font-size:11px">StartNet<span class="d"></span></span><span class="sn-logo sn-logo--rev" style="font-size:11px">StartNet<span class="d"></span></span></div></div>
+            <div class="c05-strap" style="left:135px; transform: rotate(10deg)"><div class="c05-strap__run">
+              <span class="sn-logo sn-logo--rev" style="font-size:11px">StartNet<span class="d"></span></span><span class="sn-logo sn-logo--rev" style="font-size:11px">StartNet<span class="d"></span></span><span class="sn-logo sn-logo--rev" style="font-size:11px">StartNet<span class="d"></span></span></div></div>
+            <div class="c05-clip"></div>
+            <div class="c05-badge mock">
+              <div class="c05-badge__slot"></div>
+              <div class="c05-badge__in">
+                <span class="sn-logo" style="font-size:19px">StartNet<span class="d"></span><span class="desc" style="color:var(--connect)">Connect</span></span>
+                <div class="c05-badge__event">D2C Connect</div>
+                <div class="c05-badge__name">[Name]</div>
+                <div class="c05-badge__meta">[Company]<br>[District]</div>
+              </div>
+              <div class="c05-badge__band" style="background:var(--red); color:#fff">Founder</div>
+            </div>
+          </div>
+          <div class="cap" style="margin-top:12px">Event badge · A6<span>Ink lanyard, Paper wordmark</span></div>
+        </div>
+        <div style="width:360px; padding-top:4px">
+          <div class="label" style="margin-bottom:14px">Role bands</div>
+          <div class="c05-roles">
+            <div class="c05-role"><div class="c05-role__chip" style="background:var(--red); color:#fff">Founder</div><div><b>Founder</b><span>SNX Red</span></div></div>
+            <div class="c05-role"><div class="c05-role__chip" style="background:var(--ink); color:var(--paper)">Mentor</div><div><b>Mentor</b><span>Ink on Paper</span></div></div>
+            <div class="c05-role"><div class="c05-role__chip" style="background:#B9B8B2; color:var(--ink)">Partner</div><div><b>Partner</b><span>Neutral-400</span></div></div>
+            <div class="c05-role"><div class="c05-role__chip" style="background:#2A78D6; color:#fff">Media</div><div><b>Media</b><span>Ledger Blue</span></div></div>
+            <div class="c05-role"><div class="c05-role__chip" style="background:var(--marigold-300); color:var(--ink); letter-spacing:.1em">No photos</div><div><b>Opt-out lanyard</b><span>Marigold-300, announced at registration</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05.3 EVENT SIGNAGE ============ -->
+<section class="page page--bone" id="event-signage" data-section="05 · Applications" data-note="Placeholders in [square brackets]">
+  <div class="page__body">
+    <div class="kicker">05.3</div>
+    <h1 class="title">Event signage</h1>
+    <div class="c05-sig mt-l">
+      <!-- Backdrop -->
+      <div class="c05-fig">
+        <div class="mock c05-backdrop">
+          <div class="pulli" style="inset:0; --pulli: rgb(244 243 239 / .06); background-size:22px 22px"></div>
+          <div class="c05-backdrop__lock"><span class="sn-logo sn-logo--rev" style="font-size:30px">StartNet<span class="d"></span><span class="desc" style="color:#5DB88F">Connect</span></span></div>
+                    <div class="c05-backdrop__title">D2C Connect<span class="c05-stop" style="width:.19em; height:.19em; margin-left:.06em"></span></div>
+        </div>
+        <div class="c05-strip mock"><b>[Date] · [Venue], [City]</b><span>startnet.in/events</span></div>
+        <div class="cap">Stage backdrop · 16:9, with a lower-third strip<span>Evergreen: no dates or city. The strip carries them, so photos stay reusable.</span></div>
+      </div>
+      <!-- Standee -->
+      <div class="c05-fig">
+        <div style="position:relative; width:214px">
+          <div class="mock c05-standee">
+            <div class="photo c05-standee__photo"><img src="../client/public/photos/event/saas-connect/2025-1220.webp" style="object-position:67% 40%" alt=""></div>
+            <div class="c05-standee__logo"><span class="sn-logo sn-logo--rev" style="font-size:18px">StartNet<span class="d"></span></span></div>
+            <div class="c05-standee__paper">
+              <div class="c05-standee__h">Every talent,<br>a founder<span class="c05-stop"></span></div>
+              <div class="c05-standee__qr"><div class="c05-qr" style="width:32px; height:32px"></div><span>[SNX event page]<br>Scan to register</span></div>
+            </div>
+            <div class="c05-standee__clear">Bottom 400 mm: keep clear</div>
+          </div>
+          <div class="c05-standee__base"></div>
+        </div>
+        <div class="cap">Roll-up standee<span>850 × 2000 mm<br>60% photo, 40% Paper</span></div>
+      </div>
+      <!-- Wayfinding + spec -->
+      <div style="padding-left:40px">
+        <div class="mock c05-way">
+          <div class="c05-way__row"><div><div class="c05-way__ta">பதிவு</div><div class="c05-way__en">Registration</div></div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></div>
+          <div class="c05-way__row"><div><div class="c05-way__ta">முதன்மை மேடை</div><div class="c05-way__en">Main stage</div></div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div>
+          <div class="c05-way__row"><div><div class="c05-way__ta">உதவி மையம்</div><div class="c05-way__en">Help desk</div></div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></div>
+        </div>
+        <div class="cap">Wayfinding board · Paper, Ink<span>Tamil above English at the same weight</span></div>
+        <table class="spec mt-m" style="font-size:20px">
+          <tr><th>Large format</th><th>Rule</th></tr>
+          <tr><td>Cap height</td><td><b>≈ 25 mm per 3 m</b></td></tr>
+          <tr><td>QR code</td><td><b>≥ 25 mm, 4-module quiet zone</b></td></tr>
+          <tr><td>Arrows</td><td><b>Lucide, 2× cap height</b></td></tr>
+          <tr><td>Finish</td><td><b>Matte only</b></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05.4 DECK TEMPLATE ============ -->
+<section class="page" id="deck" data-section="05 · Applications" data-note="Placeholders in [square brackets]">
+  <div class="page__body">
+    <div class="kicker">05.4</div>
+    <h1 class="title">Deck template</h1>
+    <div class="grid g4 mt-l" style="gap:32px">
+      <!-- Cover -->
+      <div class="c05-fig">
+        <div class="mock c05-fit" style="width:404px; height:227px">
+          <div class="c05-slide c05-slide--ink" style="zoom:.21042">
+            <div style="position:absolute; width:980px; height:980px; border-radius:50%; background:var(--red); right:-260px; bottom:-470px"></div>
+            <div class="c05-slide__logo"><span class="sn-logo sn-logo--rev" style="font-size:64px">StartNet<span class="d"></span></span></div>
+            <div style="position:absolute; left:120px; bottom:150px">
+              <div style="font-size:150px; font-weight:500; letter-spacing:-0.045em; line-height:1">[Deck title]</div>
+              <div style="font-size:34px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--night-text-3); margin-top:34px">[Audience] · [Month year]</div>
+            </div>
+          </div>
+        </div>
+        <div class="cap">Cover<span>Ink, field-crop full stop, logo top left.</span></div>
+      </div>
+      <!-- Divider -->
+      <div class="c05-fig">
+        <div class="mock c05-fit" style="width:404px; height:227px">
+          <div class="c05-slide c05-slide--ink" style="zoom:.21042">
+            <div style="position:absolute; left:120px; bottom:150px">
+              <div style="font-size:300px; font-weight:500; letter-spacing:-0.05em; line-height:.85; color:var(--red)">02</div>
+              <div style="font-size:150px; font-weight:500; letter-spacing:-0.045em; line-height:1; margin-top:40px">[Section]</div>
+            </div>
+            <div class="c05-slide__foot" style="color:var(--night-text-3)"><span class="sn-logo sn-logo--rev sn-logo--mono" style="font-size:40px; color:var(--night-text-3)">StartNet<span class="d"></span></span><span>02</span></div>
+          </div>
+        </div>
+        <div class="cap">Section divider<span>Number in red, one word. The same every time.</span></div>
+      </div>
+      <!-- Content -->
+      <div class="c05-fig">
+        <div class="mock c05-fit" style="width:404px; height:227px">
+          <div class="c05-slide c05-slide--paper" style="zoom:.21042">
+            <div style="position:absolute; left:120px; top:110px; right:120px">
+              <div style="font-size:30px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--red-700)">02 · [Section]</div>
+              <div style="font-size:100px; font-weight:500; letter-spacing:-0.04em; line-height:1.05; margin-top:30px">[One headline that states the point]</div>
+            </div>
+            <div class="c05-cols">
+              <div><h4>[Heading]</h4><p>[Two or three lines that support the headline, at 20 pt or more.]</p></div>
+              <div><h4>[Heading]</h4><p>[Two or three lines that support the headline, at 20 pt or more.]</p></div>
+              <div><h4>[Heading]</h4><p>[Two or three lines that support the headline, at 20 pt or more.]</p></div>
+            </div>
+            <div class="c05-slide__foot" style="border-top:2px solid var(--line); padding-top:30px; bottom:70px"><span class="sn-logo" style="font-size:40px">StartNet<span class="d"></span></span><span>07</span></div>
+          </div>
+        </div>
+        <div class="cap">Content<span>Paper, three columns with a rule and a folio.</span></div>
+      </div>
+      <!-- Single figure -->
+      <div class="c05-fig">
+        <div class="mock c05-fit" style="width:404px; height:227px">
+          <div class="c05-slide c05-slide--bone" style="zoom:.21042">
+            <div style="position:absolute; left:120px; top:200px">
+              <div style="font-size:300px; font-weight:500; letter-spacing:-0.05em; line-height:1; display:flex; align-items:baseline" class="mono">[figure]<span class="c05-stop"></span></div>
+              <div style="font-size:68px; font-weight:500; letter-spacing:-0.02em; margin-top:34px">[What the figure counts]</div>
+              <div style="font-size:40px; color:var(--text-2); margin-top:30px">[A/B/C tag] · as at [date] · [source]</div>
+            </div>
+          </div>
+        </div>
+        <div class="cap">Single figure<span>Bone, one figure with its tag, date and source.</span></div>
+      </div>
+    </div>
+    <div class="grid g4 hair-top" style="gap:32px; margin-top:72px">
+      <div class="c05-mini"><b>Built at 1920 × 1080.</b><p>Titles 48 pt or larger on screen, body 20 pt or larger. Nothing smaller reaches the back of a room.</p></div>
+      <div class="c05-mini"><b>Two grounds per deck.</b><p>Ink for covers and dividers, Paper for content. Bone is a tint of Paper, kept for a single figure.</p></div>
+      <div class="c05-mini"><b>One idea per slide.</b><p>If a slide needs a second headline, it is two slides.</p></div>
+      <div class="c05-mini"><b>Every figure carries its tag.</b><p>A/B/C tag, as-at date and source sit with the number, not in a footnote.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05.5 SOCIAL POSTS ============ -->
+<section class="page" id="social" data-section="05 · Applications" data-note="Placeholders in [square brackets]">
+  <div class="page__body">
+    <div class="kicker">05.5</div>
+    <h1 class="title">Social posts</h1>
+    <div class="c05-soc mt-l">
+      <div>
+        <div class="c05-posts">
+          <!-- Stat post -->
+          <div class="c05-fig">
+            <div class="mock c05-fit" style="width:296px; height:370px">
+              <div class="c05-post" style="zoom:.27407; background:var(--ink); color:var(--night-text)">
+                <div class="pulli" style="inset:0; --pulli: rgb(244 243 239 / .06); background-size:54px 54px"></div>
+                <div style="position:absolute; left:80px; top:80px"><span class="sn-logo sn-logo--rev" style="font-size:56px">StartNet<span class="d"></span></span></div>
+                <div style="position:absolute; left:80px; right:80px; top:420px">
+                  <div style="font-size:250px; font-weight:600; letter-spacing:-0.05em; line-height:1; display:flex; align-items:baseline" class="mono">[figure]<span class="c05-stop"></span></div>
+                  <div style="font-size:60px; font-weight:500; letter-spacing:-0.02em; line-height:1.15; margin-top:40px">[What the figure counts]</div>
+                </div>
+                <div style="position:absolute; left:80px; right:80px; bottom:80px; display:flex; align-items:center; gap:22px; font-size:32px; color:var(--night-text-2)"><span class="c05-tag">[Tag]</span>As at [date] · [Source]</div>
+              </div>
+            </div>
+            <div class="cap">Stat post<span>Night, one figure, its tag.</span></div>
+          </div>
+          <!-- Founder story -->
+          <div class="c05-fig">
+            <div class="mock c05-fit" style="width:296px; height:370px">
+              <div class="c05-post" style="zoom:.27407; background:var(--ink)">
+                <div class="photo" style="position:absolute; inset:0 0 340px 0"><img src="../client/public/photos/event/saas-connect/2025-1220.webp" style="object-position:68% 30%" alt=""></div>
+                <div style="position:absolute; left:0; right:0; bottom:0; height:405px; background:var(--paper); border-top:4px solid var(--connect); padding:56px 72px; color:var(--ink)">
+                  <div style="font-size:66px; font-weight:600; letter-spacing:-0.03em; line-height:1">[Name]</div>
+                  <div style="font-size:36px; color:var(--text-2); margin-top:16px">[Company] · [District]</div>
+                  <div style="font-size:44px; font-weight:500; letter-spacing:-0.015em; margin-top:40px">[One outcome line]</div>
+                  <div style="position:absolute; right:72px; bottom:56px"><span class="sn-logo" style="font-size:34px">StartNet<span class="d"></span><span class="desc" style="color:var(--connect)">Connect</span></span></div>
+                </div>
+              </div>
+            </div>
+            <div class="cap">Founder story<span>Real photo, Paper panel.</span></div>
+          </div>
+          <!-- Event announce -->
+          <div class="c05-fig">
+            <div class="mock c05-fit" style="width:296px; height:370px">
+              <div class="c05-post" style="zoom:.27407; background:var(--paper); color:var(--ink)">
+                <div class="pulli pulli--paper" style="right:0; top:0; width:432px; height:432px; --pulli: rgb(12 23 25 / .14); background-size:54px 54px"></div>
+                <div style="position:absolute; left:80px; top:80px"><span class="sn-logo" style="font-size:56px">StartNet<span class="d"></span><span class="desc" style="color:var(--research)">Research</span></span></div>
+                <div style="position:absolute; left:80px; right:80px; top:470px">
+                  <div style="font-size:34px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-3)">Event</div>
+                  <div style="font-size:112px; font-weight:500; letter-spacing:-0.04em; line-height:1; margin-top:26px">[Event name]</div>
+                  <div style="display:flex; gap:18px; flex-wrap:wrap; margin-top:56px">
+                    <span class="c05-chip" style="background:var(--research); color:#fff">[Date]</span>
+                    <span class="c05-chip" style="border:3px solid var(--ink)">[District]</span>
+                    <span class="c05-chip" style="border:3px solid var(--ink)">[Free / Paid]</span>
+                  </div>
+                </div>
+                <div style="position:absolute; left:80px; bottom:80px; display:flex; align-items:center; gap:28px; font-size:36px; color:var(--text-2)"><span class="c05-chip" style="background:var(--ink); color:var(--paper)">Register</span>startnet.in/events</div>
+              </div>
+            </div>
+            <div class="cap">Event announce<span>Accent on the date chip only.</span></div>
+          </div>
+          <!-- Quote card -->
+          <div class="c05-fig">
+            <div class="mock c05-fit" style="width:296px; height:370px">
+              <div class="c05-post" style="zoom:.27407; background:var(--paper); color:var(--ink)">
+                <div style="position:absolute; left:80px; top:80px"><span class="sn-logo" style="font-size:56px">StartNet<span class="d"></span></span></div>
+                <div style="position:absolute; left:80px; right:90px; top:330px; font-size:86px; font-weight:600; letter-spacing:-0.035em; line-height:1.1">[The quote, in the speaker’s own words, in two or three lines]<span class="c05-stop" style="width:.19em; height:.19em"></span></div>
+                <div style="position:absolute; left:80px; right:80px; bottom:80px; display:flex; align-items:center; gap:30px">
+                  <div style="width:132px; height:132px; border-radius:50%; flex:none; background:var(--ink-200) url('../client/public/photos/pool/stage/03-800.jpg') 47% 22% / 420% auto no-repeat"></div>
+                  <div><div style="font-size:44px; font-weight:600; letter-spacing:-0.02em">[Name]</div><div style="font-size:34px; color:var(--text-2); margin-top:6px">[Role], [Organisation]</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="cap">Quote card<span>Paper; the full stop ends the quote.</span></div>
+          </div>
+        </div>
+        <div class="grid g4 mt-m hair-top" style="gap:32px">
+          <div class="c05-mini"><b>One language per post.</b><p>Separate English and Tamil posts; if bilingual, Tamil first.</p></div>
+          <div class="c05-mini"><b>Alt text, always.</b><p>Text in the image is repeated in the caption.</p></div>
+          <div class="c05-mini"><b>Type at 4% or more</b><p>of the canvas height: 54 px on a 1350 px post.</p></div>
+          <div class="c05-mini"><b>The logo once.</b><p>One lock-up per post, never a watermark.</p></div>
+        </div>
+      </div>
+      <div>
+        <div class="label" style="margin-bottom:14px">Formats</div>
+        <ul class="c05-fmt">
+          <li><div class="c05-fmt__box" style="width:32px; height:40px"></div><div><b>1080 × 1350</b><span>Feed master, 4:5</span></div></li>
+          <li><div class="c05-fmt__box" style="width:32px; height:32px"></div><div><b>1080 × 1080</b><span>Square feed</span></div></li>
+          <li><div class="c05-fmt__box" style="width:30px; height:53px"><i style="top:7px; bottom:7px"></i></div><div><b>1080 × 1920</b><span>Story; type inside the 1080 × 1420 safe area</span></div></li>
+          <li><div class="c05-fmt__box" style="width:48px; height:25px"></div><div><b>1200 × 630</b><span>Link card</span></div></li>
+          <li><div class="c05-fmt__box" style="width:58px; height:15px"></div><div><b>1584 × 396</b><span>Profile banner</span></div></li>
+        </ul>
+        <p class="small mt-m" style="font-size:19px; line-height:1.45">Every format is cut from the 4:5 master, so type and the tag move together.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05.6 CERTIFICATES ============ -->
+<section class="page" id="certificates" data-section="05 · Applications" data-note="Placeholders in [square brackets]">
+  <div class="page__body">
+    <div class="kicker">05.6</div>
+    <h1 class="title">Certificates</h1>
+    <div class="split mt-l" style="grid-template-columns: 760px 1fr; gap:88px">
+      <div class="c05-fig">
+        <div class="mock c05-fit" style="width:760px; height:537px">
+          <div class="c05-cert" style="zoom:.6771">
+            <div class="c05-cert__frame"></div>
+            <div class="c05-cert__inner"></div>
+            <div class="c05-cert__seal"></div>
+            <div class="c05-cert__body">
+              <div class="c05-cert__top">
+                <span class="sn-logo" style="font-size:7.6mm">StartNet<span class="d"></span><span class="desc" style="color:var(--research)">Research</span></span>
+                <div class="c05-cert__id">Certificate ID<b class="c05-zero">[<span class="c05-z">0</span><span class="c05-z">0</span><span class="c05-z">0</span><span class="c05-z">0</span>-<span class="c05-z">0</span><span class="c05-z">0</span><span class="c05-z">0</span><span class="c05-z">0</span>-<span class="c05-z">0</span><span class="c05-z">0</span><span class="c05-z">0</span><span class="c05-z">0</span>]</b></div>
+              </div>
+              <div class="c05-cert__mid">
+                <div class="c05-cert__lbl">Certificate of completion · this is to certify that</div>
+                <div class="c05-cert__name">[Recipient name]</div>
+                <div class="c05-cert__ta">[தமிழ் பெயர்]</div>
+                <div class="c05-cert__what">has completed <b>[Programme name]</b>, <b>[Cohort]</b>,<br>reaching Founder Ladder level <b>[L1–L7]</b> · <b>[Start date]</b> to <b>[End date]</b></div>
+              </div>
+              <div class="c05-cert__foot">
+                <div class="c05-cert__sig"><b>[Signatory — to be confirmed by StartNet]</b>[Title]</div>
+                <div class="c05-cert__sig"><b>[Signatory — to be confirmed by StartNet]</b>[Title]</div>
+                <div class="c05-cert__ver"><span>Verify at<br>[SNX verification URL]</span><div class="c05-qr" style="width:17mm; height:17mm; outline:none"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cap">Certificate · A4 landscape<span>The pulli-grid frame closes on one red dot: the full stop as a seal.</span></div>
+      </div>
+      <div>
+        <table class="spec c05-certspec" style="font-size:21px">
+          <tr><th>Element</th><th>Specification</th></tr>
+          <tr><td>Format</td><td><b>A4 landscape · PDF/A for digital</b></td></tr>
+          <tr><td>Stock</td><td><b>Uncoated, 250 gsm or more</b></td></tr>
+          <tr><td>Lock-up</td><td><b>Brand lock-up, top left</b></td></tr>
+          <tr><td>Recipient</td><td><b>Inter 600, centred; Tamil name below</b></td></tr>
+          <tr><td>Details</td><td><b>Programme, cohort, level L1–L7, dates</b></td></tr>
+          <tr><td>Border</td><td><b>Pulli grid in Neutral, one red dot</b></td></tr>
+          <tr><td>Signatures</td><td><b>Real, named and titled only</b></td></tr>
+          <tr><td>Verification</td><td><b>Slashed-zero ID, QR to SNX</b></td></tr>
+          <tr><td>Partners</td><td><b>Signed co-delivery partners only</b></td></tr>
+          <tr><td>Accessibility</td><td><b>Tagged PDF, EN and Tamil tags, real text</b></td></tr>
+        </table>
+        <p class="small mt-m" style="font-size:19px; line-height:1.45">Signatories and the verification URL pattern are open items for StartNet and SNX product (Book 3, Appendix B).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05.7 MERCHANDISE ============ -->
+<section class="page" id="merchandise" data-section="05 · Applications">
+  <div class="page__body">
+    <div class="kicker">05.7</div>
+    <h1 class="title">Merchandise</h1>
+    <div class="c05-merch mt-l">
+      <!-- Vibathon tee + volunteer tee -->
+      <div class="c05-fig">
+        <div class="c05-tile">
+          <svg viewBox="0 0 300 300" style="left:148px; top:78px; width:164px; height:164px"><path d="M118 40 Q150 64 182 40 L232 58 L268 118 L232 134 L218 112 L218 272 Q150 278 82 272 L82 112 L68 134 L32 118 L68 58 Z" fill="#E2581F"/><path d="M118 40 Q150 64 182 40" fill="none" stroke="#C24A16" stroke-width="5"/><circle cx="236" cy="104" r="6" fill="#0C1719"/></svg>
+          <div class="c05-vib" style="left:203px; top:133px; font-size:15px; color:var(--ink)">Vibathon</div>
+          <svg viewBox="0 0 300 300" style="left:2px; top:58px; width:196px; height:196px"><path d="M118 40 Q150 64 182 40 L232 58 L268 118 L232 134 L218 112 L218 272 Q150 278 82 272 L82 112 L68 134 L32 118 L68 58 Z" fill="#0C1719" stroke="#26363A" stroke-width="1.5"/><path d="M118 40 Q150 64 182 40" fill="none" stroke="#2C3E41" stroke-width="5"/><circle cx="236" cy="104" r="6" fill="#EF4444"/></svg>
+          <div class="c05-vib" style="left:66px; top:121px; font-size:18.5px; color:var(--paper)">Vibathon</div>
+        </div>
+        <div class="cap">Vibathon tees<span>Ink, Paper wordmark, the red full stop on the left sleeve. Volunteers wear Vibe with an Ink wordmark.</span></div>
+      </div>
+      <!-- Hoodie -->
+      <div class="c05-fig">
+        <div class="c05-tile">
+          <svg viewBox="0 0 300 300" style="left:36px; top:22px; width:268px; height:268px">
+            <path d="M112 56 Q150 4 188 56 Z" fill="#1B292C"/>
+            <path d="M104 50 L196 50 L246 72 L276 236 L250 244 L226 132 L226 274 L74 274 L74 132 L50 244 L24 236 L54 72 Z" fill="#0C1719" stroke="#26363A" stroke-width="1.5"/>
+            <path d="M112 52 Q150 92 188 52" fill="none" stroke="#2C3E41" stroke-width="5"/>
+            <path d="M140 74 L138 112 M160 74 L162 112" stroke="#42575A" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M104 204 L196 204 L210 258 L90 258 Z" fill="none" stroke="#26363A" stroke-width="2"/>
+            <path d="M74 262 L226 262" stroke="#26363A" stroke-width="2"/>
+          </svg>
+          <span class="sn-logo sn-logo--rev" style="left:131px; top:128px; font-size:21px">StartNet<span class="d"></span></span>
+        </div>
+        <div class="cap">StartNet hoodie and tee<span>Ink garment, Paper logo, 90 mm wide on the chest. No back print.</span></div>
+      </div>
+      <!-- Stickers -->
+      <div class="c05-fig">
+        <div class="c05-tile">
+          <div class="c05-stk" style="left:28px; top:34px; width:132px; height:132px; border-radius:50%; background:var(--ink)"><span class="sn-logo sn-logo--rev" style="position:static; font-size:22px">StartNet<span class="d"></span></span></div>
+          <div class="c05-stk" style="left:180px; top:58px; width:120px; height:84px; border-radius:12px; background:var(--red)"><span class="sn-logo sn-logo--white sn-logo--mono" style="position:static; font-size:19px">StartNet<span class="d"></span></span></div>
+          <div class="c05-stk" style="left:30px; top:204px; width:172px; height:62px; border-radius:6px; background:var(--paper)"><span class="sn-logo" style="position:static; font-size:22px">StartNet<span class="d"></span></span></div>
+          <div class="c05-stk" style="left:232px; top:206px; width:58px; height:58px; border-radius:11px; background:var(--ink)"><span class="sn-logo sn-logo--white" style="position:static; font-size:30px">S<span class="d"></span></span></div>
+        </div>
+        <div class="cap">Stickers<span>Ink circle, Paper rectangle, the “S.” below 22 mm. On red, the logo is mono white only.</span></div>
+      </div>
+      <!-- Notebook and tote -->
+      <div class="c05-fig">
+        <div class="c05-tile">
+          <div class="mock" style="position:absolute; left:34px; top:50px; width:138px; height:196px; background:var(--ink); border-radius:3px 8px 8px 3px">
+            <div style="position:absolute; right:22px; top:0; bottom:0; width:6px; background:#2C3E41"></div>
+            <span class="sn-logo sn-logo--rev" style="position:absolute; left:16px; bottom:18px; font-size:15px">StartNet<span class="d"></span></span>
+          </div>
+          <svg viewBox="0 0 160 220" style="left:178px; top:34px; width:140px; height:230px"><path d="M48 70 Q48 12 80 12 Q112 12 112 70" fill="none" stroke="#D5CCB6" stroke-width="7"/><rect x="18" y="64" width="124" height="148" rx="3" fill="#E6DFCF"/><path d="M18 64 H142" stroke="#D5CCB6" stroke-width="3"/></svg>
+          <span class="sn-logo sn-logo--mono" style="left:219px; top:168px; font-size:16px">StartNet<span class="d"></span></span>
+        </div>
+        <div class="cap">Notebook and tote<span>A5 notebook in Ink. Natural canvas tote, one-colour Ink mark.</span></div>
+      </div>
+      <!-- Bottle -->
+      <div class="c05-fig">
+        <div class="c05-tile">
+          <div class="mock" style="position:absolute; left:50%; margin-left:-40px; top:28px; width:80px; height:34px; border-radius:10px 10px 4px 4px; background:#2C3E41"></div>
+          <div class="mock" style="position:absolute; left:50%; margin-left:-56px; top:58px; width:112px; height:228px; border-radius:22px 22px 14px 14px; background:var(--ink)">
+            <div style="position:absolute; left:12px; top:16px; bottom:16px; width:8px; border-radius:4px; background:rgb(255 255 255 / .06)"></div>
+            <span class="sn-logo sn-logo--rev" style="position:absolute; left:39px; top:84px; font-size:32px">S<span class="d"></span></span>
+          </div>
+        </div>
+        <div class="cap">Bottle<span>Ink steel, 600 ml. The “S.” monogram at 40 mm, centred.</span></div>
+      </div>
+    </div>
+    <div class="grid g3 mt-auto hair-top" style="gap:56px; padding-bottom:6px">
+      <div class="c05-mini"><b>Single colour first.</b><p>Every item must work in one colour, Paper on Ink or Ink on canvas, before a two-colour version is quoted.</p></div>
+      <div class="c05-mini"><b>Below 22 mm, the monogram.</b><p>Embroidery, etching and pad print close up small type. Under 22 mm, use the “S.” in place of the wordmark.</p></div>
+      <div class="c05-mini"><b>No mascots, no novelty.</b><p>No illustrated full stop, no slogan merchandise. The range is short on purpose.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05.8 WEBSITE AND EMAIL ============ -->
+<section class="page page--ink" id="digital" data-section="05 · Applications" data-note="Live site, October 2026">
+  <div class="page__body">
+    <div class="kicker">05.8</div>
+    <h1 class="title" style="color:var(--night-text)">Website and email</h1>
+    <div class="c05-dig mt-l">
+      <div>
+        <div class="c05-stage">
+          <div class="c05-browser">
+            <div class="c05-browser__bar"><i></i><i></i><i></i><span class="c05-url">startnet.in</span></div>
+            <div class="c05-browser__screen"><img src="assets/site-home-1440.jpg" alt=""></div>
+          </div>
+          <div class="c05-pin" style="left:24px; top:150px">1</div>
+          <div class="c05-pin" style="left:452px; top:96px">2</div>
+          <div class="c05-pin" style="left:262px; top:170px">3</div>
+          <div class="c05-pin" style="left:560px; top:248px">4</div>
+          <div class="c05-pin" style="left:30px; top:486px">5</div>
+          <div class="c05-phone"><div class="c05-phone__screen"><img src="assets/site-vibe-375.jpg" alt=""></div></div>
+          <div class="c05-pin" style="left:1022px; top:120px">6</div>
+          <div class="cap" style="position:absolute; left:0; top:556px; margin:0">startnet.in at 1440 px, and the Vibe hub at 375 px</div>
+        </div>
+      </div>
+      <div>
+        <ol class="c05-anno">
+          <li><i>1</i><span><b>Ink band.</b> The header and hero sit on Ink.</span></li>
+          <li><i>2</i><span><b>Pill navigation,</b> like the buttons and chips.</span></li>
+          <li><i>3</i><span><b>One serif word</b> in Instrument Serif Italic.</span></li>
+          <li><i>4</i><span><b>Red stays small:</b> Join StartNet and the full stops.</span></li>
+          <li><i>5</i><span><b>Paper sheets</b> rise over the band with rounded tops.</span></li>
+          <li><i>6</i><span><b>Brand hubs add one accent:</b> the sub-nav rule and the brand button.</span></li>
+        </ol>
+        <div class="label mt-m" style="margin-bottom:14px">Email signature</div>
+        <div class="c05-mail">
+                    <div class="c05-mail__msg">[Message text]</div>
+          <div class="c05-mail__sig">
+            <div><b>[Name]</b><br>[Role] · StartNet<br><u>name@startnet.in</u> · <u>startnet.in</u></div>
+            <span class="sn-logo" style="font-size:21.2px; margin-bottom:4px">StartNet<span class="d"></span></span>
+          </div>
+        </div>
+        <p class="small mt-s" style="font-size:18px; line-height:1.45">Live text in the mail client’s sans. The logo is the only image, 88 px wide. No banners, quotes or social icons.</p>
+      </div>
+    </div>
+  </div>
+</section>

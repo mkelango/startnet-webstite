@@ -1,0 +1,172 @@
+/* Cards (DESIGN-v2 3.7). Two families; every card belongs to one.
+   A. .card--media  editorial, unframed: 12px media at a fixed ratio, meta, title, 2-line text, CTA bottom-left.
+   B. .card--framed text-first: Card #FBFAF7 (White on Bone), hairline ring, 2px Ink top rule on hover. No lift.
+   Selectors that must outrank page CSS in lazy chunks carry :root. */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+  color: var(--color-text);
+}
+
+/* ---------- B. Framed ---------- */
+:root .card--framed {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-media);
+  background: var(--card);
+  box-shadow: none;
+  transition: border-color var(--dur-2) var(--ease-snap);
+}
+:root :is(.section--white, .section--sunken, [data-ground='bone']) .card--framed { background: var(--white); }
+:root [data-surface='night'] .card--framed { background: var(--night-1); border-color: var(--night-line); }
+/* Top rule: a 2px Ink bar that draws in from the left (clip-path keeps the corner shape) */
+.card--framed::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: 2;
+  border-radius: inherit;
+  border-top: 2px solid var(--color-text);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path var(--dur-3) var(--ease-snap);
+  pointer-events: none;
+}
+:root .card--framed.card--brand::after { border-top-color: var(--accent); }
+:root [data-surface='night'] .card--framed.card--brand::after { border-top-color: var(--accent-night); }
+@media (hover: hover) {
+  :root .card--framed.card--link:hover { border-color: var(--line-strong); }
+  :root [data-surface='night'] .card--framed.card--link:hover { border-color: var(--night-line-strong); }
+  .card--framed.card--link:hover::after { clip-path: inset(0 0 0 0); }
+}
+.card--framed:focus-within::after { clip-path: inset(0 0 0 0); }
+.card--framed .card__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--radius-media) - 1px) calc(var(--radius-media) - 1px) 0 0;
+  background: var(--bone);
+}
+.card--framed .card__media .art-image { border-radius: 0; }
+.card--framed .card__body { padding: 28px; }
+@media (max-width: 767.98px) { .card--framed .card__body { padding: 24px; } }
+
+/* ---------- A. Media (unframed) ---------- */
+:root .card--media { border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.card--media .card__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-media);
+  background: var(--bone);
+}
+[data-surface='night'] .card--media .card__media { background: var(--night-1); }
+.card--media .card__media .art-image { height: 100%; border-radius: inherit; }
+.card--media .card__media .art-image--photo,
+.card--media .card__media .art-image :is(svg, picture) { height: 100%; }
+.card--media .card__body { padding: 20px 0 0; gap: 8px; }
+.card--media .card__title { font-size: var(--text-h3); }
+.card--media .card__text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card--media .card__text > * { display: inline; }
+.card--media .card__footer { padding-top: 16px; }
+/* Hover (fine pointers): 1.03 media zoom (styles/pointerFx.css), title underline sweep, arrow nudge (below) */
+
+/* ---------- Shared parts ---------- */
+.card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.card__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.card__eyebrow { margin: 0; }
+.card__kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  font-size: var(--text-meta);
+  line-height: 1.45;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.card__title { font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3); text-wrap: pretty; hyphens: manual; }
+.card__link { color: inherit; text-decoration: none; }
+.card__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+.card__link:focus-visible { outline: none; }
+.card:has(.card__link:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 4px; border-radius: var(--radius-media); }
+.card__title-text { padding-bottom: 0.06em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+@media (hover: hover) { .card--link:hover .card__title-text { background-size: 100% 1px; } }
+.card--link:focus-within .card__title-text { background-size: 100% 1px; }
+.card__text { color: var(--color-text-2); font-size: var(--text-body); }
+.card__meta { color: var(--color-text-muted); font-size: var(--text-meta); font-variant-numeric: tabular-nums lining-nums; }
+.card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-3);
+  margin-top: auto;
+  padding-top: var(--space-3);
+}
+/* Anything interactive inside the card sits above the link overlay */
+.card__meta a, .card__meta button, .card__footer a, .card__footer button, .card .tag-pop, .card__actions { position: relative; z-index: 3; }
+/* CTA: arrow link, bottom-left, Ink (brand text accent inside a brand scope) */
+:root .card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: auto;
+  font-weight: 500;
+  font-size: var(--text-small);
+  color: var(--color-text);
+}
+:root [data-brand] .card__cta { color: var(--accent-text); }
+.card__cta-arrow { transition: transform var(--dur-2) var(--ease-snap); }
+@media (hover: hover) {
+  .card--link:hover .card__cta-arrow { transform: translateX(4px); }
+}
+.card--link:focus-within .card__cta-arrow { transform: translateX(4px); }
+
+/* Small dl of facts used by programme / event cards: 2-column hairline rows */
+.card-facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  margin: 0;
+  font-size: var(--text-meta);
+}
+.card-facts dt, .card-facts dd { padding-block: 8px; border-top: 1px solid var(--color-border); }
+.card-facts dt { color: var(--color-text-muted); padding-right: var(--space-4); }
+.card-facts dd { margin: 0; color: var(--color-text); font-weight: 500; font-variant-numeric: tabular-nums; }
+.card-facts > :nth-child(-n + 2) { border-top: 0; }
+/* Keep an open tag popover above neighbouring cards */
+.card:focus-within, .card:has(.tag-pop__button[aria-expanded='true']) { z-index: 3; }
+
+/* Card headers line up across a row: badges stay on one line on wider screens; only the long brand
+   chip gives way (ellipsis). Status, type, year and language chips never truncate (a year is never "2…").
+   Phones and Tamil (longer words) wrap the chips onto a second row instead. */
+.card__badges { flex-wrap: nowrap; min-width: 0; row-gap: var(--space-2); }
+.card__badges > * { flex-shrink: 0; }
+.card__badges > .badge--brand { min-width: 0; flex-shrink: 1; }
+.card__badges .badge--brand .badge__text { overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 479.98px) { .card__badges { flex-wrap: wrap; } }
+.card__badges:lang(ta) { flex-wrap: wrap; }
+
+/* Tamil phones: long compounds (e.g. "கண்காணிக்கப்படுகின்றன.", ~235px at 16px) split mid-word in a 232px card
+   body at 17px. 20px padding and 16px text keep them whole from 320 up (the 267px
+   "தொழில்முறையாளர்களுக்கான" fits from 360). */
+@media (max-width: 399.98px) {
+  :lang(ta) .card--framed .card__body { padding: 20px; }
+  :lang(ta) .card--framed .card__text { font-size: 1rem; }
+}

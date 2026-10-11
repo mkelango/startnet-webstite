@@ -1,0 +1,221 @@
+/* StartNet Brand Book v1.0 — page system. Every page is 1920 × 1080 (16:9); print to PDF at that size.
+   Tokens follow the book's own colour chapter (palette.json). Fonts are the website's self-hosted files. */
+
+@font-face { font-family: 'Inter'; src: url('../client/src/styles/fonts/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-style: normal; }
+@font-face { font-family: 'Inter'; src: url('../client/src/styles/fonts/inter-latin-ext-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-style: normal; unicode-range: U+0100-024F, U+20A0-20CF, U+2190-21FF, U+2200-22FF; }
+@font-face { font-family: 'Instrument Serif'; src: url('../client/src/styles/fonts/instrument-serif-latin-400-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; }
+@font-face { font-family: 'Instrument Serif'; src: url('../client/src/styles/fonts/instrument-serif-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; }
+@font-face { font-family: 'Noto Sans Tamil'; src: url('../client/src/styles/fonts/noto-sans-tamil-tamil-wght-normal.woff2') format('woff2'); font-weight: 100 900; }
+@font-face { font-family: 'Anek Tamil'; src: url('../client/src/styles/fonts/anek-tamil-tamil-wght-normal.woff2') format('woff2'); font-weight: 100 800; }
+
+:root {
+  /* Primary */
+  --red: #EF4444; --red-50: #FEF2F2; --red-100: #FEE2E2; --red-200: #FECACA; --red-300: #FCA5A5; --red-400: #F87171;
+  --red-600: #DC2626; --red-700: #B91C1C; --red-800: #991B1B; --red-900: #7F1D1D;
+  /* Secondary */
+  --ink: #0C1719; --ink-50: #F4F7F8; --ink-100: #E8EEEF; --ink-200: #CFDADC; --ink-300: #ABBBBE; --ink-400: #82979A;
+  --ink-500: #5E7377; --ink-600: #42575A; --ink-700: #2C3E41; --ink-800: #1B292C;
+  --paper: #F4F3EF; --bone: #EBEAE5; --white: #FFFFFF; --card: #FBFAF7;
+  /* Tertiary */
+  --marigold: #FBA62A; --marigold-100: #FFEBD5; --marigold-300: #FFC580; --marigold-700: #A86B02; --marigold-800: #7E4F04;
+  --lagoon: #117780; --lagoon-100: #D9F0F3; --lagoon-300: #88C7CE; --lagoon-700: #024C52;
+  /* Brand family accents (Book 3 §3.2) */
+  --research: #4A3AA7; --vibe: #E2581F; --connect: #0E8F63; --women: #C2386F;
+  /* Lines and text */
+  --line: #DAD8D0; --line-strong: #B9B7AE; --text-2: #42575A; --text-3: #6F7E80;
+  --night-line: #263937; --night-text: #F4F4F0; --night-text-2: #C4CBC8; --night-text-3: #8E9A97;
+
+  --pad-x: 104px; --top: 84px;
+  --font: 'Inter', 'Noto Sans Tamil', system-ui, sans-serif;
+  --serif: 'Instrument Serif', Georgia, serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+@page { size: 1920px 1080px; margin: 0; }
+html, body { background: #777; }
+body { font-family: var(--font); color: var(--ink); -webkit-font-smoothing: antialiased; font-feature-settings: 'ss01', 'cv11'; }
+
+/* ---------- Page frame ---------- */
+.page {
+  position: relative; width: 1920px; height: 1080px; overflow: hidden;
+  background: var(--paper); color: var(--ink);
+  padding: 0 var(--pad-x);
+  page-break-after: always; break-after: page;
+  display: flex; flex-direction: column;
+}
+.page:last-child { page-break-after: auto; break-after: auto; }
+.page--bone { background: var(--bone); }
+.page--ink { background: var(--ink); color: var(--night-text); }
+.page--red { background: var(--red); color: #fff; }
+
+.page__head {
+  flex: none; display: flex; justify-content: space-between; align-items: center;
+  height: 136px; padding-top: 24px; border-bottom: 1px solid var(--line);
+  font-size: 19px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-2);
+}
+.page--ink .page__head { border-color: var(--night-line); color: var(--night-text-2); }
+.page--red .page__head { border-color: rgb(255 255 255 / .35); color: #fff; }
+.page__body { flex: 1; min-height: 0; position: relative; padding-top: 40px; display: flex; flex-direction: column; }
+.page__foot {
+  flex: none; height: 92px; display: flex; justify-content: space-between; align-items: center;
+  font-size: 19px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-300);
+}
+.page--ink .page__foot { color: var(--ink-500); }
+.page__foot .folio { color: var(--ink-400); letter-spacing: 0.12em; }
+.page--ink .page__foot .folio { color: var(--ink-500); }
+.page__foot--rule { border-top: 1px solid var(--line); }
+.page--ink .page__foot--rule { border-color: var(--night-line); }
+
+/* ---------- Type ---------- */
+.kicker { font-size: 22px; font-weight: 600; letter-spacing: 0.16em; color: var(--red); text-transform: uppercase; display: flex; align-items: center; gap: 14px; }
+.kicker::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--red); flex: none; }
+.kicker--plain::before { display: none; }
+.title { font-size: 84px; font-weight: 500; letter-spacing: -0.035em; line-height: 1.02; margin-top: 18px; }
+.title em, .display em, .statement em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+.display { font-size: 150px; font-weight: 500; letter-spacing: -0.045em; line-height: 0.95; }
+.statement { font-size: 64px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.06; }
+.lede { font-size: 34px; font-weight: 400; line-height: 1.42; letter-spacing: -0.012em; color: var(--ink); }
+.body, p.body { font-size: 26px; line-height: 1.5; color: var(--text-2); }
+.body strong, .lede strong { color: var(--ink); font-weight: 600; }
+.page--ink .body, .page--ink p.body { color: var(--night-text-2); }
+.page--ink .body strong, .page--ink .lede { color: var(--night-text); }
+.small { font-size: 22px; line-height: 1.5; color: var(--text-2); }
+.page--ink .small { color: var(--night-text-3); }
+.label { font-size: 19px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red-700); }
+.page--ink .label { color: var(--red-400); }
+.label--muted { color: var(--text-3); }
+.page--ink .label--muted { color: var(--night-text-3); }
+.h3 { font-size: 40px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
+.h4 { font-size: 30px; font-weight: 600; letter-spacing: -0.012em; line-height: 1.25; }
+.mono { font-variant-numeric: tabular-nums; }
+.red { color: var(--red); } .red-700 { color: var(--red-700); } .muted { color: var(--text-3); }
+.tamil { font-family: 'Noto Sans Tamil', var(--font); }
+.tamil-display { font-family: 'Anek Tamil', 'Noto Sans Tamil', var(--font); }
+
+/* ---------- Layout helpers ---------- */
+.row { display: flex; gap: 48px; }
+.grid { display: grid; gap: 40px; }
+.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.g5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.g6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.split { display: grid; grid-template-columns: 1.15fr 1fr; gap: 88px; }
+.split--even { grid-template-columns: 1fr 1fr; }
+.split--wide { grid-template-columns: 1.6fr 1fr; }
+.mt-s { margin-top: 16px; } .mt-m { margin-top: 32px; } .mt-l { margin-top: 56px; } .mt-xl { margin-top: 80px; } .mt-auto { margin-top: auto; }
+.gap-s { gap: 20px; } .gap-l { gap: 64px; }
+.top-rule { border-top: 2px solid var(--ink); padding-top: 24px; }
+.page--ink .top-rule { border-color: var(--night-text-2); }
+.hair-top { border-top: 1px solid var(--line); padding-top: 22px; }
+.page--ink .hair-top { border-color: var(--night-line); }
+
+/* Lists: hairline rows with red numerals (elan1-style rule lists) */
+.rules { list-style: none; border-top: 1px solid var(--line); }
+.rules > li { display: grid; grid-template-columns: 64px 1fr; gap: 8px; padding: 20px 0; border-bottom: 1px solid var(--line); font-size: 25px; line-height: 1.45; color: var(--ink); }
+.rules > li > b:first-child { color: var(--red-700); font-weight: 600; font-variant-numeric: tabular-nums; }
+.rules--plain > li { grid-template-columns: 1fr; }
+.page--ink .rules, .page--ink .rules > li { border-color: var(--night-line); color: var(--night-text); }
+.page--ink .rules > li > b:first-child { color: var(--red-400); }
+.rules .sub { display: block; color: var(--text-2); font-size: 22px; margin-top: 4px; }
+.page--ink .rules .sub { color: var(--night-text-3); }
+
+/* Spec tables: label left, value right, hairlines */
+.spec { width: 100%; border-collapse: collapse; font-size: 23px; }
+.spec td, .spec th { padding: 15px 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.spec th { font-size: 18px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red-700); border-bottom: 2px solid var(--ink); }
+.spec td:last-child, .spec th:last-child { text-align: right; }
+.spec td.l { text-align: left; }
+.spec td { color: var(--text-2); }
+.spec td b { color: var(--ink); font-weight: 600; }
+.spec tr.hl td { color: var(--red-700); font-weight: 600; }
+.page--ink .spec td, .page--ink .spec th { border-color: var(--night-line); color: var(--night-text-2); }
+.page--ink .spec th { color: var(--red-400); border-bottom-color: var(--night-text-2); }
+.page--ink .spec td b { color: var(--night-text); }
+
+/* Boxes with registration crosses (book furniture) */
+.box { position: relative; border: 1px solid var(--line-strong); padding: 36px 34px; background: transparent; }
+.box::before, .box::after, .box > .x1, .box > .x2 { content: ''; position: absolute; width: 14px; height: 14px; background:
+  linear-gradient(var(--red), var(--red)) center/14px 1.5px no-repeat, linear-gradient(var(--red), var(--red)) center/1.5px 14px no-repeat; }
+.box::before { left: -8px; top: -8px; } .box::after { right: -8px; top: -8px; }
+.box > .x1 { left: -8px; bottom: -8px; } .box > .x2 { right: -8px; bottom: -8px; }
+.page--ink .box { border-color: var(--night-line); }
+
+/* Cards (flat, hairline, like the website) */
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 30px; }
+.page--ink .card { background: #13211F; border-color: var(--night-line); }
+
+/* Callout: We say / Not */
+.say { border-left: 3px solid var(--red); padding: 4px 0 4px 20px; }
+.say .label { color: var(--red-700); }
+.not { border-left: 3px solid var(--line-strong); padding: 4px 0 4px 20px; }
+.not .label { color: var(--text-3); }
+.say p, .not p { font-size: 23px; line-height: 1.45; margin-top: 6px; }
+.not p { color: var(--text-2); }
+
+/* Do / don't marks */
+.ok, .no { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font-size: 20px; font-weight: 700; flex: none; }
+.ok { background: var(--ink); color: var(--paper); }
+.no { background: var(--red); color: #fff; }
+
+/* ---------- The logo (same construction as the website: Inter 750, −0.035em, red full stop 0.2em) ---------- */
+.sn-logo { display: inline-flex; align-items: baseline; font-family: var(--font); font-weight: 750; letter-spacing: -0.035em; line-height: 1; color: var(--ink); white-space: nowrap; font-size: 64px; }
+.sn-logo .d { display: inline-block; width: 0.2em; height: 0.2em; margin-left: 0.07em; border-radius: 50%; background: var(--red); transform: translateY(0.01em); flex: none; }
+.sn-logo--rev { color: var(--paper); }
+.sn-logo--mono .d { background: currentColor; }
+.sn-logo--white { color: #fff; }
+.sn-logo .desc { font-weight: 400; letter-spacing: -0.02em; margin-left: 0.3em; }
+.sn-mono { display: inline-grid; place-items: center; background: var(--ink); color: #fff; border-radius: 18%; font-weight: 750; letter-spacing: -0.035em; }
+.sn-mono .d { display: inline-block; width: 0.2em; height: 0.2em; border-radius: 50%; background: var(--red); margin-left: 0.06em; }
+
+/* ---------- Brand device: full stop at page scale + pulli grid ---------- */
+.fullstop { position: absolute; border-radius: 50%; background: var(--red); }
+.pulli { position: absolute; background-image: radial-gradient(circle at center, var(--pulli, rgb(244 244 240 / .16)) 2px, transparent 2.6px); background-size: 32px 32px; }
+.pulli--paper { --pulli: rgb(12 23 25 / .16); }
+.ring { position: absolute; border-radius: 50%; border: 1.5px solid rgb(255 255 255 / .35); }
+
+/* ---------- Chapter divider ---------- */
+.chapter .page__body { justify-content: flex-end; padding-bottom: 0; }
+.chapter__num { font-size: 210px; font-weight: 300; letter-spacing: -0.05em; line-height: 0.85; color: var(--ink-400); font-variant-numeric: tabular-nums; }
+.chapter__title { font-size: 150px; font-weight: 500; letter-spacing: -0.045em; line-height: 1; margin-top: 18px; color: var(--night-text); }
+.chapter__title em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+.chapter__nav { margin-top: 56px; border-top: 1px solid var(--night-line); padding: 30px 0 44px; display: flex; flex-wrap: wrap; gap: 14px 44px;
+  font-size: 19px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--night-text-2); }
+
+/* ---------- Colour swatches ---------- */
+.sw { display: flex; flex-direction: column; }
+.sw__chip { height: 230px; border-radius: 0; border: 1px solid transparent; }
+.sw__chip--line { border-color: var(--line-strong); }
+.sw__name { display: flex; justify-content: space-between; align-items: baseline; margin-top: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.sw__name b { font-size: 34px; font-weight: 600; letter-spacing: -0.015em; }
+.sw__name span { font-size: 17px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-3); }
+.sw .spec td { font-size: 21px; padding: 11px 0; }
+.ramp { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; }
+.ramp__c { height: 92px; }
+.ramp__c.base { outline: 2px solid var(--ink); outline-offset: 3px; }
+.ramp__t { font-size: 17px; line-height: 1.45; color: var(--text-2); margin-top: 10px; font-variant-numeric: tabular-nums; }
+.ramp__t b { color: var(--ink); font-weight: 600; display: block; }
+
+/* ---------- Mockup furniture ---------- */
+.mock { position: relative; overflow: hidden; box-shadow: 0 30px 60px -36px rgb(12 23 25 / .45), 0 0 0 1px rgb(12 23 25 / .08); }
+.cap { margin-top: 18px; font-size: 22px; font-weight: 600; color: var(--ink); }
+.cap span { display: block; font-weight: 400; color: var(--text-2); font-size: 20px; margin-top: 4px; }
+.page--ink .cap { color: var(--night-text); } .page--ink .cap span { color: var(--night-text-3); }
+.photo { position: relative; overflow: hidden; background: var(--ink-200); }
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo--ink img { filter: grayscale(0.88) sepia(0.16) contrast(1.06) brightness(1.03); }
+
+/* Swatch dot used inline */
+.dot { display: inline-block; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--red); vertical-align: 0.05em; }
+
+/* ---------- Contents ---------- */
+.toc { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 44px; }
+.toc__h { font-size: 19px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red-700); padding-bottom: 16px; border-bottom: 2px solid var(--ink); }
+.toc__col a { display: grid; grid-template-columns: 52px 1fr; gap: 6px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 22px; line-height: 1.3; color: var(--ink); text-decoration: none; }
+.toc__col a b { color: var(--ink-400); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* Chapter dividers: the header sits above the page-scale full stop */
+.chapter .page__head { position: relative; z-index: 2; }
+.chapter .page__head span:last-child { color: var(--night-text); }
+/* Brand accents on ink (Book 3 §2.2) */
+:root { --research-night: #9894FF; --vibe-night: #F37C52; --connect-night: #5DB88F; --women-night: #F0749E; --vibe-700: #9F3605; --connect-700: #006F4B; }

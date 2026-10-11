@@ -1,0 +1,135 @@
+/* /insights/newsletter — sign-up + archive. Prefix: .newsletter-page (mobile first; the kit form owns .newsletter). Paper day page, no Night band.
+   Oct 2026: form in a flat hairline card, topics as hairline rows with a brand dot, the sample issue as a quiet email frame. */
+.newsletter-page { background: var(--color-bg); }
+.newsletter-page section[id] { scroll-margin-top: calc(var(--shell-offset, var(--header-h)) + var(--space-4)); }
+
+/* Sign-up: form first on phones, topics beside it from tablet */
+.newsletter-page-signup { display: grid; gap: var(--space-10); min-width: 0; }
+.newsletter-page-signup > * { min-width: 0; }
+.newsletter-page-signup__form {
+  /* DESIGN-v2 3.14: the form sits on a White card (12px, hairline ring, 32/24 padding) */
+  padding: 24px;
+  border: 0; box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-media);
+  background: var(--white);
+}
+.newsletter-page-signup__privacy { margin-top: var(--space-4); font-size: var(--text-small); color: var(--color-text-2); }
+.newsletter-page-signup__privacy-link {
+  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--color-link-standalone); font-weight: 500;
+}
+
+/* Topics: full-width hairline rows; the brand marker is a small accent dot, not a bar. */
+.newsletter-page-topics { list-style: none; margin: var(--space-6) 0 0; padding: 0; display: grid; gap: 0; border-top: var(--border-hair); }
+.newsletter-page-topics__item {
+  position: relative; display: grid; gap: var(--space-1);
+  padding: var(--space-5) 0 var(--space-5) var(--space-6);
+  border-bottom: var(--border-hair);
+  min-width: 0;
+}
+.newsletter-page-topics__rule {
+  position: absolute; left: 0; top: calc(var(--space-5) + 0.6em); width: 8px; height: 8px;
+  border-radius: 50%; background: var(--accent-fill, var(--accent, var(--color-point)));
+}
+.newsletter-page-topics__item:not([data-brand]) .newsletter-page-topics__rule { background: var(--color-point); }
+.newsletter-page-topics__name { font-weight: 500; color: var(--color-text); }
+.newsletter-page-topics__body { font-size: var(--text-small); color: var(--color-text-2); overflow-wrap: anywhere; }
+
+/* Sample issue: an email-like card */
+.newsletter-page-issue {
+  margin-top: var(--space-4); max-width: 48rem;
+  border: var(--border-hair); border-radius: var(--media-radius);
+  background: var(--card); overflow: hidden;
+}
+.newsletter-page-issue__head {
+  display: grid; gap: var(--space-1); padding: var(--space-5);
+  border-bottom: var(--border-hair);
+  font-size: var(--text-small); color: var(--color-text);
+}
+.newsletter-page-issue__k {
+  display: inline-block; min-width: 4.5rem; margin-right: var(--space-2);
+  font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted);
+}
+.newsletter-page-issue__parts { list-style: none; margin: 0; padding: 0; counter-reset: nl-part; }
+.newsletter-page-issue__part {
+  counter-increment: nl-part; position: relative;
+  display: grid; gap: var(--space-3); padding: var(--space-6) var(--space-5);
+  border-bottom: var(--border-hair); min-width: 0;
+}
+.newsletter-page-issue__title {
+  display: flex; align-items: center; gap: var(--space-2);
+  font-size: var(--text-h5); font-weight: 500; letter-spacing: -0.01em; color: var(--color-text);
+}
+.newsletter-page-issue__title:lang(ta) { letter-spacing: 0; }
+.newsletter-page-issue__title::before {
+  content: counter(nl-part, decimal-leading-zero);
+  font-size: var(--text-caption); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums;
+  margin-right: var(--space-1);
+}
+.newsletter-page-issue__title svg { flex: none; color: var(--color-text-muted); }
+.newsletter-page-issue__lede { color: var(--color-text-2); font-size: var(--text-small); }
+.newsletter-page-issue__items { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-1); }
+.newsletter-page-issue__items li {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-1) var(--space-3);
+  padding: var(--space-2) 0; border-top: var(--border-hair); min-width: 0;
+}
+.newsletter-page-issue__link {
+  display: inline-flex; align-items: center; gap: var(--space-1); min-height: 44px;
+  color: var(--color-link-standalone); font-weight: 500; text-decoration: none; overflow-wrap: anywhere;
+}
+.newsletter-page-issue__link:hover { text-decoration: underline; }
+.newsletter-page-issue__link svg { transition: transform var(--dur-2) var(--ease-standard); }
+.newsletter-page-issue__link:focus-visible svg { transform: translateX(var(--shift-1)); }
+@media (hover: hover) and (pointer: fine) { .newsletter-page-issue__link:hover svg { transform: translateX(var(--shift-1)); } }
+.newsletter-page-issue__when { font-size: var(--text-caption); color: var(--color-text-muted); }
+.newsletter-page-issue__empty { font-size: var(--text-small); }
+.newsletter-page-issue__stats { display: grid; gap: var(--space-4); }
+.newsletter-page-issue__stats > * { min-width: 0; }
+.newsletter-page-issue__foot { padding: var(--space-4) var(--space-5); font-size: var(--text-caption); color: var(--color-text-muted); }
+
+/* WhatsApp */
+.newsletter-page-wa { display: grid; gap: var(--space-8); min-width: 0; }
+.newsletter-page-wa > * { min-width: 0; }
+.newsletter-page-wa__topics { list-style: none; margin: var(--space-6) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.newsletter-page-wa__topics li {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 0 var(--space-3);
+  border: 1px solid var(--color-border); border-radius: var(--btn-radius); background: var(--card);
+  font-size: var(--text-small); color: var(--color-text);
+}
+.newsletter-page-wa__actions { margin-top: var(--space-6); }
+.newsletter-page-wa__rules {
+  padding: var(--space-6); border: var(--border-hair); border-radius: var(--media-radius); background: var(--card);
+}
+@media (min-width: 768px) { .newsletter-page-wa__rules { padding: var(--space-8); } }
+.newsletter-page-wa__rules-title { display: flex; align-items: center; gap: var(--space-2); font-weight: 500; color: var(--color-text); }
+.newsletter-page-wa__rules-title svg { color: var(--color-text-muted); }
+.newsletter-page-wa__rules ul { margin: var(--space-4) 0 0; padding-left: 1.25em; display: grid; gap: var(--space-2); color: var(--color-text-2); }
+.newsletter-page-wa__rules li::marker { color: var(--ink-400); }
+
+/* Archive + FAQ */
+.newsletter-page-more { display: grid; gap: var(--space-12); min-width: 0; }
+.newsletter-page-more > * { min-width: 0; display: grid; gap: var(--space-6); align-content: start; }
+
+@media (min-width: 768px) {
+  .newsletter-page-signup__form { padding: 32px; }
+  .newsletter-page-topics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .newsletter-page-issue__head, .newsletter-page-issue__part, .newsletter-page-issue__foot { padding-inline: var(--space-8); }
+  .newsletter-page-issue__stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .newsletter-page-signup { grid-template-columns: 5fr 7fr; grid-template-areas: 'topics form'; gap: var(--space-16); align-items: start; }
+  .newsletter-page-signup__topics { grid-area: topics; }
+  .newsletter-page-signup__form { grid-area: form; position: sticky; top: calc(var(--shell-offset, var(--header-h)) + var(--space-6)); }
+  .newsletter-page-topics { grid-template-columns: minmax(0, 1fr); }
+  .newsletter-page-wa { grid-template-columns: 7fr 5fr; gap: var(--space-16); align-items: start; }
+  .newsletter-page-more { grid-template-columns: 5fr 7fr; gap: var(--space-16); }
+}
+
+/* Sample issue: explanation left, the email frame right (AngelList feature row) */
+.newsletter-page-issue-row { display: grid; gap: var(--space-4); min-width: 0; }
+.newsletter-page-issue-row > * { min-width: 0; }
+@media (min-width: 1024px) {
+  .newsletter-page-issue-row { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; }
+  .newsletter-page-issue-row__head { position: sticky; top: calc(var(--shell-offset, var(--header-h)) + var(--space-8)); }
+  .newsletter-page-issue-row .newsletter-page-issue { margin-top: 0; max-width: none; }
+}

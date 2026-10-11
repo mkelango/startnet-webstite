@@ -1,0 +1,22 @@
+.page-loader {
+  display: grid;
+  place-items: center;
+  /* Fill the first viewport so the footer never flashes in under the loader (CLS) */
+  min-height: calc(100vh - var(--header-h, 56px));
+  min-height: calc(100svh - var(--header-h, 56px));
+  background: var(--color-bg);
+}
+.page-loader__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  background: var(--sn-ink);
+  animation: page-loader-pulse 1.2s var(--ease-standard) infinite both;
+  animation-delay: 0.2s;
+}
+@keyframes page-loader-pulse {
+  0%, 100% { transform: scale(0.75); opacity: 0.5; }
+  50% { transform: scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .page-loader__dot { animation: none; } }
+:root[data-motion='reduced'] .page-loader__dot { animation: none; }

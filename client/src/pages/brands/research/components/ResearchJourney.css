@@ -1,0 +1,63 @@
+.rjourney { list-style: none; position: relative; }
+
+/* Mobile: vertical stepper with inline panels */
+.rjourney { border-top: 1px solid var(--color-border); }
+.rjourney__item { position: relative; border-bottom: 1px solid var(--color-border); }
+.rjourney__step {
+  display: flex; align-items: center; gap: var(--space-4); width: 100%;
+  min-height: 56px; padding: var(--space-3) 0; border: 0; background: transparent; text-align: left;
+}
+.rjourney__num { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); min-width: 2ch; font-variant-numeric: tabular-nums; }
+.rjourney__title { font-size: var(--text-h3); font-weight: 400; letter-spacing: var(--tracking-h3); color: var(--color-text-2); transition: color var(--dur-2) var(--ease-standard); }
+.rjourney__item.is-open .rjourney__title { color: var(--color-text); }
+@media (hover: hover) and (pointer: fine) { .rjourney__step:hover .rjourney__title { color: var(--color-text); } }
+.rjourney__marker { position: relative; margin-left: auto; width: 11px; height: 11px; flex: none; }
+.rjourney__dot { position: absolute; inset: 0; border-radius: 50%; background: var(--accent); }
+.rjourney__panel { padding: 0 0 var(--space-6) calc(2ch + var(--space-4)); }
+.rjourney__body { margin-top: var(--space-2); max-width: 32ch; font-weight: 400; letter-spacing: -0.015em; }
+.rjourney__link {
+  display: inline-flex; align-items: center; gap: var(--space-2); margin-top: var(--space-4);
+  min-height: 44px; font-weight: 500; color: var(--accent-text); text-decoration: none;
+}
+.rjourney__link svg { transition: transform var(--dur-2) var(--ease-standard); }
+@media (hover: hover) and (pointer: fine) {
+  .rjourney__link:hover svg { transform: translateX(var(--shift-1)); }
+  .rjourney__link:hover { text-decoration: underline; text-underline-offset: 0.22em; }
+}
+
+/* Desktop: horizontal row of steps on a rail, one shared panel below */
+@media (min-width: 1024px) {
+  .rjourney { display: grid; grid-template-columns: repeat(var(--rjourney-n), minmax(0, 1fr)); column-gap: var(--space-2); border-top: 0; }
+  .rjourney__item { display: contents; }
+  .rjourney__step {
+    grid-row: 1; position: relative; flex-direction: column; align-items: flex-start; gap: var(--space-3);
+    padding: var(--space-4) var(--space-2) var(--space-8) 0;
+    border-bottom: 1px solid var(--color-border);
+    transition: border-color var(--dur-2) var(--ease-standard);
+  }
+  .rjourney__step::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+    background: var(--color-text); transform: scaleX(0); transform-origin: left center;
+    transition: transform var(--dur-3) var(--ease-snap);
+  }
+  .rjourney__step:hover { border-bottom-color: var(--color-border-control); }
+  .rjourney__item.is-open .rjourney__step::after { transform: scaleX(1); }
+  .rjourney__item { border-bottom: 0; }
+  .rjourney__title { font-size: var(--text-h3); }
+  .rjourney__marker { position: absolute; left: 0; bottom: -6px; margin: 0; z-index: 1; }
+  .rjourney__panel {
+    grid-row: 2; grid-column: 1 / -1; padding: var(--space-10) 0 0;
+    display: grid; grid-template-columns: 12rem 1fr auto; align-items: baseline; gap: var(--space-8);
+  }
+  .rjourney__panel[hidden] { display: none; }
+  .rjourney__body { margin: 0; max-width: 40ch; }
+  .rjourney__link { margin: 0; }
+}
+
+.rjourney__panel:not([hidden]) { animation: rjourney-in var(--dur-4) var(--ease-enter); }
+@keyframes rjourney-in { from { opacity: 0; transform: translateY(var(--shift-2)); } to { opacity: 1; transform: none; } }
+/* 1024–1279: long Tamil step titles (e.g. 'உருவாக்குதல்') are wider than a fifth of the row at h3 size. */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  :lang(ta) .rjourney__title { font-size: var(--text-body); line-height: 1.35; }
+}
+:lang(ta) .rjourney__title { overflow-wrap: break-word; }

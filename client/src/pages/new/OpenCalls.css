@@ -1,0 +1,47 @@
+/* /programmes/open-calls. Prefix: .open-calls- (mobile first)
+   AngelList-family: count line as a regular-weight title over a hairline, flat ProgrammeCards (theme), quiet foot. */
+.open-calls-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: var(--space-2) var(--space-6);
+  margin-bottom: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12));
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+.open-calls-count {
+  font-size: var(--text-h2);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+:lang(ta) .open-calls-count { letter-spacing: 0; line-height: 1.3; }
+.open-calls-note { color: var(--color-text-muted); font-size: var(--text-small); }
+
+.open-calls-grid {
+  list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-5);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 640px) { .open-calls-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .open-calls-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); } }
+/* Four calls: 2x2 until there is room for one row of four, so no card is left alone on a row. */
+@media (min-width: 1024px) { .open-calls-grid--four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1440px) { .open-calls-grid--four { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.open-calls-grid > li, .open-calls-grid__item { display: flex; min-width: 0; }
+.open-calls-grid__item > * { flex: 1; min-width: 0; }
+
+.open-calls-actions { justify-content: center; }
+
+.open-calls-foot {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--space-4) var(--space-6); margin-top: var(--space-12); padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-2);
+}
+.open-calls-link {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
+  font-weight: 500; color: var(--color-link-standalone); text-decoration: none;
+}
+.open-calls-link:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.open-calls-link svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+.open-calls-link:focus-visible svg { transform: translateX(var(--shift-1)); }
+@media (hover: hover) and (pointer: fine) { .open-calls-link:hover svg { transform: translateX(var(--shift-1)); } }

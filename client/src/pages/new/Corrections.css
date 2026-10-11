@@ -1,0 +1,44 @@
+/* /insights/founder-ledger/corrections. Prefix: .corrections- (mobile first).
+   Oct 2026: the log as full-width hairline rows (date + severity left, what changed right); severity shows in the
+   chip, not in a coloured bar. */
+.corrections-body { margin-top: var(--space-8); }
+
+.corrections-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: var(--border-hair); }
+.corrections-item {
+  display: grid; gap: var(--space-3); padding: var(--space-6) 0;
+  border-bottom: var(--border-hair);
+  min-width: 0;
+}
+.corrections-item__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
+.corrections-item__date { font-weight: 500; color: var(--color-text); }
+.corrections-item__main { display: grid; gap: var(--space-2); min-width: 0; }
+.corrections-item__what { font-size: var(--text-body-lg); letter-spacing: -0.005em; color: var(--color-text); overflow-wrap: anywhere; }
+.corrections-item__why { color: var(--color-text-2); overflow-wrap: anywhere; }
+.corrections-item__label { font-weight: 500; }
+.corrections-item__figure { color: var(--color-text-muted); font-size: var(--text-small); }
+.corrections-item__link,
+.corrections-textlink {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
+  font-weight: 500; color: var(--color-link-standalone); text-decoration: none;
+}
+.corrections-item__link:hover, .corrections-textlink:hover { text-decoration: underline; }
+.corrections-item__link svg, .corrections-textlink svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+.corrections-item__link:focus-visible svg, .corrections-textlink:focus-visible svg:last-child { transform: translateX(var(--shift-1)); }
+@media (hover: hover) and (pointer: fine) { .corrections-item__link:hover svg, .corrections-textlink:hover svg:last-child { transform: translateX(var(--shift-1)); } }
+
+.corrections-sev { border-color: var(--color-border-control); }
+.corrections-sev--material { border-color: var(--color-warning); color: var(--color-warning); background: var(--color-warning-bg); }
+
+.corrections-steps { margin-top: var(--space-8); }
+.corrections-ctas { --cluster-gap: var(--space-2) var(--space-6); margin-top: var(--space-10); }
+
+/* Hero secondary link keeps a 44px target and wraps cleanly at 320px */
+.corrections-back { min-height: 44px; }
+
+@media (min-width: 768px) {
+  .corrections-item {
+    grid-template-columns: minmax(10rem, 14rem) 1fr; gap: var(--space-8);
+    padding: var(--space-8) 0; align-items: start;
+  }
+  .corrections-item__meta { flex-direction: column; align-items: flex-start; }
+}

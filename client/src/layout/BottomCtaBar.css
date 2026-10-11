@@ -1,0 +1,33 @@
+/* C05 · Bottom CTA bar (DESIGN-v2 3.17): Ink, 64px + safe area, < 1024 only; shows after the hero, hides over the
+   footer; transform-only enter/exit. */
+.bottom-cta {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 55;
+  background: var(--night-0);
+  border-top: 1px solid var(--night-line);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.bottom-cta::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--accent-night, var(--accent-fill)); opacity: 0; }
+.bottom-cta[data-brand]::before { opacity: 1; }
+.bottom-cta__inner {
+  display: flex; align-items: center; gap: var(--space-3);
+  min-height: 64px; padding: var(--space-2) var(--gutter);
+}
+.bottom-cta__primary { flex: 1; min-width: 0; }
+.bottom-cta__primary > * { width: 100%; }
+@media (min-width: 1024px) { .bottom-cta { display: none; } }
+
+/* One line, never taller than the 64 px spec: long labels truncate (short labels are used < 360 px) */
+.bottom-cta__primary .button { min-width: 0; max-width: 100%; }
+.bottom-cta__primary .button__label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+
+/* Any modal sheet (drawer, search, sub-nav "More", page sheets via useModal) hides the bar */
+html[data-modal-open] .bottom-cta { display: none; }
+
+/* Tamil (+30–60% length, Book 3 §4.4): up to two lines at a slightly smaller size, still inside the 64 px bar */
+:lang(ta) .bottom-cta__primary .button { padding-block: var(--space-1); }
+:lang(ta) .bottom-cta__primary .button__label {
+  white-space: normal; text-overflow: clip; text-align: center;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2;
+  font-size: var(--text-small); line-height: 1.25; letter-spacing: 0;
+}
+

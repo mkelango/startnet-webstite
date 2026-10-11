@@ -1,0 +1,138 @@
+/* Event lists on the events pages (/events, /events/past, event detail). DESIGN-v2 6.3.
+   Imported by Events.jsx, PastEvents.jsx and EventDetail.jsx; every rule is scoped to those lists, because route
+   CSS stays loaded after navigation.
+
+   1. >= 1024px: AIWO hairline rows (EventRow): 160px date | 1fr title + 2-line summary | 240px place + arrow (the
+      arrow cue right-aligned at the row's end, as AIWO P12); 40px row padding, hairlines top and bottom; hover = a Bone row ground and a 200ms arrow nudge.
+   2. < 1024px: the shared EventCard (media family) in a 2-up grid from 640px, 1-up on phones. */
+
+/* ---------- Lists ---------- */
+.ev-rows { list-style: none; margin: 0; padding: 0; display: grid; min-width: 0; }
+.ev-rows > li { display: flex; min-width: 0; }
+.ev-rows > li > * { flex: 1; min-width: 0; }
+.ev-rows--rows { border-top: 1px solid var(--hairline); }
+.ev-rows--cards { gap: var(--space-12) var(--space-6); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) { .ev-rows--cards { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-8); } }
+@media (min-width: 640px) and (max-width: 767.98px) { .ev-rows--cards { column-gap: var(--space-6); } }
+
+/* ---------- Row ---------- */
+.ev-row {
+  position: relative; isolation: isolate;
+  display: grid; grid-template-columns: 160px minmax(0, 1fr) 240px; column-gap: var(--space-8); align-items: start;
+  padding-block: var(--space-10); border-bottom: 1px solid var(--hairline);
+}
+/* Hover ground: a Bone layer that bleeds 16px past the text column, so the copy keeps the container edge */
+.ev-row::before {
+  content: ''; position: absolute; z-index: -1; inset: 0 calc(-1 * var(--space-4));
+  border-radius: var(--radius-media); background: var(--bone);
+  opacity: 0; transition: opacity var(--dur-2) var(--ease-snap);
+}
+:root :is(.section--white, .section--sunken) .ev-row::before { background: var(--card); }
+.ev-row:has(.ev-row__link:focus-visible)::before { opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .ev-row:hover::before { opacity: 1; }
+}
+
+/* Date */
+.ev-row__when { min-width: 0; }
+.ev-row__date { display: grid; gap: var(--space-1); justify-items: start; color: var(--color-text); }
+.ev-row__day {
+  font-size: 2rem; font-weight: 400; line-height: 1; letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.ev-row__month { font-size: var(--text-meta); line-height: 1.45; color: var(--color-text-2); font-variant-numeric: tabular-nums; }
+.ev-row__date--tbc .ev-row__day { color: var(--color-text-2); }
+:lang(ta) .ev-row__day { letter-spacing: 0; }
+:lang(ta) .ev-row__date--tbc .ev-row__day { font-size: 1.375rem; line-height: 1.3; }
+/* Past rows (archive): muted dates */
+.ev-row--past .ev-row__day, .ev-row--muted .ev-row__day { color: var(--color-text-2); }
+
+/* Main */
+.ev-row__main { display: grid; gap: var(--space-2); justify-items: start; min-width: 0; }
+.ev-row__kicker { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin: 0 0 var(--space-1); font-size: var(--text-meta); }
+.ev-row__brand { display: inline-flex; align-items: baseline; gap: 0.45em; color: var(--color-text); font-weight: 500; }
+.ev-row__brand::before {
+  content: ''; flex: none; width: 0.5em; height: 0.5em; border-radius: 50%; background: var(--accent); transform: translateY(-0.05em);
+}
+.ev-row__title {
+  margin: 0; font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3, -0.015em);
+  text-wrap: balance;
+}
+:lang(ta) .ev-row__title { letter-spacing: 0; line-height: 1.4; }
+.ev-row__link { color: var(--color-text); text-decoration: none; }
+.ev-row__link::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+.ev-row__link:focus-visible { outline: none; }
+.ev-row:has(.ev-row__link:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 4px; border-radius: var(--radius-btn); }
+/* Title underline sweep on row hover / focus */
+.ev-row__title-text {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size var(--dur-3) var(--ease-snap);
+}
+.ev-row:has(.ev-row__link:focus-visible) .ev-row__title-text { background-size: 100% 1px; }
+@media (hover: hover) and (pointer: fine) { .ev-row:hover .ev-row__title-text { background-size: 100% 1px; } }
+.ev-row__summary {
+  margin: 0; max-width: 60ch; color: var(--color-text-2);
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.ev-row__facts { list-style: none; margin: var(--space-1) 0 0; padding: 0; font-size: var(--text-meta); color: var(--color-text-2); }
+.ev-row__facts li { display: inline; }
+.ev-row__facts li + li::before { content: '\00b7'; display: inline-block; margin-inline: 0.5em; }
+.ev-row__date-label { color: var(--color-text); font-weight: 500; }
+.ev-row__seats--few, .ev-row__seats--full { color: var(--color-text); font-weight: 500; }
+.ev-row__main .stat { margin-top: var(--space-2); }
+/* Secondary controls inside the row (tag popovers) sit above the row link */
+.ev-row__main :is(button, a:not(.ev-row__link)) { position: relative; z-index: 2; }
+
+/* Side: place + arrow cue */
+.ev-row__side { display: flex; flex-direction: column; gap: var(--space-4); align-items: flex-start; align-self: stretch; min-width: 0; }
+.ev-row__side .ev-row__cta { margin-top: auto; align-self: flex-end; }
+.ev-row__place { display: flex; gap: var(--space-2); align-items: flex-start; margin: 0; font-size: var(--text-meta); color: var(--color-text-2); }
+.ev-row__place svg { flex: none; margin-top: 0.2em; color: var(--color-text-2); }
+.ev-row__cta { display: inline-flex; align-items: center; gap: 10px; font-size: 0.9375rem; font-weight: 500; color: var(--color-text); }
+.ev-row__arrow { flex: none; transition: transform var(--dur-2) var(--ease-snap); }
+.ev-row:has(.ev-row__link:focus-visible) .ev-row__arrow { transform: translateX(4px); }
+@media (hover: hover) and (pointer: fine) { .ev-row:hover .ev-row__arrow { transform: translateX(4px); } }
+
+/* 1024–1279: a narrower date and side column */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .ev-row { grid-template-columns: 128px minmax(0, 1fr) 208px; column-gap: var(--space-6); }
+}
+
+/* < 1024px: rows only show before hydration (the prerendered HTML is built at desktop width, and the list switches
+   to EventCards once JS runs), or if JS never runs. The fixed 160 | 1fr | 240 grid was ~110px wider than a phone
+   (page scrolled sideways), so the row stacks instead: date as one meta line, then the copy, then place + cue. */
+@media (max-width: 1023.98px) {
+  .ev-row { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-3); padding-block: var(--space-8); }
+  .ev-row::before { inset: 0 calc(-1 * var(--space-3)); }
+  .ev-row__date { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2); }
+  .ev-row__day { font-size: 1.5rem; }
+  :lang(ta) .ev-row__date--tbc .ev-row__day { font-size: 1.25rem; }
+  .ev-row__side { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3) var(--space-4); }
+  .ev-row__side .ev-row__cta { margin-top: 0; align-self: auto; min-height: 44px; }
+}
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .ev-row { grid-template-columns: 96px minmax(0, 1fr); column-gap: var(--space-6); }
+  .ev-row__when { grid-row: 1 / span 2; }
+  .ev-row__date { display: grid; gap: var(--space-1); }
+  .ev-row__day { font-size: 1.75rem; }
+}
+
+/* The shared "Past"/"Closed" chip keeps AA on these lists (secondary text, not muted grey). */
+:is(.events, .past-events, .event-detail) :is(.badge--past, .badge--closed) { color: var(--color-text-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ev-row::before, .ev-row__arrow, .ev-row__title-text { transition: none; }
+}
+:root[data-motion='reduced'] .ev-row::before,
+:root[data-motion='reduced'] .ev-row__arrow,
+:root[data-motion='reduced'] .ev-row__title-text { transition: none; }
+
+/* One red point: the repeated card cues on these lists are Ink, never the brand accent */
+:is(.events, .past-events, .event-detail) .event-card .card__cta { color: var(--color-text); }
+
+/* 640–1023: a lone (odd last) card takes the full row as a horizontal card, media left, so no half row is empty */
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .ev-rows--cards > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .ev-rows--cards > li:last-child:nth-child(odd) > .card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--space-8); align-items: start; }
+  .ev-rows--cards > li:last-child:nth-child(odd) > .card > .card__body { padding-top: 0; }
+}

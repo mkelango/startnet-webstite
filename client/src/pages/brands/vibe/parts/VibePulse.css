@@ -1,0 +1,57 @@
+/* Vibe pulse line → full stop. Decorative. */
+.vibe-pulse {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5 / 1;
+  pointer-events: none;
+}
+.vibe-pulse svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.vibe-pulse__base path { stroke: var(--color-border); stroke-width: 2px; }
+.vibe-pulse__line path { stroke: var(--accent); stroke-width: 3px; stroke-linecap: round; stroke-linejoin: round; }
+.vibe-pulse--night .vibe-pulse__base path { stroke: var(--night-line-strong); }
+.vibe-pulse--night .vibe-pulse__line path { stroke: var(--accent-night); }
+
+.vibe-pulse__draw { position: absolute; inset: 0; clip-path: inset(0 0 0 0); }
+
+/* A soft travelling highlight that rides the line once after the draw. */
+.vibe-pulse__spark {
+  position: absolute; top: 0; bottom: 0; left: 0; width: 12%;
+  background: linear-gradient(90deg, transparent, var(--accent-tint), transparent);
+  mix-blend-mode: multiply;
+  opacity: 0;
+}
+.vibe-pulse--night .vibe-pulse__spark { mix-blend-mode: screen; background: linear-gradient(90deg, transparent, var(--sn-vibe-300), transparent); }
+
+/* The full stop the pulse ends in: the one red point. */
+.vibe-pulse__dot {
+  position: absolute;
+  left: 93.33%; top: 50%;
+  width: clamp(14px, 2.4vw, 22px); aspect-ratio: 1;
+  margin: calc(clamp(14px, 2.4vw, 22px) / -2) 0 0 calc(clamp(14px, 2.4vw, 22px) / -2);
+  border-radius: var(--radius-full);
+  background: var(--accent);
+}
+
+.vibe-pulse--accent-dot .vibe-pulse__dot { background: var(--accent); }
+.vibe-pulse--night.vibe-pulse--accent-dot .vibe-pulse__dot { background: var(--accent-night); }
+
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion="reduced"]) .vibe-pulse__draw {
+    animation: vibe-pulse-draw var(--dur-6) var(--ease-snap) 200ms both;
+  }
+  :root:not([data-motion="reduced"]) .vibe-pulse__spark {
+    animation: vibe-pulse-spark 1400ms var(--ease-linear) 1000ms 1 both;
+  }
+  :root:not([data-motion="reduced"]) .vibe-pulse__dot {
+    animation: vibe-pulse-dot var(--dur-5) var(--ease-dot) 950ms both;
+  }
+}
+
+@keyframes vibe-pulse-draw { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes vibe-pulse-spark {
+  0% { opacity: 0; transform: translateX(0); }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(760%); }
+}
+@keyframes vibe-pulse-dot { from { opacity: 0; transform: translateY(-40%) scale(0.2); } to { opacity: 1; transform: none; } }

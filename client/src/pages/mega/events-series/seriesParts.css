@@ -1,0 +1,19 @@
+/* Edition card internals (used by SeriesPage and EditionPage). AngelList-family finish: a hairline fact list with
+   small regular labels (no uppercase eyebrows). */
+.series-card__summary {
+  color: var(--color-text-2);
+  display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.series-card__meta { display: grid; gap: 0; margin: 0; border-top: 1px solid var(--color-border); }
+.series-card__meta > div {
+  display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: var(--space-3); align-items: baseline;
+  padding-block: var(--space-2); border-bottom: 1px solid var(--color-border);
+}
+.series-card__meta dt { font-size: var(--text-small); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--color-text-muted); }
+.series-card__meta dd { margin: 0; font-size: var(--text-small); color: var(--color-text); min-width: 0; overflow-wrap: anywhere; }
+[data-surface='night'] .series-card__meta, [data-surface='night'] .series-card__meta > div { border-color: var(--night-line); }
+
+/* One red point: the edition card cue is Ink, never the brand accent (DESIGN-v2 0.1) */
+:is(.series-page, .edition-page) .card__cta { color: var(--color-text); }
+.series-card__meta dd { font-variant-numeric: tabular-nums; }
+.series-card__meta, .series-card__meta > div { border-color: var(--hairline); }

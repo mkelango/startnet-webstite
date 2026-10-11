@@ -1,0 +1,13 @@
+/* Group items stretch so cards keep equal heights inside grids. */
+:where(ul.reveal-group, ol.reveal-group) { margin: 0; }
+ul.reveal-group, ol.reveal-group { list-style: none; padding: 0; }
+.reveal-group__item { display: grid; min-width: 0; }
+.reveal-group__item > * { min-width: 0; }
+
+/* Hero lede / CTA entrance: transform only, so the text paints (and counts for LCP) on first render. */
+@keyframes hero-rise { from { transform: translateY(8px); } to { transform: none; } }
+.hero-rise { animation: hero-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--rise-delay, 0s) both; }
+html[data-motion='reduced'] .hero-rise { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion='full']) .hero-rise { animation: none; }
+}

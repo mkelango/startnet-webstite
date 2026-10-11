@@ -1,0 +1,135 @@
+/* /events/founders-day — T04 event series, campaign surface (Night hero = the page's one Night band). Prefix: .fday- */
+
+.fday-hero__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+/* About + key facts: one column on phones/tablets, 8/4 on desktop */
+.fday-about { display: grid; gap: var(--space-8); min-width: 0; }
+@media (min-width: 1024px) { .fday-about { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-12); align-items: start; } }
+.fday-about__text { min-width: 0; }
+.fday-about__programme { margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
+.fday-about__programme > h3 { font-weight: 500; }
+.fday-about__programme > h3 { margin: 0 0 var(--space-2); }
+.fday-about__programme > p { margin: 0; }
+.fday-facts { min-width: 0; }
+.fday-facts__label { display: inline-flex; align-items: center; gap: var(--space-2); }
+.fday-facts__label svg { flex: none; color: var(--color-text-muted); }
+
+/* Brand rooms: accent rule per brand (accent tokens switch under data-brand) */
+.fday-brands { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+@media (min-width: 768px) { .fday-brands { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); } }
+@media (min-width: 1280px) { .fday-brands { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+/* Flat hairline cards; the brand shows as the dot before the journey line, not a coloured top bar. */
+.fday-brand {
+  position: relative; display: flex; flex-direction: column; gap: var(--space-3); height: 100%;
+  padding: var(--space-6);
+  background: var(--sheet); border: 1px solid var(--color-border); border-radius: var(--media-radius); overflow: hidden;
+}
+/* The card itself is not a link (only the flagship link inside is), so no hover lift. */
+.fday-brand__rule { display: none; }
+.fday-brand__journey { display: flex; align-items: flex-start; gap: 0.6em; margin: 0; font-size: var(--text-small); font-weight: 500; color: var(--color-text-2); }
+.fday-brand__journey::before { content: ""; flex: none; width: 0.55em; height: 0.55em; margin-top: 0.5em; border-radius: 50%; background: var(--accent-fill, var(--accent)); }
+.fday-brand__name { margin: 0; font-weight: 500; letter-spacing: -0.015em; }
+:lang(ta) .fday-brand__name { letter-spacing: 0; }
+.fday-brand__body { margin: 0; color: var(--color-text-2); flex: 1; overflow-wrap: anywhere; }
+.fday-brand__flagship { margin: 0; font-size: var(--text-small); color: var(--color-text-muted); }
+.fday-brand__flagship-label { display: block; }
+.fday-brand__link {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
+  font-weight: 500; color: var(--color-link-standalone); text-decoration: none; font-size: var(--text-body);
+}
+.fday-brand__link:hover { text-decoration: underline; }
+.fday-brand__link svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+.fday-brand__link:hover svg, .fday-brand__link:focus-visible svg { transform: translateX(var(--shift-1)); }
+
+/* Editions */
+.fday-events { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+@media (min-width: 768px) { .fday-events { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); } }
+@media (min-width: 1024px) { .fday-events { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.fday-past { margin-top: var(--space-10); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
+.fday-past > h3 { font-weight: 500; }
+.fday-past > h3 { margin: 0 0 var(--space-3); }
+.fday-past > p { margin: 0; }
+.fday-past__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-1); }
+
+/* Register interest form */
+.fday-form {
+  display: grid; gap: var(--space-4);
+  padding: var(--space-5); background: var(--sheet); border: 1px solid var(--color-border);
+  border-radius: var(--media-radius);
+}
+@media (min-width: 768px) { .fday-form { padding: var(--space-10); } }
+.fday-form > .eyebrow, .fday-form > h2 { margin: 0; }
+.fday-form > h2 { font-weight: 400; letter-spacing: -0.015em; }
+:lang(ta) .fday-form > h2 { letter-spacing: 0; }
+.fday-form__intro { margin: 0; color: var(--color-text-2); }
+.fday-form__form { width: 100%; min-width: 0; }
+.fday-form__form .field__control { width: 100%; font-size: max(16px, var(--text-body)); }
+
+/* Sponsor summary + FAQ */
+.fday-bottom { display: grid; gap: var(--space-10); min-width: 0; }
+@media (min-width: 1024px) { .fday-bottom { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--space-12); align-items: start; } }
+.fday-sponsor {
+  display: grid; gap: var(--space-3); justify-items: start; padding: var(--space-6);
+  border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card);
+}
+.fday-sponsor > h2 { font-weight: 500; }
+.fday-sponsor > * { margin: 0; }
+.fday-faq { min-width: 0; }
+.fday-faq .section-header { margin-bottom: var(--space-6); }
+
+.fday-inline-link {
+  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--color-link); text-decoration-color: var(--color-link-decoration);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fday-brand__link svg { transition: none; }
+}
+
+/* ---------- DESIGN-v2 6.3 (Oct 2026) ---------- */
+/* Key facts: a sticky framed card that docks 32px under the visible header */
+@media (min-width: 1024px) {
+  .fday-about { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 32px; }
+  .fday-about__text { padding-right: var(--space-12); }
+  .fday-facts { position: sticky; top: calc(var(--shell-offset, var(--header-h)) + 32px); transition: top var(--dur-3) var(--ease-standard); }
+}
+.fday-facts__label svg { color: var(--color-text-2); }
+.fday-about__programme { border-top-color: var(--hairline); }
+
+/* Brand rooms: framed cards (Card on Bone = White) with a 2px Ink top rule that draws on hover / focus */
+.fday-brand { border: 0; background: var(--white); box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-media); transition: box-shadow var(--dur-2) var(--ease-snap); }
+.fday-brand__rule {
+  display: block; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--sn-ink);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+@media (hover: hover) {
+  .fday-brand:hover { box-shadow: inset 0 0 0 1px var(--line-strong); }
+  .fday-brand:hover .fday-brand__rule { transform: scaleX(1); }
+}
+.fday-brand:focus-within .fday-brand__rule { transform: scaleX(1); }
+.fday-brand__journey { font-size: var(--text-meta); color: var(--color-text); }
+.fday-brand__journey::before { background: var(--accent); }
+.fday-brand__name { font-size: var(--text-h3); }
+.fday-brand__flagship { color: var(--ink-600); font-size: var(--text-meta); }
+.fday-brand__link { color: var(--color-text); }
+.fday-brand__link:hover { text-decoration: none; }
+.fday-brand__link svg { transition: transform var(--dur-2) var(--ease-snap); }
+.fday-brand__link:hover svg, .fday-brand__link:focus-visible svg { transform: translateX(4px); }
+.fday-past { border-top-color: var(--hairline); }
+
+/* Register interest: a White form card (3.14) */
+.fday-form { border: 0; background: var(--white); box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-media); padding: 24px; }
+@media (min-width: 768px) { .fday-form { padding: 32px; } }
+.fday-form > h2 { font-weight: 500; }
+
+/* Sponsor summary: a framed card */
+.fday-sponsor { border: 0; box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-media); }
+@media (min-width: 1024px) {
+  .fday-bottom { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 32px; }
+  .fday-sponsor { position: sticky; top: calc(var(--shell-offset, var(--header-h)) + 32px); }
+}
+.fday-hero__badges .badge { font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) {
+  .fday-brand, .fday-brand__rule, .fday-facts { transition: none; }
+}
+:root[data-motion='reduced'] .fday-brand__rule { transition: none; }

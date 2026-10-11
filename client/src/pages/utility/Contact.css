@@ -1,0 +1,105 @@
+/* /contact. Prefix: .contact-  (AngelList-family: hairline grids and rows, quiet links, one accent) */
+.contact-link {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
+  font-weight: 500; color: var(--color-text); text-decoration: none;
+}
+.contact-link svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+.contact-link:hover { text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+.contact-link:focus-visible svg { transform: translateX(4px); }
+@media (hover: hover) and (pointer: fine) { .contact-link:hover svg { transform: translateX(4px); } }
+
+/* Quick routes (AIWO P14): open columns under a 1px Ink top rule, no box; the rule thickens to 2px on hover /
+   focus-within. 32px column gap, 56px row gap at ≥1024. */
+.contact-routes {
+  list-style: none; display: grid; gap: 40px 32px; grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 640px) { .contact-routes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .contact-routes { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 56px; } }
+.contact-route {
+  position: relative;
+  display: flex; flex-direction: column; gap: var(--space-2); min-width: 0;
+  padding: 28px 0 0;
+  border-top: 1px solid var(--color-text);
+}
+.contact-route::before {
+  content: ''; position: absolute; inset: -1px 0 auto; height: 2px; background: var(--color-text);
+  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
+}
+.contact-route:focus-within::before { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { .contact-route:hover::before { transform: scaleX(1); } }
+.contact-route__icon { flex: none; width: 22px; height: 22px; color: var(--color-text); margin-bottom: var(--space-4); }
+.contact-route h3.h5 { font-size: var(--text-h4); font-weight: 400; letter-spacing: -0.015em; line-height: 1.2; }
+.contact-route__note { font-size: var(--text-small); color: var(--color-text-muted); }
+.contact-route__body { overflow-wrap: anywhere; flex: 1; }
+.contact-route__action { margin-top: auto; padding-top: var(--space-3); }
+.contact-brandmails { display: inline-flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); }
+/* Email links in route cells: 44px touch targets (Book 3 responsive rules); a quiet grey underline, not a colour. */
+.contact-route__body a {
+  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--color-text); text-decoration-color: var(--color-border-control); text-underline-offset: 0.2em;
+}
+.contact-route__body a:hover { text-decoration-color: currentColor; }
+
+/* Form: info left, form right (5 / 7), no card chrome beyond one hairline frame. */
+.contact-formwrap { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) {
+  .contact-formwrap { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; }
+  .contact-formwrap__intro { position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-6)); }
+}
+.contact-formwrap__intro > * + * { margin-top: var(--space-5); }
+.contact-formwrap__intro > .h2 { margin-top: var(--space-4); }
+.contact-formwrap__intro .body-lg { max-width: 34rem; }
+.contact-formwrap__intro .contact-link { margin-top: var(--space-6); }
+.contact-formwrap__form {
+  /* DESIGN-v2 3.14: the form sits on a White card */
+  padding: 24px; background: var(--white); border: 0;
+  border-radius: var(--radius-media); box-shadow: inset 0 0 0 1px var(--hairline);
+}
+@media (min-width: 768px) { .contact-formwrap__form { padding: 32px; } }
+
+/* Office (feature row: text left, map right) + grievance officer (hairline frame) */
+.contact-office { display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) {
+  .contact-office { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-12) var(--space-16); align-items: start; }
+  .contact-grievance { grid-column: 1 / -1; }
+}
+.contact-office__card > * + * { margin-top: var(--space-4); }
+.contact-office :is(h2, h3).h3 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; }
+.contact-office__card > .contact-office__list { list-style: none; display: grid; margin-top: var(--space-6); border-top: 1px solid var(--color-border); }
+.contact-office__list li {
+  display: grid; gap: var(--space-1); padding-block: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+.contact-office__k { font-size: var(--text-small); color: var(--color-text-muted); }
+.contact-office__v { overflow-wrap: anywhere; }
+.contact-office__map-link { font-size: var(--text-small); color: var(--color-text-2); }
+
+.contact-grievance {
+  padding: 24px; border: 0; box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-media);
+  background: var(--white); scroll-margin-top: calc(var(--header-h) + var(--space-8));
+}
+@media (min-width: 768px) { .contact-grievance { padding: 32px 40px; } }
+.contact-grievance > * > * + * { margin-top: var(--space-4); }
+.contact-grievance .text-2 { max-width: var(--measure); }
+.contact-grievance__list { margin: var(--space-6) 0 0; display: grid; border-top: 1px solid var(--color-border); }
+.contact-grievance__list div {
+  display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--space-4);
+  padding-block: var(--space-4); border-bottom: 1px solid var(--color-border);
+}
+.contact-grievance__list dt { color: var(--color-text-muted); font-size: var(--text-small); padding-top: 0.15em; }
+.contact-grievance__list dd { margin: 0; overflow-wrap: anywhere; }
+.contact-grievance .cluster { --cluster-gap: var(--space-1) var(--space-8); }
+.contact-formwrap > *, .contact-office > * { min-width: 0; }
+
+@media (prefers-reduced-motion: reduce) { .contact-link svg { transition: none; } }
+
+/* Tamil: "மின்னஞ்சல்" does not fit the 6rem label column and split mid-word; stack label over value. */
+:lang(ta) .contact-grievance__list div { grid-template-columns: 1fr; gap: var(--space-1); }
+@media (max-width: 479.98px) { .contact-grievance__list div { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); } }
+
+/* Office map: real Google Maps embed in the 12 px media frame, toned toward the paper-ink palette */
+.contact-map { position: relative; aspect-ratio: 3 / 2; border-radius: var(--radius-media, 12px); overflow: hidden; background: var(--color-bg-sunken); box-shadow: 0 0 0 1px var(--color-border); }
+.contact-map__frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(0.55) contrast(1.02); transition: filter var(--dur-3, 240ms) ease; }
+.contact-map:hover .contact-map__frame, .contact-map:focus-within .contact-map__frame { filter: none; }
+.contact-map__link { margin-top: var(--space-3); display: inline-flex; }
+@media (max-width: 639.98px) { .contact-map { aspect-ratio: 4 / 3; } }
