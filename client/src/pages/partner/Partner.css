@@ -319,12 +319,17 @@
 .partner-routing__intro > * + * { margin-top: var(--space-5); }
 .partner-routing__intro .text-2 { max-width: 40rem; }
 .partner-routing__intro .h3 { font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
-/* Hairline rows only: no frame, no header band. The cover gradients match the white sheet (var(--card)). */
-.partner-routing__table { overflow-x: auto; border-top: 1px solid var(--color-border); }
+/* Hairline rows on the card sheet: no frame, no header band. The cover gradients match the sheet (var(--card)).
+   The inset lives on the outer cells, not the wrapper, so the row hairlines still run the full card width;
+   the same rule pads header and body cells, so each column shares one left edge. */
+.partner-routing__table { --routing-inset: var(--space-6); overflow-x: auto; border-top: 1px solid var(--color-border); }
+@media (max-width: 767px) { .partner-routing__table { --routing-inset: var(--space-4); } }
 .partner-routing__table table { width: 100%; min-width: 36rem; border-collapse: collapse; font-size: var(--text-small); }
-.partner-routing__table th, .partner-routing__table td { text-align: left; vertical-align: top; padding: var(--space-4) var(--space-3); border-bottom: 1px solid var(--color-border); }
-.partner-routing__table :is(th, td):first-child { padding-left: 0; }
-.partner-routing__table :is(th, td):last-child { padding-right: 0; }
+.partner-routing__table th, .partner-routing__table td { text-align: left; vertical-align: middle; padding: var(--space-4) var(--space-3); border-bottom: 1px solid var(--color-border); }
+.partner-routing__table :is(th, td):first-child { padding-left: var(--routing-inset); }
+/* "Reply within": right-aligned figures, kept on one line. */
+.partner-routing__table :is(th, td):last-child { padding-right: var(--routing-inset); text-align: right; }
+.partner-routing__table tbody td:last-child { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .partner-routing__table thead th { font-size: var(--text-small); font-weight: 500; color: var(--color-text-muted); background: none; }
 .partner-routing__table tbody th { font-weight: 500; }
 .partner-routing__table tbody td { color: var(--color-text-2); }
@@ -339,7 +344,9 @@
 }
 /* Stacked label/value rows instead of a sideways scroller. Enquire.jsx sets --stacked below 600px, and below
    1280px in Tamil (V-P1: Tamil headers split mid-word in a 3-column table at tablet/laptop widths). */
-.partner-routing__table--stacked { overflow: visible; background: none; }
+.partner-routing__table--stacked { --routing-inset: 0; overflow: visible; background: none; }
+.partner-routing__table--stacked :is(th, td):last-child { text-align: left; }
+.partner-routing__table--stacked tbody td:last-child { white-space: normal; }
 .partner-routing__table--stacked table { min-width: 0; }
 .partner-routing__table--stacked :is(table, tbody, tr, th, td) { display: block; }
 .partner-routing__table--stacked thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }

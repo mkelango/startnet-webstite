@@ -67,7 +67,12 @@ export function Scroller({ label, children, itemWidth, ordered = false, classNam
     const step = first && second ? second.offsetLeft - first.offsetLeft : el.clientWidth;
     const index = Math.min(count, Math.max(1, Math.round(x / Math.max(step, 1)) + 1));
     if (progressRef.current) progressRef.current.style.transform = `scaleX(${max > 4 ? Math.min(1, x / max).toFixed(4) : 1})`;
-    setState({ atStart: x <= 4, atEnd: x >= max - 4, index: x >= max - 4 ? count : index, overflow: max > 4 });
+    const next = { atStart: x <= 4, atEnd: x >= max - 4, index: x >= max - 4 ? count : index, overflow: max > 4 };
+    // Runs on every scroll frame (and every frame of the scroll-linked nudge): only re-render (all the cards) when
+    // something visible changed.
+    setState((s) =>
+      s.atStart === next.atStart && s.atEnd === next.atEnd && s.index === next.index && s.overflow === next.overflow ? s : next
+    );
   }, [count]);
 
   useEffect(() => {
@@ -144,7 +149,8 @@ export function Scroller({ label, children, itemWidth, ordered = false, classNam
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
-    setTrackFocusable(!el.querySelector('a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])'));
+    const next = !el.querySelector('a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    setTrackFocusable((v) => (v === next ? v : next));
   });
 
   // ---------- Scroll-linked sliding + drag to slide ----------
@@ -418,7 +424,9 @@ export function Scroller({ label, children, itemWidth, ordered = false, classNam
       <List
         ref={trackRef}
         className="scroller__track"
-        data-lenis-prevent-wheel=""
+        // Lenis (smooth wheel) lets a horizontal wheel / trackpad swipe over a rail that scrolls sideways reach the
+        // rail natively; a vertical wheel over it keeps scrolling the page smoothly. A rail that fits gets neither.
+        data-lenis-prevent-horizontal={state.overflow ? '' : undefined}
         style={itemWidth ? { '--scroller-item': itemWidth } : undefined}
         tabIndex={trackFocusable && state.overflow ? 0 : undefined}
         aria-label={trackFocusable && state.overflow ? t(`${label || 'Items'}: scrollable list`, `${label || 'உருப்படிகள்'}: உருட்டக்கூடிய பட்டியல்`) : undefined}

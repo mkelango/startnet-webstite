@@ -1,7 +1,7 @@
 /* /events/:slug — T05 event edition (events without a series; series editions use mega/events-series/EditionPage).
    AngelList-family finish (Oct 2026): the hero is the ink band (data-surface="night" in the JSX), with the facts
    as a hairline strip on the band; the tabbed body is a sheet sliding over it, two columns with the key-facts panel. */
-.event-detail__loading { display: grid; gap: var(--space-6); padding-block: var(--space-16); }
+.event-detail__loading { display: grid; gap: var(--space-6); padding-block: var(--space-16); align-content: start; min-height: calc(100svh - var(--header-h, 56px)); }
 .event-detail__error { display: grid; gap: var(--space-4); justify-items: start; max-width: var(--measure); }
 
 /* Hero: the ink band. Copy left, framed poster right, fact strip below. */

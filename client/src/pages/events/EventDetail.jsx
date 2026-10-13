@@ -31,6 +31,10 @@ import { eventLd } from '../../lib/seo.js';
 import { fitTitle, fitDescription } from '../programmes/parts/seoFit.js';
 import { editionWhenSentence } from '../mega/events-series/seriesData.js';
 import { eventPhotoKeys, photoFor, PHOTO_SIZES } from '../../data/photos.js';
+import {
+  RecordRecap, RecordHighlights, RecordPeople, RecordLists, RecordPartners, RecordSources, hasRecap, hasHighlights,
+  hasPeople, hasJuryGroup, peopleNames, recordFigures,
+} from './parts/EventRecord.jsx';
 
 const ART = { research: 'grid', vibe: 'network', connect: 'network', women: 'kolam', x: 'dot' };
 const seedOf = (s = '') => [...s].reduce((n, c) => (n * 31 + c.charCodeAt(0)) % 997, 7);
@@ -138,7 +142,10 @@ function useContentLang() {
 }
 
 /** Speakers named (with consent) in the agenda; placeholder names are never listed. */
-const speakerNames = (e) => [...new Set((e.agenda || []).map((a) => a.speaker).filter((s) => s && !isPlaceholderValue(s)))];
+const speakerNames = (e) => {
+  const listed = peopleNames(e);
+  return [...new Set((e.agenda || []).map((a) => a.speaker).filter((s) => s && !isPlaceholderValue(s) && !listed.has(s)))];
+};
 const hasRealJury = (e, lang) => !!e.jury && !isPlaceholderText(pickLang(e, 'jury', lang));
 
 // Approved rule: blocks that would only show a placeholder (agenda, speakers, outcomes, venue notes) are hidden
@@ -197,17 +204,29 @@ function Agenda({ e }) {
       </div>
     );
   }
+  // Past events: the programme as the sources describe it (EventRecord, Oct 2026 archive).
+  if (hasHighlights(e)) {
+    return (
+      <div className="event-detail__agenda">
+        <h2 className="h3">{t('Programme highlights', 'நிகழ்ச்சிச் சிறப்பம்சங்கள்')}</h2>
+        <RecordHighlights e={e} headingLevel={3} />
+      </div>
+    );
+  }
   return null;
 }
 
 function Speakers({ e }) {
   const { t, lang } = useLang();
   const names = speakerNames(e);
+  const people = hasPeople(e);
   return (
     <div className="event-detail__speakers">
+      {(names.length > 0 || people) && <h2 className="h3">{t('Speakers', 'பேச்சாளர்கள்')}</h2>}
+      {/* People named by the sources, each with the role the source states (EventRecord). */}
+      {people && <RecordPeople e={e} headingLevel={3} />}
       {names.length > 0 && (
         <>
-          <h2 className="h3">{t('Speakers', 'பேச்சாளர்கள்')}</h2>
           <RevealGroup as="ul" className="event-detail__speaker-grid">
             {names.map((name) => (
               <li key={name}>
@@ -220,7 +239,7 @@ function Speakers({ e }) {
       {hasRealJury(e, lang) && (
         <div className="event-detail__jury">
           {/* With no named speakers the jury heading moves up a level (no skipped heading). */}
-          {names.length ? <h3 className="h4">{t('Jury', 'நடுவர் குழு')}</h3> : <h2 className="h3">{t('Jury', 'நடுவர் குழு')}</h2>}
+          {names.length || people ? <h3 className="h4">{t('Jury', 'நடுவர் குழு')}</h3> : <h2 className="h3">{t('Jury', 'நடுவர் குழு')}</h2>}
           <p className="text-2">
             <RichText text={pickLang(e, 'jury', lang)} />
           </p>
@@ -485,7 +504,7 @@ export default function EventDetail() {
       key: 'district', icon: MapPin, label: t('District', 'மாவட்டம்'), text: districtText(e, lang), value: <RichText text={districtText(e, lang)} />,
     },
     { key: 'format', icon: Monitor, label: t('Format', 'வடிவம்'), text: formatLabel(t, e.format), value: formatLabel(t, e.format) },
-    { key: 'language', icon: Languages, label: t('Language', 'மொழி'), text: langLabel(t, e.language), value: langLabel(t, e.language) },
+    { key: 'language', icon: Languages, label: t('Language', 'மொழி'), text: langLabel(t, e.language), value: <RichText text={langLabel(t, e.language)} /> },
     { key: 'price', icon: Ticket, label: t('Price', 'கட்டணம்'), text: price, value: <RichText text={price} /> },
     !past && e.seats && { key: 'seats', icon: Users, label: t('Seats', 'இடங்கள்'), text: seatsLabel(t, e.seats), value: seatsLabel(t, e.seats) },
     !past && e.registrationClosesLabel && {
@@ -570,11 +589,11 @@ export default function EventDetail() {
             </>
           ),
         },
-        { id: 'ev-faq-lang', question: t('What language was it in?', 'எந்த மொழியில் நடந்தது?'), answer: langLabel(t, e.language) },
+        { id: 'ev-faq-lang', question: t('What language was it in?', 'எந்த மொழியில் நடந்தது?'), answer: <RichText text={langLabel(t, e.language)} /> },
       ]
     : [
         { id: 'ev-faq-cost', question: t('How much does it cost?', 'கட்டணம் எவ்வளவு?'), answer: <RichText text={price} /> },
-        { id: 'ev-faq-lang', question: t('What language is it in?', 'எந்த மொழியில் நடைபெறும்?'), answer: langLabel(t, e.language) },
+        { id: 'ev-faq-lang', question: t('What language is it in?', 'எந்த மொழியில் நடைபெறும்?'), answer: <RichText text={langLabel(t, e.language)} /> },
         {
           id: 'ev-faq-register',
           question: t('How do I register?', 'எப்படிப் பதிவு செய்வது?'),
@@ -607,6 +626,8 @@ export default function EventDetail() {
       : cmsFaq
     : defaultFaq;
 
+  // "What happened" figures: server outcomes plus the event's own sourced figures (tag, as-at and source each).
+  const outcomeFigures = [...realMetrics(e.outcomes), ...recordFigures(e)];
   // Overview copy: the description (or recap) — never the hero lede again.
   const description = pickLang(e, 'description', lang);
   const overviewText = description && description.trim() !== (summary || '').trim() ? description : null;
@@ -614,12 +635,17 @@ export default function EventDetail() {
   const overview = (
     <div className="event-detail__overview">
       {/* "What happened" shows only with verified outcomes (FactBand hides placeholder figures). */}
-      {past && realMetrics(e.outcomes).length > 0 && (
+      {past && outcomeFigures.length > 0 && (
         <div className="event-detail__outcomes">
-          <FactBand metrics={e.outcomes.slice(0, 4)} title={t('What happened', 'என்ன நடந்தது')} surface="paper" />
+          <FactBand metrics={outcomeFigures.slice(0, 4)} title={t('What happened', 'என்ன நடந்தது')} surface="paper" />
         </div>
       )}
-      {overviewText && (
+      {past && hasRecap(e) ? (
+        <div className="prose">
+          <h2 className="h3">{t('About this event', 'இந்த நிகழ்வு பற்றி')}</h2>
+          <RecordRecap e={e} />
+        </div>
+      ) : overviewText && (
         <div className="prose">
           <h2 className="h3">{past ? t('About this event', 'இந்த நிகழ்வு பற்றி') : t("What you'll leave with", 'நீங்கள் பெறுவது')}</h2>
           <p className="body-lg" lang={langOf(overviewText)}>
@@ -654,6 +680,10 @@ export default function EventDetail() {
         </div>
       )}
 
+      <RecordLists e={e} />
+      <RecordPartners e={e} />
+      <RecordSources e={e} />
+
       {movedNotes.length > 0 && (
         <div className="event-detail__tbc">
           <h2 className="h4">{t('Still to be confirmed', 'இன்னும் உறுதியாகவில்லை')}</h2>
@@ -686,10 +716,16 @@ export default function EventDetail() {
   const tabs = [
     { id: 'overview', label: t('Overview', 'கண்ணோட்டம்'), content: overview },
     // Agenda / Speakers tabs appear only when there is something to show (no tab of placeholders).
-    (e.agenda?.length || hasTimeline) && { id: 'agenda', label: hasTimeline ? t('Timeline', 'காலவரிசை') : t('Agenda', 'நிகழ்ச்சி நிரல்'), content: <Agenda e={e} /> },
-    (speakerNames(e).length > 0 || hasRealJury(e, lang)) && {
+    (e.agenda?.length || hasTimeline || hasHighlights(e)) && {
+      id: 'agenda',
+      label: hasTimeline ? t('Timeline', 'காலவரிசை') : !e.agenda?.length ? t('Programme', 'நிகழ்ச்சிகள்') : t('Agenda', 'நிகழ்ச்சி நிரல்'),
+      content: <Agenda e={e} />,
+    },
+    (speakerNames(e).length > 0 || hasRealJury(e, lang) || hasPeople(e)) && {
       id: 'speakers',
-      label: hasRealJury(e, lang) ? (speakerNames(e).length ? t('Speakers and jury', 'பேச்சாளர்களும் நடுவர்களும்') : t('Jury', 'நடுவர் குழு')) : t('Speakers', 'பேச்சாளர்கள்'),
+      label: hasRealJury(e, lang) || hasJuryGroup(e)
+        ? (speakerNames(e).length || hasPeople(e) ? t('Speakers and jury', 'பேச்சாளர்களும் நடுவர்களும்') : t('Jury', 'நடுவர் குழு'))
+        : t('Speakers', 'பேச்சாளர்கள்'),
       content: <Speakers e={e} />,
     },
     { id: 'venue', label: t('Venue and travel', 'இடமும் பயணமும்'), content: <Venue e={e} /> },

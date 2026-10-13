@@ -1,6 +1,6 @@
 /* PulliTimeline (DESIGN-v2 3.21.4). Mobile / SSR: stacked hairline list with static 120px mini-art per step.
    ≥1024: 4/8 split, vertical tab rail with an Ink progress fill and the red full stop as the active node; Ink art
-   panel (1/1, max 560px) with a motion visual per step (ripples → flow → orbits → trajectory). */
+   panel (1/1, max 560px) with a photograph per step. */
 .pulli-timeline { display: grid; gap: var(--space-10); }
 .pulli-timeline__rail { position: relative; min-width: 0; }
 .pulli-timeline__track { display: none; }
@@ -31,7 +31,7 @@
 
 /* ---------- The art ---------- */
 .pulli-art { position: relative; display: block; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-radius: inherit; background: var(--night-0); }
-.pulli-art > .mv { position: absolute; inset: 0; height: 100%; }
+.pulli-art > .art-image { position: absolute; inset: 0; height: 100%; aspect-ratio: auto !important; }
 .pulli-art--mini { width: 120px; height: 120px; border-radius: 8px; }
 
 /* ---------- ≥1024: rail + panel ---------- */

@@ -120,10 +120,11 @@ function norm(href, from) {
 }
 
 async function bfs(browser) {
-  if (process.env.ROUTES) return JSON.parse(fs.readFileSync(process.env.ROUTES, 'utf8')).map((p) => ({ path: p, from: [] }));
+  // With ROUTES set, visit exactly those paths (no link discovery); otherwise BFS from the seeds.
+  const fixed = process.env.ROUTES ? JSON.parse(fs.readFileSync(process.env.ROUTES, 'utf8')) : null;
   const { page, log } = await openPage(browser, 'desktop');
   const seen = new Map(); // path -> {from:Set}
-  const queue = ['/', '/ta', '/sitemap'];
+  const queue = fixed ? [...fixed] : ['/', '/ta', '/sitemap'];
   queue.forEach((p) => seen.set(p, new Set(['(seed)'])));
   const results = [];
   while (queue.length && results.length < MAX) {
@@ -136,7 +137,7 @@ async function bfs(browser) {
     for (const l of info.links || []) {
       const n = norm(l.href, p);
       if (!n) continue;
-      if (!seen.has(n)) { seen.set(n, new Set()); queue.push(n); }
+      if (!seen.has(n)) { seen.set(n, new Set()); if (!fixed) queue.push(n); }
       seen.get(n).add(`${p} ["${l.text}"]`);
     }
     if (results.length % 25 === 0) console.error(`crawled ${results.length}, queue ${queue.length}`);

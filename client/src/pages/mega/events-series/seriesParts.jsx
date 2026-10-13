@@ -5,6 +5,7 @@ import { isConfirmed, pickLang } from '../../events/parts/eventMeta.js';
 import { eventDateRange } from '../../events/parts/eventTime.js';
 import { ART_FOR, brandOf, editionPath, seedOf, localizeEvent, enIf } from './seriesData.js';
 import { isPlaceholderText as isOnlyPlaceholder } from '../../../components/_placeholders.js';
+import { eventPool, PHOTO_SIZES } from '../../../data/photos.js';
 import './seriesParts.css';
 
 /** Bilingual labels for event facets (data values stay English; labels follow the page language). */
@@ -18,10 +19,12 @@ export function useEventText() {
     lang,
     enOnly: lang === 'ta' ? 'en' : undefined,
     format: (f) => FORMAT[f] || f || '',
-    language: (l) => LANGUAGE[l] || l || '',
+    // A language still to be confirmed ("[to be confirmed]") renders as a placeholder mark, not raw brackets.
+    language: (l) => LANGUAGE[l] || (isOnlyPlaceholder(l) ? <InlineMarks text={l} /> : l) || '',
     seats: (s) => SEATS[s] || s || '',
-    /** Free / price note (with inline placeholder marks) / Paid. */
+    /** Free / price note (with inline placeholder marks) / Paid. A record with no price on file shows its note. */
     price: (e) => {
+      if (!e.price) return <InlineMarks text={e.priceNote || '[placeholder — to be supplied by StartNet]'} />;
       if (e.price === 'free' && !e.priceTBC) return t('Free', 'இலவசம்');
       if (e.priceNote && !isOnlyPlaceholder(e.priceNote)) return <InlineMarks text={e.priceNote} />;
       return e.price === 'free' ? t('Free', 'இலவசம்') : t('Paid', 'கட்டணம் உண்டு');
@@ -47,7 +50,7 @@ export function useEventText() {
       return label && !isOnlyPlaceholder(label) ? enIf(lang, label) : undefined;
     },
     placeLang: (e) => (lang === 'ta' && e.format !== 'online' && (e.venue || e.city || e.district) ? 'en' : undefined),
-    priceLang: (e) => (lang === 'ta' && e.priceNote && !(e.price === 'free' && !e.priceTBC) ? 'en' : undefined),
+    priceLang: (e) => (lang === 'ta' && e.price && e.priceNote && !(e.price === 'free' && !e.priceTBC) ? 'en' : undefined),
     /** Register label per Book 2 §5.1 / §14.3. */
     register: (e) => {
       if (e.seats === 'full') return t('Join the waitlist', 'காத்திருப்புப் பட்டியலில் சேருங்கள்');
@@ -69,7 +72,7 @@ export function EditionCard({ event, headingLevel = 3 }) {
       to={editionPath(e)}
       brand={brand || undefined}
       headingLevel={headingLevel}
-      art={{ variant: ART_FOR[brand] || 'dot', brand: brand || undefined, ratio: '16/9', seed: seedOf(e.slug), alt: '' }}
+      art={{ variant: ART_FOR[brand] || 'dot', brand: brand || undefined, ratio: '16/9', seed: seedOf(e.slug), alt: '', photoPool: eventPool(event), sizes: PHOTO_SIZES.card }}
       badges={
         <>
           {past ? (

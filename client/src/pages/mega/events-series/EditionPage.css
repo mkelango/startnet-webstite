@@ -3,7 +3,7 @@
    poster and a hairline fact strip; the body is a sheet sliding over it — underline tabs and feature rows on the
    left, the key-facts panel on the right. */
 .edition-page { overflow-x: clip; }
-.edition-page__loading { display: grid; gap: var(--space-6); padding-block: var(--space-16); }
+.edition-page__loading { display: grid; gap: var(--space-6); padding-block: var(--space-16); align-content: start; min-height: calc(100svh - var(--header-h, 56px)); }
 .edition-page__error { display: grid; gap: var(--space-4); justify-items: start; max-width: var(--measure); }
 
 /* Hero: the ink band */

@@ -13,23 +13,27 @@ import { useApi } from '../../../hooks/useApi.js';
 import { useLang } from '../../../lib/i18n.jsx';
 import EventDetail from '../../events/EventDetail.jsx';
 import SeriesPage from './SeriesPage.jsx';
-import { isKnownSeries, editionKeyOf, editionPath } from './seriesData.js';
+import { isKnownSeries, editionKeyOf, editionPath, retiredSeriesOf } from './seriesData.js';
 
 export default function EventsSlugDispatcher() {
   const { slug = '' } = useParams();
   const { search, hash } = useLocation();
   const { localePath } = useLang();
   const known = isKnownSeries(slug);
+  // A withdrawn edition's flat URL (/events/genai-connect-2027) goes to its series page (the server 301s it too).
+  const retired = known ? null : retiredSeriesOf(slug);
   // Same path string EventDetail uses, so the request is shared (in-flight dedupe + cache in useApi).
-  const ev = useApi(known ? null : `/api/events/${encodeURIComponent(slug)}`);
+  const ev = useApi(known || retired ? null : `/api/events/${encodeURIComponent(slug)}`);
   const missing = !known && !!ev.error && /^404/.test(ev.error.message || '');
   const ser = useApi(missing ? `/api/events?series=${encodeURIComponent(slug)}` : null);
 
   if (known) return <SeriesPage series={slug} />;
+  if (retired) return <><Navigate to={{ pathname: localePath(`/events/${retired}`), search, hash }} replace /><PageLoader /></>;
   if (ev.loading) return <PageLoader />;
   const e = ev.data;
   if (e && typeof e === 'object' && typeof e.series === 'string' && e.series && e.slug === slug && editionKeyOf(e)) {
-    return <Navigate to={{ pathname: localePath(editionPath(e)), search, hash }} replace />;
+    // Keep the loader on screen for the redirect frame (an empty <main> lets the footer jump up: CLS).
+    return <><Navigate to={{ pathname: localePath(editionPath(e)), search, hash }} replace /><PageLoader /></>;
   }
   if (!missing) return <EventDetail />;
   if (ser.loading) return <PageLoader />;

@@ -13,9 +13,9 @@ import ConnectHeading from './ConnectHeading.jsx';
 import SeriesGrid, { SectorStatus } from './SeriesGrid.jsx';
 import SwitchStepper from './SwitchStepper.jsx';
 import SeatRing from './SeatRing.jsx';
-import { CircleMembership, FitLabel } from './ConnectBits.jsx';
+import { CircleMembership, ConnectFlagships, FitLabel, SectorPast } from './ConnectBits.jsx';
 import {
-  ANGELS_LEGAL, ANGELS_LEGAL_TA, CONNECT_REDIRECTS, SCALE_OFFERS, SECTORS, SPONSOR_EMAIL,
+  ANGELS_LEGAL, ANGELS_LEGAL_TA, CONNECT_REDIRECTS, SCALE_OFFERS, SECTORS, SECTOR_PAST, SPONSOR_EMAIL,
   connectLinks, eventPlace, eventWhen, eventsForSector, own, sectorBySlug,
 } from './connectData.js';
 import '../brandPage.css';
@@ -95,6 +95,8 @@ function seriesPage({ links, events, t }) {
       { label: t('Running now', 'இப்போது நடப்பவை'), value: 'GenAI, SaaS, D2C' },
       { label: t('New in 2027', '2027-இல் புதியவை'), value: 'DeepTech, FinTech, Industry 4.0' },
       { label: t('Next', 'அடுத்து'), value: 'HealthTech, AgriFood, Climate' },
+      // The next StartNet Connect flagships (connectData.js CONNECT_FLAGSHIPS; docs/research/connect-series.md §4).
+      { label: t('Next flagships', 'அடுத்த முதன்மை நிகழ்வுகள்'), value: <ConnectFlagships events={events} className="connect-flagships--compact" /> },
     ],
     factsAction: <Button variant="brand" full href={links.sectorRegister('all')}>{t('Register for the next event', 'அடுத்த நிகழ்வுக்குப் பதிவு செய்யுங்கள்')}</Button>,
     extra: (
@@ -402,16 +404,28 @@ function sectorPage(sector, { links, events, loading, t, lang }) {
           {loading ? <Skeleton height="20rem" /> : next ? (
             <div className="connect-sub__nextevent"><EventCard event={next} /></div>
           ) : (
-            <EmptyState
-              title={datesSoon}
-              body={t(
-                `The next ${sector.name} date is announced first to the community on WhatsApp.`,
-                `அடுத்த ${sector.name} தேதி முதலில் WhatsApp-இல் சமூகத்துக்கு அறிவிக்கப்படும்.`
-              )}
-              action={<WhatsAppButton text={keyword} label={t('Get updates on WhatsApp', 'WhatsApp-இல் தகவல்களைப் பெறுங்கள்')} />}
-            />
+            <>
+              <EmptyState
+                title={datesSoon}
+                body={t(
+                  `The next ${sector.name} date is announced first to the community on WhatsApp.`,
+                  `அடுத்த ${sector.name} தேதி முதலில் WhatsApp-இல் சமூகத்துக்கு அறிவிக்கப்படும்.`
+                )}
+                action={<WhatsAppButton text={keyword} label={t('Get updates on WhatsApp', 'WhatsApp-இல் தகவல்களைப் பெறுங்கள்')} />}
+              />
+              {/* The next StartNet Connect flagships (connectData.js CONNECT_FLAGSHIPS), not editions of this sector. */}
+              <div className="connect-sub__flagships">
+                <p className="small text-2">{t('Meanwhile, the next StartNet Connect flagships:', 'அதுவரை, அடுத்த StartNet Connect முதன்மை நிகழ்வுகள்:')}</p>
+                <ConnectFlagships events={events} />
+              </div>
+            </>
           )}
         </Block>
+        {own(SECTOR_PAST, sector.slug) && (
+          <Block title={t('The last edition', 'கடந்த பதிப்பு')}>
+            <SectorPast past={own(SECTOR_PAST, sector.slug)} />
+          </Block>
+        )}
         <EventGallery series={eventSeriesForPath(`/connect/${sector.slug}`)} />
         {/* Event films of this series, when verified ones exist (data/videos.js); renders nothing otherwise */}
         <EventVideos series={eventSeriesForPath(`/connect/${sector.slug}`)} headingLevel={3} className="connect-sub__films" />
@@ -422,6 +436,9 @@ function sectorPage(sector, { links, events, loading, t, lang }) {
     facts: [
       { label: t('Status', 'நிலை'), value: <SectorStatus status={sector.status} since={sector.since} /> },
       { label: t('Next event', 'அடுத்த நிகழ்வு'), value: next ? <><span className="tnum">{eventWhen(next, { dates: datesSoon, lang })}</span>{eventPlace(next, lang) ? ` · ${eventPlace(next, lang)}` : ''}</> : datesSoon },
+      ...(own(SECTOR_PAST, sector.slug)
+        ? [{ label: t('Last edition', 'கடந்த பதிப்பு'), value: <><span className="tnum">{t(SECTOR_PAST[sector.slug].when, SECTOR_PAST[sector.slug].whenTa)}</span> · {t(SECTOR_PAST[sector.slug].where, SECTOR_PAST[sector.slug].whereTa)}</> }]
+        : []),
       { label: t('Format', 'வடிவம்'), value: t('Flagship event, monthly meet-ups, a sector report and a Circle', 'முதன்மை நிகழ்வு, மாதாந்திரச் சந்திப்புகள், ஒரு துறை அறிக்கை மற்றும் ஒரு Circle') },
     ],
     factsAction: <Button variant="brand" full {...register}>{registerLong}</Button>,

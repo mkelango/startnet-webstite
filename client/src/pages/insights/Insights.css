@@ -72,6 +72,9 @@
 @media (hover: hover) and (pointer: fine) { .insights-notify:hover svg { transform: rotate(-12deg); } }
 
 .insights-reports { margin-top: var(--space-10); }
+/* 768–1023: the three reports run as one row (~224px a card), too narrow for a one-line kind · year · status
+   badge row, so the badges wrap instead of clipping "Upcoming" at the card edge. */
+@media (min-width: 768px) and (max-width: 1023.98px) { .insights-reports .card__badges { flex-wrap: wrap; } }
 .insights-stories-empty { margin-top: var(--space-8); max-width: 60ch; }
 
 /* Newsletter strip */

@@ -13,10 +13,11 @@ import {
 import NotFound from '../../utility/NotFound.jsx';
 import VibeEvents from './parts/VibeEvents.jsx';
 import { ph } from './parts/ph.jsx';
-import { VIBE_SUB, VIBE_PROOF, tx, tr, localiseMetric } from './vibeContent.js';
+import { VIBE_SUB, VIBE_PROOF, VIBE_SUMMITS_PAST, tx, tr, localiseMetric } from './vibeContent.js';
 import '../brandPage.css';
 import './VibeSub.css';
 import { courseLd } from '../../../lib/seo.js';
+import { eventPath } from '../../../components/_utils.js';
 import { pageLd } from '../seoBits.js';
 
 /* ------------------------------------------------------------------ shared bits */
@@ -333,6 +334,60 @@ function Clubs() {
 
 /* ------------------------------------------------------------------ Summit */
 
+/** The Vibe summits StartNet Vibe has run or promoted so far (vibeContent.js VIBE_SUMMITS_PAST, sourced). Tamil: draft, pending native review. */
+function PastSummits() {
+  const { t } = useLang();
+  const { data } = useApi('/api/events?brand=vibe&when=past');
+  const records = Array.isArray(data) ? data : [];
+  return (
+    <Section surface="paper" id="past" labelledBy="vibe-summit-past">
+      <SectionHeader
+        as="h2"
+        eyebrow={t('Summits so far', 'இதுவரையிலான Summit-கள்')}
+        title={<span id="vibe-summit-past">{t('Vibe summits in 2025', '2025-இல் Vibe Summit-கள்')}</span>}
+        lede={t(
+          'StartNet Vibe ran a marketing summit in Salem and promoted a coding summit in Coimbatore. What each source records:',
+          'StartNet Vibe சேலத்தில் ஒரு சந்தைப்படுத்தல் Summit-ஐ நடத்தியது; கோயம்புத்தூரில் ஒரு கோடிங் Summit-ஐ விளம்பரப்படுத்தியது. ஒவ்வொரு ஆதாரமும் பதிவு செய்தவை:'
+        )}
+      />
+      <RevealGroup as="ul" className="vibe-sub__past">
+        {VIBE_SUMMITS_PAST.map((s) => {
+          const record = records.find((e) => e.slug === s.slug);
+          const to = record ? eventPath(record) : null;
+          return (
+            <li key={s.id} className="vibe-sub__past-item">
+              <article className="vibe-sub__past-card" aria-labelledby={`${s.id}-title`}>
+                <p className="eyebrow vibe-sub__past-when">
+                  <span className="tnum">{tr(t, s, 'when')}</span> · {tr(t, s, 'where')}
+                </p>
+                <h3 id={`${s.id}-title`} className="h4">{tr(t, s, 'name')}</h3>
+                <p className="small text-2">{tr(t, s, 'organiser')}</p>
+                <p className="text-2">{tr(t, s, 'body')}</p>
+                {s.metric && <Stat metric={localiseMetric(t, s.metric)} variant="compact" />}
+                {s.sessions && (
+                  <div className="vibe-sub__past-sessions">
+                    <h4 className="eyebrow">{t('Sessions', 'அமர்வுகள்')}</h4>
+                    <ul>
+                      {s.sessions.map((x) => (
+                        <li key={x.title}>
+                          <span className="vibe-sub__past-session">{tr(t, x, 'title')}</span>
+                          <span className="small text-2"> · {x.who}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <p className="caption vibe-sub__past-src">{tr(t, s, 'sources')}</p>
+                {to && <Button variant="tertiary" to={to}>{t('See the event', 'நிகழ்வைப் பாருங்கள்')}</Button>}
+              </article>
+            </li>
+          );
+        })}
+      </RevealGroup>
+    </Section>
+  );
+}
+
 function Summit() {
   const { t, lang } = useLang();
   return (
@@ -361,7 +416,8 @@ function Summit() {
           />
         </div>
       </Section>
-      <Section surface="paper" labelledBy="vibe-summit-events">
+      <PastSummits />
+      <Section surface="white" labelledBy="vibe-summit-events">
         <SectionHeader as="h2" eyebrow={tx(t, 'Events')} title={<span id="vibe-summit-events">{t('Summit dates', 'Summit தேதிகள்')}</span>} />
         <VibeEvents series="vibe-summit" waRef="vibe-summit" label={t('Vibe Summit editions', 'Vibe Summit பதிப்புகள்')} />
       </Section>

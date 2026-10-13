@@ -56,6 +56,11 @@ html:not([lang="ta"]) .vibe-home__academy-glyph:not(.vibe-home__academy-glyph--e
 
 /* ---------- Programmes, events, stories ---------- */
 .vibe-home__programmes, .vibe-home__stories { margin-top: var(--space-8); }
+/* Past events: one hairline row of text links under the upcoming list */
+.vibe-home__past { margin-top: var(--space-10); padding-top: var(--space-5); border-top: 1px solid var(--color-border); display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-5); }
+.vibe-home__past-label { margin: 0; }
+.vibe-home__past-list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-5); min-width: 0; }
+.vibe-home__past-list > li { min-width: 0; max-width: 100%; }
 .vibe-home__story-slot {
   display: grid; grid-template-rows: auto 1fr;
   background: var(--bp-card); border-radius: var(--media-radius); overflow: hidden;

@@ -1,11 +1,17 @@
 {
-  "alt": "Students in the hall at Vibathon 2025, K.S.R. College of Engineering",
+  "alt": "Students building in the hall at Vibathon 2025, K.S.R. College of Engineering",
   "caption": "Vibathon 2025, K.S.R. College of Engineering, Tiruchengode",
   "captionTa": "Vibathon 2025, கே.எஸ்.ஆர். பொறியியல் கல்லூரி, திருச்செங்கோடு",
-  "credit": "Photo: K.S.R. College of Engineering",
-  "source": "https://ksrce.ac.in/index.php/page?id=1078&item=315",
-  "usedWithPermission": true,
+  "credit": "Photo: StartNet",
+  "source": "StartNet Gallery/StartNet Vibe/image-23.jpg",
   "consent": true,
-  "grade": "warm",
-  "focus": "50% 45%"
+  "focus": "50% 60%",
+  "owner": "StartNet",
+  "crop": [
+    0,
+    420,
+    1080,
+    390
+  ],
+  "focusMobile": "50% 60%"
 }

@@ -1,4 +1,764 @@
 {
+  "event/d2c-connect/2024": {
+    "base": "/photos/event/d2c-connect/2024",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "A packed ballroom at D2C Connect 2024 in Coimbatore",
+    "caption": "D2C Connect Summit & Expo 2024, Le Méridien, Coimbatore",
+    "captionTa": "D2C Connect உச்சி மாநாடு & கண்காட்சி 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "event/d2c-connect/2024-2": {
+    "base": "/photos/event/d2c-connect/2024-2",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "Visitors at the expo stalls at D2C Connect 2024",
+    "caption": "D2C Connect Summit & Expo 2024, Le Méridien, Coimbatore",
+    "captionTa": "D2C Connect உச்சி மாநாடு & கண்காட்சி 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "event/d2c-connect/2024-3": {
+    "base": "/photos/event/d2c-connect/2024-3",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "Two founders in conversation in the front row at D2C Connect 2024",
+    "caption": "D2C Connect Summit & Expo 2024, Le Méridien, Coimbatore",
+    "captionTa": "D2C Connect உச்சி மாநாடு & கண்காட்சி 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "event/d2c-connect/2024-4": {
+    "base": "/photos/event/d2c-connect/2024-4",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "A speaker at the lectern at D2C Connect 2024",
+    "caption": "D2C Connect Summit & Expo 2024, Le Méridien, Coimbatore",
+    "captionTa": "D2C Connect உச்சி மாநாடு & கண்காட்சி 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "event/d2c-connect/2024-5": {
+    "base": "/photos/event/d2c-connect/2024-5",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "The expo corridor full of visitors at D2C Connect 2024",
+    "caption": "D2C Connect Summit & Expo 2024, Le Méridien, Coimbatore",
+    "captionTa": "D2C Connect உச்சி மாநாடு & கண்காட்சி 2024, Le Méridien, கோயம்புத்தூர்",
+    "focus": "72% 50%",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "event/d2c-connect/2024-6": {
+    "base": "/photos/event/d2c-connect/2024-6",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "Guests in the front row at D2C Connect 2024",
+    "caption": "D2C Connect Summit & Expo 2024, Le Méridien, Coimbatore",
+    "captionTa": "D2C Connect உச்சி மாநாடு & கண்காட்சி 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "event/d2c-connect/2024-7": {
+    "base": "/photos/event/d2c-connect/2024-7",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "A guest lighting the lamp at D2C Connect 2024",
+    "caption": "D2C Connect Summit & Expo 2024, Le Méridien, Coimbatore",
+    "captionTa": "D2C Connect உச்சி மாநாடு & கண்காட்சி 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "event/d2c-connect/2024-8": {
+    "base": "/photos/event/d2c-connect/2024-8",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "Guests standing for the opening of D2C Connect 2024",
+    "caption": "D2C Connect Summit & Expo 2024, Le Méridien, Coimbatore",
+    "captionTa": "D2C Connect உச்சி மாநாடு & கண்காட்சி 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "event/d2c-connect/2024-9": {
+    "base": "/photos/event/d2c-connect/2024-9",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "The audience facing the stage at D2C Connect 2024",
+    "caption": "D2C Connect Summit & Expo 2024, Le Méridien, Coimbatore",
+    "captionTa": "D2C Connect உச்சி மாநாடு & கண்காட்சி 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "event/genai-connect/2024": {
+    "base": "/photos/event/genai-connect/2024",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Founders, speakers and the StartNet team together on stage at GenAI Connect 2024",
+    "caption": "GenAI Connect Summit & Expo 2024, Radisson, Salem",
+    "captionTa": "GenAI Connect உச்சி மாநாடு & கண்காட்சி 2024, Radisson, சேலம்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/genai-connect/2024-2": {
+    "base": "/photos/event/genai-connect/2024-2",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Attendees standing in the ballroom at GenAI Connect 2024",
+    "caption": "GenAI Connect Summit & Expo 2024, Radisson, Salem",
+    "captionTa": "GenAI Connect உச்சி மாநாடு & கண்காட்சி 2024, Radisson, சேலம்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/genai-connect/2024-3": {
+    "base": "/photos/event/genai-connect/2024-3",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "The stage at GenAI Connect 2024: Leverage AI for Inclusive Growth",
+    "caption": "GenAI Connect Summit & Expo 2024, Radisson, Salem",
+    "captionTa": "GenAI Connect உச்சி மாநாடு & கண்காட்சி 2024, Radisson, சேலம்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/genai-connect/2024-4": {
+    "base": "/photos/event/genai-connect/2024-4",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Founders and guests in the room at GenAI Connect 2024",
+    "caption": "GenAI Connect Summit & Expo 2024, Radisson, Salem",
+    "captionTa": "GenAI Connect உச்சி மாநாடு & கண்காட்சி 2024, Radisson, சேலம்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/genai-connect/2024-5": {
+    "base": "/photos/event/genai-connect/2024-5",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "A founding team receiving a certificate on stage at GenAI Connect 2024",
+    "caption": "GenAI Connect Summit & Expo 2024, Radisson, Salem",
+    "captionTa": "GenAI Connect உச்சி மாநாடு & கண்காட்சி 2024, Radisson, சேலம்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/genai-connect/2024-6": {
+    "base": "/photos/event/genai-connect/2024-6",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Speakers welcomed on stage at GenAI Connect 2024",
+    "caption": "GenAI Connect Summit & Expo 2024, Radisson, Salem",
+    "captionTa": "GenAI Connect உச்சி மாநாடு & கண்காட்சி 2024, Radisson, சேலம்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/genai-connect/2024-7": {
+    "base": "/photos/event/genai-connect/2024-7",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Guests lighting the lamp to open GenAI Connect 2024",
+    "caption": "GenAI Connect Summit & Expo 2024, Radisson, Salem",
+    "captionTa": "GenAI Connect உச்சி மாநாடு & கண்காட்சி 2024, Radisson, சேலம்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/genai-connect/2024-8": {
+    "base": "/photos/event/genai-connect/2024-8",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 963,
+    "alt": "The StartNet team outside the venue at GenAI Connect 2024",
+    "caption": "The StartNet team at GenAI Connect 2024, Salem",
+    "captionTa": "GenAI Connect 2024-இல் StartNet குழு, சேலம்",
+    "credit": "Photo: StartNet"
+  },
+  "event/genai-connect/2024-9": {
+    "base": "/photos/event/genai-connect/2024-9",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "StartNet team members outside the Radisson, Salem, on GenAI Connect day",
+    "caption": "The StartNet team at GenAI Connect 2024, Salem",
+    "captionTa": "GenAI Connect 2024-இல் StartNet குழு, சேலம்",
+    "credit": "Photo: StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-coimbatore": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-coimbatore",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Higher-education leaders together at the NIRF Higher Ed Summit 2024 in Coimbatore",
+    "caption": "NIRF Higher Ed Summit 2024, Le Méridien, Coimbatore",
+    "captionTa": "NIRF Higher Ed Summit 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-coimbatore-2": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-coimbatore-2",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "A guest lighting the lamp at the NIRF Higher Ed Summit 2024, Coimbatore",
+    "caption": "NIRF Higher Ed Summit 2024, Le Méridien, Coimbatore",
+    "captionTa": "NIRF Higher Ed Summit 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-coimbatore-3": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-coimbatore-3",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "The keynote address at the NIRF Higher Ed Summit 2024, Coimbatore",
+    "caption": "NIRF Higher Ed Summit 2024, Le Méridien, Coimbatore",
+    "captionTa": "NIRF Higher Ed Summit 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-coimbatore-4": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-coimbatore-4",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Faculty and leaders at a round table during the NIRF Higher Ed Summit 2024",
+    "caption": "NIRF Higher Ed Summit 2024, Le Méridien, Coimbatore",
+    "captionTa": "NIRF Higher Ed Summit 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-coimbatore-5": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-coimbatore-5",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "A table discussion at the NIRF Higher Ed Summit 2024, Coimbatore",
+    "caption": "NIRF Higher Ed Summit 2024, Le Méridien, Coimbatore",
+    "captionTa": "NIRF Higher Ed Summit 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-coimbatore-6": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-coimbatore-6",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "A StartNet speaker at the NIRF Higher Ed Summit 2024, Coimbatore",
+    "caption": "NIRF Higher Ed Summit 2024, Le Méridien, Coimbatore",
+    "captionTa": "NIRF Higher Ed Summit 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-coimbatore-7": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-coimbatore-7",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "A session talk on innovation and the startup ecosystem in Tamil Nadu higher education",
+    "caption": "NIRF Higher Ed Summit 2024, Le Méridien, Coimbatore",
+    "captionTa": "NIRF Higher Ed Summit 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-coimbatore-8": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-coimbatore-8",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Attendees at the NIRF Higher Ed Summit 2024, Coimbatore",
+    "caption": "NIRF Higher Ed Summit 2024, Le Méridien, Coimbatore",
+    "captionTa": "NIRF Higher Ed Summit 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-coimbatore-9": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-coimbatore-9",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "A StartNet team member lighting the lamp at the NIRF Higher Ed Summit 2024",
+    "caption": "NIRF Higher Ed Summit 2024, Le Méridien, Coimbatore",
+    "captionTa": "NIRF Higher Ed Summit 2024, Le Méridien, கோயம்புத்தூர்",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-salem": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-salem",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Faculty and institution leaders together at the NIRF Higher Ed Summit 2024 in Salem",
+    "caption": "NIRF Higher Ed Summit 2024, CJ Pallazzio, Salem",
+    "captionTa": "NIRF Higher Ed Summit 2024, CJ Pallazzio, சேலம்",
+    "credit": "Photo: StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-salem-2": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-salem-2",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "A panel on stage with the audience at the NIRF Higher Ed Summit 2024, Salem",
+    "caption": "NIRF Higher Ed Summit 2024, CJ Pallazzio, Salem",
+    "captionTa": "NIRF Higher Ed Summit 2024, CJ Pallazzio, சேலம்",
+    "credit": "Photo: StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-salem-3": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-salem-3",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Lighting the lamp at the NIRF Higher Ed Summit 2024, Salem",
+    "caption": "NIRF Higher Ed Summit 2024, CJ Pallazzio, Salem",
+    "captionTa": "NIRF Higher Ed Summit 2024, CJ Pallazzio, சேலம்",
+    "credit": "Photo: StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-salem-4": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-salem-4",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "A guest honoured on stage at the NIRF Higher Ed Summit 2024, Salem",
+    "caption": "NIRF Higher Ed Summit 2024, CJ Pallazzio, Salem",
+    "captionTa": "NIRF Higher Ed Summit 2024, CJ Pallazzio, சேலம்",
+    "credit": "Photo: StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-salem-5": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-salem-5",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Panellists on stage at the NIRF Higher Ed Summit 2024, Salem",
+    "caption": "NIRF Higher Ed Summit 2024, CJ Pallazzio, Salem",
+    "captionTa": "NIRF Higher Ed Summit 2024, CJ Pallazzio, சேலம்",
+    "credit": "Photo: StartNet"
+  },
+  "event/nirf-higher-ed-summit/2024-salem-6": {
+    "base": "/photos/event/nirf-higher-ed-summit/2024-salem-6",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Guests with the TNHEIN board at the NIRF Higher Ed Summit 2024, Salem",
+    "caption": "NIRF Higher Ed Summit 2024, CJ Pallazzio, Salem",
+    "captionTa": "NIRF Higher Ed Summit 2024, CJ Pallazzio, சேலம்",
+    "credit": "Photo: StartNet"
+  },
   "event/saas-connect/2025": {
     "base": "/photos/event/saas-connect/2025",
     "widths": [
@@ -89,11 +849,12 @@
       "jpg"
     ],
     "width": 4032,
-    "height": 3024,
+    "height": 1720,
     "alt": "Industry leaders in a roundtable session at SaaS.Connect 2025",
     "caption": "SaaS.Connect 2025, PSG Convention Centre, Coimbatore",
     "captionTa": "SaaS.Connect 2025, PSG மாநாட்டு மையம், கோயம்புத்தூர்",
-    "focus": "50% 45%",
+    "focus": "33% 60%",
+    "focusMobile": "45% 60%",
     "credit": "Photo: Gokul Kannan"
   },
   "event/saas-connect/2025-5": {
@@ -117,29 +878,513 @@
     "alt": "Attendees in a session room at SaaS.Connect 2025",
     "caption": "SaaS.Connect 2025, PSG Convention Centre, Coimbatore",
     "captionTa": "SaaS.Connect 2025, PSG மாநாட்டு மையம், கோயம்புத்தூர்",
-    "focus": "50% 45%",
+    "focus": "45% 70%",
+    "focusMobile": "45% 70%",
     "credit": "Photo: Gokul Kannan"
   },
-  "event/vibathon/2025": {
-    "base": "/photos/event/vibathon/2025",
+  "event/saas-connect/2025-6": {
+    "base": "/photos/event/saas-connect/2025-6",
     "widths": [
       480,
-      572
+      800,
+      1200,
+      1280
     ],
     "jpgWidths": [
-      572
+      800,
+      1280
     ],
     "formats": [
       "webp",
       "jpg"
     ],
-    "width": 572,
-    "height": 430,
-    "alt": "Students in the hall at Vibathon 2025, K.S.R. College of Engineering",
+    "width": 1280,
+    "height": 762,
+    "alt": "Founders and guests in the front rows at SaaS.Connect 2025",
+    "caption": "SaaS.Connect 2025, PSG Convention Centre, Coimbatore",
+    "captionTa": "SaaS.Connect 2025, PSG மாநாட்டு மையம், கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "event/saas-connect/2025-7": {
+    "base": "/photos/event/saas-connect/2025-7",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "Guests applauding a session at SaaS.Connect 2025",
+    "caption": "SaaS.Connect 2025, PSG Convention Centre, Coimbatore",
+    "captionTa": "SaaS.Connect 2025, PSG மாநாட்டு மையம், கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "event/saas-connect/2025-8": {
+    "base": "/photos/event/saas-connect/2025-8",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "The main stage and the audience at SaaS.Connect 2025",
+    "caption": "SaaS.Connect 2025, PSG Convention Centre, Coimbatore",
+    "captionTa": "SaaS.Connect 2025, PSG மாநாட்டு மையம், கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "event/saas-connect/2025-9": {
+    "base": "/photos/event/saas-connect/2025-9",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "Student volunteers behind the SaaS.Connect letters",
+    "caption": "SaaS.Connect 2025, PSG Convention Centre, Coimbatore",
+    "captionTa": "SaaS.Connect 2025, PSG மாநாட்டு மையம், கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "event/vibathon/2025": {
+    "base": "/photos/event/vibathon/2025",
+    "widths": [
+      480,
+      800,
+      1080
+    ],
+    "jpgWidths": [
+      800,
+      1080
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1080,
+    "height": 390,
+    "alt": "Students building in the hall at Vibathon 2025, K.S.R. College of Engineering",
     "caption": "Vibathon 2025, K.S.R. College of Engineering, Tiruchengode",
     "captionTa": "Vibathon 2025, கே.எஸ்.ஆர். பொறியியல் கல்லூரி, திருச்செங்கோடு",
-    "focus": "50% 45%",
-    "credit": "Photo: K.S.R. College of Engineering"
+    "focus": "50% 60%",
+    "focusMobile": "50% 60%",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibathon/2025-2": {
+    "base": "/photos/event/vibathon/2025-2",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Students filling the auditorium at Vibathon 2025",
+    "caption": "Vibathon 2025, K.S.R. College of Engineering, Tiruchengode",
+    "captionTa": "Vibathon 2025, கே.எஸ்.ஆர். பொறியியல் கல்லூரி, திருச்செங்கோடு",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibathon/2025-3": {
+    "base": "/photos/event/vibathon/2025-3",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 718,
+    "alt": "College leaders and the StartNet Vibe team at K.S.R. College of Engineering for Vibathon 2025",
+    "caption": "Vibathon 2025, K.S.R. College of Engineering, Tiruchengode",
+    "captionTa": "Vibathon 2025, கே.எஸ்.ஆர். பொறியியல் கல்லூரி, திருச்செங்கோடு",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibathon/2025-4": {
+    "base": "/photos/event/vibathon/2025-4",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "The college honours the StartNet team on stage at Vibathon 2025",
+    "caption": "Vibathon 2025, K.S.R. College of Engineering, Tiruchengode",
+    "captionTa": "Vibathon 2025, கே.எஸ்.ஆர். பொறியியல் கல்லூரி, திருச்செங்கோடு",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibathon/2025-5": {
+    "base": "/photos/event/vibathon/2025-5",
+    "widths": [
+      480,
+      800,
+      810
+    ],
+    "jpgWidths": [
+      800,
+      810
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 810,
+    "height": 853,
+    "alt": "A StartNet Vibe speaker addressing students at Vibathon 2025",
+    "caption": "Vibathon 2025, K.S.R. College of Engineering, Tiruchengode",
+    "captionTa": "Vibathon 2025, கே.எஸ்.ஆர். பொறியியல் கல்லூரி, திருச்செங்கோடு",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibe-coding-summit/2025-coimbatore": {
+    "base": "/photos/event/vibe-coding-summit/2025-coimbatore",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 650,
+    "alt": "A full hall under the Vibe Coding Summit 2025 banner in Coimbatore",
+    "caption": "Vibe Coding Summit 2025, Dr. G.R. Damodaran College of Science, Coimbatore",
+    "captionTa": "Vibe Coding Summit 2025, Dr. G.R. Damodaran College of Science, கோயம்புத்தூர்",
+    "focus": "55% 45%",
+    "focusMobile": "55% 45%",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibe-coding-summit/2025-coimbatore-2": {
+    "base": "/photos/event/vibe-coding-summit/2025-coimbatore-2",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "Students and the StartNet Vibe team together at the Vibe Coding Summit 2025",
+    "caption": "Vibe Coding Summit 2025, Dr. G.R. Damodaran College of Science, Coimbatore",
+    "captionTa": "Vibe Coding Summit 2025, Dr. G.R. Damodaran College of Science, கோயம்புத்தூர்",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibe-coding-summit/2025-coimbatore-3": {
+    "base": "/photos/event/vibe-coding-summit/2025-coimbatore-3",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "Students building at computers during the Vibe Coding Summit 2025",
+    "caption": "Vibe Coding Summit 2025, Dr. G.R. Damodaran College of Science, Coimbatore",
+    "captionTa": "Vibe Coding Summit 2025, Dr. G.R. Damodaran College of Science, கோயம்புத்தூர்",
+    "focus": "45% 85%",
+    "focusMobile": "45% 85%",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibe-coding-summit/2025-coimbatore-4": {
+    "base": "/photos/event/vibe-coding-summit/2025-coimbatore-4",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 798,
+    "alt": "A speaker presenting at the Vibe Coding Summit 2025",
+    "caption": "Vibe Coding Summit 2025, Dr. G.R. Damodaran College of Science, Coimbatore",
+    "captionTa": "Vibe Coding Summit 2025, Dr. G.R. Damodaran College of Science, கோயம்புத்தூர்",
+    "focus": "60% 55%",
+    "focusMobile": "60% 55%",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibe-coding-summit/2025-coimbatore-5": {
+    "base": "/photos/event/vibe-coding-summit/2025-coimbatore-5",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 655,
+    "alt": "Participants outside the venue at the Vibe Coding Summit 2025",
+    "caption": "Vibe Coding Summit 2025, Dr. G.R. Damodaran College of Science, Coimbatore",
+    "captionTa": "Vibe Coding Summit 2025, Dr. G.R. Damodaran College of Science, கோயம்புத்தூர்",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibe-marketing-summit-2025": {
+    "base": "/photos/event/vibe-marketing-summit-2025",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "Participants together at the Vibe Marketing Summit 2025 in Salem",
+    "caption": "Vibe Marketing Summit 2025, Sona Incubation Foundation, Salem",
+    "captionTa": "Vibe Marketing Summit 2025, Sona Incubation Foundation, சேலம்",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibe-marketing-summit-2025/2": {
+    "base": "/photos/event/vibe-marketing-summit-2025/2",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "A speaker addressing the room at the Vibe Marketing Summit 2025",
+    "caption": "Vibe Marketing Summit 2025, Sona Incubation Foundation, Salem",
+    "captionTa": "Vibe Marketing Summit 2025, Sona Incubation Foundation, சேலம்",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibe-marketing-summit-2025/3": {
+    "base": "/photos/event/vibe-marketing-summit-2025/3",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "Founders and marketers in a session at the Vibe Marketing Summit 2025",
+    "caption": "Vibe Marketing Summit 2025, Sona Incubation Foundation, Salem",
+    "captionTa": "Vibe Marketing Summit 2025, Sona Incubation Foundation, சேலம்",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibe-marketing-summit-2025/4": {
+    "base": "/photos/event/vibe-marketing-summit-2025/4",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "The audience taking notes at the Vibe Marketing Summit 2025",
+    "caption": "Vibe Marketing Summit 2025, Sona Incubation Foundation, Salem",
+    "captionTa": "Vibe Marketing Summit 2025, Sona Incubation Foundation, சேலம்",
+    "credit": "Photo: StartNet"
+  },
+  "event/vibe-marketing-summit-2025/5": {
+    "base": "/photos/event/vibe-marketing-summit-2025/5",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "A participant asks a question at the Vibe Marketing Summit 2025",
+    "caption": "Vibe Marketing Summit 2025, Sona Incubation Foundation, Salem",
+    "captionTa": "Vibe Marketing Summit 2025, Sona Incubation Foundation, சேலம்",
+    "credit": "Photo: StartNet"
+  },
+  "person/m-k-elango": {
+    "base": "/photos/person/m-k-elango",
+    "widths": [
+      480,
+      752
+    ],
+    "jpgWidths": [
+      752
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 752,
+    "height": 752,
+    "alt": "M K Elango, Founder & CEO of StartNet",
+    "altTa": "M K Elango, StartNet நிறுவனர் & தலைமைச் செயல் அதிகாரி",
+    "focus": "50% 40%",
+    "credit": "Photo: StartNet"
+  },
+  "person/poonthamil": {
+    "base": "/photos/person/poonthamil",
+    "widths": [
+      480,
+      800,
+      1026
+    ],
+    "jpgWidths": [
+      800,
+      1026
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1026,
+    "height": 1026,
+    "alt": "Poonthamil, Co-founder & COO of StartNet",
+    "altTa": "பூந்தமிழ், StartNet இணை நிறுவனர் & தலைமை இயக்க அதிகாரி",
+    "focus": "50% 40%",
+    "credit": "Photo: StartNet"
+  },
+  "person/v-nagaraj": {
+    "base": "/photos/person/v-nagaraj",
+    "widths": [
+      226
+    ],
+    "jpgWidths": [
+      226
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 226,
+    "height": 226,
+    "alt": "Dr V. Nagaraj, Co-founder & Chief Innovation Officer of StartNet",
+    "altTa": "டாக்டர் வி. நாகராஜ், StartNet இணை நிறுவனர் & தலைமைப் புத்தாக்க அதிகாரி",
+    "focus": "50% 40%",
+    "credit": "Photo: StartNet"
   },
   "pool/community/01": {
     "base": "/photos/pool/community/01",
@@ -157,11 +1402,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "Two young women together",
-    "focus": "50% 40%",
-    "credit": "Photo: Nandkishore Sahu on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "Four friends together",
+    "focus": "50% 35%",
+    "credit": "Photo: Faiz Husain on Unsplash",
     "stock": true
   },
   "pool/community/02": {
@@ -180,12 +1425,355 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1714,
-    "alt": "A group of young men standing together",
-    "focus": "50% 40%",
-    "credit": "Photo: Sanket Mishra on Unsplash",
+    "width": 3200,
+    "height": 4267,
+    "alt": "Students together at a college gathering",
+    "focus": "45% 40%",
+    "credit": "Photo: Pawan Kumar on Unsplash",
     "stock": true
+  },
+  "pool/connectreal/01": {
+    "base": "/photos/pool/connectreal/01",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "Founders and members together at a StartNet Connect meet-up",
+    "caption": "A StartNet Connect community meet-up",
+    "captionTa": "StartNet Connect சமூகச் சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/connectreal/02": {
+    "base": "/photos/pool/connectreal/02",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "A StartNet Connect community meet-up, seated group photo",
+    "caption": "A StartNet Connect community meet-up",
+    "captionTa": "StartNet Connect சமூகச் சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/connectreal/03": {
+    "base": "/photos/pool/connectreal/03",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "Founders in a StartNet Connect session in a heritage meeting room",
+    "caption": "A StartNet Connect community meet-up",
+    "captionTa": "StartNet Connect சமூகச் சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/connectreal/04": {
+    "base": "/photos/pool/connectreal/04",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "Founders around a boardroom table at a StartNet Connect session",
+    "caption": "A StartNet Connect community meet-up",
+    "captionTa": "StartNet Connect சமூகச் சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/connectreal/05": {
+    "base": "/photos/pool/connectreal/05",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "Smiling founders in a group selfie at a StartNet Connect meet-up",
+    "caption": "A StartNet Connect community meet-up",
+    "captionTa": "StartNet Connect சமூகச் சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/connectreal/06": {
+    "base": "/photos/pool/connectreal/06",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "Four founders together at a StartNet Connect meet-up",
+    "caption": "A StartNet Connect community meet-up",
+    "captionTa": "StartNet Connect சமூகச் சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/connectreal/07": {
+    "base": "/photos/pool/connectreal/07",
+    "widths": [
+      480,
+      800
+    ],
+    "jpgWidths": [
+      800
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 800,
+    "height": 1066,
+    "alt": "A group selfie of builders at a StartNet Connect evening",
+    "caption": "A StartNet Connect community meet-up",
+    "captionTa": "StartNet Connect சமூகச் சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/connectreal/08": {
+    "base": "/photos/pool/connectreal/08",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "A StartNet speaker leading a founder workshop on positioning",
+    "caption": "A StartNet founder workshop",
+    "captionTa": "StartNet நிறுவனர் பயிலரங்கு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/connectreal/09": {
+    "base": "/photos/pool/connectreal/09",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 561,
+    "alt": "Founders in a StartNet session room with a presentation on screen",
+    "caption": "A StartNet founder workshop",
+    "captionTa": "StartNet நிறுவனர் பயிலரங்கு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/connectreal/10": {
+    "base": "/photos/pool/connectreal/10",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "A panel on the main stage at SaaS.Connect 2025",
+    "caption": "SaaS.Connect 2025, PSG Convention Centre, Coimbatore",
+    "captionTa": "SaaS.Connect 2025, PSG மாநாட்டு மையம், கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "pool/connectreal/11": {
+    "base": "/photos/pool/connectreal/11",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "Founders in conversation in the lobby at SaaS.Connect 2025",
+    "caption": "SaaS.Connect 2025, PSG Convention Centre, Coimbatore",
+    "captionTa": "SaaS.Connect 2025, PSG மாநாட்டு மையம், கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "pool/connectreal/12": {
+    "base": "/photos/pool/connectreal/12",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "A founder listening to a session at SaaS.Connect 2025",
+    "caption": "SaaS.Connect 2025, PSG Convention Centre, Coimbatore",
+    "captionTa": "SaaS.Connect 2025, PSG மாநாட்டு மையம், கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "pool/connectreal/13": {
+    "base": "/photos/pool/connectreal/13",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "Founders and guests together at SaaS.Connect 2025",
+    "caption": "SaaS.Connect 2025, PSG Convention Centre, Coimbatore",
+    "captionTa": "SaaS.Connect 2025, PSG மாநாட்டு மையம், கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "pool/connectreal/14": {
+    "base": "/photos/pool/connectreal/14",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 762,
+    "alt": "Founders giving a thumbs-up at SaaS.Connect 2025",
+    "caption": "SaaS.Connect 2025, PSG Convention Centre, Coimbatore",
+    "captionTa": "SaaS.Connect 2025, PSG மாநாட்டு மையம், கோயம்புத்தூர்",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "pool/connectreal/15": {
+    "base": "/photos/pool/connectreal/15",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "Two StartNet founders at the entrance of Umagine Chennai 2023",
+    "caption": "StartNet at Umagine Chennai 2023",
+    "captionTa": "Umagine Chennai 2023-இல் StartNet",
+    "focus": "40% 55%",
+    "credit": "Photo: StartNet"
   },
   "pool/events/01": {
     "base": "/photos/pool/events/01",
@@ -203,11 +1791,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "People attending a talk in a hall",
-    "focus": "50% 40%",
-    "credit": "Photo: Haseeb Modi on Unsplash",
+    "width": 3200,
+    "height": 2400,
+    "alt": "A speaker addressing an audience",
+    "focus": "50% 35%",
+    "credit": "Photo: Adil Mukhi on Unsplash",
     "stock": true
   },
   "pool/events/02": {
@@ -226,11 +1814,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A speaker on stage addressing a large audience",
-    "focus": "50% 40%",
-    "credit": "Photo: Alexandre Pellaes on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A woman speaker presenting to a room",
+    "focus": "55% 35%",
+    "credit": "Photo: Poddar Group of Institutions on Unsplash",
     "stock": true
   },
   "pool/events/03": {
@@ -249,11 +1837,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A speaker presenting on stage",
-    "focus": "50% 40%",
-    "credit": "Photo: Unsplash contributor on Unsplash",
+    "width": 3200,
+    "height": 3200,
+    "alt": "A young founder speaking on stage",
+    "focus": "50% 30%",
+    "credit": "Photo: Adil Mukhi on Unsplash",
     "stock": true
   },
   "pool/events/04": {
@@ -272,11 +1860,34 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1350,
-    "alt": "The audience at a conference",
-    "focus": "50% 40%",
-    "credit": "Photo: Stem List on Unsplash",
+    "width": 3200,
+    "height": 1801,
+    "alt": "A speaker at the lectern",
+    "focus": "45% 35%",
+    "credit": "Photo: Ratul Puri on Unsplash",
+    "stock": true
+  },
+  "pool/events/05": {
+    "base": "/photos/pool/events/05",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2291,
+    "alt": "A certificate presented at a ceremony",
+    "focus": "50% 35%",
+    "credit": "Photo: Skytech Aviation on Unsplash",
     "stock": true
   },
   "pool/events/06": {
@@ -295,11 +1906,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "An audience in front of a stage at an event",
-    "focus": "50% 40%",
-    "credit": "Photo: Unsplash contributor on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A group photo in a conference room",
+    "focus": "50% 45%",
+    "credit": "Photo: Skytech Aviation on Unsplash",
     "stock": true
   },
   "pool/events/07": {
@@ -318,57 +1929,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1597,
-    "alt": "A workshop around a table",
-    "focus": "50% 40%",
-    "credit": "Photo: Wonderlane on Unsplash",
-    "stock": true
-  },
-  "pool/events/08": {
-    "base": "/photos/pool/events/08",
-    "widths": [
-      480,
-      800,
-      1200,
-      1600
-    ],
-    "jpgWidths": [
-      800,
-      1600
-    ],
-    "formats": [
-      "webp",
-      "jpg"
-    ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A group of people gathered indoors for an event",
-    "focus": "50% 40%",
-    "credit": "Photo: Raka Rahmadani on Unsplash",
-    "stock": true
-  },
-  "pool/events/09": {
-    "base": "/photos/pool/events/09",
-    "widths": [
-      480,
-      800,
-      1200,
-      1600
-    ],
-    "jpgWidths": [
-      800,
-      1600
-    ],
-    "formats": [
-      "webp",
-      "jpg"
-    ],
-    "width": 2400,
-    "height": 1590,
-    "alt": "A team building together at a hackathon",
-    "focus": "50% 40%",
-    "credit": "Photo: Unsplash contributor on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "Participants together in a conference room",
+    "focus": "50% 50%",
+    "credit": "Photo: Skytech Aviation on Unsplash",
     "stock": true
   },
   "pool/insights/01": {
@@ -387,11 +1952,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1737,
-    "alt": "Reviewing a data dashboard on a laptop",
-    "focus": "50% 40%",
-    "credit": "Photo: Campaign Creators on Unsplash",
+    "width": 3200,
+    "height": 4800,
+    "alt": "An analyst working at a keyboard",
+    "focus": "45% 35%",
+    "credit": "Photo: litoon dev on Unsplash",
     "stock": true
   },
   "pool/insights/02": {
@@ -410,11 +1975,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1601,
-    "alt": "Comparing a printed chart with a laptop",
-    "focus": "50% 40%",
-    "credit": "Photo: Unsplash contributor on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A woman analyst at her computer",
+    "focus": "55% 40%",
+    "credit": "Photo: EqualStock on Unsplash",
     "stock": true
   },
   "pool/insights/03": {
@@ -433,11 +1998,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1350,
-    "alt": "A laptop showing charts next to a notebook",
-    "focus": "50% 40%",
-    "credit": "Photo: Unsplash contributor on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A woman reviewing records at her computer",
+    "focus": "60% 35%",
+    "credit": "Photo: EqualStock on Unsplash",
     "stock": true
   },
   "pool/insights/04": {
@@ -456,58 +2021,193 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A desk with charts, a calculator and a pencil",
-    "focus": "50% 40%",
-    "credit": "Photo: Cht Gsml on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A software engineer reviewing code",
+    "focus": "60% 35%",
+    "credit": "Photo: Ofspace LLC on Unsplash",
     "stock": true
   },
-  "pool/insights/05": {
-    "base": "/photos/pool/insights/05",
+  "pool/investors/01": {
+    "base": "/photos/pool/investors/01",
     "widths": [
       480,
       800,
       1200,
-      1600
+      1280
     ],
     "jpgWidths": [
       800,
-      1600
+      1280
     ],
     "formats": [
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A desk with charts, a calculator and binders",
-    "focus": "50% 40%",
-    "credit": "Photo: Cht Gsml on Unsplash",
-    "stock": true
+    "width": 1280,
+    "height": 960,
+    "alt": "StartNet founders and an investor exchanging a report",
+    "caption": "A StartNet meeting with investors and partners",
+    "captionTa": "முதலீட்டாளர்கள், கூட்டாளர்களுடன் StartNet சந்திப்பு",
+    "credit": "Photo: StartNet"
   },
-  "pool/insights/06": {
-    "base": "/photos/pool/insights/06",
+  "pool/investors/02": {
+    "base": "/photos/pool/investors/02",
     "widths": [
       480,
       800,
       1200,
-      1600
+      1280
     ],
     "jpgWidths": [
       800,
-      1600
+      1280
     ],
     "formats": [
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "Reviewing documents with a calculator and laptop",
-    "focus": "50% 40%",
-    "credit": "Photo: Kelly Sikkema on Unsplash",
-    "stock": true
+    "width": 1280,
+    "height": 960,
+    "alt": "Founders and investors in a lounge meeting",
+    "caption": "A StartNet meeting with investors and partners",
+    "captionTa": "முதலீட்டாளர்கள், கூட்டாளர்களுடன் StartNet சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/investors/03": {
+    "base": "/photos/pool/investors/03",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "Investors and the StartNet team together after a meeting",
+    "caption": "A StartNet meeting with investors and partners",
+    "captionTa": "முதலீட்டாளர்கள், கூட்டாளர்களுடன் StartNet சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/investors/04": {
+    "base": "/photos/pool/investors/04",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "An investor reviewing a founder's material with the StartNet team",
+    "caption": "A StartNet meeting with investors and partners",
+    "captionTa": "முதலீட்டாளர்கள், கூட்டாளர்களுடன் StartNet சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/investors/05": {
+    "base": "/photos/pool/investors/05",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "An investor and a StartNet founder in conversation at a table",
+    "caption": "A StartNet meeting with investors and partners",
+    "captionTa": "முதலீட்டாளர்கள், கூட்டாளர்களுடன் StartNet சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/investors/06": {
+    "base": "/photos/pool/investors/06",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "An investor presenting a memento to the StartNet team",
+    "caption": "A StartNet meeting with investors and partners",
+    "captionTa": "முதலீட்டாளர்கள், கூட்டாளர்களுடன் StartNet சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/investors/07": {
+    "base": "/photos/pool/investors/07",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "Investors and founders together at a startup summit",
+    "caption": "A StartNet meeting with investors and partners",
+    "captionTa": "முதலீட்டாளர்கள், கூட்டாளர்களுடன் StartNet சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/investors/08": {
+    "base": "/photos/pool/investors/08",
+    "widths": [
+      480,
+      800
+    ],
+    "jpgWidths": [
+      800
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 800,
+    "height": 1066,
+    "alt": "An investor meeting with the StartNet founder",
+    "caption": "A StartNet meeting with investors and partners",
+    "captionTa": "முதலீட்டாளர்கள், கூட்டாளர்களுடன் StartNet சந்திப்பு",
+    "credit": "Photo: StartNet"
   },
   "pool/partner/01": {
     "base": "/photos/pool/partner/01",
@@ -525,11 +2225,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 2743,
-    "alt": "A modern meeting room",
-    "focus": "50% 40%",
-    "credit": "Photo: Unsplash contributor on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A business leader at his desk",
+    "focus": "55% 35%",
+    "credit": "Photo: Skytech Aviation on Unsplash",
     "stock": true
   },
   "pool/partner/02": {
@@ -548,11 +2248,103 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 3600,
-    "alt": "A group of women meeting outside a building",
-    "focus": "50% 40%",
-    "credit": "Photo: Lorenzo Marinelli on Unsplash",
+    "width": 3200,
+    "height": 4800,
+    "alt": "A corporate leader in his office",
+    "focus": "50% 30%",
+    "credit": "Photo: Ratul Puri on Unsplash",
+    "stock": true
+  },
+  "pool/partner/03": {
+    "base": "/photos/pool/partner/03",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 4800,
+    "alt": "An executive in a formal suit",
+    "focus": "50% 30%",
+    "credit": "Photo: Vimal Saxena on Unsplash",
+    "stock": true
+  },
+  "pool/partner/04": {
+    "base": "/photos/pool/partner/04",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2133,
+    "alt": "A senior business leader",
+    "focus": "50% 35%",
+    "credit": "Photo: Bhakti Parab on Unsplash",
+    "stock": true
+  },
+  "pool/partner/05": {
+    "base": "/photos/pool/partner/05",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 4176,
+    "alt": "A smiling executive in a suit jacket",
+    "focus": "50% 30%",
+    "credit": "Photo: Kamal Dharma Teja Dasari on Unsplash",
+    "stock": true
+  },
+  "pool/partner/06": {
+    "base": "/photos/pool/partner/06",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 4800,
+    "alt": "An executive walking outdoors",
+    "focus": "50% 30%",
+    "credit": "Photo: Ram Babu on Unsplash",
     "stock": true
   },
   "pool/places/01": {
@@ -571,11 +2363,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1350,
-    "alt": "Chennai Central station",
-    "focus": "50% 40%",
-    "credit": "Photo: Ahamed Sameel on Unsplash",
+    "width": 3200,
+    "height": 2400,
+    "alt": "The Namma Chennai sign",
+    "focus": "50% 55%",
+    "credit": "Photo: DICSON on Unsplash",
     "stock": true
   },
   "pool/places/02": {
@@ -594,11 +2386,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A heritage building with a clock tower in Chennai",
-    "focus": "50% 40%",
-    "credit": "Photo: Appu Gopi on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A farmer among the palms of Tamil Nadu",
+    "focus": "60% 40%",
+    "credit": "Photo: Deepak kumar on Unsplash",
     "stock": true
   },
   "pool/places/03": {
@@ -617,11 +2409,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 3600,
-    "alt": "An aerial view of Chennai",
-    "focus": "50% 40%",
-    "credit": "Photo: Karthick Gislen on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A woman in a green sari in the fields",
+    "focus": "55% 35%",
+    "credit": "Photo: Deepak kumar on Unsplash",
     "stock": true
   },
   "pool/places/04": {
@@ -640,11 +2432,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1475,
-    "alt": "An aerial view of Marina Beach, Chennai",
-    "focus": "50% 40%",
-    "credit": "Photo: Karthick Gislen on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A smiling farmer in Tamil Nadu",
+    "focus": "50% 30%",
+    "credit": "Photo: Deepak kumar on Unsplash",
     "stock": true
   },
   "pool/places/05": {
@@ -663,11 +2455,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 4267,
-    "alt": "A temple gopuram in Tamil Nadu",
-    "focus": "50% 40%",
-    "credit": "Photo: Sudharshan TK on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A man in a white shirt and orange towel",
+    "focus": "50% 30%",
+    "credit": "Photo: Church of the King on Unsplash",
     "stock": true
   },
   "pool/places/06": {
@@ -686,11 +2478,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "Green fields and hills in Tamil Nadu",
-    "focus": "50% 40%",
-    "credit": "Photo: mugi jo on Unsplash",
+    "width": 3200,
+    "height": 3018,
+    "alt": "A cycle shop with a Tamil signboard",
+    "focus": "50% 50%",
+    "credit": "Photo: Colin White on Unsplash",
     "stock": true
   },
   "pool/places/07": {
@@ -709,11 +2501,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 3600,
-    "alt": "A hand drawing a kolam on the ground",
-    "focus": "50% 40%",
-    "credit": "Photo: Karthick Gislen on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A young man on his motorcycle in the city",
+    "focus": "60% 40%",
+    "credit": "Photo: Gowtham AGM on Unsplash",
     "stock": true
   },
   "pool/places/08": {
@@ -732,11 +2524,80 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 3600,
-    "alt": "A woman drawing a colourful kolam",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A woman at the edge of her rice field",
+    "focus": "50% 35%",
+    "credit": "Photo: Vishnu R on Unsplash",
+    "stock": true
+  },
+  "pool/places/09": {
+    "base": "/photos/pool/places/09",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2133,
+    "alt": "A smiling woman farmer",
+    "focus": "55% 35%",
+    "credit": "Photo: Deepak kumar on Unsplash",
+    "stock": true
+  },
+  "pool/places/10": {
+    "base": "/photos/pool/places/10",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2133,
+    "alt": "A young man at the Brihadeeswarar Temple, Thanjavur",
+    "focus": "50% 35%",
+    "credit": "Photo: gaf clickz on Unsplash",
+    "stock": true
+  },
+  "pool/places/11": {
+    "base": "/photos/pool/places/11",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 4800,
+    "alt": "A visitor at the Brihadeeswarar Temple, Thanjavur",
     "focus": "50% 40%",
-    "credit": "Photo: Unsplash contributor on Unsplash",
+    "credit": "Photo: gaf clickz on Unsplash",
     "stock": true
   },
   "pool/platform/01": {
@@ -755,11 +2616,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1350,
-    "alt": "A young man using a smartphone",
-    "focus": "50% 40%",
-    "credit": "Photo: Vikas Makwana on Unsplash",
+    "width": 3200,
+    "height": 4800,
+    "alt": "A woman checking her phone",
+    "focus": "50% 35%",
+    "credit": "Photo: Rupinder Singh on Unsplash",
     "stock": true
   },
   "pool/platform/02": {
@@ -778,11 +2639,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 3200,
-    "alt": "A young man working on a laptop",
-    "focus": "50% 40%",
-    "credit": "Photo: syful islam on Unsplash",
+    "width": 3200,
+    "height": 5687,
+    "alt": "A builder working on a laptop",
+    "focus": "50% 35%",
+    "credit": "Photo: litoon dev on Unsplash",
     "stock": true
   },
   "pool/platform/03": {
@@ -801,11 +2662,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1350,
-    "alt": "A man typing on a laptop at a desk",
-    "focus": "50% 40%",
-    "credit": "Photo: Vitaly Gariev on Unsplash",
+    "width": 3200,
+    "height": 5689,
+    "alt": "A young founder smiling at a cafe table",
+    "focus": "50% 35%",
+    "credit": "Photo: Piyush Agarwal on Unsplash",
     "stock": true
   },
   "pool/platform/04": {
@@ -824,11 +2685,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 3000,
-    "alt": "A man with a laptop and phone",
-    "focus": "50% 40%",
-    "credit": "Photo: Ananthu Ganesh on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "Two young co-founders together",
+    "focus": "50% 35%",
+    "credit": "Photo: Sanket Mishra on Unsplash",
     "stock": true
   },
   "pool/professionals/01": {
@@ -847,11 +2708,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A team meeting around a white table",
-    "focus": "50% 40%",
-    "credit": "Photo: Ninthgrid on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A team in a meeting room with a presentation on screen",
+    "focus": "50% 50%",
+    "credit": "Photo: Smartworks Coworking on Unsplash",
     "stock": true
   },
   "pool/professionals/02": {
@@ -870,11 +2731,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "Colleagues collaborating around a table with laptops",
-    "focus": "50% 40%",
-    "credit": "Photo: Ngital on Unsplash",
+    "width": 3200,
+    "height": 1800,
+    "alt": "A founder presenting to her team in a meeting",
+    "focus": "55% 45%",
+    "credit": "Photo: Smartworks Coworking on Unsplash",
     "stock": true
   },
   "pool/professionals/03": {
@@ -893,11 +2754,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1309,
-    "alt": "A startup team working together in a modern office",
-    "focus": "50% 40%",
-    "credit": "Photo: Ngital on Unsplash",
+    "width": 3200,
+    "height": 1801,
+    "alt": "A professional at his workstation, smiling",
+    "focus": "40% 35%",
+    "credit": "Photo: litoon dev on Unsplash",
     "stock": true
   },
   "pool/professionals/04": {
@@ -916,11 +2777,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1602,
-    "alt": "A founder in conversation at a laptop",
-    "focus": "50% 40%",
-    "credit": "Photo: The Unmistakables on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "An engineer working at his computer",
+    "focus": "70% 35%",
+    "credit": "Photo: litoon dev on Unsplash",
     "stock": true
   },
   "pool/professionals/05": {
@@ -939,11 +2800,57 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A team of professionals around a laptop",
-    "focus": "50% 40%",
-    "credit": "Photo: Gatot Adri on Unsplash",
+    "width": 3200,
+    "height": 2101,
+    "alt": "A founder at his office",
+    "focus": "50% 30%",
+    "credit": "Photo: litoon dev on Unsplash",
+    "stock": true
+  },
+  "pool/professionals/06": {
+    "base": "/photos/pool/professionals/06",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2133,
+    "alt": "A professional smiling",
+    "focus": "60% 30%",
+    "credit": "Photo: litoon dev on Unsplash",
+    "stock": true
+  },
+  "pool/professionals/07": {
+    "base": "/photos/pool/professionals/07",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2133,
+    "alt": "A senior professional working on his laptop",
+    "focus": "50% 30%",
+    "credit": "Photo: litoon dev on Unsplash",
     "stock": true
   },
   "pool/professionals/08": {
@@ -962,11 +2869,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 3200,
-    "alt": "Two co-founders discussing work at a laptop",
-    "focus": "50% 40%",
-    "credit": "Photo: Yash Parashar on Unsplash",
+    "width": 3200,
+    "height": 1801,
+    "alt": "A young team in conversation",
+    "focus": "50% 35%",
+    "credit": "Photo: litoon dev on Unsplash",
     "stock": true
   },
   "pool/professionals/09": {
@@ -985,11 +2892,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A quiet coworking space",
-    "focus": "50% 40%",
-    "credit": "Photo: Kamal Kant on Unsplash",
+    "width": 3200,
+    "height": 2166,
+    "alt": "Three professionals in conversation outdoors",
+    "focus": "60% 40%",
+    "credit": "Photo: rajat sarki on Unsplash",
     "stock": true
   },
   "pool/professionals/10": {
@@ -1008,11 +2915,34 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1800,
-    "alt": "A professional working by a window above the city",
-    "focus": "50% 40%",
-    "credit": "Photo: Daniel Brown on Unsplash",
+    "width": 3200,
+    "height": 2129,
+    "alt": "Two senior professionals in conversation",
+    "focus": "50% 35%",
+    "credit": "Photo: Kashish Jain on Unsplash",
+    "stock": true
+  },
+  "pool/professionals/11": {
+    "base": "/photos/pool/professionals/11",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 5687,
+    "alt": "A founder smiling at his desk",
+    "focus": "50% 35%",
+    "credit": "Photo: litoon dev on Unsplash",
     "stock": true
   },
   "pool/research/01": {
@@ -1031,11 +2961,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1601,
-    "alt": "A researcher at work in a laboratory",
-    "focus": "50% 40%",
-    "credit": "Photo: Unsplash contributor on Unsplash",
+    "width": 3200,
+    "height": 2134,
+    "alt": "A researcher in a lab coat holding a sample",
+    "focus": "60% 40%",
+    "credit": "Photo: Bhupathi Srinu on Unsplash",
     "stock": true
   },
   "pool/research/02": {
@@ -1054,10 +2984,10 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1601,
-    "alt": "A researcher in a lab coat with a sample",
-    "focus": "50% 40%",
+    "width": 3200,
+    "height": 2134,
+    "alt": "A researcher at work in a laboratory",
+    "focus": "60% 45%",
     "credit": "Photo: Bhupathi Srinu on Unsplash",
     "stock": true
   },
@@ -1077,11 +3007,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1602,
-    "alt": "A researcher looking through a microscope",
-    "focus": "50% 40%",
-    "credit": "Photo: Trust Katsande on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "An engineer building a hardware prototype at his workbench",
+    "focus": "60% 40%",
+    "credit": "Photo: gaf clickz on Unsplash",
     "stock": true
   },
   "pool/research/04": {
@@ -1100,11 +3030,34 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A researcher at a microscope",
-    "focus": "50% 40%",
-    "credit": "Photo: Lucas Vasques on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A senior professor explaining a point",
+    "focus": "40% 35%",
+    "credit": "Photo: Tanmay Abhay Mahajan on Unsplash",
+    "stock": true
+  },
+  "pool/research/05": {
+    "base": "/photos/pool/research/05",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 5687,
+    "alt": "A senior scholar smiling",
+    "focus": "50% 30%",
+    "credit": "Photo: litoon dev on Unsplash",
     "stock": true
   },
   "pool/research/06": {
@@ -1123,103 +3076,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 3600,
-    "alt": "A researcher in a lab coat at a microscope",
-    "focus": "50% 40%",
-    "credit": "Photo: Sina Bahar on Unsplash",
-    "stock": true
-  },
-  "pool/research/07": {
-    "base": "/photos/pool/research/07",
-    "widths": [
-      480,
-      800,
-      1200,
-      1600
-    ],
-    "jpgWidths": [
-      800,
-      1600
-    ],
-    "formats": [
-      "webp",
-      "jpg"
-    ],
-    "width": 2400,
-    "height": 1601,
-    "alt": "A researcher examining a sample under a microscope",
-    "focus": "50% 40%",
-    "credit": "Photo: Unsplash contributor on Unsplash",
-    "stock": true
-  },
-  "pool/research/08": {
-    "base": "/photos/pool/research/08",
-    "widths": [
-      480,
-      800,
-      1200,
-      1600
-    ],
-    "jpgWidths": [
-      800,
-      1600
-    ],
-    "formats": [
-      "webp",
-      "jpg"
-    ],
-    "width": 2400,
-    "height": 1601,
-    "alt": "An engineer working at a lab bench",
-    "focus": "50% 40%",
-    "credit": "Photo: ThisisEngineering on Unsplash",
-    "stock": true
-  },
-  "pool/research/09": {
-    "base": "/photos/pool/research/09",
-    "widths": [
-      480,
-      800,
-      1200,
-      1600
-    ],
-    "jpgWidths": [
-      800,
-      1600
-    ],
-    "formats": [
-      "webp",
-      "jpg"
-    ],
-    "width": 2400,
-    "height": 4392,
-    "alt": "Students entering a university building through an archway",
-    "focus": "50% 40%",
-    "credit": "Photo: Zoshua Colah on Unsplash",
-    "stock": true
-  },
-  "pool/research/10": {
-    "base": "/photos/pool/research/10",
-    "widths": [
-      480,
-      800,
-      1200,
-      1600
-    ],
-    "jpgWidths": [
-      800,
-      1600
-    ],
-    "formats": [
-      "webp",
-      "jpg"
-    ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "Students walking on a tree-lined university campus",
-    "focus": "50% 40%",
-    "credit": "Photo: Ravi Sharma on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "Engineers in hard hats on site",
+    "focus": "50% 35%",
+    "credit": "Photo: Shubham Verma on Unsplash",
     "stock": true
   },
   "pool/stage/01": {
@@ -1509,6 +3370,29 @@
     "focus": "50% 40%",
     "credit": "Photo: StartNet"
   },
+  "pool/students/01": {
+    "base": "/photos/pool/students/01",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2133,
+    "alt": "College friends planning a project together around a table",
+    "focus": "50% 40%",
+    "credit": "Photo: Sanket Mishra on Unsplash",
+    "stock": true
+  },
   "pool/students/02": {
     "base": "/photos/pool/students/02",
     "widths": [
@@ -1525,11 +3409,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A student working on a laptop on a campus bench",
-    "focus": "50% 40%",
-    "credit": "Photo: Sanket Mishra on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "Young builders together on a college campus",
+    "focus": "50% 35%",
+    "credit": "Photo: Anubhav Shekhar on Unsplash",
     "stock": true
   },
   "pool/students/03": {
@@ -1548,11 +3432,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1802,
-    "alt": "Students at their desks in a college classroom",
-    "focus": "50% 40%",
-    "credit": "Photo: Faisal Qureshi on Unsplash",
+    "width": 3200,
+    "height": 2134,
+    "alt": "A student building on a laptop on a campus bench",
+    "focus": "50% 35%",
+    "credit": "Photo: Sanket Mishra on Unsplash",
     "stock": true
   },
   "pool/students/04": {
@@ -1571,11 +3455,57 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1800,
-    "alt": "Students working together at a table",
-    "focus": "50% 40%",
-    "credit": "Photo: Aswin Thomas Bony on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A young woman coding at her desk",
+    "focus": "45% 40%",
+    "credit": "Photo: Poddar Group of Institutions on Unsplash",
+    "stock": true
+  },
+  "pool/students/05": {
+    "base": "/photos/pool/students/05",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2133,
+    "alt": "A young developer smiling at his workstation",
+    "focus": "45% 35%",
+    "credit": "Photo: litoon dev on Unsplash",
+    "stock": true
+  },
+  "pool/students/06": {
+    "base": "/photos/pool/students/06",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2133,
+    "alt": "Students at computers in a college lab",
+    "focus": "50% 45%",
+    "credit": "Photo: Haseeb Modi on Unsplash",
     "stock": true
   },
   "pool/students/07": {
@@ -1594,11 +3524,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1800,
-    "alt": "A group of smiling young students",
-    "focus": "50% 40%",
-    "credit": "Photo: Ashikul Islam Anik on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A student working on her laptop outdoors",
+    "focus": "40% 35%",
+    "credit": "Photo: Sanket Mishra on Unsplash",
     "stock": true
   },
   "pool/students/08": {
@@ -1617,11 +3547,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 3604,
-    "alt": "A student coding on a computer in a workspace",
-    "focus": "50% 40%",
-    "credit": "Photo: Arif Riyanto on Unsplash",
+    "width": 3200,
+    "height": 1801,
+    "alt": "Students working at computers in a lab",
+    "focus": "50% 45%",
+    "credit": "Photo: sunrise University on Unsplash",
     "stock": true
   },
   "pool/students/09": {
@@ -1640,11 +3570,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1660,
-    "alt": "Young builders around a table with laptops",
-    "focus": "50% 40%",
-    "credit": "Photo: Ofspace LLC on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A faculty mentor guiding students at their computers",
+    "focus": "45% 40%",
+    "credit": "Photo: Poddar Group of Institutions on Unsplash",
     "stock": true
   },
   "pool/students/10": {
@@ -1663,12 +3593,288 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A student building on a laptop",
-    "focus": "50% 40%",
-    "credit": "Photo: Unsplash contributor on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A young builder working at his computer",
+    "focus": "55% 40%",
+    "credit": "Photo: Poddar Group of Institutions on Unsplash",
     "stock": true
+  },
+  "pool/students/11": {
+    "base": "/photos/pool/students/11",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2400,
+    "alt": "Students working through a problem together",
+    "focus": "50% 40%",
+    "credit": "Photo: Aswin Thomas Bony on Unsplash",
+    "stock": true
+  },
+  "pool/team/01": {
+    "base": "/photos/pool/team/01",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "The StartNet community together at the first-anniversary celebration",
+    "caption": "StartNet's first anniversary and the StartNet 2.0 launch",
+    "captionTa": "StartNet முதலாம் ஆண்டு விழா மற்றும் StartNet 2.0 தொடக்கம்",
+    "credit": "Photo: StartNet"
+  },
+  "pool/team/02": {
+    "base": "/photos/pool/team/02",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "The StartNet team with an award on stage at the first anniversary",
+    "caption": "StartNet's first anniversary and the StartNet 2.0 launch",
+    "captionTa": "StartNet முதலாம் ஆண்டு விழா மற்றும் StartNet 2.0 தொடக்கம்",
+    "credit": "Photo: StartNet"
+  },
+  "pool/team/03": {
+    "base": "/photos/pool/team/03",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "The StartNet team celebrating on stage at the first anniversary",
+    "caption": "StartNet's first anniversary and the StartNet 2.0 launch",
+    "captionTa": "StartNet முதலாம் ஆண்டு விழா மற்றும் StartNet 2.0 தொடக்கம்",
+    "credit": "Photo: StartNet"
+  },
+  "pool/team/04": {
+    "base": "/photos/pool/team/04",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Raising Star Startup Award presented at StartNet's first anniversary",
+    "caption": "StartNet's first anniversary and the StartNet 2.0 launch",
+    "captionTa": "StartNet முதலாம் ஆண்டு விழா மற்றும் StartNet 2.0 தொடக்கம்",
+    "credit": "Photo: StartNet"
+  },
+  "pool/team/05": {
+    "base": "/photos/pool/team/05",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Founders holding their awards at StartNet's first anniversary",
+    "caption": "StartNet's first anniversary and the StartNet 2.0 launch",
+    "captionTa": "StartNet முதலாம் ஆண்டு விழா மற்றும் StartNet 2.0 தொடக்கம்",
+    "credit": "Photo: StartNet"
+  },
+  "pool/team/06": {
+    "base": "/photos/pool/team/06",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "StartNet 2.0 collaboration agreements signed on stage",
+    "caption": "StartNet's first anniversary and the StartNet 2.0 launch",
+    "captionTa": "StartNet முதலாம் ஆண்டு விழா மற்றும் StartNet 2.0 தொடக்கம்",
+    "credit": "Photo: StartNet"
+  },
+  "pool/team/07": {
+    "base": "/photos/pool/team/07",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Signing a StartNet 2.0 partnership on stage",
+    "caption": "StartNet's first anniversary and the StartNet 2.0 launch",
+    "captionTa": "StartNet முதலாம் ஆண்டு விழா மற்றும் StartNet 2.0 தொடக்கம்",
+    "credit": "Photo: StartNet"
+  },
+  "pool/team/08": {
+    "base": "/photos/pool/team/08",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Partners holding signed StartNet 2.0 agreements",
+    "caption": "StartNet's first anniversary and the StartNet 2.0 launch",
+    "captionTa": "StartNet முதலாம் ஆண்டு விழா மற்றும் StartNet 2.0 தொடக்கம்",
+    "credit": "Photo: StartNet"
+  },
+  "pool/team/09": {
+    "base": "/photos/pool/team/09",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "A StartNet team member applauding at the first anniversary",
+    "caption": "StartNet's first anniversary and the StartNet 2.0 launch",
+    "captionTa": "StartNet முதலாம் ஆண்டு விழா மற்றும் StartNet 2.0 தொடக்கம்",
+    "credit": "Photo: StartNet"
+  },
+  "pool/team/10": {
+    "base": "/photos/pool/team/10",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 852,
+    "alt": "StartNet team members at a network meeting",
+    "caption": "A StartNet network meeting",
+    "captionTa": "StartNet வலையமைப்புச் சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/team/11": {
+    "base": "/photos/pool/team/11",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 852,
+    "alt": "Founders seated at a StartNet network meeting",
+    "caption": "A StartNet network meeting",
+    "captionTa": "StartNet வலையமைப்புச் சந்திப்பு",
+    "credit": "Photo: StartNet"
   },
   "pool/vibereal/01": {
     "base": "/photos/pool/vibereal/01",
@@ -1802,18 +4008,21 @@
     "base": "/photos/pool/vibereal/07",
     "widths": [
       480,
-      800
+      800,
+      1200,
+      1280
     ],
     "jpgWidths": [
-      800
+      800,
+      1280
     ],
     "formats": [
       "webp",
       "jpg"
     ],
-    "width": 800,
-    "height": 600,
-    "alt": "StartNet Vibe team at TNGSS 2025, Coimbatore",
+    "width": 1280,
+    "height": 960,
+    "alt": "StartNet Vibe team members in VIBE T-shirts at the TNGSS 2025 backdrop",
     "caption": "StartNet Vibe at TNGSS 2025, Coimbatore",
     "captionTa": "TNGSS 2025-இல் StartNet Vibe, கோயம்புத்தூர்",
     "focus": "50% 40%",
@@ -1892,17 +4101,20 @@
     "base": "/photos/pool/vibereal/11",
     "widths": [
       480,
-      800
+      800,
+      1200,
+      1280
     ],
     "jpgWidths": [
-      800
+      800,
+      1280
     ],
     "formats": [
       "webp",
       "jpg"
     ],
-    "width": 800,
-    "height": 600,
+    "width": 1280,
+    "height": 960,
     "alt": "Visitors crowding the StartNet booth at TNGSS 2025",
     "caption": "StartNet Vibe at TNGSS 2025, Coimbatore",
     "captionTa": "TNGSS 2025-இல் StartNet Vibe, கோயம்புத்தூர்",
@@ -1913,17 +4125,20 @@
     "base": "/photos/pool/vibereal/12",
     "widths": [
       480,
-      800
+      800,
+      1200,
+      1280
     ],
     "jpgWidths": [
-      800
+      800,
+      1280
     ],
     "formats": [
       "webp",
       "jpg"
     ],
-    "width": 800,
-    "height": 600,
+    "width": 1280,
+    "height": 960,
     "alt": "A StartNet team member explaining the programme to visitors, TNGSS 2025",
     "caption": "StartNet Vibe at TNGSS 2025, Coimbatore",
     "captionTa": "TNGSS 2025-இல் StartNet Vibe, கோயம்புத்தூர்",
@@ -1934,17 +4149,20 @@
     "base": "/photos/pool/vibereal/13",
     "widths": [
       480,
-      800
+      800,
+      1200,
+      1280
     ],
     "jpgWidths": [
-      800
+      800,
+      1280
     ],
     "formats": [
       "webp",
       "jpg"
     ],
-    "width": 800,
-    "height": 599,
+    "width": 1280,
+    "height": 959,
     "alt": "Conversations inside the StartNet booth, TNGSS 2025",
     "caption": "StartNet Vibe at TNGSS 2025, Coimbatore",
     "captionTa": "TNGSS 2025-இல் StartNet Vibe, கோயம்புத்தூர்",
@@ -1955,17 +4173,20 @@
     "base": "/photos/pool/vibereal/14",
     "widths": [
       480,
-      800
+      800,
+      1200,
+      1280
     ],
     "jpgWidths": [
-      800
+      800,
+      1280
     ],
     "formats": [
       "webp",
       "jpg"
     ],
-    "width": 800,
-    "height": 600,
+    "width": 1280,
+    "height": 960,
     "alt": "The StartNet team talking with visitors in a busy expo aisle, TNGSS 2025",
     "caption": "StartNet Vibe at TNGSS 2025, Coimbatore",
     "captionTa": "TNGSS 2025-இல் StartNet Vibe, கோயம்புத்தூர்",
@@ -1976,17 +4197,20 @@
     "base": "/photos/pool/vibereal/15",
     "widths": [
       480,
-      800
+      800,
+      1200,
+      1280
     ],
     "jpgWidths": [
-      800
+      800,
+      1280
     ],
     "formats": [
       "webp",
       "jpg"
     ],
-    "width": 800,
-    "height": 600,
+    "width": 1280,
+    "height": 960,
     "alt": "The StartNet Vibe team at the booth, TNGSS 2025",
     "caption": "StartNet Vibe at TNGSS 2025, Coimbatore",
     "captionTa": "TNGSS 2025-இல் StartNet Vibe, கோயம்புத்தூர்",
@@ -1997,17 +4221,20 @@
     "base": "/photos/pool/vibereal/16",
     "widths": [
       480,
-      800
+      800,
+      1200,
+      1280
     ],
     "jpgWidths": [
-      800
+      800,
+      1280
     ],
     "formats": [
       "webp",
       "jpg"
     ],
-    "width": 800,
-    "height": 600,
+    "width": 1280,
+    "height": 960,
     "alt": "Networking in the expo hall, TNGSS 2025",
     "caption": "StartNet Vibe at TNGSS 2025, Coimbatore",
     "captionTa": "TNGSS 2025-இல் StartNet Vibe, கோயம்புத்தூர்",
@@ -2018,17 +4245,20 @@
     "base": "/photos/pool/vibereal/17",
     "widths": [
       480,
-      800
+      800,
+      1200,
+      1280
     ],
     "jpgWidths": [
-      800
+      800,
+      1280
     ],
     "formats": [
       "webp",
       "jpg"
     ],
-    "width": 800,
-    "height": 637,
+    "width": 1280,
+    "height": 1020,
     "alt": "A visitor trying the Vibe Challenge on a tablet at the StartNet booth",
     "caption": "StartNet Vibe at TNGSS 2025, Coimbatore",
     "captionTa": "TNGSS 2025-இல் StartNet Vibe, கோயம்புத்தூர்",
@@ -2039,17 +4269,20 @@
     "base": "/photos/pool/vibereal/18",
     "widths": [
       480,
-      800
+      800,
+      1200,
+      1280
     ],
     "jpgWidths": [
-      800
+      800,
+      1280
     ],
     "formats": [
       "webp",
       "jpg"
     ],
-    "width": 800,
-    "height": 600,
+    "width": 1280,
+    "height": 960,
     "alt": "Visitors trying an AI demo on a laptop at the StartNet booth",
     "caption": "StartNet Vibe at TNGSS 2025, Coimbatore",
     "captionTa": "TNGSS 2025-இல் StartNet Vibe, கோயம்புத்தூர்",
@@ -2081,18 +4314,21 @@
     "base": "/photos/pool/vibereal/20",
     "widths": [
       480,
-      800
+      800,
+      1200,
+      1280
     ],
     "jpgWidths": [
-      800
+      800,
+      1280
     ],
     "formats": [
       "webp",
       "jpg"
     ],
-    "width": 800,
-    "height": 600,
-    "alt": "A StartNet team member giving a demo at the booth, TNGSS 2025",
+    "width": 1280,
+    "height": 960,
+    "alt": "A StartNet team member greeting a visitor at the booth, TNGSS 2025",
     "caption": "StartNet Vibe at TNGSS 2025, Coimbatore",
     "captionTa": "TNGSS 2025-இல் StartNet Vibe, கோயம்புத்தூர்",
     "focus": "50% 40%",
@@ -2114,11 +4350,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A woman entrepreneur with a tablet",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A woman business owner at her desk",
     "focus": "50% 40%",
-    "credit": "Photo: Sushmita Nag on Unsplash",
+    "credit": "Photo: Skytech Aviation on Unsplash",
     "stock": true
   },
   "pool/women/02": {
@@ -2137,11 +4373,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
+    "width": 3200,
+    "height": 2133,
     "alt": "A woman founder at her desk with a laptop",
     "focus": "50% 40%",
-    "credit": "Photo: Zulfugar Karimov on Unsplash",
+    "credit": "Photo: Skytech Aviation on Unsplash",
     "stock": true
   },
   "pool/women/03": {
@@ -2160,11 +4396,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1800,
-    "alt": "A woman entrepreneur with her textile business",
-    "focus": "50% 40%",
-    "credit": "Photo: atarin michaeli on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "A woman leader at her office desk",
+    "focus": "55% 35%",
+    "credit": "Photo: Skytech Aviation on Unsplash",
     "stock": true
   },
   "pool/women/04": {
@@ -2183,11 +4419,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1685,
-    "alt": "A smiling young woman in her shop",
-    "focus": "50% 40%",
-    "credit": "Photo: Bill Fairs on Unsplash",
+    "width": 3200,
+    "height": 2129,
+    "alt": "A woman speaking with a microphone at a women's meeting",
+    "focus": "55% 35%",
+    "credit": "Photo: Wonderlane on Unsplash",
     "stock": true
   },
   "pool/women/05": {
@@ -2206,11 +4442,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 3200,
-    "alt": "A woman working on a laptop",
+    "width": 3200,
+    "height": 2129,
+    "alt": "Women listening during a meeting",
     "focus": "50% 40%",
-    "credit": "Photo: Yash Parashar on Unsplash",
+    "credit": "Photo: Wonderlane on Unsplash",
     "stock": true
   },
   "pool/women/06": {
@@ -2229,11 +4465,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 4267,
-    "alt": "A woman founder working at her desk",
-    "focus": "50% 80%",
-    "credit": "Photo: Daniel Joshua on Unsplash",
+    "width": 3200,
+    "height": 2133,
+    "alt": "Three women colleagues together",
+    "focus": "50% 35%",
+    "credit": "Photo: Abhishek Choudhary on Unsplash",
     "stock": true
   },
   "pool/women/07": {
@@ -2252,11 +4488,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A woman working at a table with a laptop",
-    "focus": "50% 40%",
-    "credit": "Photo: Sweet Life on Unsplash",
+    "width": 3200,
+    "height": 4800,
+    "alt": "A woman leader seated on a red couch",
+    "focus": "50% 30%",
+    "credit": "Photo: Divya Tusnial on Unsplash",
     "stock": true
   },
   "pool/women/08": {
@@ -2275,11 +4511,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A woman working at a desk, smiling",
-    "focus": "50% 40%",
-    "credit": "Photo: EqualStock on Unsplash",
+    "width": 3200,
+    "height": 1798,
+    "alt": "A woman smiling in conversation",
+    "focus": "40% 35%",
+    "credit": "Photo: Shahzin Shajid on Unsplash",
     "stock": true
   },
   "pool/women/09": {
@@ -2298,11 +4534,11 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "A group of women meeting together",
-    "focus": "50% 40%",
-    "credit": "Photo: Unsplash contributor on Unsplash",
+    "width": 3200,
+    "height": 4267,
+    "alt": "A woman in a sari holding her certificate",
+    "focus": "50% 30%",
+    "credit": "Photo: Abhayaranya Yoga Ashram on Unsplash",
     "stock": true
   },
   "pool/women/10": {
@@ -2321,11 +4557,264 @@
       "webp",
       "jpg"
     ],
-    "width": 2400,
-    "height": 1600,
-    "alt": "Two women running their small business",
+    "width": 3200,
+    "height": 4807,
+    "alt": "A woman in a sari learning on her phone",
+    "focus": "50% 35%",
+    "credit": "Photo: Rosario Fernandes on Unsplash",
+    "stock": true
+  },
+  "pool/women/11": {
+    "base": "/photos/pool/women/11",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2104,
+    "alt": "A young woman reading on her phone",
+    "focus": "40% 35%",
+    "credit": "Photo: SUSHMITA NAG on Unsplash",
+    "stock": true
+  },
+  "pool/women/12": {
+    "base": "/photos/pool/women/12",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2133,
+    "alt": "A woman smiling while she works at a computer",
+    "focus": "60% 40%",
+    "credit": "Photo: EqualStock on Unsplash",
+    "stock": true
+  },
+  "pool/women/13": {
+    "base": "/photos/pool/women/13",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2133,
+    "alt": "Two women working together at a desk",
     "focus": "50% 40%",
     "credit": "Photo: EqualStock on Unsplash",
     "stock": true
+  },
+  "pool/women/14": {
+    "base": "/photos/pool/women/14",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2400,
+    "alt": "A woman running her vegetable business",
+    "focus": "50% 35%",
+    "credit": "Photo: Wouter R on Unsplash",
+    "stock": true
+  },
+  "pool/women/15": {
+    "base": "/photos/pool/women/15",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2133,
+    "alt": "Two women designers fitting a garment in their studio",
+    "focus": "45% 35%",
+    "credit": "Photo: Poddar Group of Institutions on Unsplash",
+    "stock": true
+  },
+  "pool/women/16": {
+    "base": "/photos/pool/women/16",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 1801,
+    "alt": "Four women together, smiling",
+    "focus": "50% 35%",
+    "credit": "Photo: litoon dev on Unsplash",
+    "stock": true
+  },
+  "pool/women/17": {
+    "base": "/photos/pool/women/17",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 2133,
+    "alt": "A woman at her computer on a factory floor",
+    "focus": "60% 35%",
+    "credit": "Photo: EqualStock on Unsplash",
+    "stock": true
+  },
+  "pool/women/18": {
+    "base": "/photos/pool/women/18",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 3200,
+    "height": 5687,
+    "alt": "A young woman in a red sari, smiling",
+    "focus": "50% 30%",
+    "credit": "Photo: litoon dev on Unsplash",
+    "stock": true
+  },
+  "pool/womenreal/01": {
+    "base": "/photos/pool/womenreal/01",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 720,
+    "alt": "Women founders together at a StartNet Women meet-up",
+    "caption": "A StartNet Women meet-up",
+    "captionTa": "StartNet Women சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/womenreal/02": {
+    "base": "/photos/pool/womenreal/02",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 960,
+    "alt": "Smiling women founders in a group selfie at a StartNet Women meet-up",
+    "caption": "A StartNet Women meet-up",
+    "captionTa": "StartNet Women சந்திப்பு",
+    "credit": "Photo: StartNet"
+  },
+  "pool/womenreal/03": {
+    "base": "/photos/pool/womenreal/03",
+    "widths": [
+      480,
+      800,
+      1200,
+      1280
+    ],
+    "jpgWidths": [
+      800,
+      1280
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1280,
+    "height": 853,
+    "alt": "Women founders in conversation with the StartNet team",
+    "caption": "A StartNet Women meet-up",
+    "captionTa": "StartNet Women சந்திப்பு",
+    "credit": "Photo: StartNet"
   }
 }

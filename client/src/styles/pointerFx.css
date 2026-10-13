@@ -11,14 +11,14 @@
 }
 
 /* ---------- Media cards: 1.03 zoom on hover (fine pointers only) ---------- */
-:is(.art-image__photo, .art-image__svg, .art-image__mv) { transition: scale var(--dur-media) var(--ease-snap); }
+:is(.art-image__photo, .art-image__svg) { transition: scale var(--dur-media) var(--ease-snap); }
 @media (hover: hover) and (pointer: fine) {
-  :root:not([data-motion='reduced']) :is(.card--media.card--link, .brand-tile):hover :is(.art-image__photo, .art-image__svg, .art-image__mv) { scale: 1.03; }
+  :root:not([data-motion='reduced']) :is(.card--media.card--link, .brand-tile):hover :is(.art-image__photo, .art-image__svg) { scale: 1.03; }
 }
 @media (prefers-reduced-motion: reduce) {
-  :root:not([data-motion='full']) :is(.art-image__photo, .art-image__svg, .art-image__mv) { transition: none; scale: none !important; }
+  :root:not([data-motion='full']) :is(.art-image__photo, .art-image__svg) { transition: none; scale: none !important; }
 }
-:root[data-motion='reduced'] :is(.art-image__photo, .art-image__svg, .art-image__mv) { transition: none; }
+:root[data-motion='reduced'] :is(.art-image__photo, .art-image__svg) { transition: none; }
 
 /* ---------- Cards: pointer-tracked tilt + spotlight border + lift (v2b interaction layer) ----------
    lib/pointerFx.js writes an inline perspective tilt (max 3deg framed, 2deg media) and --mx / --my on the card

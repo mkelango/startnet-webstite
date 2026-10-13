@@ -174,7 +174,17 @@
 /* ---------- Scheme explorer ---------- */
 .women-schemes { display: grid; gap: var(--space-6); }
 .women-schemes__picker { display: grid; gap: var(--space-4); }
-@media (min-width: 768px) { .women-schemes__picker { grid-template-columns: repeat(3, 1fr); } }
+/* Three columns only from 1280px: at 1024 a card is ~190px wide and "Entrepreneurship" in the NITI Aayog card name
+   was clipped. 768–1279px: two columns, an odd last card spans the row (as the Tamil rule below). */
+@media (min-width: 768px) {
+  .women-schemes__picker { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .women-schemes__card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 1280px) {
+  .women-schemes__picker { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .women-schemes__card:last-child:nth-child(odd) { grid-column: auto; }
+}
+.women-schemes__name { overflow-wrap: break-word; }
 .women-schemes__card {
   position: relative; display: grid; gap: var(--space-2); align-content: start; text-align: left; padding: var(--space-6);
   border: 0; overflow: hidden;

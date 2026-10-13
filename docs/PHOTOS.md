@@ -1,17 +1,23 @@
 # Photos: shot list and how to add them
 
-Every image slot on the site shows a photograph. Each slot uses the first of these that exists:
+Every image slot on the site shows a photograph (13 Oct 2026: the animated Canvas visuals are retired and deleted).
+Each slot uses the first of these that exists:
 
-1. **StartNet's own photo** for that slot (`hero/…`, `event/…`, `story/…`, `person/…`; see the shot list below).
-2. **A curated pick** for the most visible slots: the home, brand and section heroes, and the brand tiles
-   (`HERO_PICKS` / `TILE_PICKS` in `client/src/data/photos.js`).
-3. **The themed library** (`photos/originals/pool/<theme>/`), 64 licensed editorial photos. A slot draws from the
-   theme that fits it: its brand (Research → labs, Vibe → students, Connect → professionals, Women → women
-   founders, StartNet X → platform), otherwise its page section (events, insights, partner, districts → places of
-   Tamil Nadu…). The choice is fixed per slot, so a page always shows the same photo.
-4. **The generative pulli art**, kept on purpose for people without their own consented portrait, for past events
-   and story recaps (a stock photo must never pass for a real StartNet person or event), and as the fallback if a
-   file fails to load.
+1. **The image plan** (`client/src/data/imagePlan.js`): a curated photo per slot, per page.
+2. **StartNet's own photo** for that slot (`hero/…`, `event/…`, `story/…`, `person/…`), or a curated pick for heroes
+   and brand tiles (`HERO_PICKS` / `TILE_PICKS` in `client/src/data/photos.js`).
+3. **Event cards and posters**: the event's own photos, then its series, then the closest past StartNet events
+   (`SERIES_FAMILY` / `eventPool` in photos.js). Each photo keeps its caption, so an upcoming event never claims a
+   photo it does not have.
+4. **The themed library** (`photos/originals/pool/<theme>/`): StartNet's own photos first (vibereal, stage, connectreal,
+   team, investors, womenreal from the StartNet Gallery), then licensed stock of Indian people by photographers in India
+   (`photos/stock/picks.json`).
+5. People without a consented portrait keep the neutral head-and-shoulders figure.
+
+Sources: `node tools/images/gallery-import.mjs` (StartNet Gallery → originals, per `photos/stock/gallery-map.json`) and
+`node tools/images/stock-picks.mjs` (Unsplash picks), then `npm run photos` and `node tools/images/credits.mjs`.
+Audit: `node tools/audit/agents/r7-images/slots.mjs` (with Vite on :5173 and the API on :4000; `N=3` for fewer
+parallel tabs) lists every slot on every page with the photo it shows.
 
 **Event pages are strict.** A page or card about one event (an edition, a series, the Vibathon and summit pages,
 the SaaS / D2C / GenAI Connect pages) shows only photographs of that event, and keeps the art when there are none.
@@ -88,8 +94,8 @@ covers, and the mega-menu decoration.
 
 ## Grade and placement (since the October 2026 restyle)
 
-- **One grade for every photo.** Every photo gets the "paper-ink" grade (`INK` in `tools/images/photos.mjs`: near
-  black-and-white with a warm paper tint), so photos sit with the ink and paper palette of the AngelList-family
+- **One grade for every photo.** Every photo is converted to true grayscale (`INK` in `tools/images/photos.mjs`:
+  grayscale with a touch of contrast), so photos sit with the ink and paper palette of the AngelList-family
   design (docs/DESIGN.md). Send originals in full colour: the pipeline grades them. A sidecar `"grade": "none"` keeps
   a photo in colour. Video posters use the same grade in CSS (`components/VideoFeature.css`).
 - **No repeats on a page.**

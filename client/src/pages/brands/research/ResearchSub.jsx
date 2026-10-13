@@ -337,7 +337,8 @@ function Summit() {
   const { ph } = usePh();
   const seo = useSeo(SUMMIT, '/research/lab-to-market-summit');
   const { data } = useApi('/api/events?brand=research');
-  const editions = Array.isArray(data) ? data.filter((e) => /lab-to-market|summit/i.test(`${e.series || ''} ${e.slug || ''}`)) : [];
+  // Lab-to-Market editions only: other Research summits (e.g. the NIRF Higher Ed Summit 2024) are not editions of it.
+  const editions = Array.isArray(data) ? data.filter((e) => /lab-to-market/i.test(`${e.series || ''} ${e.slug || ''}`)) : [];
   const register = t('Register interest', 'ஆர்வத்தைப் பதிவு செய்யுங்கள்');
   return (
     <SubShell

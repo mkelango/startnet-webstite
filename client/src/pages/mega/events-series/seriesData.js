@@ -27,7 +27,9 @@ export const SERIES = {
       { title: ['Compete', 'போட்டியிடுங்கள்'], body: ['District qualifiers, then a state finale.', 'முதலில் மாவட்டத் தகுதிச் சுற்றுகள், பிறகு மாநில இறுதிப் போட்டி.'] },
       { title: ['Continue', 'தொடருங்கள்'], body: ["Winners get a guaranteed interview for Vibe Launchpad's 12-week pre-incubation.", 'வெற்றியாளர்களுக்கு Vibe Launchpad-இன் 12 வார முன்-இன்குபேஷன் திட்டத்தில் உறுதியான நேர்காணல்.'] },
     ],
-    figures: ['vibathon-2025-tier-3-4-colleges', 'vibathon-2025-prize-pool', 'vibathon-2027-participants-target', 'vibathon-2027-host-colleges-target'],
+    // Oct 2026: 'vibathon-2025-prize-pool' (₹2.5 L, brochure) dropped here; the 2025 edition shows the lowest sourced
+    // figure (₹50,000 announced, events.json figures) until StartNet confirms one (docs/research/CONFLICTS.md).
+    figures: ['vibathon-2025-tier-3-4-colleges', 'vibathon-2027-participants-target', 'vibathon-2027-host-colleges-target'],
     hostable: true,
   },
   'vibe-campus': {
@@ -70,6 +72,31 @@ export const SERIES = {
       [
         'The state finale of Vibe Campus. Dates, venue and format for each edition: [placeholder — to be supplied by StartNet].',
         'Vibe Campus-இன் மாநில இறுதி நிகழ்வு. ஒவ்வொரு பதிப்பின் தேதி, இடம், வடிவம்: [placeholder — to be supplied by StartNet].',
+      ],
+    ],
+    pillars: null,
+    figures: null,
+    hostable: false,
+  },
+  // Oct 2026 (docs/research/vibe-events.md §2): edition 2 is in events.json; edition 1 (Salem) has no sourced date,
+  // so it is one line here, not an edition record. Tamil: DRAFT, native review pending.
+  'vibe-coding-summit': {
+    name: 'Vibe Coding Summit',
+    brand: 'vibe',
+    kind: 'series',
+    status: null,
+    phase: 1,
+    endorsement: ['a StartNet Vibe event', 'ஒரு StartNet Vibe நிகழ்வு'],
+    evergreen: '/vibe',
+    evergreenLabel: ['About StartNet Vibe', 'StartNet Vibe பற்றி'],
+    lede: [
+      'StartNet Vibe’s summit on AI coding tools, “where AI meets code”. The first Vibe Coding Summit was held in Salem; the second came to Coimbatore in June 2025.',
+      'AI கோடிங் கருவிகள் குறித்த StartNet Vibe உச்சி மாநாடு, “where AI meets code”. முதல் Vibe Coding Summit சேலத்தில் நடைபெற்றது; இரண்டாவது ஜூன் 2025-இல் கோயம்புத்தூருக்கு வந்தது.',
+    ],
+    about: [
+      [
+        'The Vibe Marketing Summit (Salem, July 2025) was promoted as coming “from the creators of the Vibe Coding Summit”. Date and venue of the first edition: [placeholder — to be supplied by StartNet].',
+        'Vibe Marketing Summit (சேலம், ஜூலை 2025) “from the creators of the Vibe Coding Summit” என விளம்பரப்படுத்தப்பட்டது. முதல் பதிப்பின் தேதியும் இடமும்: [placeholder — to be supplied by StartNet].',
       ],
     ],
     pillars: null,
@@ -130,6 +157,54 @@ export const SERIES = {
     figures: ['connect-events-run', 'connect-attendees', 'connect-circle-members'],
     hostable: true,
   },
+  // The two Connect flagships on the live startnet.in (docs/research/connect-series.md §4, read 13 Oct 2026). They
+  // replace the sector-Connect 2027 editions in the listings (RETIRED_EDITIONS below). Tamil: DRAFT, native review pending.
+  'agentic-ai-connect': {
+    name: 'Agentic AI Connect',
+    brand: 'connect',
+    kind: 'flagship',
+    status: null,
+    phase: 1,
+    endorsement: ['a StartNet Connect flagship', 'ஒரு StartNet Connect முதன்மை நிகழ்வு'],
+    evergreen: '/connect',
+    evergreenLabel: ['About StartNet Connect', 'StartNet Connect பற்றி'],
+    lede: [
+      "StartNet Connect's yearly summit on agentic AI: “The year Tamil Nadu's AI companies stopped being pilots.”",
+      "agentic AI குறித்த StartNet Connect-இன் வருடாந்திர உச்சி மாநாடு: “The year Tamil Nadu's AI companies stopped being pilots.”",
+    ],
+    about: [
+      [
+        'One of StartNet Connect’s two flagship summits, with Physical AI Connect. The two always run on separate dates, published a year out. The 2026 edition is in Chennai on 14 November 2026; venue and fees: [placeholder — to be supplied by StartNet].',
+        'Physical AI Connect உடன், StartNet Connect-இன் இரண்டு முதன்மை உச்சி மாநாடுகளில் ஒன்று. இரண்டும் எப்போதும் வெவ்வேறு தேதிகளில் நடைபெறும்; தேதிகள் ஓராண்டுக்கு முன்பே வெளியிடப்படும். 2026 பதிப்பு 14 நவம்பர் 2026 அன்று சென்னையில்; நிகழ்விடமும் கட்டணமும்: [placeholder — to be supplied by StartNet].',
+      ],
+    ],
+    pillars: null,
+    figures: null,
+    hostable: false,
+  },
+  'physical-ai-connect': {
+    name: 'Physical AI Connect',
+    brand: 'connect',
+    kind: 'flagship',
+    status: null,
+    phase: 1,
+    endorsement: ['a StartNet Connect flagship', 'ஒரு StartNet Connect முதன்மை நிகழ்வு'],
+    evergreen: '/connect',
+    evergreenLabel: ['About StartNet Connect', 'StartNet Connect பற்றி'],
+    lede: [
+      'StartNet Connect’s yearly summit on physical AI.',
+      'physical AI குறித்த StartNet Connect-இன் வருடாந்திர உச்சி மாநாடு.',
+    ],
+    about: [
+      [
+        'One of StartNet Connect’s two flagship summits, with Agentic AI Connect. The two always run on separate dates, published a year out. The 2027 edition is in Chennai on 8 May 2027; venue and fees: [placeholder — to be supplied by StartNet].',
+        'Agentic AI Connect உடன், StartNet Connect-இன் இரண்டு முதன்மை உச்சி மாநாடுகளில் ஒன்று. இரண்டும் எப்போதும் வெவ்வேறு தேதிகளில் நடைபெறும்; தேதிகள் ஓராண்டுக்கு முன்பே வெளியிடப்படும். 2027 பதிப்பு 8 மே 2027 அன்று சென்னையில்; நிகழ்விடமும் கட்டணமும்: [placeholder — to be supplied by StartNet].',
+      ],
+    ],
+    pillars: null,
+    figures: null,
+    hostable: false,
+  },
   'lab-to-market-summit': {
     name: 'Lab-to-Market Summit',
     brand: 'research',
@@ -153,6 +228,35 @@ export const SERIES = {
       { title: ['The Index', 'குறியீடு'], body: ['We launch the TN Research Commercialisation Index.', 'TN Research Commercialisation Index-ஐ நாங்கள் வெளியிடுகிறோம்.'] },
     ],
     figures: ['lab-problem-statements-target'],
+    hostable: false,
+  },
+  // Oct 2026 (docs/research/nirf-and-other-events.md §1): two 2024 editions, credited to StartNet Research. The
+  // launches on the Salem agenda are described as announced only. Tamil: DRAFT, native review pending.
+  'nirf-higher-ed-summit': {
+    name: 'NIRF Higher Ed Summit',
+    brand: 'research',
+    kind: 'research',
+    status: null,
+    phase: 1,
+    endorsement: ['a StartNet Research event', 'ஒரு StartNet Research நிகழ்வு'],
+    evergreen: '/research',
+    evergreenLabel: ['About StartNet Research', 'StartNet Research பற்றி'],
+    lede: [
+      'A one-day conference for Tamil Nadu’s college and university leaders on improving their institutions’ performance in India’s National Institutional Ranking Framework (NIRF).',
+      'இந்தியாவின் தேசிய நிறுவனத் தரவரிசைக் கட்டமைப்பில் (NIRF) தங்கள் நிறுவனங்களின் செயல்திறனை மேம்படுத்துவது குறித்து, தமிழ்நாட்டின் கல்லூரி, பல்கலைக்கழகத் தலைவர்களுக்கான ஒரு நாள் மாநாடு.',
+    ],
+    about: [
+      [
+        'StartNet Research ran two editions in 2024: Salem on 31 August, at CJ Pallazzio Hotel, and Coimbatore on 19 October, at Hotel Le Méridien, the second with the support of StartupTN.',
+        'StartNet Research 2024-இல் இரண்டு பதிப்புகளை நடத்தியது: 31 ஆகஸ்ட் அன்று சேலம் CJ Pallazzio Hotel-இல், 19 அக்டோபர் அன்று கோயம்புத்தூர் Hotel Le Méridien-இல்; இரண்டாவது StartupTN ஆதரவுடன்.',
+      ],
+      [
+        'Later editions: [placeholder — to be supplied by StartNet].',
+        'அடுத்த பதிப்புகள்: [placeholder — to be supplied by StartNet].',
+      ],
+    ],
+    pillars: null,
+    figures: null,
     hostable: false,
   },
   'women-founders-summit': {
@@ -216,6 +320,30 @@ export const SERIES = {
     figures: null,
     hostable: false,
   },
+  // Oct 2026 (docs/research/nirf-and-other-events.md §3b–3c): StartNet's 2023 monthly network meetings, incl.
+  // StartConnect and its MegaPitching event. The launch event (July 2023, date to be confirmed) is a standalone record.
+  // Tamil: DRAFT, native review pending.
+  'network-meetings': {
+    name: 'StartNet network meetings',
+    brand: null,
+    kind: 'archive',
+    status: 'archive',
+    phase: 1,
+    evergreen: null,
+    lede: [
+      'StartNet’s monthly network meetings of 2023, announced in a press post on 18 July 2023, including StartConnect and StartConnect’s MegaPitching event in Salem.',
+      '18 ஜூலை 2023 செய்திக்குறிப்பில் அறிவிக்கப்பட்ட StartNet-இன் 2023 மாதாந்திர வலையமைப்புச் சந்திப்புகள்; StartConnect, சேலத்தில் நடைபெற்ற StartConnect-இன் MegaPitching நிகழ்வு உட்பட.',
+    ],
+    about: [
+      [
+        'The record of these early meetings is incomplete. Dates and venues of the other monthly meetings, and attendance: [placeholder — to be supplied by StartNet].',
+        'இந்தத் தொடக்கக்காலச் சந்திப்புகளின் பதிவு முழுமையானதல்ல. பிற மாதாந்திரச் சந்திப்புகளின் தேதிகள், இடங்கள், வருகை எண்ணிக்கை: [placeholder — to be supplied by StartNet].',
+      ],
+    ],
+    pillars: null,
+    figures: null,
+    hostable: false,
+  },
   'founders-day': {
     name: 'StartNet Founders Day',
     brand: null,
@@ -250,6 +378,26 @@ export const CONNECT_PILLARS = [
 
 export const SERIES_SLUGS = Object.keys(SERIES);
 export const isKnownSeries = (s) => typeof s === 'string' && Object.prototype.hasOwnProperty.call(SERIES, s);
+
+/**
+ * Editions withdrawn from the listings (Oct 2026): the live startnet.in Connect line-up is Agentic AI Connect and
+ * Physical AI Connect, so the sector-Connect 2027 records were removed (docs/research/CONFLICTS.md). Their URLs go to
+ * the series page, which keeps the past editions. Mirrors RETIRED_EDITIONS in server/src/common/routes.ts (real 301s).
+ */
+export const RETIRED_EDITIONS = {
+  'genai-connect': ['2027'],
+  'saas-connect': ['2027'],
+  'd2c-connect': ['2027'],
+};
+/** The series of a withdrawn edition: nested (series, edition) or a flat "<series>-<edition>" slug. Null otherwise. */
+export function retiredSeriesOf(seriesOrSlug, edition) {
+  for (const [series, editions] of Object.entries(RETIRED_EDITIONS)) {
+    if (edition !== undefined ? seriesOrSlug === series && editions.includes(edition) : editions.some((ed) => seriesOrSlug === `${series}-${ed}`)) {
+      return series;
+    }
+  }
+  return null;
+}
 
 /** Config for a series; unknown series (present only in /api/events) get a minimal generic config. */
 export function seriesConfig(key, events = []) {
@@ -351,6 +499,12 @@ export const SERIES_SEO = {
   'research-days': ['research founder events', 'ஆராய்ச்சி நிறுவனர் நிகழ்வுகள்'],
   'investors-summit': ['startup investor summit', 'ஸ்டார்ட்அப் முதலீட்டாளர் மாநாடு'],
   'founders-day': ['all-brand founders show', 'அனைத்து பிராண்ட் நிறுவனர் நிகழ்வு'],
+  // Oct 2026 additions restate the sourced series copy above.
+  'vibe-coding-summit': ['AI coding summit', 'AI கோடிங் உச்சி மாநாடு'],
+  'agentic-ai-connect': ['agentic AI summit', 'agentic AI உச்சி மாநாடு'],
+  'physical-ai-connect': ['physical AI summit', 'physical AI உச்சி மாநாடு'],
+  'nirf-higher-ed-summit': ['NIRF ranking summit', 'NIRF தரவரிசை உச்சி மாநாடு'],
+  'network-meetings': ['founder network meetings', 'நிறுவனர் வலையமைப்புச் சந்திப்புகள்'],
 };
 
 const UNCONFIRMED = /\[|to be confirmed|tbc|உறுதிசெய்ய|உறுதியாக|இடநிரப்பி|placeholder/i;

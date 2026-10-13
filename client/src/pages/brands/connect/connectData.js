@@ -35,6 +35,79 @@ export const SECTORS = [
   { slug: 'climate', short: 'Climate', name: 'Climate Connect', status: 'proposed', summary: 'For founders in energy, EV, materials and circular economy.', summaryTa: 'ஆற்றல், மின்வாகனம், பொருட்கள் மற்றும் சுழற்சிப் பொருளாதாரத் துறை நிறுவனர்களுக்கு.' },
 ];
 
+/* ---------- The last flagship edition of each running sector Connect (sourced) ---------- */
+// docs/research/connect-series.md §1–3 (read 13 Oct 2026). Only facts the sources state; pre-event headline numbers
+// ("800+ attendees", "2500+ attendees" …) are targets and are not shown. The event sites are offline: their facts were
+// read from a search index (paraphrased), so wording stays general. No organiser is named for D2C Connect 2024 (SNX or
+// TealOrca: unresolved, CONFLICTS.md). Attendance: D2C only, the lower sourced figure (StartNet decision, Oct 2026).
+// *Ta fields are drafts pending native Tamil review.
+export const SECTOR_PAST = {
+  genai: {
+    name: 'GenAI.Connect Summit & Expo 2024',
+    edition: '/events/genai-connect/2024',
+    when: '27 April 2024',
+    whenTa: '27 ஏப்ரல் 2024',
+    where: 'Radisson Hotel, Salem',
+    whereTa: 'Radisson Hotel, சேலம்',
+    body: 'Three parallel tracks: cross-industry sessions, industry-specific showcases and demos, and a startup showcase with pitches, a product-launch session, a mini-hackathon, speed networking and a closed-door angel funding meet. The GenAI Pitch Showdown 2024 was presented by StartNet in collaboration with Native Angels Network.',
+    bodyTa: 'மூன்று இணையான பிரிவுகள்: துறைகள் கடந்த அமர்வுகள், துறைசார் காட்சிப்படுத்தல்களும் செயல்விளக்கங்களும், முன்வைப்புகள், தயாரிப்பு வெளியீட்டு அமர்வு, சிறு ஹேக்கத்தான், விரைவு அறிமுகச் சந்திப்பு, மூடிய அறை ஏஞ்சல் முதலீட்டுச் சந்திப்பு கொண்ட ஸ்டார்ட்அப் காட்சியரங்கு. GenAI Pitch Showdown 2024-ஐ Native Angels Network உடன் இணைந்து StartNet வழங்கியது.',
+    sources: 'Source: the GenAI.Connect event site (now offline), as indexed in October 2026.',
+    sourcesTa: 'ஆதாரம்: GenAI.Connect நிகழ்வு இணையதளம் (இப்போது இணையத்தில் இல்லை), அக்டோபர் 2026-இல் தேடுபொறியில் பதிவானபடி.',
+  },
+  d2c: {
+    name: 'D2C.Connect Summit & Expo 2024',
+    edition: '/events/d2c-connect/2024',
+    when: '30 November 2024',
+    whenTa: '30 நவம்பர் 2024',
+    where: 'Le Méridien, Coimbatore',
+    whereTa: 'Le Méridien, கோயம்புத்தூர்',
+    body: 'Three tracks: the D2C Growth Playbook, D2C Tech & Innovation, and a D2C Startup Showcase & Investor Connect, with keynotes, fireside chats, panels, roundtables, workshops and startup pitches. The opening keynote, "India’s ONDC Way: Future of Digital Commerce", was given by Nitin Nair, Senior Vice President, ONDC.',
+    bodyTa: 'மூன்று பிரிவுகள்: D2C Growth Playbook, D2C Tech & Innovation, D2C Startup Showcase & Investor Connect; முதன்மை உரைகள், கலந்துரையாடல்கள், குழு விவாதங்கள், வட்டமேசை அமர்வுகள், பயிலரங்குகள், ஸ்டார்ட்அப் முன்வைப்புகளுடன். தொடக்க முதன்மை உரையான "India’s ONDC Way: Future of Digital Commerce"-ஐ ONDC-இன் மூத்த துணைத் தலைவர் Nitin Nair வழங்கினார்.',
+    metric: {
+      id: 'd2c-2024-participants',
+      key: 'd2c-connect-2024-participants',
+      value: 650,
+      unit: '+',
+      label: 'participants at D2C Connect 2024',
+      labelTa: 'D2C Connect 2024 பங்கேற்பாளர்கள்',
+      tag: 'B',
+      asAt: '2024-11-30',
+      source: 'M.K. Elango (founder, StartNet), LinkedIn profile, read Oct 2026',
+      sourceTa: 'M.K. Elango (நிறுவனர், StartNet), LinkedIn சுயவிவரம், அக்டோபர் 2026-இல் படித்தது',
+      note: 'Self-reported. StartNet to confirm the final count.',
+      noteTa: 'சுயமாக அறிவிக்கப்பட்டது. இறுதி எண்ணிக்கையை StartNet உறுதிசெய்யும்.',
+    },
+    sources: 'Sources: the D2C.Connect event site (now offline), as indexed in October 2026; M.K. Elango’s LinkedIn profile.',
+    sourcesTa: 'ஆதாரங்கள்: D2C.Connect நிகழ்வு இணையதளம் (இப்போது இணையத்தில் இல்லை), அக்டோபர் 2026-இல் தேடுபொறியில் பதிவானபடி; M.K. Elango-வின் LinkedIn சுயவிவரம்.',
+  },
+  saas: {
+    name: 'SaaS.Connect Summit & Expo 2025',
+    edition: '/events/saas-connect/2025',
+    when: '22–23 February 2025',
+    whenTa: '22–23 பிப்ரவரி 2025',
+    where: 'PSG Convention Centre, Neelambur, Coimbatore',
+    whereTa: 'PSG Convention Centre, நீலாம்பூர், கோயம்புத்தூர்',
+    body: 'Two days, "Foundation & Vision" and "Technical Execution & Scaling", organised by StartNet Ventures Private Limited. Sessions covered AI in SaaS sales and marketing, scaling AI-first SaaS, cybersecurity, architecture, funding and women in AI SaaS, with speakers from StartupTN, Zoho, Red Hat and Postman among others. StartupTN was the official startup ecosystem partner and iTNT the technology innovation partner.',
+    bodyTa: '"Foundation & Vision", "Technical Execution & Scaling" என இரண்டு நாட்கள்; StartNet Ventures Private Limited ஏற்பாடு செய்தது. SaaS விற்பனை, சந்தைப்படுத்தலில் AI, AI-first SaaS விரிவாக்கம், சைபர் பாதுகாப்பு, கட்டமைப்பு, நிதி திரட்டல், AI SaaS-இல் பெண்கள் ஆகியவை அமர்வுகளில் இடம்பெற்றன; StartupTN, Zoho, Red Hat, Postman உள்ளிட்ட அமைப்புகளின் பேச்சாளர்கள் பங்கேற்றனர். StartupTN அதிகாரபூர்வ ஸ்டார்ட்அப் சூழலமைப்புக் கூட்டாளர்; iTNT தொழில்நுட்பப் புத்தாக்கக் கூட்டாளர்.',
+    sources: 'Sources: the SaaS.Connect agenda page (as indexed) and Ticketprix listing; Entrans recap, 4 Mar 2025; partner announcements on the SaaS.Connect YouTube channel.',
+    sourcesTa: 'ஆதாரங்கள்: SaaS.Connect நிகழ்ச்சி நிரல் பக்கம் (தேடுபொறியில் பதிவானபடி), Ticketprix பட்டியல்; Entrans நிகழ்வுத் தொகுப்பு, 4 மார்ச் 2025; SaaS.Connect YouTube சேனலில் கூட்டாளர் அறிவிப்புகள்.',
+  },
+};
+
+/* ---------- The next StartNet Connect flagships (docs/research/connect-series.md §4) ---------- */
+// Source: startnet.in and startnet.in/connect, read 13 Oct 2026. They replace the GenAI / SaaS / D2C Connect 2027
+// entries, which are no longer listed as upcoming. A flagship links to its event page only once /api/events lists it.
+export const CONNECT_FLAGSHIPS = [
+  { id: 'agentic-ai-connect', name: 'Agentic AI Connect 2026', date: '2026-11-14', city: 'Chennai', cityTa: 'சென்னை' },
+  { id: 'physical-ai-connect', name: 'Physical AI Connect 2027', date: '2027-05-08', city: 'Chennai', cityTa: 'சென்னை' },
+];
+/** The /api/events record for a flagship (matched on its name), or undefined while the API does not list it. */
+export function flagshipEvent(events, flagship) {
+  if (!Array.isArray(events) || !flagship) return undefined;
+  const key = norm(flagship.name.replace(/\s+\d{4}$/, ''));
+  return events.find((e) => norm(e.title).startsWith(key) || norm(e.series) === norm(flagship.id));
+}
+
 /** Every sector slug (/connect/<slug>), for the server's known-route list (F-97). */
 export const SECTOR_SLUGS = SECTORS.map((s) => s.slug);
 /** Connect sub-pages built in ConnectSub.jsx (sector pages are SECTOR_SLUGS). */

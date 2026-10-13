@@ -76,6 +76,9 @@ main:has(.rk-page) :lang(ta) .section-header__lede { max-width: 40em; }
   .rk-faq__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: calc(100% / 12 + 32px); align-items: start; }
   .rk-faq__grid > .section-header,
   .rk-faq__head { position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-8)); margin-bottom: 0; }
+  /* Brand pages (/startnet-x/pricing …): the brand sub-nav stays pinned under the header, so clear it too */
+  main:has(.brand-subnav) .rk-faq__grid > .section-header,
+  main:has(.brand-subnav) .rk-faq__head { top: calc(var(--shell-offset, 0px) + var(--subnav-h, 48px) + var(--space-8)); }
   .rk-faq__grid .section-header { grid-template-columns: minmax(0, 1fr) !important; grid-template-areas: none !important; }
   .rk-faq__grid .section-header__text { display: block !important; }
 }

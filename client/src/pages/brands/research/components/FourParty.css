@@ -1,52 +1,92 @@
-/* The four-party model: four flat hairline cards around one quiet circle; dashed hairlines join them. */
-.fourparty { position: relative; }
-.fourparty__lines { display: none; }
+/* The four-party model: one framed panel split into four quadrants by a hairline cross; the company sits on the
+   crossing (≥1024) or above the panel (smaller screens). Each quadrant ends on a "Holds" line, aligned across a row.
+   Hover: the quadrant takes a faint accent tint, its icon takes the Research accent and the centre names the party. */
+.fourparty { position: relative; display: grid; gap: var(--space-6); }
+
+/* The company */
 .fourparty__core {
-  position: relative;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-1); text-align: center;
-  width: 9.5rem; height: 9.5rem; margin: 0 auto var(--space-8);
-  border-radius: 50%; background: var(--bp-card, var(--color-bg-raised)); color: var(--color-text);
+  display: flex; align-items: center; gap: var(--space-3);
+  justify-self: start; padding: var(--space-3) var(--space-5) var(--space-3) var(--space-4);
+  border-radius: var(--radius-full); background: var(--bp-card, var(--color-bg-raised));
   box-shadow: inset 0 0 0 1px var(--line-strong);
 }
-.fourparty__core::before {
-  content: ''; width: 8px; height: 8px; margin-bottom: var(--space-1); border-radius: 50%; background: var(--accent-fill);
-}
-.fourparty__core-label { font-weight: 400; font-size: var(--text-h5); letter-spacing: -0.01em; }
-.fourparty__core-sub { font-size: var(--text-caption); color: var(--color-text-muted); max-width: 8rem; }
+.fourparty__core-dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--accent-fill); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-fill) 16%, transparent); }
+.fourparty__core-label { font-size: var(--text-body); font-weight: 500; letter-spacing: -0.01em; }
+.fourparty__core-sub { font-size: var(--text-meta); color: var(--color-text-muted); }
 
-.fourparty__list { list-style: none; display: grid; gap: var(--space-4); }
+/* The panel */
+.fourparty__grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: minmax(0, 1fr);
+  background: var(--bp-card, var(--color-bg-raised)); border-radius: var(--media-radius);
+  box-shadow: inset 0 0 0 1px var(--bp-line, var(--color-border)); overflow: hidden;
+}
 .fourparty__party {
-  position: relative; padding: var(--space-6);
-  background: var(--bp-card, var(--color-bg-raised)); box-shadow: inset 0 0 0 1px var(--bp-line, var(--color-border)); border-radius: var(--media-radius);
-  overflow: hidden;
-  transition: box-shadow var(--dur-3) var(--ease-snap);
+  position: relative; display: flex; flex-direction: column; min-width: 0;
+  padding: var(--space-8) var(--space-6);
+  transition: background-color var(--dur-3) var(--ease-snap);
 }
-/* Framed-card top rule (DESIGN-v2 3.7): a 2px Ink bar draws in across the top on hover; no lift */
-.fourparty__party::before {
-  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px;
-  background: var(--color-text); transform: scaleX(0); transform-origin: left center;
-  transition: transform var(--dur-3) var(--ease-snap);
-}
-@media (hover: hover) and (pointer: fine) {
-  .fourparty__party:hover { box-shadow: inset 0 0 0 1px var(--bp-line-strong, var(--line-strong)); }
-  .fourparty__party:hover::before { transform: scaleX(1); }
-}
-.fourparty__num {
-  display: block; margin-bottom: var(--space-5);
-  font-weight: 400; font-size: var(--text-meta); line-height: 1; color: var(--color-text-muted); font-variant-numeric: tabular-nums lining-nums;
-}
-.fourparty__name { font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); }
-.fourparty__body { margin-top: var(--space-3); color: var(--color-text-2); font-size: var(--text-body); max-width: 44ch; }
+.fourparty__party + .fourparty__party { border-top: 1px solid var(--bp-line, var(--color-border)); }
 
+.fourparty__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-6); }
+.fourparty__icon {
+  display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  color: var(--color-text); box-shadow: inset 0 0 0 1px var(--line-strong);
+  transition: background-color var(--dur-3) var(--ease-snap), color var(--dur-3) var(--ease-snap), box-shadow var(--dur-3) var(--ease-snap);
+}
+.fourparty__icon-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--sn-red); }
+.fourparty__num { font-size: var(--text-meta); line-height: 1; color: var(--color-text-muted); font-variant-numeric: tabular-nums lining-nums; }
+.fourparty__name { font-size: var(--text-h4, 1.375rem); font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; }
+.fourparty__body { margin-top: var(--space-3); color: var(--color-text-2); font-size: var(--text-body); max-width: 46ch; }
+
+.fourparty__holds {
+  margin-top: auto; padding-top: var(--space-6);
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-1) var(--space-3);
+}
+.fourparty__holds::before {
+  content: ''; flex-basis: 100%; height: 1px; margin-bottom: var(--space-4); background: var(--bp-line, var(--color-border));
+}
+.fourparty__holds-label { font-size: var(--text-caption); color: var(--color-text-muted); }
+.fourparty__holds-value { font-size: var(--text-small); font-weight: 500; color: var(--color-text); }
+
+@media (hover: hover) and (pointer: fine) {
+  .fourparty__party:hover, .fourparty__party.is-active { background: color-mix(in srgb, var(--accent-fill) 4%, var(--bp-card, var(--white))); }
+  .fourparty__party:hover .fourparty__icon { background: var(--accent-fill); color: var(--accent-on-fill); box-shadow: none; }
+  .fourparty__party:hover .fourparty__icon-dot { background: var(--accent-on-fill); }
+}
+
+/* Tablet: 2 × 2, company above */
 @media (min-width: 768px) {
-  .fourparty__list { grid-template-columns: 1fr 1fr; }
+  .fourparty__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fourparty__party { padding: var(--space-10) var(--space-8); }
+  .fourparty__party + .fourparty__party { border-top: 0; }
+  .fourparty__party:nth-child(odd) { border-right: 1px solid var(--bp-line, var(--color-border)); }
+  .fourparty__party:nth-child(n + 3) { border-top: 1px solid var(--bp-line, var(--color-border)); }
 }
+
+/* Desktop: the company on the crossing; the inner side of each quadrant leaves room for it. */
 @media (min-width: 1024px) {
-  .fourparty { min-height: 34rem; }
-  .fourparty__lines { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
-  .fourparty__line { stroke: var(--color-border-control); stroke-width: 1; stroke-dasharray: 3 6; transition: stroke var(--dur-2) var(--ease-standard), opacity var(--dur-2) var(--ease-standard); }
-  .fourparty__line.is-active { stroke: var(--color-text); stroke-dasharray: none; stroke-width: 1.5; }
-  .fourparty__core { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; z-index: 1; width: 11rem; height: 11rem; }
-  .fourparty__list { position: relative; grid-template-columns: 1fr 1fr; column-gap: 16rem; row-gap: 8rem; }
-  .fourparty__party { z-index: 2; }
+  .fourparty { display: block; }
+  .fourparty__core {
+    position: absolute; left: 50%; top: 50%; z-index: 2; transform: translate(-50%, -50%);
+    flex-direction: column; justify-content: center; gap: var(--space-1); text-align: center;
+    width: 10rem; height: 10rem; padding: var(--space-4); border-radius: 50%;
+    background: var(--bp-card, var(--color-bg-raised));
+    box-shadow: inset 0 0 0 1px var(--line-strong), 0 0 0 10px var(--bp-card, var(--color-bg-raised)), 0 0 0 11px var(--bp-line, var(--color-border));
+  }
+  .fourparty__core-dot { margin-bottom: var(--space-1); }
+  .fourparty__core-label { font-size: var(--text-h5, 1.125rem); font-weight: 400; }
+  .fourparty__core-sub { max-width: 7.5rem; font-size: var(--text-caption); transition: color var(--dur-2) var(--ease-snap); }
+  .fourparty[class*=' is-'] .fourparty__core-sub { color: var(--accent); }
+  .fourparty__party { padding: var(--space-12); min-height: 22rem; }
+  .fourparty__party:nth-child(odd) { padding-right: calc(var(--space-12) + 4rem); }
+  .fourparty__party:nth-child(even) { padding-left: calc(var(--space-12) + 4rem); }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .fourparty__party, .fourparty__icon, .fourparty__core-sub { transition: none; }
+}
+
+/* Tamil (Book 3 §4.4): no tracking; 14px minimum for small labels. */
+.fourparty__name:lang(ta), .fourparty__core-label:lang(ta) { letter-spacing: 0; }
+.fourparty__holds-label:lang(ta), .fourparty__num:lang(ta), .fourparty__core-sub:lang(ta) { font-size: max(0.875rem, var(--text-caption)); }

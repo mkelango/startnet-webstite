@@ -389,10 +389,59 @@
     "title": "Past events",
     "titleTa": "கடந்த நிகழ்வுகள்",
     "url": "/events/past",
-    "snippet": "StartNet rooms since 2023: GenAI Connect 2024 in Salem, D2C Connect 2024, SaaS Connect 2025, Vibathon 2025, the Vibe Marketing Summit and the Investors Summit.",
-    "descriptionTa": "2023 முதல் StartNet நிகழ்வுகள்: சேலத்தில் GenAI Connect 2024, D2C Connect 2024, SaaS Connect 2025, Vibathon 2025, Vibe Marketing Summit, Investors Summit.",
-    "keywords": ["archive", "past events", "recap"],
+    "snippet": "StartNet rooms since 2023: the 2023 network meetings, GenAI Connect 2024, the NIRF Higher Ed Summits, D2C Connect 2024, SaaS Connect 2025, the Vibe Coding and Vibe Marketing Summits, Vibathon 2025 and the Investors Summit.",
+    "descriptionTa": "2023 முதல் StartNet நிகழ்வுகள்: 2023 வலையமைப்புச் சந்திப்புகள், GenAI Connect 2024, NIRF Higher Ed Summit, D2C Connect 2024, SaaS Connect 2025, Vibe Coding, Vibe Marketing உச்சி மாநாடுகள், Vibathon 2025, Investors Summit.",
+    "keywords": ["archive", "past events", "recap", "StartConnect", "MegaPitching", "launch"],
     "keywordsTa": ["கடந்த நிகழ்வுகள்"]
+  },
+  {
+    "title": "Agentic AI Connect",
+    "url": "/events/agentic-ai-connect",
+    "brand": "connect",
+    "snippet": "StartNet Connect's yearly summit on agentic AI. The 2026 edition is in Chennai on 14 November 2026: “The year Tamil Nadu's AI companies stopped being pilots.”",
+    "titleTa": "Agentic AI Connect",
+    "descriptionTa": "agentic AI குறித்த StartNet Connect-இன் வருடாந்திர உச்சி மாநாடு. 2026 பதிப்பு 14 நவம்பர் 2026 அன்று சென்னையில்.",
+    "keywords": ["agentic AI", "AI agents", "summit", "Chennai", "Connect", "flagship"],
+    "keywordsTa": ["கனெக்ட்", "ஏஜென்டிக் AI", "உச்சி மாநாடு"]
+  },
+  {
+    "title": "Physical AI Connect",
+    "url": "/events/physical-ai-connect",
+    "brand": "connect",
+    "snippet": "StartNet Connect's yearly summit on physical AI, one of its two flagship summits. The 2027 edition is in Chennai on 8 May 2027.",
+    "titleTa": "Physical AI Connect",
+    "descriptionTa": "physical AI குறித்த StartNet Connect-இன் வருடாந்திர உச்சி மாநாடு. 2027 பதிப்பு 8 மே 2027 அன்று சென்னையில்.",
+    "keywords": ["physical AI", "summit", "Chennai", "Connect", "flagship"],
+    "keywordsTa": ["கனெக்ட்", "பிசிக்கல் AI", "உச்சி மாநாடு"]
+  },
+  {
+    "title": "NIRF Higher Ed Summit",
+    "url": "/events/nirf-higher-ed-summit",
+    "brand": "research",
+    "snippet": "StartNet Research's one-day conference for Tamil Nadu's college and university leaders on NIRF rankings: Salem, 31 August 2024, and Coimbatore, 19 October 2024.",
+    "titleTa": "NIRF Higher Ed Summit",
+    "descriptionTa": "NIRF தரவரிசை குறித்து தமிழ்நாட்டின் கல்லூரி, பல்கலைக்கழகத் தலைவர்களுக்கான StartNet Research ஒரு நாள் மாநாடு: சேலம், 31 ஆகஸ்ட் 2024; கோயம்புத்தூர், 19 அக்டோபர் 2024.",
+    "keywords": ["NIRF", "ranking", "higher education", "IQAC", "colleges", "universities", "summit"],
+    "keywordsTa": ["தரவரிசை", "உயர்கல்வி", "கல்லூரி"]
+  },
+  {
+    "title": "Vibe Coding Summit",
+    "url": "/events/vibe-coding-summit",
+    "brand": "vibe",
+    "snippet": "StartNet Vibe's summit on AI coding tools. The second edition was in Coimbatore on 14 June 2025, with hands-on workshops on tools such as Cursor, Replit and Lovable.",
+    "titleTa": "Vibe Coding Summit",
+    "descriptionTa": "AI கோடிங் கருவிகள் குறித்த StartNet Vibe உச்சி மாநாடு. இரண்டாம் பதிப்பு 14 ஜூன் 2025 அன்று கோயம்புத்தூரில்.",
+    "keywords": ["vibe coding", "AI coding", "summit", "workshops", "Coimbatore"],
+    "keywordsTa": ["வைப் கோடிங்", "உச்சி மாநாடு"]
+  },
+  {
+    "title": "StartNet network meetings, 2023",
+    "url": "/events/network-meetings",
+    "snippet": "StartNet's monthly network meetings of 2023, including StartConnect (26 August 2023, Salem) and StartConnect's MegaPitching event (30 September 2023, Salem).",
+    "titleTa": "StartNet வலையமைப்புச் சந்திப்புகள், 2023",
+    "descriptionTa": "StartNet-இன் 2023 மாதாந்திர வலையமைப்புச் சந்திப்புகள்; StartConnect (26 ஆகஸ்ட் 2023, சேலம்), StartConnect MegaPitching (30 செப்டம்பர் 2023, சேலம்) உட்பட.",
+    "keywords": ["StartConnect", "MegaPitching", "network meeting", "Salem", "2023"],
+    "keywordsTa": ["வலையமைப்புச் சந்திப்பு", "சேலம்"]
   },
   {
     "title": "Speak or mentor",

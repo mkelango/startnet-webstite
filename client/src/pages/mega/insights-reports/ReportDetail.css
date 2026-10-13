@@ -1,6 +1,6 @@
 /* /insights/reports/:slug — T07 report (8/4 with chapter nav; Paper). Oct 2026: calm reading column, findings as
    blueprint cells, hairline file rows, quiet 4px chips, no coloured bars. */
-.report-detail__loading { display: grid; gap: var(--space-4); }
+.report-detail__loading { display: grid; gap: var(--space-4); align-content: start; min-height: calc(100svh - var(--header-h, 56px) - 2 * var(--space-16)); }
 .report-detail__crumbs { margin-bottom: var(--space-6); }
 .report-detail__error-title { margin-bottom: var(--space-6); }
 .report-detail__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); }

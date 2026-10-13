@@ -93,3 +93,23 @@
   .research-home__event-feature .card__media > * { height: 100%; }
   .research-home__event-feature .card__body { min-width: 0; padding: var(--space-8); }
 }
+
+/* Past event (NIRF Higher Ed Summit 2024): copy and two edition rows left, the promo film right */
+.research-home__past {
+  display: grid; gap: var(--space-10); align-items: start;
+  margin-top: var(--space-12); padding-top: var(--space-10);
+  border-top: 1px solid var(--color-border);
+}
+@media (min-width: 1024px) { .research-home__past { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px; } }
+.research-home__past > * { min-width: 0; }
+.research-home__past-copy { display: grid; gap: var(--space-4); justify-items: start; }
+.research-home__past-copy > * { max-width: 100%; }
+.research-home__past-copy .body-lg { max-width: 60ch; }
+.research-home__past-editions { list-style: none; display: grid; width: 100%; margin-top: var(--space-2); border-top: 1px solid var(--color-border); }
+@media (min-width: 640px) { .research-home__past-editions { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; } }
+.research-home__past-edition { display: grid; gap: var(--space-3); align-content: start; justify-items: start; padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border); }
+.research-home__past-edition > * { max-width: 100%; }
+.research-home__past-edition .stat { width: 100%; }
+.research-home__past-when { margin: 0; font-variant-numeric: tabular-nums lining-nums; }
+.research-home__past-src { color: var(--color-text-muted); }
+.research-home__past-film { margin-top: 0; }

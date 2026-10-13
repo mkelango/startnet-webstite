@@ -92,7 +92,7 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
   const stories = realStories(storiesReq.data).filter((s) => s.type !== 'recap').slice(0, 6);
   const partners = Array.isArray(partnersReq.data) ? partnersReq.data : [];
   const showStories = storiesReq.loading || stories.length > 0;
-  const film = featuredVideos().filter((v) => v.series === 'd2c-connect').slice(0, 1);
+  const film = featuredVideos().filter((v) => v.series === 'saas-connect' && v.edition === '2025').slice(0, 1);
   // Strict Paper / Bone alternation (DESIGN-v2 6.1): when the stories band is hidden, the last two grounds swap so
   // Updates (Bone) is never followed by another Bone band.
   const partnerSurface = showStories ? 'sunken' : 'paper';
@@ -100,8 +100,8 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
 
   return (
     <>
-      {/* M07 · How it works, told as dot → grid → network → full stop (PulliTimeline; no pin) */}
-      <FounderStory nextId="mission" />
+      {/* M07 · How it works, dot → grid → network → full stop, with a sticky StartNet X profile tracker */}
+      <FounderStory />
 
       {/* Mission 1 Lakh: 5/7, copy top-aligned; the figure panel carries the meter whose current value is the red point */}
       <Section id="mission" surface="sunken" className="home-mission home-lazy">
@@ -162,13 +162,13 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
         </div>
       </Section>
 
-      {/* On film: the D2C Connect 2024 aftermovie (data/videos.js) on the Ink band, 16/9, opened up by ClipReveal */}
+      {/* On film: the SaaS Connect 2025 film (0:12–5:50) (data/videos.js) on the Ink band, 16/9, opened up by ClipReveal */}
       <Section id="on-film" surface="night" className="home-film home-lazy">
         {film.length > 0 && (
           <>
             <SectionHeader
               eyebrow={t('On film', 'காணொளியில்')}
-              title={t('Inside the room at D2C Connect 2024', 'D2C Connect 2024 அரங்கின் உள்ளே')}
+              title={t('Inside the room at SaaS Connect 2025', 'SaaS Connect 2025 அரங்கின் உள்ளே')}
             />
             {film.map((v) => (
               <ClipReveal key={v.id} className="home-film__media">

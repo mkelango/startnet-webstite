@@ -5,11 +5,11 @@
 // keeps the page mounted. Edition → event record: "<series>-<edition>" slug (e.g. vibathon/2027 → vibathon-2027).
 // Data: GET /api/events?series=<series> (the edition plus its siblings, shared cache with the series page).
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
 import { ArrowRight, BellRing, CalendarPlus, Check, MessageCircle } from 'lucide-react';
 import {
   Seo, Section, SectionHeader, KineticHeadline, Breadcrumbs, KeyFacts, Badge, Button, Accordion, CTABand, Stat,
-  InlineMarks, Skeleton, ArtImage, PersonCard, Reveal, RevealGroup,
+  InlineMarks, Skeleton, ArtImage, PersonCard, Reveal, RevealGroup, PageLoader,
 } from '../../../components';
 import { SITE_ORIGIN, eventLd } from '../../../lib/seo.js';
 import { fitTitle, fitDescription, realText } from '../../programmes/parts/seoFit.js';
@@ -24,7 +24,11 @@ import { eventTimeRange, eventDateRange, dateBlock } from '../../events/parts/ev
 import { downloadIcs } from '../../events/parts/ics.js';
 import NotFound from '../../utility/NotFound.jsx';
 import { isPlaceholderText as isOnlyPlaceholder } from '../../../components/_placeholders.js';
-import { seriesConfig, findEdition, editionKeyOf, editionCrumb, brandOf, ART_FOR, seedOf, isPlaceholderText, localizeEvent, enIf, SERIES_SEO, editionWhenSentence } from './seriesData.js';
+import { seriesConfig, findEdition, editionKeyOf, editionCrumb, brandOf, ART_FOR, seedOf, isPlaceholderText, localizeEvent, enIf, SERIES_SEO, editionWhenSentence, retiredSeriesOf } from './seriesData.js';
+import {
+  RecordRecap, RecordHighlights, RecordPeople, RecordLists, RecordPartners, RecordSources, hasRecap, hasHighlights,
+  hasJuryGroup, peopleNames, recordFigures,
+} from '../../events/parts/EventRecord.jsx';
 import { useEventText, EditionCard } from './seriesParts.jsx';
 import './EditionPage.css';
 import { eventGallery, eventPhotoKeys, photoFor, posterPhoto, PHOTO_SIZES } from '../../../data/photos.js';
@@ -145,6 +149,16 @@ function Agenda({ e, x, calendarButton }) {
       </div>
     );
   }
+  // Past editions: the programme as the sources describe it (EventRecord, Oct 2026 archive).
+  if (hasHighlights(e)) {
+    return (
+      <div className="edition-panel__block">
+        <h2 className="h3">{x.t('Programme highlights', 'நிகழ்ச்சிச் சிறப்பம்சங்கள்')}</h2>
+        <RecordHighlights e={e} headingLevel={3} />
+        <div className="cluster">{calendarButton}</div>
+      </div>
+    );
+  }
   // No agenda yet: no "Agenda" heading over a placeholder, just the calendar action.
   return (
     <div className="edition-panel__block">
@@ -154,10 +168,13 @@ function Agenda({ e, x, calendarButton }) {
 }
 
 function Speakers({ e, x }) {
-  const names = [...new Set((e.agenda || []).map((a) => a.speaker).filter((s) => s && !isPlaceholderText(s)))];
+  const listed = peopleNames(e);
+  const names = [...new Set((e.agenda || []).map((a) => a.speaker).filter((s) => s && !isPlaceholderText(s) && !listed.has(s)))];
   return (
     <div className="edition-panel__block">
       <h2 className="h3">{x.t('Speakers', 'பேச்சாளர்கள்')}</h2>
+      {/* Past editions: people named by the sources, each with the role the source states (EventRecord). */}
+      <RecordPeople e={e} headingLevel={3} />
       {/* Speakers are listed only once named (with consent); no placeholder line until then. */}
       {names.length > 0 && (
         <RevealGroup as="ul" className="edition-speakers">
@@ -192,13 +209,16 @@ function Speakers({ e, x }) {
 export default function EditionPage({ tab: tabProp }) {
   const { series = '', edition = '' } = useParams();
   const { pathname } = useLocation();
-  const { t, lang } = useLang();
+  const { t, lang, localePath } = useLang();
+  const { search, hash } = useLocation();
   const x = useEventText();
   const [added, setAdded] = useState(false);
+  // Editions withdrawn from the listings (seriesData RETIRED_EDITIONS) go to their series page; the server 301s them.
+  const retired = retiredSeriesOf(series, edition);
   const [microOpen, setMicroOpen] = useState(false); // phones: the eligibility/fee note folds behind a toggle
   const tab = TAB_IDS.includes(tabProp) ? tabProp : tabFromPath(pathname);
 
-  const { data, loading, error } = useApi(series ? `/api/events?series=${encodeURIComponent(series)}` : null);
+  const { data, loading, error } = useApi(series && !retired ? `/api/events?series=${encodeURIComponent(series)}` : null);
   const events = useMemo(() => (Array.isArray(data) ? data : []), [data]);
   const raw = findEdition(events, series, edition);
   // e: the edition with its Tamil fields swapped in on /ta (raw keeps the English record for JSON-LD).
@@ -222,6 +242,10 @@ export default function EditionPage({ tab: tabProp }) {
         ? { label: t('See upcoming events', 'வரவிருக்கும் நிகழ்வுகளைப் பாருங்கள்'), to: '/events', brand: brand || undefined }
         : { label: x.register(e), href: registerHref, brand: brand || undefined }
   );
+
+  if (retired) {
+    return <><Navigate to={{ pathname: localePath(`/events/${retired}`), search, hash }} replace /><PageLoader /></>;
+  }
 
   if (loading) {
     return (
@@ -267,8 +291,10 @@ export default function EditionPage({ tab: tabProp }) {
   const waDate = waLink(t(`Send me the date for ${e.title}`, `${e.title} தேதியை எனக்கு அனுப்புங்கள்`), `event-date:${e.slug}`);
   const labels = {
     overview: past ? t('Recap', 'சுருக்கம்') : t('Overview', 'கண்ணோட்டம்'),
-    agenda: Array.isArray(e.timeline) && e.timeline.length && !e.agenda?.length ? t('Timeline', 'கால அட்டவணை') : t('Agenda', 'நிகழ்ச்சி நிரல்'),
-    speakers: e.jury ? t('Speakers and jury', 'பேச்சாளர்களும் நடுவர்களும்') : t('Speakers', 'பேச்சாளர்கள்'),
+    agenda: Array.isArray(e.timeline) && e.timeline.length && !e.agenda?.length
+      ? t('Timeline', 'கால அட்டவணை')
+      : !e.agenda?.length && hasHighlights(e) ? t('Programme', 'நிகழ்ச்சிகள்') : t('Agenda', 'நிகழ்ச்சி நிரல்'),
+    speakers: e.jury || hasJuryGroup(e) ? t('Speakers and jury', 'பேச்சாளர்களும் நடுவர்களும்') : t('Speakers', 'பேச்சாளர்கள்'),
   };
 
   // SEO: "<Edition>: <series phrase> in <city | Tamil Nadu>" (city only when it is a real place name), trimmed to
@@ -370,16 +396,20 @@ export default function EditionPage({ tab: tabProp }) {
         ];
 
   const outcomes = Array.isArray(e.outcomes) ? e.outcomes : [];
+  // Server outcomes (metrics.json) plus the edition's own sourced figures (events.json `figures`), each tagged A/B/C.
+  const figures = [...outcomes, ...recordFigures(e)];
+  const recap = past && hasRecap(e);
 
   const overview = (
     <div className="edition-panel__stack">
       {/* "What happened" shows only with verified outcomes or a published recap (never a placeholder). */}
-      {(outcomes.length > 0 || (past && e.recapSlug)) && (
+      {(figures.length > 0 || recap || (past && e.recapSlug)) && (
         <div className="edition-panel__block">
           <h2 className="h3">{past ? t('What happened', 'என்ன நடந்தது') : t('Targets for this edition', 'இந்தப் பதிப்பின் இலக்குகள்')}</h2>
-          {outcomes.length > 0 && (
+          {recap && <RecordRecap e={e} />}
+          {figures.length > 0 && (
             <dl className="edition-outcomes">
-              {outcomes.slice(0, 4).map((m) => (
+              {figures.slice(0, 6).map((m) => (
                 <Stat key={m.id || m.key} metric={m} dl />
               ))}
             </dl>
@@ -392,12 +422,15 @@ export default function EditionPage({ tab: tabProp }) {
         </div>
       )}
 
-      <div className="edition-panel__block prose">
-        <h2 className="h3">{past ? t('About this edition', 'இந்தப் பதிப்பு பற்றி') : t("What you'll leave with", 'நீங்கள் பெறுவது')}</h2>
-        <p className="body-lg" lang={enIf(lang, e.summary)}>
-          <InlineMarks text={e.summary} />
-        </p>
-      </div>
+      {/* With a recap the summary stays in the hero only (the recap above is the long version). */}
+      {!recap && (
+        <div className="edition-panel__block prose">
+          <h2 className="h3">{past ? t('About this edition', 'இந்தப் பதிப்பு பற்றி') : t("What you'll leave with", 'நீங்கள் பெறுவது')}</h2>
+          <p className="body-lg" lang={enIf(lang, e.summary)}>
+            <InlineMarks text={e.summary} />
+          </p>
+        </div>
+      )}
 
       {Array.isArray(e.whatItIs) && e.whatItIs.length > 0 && (
         <RevealGroup as="ol" className="edition-pillars" lang={enIf(lang, e.whatItIs)}>
@@ -423,7 +456,7 @@ export default function EditionPage({ tab: tabProp }) {
             {e.tracks.map((tr) => (
               <li key={tr.title} className="edition-tracks__item">
                 <h3 className="h5">{tr.title}</h3>
-                <p className="text-2"><InlineMarks text={tr.brief} /></p>
+                {tr.brief && <p className="text-2"><InlineMarks text={tr.brief} /></p>}
               </li>
             ))}
           </ul>
@@ -444,8 +477,11 @@ export default function EditionPage({ tab: tabProp }) {
         </div>
       )}
 
+      <RecordLists e={e} blockClass="edition-panel__block" />
+      <RecordPartners e={e} blockClass="edition-panel__block" />
+
       <div className="edition-panel__block">
-        <h2 className="h3">{t('Sponsors', 'ஸ்பான்சர்கள்')}</h2>
+        <h2 className="h3">{Array.isArray(e.partners) && e.partners.length ? t('Sponsor this series', 'இந்தத் தொடருக்கு ஸ்பான்சர் செய்யுங்கள்') : t('Sponsors', 'ஸ்பான்சர்கள்')}</h2>
         <Button variant="tertiary" to={`/events/${series}#sponsor`} icon={ArrowRight}>
           {t(`Sponsor ${cfg.name}`, `${cfg.name}-க்கு ஸ்பான்சர் செய்யுங்கள்`)}
         </Button>
@@ -481,6 +517,8 @@ export default function EditionPage({ tab: tabProp }) {
           )}
         </dl>
       </div>
+
+      <RecordSources e={e} blockClass="edition-panel__block" />
 
       <div className="edition-panel__block">
         <h2 className="h3">{t('Questions', 'கேள்விகள்')}</h2>

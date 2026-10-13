@@ -1,283 +1,289 @@
-// IMAGE PLAN: the curated choice of what fills every ArtImage slot on the site (October 2026 curation).
+// IMAGE PLAN: the curated photograph for every ArtImage slot on the site (rewritten 13 Oct 2026, when the animated
+// Canvas visuals were retired: every slot now shows a photograph).
 //
-// Each slot gets exactly one of:
-//   'pool/…' or 'event/…'  a photograph from photos.manifest.json (real StartNet photos first, licensed stock only
-//                         where it shows the slot's own subject and cannot pass for a real StartNet event or person)
-//   'motion'               the animated abstract BrandVisual: for data, platform, process and concept slots, and for
-//                         events with no photograph of their own yet (never a mismatched stock photo)
-// Slots the plan does not name keep ArtImage's current behaviour (see planFor below).
-// The reasoning, the per-route tables, coverage and the shot list for the gaps are in docs/IMAGE-PLAN.md.
+// Each slot names one photo from photos.manifest.json:
+//   'event/…'   StartNet's own event photos (the StartNet Gallery, SaaS.Connect 2025, Vibathon 2025): first choice
+//               wherever a real StartNet room fits the slot.
+//   'pool/…'    StartNet's own themed photos (vibereal, stage, connectreal, team, investors, womenreal), then licensed
+//               stock (students, research, professionals, women, events, places, insights, partner, platform,
+//               community): Indian people only, from photographers in India (photos/stock/picks.json).
+// Big heroes take high-resolution files (stock 3200 px, SaaS.Connect 4032 px); StartNet's 1280 px event photos fill
+// cards, tiles and medium slots, where they stay sharp. Every photo is graded to grayscale by tools/images/photos.mjs.
+// Slots the plan does not name: event cards and edition posters take their event's own photos, then the photos of the
+// closest StartNet events (data/photos.js eventPool, each captioned with where it was taken); other slots take a
+// themed library photo (data/photos.js allocateLibraryPhoto). A page never shows the same photo twice.
 //
-// ---------------------------------------------------------------------------------------------------------------
 // HOW SLOTS ARE KEYED
 //   Route key   the page path without the /ta prefix and without a trailing slash ('/', '/vibe', '/events/vibathon/2025').
 //               A key with ':name' segments ('/research/labs/:lab') matches any value in that segment.
 //               '*' holds site-wide entries for data-driven cards whose seed is derived from the record
-//               (EventCard / EditionCard / edition poster, StoryCard, ReportCard: seed = hash(slug) % 997), so one
-//               event, story or report shows the same choice on every page it appears on.
+//               (StoryCard, ReportCard: seed = hash(slug) % 997), so one story or report shows the same photo everywhere.
 //   Slot key    `${variant}:${seed}` built from the props ArtImage already receives (variant defaults to 'grid',
 //               seed to 1), e.g. 'network:7'. When one page has two slots with the same variant and seed but a
 //               different ratio, the entry is qualified with the ratio: 'grid:23@1/1'. An explicit `slot` prop on
-//               ArtImage (a string, e.g. slot="hero") is used as the key instead, for future pages that want one.
+//               ArtImage is used as the key instead. The rendered slot carries data-slot / data-photo for audits
+//               (tools/audit/agents/r7-images/slots.mjs).
 //   Lookup      for the route: exact path, then ':param' patterns, then '*'; at each level the ratio-qualified key
 //               ('variant:seed@ratio') first, then the plain key. The first hit wins.
-//   Twins       FeatureTabs renders each panel twice (desktop panel + phone accordion, only one visible), so the two
-//               copies share one entry; that is not a repeat a visitor can see.
-//   Excluded    event galleries ("From the room": ArtImage `documentary` / `noCaption`) and people portraits
-//               (variant 'portrait' on PersonCard) keep their own photos; planFor never touches them unless a
-//               route entry names the slot explicitly (the /insights "Founder stories" hub card is variant portrait).
-//
-// HOW ArtImage SHOULD USE IT (proposal for the components owner; components/ is not edited here):
-//   import { planFor } from '../data/imagePlan.js';
-//   const planned = planFor(path, { slot, variant, seed, ratio, documentary, noCaption });
-//   //  undefined → no plan for this slot: current behaviour (DECORATIVE_PHOTOS switch, photo / photoPool props)
-//   //  null      → 'motion': render the BrandVisual, no photo, no library pick
-//   //  object    → the manifest photo { key, base, widths, … }: render it, overriding DECORATIVE_PHOTOS and the
-//   //              photo / photoPool props (the plan already keeps event pages to their own event's photos)
-//   const photo = planned !== undefined ? planned : photoAllowed ? photoProp : null;
-//   const photoPool = planned !== undefined ? undefined : photoAllowed ? photoPoolProp : undefined;
-//   The photo's own alt / caption (manifest) replace the artwork alt, exactly as ArtImage already does for photos.
-//   planFor is pure and synchronous (same answer in the prerender and the browser): SSR-safe, no layout shift
-//   (ArtImage keeps its aspect-ratio box either way).
-// ---------------------------------------------------------------------------------------------------------------
+//   Excluded    event galleries ("From the room": ArtImage `documentary` / `noCaption`) and people portraits keep
+//               their own photos unless a route entry names the slot.
 import manifest from './photos.manifest.json';
 
-const M = 'motion';
+// One photo for a programme page hero, whichever art variant the page passes (network / grid / ladder, seed 3).
+const programme = (key) => ({ 'network:3': key, 'grid:3': key, 'ladder:3': key });
 
 export const IMAGE_PLAN = {
-  // ---------- Site-wide: cards built from data records (same choice wherever the card appears) ----------
+  // ---------- Site-wide: story and report cards (same photo wherever the card appears) ----------
   '*': {
-    // EventCard (4:3) and EditionCard (16:9) / edition-page poster (4:5) share the event's seed.
-    'dot:150': M, //                              Vibe Campus build nights: no photo yet (GAP G6)
-    'network:650': M, //                          Vibe Campus build nights (edition card + poster)
-    'network:379': M, //                          Vibathon 2027 · District qualifiers (EventCard): Vibathon 2027 card takes the one Vibathon photo
-    'grid:435': 'event/vibathon/2025', //         Vibathon 2027 (EventCard): the series' own photo, captioned 2025
-    'network:283': M, //                          Vibathon 2027 · District qualifiers (EditionCard + poster)
-    'network:528': M, //                          Vibathon 2027 (EditionCard + poster): the only Vibathon photo is 572 px wide, too soft for a 4:5 poster
-    'network:526': M, //                          Vibathon 2025 (EditionCard + edition poster): its only photo is 572 px, below 1x at these sizes (GAP G1)
-    'map:743': M, //                              GenAI Connect 2027 (EventCard): no GenAI Connect photo (GAP G3)
-    'network:202': M, //                          GenAI Connect 2027 (EditionCard + poster)
-    'network:199': M, //                          GenAI Connect 2024 (EditionCard + poster) (GAP G3)
-    'dot:373': 'event/saas-connect/2025-2', //    SaaS Connect 2027 (EventCard): SaaS Connect 2025 panel on stage
-    'network:822': 'event/saas-connect/2025-5', // SaaS Connect 2027 (EditionCard + poster)
-    'network:820': 'event/saas-connect/2025-3', // SaaS Connect 2025 (EditionCard + poster; its gallery excludes the poster)
-    'dot:394': M, //                              D2C Connect 2027 (EventCard) (GAP G4)
-    'network:33': M, //                           D2C Connect 2027 (EditionCard + poster)
-    'network:30': M, //                           D2C Connect 2024 (EditionCard + poster) (GAP G4)
-    'map:836': M, //                              Lab-to-Market Summit 2027 (EventCard) (GAP G7)
-    'grid:995': M, //                             Lab-to-Market Summit 2027 (EditionCard + poster)
-    'network:956': M, //                          Women Founders Summit & Awards 2027 (EventCard) (GAP G8)
-    'kolam:724': M, //                            Women Founders Summit & Awards 2027 (EditionCard + poster)
-    'kolam:675': M, //                            Vibe Summit 2027 (EventCard) (GAP G9)
-    'network:178': M, //                          Vibe Summit 2027 (EditionCard + poster)
-    'dot:385': M, //                              Investors Summit, past edition (poster) (GAP G10)
     // StoryCard (4:5) and story-page hero (3:2)
-    'grid:617': M, //                             story: Vibathon 2025 (4:5 crop of the 572 px photo is 344 px wide: too soft, GAP G1)
-    'network:74': M, //                           its story page hero (GAP G1)
-    'grid:140': 'pool/stage/12', //               story: StartNet rooms since 2023 (Mega Pitching jury, 2023)
-    'network:96': 'pool/stage/09', //             its story page hero (network meeting, Sept 2023; 1280 px for a 3:2 hero)
-    // ReportCard (3:2): report and index covers are data artefacts
-    'grid:241': M, // Founder Ledger
-    'network:728': M, // TN Founder Report 2027
-    'map:283': M, // Founder Readiness Index
-    'map:774': M, // Campus Innovation Index
-    'map:14': M, // TN Research Commercialisation Index
-    'network:317': M, // TN Women Founders Report
-    'network:164': M, // State of TN SaaS
-    'network:452': M, // State of TN GenAI
-    'network:681': M, // State of TN D2C
-    'network:836': M, // Annual self-diagnosis
+    'grid:617': 'event/vibathon/2025-2', //        story: Vibathon 2025, students filling the KSRCE auditorium
+    'network:74': 'event/vibathon/2025-2', //      its story page hero (never on the same page as the card)
+    'grid:140': 'pool/team/01', //                 story: StartNet rooms since 2023 (first-anniversary community)
+    'network:96': 'event/genai-connect/2024', //   its story page hero: founders and speakers on the GenAI Connect stage
+    // ReportCard (3:2)
+    'grid:241': 'pool/insights/01', //             Founder Ledger
+    'network:728': 'pool/professionals/08', //     TN Founder Report 2027
+    'map:283': 'pool/professionals/11', //         Founder Readiness Index
+    'map:774': 'pool/students/08', //              Campus Innovation Index
+    'map:14': 'pool/research/01', //               TN Research Commercialisation Index
+    'network:317': 'pool/women/02', //             TN Women Founders Report
+    'network:164': 'event/saas-connect/2025-8', // State of TN SaaS: the SaaS.Connect main stage
+    'network:452': 'event/genai-connect/2024-3', // State of TN GenAI: the GenAI Connect stage
+    'network:681': 'event/d2c-connect/2024-2', //  State of TN D2C: the D2C Connect expo
+    'network:836': 'pool/team/10', //              Annual self-diagnosis: the StartNet team
   },
 
   // ---------- Home ----------
   '/': {
-    'kolam:11': 'event/saas-connect/2025-4', //   hero 21:9: a real StartNet room, wide roundtable, 4032 px
-    'network:11': 'pool/research/06', //          brand tile, Research
-    'grid:23': 'pool/vibereal/10', //             brand tile, Vibe (real: Vibe team at TNGSS 2025, 4:5 original)
-    'network:37': 'pool/stage/09', //             brand tile, Connect (real: StartNet network meeting)
-    'ladder:41': 'pool/women/03', //              brand tile, Women
-    'map:38': M, //                               Why Tamil Nadu: 38-district map (data)
-    'network:4': 'pool/professionals/02', //      partner band: organisations working with founders
-    'grid:435': M, //                             Vibathon 2027 card: the Vibathon photo is kept for /vibe and /about
-    'dot:373': 'event/saas-connect/2025', //      SaaS Connect 2027 card: 2025-2 is used on /connect
+    'kolam:11': 'event/saas-connect/2025-4', //    hero: a real StartNet room, wide roundtable (4032 px)
+    'network:11': 'pool/research/01', //           brand tile, Research: a researcher with a sample
+    'grid:23': 'event/vibe-coding-summit/2025-coimbatore-2', // brand tile, Vibe: students and the Vibe team, Vibe Coding Summit 2025
+    'network:37': 'pool/connectreal/03', //        brand tile, Connect: founders in a Connect session
+    'ladder:41': 'pool/womenreal/01', //           brand tile, Women: a StartNet Women meet-up
+    'map:38': 'event/vibathon/2025-2', //          Why Tamil Nadu: students filling the KSRCE auditorium (the user's pick)
+    'network:4': 'pool/investors/03', //           partner band: investors and the StartNet team
   },
 
   // ---------- About ----------
   '/about': {
-    'network:7': 'pool/stage/11', //              hero "We turn talent into founders": young founders on a StartNet stage (replaces the kolam photo)
-    'map:38': M, //                               38-district map
-    'grid:4': M, //                               four brands, six engines, one platform (model)
-    'network:21': M, //                           feeder and connector (concept)
-    'grid:11': 'pool/stage/08', //                timeline: StartNet starts (launch, July 2023)
-    'network:12': 'event/saas-connect/2025-3', // timeline: the Connect series (the SaaSConnect venue letters)
-    'dot:13': M, //                               timeline: Investors Summit (no photo, GAP G10)
-    'kolam:14': M, //                             timeline: Vibathon 2025 (its one photo is kept for the /vibe Vibathon tab: no repeat across top pages)
+    'network:7': 'pool/team/01', //                hero "We turn talent into founders": the StartNet community
+    'map:38': 'pool/students/01', //               "The talent is here": college builders planning a project
+    'grid:4': 'pool/team/03', //                   four brands, six engines, one platform: the team on stage
+    'network:21': 'pool/investors/02', //          feeder and connector: founders and investors meeting
+    'grid:11': 'pool/stage/08', //                 timeline: StartNet starts (launch, July 2023)
+    'network:12': 'event/genai-connect/2024-2', // timeline: the Connect series (GenAI Connect 2024 room)
+    'grid:13': 'event/nirf-higher-ed-summit/2024-salem', // timeline: NIRF Higher Ed Summit 2024, Salem
+    'dot:14': 'pool/investors/07', //              timeline: Investors Summit
+    'kolam:15': 'event/vibathon/2025-3', //        timeline: Vibathon 2025
   },
   '/about/how-we-work': {
-    'kolam:24': 'pool/research/04', //            door: StartNet Research
-    'kolam:12': 'pool/vibereal/17', //            door: StartNet Vibe (Vibe Challenge on a tablet)
-    'kolam:21': 'pool/stage/04', //               door: StartNet Connect
-    'kolam:15': 'pool/women/08', //               door: StartNet Women
-    'network:31': M, //                           StartNet X (platform)
+    'kolam:24': 'event/nirf-higher-ed-summit/2024-coimbatore-4', // door: Research (faculty at a round table)
+    'kolam:12': 'pool/vibereal/17', //             door: Vibe (the Vibe Challenge on a tablet)
+    'kolam:21': 'pool/connectreal/04', //          door: Connect (founders round a boardroom table)
+    'kolam:15': 'pool/womenreal/03', //            door: Women
+    'network:31': 'pool/platform/02', //           StartNet X
   },
-  '/about/mission-1-lakh': { 'ladder:7': M }, //    outcomes metric
-  '/about/self-diagnosis': { 'dot:27': M }, //      self-scoring report
+  '/about/mission-1-lakh': { 'ladder:7': 'pool/team/05' }, // outcomes: founders holding their awards
+  '/about/self-diagnosis': { 'dot:27': 'pool/team/10' }, //   StartNet scores itself: the team
 
   // ---------- Brands ----------
   '/brands': {
-    'network:3': 'pool/research/07',
-    'dot:8': 'pool/vibereal/03',
-    'grid:13': 'pool/stage/10',
-    'kolam:21': 'pool/women/07',
+    'network:3': 'pool/research/02',
+    'dot:8': 'event/vibe-coding-summit/2025-coimbatore-2',
+    'grid:13': 'pool/connectreal/10',
+    'kolam:21': 'pool/womenreal/02',
   },
 
   // ---------- Research ----------
   '/research': {
-    'network:7': 'pool/research/03', //           hero: researcher at a microscope
-    'network:11': M, //                           Agentic AI Lab (software; no lab photo, GAP G11)
-    'kolam:23': M, //                             Ontology & Knowledge Lab (abstract)
-    'grid:37': 'pool/research/08', //             Physical AI Lab: engineer at a lab bench
-    'dot:41': 'pool/research/02', //              Drug Discovery Lab: researcher with a sample
-    'ladder:19': 'pool/professionals/04', //      "100 conversations before a single rupee": a founder in conversation
+    'network:7': 'pool/research/01', //            hero: a researcher with a sample
+    'network:11': 'pool/students/04', //           Agentic AI Lab: an engineer writing code
+    'kolam:23': 'pool/research/04', //             Ontology & Knowledge Lab: a professor explaining
+    'grid:37': 'pool/research/03', //              Physical AI Lab: a hardware prototype on the bench
+    'dot:41': 'pool/research/02', //               Drug Discovery Lab: a researcher at the bench
+    'ladder:19': 'pool/professionals/10', //       "100 conversations before a single rupee"
   },
   '/research/labs': {
-    'network:11': M,
-    'kolam:23': M,
-    'grid:37': 'pool/research/08',
+    'network:11': 'pool/students/04',
+    'kolam:23': 'pool/research/04',
+    'grid:37': 'pool/research/03',
     'dot:41': 'pool/research/02',
   },
   '/research/labs/:lab': {
-    'network:11': M,
-    'kolam:23': M,
-    'grid:37': 'pool/research/08',
+    'network:11': 'pool/students/04',
+    'kolam:23': 'pool/research/04',
+    'grid:37': 'pool/research/03',
     'dot:41': 'pool/research/02',
   },
   '/research/events': {
-    'network:60': M, //                           Lab-to-Market Summit (no photo, GAP G7)
-    'grid:61': 'pool/research/01', //             StartNet Labs
+    'network:60': 'event/nirf-higher-ed-summit/2024-coimbatore-3', // research series: the NIRF summit keynote
+    'grid:61': 'pool/research/06', //              StartNet Labs
   },
 
   // ---------- Vibe ----------
   '/vibe': {
-    'network:7': 'pool/vibereal/05', //           hero (real: Vibe team at TNGSS 2025, 4:5 original)
-    'network:11': M, //                           tab: Vibathon: its only photo is 572 px, upscaled 1.45x in the 832 px desktop panel (GAP G1)
-    'grid:23@4/3': 'pool/students/10', //         tab: Vibe Academy
-    'kolam:37': 'pool/students/03', //            tab: Vibe Campus (college classroom)
-    'dot:41': 'pool/students/09', //              tab: Vibe Clubs (builders round a table)
-    'grid:23@1/1': 'pool/students/08', //         Academy section "Ship it, then get the certificate"
-    // Vibathon 2027 card: no override, so it takes the series photo from '*' (card slot ~390 px, the 572 px photo is sharp there)
+    'network:7': 'pool/vibereal/05', //            hero: the Vibe team at TNGSS 2025
+    'network:11': 'event/vibathon/2025-2', //      tab: Vibathon
+    'grid:23@4/3': 'pool/students/09', //          tab: Vibe Academy (a mentor guiding students)
+    'kolam:37': 'pool/students/08', //             tab: Vibe Campus (a college computer lab)
+    'dot:41': 'pool/students/01', //               tab: Vibe Clubs (friends planning a project)
+    'grid:23@1/1': 'pool/students/05', //          Academy: "Ship it, then get the certificate"
+    'grid:617': 'event/vibathon/2025-3', //        story card here: the tab above already shows the auditorium
   },
-  '/vibe/vibathon': { 'network:2027': M }, //      hero: the only Vibathon photo (572 px) is too soft for a 4:5 hero (GAP G1)
-  '/vibe/academy': { 'grid:23': 'pool/students/08' },
-  '/vibe/clubs': { 'dot:41': 'pool/students/09' },
-  '/vibe/campus': { 'kolam:37': 'pool/students/03' },
-  '/vibe/launchpad': { 'ladder:53': 'pool/professionals/03' }, // "Twelve weeks from team to company": a startup team at work
-  '/vibe/summit': { 'network:67': M }, //           event page, no Vibe Summit photo (GAP G9)
+  '/vibe/vibathon': { 'network:2027': 'event/vibathon/2025-2' },
+  '/vibe/academy': { 'grid:23': 'pool/students/09' },
+  '/vibe/clubs': { 'dot:41': 'pool/students/01' },
+  '/vibe/campus': { 'kolam:37': 'pool/students/08' },
+  '/vibe/launchpad': { 'ladder:53': 'pool/professionals/08' },
+  '/vibe/summit': { 'network:67': 'event/vibe-coding-summit/2025-coimbatore-2' },
   '/vibe/events': {
-    'network:60': M, //                           Vibathon 21:9 band: the 572 px photo cannot fill it (GAP G1)
-    'grid:61': M, //                              Vibe Campus (GAP G6)
-    'dot:62': M, //                               Vibe Summit (GAP G9)
+    'network:60': 'event/vibathon/2025-2', //      Vibathon
+    'grid:61': 'event/vibe-coding-summit/2025-coimbatore', // Vibe Campus
+    'dot:62': 'event/vibe-coding-summit/2025-coimbatore-3', // Vibe Summit
   },
 
   // ---------- Connect ----------
   '/connect': {
-    'network:7': 'event/saas-connect/2025-5', //  hero: attendees in a SaaS Connect 2025 session (a Connect room, 4032 px)
-    'ladder:11': 'pool/professionals/08', //      "Your next customer, investor or market": two co-founders at work
+    'network:7': 'event/saas-connect/2025-5', //   hero: a SaaS.Connect 2025 session (4032 px)
+    'ladder:11': 'pool/connectreal/11', //         "Your next customer, investor or market": founders talking
   },
   '/connect/events': {
-    'network:60': M, //                           GenAI Connect (GAP G3)
-    'grid:61': 'event/saas-connect/2025', //      SaaS Connect 21:9 (the original is 2.4:1)
-    'dot:62': M, //                               D2C Connect (GAP G4)
-    'kolam:63': M, //                             all sector Connects (index of series)
+    'network:60': 'event/genai-connect/2024-3', // GenAI Connect
+    'grid:61': 'event/saas-connect/2025', //       SaaS Connect
+    'dot:62': 'event/d2c-connect/2024', //         D2C Connect
+    'kolam:63': 'pool/connectreal/01', //          all sector Connects
   },
-  '/connect/saas': { 'dot:373': M }, //            its gallery already shows all five SaaS Connect photos
 
   // ---------- Women ----------
   '/women': {
-    'kolam:38': 'pool/women/06', //               hero: a woman founder at her desk (4:7 original)
-    'ladder:12': 'pool/women/01', //              Rise Academy, on your phone: a woman entrepreneur with a tablet
-    'dot:8': M, //                                TN Women Founders Report cover
+    'kolam:38': 'pool/women/07', //                hero: a woman leader
+    'ladder:12': 'pool/women/10', //               Rise Academy, on your phone
+    'dot:8': 'pool/women/05', //                   TN Women Founders Report: women at a meeting
   },
   '/women/events': {
-    'network:60': M, //                           Women Founders Summit (GAP G8)
-    'grid:61': M, //                              Women Founders Awards (GAP G8)
-    'dot:62': 'pool/women/09', //                 Women Circles: women meeting in a circle
+    'network:60': 'pool/womenreal/01', //          Women Founders Summit
+    'grid:61': 'pool/women/09', //                 Women Founders Awards: a founder with her certificate
+    'dot:62': 'pool/women/04', //                  Women Circles: a woman speaking at a women's meeting
   },
-  '/women/summit': { 'dot:8': M },
+  '/women/summit': { 'dot:8': 'pool/women/04' },
 
   // ---------- Events ----------
   '/events': {
-    'network:11': 'pool/stage/01', //             hero: a speaker on a StartNet stage, Feb 2024
-    'grid:27': 'pool/stage/12', //                "Rooms since 2023": Mega Pitching jury, 2023
+    'network:11': 'pool/events/01', //             hero: a speaker addressing an audience
+    'grid:27': 'event/genai-connect/2024', //      "Rooms since 2023"
+    'network:41': 'event/vibathon/2025-2', //      flagship: Vibathon
+    'grid:42': 'event/nirf-higher-ed-summit/2024-coimbatore-3', // flagship: Lab-to-Market Summit (research rooms)
+    'dot:43': 'pool/womenreal/01', //              flagship: Women Founders Summit & Awards
+    'map:44': 'pool/team/02', //                   flagship: StartNet Founders Day
   },
-  '/events/host': { 'map:38': 'pool/students/03' }, // "Host StartNet in your college": a college classroom
-  '/events/founders-day': { 'dot:7': M },
-  '/events/vibathon': { 'network:24': M }, //       series hero: Vibathon photo too soft for 4:5 (GAP G1)
-  '/events/vibe-campus': { 'network:72': M },
-  '/events/vibe-summit': { 'network:555': M },
-  '/events/genai-connect': { 'network:97': M },
+  '/events/past': { 'grid:23': 'event/d2c-connect/2024' }, // "Rooms since 2023": a packed D2C Connect ballroom
+  '/events/host': { 'map:38': 'event/vibathon/2025-4' }, //    "Host StartNet in your college": KSRCE hosting Vibathon
+  '/events/founders-day': { 'dot:7': 'pool/team/04' },
+  '/events/startnet-launch-2023': { 'dot:751': 'pool/stage/08' },
+  '/events/network-meetings': { 'dot:160': 'pool/stage/11', 'dot:500': 'pool/stage/10', 'dot:501': 'pool/stage/09', 'dot:33': 'pool/stage/12' },
+  // The 2023 network meetings: StartNet's own stage photos from those months (posters and the 'other editions' cards).
+  '/events/network-meetings/:edition': { 'dot:500': 'pool/stage/10', 'dot:501': 'pool/stage/09', 'dot:33': 'pool/stage/12' },
+  '/events/investors-summit': { 'dot:747': 'pool/investors/07' },
+  '/events/investors-summit/archive': { 'dot:385': 'pool/investors/07' },
+  '/events/vibathon': { 'network:24': 'event/vibathon/2025-2' },
+  '/events/vibe-campus': { 'network:72': 'event/vibe-coding-summit/2025-coimbatore' },
+  '/events/vibe-summit': { 'network:555': 'event/vibe-coding-summit/2025-coimbatore-2' },
+  '/events/genai-connect': { 'network:97': 'event/genai-connect/2024' },
   '/events/saas-connect': { 'network:894': 'event/saas-connect/2025-3' },
-  '/events/d2c-connect': { 'network:248': M },
-  '/events/lab-to-market-summit': { 'grid:2': M },
-  '/events/women-founders-summit': { 'kolam:604': M },
-  '/events/research-days': { 'grid:850': M },
-  '/events/investors-summit': { 'dot:747': M },
-  '/events/vibe-marketing-summit-2025': { 'network:481': M }, // no Vibe Marketing Summit photo yet (GAP G5)
-  '/events/saas-connect/2025': { 'network:822': M }, // the gallery on this page already shows 2025-5
+  '/events/d2c-connect': { 'network:248': 'event/d2c-connect/2024' },
+  '/events/lab-to-market-summit': { 'grid:2': 'event/nirf-higher-ed-summit/2024-coimbatore' },
+  '/events/women-founders-summit': { 'kolam:604': 'pool/womenreal/01' },
+  '/events/research-days': { 'grid:850': 'event/nirf-higher-ed-summit/2024-salem' },
+  '/events/vibe-marketing-summit-2025': { 'network:481': 'event/vibe-marketing-summit-2025' },
+  // Series not yet held: the closest StartNet event, captioned with where it was taken.
+  '/events/agentic-ai-connect': { 'network:888': 'event/genai-connect/2024' },
+  '/events/physical-ai-connect': { 'network:305': 'event/d2c-connect/2024' },
+  '/events/nirf-higher-ed-summit': { 'grid:471': 'event/nirf-higher-ed-summit/2024-coimbatore' },
+  '/events/vibe-coding-summit': { 'network:308': 'event/vibe-coding-summit/2025-coimbatore' },
 
   // ---------- Insights ----------
   '/insights': {
-    'network:6': 'pool/insights/01', //           hero: reviewing a data dashboard
-    'grid:3': M,
-    'map:4': M,
-    'ladder:5': M,
-    'grid:6': M,
-    'network:7': M,
-    'dot:8': M,
-    'network:9': M,
-    'portrait:10': 'pool/stage/11', //            "Founder stories" hub card: young founders on a StartNet stage (captioned)
-    'kolam:11': M,
+    'network:6': 'pool/insights/03', //            hero: a woman reviewing records at her computer
+    'grid:12': 'pool/insights/01', //              featured: Founder Ledger
+    'grid:3': 'pool/professionals/03', //          ledger, reports, indices and stories
+    'map:4': 'pool/insights/04', //                Founder Ledger
+    'ladder:5': 'pool/professionals/09', //        TN Founder Report
+    'grid:6': 'pool/professionals/06', //          Founder Readiness Index
+    'network:7': 'pool/students/06', //            Campus Innovation Index
+    'dot:8': 'pool/research/02', //                TN Research Commercialisation Index
+    'network:9': 'pool/women/05', //               TN Women Founders Report
+    'portrait:10': 'pool/connectreal/06', //       Founder stories hub card
+    'kolam:11': 'pool/team/05', //                 Founder stories
+    'grid:241': 'pool/insights/02', //             latest reports (cards): not the photos above
+    'network:728': 'pool/professionals/04',
+    'map:283': 'pool/professionals/05',
   },
-  '/insights/reports': { 'map:38': M },
+  '/insights/reports': { 'map:38': 'pool/connectreal/04' },
   '/insights/reports/:report': {
-    'network:101': M,
-    'network:288': M,
-    'network:289': M,
-    'network:550': M,
-    'network:423': M,
+    'network:101': 'pool/students/04', //          State of TN GenAI
+    'network:288': 'pool/women/05', //             TN Women Founders Report
+    'network:289': 'pool/women/15', //             State of TN D2C: founders in their design studio
+    'network:550': 'event/saas-connect/2025-5', // State of TN SaaS
+    'network:423': 'pool/professionals/01', //     TN Founder Report 2027
   },
-  '/insights/indices': { 'map:29': M, 'grid:41': M, 'network:57': M, 'ladder:63': M },
-  '/insights/indices/:index': { 'grid:41': M, 'network:57': M, 'ladder:63': M },
-  '/insights/podcast': { 'dot:17': 'pool/stage/02' }, // founder conversations: a fireside chat on a StartNet stage
-  '/insights/newsletter': { 'dot:13': M },
+  '/insights/indices': {
+    'map:29': 'pool/insights/02',
+    'grid:41': 'pool/students/06', //              Campus Innovation Index
+    'network:57': 'pool/research/02', //           TN Research Commercialisation Index
+    'ladder:63': 'pool/professionals/06', //       Founder Readiness Index
+  },
+  '/insights/indices/:index': { 'grid:41': 'pool/students/06', 'network:57': 'pool/research/02', 'ladder:63': 'pool/professionals/06' },
+  '/insights/podcast': { 'dot:17': 'pool/professionals/10' }, // founder conversations
+  '/insights/newsletter': { 'dot:13': 'pool/women/11' },
 
-  // ---------- StartNet X (platform: abstract, except the hub and the founders page) ----------
-  '/startnet-x': { 'network:11': 'pool/platform/04' },
-  '/startnet-x/founders': { 'ladder:21': 'pool/platform/02' },
-  '/startnet-x/institutions': { 'grid:31': M },
-  '/startnet-x/incubators': { 'network:41': M },
-  '/startnet-x/gccs': { 'network:51': M },
-  '/startnet-x/government': { 'map:61': M },
-  '/startnet-x/investors': { 'dot:71': M },
+  // ---------- StartNet X ----------
+  '/startnet-x': { 'network:11': 'pool/platform/01' },
+  '/startnet-x/founders': { 'ladder:21': 'pool/platform/03' },
+  '/startnet-x/institutions': { 'grid:31': 'pool/students/09' },
+  '/startnet-x/incubators': { 'network:41': 'pool/professionals/02' },
+  '/startnet-x/gccs': { 'network:51': 'pool/professionals/04' },
+  '/startnet-x/government': { 'map:61': 'pool/partner/06' },
+  '/startnet-x/investors': { 'dot:71': 'pool/investors/04' },
 
   // ---------- Partner ----------
   '/partner': {
-    'network:8': 'pool/stage/11', //              "Back the founders": young founders on a StartNet stage (1280 px; the 939 px Mega Pitching jury photo was upscaled 1.1x EN / 1.55x TA in this hero)
-    'map:38': M, //                               District Ecosystem Programme map
+    'network:8': 'pool/team/06', //                "Back the founders": StartNet 2.0 agreements signed on stage
+    'map:38': 'pool/places/10', //                 District Ecosystem Programme
   },
-  '/partner/gccs': { 'network:28': 'pool/professionals/10' },
-  '/partner/institutions': { 'grid:84': 'pool/students/07' },
-  '/partner/government': { 'map:70': M },
-  '/partner/investors': { 'ladder:63': 'pool/stage/11' },
-  '/partner/incubators': { 'network:70': M },
-  '/partner/district-programme': { 'map:126': M },
-  '/partner/sponsors': { 'dot:56': 'event/saas-connect/2025-5' }, // "Meet the audience": attendees in a StartNet session (captioned)
-  '/partner/csr': { 'kolam:21': 'pool/women/04' },
+  '/partner/gccs': { 'network:28': 'pool/partner/02' },
+  '/partner/institutions': { 'grid:84': 'event/nirf-higher-ed-summit/2024-coimbatore' },
+  '/partner/government': { 'map:70': 'pool/connectreal/15' }, // StartNet at Umagine Chennai 2023 (the TN government's tech summit)
+  '/partner/investors': { 'ladder:63': 'pool/investors/05' },
+  '/partner/incubators': { 'network:70': 'pool/connectreal/08' },
+  '/partner/district-programme': { 'map:126': 'event/vibathon/2025-3' }, // a district in practice: KSRCE (Namakkal) leaders with the StartNet team, Vibathon 2025
+  '/partner/sponsors': { 'dot:56': 'event/d2c-connect/2024-5' }, // the audience a sponsor meets: D2C Connect 2024's packed expo corridor
+  '/partner/csr': { 'kolam:21': 'pool/women/14' },
+
+  // ---------- Programmes (one hero each) ----------
+  '/programmes/connect-circles': programme('pool/connectreal/03'),
+  '/programmes/connect-series': programme('event/saas-connect/2025-4'),
+  '/programmes/founder-switch': programme('pool/professionals/05'),
+  '/programmes/hercapital': programme('pool/women/02'),
+  '/programmes/institution-partner-programme': programme('event/nirf-higher-ed-summit/2024-coimbatore'),
+  '/programmes/lab-to-market-summit': programme('pool/research/02'),
+  '/programmes/rise-academy': programme('pool/women/10'),
+  '/programmes/scale-connect': programme('pool/professionals/01'),
+  '/programmes/scholar-founders-fellowship': programme('pool/research/05'),
+  '/programmes/startnet-angels': programme('pool/investors/05'),
+  '/programmes/startnet-labs': programme('pool/research/03'),
+  '/programmes/vibathon': programme('event/vibathon/2025-2'),
+  '/programmes/vibe-academy': programme('pool/students/09'),
+  '/programmes/vibe-campus': programme('pool/students/08'),
+  '/programmes/vibe-clubs': programme('pool/students/01'),
+  '/programmes/vibe-launchpad': programme('pool/professionals/08'),
+  '/programmes/vibe-summit': programme('event/vibe-coding-summit/2025-coimbatore'),
+  '/programmes/women-circles': programme('pool/women/04'),
+  '/programmes/women-founders-summit': programme('pool/women/09'),
 
   // ---------- Company ----------
-  '/media': { 'dot:9': 'pool/stage/05' },
-  '/careers': { 'ladder:10': 'pool/vibereal/10' }, // the StartNet team at its booth (4:5 original)
-  '/contact': { 'map:600': M }, //                  Salem location map (GAP G13)
+  '/media': { 'dot:9': 'pool/events/03' },
+  '/careers': { 'ladder:10': 'pool/vibereal/10' },
+  '/contact': { 'map:600': 'pool/team/11' },
 };
 
 const PATTERNS = Object.keys(IMAGE_PLAN)
@@ -311,7 +317,7 @@ function levelsFor(route) {
 }
 
 /**
- * The plan entry for one slot: 'pool/…' | 'event/…' | 'motion', or undefined when the plan does not name it.
+ * The plan entry for one slot: 'pool/…' | 'event/…', or undefined when the plan does not name it.
  * Galleries and people portraits are only matched by an exact route entry (never by '*').
  */
 export function planEntry(path, props = {}) {
@@ -332,15 +338,13 @@ export function planEntry(path, props = {}) {
 
 /**
  * What ArtImage should show for one slot:
- *   undefined  no plan → keep the current behaviour
- *   null       'motion' (or a planned photo missing from the manifest) → the animated BrandVisual
+ *   undefined  no plan (or a planned photo missing from the manifest): the slot's own photo, pool or library
  *   object     the manifest photo { key, base, widths, jpgWidths, formats, width, height, alt, altTa, caption, … }
  */
 export function planFor(path, props = {}) {
   const entry = planEntry(path, props);
-  if (entry === undefined) return undefined;
-  if (entry === M) return null;
-  return Object.prototype.hasOwnProperty.call(manifest, entry) ? { key: entry, ...manifest[entry] } : null;
+  if (entry === undefined || !Object.prototype.hasOwnProperty.call(manifest, entry)) return undefined;
+  return { key: entry, ...manifest[entry] };
 }
 
 export default IMAGE_PLAN;

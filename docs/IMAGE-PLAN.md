@@ -102,7 +102,7 @@ Most-visited pages:
 | `/connect` | 5 | 3 (hero, section, SaaS Connect card) | 2 (GenAI and D2C cards) |
 | `/women` | 3 | 2 (hero, Rise Academy) | 1 (Women Founders Report cover) |
 | `/events` | 2 | 2 (hero, "Rooms since 2023") | 0 |
-| `/about` | 8 | 3 (hero, two timeline entries) | 5 (two maps, model, connector, Investors Summit and Vibathon timeline entries) |
+| `/about` | 9 | 3 (hero, two timeline entries) | 6 (two maps, model, connector, NIRF Summit, Investors Summit and Vibathon timeline entries) |
 | `/programmes` | 0 | none (no image slots on the page) | none |
 
 Library photos left unused on purpose:
@@ -145,6 +145,33 @@ Each photo goes in `photos/originals/<key>.jpg` and is added with `npm run photo
 | G15 | `hero/women/rise-academy` | `/women` "Rise Academy, on your phone" (now stock `pool/women/01`, a tablet) | A woman founder in a district town learning on her phone: the label says "on your phone". |
 | G16 | `hero/partner/gccs`, `hero/partner/institutions` | `/partner/gccs` (stock `professionals/10`), `/partner/institutions` (stock `students/07`) | A GCC team reviewing a student pilot. Graduates of a partner college presenting their company. |
 | G17 | `hero/careers` | `/careers` (now `vibereal/10`) | The StartNet team at work in the office: candid, mid-task. |
+| G18 | `event/nirf-summit/2024-salem`, `event/nirf-summit/2024-coimbatore` (rename to the series key the events data uses) | `/about` timeline entry "NIRF Higher Ed Summit" (`grid:13`, now motion), the NIRF edition cards and pages once they exist | NIRF Higher Ed Summit 2024: CJ Pallazzio Hotel, Salem (31 Aug 2024) and Hotel Le Meridien, Coimbatore (19 Oct 2024). Vice-chancellors and principals in a session, a speaker at the lectern with the room in frame. |
+
+### 4a. Event photo gaps after the October 2026 research
+
+Research on 13 Oct 2026 (`docs/research/connect-series.md`, `vibe-events.md`, `nirf-and-other-events.md`) looked for
+photos of every StartNet event. From that date only StartNet-owned or M.K. Elango-owned images may be downloaded and
+published (StartNet decision), and none could be reached: the event sites are offline, and the LinkedIn and Instagram
+posts that carry StartNet's own photos give no image URL without logging in. No photo was added, and no photo of one
+event stands in for another. What StartNet needs to supply, per event:
+
+| Event | On the site now | Gap (StartNet-owned originals, at least 2400 px) |
+|---|---|---|
+| Vibathon 2025, KSRCE Emerald Hall, 26 Sep 2025 | `event/vibathon/2025` (572 px, owner K.S.R. College of Engineering, kept as it is) | G1. StartNet Vibe's own photos from the LinkedIn announcement (9 Aug 2025) and recap (4 Oct 2025). `pool/vibereal/21` (StartNet-owned, 1280 px: a Vibathon session in a college auditorium) could become `event/vibathon/2025-2` once StartNet confirms which event and date it shows. KSRCE's `CYTI-12.jpg` is the LLM Security workshop (11 Oct 2025): never a Vibathon photo. |
+| Vibe Marketing Summit 2025, Sona Incubation Foundation, Salem, 26 Jul 2025 | none (poster `network:481` is motion) | G5. The StartNet Vibe LinkedIn post images (25 Jul 2025). The Sona Incubation Foundation and speakers' post photos are theirs, not StartNet's. |
+| Vibe Coding Summit 2025 (2nd edition), Coimbatore, 14 Jun 2025 | none (no page of its own; text on `/vibe/summit`) | `event/vibe-coding-summit/2025`. The @startnetvibe Instagram posts of 11–12 Jun 2025 are promos, not event photos; the Ticketprix banner belongs to CSI Coimbatore Chapter. |
+| StartNet Vibe at TNGSS 2025, Coimbatore, 9–10 Oct 2025 | `pool/vibereal/01–20` (StartNet's own) | none |
+| GenAI Connect Summit & Expo 2024, Radisson Salem, 27 Apr 2024 | none | G3. genaiconnect.startnet.in is offline; StartNet's own gallery files. |
+| D2C Connect Summit & Expo 2024, Le Méridien Coimbatore, 30 Nov 2024 | none | G4. d2cconnect.in is offline; StartNet's own gallery files. |
+| SaaS Connect Summit & Expo 2025, PSG Convention Centre, 22–23 Feb 2025 | `event/saas-connect/2025*` (owners Entrans and Gokul Kannan, kept as they are) | StartNet-owned originals to replace the third-party ones over time. |
+| NIRF Higher Ed Summit 2024: Salem 31 Aug 2024, Coimbatore 19 Oct 2024 | none (`/about` timeline `grid:13` is motion) | G18. No photo set was found for either edition. |
+| Agentic AI Connect 2026 (Chennai, 14 Nov 2026), Physical AI Connect 2027 (Chennai, 8 May 2027) | not yet held | Photograph both on the day; until then their cards keep the brand art. |
+| Investors Summit | none | G10. No public record of the event was found. |
+
+The card and hero slots of the records added in October 2026 (Agentic AI Connect 2026, Physical AI Connect 2027, the two
+NIRF Higher Ed Summit 2024 editions, Vibe Coding Summit 2025) are set to motion in `imagePlan.js`. GenAI, SaaS and D2C
+Connect 2027 are no longer upcoming events: their plan entries were removed, and the `/events/*-connect/2027` route
+tables in §5 below are obsolete.
 
 Licensed stock still in the plan, to be replaced slot by slot as these arrive:
 - research: 01, 02, 03, 04, 06, 07, 08;
@@ -247,8 +274,9 @@ Routes are listed most-visited first, then alphabetically.
 | 4 | `network:21` | 3/2 | section | A feeder and connector, not a rival. | motion | animated abstract visual |
 | 5 | `grid:11` | 4/3 | Timeline | StartNet starts, in Salem | `pool/stage/08` | On stage at the StartNet launch, July 2023 *(StartNet)* |
 | 6 | `network:12` | 4/3 | Timeline | GenAI Connect, D2C Connect, SaaS Connect | `event/saas-connect/2025-3` | The illuminated SaaSConnect letters at the venue *(StartNet)* |
-| 7 | `dot:13` | 4/3 | Timeline | Investors Summit | motion | animated abstract visual |
-| 8 | `kolam:14` | 4/3 | Timeline | Vibathon 2025 | motion | animated abstract visual |
+| 7 | `grid:13` | 4/3 | Timeline | NIRF Higher Ed Summit | motion | animated abstract visual (GAP G18) |
+| 8 | `dot:14` | 4/3 | Timeline | Investors Summit | motion | animated abstract visual |
+| 9 | `kolam:15` | 4/3 | Timeline | Vibathon 2025 | motion | animated abstract visual |
 
 #### `/about/how-we-work`
 

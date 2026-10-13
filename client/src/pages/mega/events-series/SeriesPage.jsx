@@ -25,6 +25,7 @@ import {
 import { webPageLd, itemListLd, langPath } from '../../../lib/seo.js';
 import { fitTitle, fitDescription } from '../../programmes/parts/seoFit.js';
 import { useEventText, EditionCard } from './seriesParts.jsx';
+import { recordFigures } from '../../events/parts/EventRecord.jsx';
 import './SeriesPage.css';
 
 const KIND_LABEL = {
@@ -55,7 +56,8 @@ function PastEdition({ e: event }) {
   const x = useEventText();
   const e = localizeEvent(event, x.lang);
   const { localePath } = useLang();
-  const outcomes = Array.isArray(e.outcomes) ? e.outcomes : [];
+  // Server outcomes plus the edition's own sourced figures (events.json `figures`, each with tag, as-at and source).
+  const outcomes = [...(Array.isArray(e.outcomes) ? e.outcomes : []), ...recordFigures(e)];
   return (
     <li className="series-past__item">
       <div className="series-past__head">

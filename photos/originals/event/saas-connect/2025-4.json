@@ -6,6 +6,12 @@
   "source": "https://ggokulkannan2006.wixsite.com/gokulsblog/post/saas-connect-2025",
   "usedWithPermission": true,
   "consent": true,
-  "grade": "warm",
-  "focus": "50% 45%"
+  "focus": "33% 60%",
+  "crop": [
+    0,
+    1150,
+    4032,
+    1720
+  ],
+  "focusMobile": "45% 60%"
 }

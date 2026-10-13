@@ -1,0 +1,54 @@
+/* Past-event record blocks (EventRecord.jsx): hairline lists in the same family as the edition tracks and prizes.
+   Tokens only; every class is prefixed event-record__. */
+.event-record__block { display: grid; gap: var(--space-5); justify-items: start; min-width: 0; }
+.event-record__block > * { max-width: 100%; }
+.event-record__block > :is(div, dl, ol, ul) { width: 100%; }
+.event-record__block > h2.h3 { font-weight: 500; letter-spacing: -0.015em; }
+:lang(ta) .event-record__block > h2.h3 { letter-spacing: 0; }
+
+.event-record__note { margin: 0; max-width: var(--measure, 68ch); color: var(--color-text-2); }
+.event-record__link {
+  color: var(--color-text); text-decoration: underline; text-decoration-color: var(--color-link-decoration);
+  text-underline-offset: 0.2em; overflow-wrap: anywhere;
+}
+.event-record__link:hover { text-decoration-color: currentColor; }
+
+/* "What happened" paragraphs */
+.event-record__recap { display: grid; gap: var(--space-4); max-width: var(--measure, 68ch); }
+.event-record__recap > p { margin: 0; }
+
+/* Programme highlights: hairline rows, the day as a muted caption over the session title */
+.event-record__highlights { list-style: none; margin: 0; padding: 0; display: grid; width: 100%; border-top: 1px solid var(--hairline); }
+.event-record__highlight { display: grid; gap: var(--space-1); padding-block: var(--space-4); border-bottom: 1px solid var(--hairline); min-width: 0; overflow-wrap: break-word; }
+.event-record__highlight > * { margin: 0; }
+.event-record__when { color: var(--color-text-2); font-variant-numeric: tabular-nums; }
+.event-record__highlight-title { font-weight: 500; }
+
+/* Sourced lists */
+.event-record__list { list-style: none; margin: 0; padding: 0; display: grid; width: 100%; border-top: 1px solid var(--hairline); }
+.event-record__list > li { padding-block: var(--space-3); border-bottom: 1px solid var(--hairline); overflow-wrap: break-word; }
+@media (min-width: 768px) {
+  .event-record__list:has(> li:nth-child(5)) { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-8); }
+}
+
+/* Sponsors and partners as listed: name over its tier / role */
+.event-record__partners { margin: 0; display: grid; width: 100%; border-top: 1px solid var(--hairline); }
+@media (min-width: 768px) { .event-record__partners { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-8); } }
+.event-record__partner { display: grid; gap: var(--space-1); padding-block: var(--space-3); border-bottom: 1px solid var(--hairline); min-width: 0; }
+.event-record__partner dt { font-weight: 500; overflow-wrap: anywhere; }
+.event-record__partner dd { margin: 0; color: var(--color-text-2); font-size: var(--text-small); }
+
+/* People: groups of compact person cards */
+.event-record__groups { display: grid; gap: var(--space-10); width: 100%; }
+.event-record__group { display: grid; gap: var(--space-4); min-width: 0; }
+.event-record__group-title { margin: 0; font-weight: 500; }
+.event-record__people {
+  list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-5) var(--space-6); width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+}
+.event-record__people .person-card__body { min-width: 0; overflow-wrap: break-word; }
+
+/* Sources: a numbered small-type list; long labels wrap anywhere so phones never scroll sideways */
+.event-record__sources { margin: 0; padding-left: var(--space-5); display: grid; gap: var(--space-2); font-size: var(--text-small); color: var(--color-text-2); }
+.event-record__sources > li { overflow-wrap: anywhere; }
+.event-record__sources > li::marker { font-variant-numeric: tabular-nums; }

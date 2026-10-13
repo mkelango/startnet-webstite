@@ -1,8 +1,56 @@
+import { Link } from 'react-router-dom';
 import {
-  EmptyState, EventCard, Placeholder, RevealGroup, Scroller, Skeleton, Stat, TagChip, WhatsAppButton,
+  Button, EmptyState, EventCard, Placeholder, RevealGroup, Scroller, Skeleton, Stat, TagChip, WhatsAppButton,
 } from '../../../components';
 import { useLang } from '../../../lib/i18n.jsx';
+import { formatDate } from '../../../lib/format.js';
+import { eventPath } from '../../../components/_utils.js';
+import { CONNECT_FLAGSHIPS, flagshipEvent } from './connectData.js';
 import './ConnectBits.css';
+
+/**
+ * The next StartNet Connect flagships (connectData.js CONNECT_FLAGSHIPS): name, date, city. A name links to its event
+ * page only when /api/events lists it, so the list never points at a page that does not exist yet.
+ */
+export function ConnectFlagships({ events = [], className = '' }) {
+  const { t, lang, localePath } = useLang();
+  return (
+    <ul className={`connect-flagships ${className}`.trim()}>
+      {CONNECT_FLAGSHIPS.map((f) => {
+        const ev = flagshipEvent(events, f);
+        const to = ev ? eventPath(ev) : null;
+        return (
+          <li key={f.id} className="connect-flagships__item">
+            {to
+              ? <Link className="connect-flagships__name" to={localePath(to)}>{f.name}</Link>
+              : <span className="connect-flagships__name">{f.name}</span>}
+            <span className="connect-flagships__meta small text-2">
+              <time className="tnum" dateTime={f.date}>{formatDate(f.date, undefined, lang)}</time> · {t(f.city, f.cityTa)}
+            </span>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+/** The last flagship edition of a sector Connect (connectData.js SECTOR_PAST): sourced facts, one tagged figure. */
+export function SectorPast({ past }) {
+  const { t } = useLang();
+  if (!past) return null;
+  return (
+    <div className="connect-past">
+      <p className="connect-past__when small text-2">
+        <span className="tnum">{t(past.when, past.whenTa)}</span> · {t(past.where, past.whereTa)}
+      </p>
+      <h3 className="h4 connect-past__name">{past.name}</h3>
+      <p className="text-2">{t(past.body, past.bodyTa)}</p>
+      {past.metric && <Stat metric={past.metric} variant="compact" />}
+      <p className="caption connect-past__src">{t(past.sources, past.sourcesTa)}</p>
+      <Button variant="tertiary" to={past.edition}>{t('See the edition', 'அந்தப் பதிப்பைப் பாருங்கள்')}</Button>
+    </div>
+  );
+}
 
 // Small Connect building blocks shared by ConnectHome and ConnectSub. Tamil strings are drafts pending native review.
 
@@ -53,11 +101,18 @@ export function UpcomingConnect({ events, loading, error }) {
   if (loading) return <Skeleton height="22rem" count={3} />;
   if (error || !events?.length) {
     return (
-      <EmptyState
-        title={t('Dates soon', 'தேதிகள் விரைவில்')}
-        body={t('New Connect dates are announced first to the Connect community on WhatsApp.', 'புதிய Connect தேதிகள் முதலில் WhatsApp-இல் Connect சமூகத்துக்கு அறிவிக்கப்படும்.')}
-        action={<WhatsAppButton text="CONNECT" label={t('Get updates on WhatsApp', 'WhatsApp-இல் தகவல்களைப் பெறுங்கள்')} />}
-      />
+      <>
+        <EmptyState
+          title={t('Dates soon', 'தேதிகள் விரைவில்')}
+          body={t('New Connect dates are announced first to the Connect community on WhatsApp.', 'புதிய Connect தேதிகள் முதலில் WhatsApp-இல் Connect சமூகத்துக்கு அறிவிக்கப்படும்.')}
+          action={<WhatsAppButton text="CONNECT" label={t('Get updates on WhatsApp', 'WhatsApp-இல் தகவல்களைப் பெறுங்கள்')} />}
+        />
+        {/* Until the API lists them, the next flagships are still named, with their dates (no link). */}
+        <div className="connect-flagships-wrap">
+          <p className="small text-2">{t('The next StartNet Connect flagships:', 'அடுத்த StartNet Connect முதன்மை நிகழ்வுகள்:')}</p>
+          <ConnectFlagships events={[]} />
+        </div>
+      </>
     );
   }
   if (events.length > 3) {
@@ -68,7 +123,7 @@ export function UpcomingConnect({ events, loading, error }) {
     );
   }
   return (
-    <RevealGroup className="grid grid-3">
+    <RevealGroup className={`grid ${events.length === 2 ? 'grid-2' : 'grid-3'}`}>
       {events.map((e) => <EventCard key={e.slug} event={e} />)}
     </RevealGroup>
   );

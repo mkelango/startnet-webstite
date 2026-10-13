@@ -234,6 +234,8 @@ export const PRIMARY_NAV = [
       {
         heading: 'What’s on',
         headingTa: 'நடப்பவை',
+        // Hidden in the desktop mega menu (user request, 14 Oct 2026); the mobile drawer keeps these links.
+        megaHidden: true,
         links: [
           { label: 'All upcoming', labelTa: 'வரவிருக்கும் அனைத்தும்', to: '/events' },
           { label: 'This month', labelTa: 'இந்த மாதம்', to: '/events?when=month' },
@@ -246,6 +248,9 @@ export const PRIMARY_NAV = [
         headingTa: 'முதன்மை நிகழ்வுகள்',
         links: [
           { label: 'Vibathon', to: '/events/vibathon' },
+          // The two StartNet Connect flagships on the live startnet.in (Oct 2026, docs/research/connect-series.md §4).
+          { label: 'Agentic AI Connect', to: '/events/agentic-ai-connect' },
+          { label: 'Physical AI Connect', to: '/events/physical-ai-connect' },
           { label: 'Lab-to-Market Summit', to: '/events/lab-to-market-summit' },
           { label: 'Women Founders Summit & Awards', to: '/events/women-founders-summit' },
           { label: 'Vibe Summit', to: '/events/vibe-summit', phase: 2 },
@@ -261,7 +266,10 @@ export const PRIMARY_NAV = [
           { label: 'D2C Connect', to: '/events/d2c-connect' },
           { label: 'All sector Connects', labelTa: 'அனைத்து துறைசார் Connect நிகழ்வுகள்', to: '/connect/series' },
           { label: 'Vibe Campus', to: '/events/vibe-campus' },
+          { label: 'Vibe Coding Summit', to: '/events/vibe-coding-summit' },
+          { label: 'NIRF Higher Ed Summit', to: '/events/nirf-higher-ed-summit' },
           { label: 'Research Days', to: '/events/research-days' },
+          { label: 'Network meetings, 2023', labelTa: 'வலையமைப்புச் சந்திப்புகள், 2023', to: '/events/network-meetings' },
         ],
       },
       {

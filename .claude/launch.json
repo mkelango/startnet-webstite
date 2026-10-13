@@ -31,6 +31,18 @@
       ],
       "port": 4000,
       "autoPort": false
+    },
+    {
+      "name": "startnet-api",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "server"
+      ],
+      "port": 4000,
+      "autoPort": false
     }
   ]
 }

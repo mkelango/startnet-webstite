@@ -7,7 +7,7 @@ import { Navigate, useParams } from 'react-router-dom';
 import { ArrowRight, Bell, FileText, Lock, MessageSquare } from 'lucide-react';
 import {
   Seo, PageHero, Section, SectionHeader, Stat, TagChip, Badge, Button, RevealGroup, ReportCard,
-  Skeleton, EmptyState, KeyFacts, SmartForm, Breadcrumbs,
+  Skeleton, EmptyState, KeyFacts, SmartForm, Breadcrumbs, PageLoader,
 } from '../../../components';
 import { useApi } from '../../../hooks/useApi.js';
 import { useLang } from '../../../lib/i18n.jsx';
@@ -147,7 +147,8 @@ export default function ReportDetail() {
 
   // The Ledger, the three indices and reports with a page elsewhere (/about/self-diagnosis) have their own canonical pages.
   if (reportPath(report) !== `/insights/reports/${report.slug}`) {
-    return <Navigate to={localePath(reportPath(report))} replace />;
+    // Keep the loader on screen for the redirect frame (an empty <main> lets the footer jump up: CLS).
+    return <><Navigate to={localePath(reportPath(report))} replace /><PageLoader /></>;
   }
 
   return <ReportView key={report.slug} report={report} all={all} />;

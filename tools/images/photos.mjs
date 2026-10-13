@@ -15,6 +15,7 @@
 //        "caption": "Vibathon 2025, Madurai", "captionTa": "…",
 //        "focus": "50% 35%", "focusMobile": "60% 30%",      ← where the subject is (object-position), per layout
 //        "crop": [x, y, width, height],                       ← optional, in original pixels
+//        "square": [x, y, side],                              ← optional square crop, fractions of the image width (portraits)
 //        "credit": "Photo: StartNet", "consent": true }       ← consent is REQUIRED for person/* and photos of people
 // 3. npm run photos     (then npm run build, so the prerendered pages include the photos)
 //
@@ -57,7 +58,7 @@ const KEY_RE = /^(hero\/[a-z0-9/-]+|event\/[a-z0-9-]+(\/[a-z0-9-]+)?|story\/[a-z
 // "ink": the site's photo tone (Oct 2026 redesign, after AngelList / USVC monochrome photography): near-monochrome
 // with a warm paper tint, so every photo sits on Paper and Ink as one set. Applied to every photo ("warm" is the old
 // name, kept as an alias). Originals are never changed; re-run npm run photos after editing this.
-const INK = 'grayscale(0.88) sepia(0.16) contrast(1.06) brightness(1.03)';
+const INK = 'grayscale(1) contrast(1.08) brightness(1.02)';
 const GRADES = { ink: INK, warm: INK, none: null };
 
 const originals = walk(SRC).filter((f) => MIME[path.extname(f).toLowerCase()]);
@@ -101,10 +102,20 @@ try {
 
     const dataUrl = `data:${MIME[path.extname(file).toLowerCase()]};base64,${fs.readFileSync(file).toString('base64')}`;
     const result = await page.evaluate(
-      async (src, widths, q, grade, jpgWidths, crop) => {
+      async (src, widths, q, grade, jpgWidths, crop, square) => {
         const img = new Image();
         img.src = src;
         await img.decode();
+        // Square crop given as fractions of the image width [x, y, side] (portraits: the same head-and-shoulders
+        // framing whatever the original's size), clamped to the image.
+        if (!crop && square) {
+          const nw = img.naturalWidth;
+          const nh = img.naturalHeight;
+          const side = Math.min(Math.round(square[2] * nw), nw, nh);
+          const x = Math.max(0, Math.min(nw - side, Math.round(square[0] * nw)));
+          const y = Math.max(0, Math.min(nh - side, Math.round(square[1] * nw)));
+          crop = [x, y, side, side];
+        }
         // Optional crop [x, y, width, height] in original pixels (e.g. to remove a frame added by a publisher).
         const [cx, cy, cw, ch] = crop || [0, 0, img.naturalWidth, img.naturalHeight];
         const W = cw;
@@ -134,7 +145,8 @@ try {
       QUALITY,
       meta.grade === 'none' ? null : GRADES[meta.grade] || INK,
       JPG_WIDTHS,
-      Array.isArray(meta.crop) && meta.crop.length === 4 ? meta.crop.map(Number) : null
+      Array.isArray(meta.crop) && meta.crop.length === 4 ? meta.crop.map(Number) : null,
+      Array.isArray(meta.square) && meta.square.length === 3 ? meta.square.map(Number) : null
     );
     if (result.W < 1200) console.warn(`[photos] ${rel}: only ${result.W}px wide; supply 2000px+ for sharp heroes`);
 

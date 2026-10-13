@@ -23,16 +23,6 @@
   --art-ink: var(--ink-500);
   --art-point: var(--paper);
 }
-/* Motion visual (MotionVisual.jsx) fills the slot box; the slot keeps its own aspect-ratio (no CLS). */
-.art-image .art-image__mv { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: inherit; }
-/* Server markup cannot see the surrounding surface; on Ink the static fallback must not render as Paper (the client
-   reads the surface before first paint, so this only matters for raw SSR output). */
-[data-surface='night'] .art-image .art-image__mv.mv--day {
-  --mv-ground: #0c1719 !important;
-  --mv-ground2: #1b292c !important;
-  --mv-glow: rgba(136, 199, 206, 0.2) !important;
-  --mv-glow2: rgba(136, 199, 206, 0.14) !important;
-}
 .art-image__svg { display: block; width: 100%; height: 100%; }
 
 .art__bg { fill: var(--art-bg); }

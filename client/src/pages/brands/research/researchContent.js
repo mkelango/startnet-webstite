@@ -58,7 +58,8 @@ export const JOURNEY = [
   { id: 'scale', title: 'Scale', titleTa: 'விரிவாக்குதல்', body: 'Pilots and first contracts', bodyTa: 'முன்னோட்டத் திட்டங்களும் முதல் ஒப்பந்தங்களும்', link: { label: 'Scale Connect', to: '/connect/scale' } },
 ];
 
-// The four-party model (Book 2 §3.1, verbatim).
+// The four-party model (Book 2 §3.1, verbatim). `holds` restates the stake already given in each body, for the
+// "Holds" line at the foot of each quadrant.
 export const PARTIES = [
   {
     id: 'founders',
@@ -66,6 +67,8 @@ export const PARTIES = [
     nameTa: 'ஆய்வாளர் அல்லது பேராசிரியர் நிறுவனர்கள்',
     short: 'Founders',
     shortTa: 'நிறுவனர்கள்',
+    holds: 'A clear majority',
+    holdsTa: 'தெளிவான பெரும்பான்மை',
     body: "Lead the company and hold a clear majority. Faculty can use leave or sabbatical provisions under AICTE's National Innovation and Startup Policy, where their institution has adopted it.",
     bodyTa: 'நிறுவனத்தை வழிநடத்தி, தெளிவான பெரும்பான்மைப் பங்கை வைத்திருப்பார்கள். தங்கள் கல்வி நிறுவனம் AICTE-இன் தேசியப் புத்தாக்க மற்றும் ஸ்டார்ட்அப் கொள்கையை ஏற்றிருந்தால், பேராசிரியர்கள் அதன் கீழ் உள்ள விடுப்பு அல்லது சிறப்பு விடுப்பு (sabbatical) வசதிகளைப் பயன்படுத்தலாம்.',
   },
@@ -75,6 +78,8 @@ export const PARTIES = [
     nameTa: 'கல்வி நிறுவனம்',
     short: 'Institution',
     shortTa: 'கல்வி நிறுவனம்',
+    holds: 'A small stake and/or royalty',
+    holdsTa: 'சிறிய பங்கு மற்றும்/அல்லது ராயல்டி',
     body: 'Provides IP, lab access and a host incubator, and takes a small stake and/or royalty.',
     bodyTa: 'அறிவுசார் சொத்து, ஆய்வக அணுகல், இன்குபேட்டர் ஆகியவற்றை வழங்கி, சிறிய பங்கு மற்றும்/அல்லது ராயல்டியைப் பெறுகிறது.',
   },
@@ -84,6 +89,8 @@ export const PARTIES = [
     nameTa: 'GCC அல்லது தொழில்துறைக் கூட்டாளர்',
     short: 'GCC / industry',
     shortTa: 'GCC / தொழில்துறை',
+    holds: 'Equity only if it invests cash',
+    holdsTa: 'பணமாக முதலீடு செய்தால் மட்டுமே பங்கு',
     body: 'Brings the problem, funds the proof of concept and can become the first customer. It takes equity only if it invests cash.',
     bodyTa: 'சிக்கலைக் கொண்டு வருகிறது, கருத்துச் சான்றுக்கு நிதியளிக்கிறது, முதல் வாடிக்கையாளராகவும் ஆகலாம். பணமாக முதலீடு செய்தால் மட்டுமே பங்கு பெறும்.',
   },
@@ -91,6 +98,8 @@ export const PARTIES = [
     id: 'startnet',
     name: 'StartNet',
     short: 'StartNet',
+    holds: 'A small founding stake',
+    holdsTa: 'சிறிய நிறுவனர் பங்கு',
     body: 'Runs the programme, venture building, capital and market access, and takes a small founding stake.',
     bodyTa: 'திட்டத்தை நடத்துதல், நிறுவனக் கட்டமைப்பு, முதலீடு, சந்தை அணுகல் ஆகியவற்றைக் கவனித்து, சிறிய நிறுவனர் பங்கைப் பெறுகிறது.',
   },
@@ -244,6 +253,66 @@ export const SUMMIT = {
   bodyTa: 'ஆய்வகக் குழுக்கள் GCC-கள், முதலீட்டாளர்கள், அரசு முன் செயல்விளக்கம் அளிக்கின்றன; ஸ்பான்சர்கள் அடுத்த ஆண்டின் சிக்கல் அறிக்கைகளை வெளியிடுகின்றனர்; TN Research Commercialisation Index-ஐ நாங்கள் வெளியிடுகிறோம்.',
   facts: 'Date, venue and co-host:',
   factsTa: 'தேதி, இடம், இணை நடத்துநர்:',
+};
+
+// NIRF Higher Ed Summit 2024: a past StartNet Research event (StartNet decision, Oct 2026).
+// Sources: docs/research/nirf-and-other-events.md §1 (read 13 Oct 2026).
+//   Salem: the summit site salem.nirfhesummits.in (now offline), Wayback capture 24 Nov 2024
+//     http://web.archive.org/web/20241124212216/https://salem.nirfhesummits.in/ (StartNet logo, info@startnet.in,
+//     footer "Copyright @ Startnet Ventures Private Limited 2024"); YouTube promo O8nBgNH2d9M ("August 31, Salem").
+//   Coimbatore: Amrita Vishwa Vidyapeetham news, 22 Oct 2024 ("organized by StartNet Research with the support of
+//     Startup Tamil Nadu (TN) of Government of Tamil Nadu"; "100+ senior academic administrators and faculty").
+// Left out on purpose: the Salem pre-event promo numbers (targets, not outcomes); sponsor and partner names that
+// appear only as logo file names; the planned TNHEIN and "NIRF Analysis Report 2024" launches (not confirmed to have
+// happened); speaker roles with conflicting sources (CONFLICTS.md). *Ta strings: draft, pending native review.
+export const NIRF_SUMMIT = {
+  name: 'NIRF Higher Ed Summit 2024',
+  lede: 'A one-day conference for college and university leaders in Tamil Nadu on improving their institutions’ performance in the National Institutional Ranking Framework (NIRF). StartNet ran two editions in 2024.',
+  ledeTa: 'தேசிய நிறுவன தரவரிசைக் கட்டமைப்பில் (NIRF) தங்கள் கல்வி நிறுவனங்களின் செயல்திறனை மேம்படுத்துவது குறித்து, தமிழ்நாட்டின் கல்லூரி, பல்கலைக்கழகத் தலைவர்களுக்கான ஒரு நாள் மாநாடு. 2024-இல் StartNet இரண்டு பதிப்புகளை நடத்தியது.',
+  who: 'For vice-chancellors, directors, principals, NIRF coordinators, IQAC heads, deans and faculty.',
+  whoTa: 'துணைவேந்தர்கள், இயக்குநர்கள், முதல்வர்கள், NIRF ஒருங்கிணைப்பாளர்கள், IQAC தலைவர்கள், புல முதல்வர்கள், பேராசிரியர்களுக்கு.',
+  editions: [
+    {
+      id: 'salem',
+      date: '2024-08-31',
+      name: 'Salem edition',
+      nameTa: 'சேலம் பதிப்பு',
+      where: 'CJ Pallazzio Hotel, Salem',
+      whereTa: 'CJ Pallazzio Hotel, சேலம்',
+      body: 'Organised by StartNet.',
+      bodyTa: 'StartNet ஏற்பாடு செய்தது.',
+      source: 'Source: the NIRF Higher Ed Summit Salem site (archived 24 Nov 2024).',
+      sourceTa: 'ஆதாரம்: NIRF Higher Ed Summit சேலம் இணையதளம் (24 நவம்பர் 2024 காப்பகப் பதிவு).',
+    },
+    {
+      id: 'coimbatore',
+      date: '2024-10-19',
+      name: 'Coimbatore edition',
+      nameTa: 'கோயம்புத்தூர் பதிப்பு',
+      where: 'Hotel Le Meridien, Coimbatore',
+      whereTa: 'Hotel Le Meridien, கோயம்புத்தூர்',
+      body: 'Organised by StartNet Research with the support of StartupTN.',
+      bodyTa: 'StartupTN ஆதரவுடன் StartNet Research ஏற்பாடு செய்தது.',
+      metric: {
+        id: 'nirf-cbe-2024-attendees',
+        key: 'nirf-summit-2024-coimbatore-attendees',
+        value: 100,
+        unit: '+',
+        label: 'senior academic administrators and faculty attended',
+        labelTa: 'மூத்த கல்வி நிர்வாகிகளும் பேராசிரியர்களும் பங்கேற்றனர்',
+        tag: 'B',
+        asAt: '2024-10-22',
+        source: 'Amrita Vishwa Vidyapeetham news, 22 Oct 2024',
+        sourceTa: 'அமிர்த விஸ்வ வித்யாபீடம் செய்தி, 22 அக்டோபர் 2024',
+        note: 'A participating university’s report of the event.',
+        noteTa: 'பங்கேற்ற ஒரு பல்கலைக்கழகத்தின் நிகழ்வு அறிக்கை.',
+      },
+      source: 'Source: Amrita Vishwa Vidyapeetham news, 22 Oct 2024.',
+      sourceTa: 'ஆதாரம்: அமிர்த விஸ்வ வித்யாபீடம் செய்தி, 22 அக்டோபர் 2024.',
+    },
+  ],
+  /** YouTube promo for the Salem edition (data/videos.js). */
+  videoId: 'O8nBgNH2d9M',
 };
 
 // SEO: primary "university innovation / startup policy" (NISP). SEO-TA: pending native review

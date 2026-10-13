@@ -74,7 +74,7 @@
   margin: -28px -28px var(--space-3);
   background: var(--bone);
 }
-.mega-feature__media .art-image, .mega-feature__media .mv { border-radius: 0; }
+.mega-feature__media .art-image { border-radius: 0; }
 .mega-feature__media .art-image--photo::after { border-radius: 0; }
 .mega-feature--ink .mega-feature__media { background: var(--night-1); }
 .mega-feature--ink {
@@ -186,7 +186,7 @@
   /* Keyboard focus is never scrolled under the sticky strip */
   .mega-menu { scroll-padding-bottom: 64px; }
   .mega-feature__media { max-height: 8rem; overflow: hidden; }
-  .mega-feature__media :is(.art-image, .mv) { aspect-ratio: auto !important; height: 8rem; }
+  .mega-feature__media .art-image { aspect-ratio: auto !important; height: 8rem; }
   /* Tamil runs 30–60% longer: on short screens the card drops its media so the panel still fits without scrolling */
   :lang(ta) .mega-feature__media { display: none; }
   :lang(ta) .mega-menu__link { min-height: 32px; }

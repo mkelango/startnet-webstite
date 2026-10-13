@@ -18,10 +18,14 @@ import {
 
 type Query = Record<string, string | string[] | undefined>;
 
-/** "a,b" or ["a","b"] → ['a','b'] (lower-cased, trimmed). Empty → null (no filter). */
-function list(param: string | string[] | undefined): string[] | null {
+/**
+ * "a,b" or ["a","b"] → ['a','b'] (lower-cased, trimmed). Empty → null (no filter).
+ * Only strings count: qs turns ?brand[toString]=1 into an object, and String()/join() on it would throw (500).
+ */
+function list(param: unknown): string[] | null {
   if (param === undefined || param === null) return null;
-  const raw = Array.isArray(param) ? param.join(',') : String(param);
+  const parts = Array.isArray(param) ? param.filter((v): v is string => typeof v === 'string') : typeof param === 'string' ? [param] : [];
+  const raw = parts.join(',');
   const values = raw
     .split(',')
     .map((v) => v.trim().toLowerCase())
@@ -241,7 +245,8 @@ export class ContentService {
       return (ta - tb) * dir;
     });
 
-    const limit = Math.floor(Number(Array.isArray(q.limit) ? q.limit[0] : q.limit));
+    const rawLimit = Array.isArray(q.limit) ? q.limit[0] : q.limit;
+    const limit = typeof rawLimit === 'string' ? Math.floor(Number(rawLimit)) : 0;
     return limit > 0 ? out.slice(0, Math.min(limit, 200)) : out;
   }
 

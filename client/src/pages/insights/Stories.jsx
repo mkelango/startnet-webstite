@@ -12,6 +12,7 @@ import { snxLink } from '../../lib/links.js';
 import { BRANDS } from '../../data/brands.js';
 import { localiseItem } from './ledgerUtils.js';
 import { realStories } from '../../components/_placeholders.js';
+import StartupShowcase from './StartupShowcase.jsx';
 import './Stories.css';
 
 const BRAND_FILTERS = [
@@ -124,6 +125,10 @@ export default function Stories() {
         )}
         breadcrumbs={[{ label: t('Insights', 'நுண்ணறிவுகள்'), to: '/insights' }, { label: t('Stories', 'கதைகள்') }]}
       />
+
+      <Section surface="paper" id="community-startups">
+        <StartupShowcase />
+      </Section>
 
       <Section surface="paper" pad="sm">
         <div className="stories-filters" role="group" aria-label={t('Filter stories', 'கதைகளை வடிகட்டு')}>

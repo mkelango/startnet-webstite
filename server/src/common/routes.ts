@@ -113,6 +113,31 @@ export const VANITY: Record<string, string> = {
 };
 
 /**
+ * Editions withdrawn from the listings (Oct 2026: the live Connect line-up is Agentic AI Connect and Physical AI
+ * Connect, docs/research/CONFLICTS.md). Every URL of a withdrawn edition (flat, nested, /agenda, /speakers) 301s to
+ * its series page, which still lists the series' past editions. Mirrors RETIRED_EDITIONS in
+ * client/src/pages/mega/events-series/seriesData.js (the client redirects the same URLs when the server is not in front).
+ */
+export const RETIRED_EDITIONS: Record<string, string[]> = {
+  'genai-connect': ['2027'],
+  'saas-connect': ['2027'],
+  'd2c-connect': ['2027'],
+};
+
+function retiredRedirects(): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const [series, editions] of Object.entries(RETIRED_EDITIONS)) {
+    for (const ed of editions) {
+      const target = `/events/${series}`;
+      for (const p of [`/events/${series}-${ed}`, `/events/${series}/${ed}`, `/events/${series}/${ed}/agenda`, `/events/${series}/${ed}/speakers`]) {
+        out[p] = target;
+      }
+    }
+  }
+  return out;
+}
+
+/**
  * Old client-side redirects, served as real 301s. Targets may carry a query.
  * (/connect/events and /connect/stories used to redirect here; they are brand pages now.)
  */
@@ -124,6 +149,7 @@ export const REDIRECTS: Record<string, string> = {
   '/events/d2c-connect/archive': '/events/d2c-connect/2024',
   '/events/saas-connect-archive': '/events/saas-connect/2025',
   '/events/saas-connect/archive': '/events/saas-connect/2025',
+  ...retiredRedirects(),
 };
 
 /** Static pages left out of sitemap.xml (no indexable content of their own). */

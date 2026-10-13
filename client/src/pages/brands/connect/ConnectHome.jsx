@@ -110,9 +110,10 @@ export default function ConnectHome() {
     {
       id: 'sectors',
       question: t('Which sectors have a Connect?', 'எந்தெந்தத் துறைகளுக்கு Connect உள்ளது?'),
+      // Last sentence: the next Connect flagships (connectData.js CONNECT_FLAGSHIPS; docs/research/connect-series.md §4).
       answer: t(
-        'GenAI, SaaS and D2C Connect are running. DeepTech, FinTech and Industry 4.0 Connect are proposed for 2027, with HealthTech, AgriFood and Climate Connect proposed to follow. We co-host with sector bodies wherever we can, rather than duplicate them.',
-        'GenAI, SaaS, D2C Connect இப்போது நடக்கின்றன. DeepTech, FinTech, Industry 4.0 Connect 2027-க்கு முன்மொழியப்பட்டுள்ளன; அதைத் தொடர்ந்து HealthTech, AgriFood, Climate Connect முன்மொழியப்பட்டுள்ளன. துறை அமைப்புகளின் பணியை மீண்டும் செய்வதற்குப் பதிலாக, முடிந்தவரை அவற்றுடன் இணைந்து நடத்துகிறோம்.'
+        'GenAI, SaaS and D2C Connect are running. DeepTech, FinTech and Industry 4.0 Connect are proposed for 2027, with HealthTech, AgriFood and Climate Connect proposed to follow. We co-host with sector bodies wherever we can, rather than duplicate them. The next StartNet Connect flagships are Agentic AI Connect on 14 November 2026 and Physical AI Connect on 8 May 2027, both in Chennai.',
+        'GenAI, SaaS, D2C Connect இப்போது நடக்கின்றன. DeepTech, FinTech, Industry 4.0 Connect 2027-க்கு முன்மொழியப்பட்டுள்ளன; அதைத் தொடர்ந்து HealthTech, AgriFood, Climate Connect முன்மொழியப்பட்டுள்ளன. துறை அமைப்புகளின் பணியை மீண்டும் செய்வதற்குப் பதிலாக, முடிந்தவரை அவற்றுடன் இணைந்து நடத்துகிறோம். அடுத்த StartNet Connect முதன்மை நிகழ்வுகள்: 14 நவம்பர் 2026 அன்று Agentic AI Connect, 8 மே 2027 அன்று Physical AI Connect; இரண்டும் சென்னையில்.'
       ),
     },
     { id: 'faq-angels', question: t('Can I invest through StartNet Angels?', 'StartNet Angels மூலம் நான் முதலீடு செய்யலாமா?'), answer: legal },

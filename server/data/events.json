@@ -195,13 +195,13 @@
       }
     ],
     "prizes": [
-      "Prize pool: [placeholder — to be supplied by StartNet] (the 2025 pool was ₹2.5 L, per the Vibathon 2025 brochure [B])",
+      "Prize pool: [placeholder — to be supplied by StartNet] (₹50,000 in cash prizes was announced for Vibathon 2025 [B])",
       "Seed support: [placeholder — terms and provider to be confirmed]",
       "Vibe Launchpad: guaranteed interview for winning teams",
       "Certificates: \"shipped\" certificates on StartNet X for every team that demos a working product"
     ],
     "prizesTa": [
-      "பரிசுத் தொகை: [இடநிரப்பி — StartNet வழங்க வேண்டும்] (Vibathon 2025 கையேட்டின்படி, 2025 பரிசுத் தொகை ₹2.5 L [B])",
+      "பரிசுத் தொகை: [இடநிரப்பி — StartNet வழங்க வேண்டும்] (Vibathon 2025-க்கு ₹50,000 பணப் பரிசுகள் அறிவிக்கப்பட்டன [B])",
       "விதை நிதி ஆதரவு: [இடநிரப்பி — விதிமுறைகளும் வழங்குநரும் உறுதிசெய்யப்பட வேண்டும்]",
       "Vibe Launchpad: வெற்றி பெறும் குழுக்களுக்கு உறுதியான நேர்காணல்",
       "சான்றிதழ்கள்: செயல்படும் தயாரிப்பைச் செயல்விளக்கம் செய்யும் ஒவ்வொரு குழுவுக்கும் StartNet X-இல் \"shipped\" சான்றிதழ்"
@@ -312,97 +312,94 @@
     "keywordsTa": ["விபதான்", "வைபத்தான்", "ஹேக்கத்தான்"]
   },
   {
-    "slug": "genai-connect-2027",
-    "title": "GenAI Connect 2027",
-    "titleTa": "GenAI Connect 2027",
-    "series": "genai-connect",
-    "edition": "2027",
+    "slug": "agentic-ai-connect-2026",
+    "title": "Agentic AI Connect 2026",
+    "titleTa": "Agentic AI Connect 2026",
+    "series": "agentic-ai-connect",
+    "edition": "2026",
+    "endorsement": "a StartNet Connect flagship",
+    "endorsementTa": "ஒரு StartNet Connect முதன்மை நிகழ்வு",
     "brand": "connect",
-    "date": "2027-05-15",
-    "dateConfirmed": false,
-    "dateLabel": "May–June 2027 · date to be confirmed",
-    "dateLabelTa": "மே–ஜூன் 2027 · தேதி உறுதிசெய்யப்பட வேண்டும்",
-    "city": "To be confirmed",
-    "cityTa": "[உறுதிசெய்ய வேண்டும்]",
-    "district": "To be confirmed",
-    "districtTa": "[உறுதிசெய்ய வேண்டும்]",
+    "date": "2026-11-14",
+    "dateConfirmed": true,
+    "dateLabel": "14 November 2026",
+    "dateLabelTa": "14 நவம்பர் 2026",
+    "city": "Chennai",
+    "cityTa": "சென்னை",
+    "district": "Chennai",
+    "districtTa": "சென்னை",
     "venue": "[placeholder — to be supplied by StartNet]",
     "venueTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
     "format": "in-person",
-    "language": "en",
-    "price": "paid",
+    "language": "[to be confirmed]",
+    "price": null,
+    "priceTBC": true,
     "priceNote": "[placeholder — to be supplied by StartNet]",
     "priceNoteTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
-    "priceTBC": true,
     "status": "upcoming",
-    "summary": "For builders shipping generative and agentic AI into real products, including for GCCs. The flagship evening of the GenAI Connect community.",
-    "summaryTa": "GCC-கள் உட்பட, உண்மையான தயாரிப்புகளில் generative மற்றும் agentic AI-ஐக் கொண்டு வரும் உருவாக்குநர்களுக்கு. GenAI Connect சமூகத்தின் முதன்மை மாலை நிகழ்வு.",
-    "ctaLabel": "Register for the next event",
-    "ctaLabelTa": "அடுத்த நிகழ்வுக்குப் பதிவு செய்யுங்கள்",
-    "brandUrl": "/connect/series",
-    "keywordsTa": ["கனெக்ட்"]
+    "summary": "“The year Tamil Nadu's AI companies stopped being pilots.” One of StartNet Connect's two yearly flagship summits, alongside Physical AI Connect, in Chennai on 14 November 2026. Venue and fees: [placeholder — to be supplied by StartNet].",
+    "summaryTa": "“The year Tamil Nadu's AI companies stopped being pilots.” Physical AI Connect உடன், StartNet Connect-இன் இரண்டு வருடாந்திர முதன்மை உச்சி மாநாடுகளில் ஒன்று; 14 நவம்பர் 2026 அன்று சென்னையில். நிகழ்விடமும் கட்டணமும்: [இடநிரப்பி — StartNet வழங்க வேண்டும்].",
+    "sources": [
+      {
+        "label": "StartNet home page (startnet.in), read 13 Oct 2026",
+        "url": "https://startnet.in"
+      },
+      {
+        "label": "StartNet Connect page (startnet.in/connect), read 13 Oct 2026",
+        "url": "https://startnet.in/connect"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13",
+    "ctaLabel": "Register interest",
+    "ctaLabelTa": "ஆர்வத்தைப் பதிவு செய்யுங்கள்",
+    "brandUrl": "/connect",
+    "keywordsTa": [
+      "கனெக்ட்",
+      "ஏஜென்டிக் AI"
+    ]
   },
   {
-    "slug": "saas-connect-2027",
-    "title": "SaaS Connect 2027",
-    "titleTa": "SaaS Connect 2027",
-    "series": "saas-connect",
+    "slug": "physical-ai-connect-2027",
+    "title": "Physical AI Connect 2027",
+    "titleTa": "Physical AI Connect 2027",
+    "series": "physical-ai-connect",
     "edition": "2027",
+    "endorsement": "a StartNet Connect flagship",
+    "endorsementTa": "ஒரு StartNet Connect முதன்மை நிகழ்வு",
     "brand": "connect",
-    "date": "2027-05-22",
-    "dateConfirmed": false,
-    "dateLabel": "May–June 2027 · date to be confirmed",
-    "dateLabelTa": "மே–ஜூன் 2027 · தேதி உறுதிசெய்யப்பட வேண்டும்",
-    "city": "To be confirmed",
-    "cityTa": "[உறுதிசெய்ய வேண்டும்]",
-    "district": "To be confirmed",
-    "districtTa": "[உறுதிசெய்ய வேண்டும்]",
+    "date": "2027-05-08",
+    "dateConfirmed": true,
+    "dateLabel": "8 May 2027",
+    "dateLabelTa": "8 மே 2027",
+    "city": "Chennai",
+    "cityTa": "சென்னை",
+    "district": "Chennai",
+    "districtTa": "சென்னை",
     "venue": "[placeholder — to be supplied by StartNet]",
     "venueTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
     "format": "in-person",
-    "language": "en",
-    "price": "paid",
+    "language": "[to be confirmed]",
+    "price": null,
+    "priceTBC": true,
     "priceNote": "[placeholder — to be supplied by StartNet]",
     "priceNoteTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
-    "priceTBC": true,
     "status": "upcoming",
-    "summary": "For early-stage and Tier 2 SaaS founders finding their first 100 customers. The flagship evening of the SaaS Connect community.",
-    "summaryTa": "முதல் 100 வாடிக்கையாளர்களைத் தேடும் தொடக்க நிலை மற்றும் Tier 2 SaaS நிறுவனர்களுக்கு. SaaS Connect சமூகத்தின் முதன்மை மாலை நிகழ்வு.",
-    "ctaLabel": "Register for the next event",
-    "ctaLabelTa": "அடுத்த நிகழ்வுக்குப் பதிவு செய்யுங்கள்",
-    "brandUrl": "/connect/series",
-    "keywordsTa": ["கனெக்ட்"]
-  },
-  {
-    "slug": "d2c-connect-2027",
-    "title": "D2C Connect 2027",
-    "titleTa": "D2C Connect 2027",
-    "series": "d2c-connect",
-    "edition": "2027",
-    "brand": "connect",
-    "date": "2027-06-05",
-    "dateConfirmed": false,
-    "dateLabel": "May–June 2027 · date to be confirmed",
-    "dateLabelTa": "மே–ஜூன் 2027 · தேதி உறுதிசெய்யப்பட வேண்டும்",
-    "city": "To be confirmed",
-    "cityTa": "[உறுதிசெய்ய வேண்டும்]",
-    "district": "To be confirmed",
-    "districtTa": "[உறுதிசெய்ய வேண்டும்]",
-    "venue": "[placeholder — to be supplied by StartNet]",
-    "venueTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
-    "format": "in-person",
-    "language": "en",
-    "price": "paid",
-    "priceNote": "[placeholder — to be supplied by StartNet]",
-    "priceNoteTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
-    "priceTBC": true,
-    "status": "upcoming",
-    "summary": "For consumer brands selling direct, from Tamil Nadu to the world. The flagship evening of the D2C Connect community.",
-    "summaryTa": "தமிழ்நாட்டிலிருந்து உலகுக்கு, நேரடியாக விற்கும் நுகர்வோர் பிராண்டுகளுக்கு. D2C Connect சமூகத்தின் முதன்மை மாலை நிகழ்வு.",
-    "ctaLabel": "Register for the next event",
-    "ctaLabelTa": "அடுத்த நிகழ்வுக்குப் பதிவு செய்யுங்கள்",
-    "brandUrl": "/connect/series",
-    "keywordsTa": ["கனெக்ட்"]
+    "summary": "StartNet Connect's yearly summit on physical AI, and one of its two flagship summits alongside Agentic AI Connect. Chennai, 8 May 2027. Venue and fees: [placeholder — to be supplied by StartNet].",
+    "summaryTa": "physical AI குறித்த StartNet Connect-இன் வருடாந்திர உச்சி மாநாடு; Agentic AI Connect உடன் அதன் இரண்டு முதன்மை உச்சி மாநாடுகளில் ஒன்று. சென்னை, 8 மே 2027. நிகழ்விடமும் கட்டணமும்: [இடநிரப்பி — StartNet வழங்க வேண்டும்].",
+    "sources": [
+      {
+        "label": "StartNet Connect page (startnet.in/connect), read 13 Oct 2026",
+        "url": "https://startnet.in/connect"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13",
+    "ctaLabel": "Register interest",
+    "ctaLabelTa": "ஆர்வத்தைப் பதிவு செய்யுங்கள்",
+    "brandUrl": "/connect",
+    "keywordsTa": [
+      "கனெக்ட்",
+      "பிசிக்கல் AI"
+    ]
   },
   {
     "slug": "lab-to-market-summit-2027",
@@ -512,10 +509,10 @@
     "cityTa": "திருச்செங்கோடு",
     "district": "Namakkal",
     "districtTa": "நாமக்கல்",
-    "venue": "K.S.R. College of Engineering, Tiruchengode",
-    "venueTa": "K.S.R. பொறியியல் கல்லூரி, திருச்செங்கோடு",
-    "coHost": "Run with CubeAI Solutions",
-    "coHostTa": "CubeAI Solutions உடன் இணைந்து நடத்தப்பட்டது",
+    "venue": "Emerald Hall, K.S.R. College of Engineering, Tiruchengode",
+    "venueTa": "Emerald Hall, K.S.R. பொறியியல் கல்லூரி, திருச்செங்கோடு",
+    "coHost": "Run by StartNet Vibe in association with CubeAI Solutions, KSR Educational Institutions and the Society for Technocracy Engineering Professionals (STEP)",
+    "coHostTa": "CubeAI Solutions, KSR Educational Institutions, Society for Technocracy Engineering Professionals (STEP) ஆகியவற்றுடன் இணைந்து StartNet Vibe நடத்தியது",
     "format": "in-person",
     "language": "bilingual",
     "price": "free",
@@ -523,13 +520,241 @@
     "priceNote": "[placeholder — to be supplied by StartNet]",
     "priceNoteTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
     "status": "past",
-    "summary": "StartNet's 2025 AI and vibe-coding hackathon, held at K.S.R. College of Engineering, Tiruchengode, with CubeAI Solutions. 80% of the colleges it reached were Tier 3 or 4 (Vibathon 2025 brochure [B]). Final attendance and outcomes: [placeholder — to be supplied by StartNet].",
-    "summaryTa": "StartNet-இன் 2025 AI மற்றும் vibe-coding ஹேக்கத்தான்; திருச்செங்கோடு K.S.R. பொறியியல் கல்லூரியில், CubeAI Solutions உடன் இணைந்து நடைபெற்றது. அது சென்றடைந்த கல்லூரிகளில் 80% Tier 3 அல்லது 4 கல்லூரிகள் (Vibathon 2025 கையேடு [B]). இறுதி வருகை எண்ணிக்கையும் விளைவுகளும்: [இடநிரப்பி — StartNet வழங்கும்].",
-    "outcomeIds": ["vibathon-2025-tier-3-4-colleges", "vibathon-2025-prize-pool", "vibathon-2025-participants"],
+    "summary": "StartNet's 2025 AI and vibe-coding hackathon, held on 26 September 2025 at K.S.R. College of Engineering, Tiruchengode, with CubeAI Solutions. 80% of the colleges it reached were Tier 3 or 4 (Vibathon 2025 brochure [B]). Total participants: [placeholder — to be supplied by StartNet].",
+    "summaryTa": "StartNet-இன் 2025 AI மற்றும் vibe-coding ஹேக்கத்தான்; 26 செப்டம்பர் 2025 அன்று திருச்செங்கோடு K.S.R. பொறியியல் கல்லூரியில், CubeAI Solutions உடன் இணைந்து நடைபெற்றது. அது சென்றடைந்த கல்லூரிகளில் 80% Tier 3 அல்லது 4 கல்லூரிகள் (Vibathon 2025 கையேடு [B]). மொத்தப் பங்கேற்பாளர்கள்: [இடநிரப்பி — StartNet வழங்கும்].",
+    "recap": [
+      "Vibathon 2025 was held on 26 September 2025 in the Emerald Hall at K.S.R. College of Engineering (KSRCE), Tiruchengode. StartNet Vibe ran it in association with CubeAI Solutions, KSR Educational Institutions and the Society for Technocracy Engineering Professionals (STEP).",
+      "Teams took their projects from concept to working prototype, and the jury evaluated live implementations. Projects shown included cybersecurity systems, smart food management, accident prediction models and IoT-powered real-time data analytics built with Lovable.",
+      "The 1st and 3rd prizes went to KSRCE student teams. Total participants and the number of colleges: [placeholder — to be supplied by StartNet]."
+    ],
+    "recapTa": [
+      "Vibathon 2025, 26 செப்டம்பர் 2025 அன்று திருச்செங்கோடு K.S.R. பொறியியல் கல்லூரியின் (KSRCE) Emerald Hall-இல் நடைபெற்றது. CubeAI Solutions, KSR Educational Institutions, Society for Technocracy Engineering Professionals (STEP) ஆகியவற்றுடன் இணைந்து StartNet Vibe இதை நடத்தியது.",
+      "குழுக்கள் தங்கள் திட்டங்களை யோசனையிலிருந்து செயல்படும் முன்மாதிரி வரை கொண்டு சென்றன; நடுவர் குழு நேரடிச் செயலாக்கங்களை மதிப்பிட்டது. காட்டப்பட்ட திட்டங்களில் இணையப் பாதுகாப்பு அமைப்புகள், உணவு மேலாண்மைத் தீர்வுகள், விபத்து முன்கணிப்பு மாதிரிகள், Lovable மூலம் உருவாக்கப்பட்ட IoT நேரடித் தரவுப் பகுப்பாய்வு ஆகியவை அடங்கும்.",
+      "முதல், மூன்றாம் பரிசுகள் KSRCE மாணவர் அணிகளுக்குக் கிடைத்தன. மொத்தப் பங்கேற்பாளர்களும் கல்லூரிகளின் எண்ணிக்கையும்: [இடநிரப்பி — StartNet வழங்க வேண்டும்]."
+    ],
+    "figures": [
+      {
+        "id": "vibathon-2025-teams",
+        "key": "vibathon-2025-teams",
+        "value": 40,
+        "label": "Teams",
+        "labelTa": "அணிகள்",
+        "tag": "B",
+        "asAt": "2025-10-04",
+        "source": "StartNet Vibe on LinkedIn, Vibathon 2025 recap post, 4 Oct 2025",
+        "brand": "vibe"
+      },
+      {
+        "id": "vibathon-2025-cash-prizes",
+        "key": "vibathon-2025-cash-prizes",
+        "value": 50000,
+        "prefix": "₹",
+        "label": "Cash prizes announced",
+        "labelTa": "அறிவிக்கப்பட்ட பணப் பரிசுகள்",
+        "tag": "B",
+        "asAt": "2025-08-09",
+        "source": "StartNet Vibe on LinkedIn, Vibathon announcement, 9 Aug 2025",
+        "note": "The lowest of three figures in circulation: the Vibathon 2025 brochure said ₹2.5 L, and a search-engine copy of vibathon.in said ₹75,000+. StartNet to confirm.",
+        "noteTa": "புழக்கத்தில் உள்ள மூன்று எண்களில் மிகக் குறைவானது: Vibathon 2025 கையேடு ₹2.5 L என்றும், vibathon.in-இன் தேடுபொறிப் பிரதி ₹75,000+ என்றும் குறிப்பிட்டன. StartNet உறுதிசெய்ய வேண்டும்.",
+        "brand": "vibe"
+      }
+    ],
+    "outcomeIds": [
+      "vibathon-2025-tier-3-4-colleges",
+      "vibathon-2025-participants"
+    ],
+    "prizes": [
+      "Cash prizes announced: ₹50,000 in all (1st ₹20,000, 2nd ₹10,000, 3rd ₹5,000, and five consolation prizes of ₹3,000 each) [B]",
+      "Also announced: internships, mentorship and swag",
+      "1st and 3rd prizes: KSRCE student teams (CSE-CS), awarded by StartNet Vibe and CubeAI Solutions",
+      "2nd prize: [placeholder — to be supplied by StartNet]"
+    ],
+    "prizesTa": [
+      "அறிவிக்கப்பட்ட பணப் பரிசுகள்: மொத்தம் ₹50,000 (முதல் பரிசு ₹20,000, இரண்டாம் பரிசு ₹10,000, மூன்றாம் பரிசு ₹5,000, தலா ₹3,000 மதிப்புள்ள ஐந்து ஆறுதல் பரிசுகள்) [B]",
+      "இவற்றுடன் அறிவிக்கப்பட்டவை: இன்டர்ன்ஷிப், வழிகாட்டுதல், நினைவுப் பரிசுகள்",
+      "முதல், மூன்றாம் பரிசுகள்: KSRCE மாணவர் அணிகள் (CSE-CS); StartNet Vibe, CubeAI Solutions வழங்கின",
+      "இரண்டாம் பரிசு: [இடநிரப்பி — StartNet வழங்க வேண்டும்]"
+    ],
+    "lists": [
+      {
+        "heading": "Outcomes, as KSRCE reported them",
+        "headingTa": "KSRCE தெரிவித்த விளைவுகள்",
+        "note": "From the college's event page.",
+        "noteTa": "கல்லூரியின் நிகழ்வுப் பக்கத்திலிருந்து.",
+        "items": [
+          "Encouraged innovation, creativity and rapid problem-solving among participants",
+          "Provided hands-on experience in building AI-powered solutions",
+          "Fostered teamwork, leadership and project presentation skills",
+          "Connected students with industry mentors, improving exposure to real challenges"
+        ],
+        "itemsTa": [
+          "பங்கேற்பாளர்களிடையே புதுமை, படைப்பாற்றல், விரைவான சிக்கல் தீர்வை ஊக்குவித்தது",
+          "AI அடிப்படையிலான தீர்வுகளை உருவாக்குவதில் நேரடி அனுபவம் அளித்தது",
+          "குழுப்பணி, தலைமைத்துவம், திட்ட விளக்கத் திறன்களை வளர்த்தது",
+          "மாணவர்களைத் தொழில்துறை வழிகாட்டிகளுடன் இணைத்து, உண்மையான சவால்களுக்கான அறிமுகத்தை மேம்படுத்தியது"
+        ]
+      }
+    ],
+    "people": [
+      {
+        "heading": "Guests of honour",
+        "headingTa": "சிறப்பு விருந்தினர்கள்",
+        "note": "As named in StartNet Vibe's recap post.",
+        "noteTa": "StartNet Vibe-இன் சுருக்கப் பதிவில் குறிப்பிட்டபடி.",
+        "items": [
+          {
+            "name": "Dr. M. Venkatesan",
+            "role": "Dean, K.S.R. College of Engineering",
+            "roleTa": "முதன்மையர் (Dean), K.S.R. பொறியியல் கல்லூரி"
+          },
+          {
+            "name": "Suresh Kuppuswamy",
+            "role": "Co-Founder, Zepto Logic Technologies Private Limited, Coimbatore",
+            "roleTa": "இணை நிறுவனர், Zepto Logic Technologies Private Limited, கோயம்புத்தூர்"
+          }
+        ]
+      },
+      {
+        "heading": "Jury and industry experts",
+        "headingTa": "நடுவர்களும் தொழில்துறை நிபுணர்களும்",
+        "kind": "jury",
+        "note": "Named in StartNet Vibe's recap post; individual roles were not stated.",
+        "noteTa": "StartNet Vibe-இன் சுருக்கப் பதிவில் பெயரிடப்பட்டவர்கள்; தனிப்பட்ட பொறுப்புகள் குறிப்பிடப்படவில்லை.",
+        "items": [
+          {
+            "name": "Dinesh Yuvaraj",
+            "role": "Jury and industry expert",
+            "roleTa": "நடுவர், தொழில்துறை நிபுணர்"
+          },
+          {
+            "name": "Nagaraj Varatharaj",
+            "role": "Jury and industry expert",
+            "roleTa": "நடுவர், தொழில்துறை நிபுணர்"
+          },
+          {
+            "name": "Palanivel Subramaniam",
+            "role": "Jury and industry expert",
+            "roleTa": "நடுவர், தொழில்துறை நிபுணர்"
+          },
+          {
+            "name": "Srinivasan Ganesan",
+            "role": "Jury and industry expert",
+            "roleTa": "நடுவர், தொழில்துறை நிபுணர்"
+          },
+          {
+            "name": "M.K. Elango",
+            "role": "Jury and industry expert",
+            "roleTa": "நடுவர், தொழில்துறை நிபுணர்"
+          },
+          {
+            "name": "M V Prabakar",
+            "role": "Jury and industry expert",
+            "roleTa": "நடுவர், தொழில்துறை நிபுணர்"
+          },
+          {
+            "name": "Hariprasad Sugunakumar",
+            "role": "Jury and industry expert",
+            "roleTa": "நடுவர், தொழில்துறை நிபுணர்"
+          },
+          {
+            "name": "Eswaran Arumugam",
+            "role": "Jury and industry expert",
+            "roleTa": "நடுவர், தொழில்துறை நிபுணர்"
+          },
+          {
+            "name": "Jayaprakash N",
+            "role": "Jury and industry expert",
+            "roleTa": "நடுவர், தொழில்துறை நிபுணர்"
+          }
+        ]
+      }
+    ],
+    "partners": [
+      {
+        "heading": "Run in association with",
+        "headingTa": "இணைந்து நடத்தியவர்கள்",
+        "note": "As named in StartNet Vibe's announcement of 9 August 2025.",
+        "noteTa": "9 ஆகஸ்ட் 2025 அன்று StartNet Vibe வெளியிட்ட அறிவிப்பில் குறிப்பிட்டபடி.",
+        "items": [
+          {
+            "name": "Cubeaisolutions Tech Pvt Ltd (CubeAI Solutions)",
+            "role": "In association with; awarded the prizes with StartNet Vibe",
+            "roleTa": "இணைந்து நடத்தியது; StartNet Vibe உடன் பரிசுகளை வழங்கியது"
+          },
+          {
+            "name": "KSR Educational Institutions",
+            "role": "In association with",
+            "roleTa": "இணைந்து நடத்தியது"
+          },
+          {
+            "name": "Society for Technocracy Engineering Professionals (STEP)",
+            "role": "In association with",
+            "roleTa": "இணைந்து நடத்தியது"
+          }
+        ]
+      },
+      {
+        "heading": "Sponsors listed for the 2025 edition",
+        "headingTa": "2025 பதிப்புக்குப் பட்டியலிடப்பட்ட ஸ்பான்சர்கள்",
+        "note": "As named in StartNet Vibe's recap post of 4 October 2025; no tiers were stated. A record of the event, not a current StartNet partnership.",
+        "noteTa": "4 அக்டோபர் 2025 அன்று StartNet Vibe வெளியிட்ட சுருக்கப் பதிவில் குறிப்பிட்டபடி; நிலைகள் குறிப்பிடப்படவில்லை. நிகழ்வின் பதிவு; தற்போதைய StartNet கூட்டாண்மை அல்ல.",
+        "items": [
+          {
+            "name": "sashainfinity",
+            "role": "Sponsor",
+            "roleTa": "ஸ்பான்சர்"
+          },
+          {
+            "name": "ConcertIDC",
+            "role": "Sponsor",
+            "roleTa": "ஸ்பான்சர்"
+          },
+          {
+            "name": "Argit Solutions Private Limited",
+            "role": "Sponsor",
+            "roleTa": "ஸ்பான்சர்"
+          },
+          {
+            "name": "AI Tamilar Startup",
+            "role": "Sponsor",
+            "roleTa": "ஸ்பான்சர்"
+          },
+          {
+            "name": "Start Insights",
+            "role": "Sponsor",
+            "roleTa": "ஸ்பான்சர்"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "label": "Vibathon announcement, StartNet Vibe on LinkedIn, 9 Aug 2025",
+        "url": "https://www.linkedin.com/posts/startnetvibe_vibathon-techhackathon-innovation-activity-7359923974471864320-BeeS"
+      },
+      {
+        "label": "Vibathon 2025 recap, StartNet Vibe on LinkedIn, 4 Oct 2025",
+        "url": "https://www.linkedin.com/posts/startnetvibe_vibathon2025-aihackathon-ksrce-activity-7380212890731122688-rs6z"
+      },
+      {
+        "label": "Vibathon 2025 event page, K.S.R. College of Engineering",
+        "url": "https://ksrce.ac.in/index.php/page?id=1082&item=315"
+      },
+      {
+        "label": "Students' achievements list 2025–26 (odd semester), K.S.R. College of Engineering (prize winners)"
+      },
+      {
+        "label": "Vibathon 2025 brochure (share of Tier 3 and Tier 4 colleges)"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13",
     "recapSlug": "vibathon-2025-recap",
     "brandUrl": "/vibe/vibathon",
-    "keywordsTa": ["விபதான்", "வைபத்தான்", "ஹேக்கத்தான்"],
-    "sources": ["https://ksrce.ac.in/index.php/page?id=1082&item=315"]
+    "keywordsTa": [
+      "விபதான்",
+      "வைபத்தான்",
+      "ஹேக்கத்தான்"
+    ]
   },
   {
     "slug": "vibe-marketing-summit-2025",
@@ -548,15 +773,180 @@
     "districtTa": "சேலம்",
     "venue": "Sona Incubation Foundation, Salem",
     "venueTa": "Sona Incubation Foundation, சேலம்",
+    "coHost": "Organised by StartNet Ventures Private Limited in collaboration with Sona Incubation Foundation",
+    "coHostTa": "Sona Incubation Foundation உடன் இணைந்து StartNet Ventures Private Limited ஏற்பாடு செய்தது",
     "format": "in-person",
     "language": "[to be confirmed]",
-    "price": "free",
+    "price": "paid",
     "priceTBC": true,
-    "priceNote": "[placeholder — to be supplied by StartNet]",
-    "priceNoteTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
+    "priceNote": "Ticketed, with a student pass and a 20% discount promoted. Prices: [placeholder — to be supplied by StartNet]",
+    "priceNoteTa": "டிக்கெட் கட்டணம் உண்டு; மாணவர் அனுமதிச்சீட்டும் 20% தள்ளுபடியும் விளம்பரப்படுத்தப்பட்டன. கட்டணங்கள்: [இடநிரப்பி — StartNet வழங்க வேண்டும்]",
     "status": "past",
-    "summary": "A StartNet Vibe summit on vibe marketing, held at Sona Incubation Foundation, Salem. Attendance: [placeholder — to be supplied by StartNet; attendance tagged A/B].",
-    "summaryTa": "vibe marketing குறித்த StartNet Vibe உச்சி மாநாடு; சேலம் Sona Incubation Foundation-இல் நடைபெற்றது. வருகை எண்ணிக்கை: [இடநிரப்பி — StartNet வழங்கும்; வருகை எண்ணிக்கை A/B எனக் குறிக்கப்படும்].",
+    "summary": "The first Vibe Marketing Summit, by StartNet Vibe: AI-marketing talks, interactive workshops, live campaign demos and open discussions at Sona Incubation Foundation, Salem, organised by StartNet Ventures Private Limited in collaboration with Sona Incubation Foundation.",
+    "summaryTa": "முதல் Vibe Marketing Summit, StartNet Vibe வழங்கியது: சேலம் Sona Incubation Foundation-இல் AI சந்தைப்படுத்தல் உரைகள், கலந்துரையாடல் பயிலரங்குகள், நேரடிப் பிரச்சாரச் செயல்விளக்கங்கள், திறந்த விவாதங்கள்; Sona Incubation Foundation உடன் இணைந்து StartNet Ventures Private Limited ஏற்பாடு செய்தது.",
+    "recap": [
+      "The first edition of the Vibe Marketing Summit was held at Sona Incubation Foundation, Salem, on 26 July 2025, organised by StartNet Ventures Private Limited in collaboration with Sona Incubation Foundation. It ran as interactive workshops, live campaign demos and open discussions.",
+      "StartNet Vibe framed the day around a “CCI Framework”: copy proven AI marketing strategies, customise them for unique audiences, and innovate to stay ahead of the curve.",
+      "It was promoted as coming “from the creators of the Vibe Coding Summit”."
+    ],
+    "recapTa": [
+      "Vibe Marketing Summit-இன் முதல் பதிப்பு 26 ஜூலை 2025 அன்று சேலம் Sona Incubation Foundation-இல் நடைபெற்றது; Sona Incubation Foundation உடன் இணைந்து StartNet Ventures Private Limited ஏற்பாடு செய்தது. கலந்துரையாடல் பயிலரங்குகள், நேரடிப் பிரச்சாரச் செயல்விளக்கங்கள், திறந்த விவாதங்கள் என நடைபெற்றது.",
+      "StartNet Vibe அந்த நாளை ஒரு “CCI Framework”-ஐச் சுற்றி அமைத்தது: நிரூபிக்கப்பட்ட AI சந்தைப்படுத்தல் உத்திகளைப் பின்பற்றுங்கள் (Copy), உங்கள் பார்வையாளர்களுக்கு ஏற்ப மாற்றுங்கள் (Customize), முன்னிலையில் இருக்கப் புதுமை செய்யுங்கள் (Innovate).",
+      "இது “from the creators of the Vibe Coding Summit” என விளம்பரப்படுத்தப்பட்டது."
+    ],
+    "figures": [
+      {
+        "id": "vibe-marketing-summit-2025-participants",
+        "key": "vibe-marketing-summit-2025-participants",
+        "value": 150,
+        "unit": "+",
+        "label": "Entrepreneurs, business leaders and marketers",
+        "labelTa": "தொழில்முனைவோர், வணிகத் தலைவர்கள், சந்தைப்படுத்துநர்கள்",
+        "tag": "B",
+        "asAt": "2025-07-29",
+        "source": "Sona Incubation Foundation on LinkedIn, 29 Jul 2025",
+        "note": "The partner's own figure.",
+        "noteTa": "கூட்டாளர் அமைப்பின் சொந்த எண்ணிக்கை.",
+        "brand": "vibe"
+      }
+    ],
+    "highlightsNote": "As listed in Sona Incubation Foundation's post of 29 July 2025.",
+    "highlightsNoteTa": "29 ஜூலை 2025 அன்று Sona Incubation Foundation வெளியிட்ட பதிவில் பட்டியலிட்டபடி.",
+    "highlights": [
+      {
+        "title": "Keynote: “The AI Marketing Revolution”",
+        "titleTa": "முதன்மை உரை: “The AI Marketing Revolution”",
+        "body": "Rajesh Srinivasan."
+      },
+      {
+        "title": "“AI & Content Automation in Marketing”",
+        "body": "M.K. Elango."
+      },
+      {
+        "title": "“From Traditional to AI-Driven Digital Marketing”",
+        "body": "Mani Maran Ramalingam (Thedico)."
+      },
+      {
+        "title": "“AI-Powered Go-To-Market Strategies”",
+        "body": "Arunkumar Nataraj (REAINMAKER AI, Malaysia)."
+      },
+      {
+        "title": "“Future-Ready Marketing Teams & Structures”",
+        "body": "Dinesh Yuvaraj (Cubeaisolutions) and Venkatesh C.R. (Dot Com Infoway).",
+        "bodyTa": "Dinesh Yuvaraj (Cubeaisolutions), Venkatesh C.R. (Dot Com Infoway)."
+      },
+      {
+        "title": "Panel discussion",
+        "titleTa": "குழு விவாதம்",
+        "body": "Poonthamil Kumaran (Multipreneur Academy)."
+      }
+    ],
+    "people": [
+      {
+        "heading": "Speakers on the record",
+        "headingTa": "பதிவில் உள்ள பேச்சாளர்கள்",
+        "note": "Named with the role or organisation given in Sona Incubation Foundation's post, and in StartNet Vibe's post for M.K. Elango.",
+        "noteTa": "Sona Incubation Foundation-இன் பதிவிலும், M.K. Elango-வுக்கு StartNet Vibe-இன் பதிவிலும் குறிப்பிட்ட பொறுப்பு அல்லது நிறுவனத்துடன் பெயரிடப்பட்டுள்ளனர்.",
+        "items": [
+          {
+            "name": "Rajesh Srinivasan",
+            "role": "Keynote speaker",
+            "roleTa": "முதன்மை உரையாளர்"
+          },
+          {
+            "name": "M.K. Elango",
+            "role": "Founder & CEO, StartNet Ventures Private Limited",
+            "roleTa": "நிறுவனர் & CEO, StartNet Ventures Private Limited"
+          },
+          {
+            "name": "Mani Maran Ramalingam",
+            "role": "Thedico"
+          },
+          {
+            "name": "Arunkumar Nataraj",
+            "role": "REAINMAKER AI, Malaysia",
+            "roleTa": "REAINMAKER AI, மலேசியா"
+          },
+          {
+            "name": "Dinesh Yuvaraj",
+            "role": "Cubeaisolutions"
+          },
+          {
+            "name": "Venkatesh C.R.",
+            "role": "Dot Com Infoway"
+          },
+          {
+            "name": "Poonthamil Kumaran",
+            "role": "Multipreneur Academy"
+          },
+          {
+            "name": "Sasi Varna Kumar",
+            "role": "E-commerce expert",
+            "roleTa": "மின்வணிக நிபுணர்"
+          }
+        ]
+      },
+      {
+        "heading": "Also named as speakers",
+        "headingTa": "பேச்சாளர்களாகக் குறிப்பிடப்பட்ட மற்றவர்கள்",
+        "note": "Named in a fellow speaker's post, without roles.",
+        "noteTa": "உடன் பேசிய ஒருவரின் பதிவில், பொறுப்பு குறிப்பிடப்படாமல் பெயரிடப்பட்டவர்கள்.",
+        "items": [
+          {
+            "name": "Dr. Venkatesan Lakshminarasimhan",
+            "role": "Speaker",
+            "roleTa": "பேச்சாளர்"
+          },
+          {
+            "name": "Eswaran Arumugam",
+            "role": "Speaker",
+            "roleTa": "பேச்சாளர்"
+          }
+        ]
+      }
+    ],
+    "partners": [
+      {
+        "heading": "Organised with",
+        "headingTa": "இணைந்து ஏற்பாடு செய்தவர்",
+        "note": "A record of the event, not a current StartNet partnership.",
+        "noteTa": "நிகழ்வின் பதிவு; தற்போதைய StartNet கூட்டாண்மை அல்ல.",
+        "items": [
+          {
+            "name": "Sona Incubation Foundation",
+            "role": "In collaboration with StartNet Ventures Private Limited",
+            "roleTa": "StartNet Ventures Private Limited உடன் இணைந்து"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "label": "Vibe Marketing Summit announcement, StartNet Vibe on LinkedIn, 25 Jul 2025",
+        "url": "https://www.linkedin.com/posts/startnetvibe_vibemarketingsummit-aimarketing-startupecosystem-activity-7354530389341691904-bSU5"
+      },
+      {
+        "label": "Vibe Marketing Summit recap, Sona Incubation Foundation on LinkedIn, 29 Jul 2025",
+        "url": "https://www.linkedin.com/posts/sona-incubation-foundation_vibe-marketing-summit-activity-7355841168062009344-AIZL"
+      },
+      {
+        "label": "Post by Venkatesh C.R., speaker, on LinkedIn",
+        "url": "https://www.linkedin.com/posts/crvenk_vibemarketingsummit-aimarketing-salem-activity-7355454508820320257-R_un"
+      },
+      {
+        "label": "An attendee's post on LinkedIn (passes and discount)",
+        "url": "https://www.linkedin.com/posts/prakash-eswar_vibe-marketing-summit-2025-ai-powered-marketing-activity-7354412690724827137-gf02"
+      },
+      {
+        "label": "StartNet Vibe on Instagram, event post",
+        "url": "https://www.instagram.com/p/DMcfd4bTdLj/"
+      },
+      {
+        "label": "StartNet Vibe on Instagram, “from the creators of the Vibe Coding Summit”",
+        "url": "https://www.instagram.com/p/DMFrKijzeYI/"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13",
     "sourceNote": "Public StartNet Vibe event record, approved for the site by StartNet, Oct 2026.",
     "brandUrl": "/vibe"
   },
@@ -566,7 +956,9 @@
     "titleTa": "GenAI Connect உச்சி மாநாடு & கண்காட்சி 2024",
     "series": "genai-connect",
     "edition": "2024",
-    "formerSlugs": ["genai-connect-archive"],
+    "formerSlugs": [
+      "genai-connect-archive"
+    ],
     "brand": "connect",
     "date": "2024-04-27",
     "dateConfirmed": true,
@@ -589,7 +981,89 @@
     "status": "past",
     "summary": "The 2024 GenAI.Connect Summit & Expo in Salem, presented by StartNet with Native Angels Network. It included the GenAI Pitch Showdown 2024 and the finale of a GenAI mini-hackathon. Attendance: [placeholder — to be supplied by StartNet; attendance tagged A/B].",
     "summaryTa": "சேலத்தில் நடைபெற்ற 2024 GenAI.Connect உச்சி மாநாடு & கண்காட்சி; Native Angels Network உடன் இணைந்து StartNet வழங்கியது. இதில் GenAI Pitch Showdown 2024-உம் ஒரு GenAI சிறு ஹேக்கத்தானின் இறுதிச் சுற்றும் இடம்பெற்றன. வருகை எண்ணிக்கை: [இடநிரப்பி — StartNet வழங்கும்; வருகை எண்ணிக்கை A/B எனக் குறிக்கப்படும்].",
-    "sources": ["https://genaiconnect.startnet.in", "https://www.linkedin.com/company/startnetindia"],
+    "recap": [
+      "GenAI.Connect Summit & Expo 2024 was held at Radisson, Salem, on 27 April 2024, presented by StartNet in collaboration with Native Angels Network. The GenAI Pitch Showdown 2024 ran on the same day.",
+      "The event website listed three parallel tracks and the sessions shown under Programme. It did not say which speaker took which session, so speakers are not listed here until StartNet confirms them.",
+      "Final attendance, pitch results and sponsor names: [placeholder — to be supplied by StartNet]."
+    ],
+    "recapTa": [
+      "GenAI.Connect உச்சி மாநாடு & கண்காட்சி 2024, 27 ஏப்ரல் 2024 அன்று சேலம் Radisson-இல் நடைபெற்றது; Native Angels Network உடன் இணைந்து StartNet வழங்கியது. அதே நாளில் GenAI Pitch Showdown 2024-உம் நடைபெற்றது.",
+      "நிகழ்வு இணையதளம் மூன்று இணையான பிரிவுகளையும், ‘நிகழ்ச்சிகள்’ பகுதியில் உள்ள அமர்வுகளையும் பட்டியலிட்டது. எந்தப் பேச்சாளர் எந்த அமர்வில் பேசினார் என்று அது குறிப்பிடவில்லை; எனவே StartNet உறுதிசெய்யும் வரை பேச்சாளர்கள் இங்கே பட்டியலிடப்படவில்லை.",
+      "இறுதி வருகை எண்ணிக்கை, pitch முடிவுகள், ஸ்பான்சர் பெயர்கள்: [இடநிரப்பி — StartNet வழங்க வேண்டும்]."
+    ],
+    "tracksNote": "As listed on the event website before the day (genaiconnect.startnet.in, now offline).",
+    "tracksNoteTa": "நிகழ்வுக்கு முன் நிகழ்வு இணையதளத்தில் பட்டியலிடப்பட்டபடி (genaiconnect.startnet.in, தற்போது இயங்கவில்லை).",
+    "tracks": [
+      {
+        "title": "Cross-Industry",
+        "titleTa": "பல்துறை"
+      },
+      {
+        "title": "Industry-Specific",
+        "titleTa": "துறைசார்",
+        "brief": "Technology showcases and demos",
+        "briefTa": "தொழில்நுட்பக் காட்சிப்படுத்தல்களும் செயல்விளக்கங்களும்"
+      },
+      {
+        "title": "Startup Showcase & Pitching",
+        "titleTa": "ஸ்டார்ட்அப் காட்சிப்படுத்தல் & Pitching",
+        "brief": "Startup pitches, a product launch session, a mini-hackathon, speed networking and a closed-door angel funding meet",
+        "briefTa": "ஸ்டார்ட்அப் pitch-கள், ஒரு தயாரிப்பு வெளியீட்டு அமர்வு, ஒரு சிறு ஹேக்கத்தான், விரைவு networking, ஒரு மூடிய angel நிதிச் சந்திப்பு"
+      }
+    ],
+    "highlightsNote": "Sessions as listed on the event website before the day.",
+    "highlightsNoteTa": "நிகழ்வுக்கு முன் நிகழ்வு இணையதளத்தில் பட்டியலிடப்பட்டபடி அமர்வுகள்.",
+    "highlights": [
+      {
+        "title": "Keynote: “Unleashing the Power of GenAI – TN Roadmap to Global Innovation”",
+        "titleTa": "முதன்மை உரை: “Unleashing the Power of GenAI – TN Roadmap to Global Innovation”"
+      },
+      {
+        "title": "A session on building a thriving AI startup ecosystem in Tamil Nadu",
+        "titleTa": "தமிழ்நாட்டில் வளமான AI ஸ்டார்ட்அப் சூழலை உருவாக்குவது பற்றிய அமர்வு"
+      },
+      {
+        "title": "Panel: “Leading with GenAI: Tamilnadu's Women Entrepreneurs Shaping the Future”",
+        "titleTa": "குழு விவாதம்: “Leading with GenAI: Tamilnadu's Women Entrepreneurs Shaping the Future”"
+      },
+      {
+        "title": "GenAI Pitch Showdown 2024",
+        "body": "A pitch competition for AI startups, presented by StartNet in collaboration with Native Angels Network. Finalists and results: [placeholder — to be supplied by StartNet].",
+        "bodyTa": "AI ஸ்டார்ட்அப்களுக்கான pitch போட்டி; Native Angels Network உடன் இணைந்து StartNet வழங்கியது. இறுதிப் போட்டியாளர்களும் முடிவுகளும்: [இடநிரப்பி — StartNet வழங்க வேண்டும்]."
+      }
+    ],
+    "partners": [
+      {
+        "heading": "Partners listed for the 2024 edition",
+        "headingTa": "2024 பதிப்புக்குப் பட்டியலிடப்பட்ட கூட்டாளர்கள்",
+        "note": "A record of the event as listed at the time, not a current StartNet partnership. Sponsor names did not come through in the archived copy of the website.",
+        "noteTa": "அன்று பட்டியலிடப்பட்டபடி நிகழ்வின் பதிவு; தற்போதைய StartNet கூட்டாண்மை அல்ல. இணையதளத்தின் காப்பகப் பிரதியில் ஸ்பான்சர் பெயர்கள் கிடைக்கவில்லை.",
+        "items": [
+          {
+            "name": "Native Angels Network",
+            "role": "Collaboration partner, GenAI Pitch Showdown 2024",
+            "roleTa": "GenAI Pitch Showdown 2024-இன் இணைக் கூட்டாளர்"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "label": "GenAI.Connect Summit & Expo 2024 website, genaiconnect.startnet.in (now offline; read from a search-engine copy)"
+      },
+      {
+        "label": "GenAI Pitch Showdown 2024 page, genaiconnect.startnet.in/pitch-your-ai-startup (now offline; read from a search-engine copy)"
+      },
+      {
+        "label": "“GenAI.Connect | Summit & Expo 2024 | Salem, Tamil Nadu”, Iconxt Stories on YouTube, 6 May 2024",
+        "url": "https://www.youtube.com/watch?v=uN2vFxMIScg"
+      },
+      {
+        "label": "StartNet on LinkedIn",
+        "url": "https://www.linkedin.com/company/startnetindia"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13",
     "brandUrl": "/connect/genai"
   },
   {
@@ -598,7 +1072,9 @@
     "titleTa": "D2C Connect உச்சி மாநாடு & கண்காட்சி 2024",
     "series": "d2c-connect",
     "edition": "2024",
-    "formerSlugs": ["d2c-connect-archive"],
+    "formerSlugs": [
+      "d2c-connect-archive"
+    ],
     "brand": "connect",
     "date": "2024-11-30",
     "dateConfirmed": true,
@@ -617,9 +1093,164 @@
     "priceNote": "[placeholder — to be supplied by StartNet]",
     "priceNoteTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
     "status": "past",
-    "summary": "The 2024 D2C.Connect Summit & Expo in Coimbatore, an initiative by SNX (StartNet X). Its three tracks were the D2C Growth Playbook, D2C Tech & Innovation, and a Startup Showcase & Investor Connect. Announced speakers included M.K. Elango (StartNet), Sivarajah Ramanathan (StartupTN), Nitin Nair (ONDC) and Kumar Vembu (GoFrugal). Attendance: [placeholder — to be supplied by StartNet; attendance tagged A/B].",
-    "summaryTa": "கோயம்புத்தூரில் நடைபெற்ற 2024 D2C.Connect உச்சி மாநாடு & கண்காட்சி; SNX (StartNet X) முன்னெடுப்பு. அதன் மூன்று பிரிவுகள்: D2C Growth Playbook, D2C Tech & Innovation, Startup Showcase & Investor Connect. அறிவிக்கப்பட்ட பேச்சாளர்களில் M.K. Elango (StartNet), Sivarajah Ramanathan (StartupTN), Nitin Nair (ONDC), Kumar Vembu (GoFrugal) ஆகியோர் இருந்தனர். வருகை எண்ணிக்கை: [இடநிரப்பி — StartNet வழங்கும்; வருகை எண்ணிக்கை A/B எனக் குறிக்கப்படும்].",
-    "sources": ["https://d2cconnect.in", "https://x.com/startnetindia/status/1857766367753286047"],
+    "summary": "The 2024 D2C.Connect Summit & Expo in Coimbatore, an initiative by SNX (StartNet X). Its three tracks were the D2C Growth Playbook, D2C Tech & Innovation, and a Startup Showcase & Investor Connect. Announced speakers included M.K. Elango (StartNet), Sivarajah Ramanathan (StartupTN), Nitin Nair (ONDC) and Kumar Vembu (GoFrugal).",
+    "summaryTa": "கோயம்புத்தூரில் நடைபெற்ற 2024 D2C.Connect உச்சி மாநாடு & கண்காட்சி; SNX (StartNet X) முன்னெடுப்பு. அதன் மூன்று பிரிவுகள்: D2C Growth Playbook, D2C Tech & Innovation, Startup Showcase & Investor Connect. அறிவிக்கப்பட்ட பேச்சாளர்களில் M.K. Elango (StartNet), Sivarajah Ramanathan (StartupTN), Nitin Nair (ONDC), Kumar Vembu (GoFrugal) ஆகியோர் இருந்தனர்.",
+    "recap": [
+      "D2C.Connect Summit & Expo 2024 was held at Le Méridien Coimbatore on 30 November 2024, in three tracks: the D2C Growth Playbook, D2C Tech & Innovation, and the D2C Startup Showcase & Investor Connect.",
+      "After the event, the D2C Connect YouTube channel described insightful panels, hands-on demos and the D2C Experience Zone.",
+      "Sources give different figures for attendance, speakers and startups. Each figure below is the most conservative published one, tagged B, until StartNet confirms the count."
+    ],
+    "recapTa": [
+      "D2C.Connect உச்சி மாநாடு & கண்காட்சி 2024, 30 நவம்பர் 2024 அன்று Le Méridien Coimbatore-இல் மூன்று பிரிவுகளாக நடைபெற்றது: D2C Growth Playbook, D2C Tech & Innovation, D2C Startup Showcase & Investor Connect.",
+      "நிகழ்வுக்குப் பின், D2C Connect YouTube சேனல் பயனுள்ள குழு விவாதங்கள், நேரடிச் செயல்விளக்கங்கள், D2C Experience Zone ஆகியவற்றைக் குறிப்பிட்டது.",
+      "வருகை, பேச்சாளர்கள், ஸ்டார்ட்அப்கள் குறித்து ஆதாரங்கள் வெவ்வேறு எண்களைத் தருகின்றன. StartNet எண்ணிக்கையை உறுதிசெய்யும் வரை, கீழே உள்ள ஒவ்வொரு எண்ணும் வெளியிடப்பட்டவற்றில் மிகக் குறைவானது; B எனக் குறிக்கப்பட்டுள்ளது."
+    ],
+    "figures": [
+      {
+        "id": "d2c-connect-2024-participants",
+        "key": "d2c-connect-2024-participants",
+        "value": 650,
+        "unit": "+",
+        "label": "Participants",
+        "labelTa": "பங்கேற்பாளர்கள்",
+        "tag": "B",
+        "asAt": "2026-10-13",
+        "source": "M.K. Elango, LinkedIn profile (self-reported)",
+        "note": "The most conservative published figure. The D2C Connect YouTube channel said “over 1,000 attendees” on 8 January 2025. StartNet to confirm.",
+        "noteTa": "வெளியிடப்பட்ட எண்களில் மிகக் குறைவானது. D2C Connect YouTube சேனல் 8 ஜனவரி 2025 அன்று “over 1,000 attendees” என்று குறிப்பிட்டது. StartNet உறுதிசெய்ய வேண்டும்.",
+        "brand": "connect"
+      },
+      {
+        "id": "d2c-connect-2024-speakers",
+        "key": "d2c-connect-2024-speakers",
+        "value": 45,
+        "unit": "+",
+        "label": "Speakers",
+        "labelTa": "பேச்சாளர்கள்",
+        "tag": "B",
+        "asAt": "Nov 2024",
+        "source": "D2C.Connect website, d2cconnect.in (pre-event text, read from a search-engine copy; site now offline)",
+        "note": "The lower of two published figures. The D2C Connect YouTube channel said “50+ inspiring speakers” after the event. StartNet to confirm.",
+        "noteTa": "வெளியிடப்பட்ட இரண்டு எண்களில் குறைவானது. நிகழ்வுக்குப் பின் D2C Connect YouTube சேனல் “50+ inspiring speakers” என்று குறிப்பிட்டது. StartNet உறுதிசெய்ய வேண்டும்.",
+        "brand": "connect"
+      },
+      {
+        "id": "d2c-connect-2024-startups",
+        "key": "d2c-connect-2024-startups",
+        "value": 200,
+        "unit": "+",
+        "label": "D2C startups",
+        "labelTa": "D2C ஸ்டார்ட்அப்கள்",
+        "tag": "B",
+        "asAt": "Nov 2024",
+        "source": "D2C.Connect website, d2cconnect.in (pre-event text, read from a search-engine copy; site now offline)",
+        "note": "The lowest published figure. The D2C Connect YouTube channel said “600+ innovative startups” after the event. StartNet to confirm.",
+        "noteTa": "வெளியிடப்பட்ட எண்களில் மிகக் குறைவானது. நிகழ்வுக்குப் பின் D2C Connect YouTube சேனல் “600+ innovative startups” என்று குறிப்பிட்டது. StartNet உறுதிசெய்ய வேண்டும்.",
+        "brand": "connect"
+      }
+    ],
+    "tracks": [
+      {
+        "title": "D2C Growth Playbook"
+      },
+      {
+        "title": "D2C Tech & Innovation"
+      },
+      {
+        "title": "D2C Startup Showcase & Investor Connect"
+      }
+    ],
+    "people": [
+      {
+        "heading": "Speakers announced before the event",
+        "headingTa": "நிகழ்வுக்கு முன் அறிவிக்கப்பட்ட பேச்சாளர்கள்",
+        "note": "Named with the role or organisation given in the event's own announcements. The line-up on the day may have differed.",
+        "noteTa": "நிகழ்வின் சொந்த அறிவிப்புகளில் குறிப்பிட்ட பொறுப்பு அல்லது நிறுவனத்துடன் பெயரிடப்பட்டுள்ளனர். அன்றைய பேச்சாளர் பட்டியல் மாறியிருக்கலாம்.",
+        "items": [
+          {
+            "name": "M.K. Elango",
+            "role": "Founder & CEO, StartNet",
+            "roleTa": "நிறுவனர் & CEO, StartNet"
+          },
+          {
+            "name": "Sivarajah Ramanathan",
+            "role": "StartupTN"
+          },
+          {
+            "name": "Nitin Nair",
+            "role": "ONDC"
+          },
+          {
+            "name": "Kumar Vembu",
+            "role": "GoFrugal"
+          },
+          {
+            "name": "Logesh Velusamy",
+            "role": "Founder, ProfitStory.AI",
+            "roleTa": "நிறுவனர், ProfitStory.AI"
+          },
+          {
+            "name": "Nivetha Muralidharan",
+            "role": "Founder, Newgenmax",
+            "roleTa": "நிறுவனர், Newgenmax"
+          },
+          {
+            "name": "Shadhik",
+            "role": "Influencer and founder, Reen Naturals",
+            "roleTa": "இன்ஃப்ளூயன்சர், நிறுவனர், Reen Naturals"
+          }
+        ]
+      }
+    ],
+    "partners": [
+      {
+        "heading": "Sponsors and partners listed for the 2024 edition",
+        "headingTa": "2024 பதிப்புக்குப் பட்டியலிடப்பட்ட ஸ்பான்சர்களும் கூட்டாளர்களும்",
+        "note": "The event website showed Presenting, Platinum, Gold, Silver and Startup Showcase sponsor tiers, but no names came through in the archived copy. A record of the event, not a current StartNet partnership.",
+        "noteTa": "நிகழ்வு இணையதளம் Presenting, Platinum, Gold, Silver, Startup Showcase ஸ்பான்சர் நிலைகளைக் காட்டியது; ஆனால் காப்பகப் பிரதியில் பெயர்கள் கிடைக்கவில்லை. நிகழ்வின் பதிவு; தற்போதைய StartNet கூட்டாண்மை அல்ல.",
+        "items": [
+          {
+            "name": "ClickPost",
+            "role": "Took part, per ClickPost's own posts and videos; tier not stated",
+            "roleTa": "ClickPost-இன் சொந்தப் பதிவுகள், காணொளிகளின்படி பங்கேற்றது; நிலை குறிப்பிடப்படவில்லை"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "label": "D2C.Connect Summit & Expo 2024 website, d2cconnect.in (now offline; read from a search-engine copy)"
+      },
+      {
+        "label": "“D2CConnect | Coimbatore | Le Meridien”, D2C Connect on YouTube, 8 Jan 2025",
+        "url": "https://www.youtube.com/watch?v=hjdl0ChhIGY"
+      },
+      {
+        "label": "Logesh Velusamy speaker announcement, D2C Connect on YouTube, 28 Nov 2024",
+        "url": "https://www.youtube.com/watch?v=GMm4Z2hBVjE"
+      },
+      {
+        "label": "Nivetha Muralidharan speaker announcement, D2C Connect on YouTube, 28 Nov 2024",
+        "url": "https://www.youtube.com/watch?v=045DJcqp_UU"
+      },
+      {
+        "label": "“Meet Shadhik at D2C.CONNECT Summit & Expo 2024!”, SNX India on YouTube, 27 Nov 2024",
+        "url": "https://www.youtube.com/watch?v=2wgSBjcnKx4"
+      },
+      {
+        "label": "“ClickPost at D2C Connect Summit & Expo 2024”, ClickPost on YouTube, 12 Dec 2024",
+        "url": "https://www.youtube.com/watch?v=iDsGfi83cJQ"
+      },
+      {
+        "label": "StartNet on X",
+        "url": "https://x.com/startnetindia/status/1857766367753286047"
+      },
+      {
+        "label": "M.K. Elango on LinkedIn (profile, read 13 Oct 2026)",
+        "url": "https://www.linkedin.com/in/elangomk/"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13",
     "brandUrl": "/connect/d2c"
   },
   {
@@ -628,7 +1259,9 @@
     "titleTa": "SaaS Connect உச்சி மாநாடு & கண்காட்சி 2025",
     "series": "saas-connect",
     "edition": "2025",
-    "formerSlugs": ["saas-connect-archive"],
+    "formerSlugs": [
+      "saas-connect-archive"
+    ],
     "brand": "connect",
     "date": "2025-02-22",
     "endDate": "2025-02-23",
@@ -652,8 +1285,1035 @@
     "status": "past",
     "summary": "The 2025 SaaS.Connect Summit & Expo in Coimbatore, organised by StartNet Ventures Private Limited (SNX) in association with JesperApps, with StartupTN's support. Speakers included Sivarajah Ramanathan (StartupTN), M.K. Elango (StartNet), Praval Singh (Zoho), Sujay Koduri (Postman) and Arpita Sengupta (Red Hat). Attendance: [placeholder — to be supplied by StartNet; attendance tagged A/B].",
     "summaryTa": "கோயம்புத்தூரில் நடைபெற்ற 2025 SaaS.Connect உச்சி மாநாடு & கண்காட்சி; JesperApps உடன் இணைந்து, StartupTN ஆதரவுடன், StartNet Ventures Private Limited (SNX) ஏற்பாடு செய்தது. பேச்சாளர்களில் Sivarajah Ramanathan (StartupTN), M.K. Elango (StartNet), Praval Singh (Zoho), Sujay Koduri (Postman), Arpita Sengupta (Red Hat) ஆகியோர் இருந்தனர். வருகை எண்ணிக்கை: [இடநிரப்பி — StartNet வழங்கும்; வருகை எண்ணிக்கை A/B எனக் குறிக்கப்படும்].",
-    "sources": ["https://entrans.ai/blog/saas-connect-2025", "https://coimbatorejunction.in/events/saas-connect-2025"],
+    "recap": [
+      "SaaS.Connect Summit & Expo 2025 ran over two days, 22–23 February 2025, at the PSG Convention Centre, Neelambur, Coimbatore. The agenda grouped Day 1 under “Foundation & Vision” and Day 2 under “Technical Execution & Scaling”, with an AI SaaS startup track of pitches and an investor panel.",
+      "At the inauguration, according to a participant's recap, Sivarajah Ramanathan (Mission Director & CEO, StartupTN) spoke on Tamil Nadu's AI SaaS ambitions and M.K. Elango (Founder & CEO, StartNet) on moving from services to AI-powered SaaS.",
+      "No post-event attendance figure has been published. The figures below are what the event advertised beforehand."
+    ],
+    "recapTa": [
+      "SaaS.Connect உச்சி மாநாடு & கண்காட்சி 2025, 22–23 பிப்ரவரி 2025 ஆகிய இரண்டு நாட்கள் கோயம்புத்தூர் நீலாம்பூரில் உள்ள PSG Convention Centre-இல் நடைபெற்றது. நிகழ்ச்சி நிரல் முதல் நாளை “Foundation & Vision” எனவும், இரண்டாம் நாளை “Technical Execution & Scaling” எனவும் தொகுத்தது; AI SaaS ஸ்டார்ட்அப் pitch-களும் முதலீட்டாளர் குழு விவாதமும் கொண்ட ஒரு ஸ்டார்ட்அப் பிரிவும் இருந்தது.",
+      "பங்கேற்ற ஒருவரின் சுருக்கத்தின்படி, தொடக்க விழாவில் Sivarajah Ramanathan (திட்ட இயக்குநர் & CEO, StartupTN) தமிழ்நாட்டின் AI SaaS இலக்குகள் குறித்தும், M.K. Elango (நிறுவனர் & CEO, StartNet) சேவைகளிலிருந்து AI அடிப்படையிலான SaaS-க்கு மாறுவது குறித்தும் பேசினர்.",
+      "நிகழ்வுக்குப் பிந்தைய வருகை எண்ணிக்கை எதுவும் வெளியிடப்படவில்லை. கீழே உள்ள எண்கள் நிகழ்வுக்கு முன் அறிவிக்கப்பட்டவை."
+    ],
+    "figures": [
+      {
+        "id": "saas-connect-2025-attendees-expected",
+        "key": "saas-connect-2025-attendees-expected",
+        "value": 2500,
+        "unit": "+",
+        "label": "Attendees expected (pre-event)",
+        "labelTa": "எதிர்பார்க்கப்பட்ட பங்கேற்பாளர்கள் (நிகழ்வுக்கு முன்)",
+        "tag": "B",
+        "asAt": "Feb 2025",
+        "source": "SaaS.Connect 2025 brochure (Scribd) and StartupTN on X, 14 Feb 2025",
+        "note": "An expectation, not a count. The lower of two advertised figures: the ticketing page also said “3,00,000+ expected attendees”. No post-event figure has been published.",
+        "noteTa": "எதிர்பார்ப்பு, எண்ணிக்கை அல்ல. அறிவிக்கப்பட்ட இரண்டு எண்களில் குறைவானது: டிக்கெட் பக்கம் “3,00,000+ expected attendees” என்றும் குறிப்பிட்டது. நிகழ்வுக்குப் பிந்தைய எண் எதுவும் வெளியிடப்படவில்லை.",
+        "brand": "connect"
+      },
+      {
+        "id": "saas-connect-2025-exhibitors-expected",
+        "key": "saas-connect-2025-exhibitors-expected",
+        "value": 100,
+        "unit": "+",
+        "label": "Exhibitors expected (pre-event)",
+        "labelTa": "எதிர்பார்க்கப்பட்ட காட்சியாளர்கள் (நிகழ்வுக்கு முன்)",
+        "tag": "B",
+        "asAt": "Feb 2025",
+        "source": "SaaS.Connect 2025 brochure (Scribd), the TicketPrix event page and StartupTN on X, 14 Feb 2025",
+        "note": "An expectation, not a count.",
+        "noteTa": "எதிர்பார்ப்பு, எண்ணிக்கை அல்ல.",
+        "brand": "connect"
+      },
+      {
+        "id": "saas-connect-2025-speakers-expected",
+        "key": "saas-connect-2025-speakers-expected",
+        "value": 50,
+        "unit": "+",
+        "label": "Speakers expected (pre-event)",
+        "labelTa": "எதிர்பார்க்கப்பட்ட பேச்சாளர்கள் (நிகழ்வுக்கு முன்)",
+        "tag": "B",
+        "asAt": "Feb 2025",
+        "source": "SaaS.Connect 2025 brochure (Scribd), the TicketPrix event page and StartupTN on X, 14 Feb 2025",
+        "note": "An expectation, not a count.",
+        "noteTa": "எதிர்பார்ப்பு, எண்ணிக்கை அல்ல.",
+        "brand": "connect"
+      }
+    ],
+    "tracksNote": "Focus areas as listed by the ticketing page and the Tamilar Startup YouTube channel before the event.",
+    "tracksNoteTa": "நிகழ்வுக்கு முன் டிக்கெட் பக்கமும் Tamilar Startup YouTube சேனலும் பட்டியலிட்ட கவனப் பகுதிகள்.",
+    "tracks": [
+      {
+        "title": "Service to Software"
+      },
+      {
+        "title": "AI-First Product Strategy"
+      },
+      {
+        "title": "Domain Expert to AI SaaS"
+      },
+      {
+        "title": "AI Agent Development"
+      },
+      {
+        "title": "AI Ethics & Governance"
+      },
+      {
+        "title": "AI SaaS Growth Strategies"
+      }
+    ],
+    "lists": [
+      {
+        "heading": "Zones on the expo floor",
+        "headingTa": "கண்காட்சிப் பகுதிகள்",
+        "items": [
+          "AI Agent Lab",
+          "SaaS Product Gallery",
+          "Tech Demo Zone"
+        ]
+      }
+    ],
+    "highlightsNote": "Sessions and days as described in a participant's recap (Entrans, 4 March 2025), plus one panel from SmartBear's press release. The two may describe the same sales and marketing session on different days.",
+    "highlightsNoteTa": "பங்கேற்ற ஒருவரின் சுருக்கம் (Entrans, 4 மார்ச் 2025) குறிப்பிட்டபடி அமர்வுகளும் நாட்களும்; கூடவே SmartBear செய்திக்குறிப்பிலிருந்து ஒரு குழு விவாதம். இவை இரண்டும் ஒரே விற்பனை, சந்தைப்படுத்தல் அமர்வை வெவ்வேறு நாட்களில் குறிப்பிடக்கூடும்.",
+    "highlights": [
+      {
+        "title": "Inauguration",
+        "titleTa": "தொடக்க விழா",
+        "body": "Sivarajah Ramanathan (StartupTN) and M.K. Elango (StartNet).",
+        "bodyTa": "Sivarajah Ramanathan (StartupTN), M.K. Elango (StartNet)."
+      },
+      {
+        "title": "Investor Vision Panel",
+        "titleTa": "முதலீட்டாளர் தொலைநோக்குக் குழு விவாதம்",
+        "body": "Neeraj Tyagi (We Founder Circle) and John Jim (Bereishith Capital).",
+        "bodyTa": "Neeraj Tyagi (We Founder Circle), John Jim (Bereishith Capital)."
+      },
+      {
+        "when": "Day 1 · 22 Feb",
+        "whenTa": "முதல் நாள் · 22 பிப்.",
+        "title": "AI in SaaS Sales & Marketing",
+        "body": "Praval Singh (Zoho) and Arpita Sengupta (Red Hat).",
+        "bodyTa": "Praval Singh (Zoho), Arpita Sengupta (Red Hat)."
+      },
+      {
+        "when": "Day 1 · 22 Feb",
+        "whenTa": "முதல் நாள் · 22 பிப்.",
+        "title": "Scaling AI-First SaaS",
+        "body": "Tarun Agarwala (Empanetics) and Senthil Nathan (Ailaysa AI).",
+        "bodyTa": "Tarun Agarwala (Empanetics), Senthil Nathan (Ailaysa AI)."
+      },
+      {
+        "when": "Day 1 · 22 Feb",
+        "whenTa": "முதல் நாள் · 22 பிப்.",
+        "title": "Funding masterclass: “Zero to $1M ARR”",
+        "titleTa": "நிதி மாஸ்டர்கிளாஸ்: “Zero to $1M ARR”",
+        "body": "Jegan S (CEO) and Aditya S (CTO), Entrans.",
+        "bodyTa": "Jegan S (CEO), Aditya S (CTO), Entrans."
+      },
+      {
+        "when": "Day 1 · 22 Feb",
+        "whenTa": "முதல் நாள் · 22 பிப்.",
+        "title": "Cybersecurity in AI SaaS",
+        "body": "Anil Viswas (Samsung Research India).",
+        "bodyTa": "Anil Viswas (Samsung Research India)."
+      },
+      {
+        "when": "Day 2 · 23 Feb",
+        "whenTa": "இரண்டாம் நாள் · 23 பிப்.",
+        "title": "AI SaaS Architecture & Scaling",
+        "body": "Sujay Koduri (Postman) and Karthick Ayyasamy (Jio Platforms).",
+        "bodyTa": "Sujay Koduri (Postman), Karthick Ayyasamy (Jio Platforms)."
+      },
+      {
+        "when": "Day 2 · 23 Feb",
+        "whenTa": "இரண்டாம் நாள் · 23 பிப்.",
+        "title": "Funding & Growth Tactics",
+        "body": "Jagriti Shreya (predictgrowth.ai) and Vishesh Jhol (PayU).",
+        "bodyTa": "Jagriti Shreya (predictgrowth.ai), Vishesh Jhol (PayU)."
+      },
+      {
+        "when": "Day 2 · 23 Feb",
+        "whenTa": "இரண்டாம் நாள் · 23 பிப்.",
+        "title": "Women in AI SaaS",
+        "body": "Nupur Agrawal (BrowserStack) and Nida Sahar (Nife).",
+        "bodyTa": "Nupur Agrawal (BrowserStack), Nida Sahar (Nife)."
+      },
+      {
+        "when": "Day 2 · 23 Feb, 10:15–11:00 am IST",
+        "whenTa": "இரண்டாம் நாள் · 23 பிப்., காலை 10:15–11:00 IST",
+        "title": "AI-Powered SaaS Sales and Marketing Panel",
+        "body": "With Jo Alapatt, Regional Sales Lead – India/South Asia, SmartBear (SmartBear's press release).",
+        "bodyTa": "Jo Alapatt (Regional Sales Lead – India/South Asia, SmartBear) பங்கேற்றார் (SmartBear செய்திக்குறிப்பு)."
+      }
+    ],
+    "people": [
+      {
+        "heading": "Speakers on the record",
+        "headingTa": "பதிவில் உள்ள பேச்சாளர்கள்",
+        "note": "Named with the organisation or role given in a participant's recap (Entrans) or a sponsor's press release (SmartBear).",
+        "noteTa": "பங்கேற்ற ஒருவரின் சுருக்கம் (Entrans) அல்லது ஒரு ஸ்பான்சரின் செய்திக்குறிப்பு (SmartBear) குறிப்பிட்ட நிறுவனம் அல்லது பொறுப்புடன் பெயரிடப்பட்டுள்ளனர்.",
+        "items": [
+          {
+            "name": "Sivarajah Ramanathan",
+            "role": "Mission Director & CEO, StartupTN",
+            "roleTa": "திட்ட இயக்குநர் & CEO, StartupTN"
+          },
+          {
+            "name": "M.K. Elango",
+            "role": "Founder & CEO, StartNet",
+            "roleTa": "நிறுவனர் & CEO, StartNet"
+          },
+          {
+            "name": "Neeraj Tyagi",
+            "role": "We Founder Circle"
+          },
+          {
+            "name": "John Jim",
+            "role": "Bereishith Capital"
+          },
+          {
+            "name": "Praval Singh",
+            "role": "Zoho"
+          },
+          {
+            "name": "Arpita Sengupta",
+            "role": "Red Hat"
+          },
+          {
+            "name": "Tarun Agarwala",
+            "role": "Empanetics"
+          },
+          {
+            "name": "Senthil Nathan",
+            "role": "Ailaysa AI"
+          },
+          {
+            "name": "Jegan S",
+            "role": "CEO, Entrans"
+          },
+          {
+            "name": "Aditya S",
+            "role": "CTO, Entrans"
+          },
+          {
+            "name": "Anil Viswas",
+            "role": "Samsung Research India"
+          },
+          {
+            "name": "Sujay Koduri",
+            "role": "Postman"
+          },
+          {
+            "name": "Karthick Ayyasamy",
+            "role": "Jio Platforms"
+          },
+          {
+            "name": "Jagriti Shreya",
+            "role": "predictgrowth.ai"
+          },
+          {
+            "name": "Vishesh Jhol",
+            "role": "PayU"
+          },
+          {
+            "name": "Nupur Agrawal",
+            "role": "BrowserStack"
+          },
+          {
+            "name": "Nida Sahar",
+            "role": "Nife"
+          },
+          {
+            "name": "Jo Alapatt",
+            "role": "Regional Sales Lead – India/South Asia, SmartBear",
+            "roleTa": "பிராந்திய விற்பனைத் தலைவர் – இந்தியா/தெற்காசியா, SmartBear"
+          }
+        ]
+      },
+      {
+        "heading": "Also announced before the event",
+        "headingTa": "நிகழ்வுக்கு முன் அறிவிக்கப்பட்டவர்கள்",
+        "note": "Named in the SaaS.Connect channel's announcement of 31 January 2025. We have no record of their sessions.",
+        "noteTa": "31 ஜனவரி 2025 அன்று SaaS.Connect சேனலின் அறிவிப்பில் பெயரிடப்பட்டவர்கள். அவர்களின் அமர்வுகள் பற்றிய பதிவு எங்களிடம் இல்லை.",
+        "items": [
+          {
+            "name": "Rahul Lodhe",
+            "role": "SAP"
+          },
+          {
+            "name": "Kunal Shah",
+            "role": "Oracle"
+          },
+          {
+            "name": "Seema Kumar",
+            "role": "Microsoft"
+          }
+        ]
+      }
+    ],
+    "partners": [
+      {
+        "heading": "Sponsors and partners listed for the 2025 edition",
+        "headingTa": "2025 பதிப்புக்குப் பட்டியலிடப்பட்ட ஸ்பான்சர்களும் கூட்டாளர்களும்",
+        "note": "Each role exactly as announced on the official SaaS.Connect YouTube channel, 31 January–19 February 2025. A record of the event, not a current StartNet partnership.",
+        "noteTa": "31 ஜனவரி–19 பிப்ரவரி 2025-இல் அதிகாரப்பூர்வ SaaS.Connect YouTube சேனலில் அறிவிக்கப்பட்டபடியே ஒவ்வொரு பொறுப்பும். நிகழ்வின் பதிவு; தற்போதைய StartNet கூட்டாண்மை அல்ல.",
+        "items": [
+          {
+            "name": "ZautoAI",
+            "role": "Platinum Sponsor"
+          },
+          {
+            "name": "Increff",
+            "role": "Gold Sponsor"
+          },
+          {
+            "name": "TealOrca Software Solutions Pvt Ltd",
+            "role": "Gold Sponsor"
+          },
+          {
+            "name": "AssistNow INC",
+            "role": "Gold Sponsor"
+          },
+          {
+            "name": "Clops AI",
+            "role": "Silver Sponsor"
+          },
+          {
+            "name": "Deecodes.io",
+            "role": "Silver Sponsor"
+          },
+          {
+            "name": "Titanium Tekzi Business Solutions",
+            "role": "Silver Sponsor"
+          },
+          {
+            "name": "Yaa Creations",
+            "role": "Silver Sponsor"
+          },
+          {
+            "name": "StartupTN",
+            "role": "Official Startup Ecosystem Partner"
+          },
+          {
+            "name": "Tamil Nadu Technology Hub (iTNT)",
+            "role": "Technology Innovation Partner"
+          },
+          {
+            "name": "Nunnari (நுண்ணறி) Labs",
+            "role": "Official AI Ecosystem Partner"
+          },
+          {
+            "name": "Cultiv8 (CIET - TBI)",
+            "role": "Official Incubation Partner"
+          },
+          {
+            "name": "Sri Shanmugha Educational Institutions",
+            "role": "Official Institutional Partner"
+          },
+          {
+            "name": "Makers Tribe",
+            "role": "Official Network Partner"
+          },
+          {
+            "name": "Start Insights",
+            "role": "Official Pitching Partner"
+          },
+          {
+            "name": "PredictGrowth",
+            "role": "Official Investment Readiness Partner"
+          },
+          {
+            "name": "Trueline Research Private Limited",
+            "role": "Official Research Partner"
+          },
+          {
+            "name": "kwic",
+            "role": "Official Communication Partner"
+          },
+          {
+            "name": "TicketPrix (Sporfy Technologies Private Limited)",
+            "role": "Official Ticketing Partner"
+          },
+          {
+            "name": "GDG Coimbatore",
+            "role": "Tech Community Partner"
+          },
+          {
+            "name": "Tamilar Startup",
+            "role": "Official Startup Community Partner"
+          },
+          {
+            "name": "DigiNadu",
+            "role": "Outreach Partner"
+          },
+          {
+            "name": "CandorBees Technologies Pvt Ltd",
+            "role": "Outreach Partner"
+          },
+          {
+            "name": "PoultryCare®",
+            "role": "Outreach Partner"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "label": "“SaaS.Connect – South India's Largest SaaS Gathering”, TicketPrix event page",
+        "url": "https://www.ticketprix.com/event/saasconnectsouthindiaslargestsaasgathering/exhibition/overview"
+      },
+      {
+        "label": "SmartBear press release via Business Wire, republished by ad-hoc-news.de, 18 Feb 2025",
+        "url": "https://www.ad-hoc-news.de/boerse/news/marktberichte/smartbear-regional-sales-lead-joins-sales-and-marketing-panel-at/66674273"
+      },
+      {
+        "label": "SaaS Connect 2025 recap, Entrans blog, 4 Mar 2025",
+        "url": "https://www.entrans.ai/blog/saas-connect-2025"
+      },
+      {
+        "label": "SaaS.Connect channel on YouTube (sponsor and partner announcements, 31 Jan–19 Feb 2025)",
+        "url": "https://www.youtube.com/channel/UC59fWkZoRMjEcJwL7ZAnctw"
+      },
+      {
+        "label": "SaaS.Connect focus areas, Tamilar Startup on YouTube, 5 Feb 2025",
+        "url": "https://www.youtube.com/watch?v=xNnM9xrwYbw"
+      },
+      {
+        "label": "SaaS.Connect 2025 brochure on Scribd",
+        "url": "https://www.scribd.com/document/824854400/SaaS-Connect-2025-V4-0-pdf-print"
+      },
+      {
+        "label": "StartupTN on X, 14 Feb 2025 (read from a search-engine copy)",
+        "url": "https://x.com/TheStartupTN/status/1890621752897634505"
+      },
+      {
+        "label": "SaaS.Connect agenda, saasconnect.in/agenda (now offline; read from a search-engine copy)"
+      },
+      {
+        "label": "Coimbatore Junction event listing (ticket prices only)",
+        "url": "https://coimbatorejunction.in/events/saas-connect-2025/"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13",
     "brandUrl": "/connect/saas"
+  },
+  {
+    "slug": "vibe-coding-summit-2025-coimbatore",
+    "title": "Vibe Coding Summit 2025 · Coimbatore",
+    "titleTa": "Vibe Coding Summit 2025 · கோயம்புத்தூர்",
+    "series": "vibe-coding-summit",
+    "edition": "2025",
+    "endorsement": "a StartNet Vibe event",
+    "endorsementTa": "ஒரு StartNet Vibe நிகழ்வு",
+    "brand": "vibe",
+    "date": "2025-06-14T09:00:00+05:30",
+    "endDate": "2025-06-14T19:00:00+05:30",
+    "dateConfirmed": true,
+    "dateLabel": "14 June 2025",
+    "dateLabelTa": "14 ஜூன் 2025",
+    "city": "Coimbatore",
+    "cityTa": "கோயம்புத்தூர்",
+    "district": "Coimbatore",
+    "districtTa": "கோயம்புத்தூர்",
+    "venue": "IT Block, Dr. G.R. Damodaran College of Science, Avinashi Road",
+    "venueTa": "IT Block, Dr. G.R. Damodaran College of Science, அவிநாசி சாலை",
+    "coHost": "Promoted by StartNet Vibe in association with the Computer Society of India, Coimbatore Chapter, which the ticket listing names as organiser",
+    "coHostTa": "Computer Society of India, Coimbatore Chapter உடன் இணைந்து StartNet Vibe விளம்பரப்படுத்தியது; டிக்கெட் பட்டியல் CSI Coimbatore Chapter-ஐ ஏற்பாட்டாளராகக் குறிப்பிடுகிறது",
+    "format": "in-person",
+    "language": "[to be confirmed]",
+    "price": null,
+    "priceTBC": true,
+    "priceNote": "[placeholder — to be supplied by StartNet]",
+    "priceNoteTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
+    "status": "past",
+    "summary": "The second edition of the Vibe Coding Summit, listed as “India's Premier Vibe Coding Summit | 2nd Edition”: a one-day conference with hands-on workshops and networking on AI coding tools, at Dr. G.R. Damodaran College of Science, Coimbatore. Promoted by StartNet Vibe, in association with the Computer Society of India, Coimbatore Chapter.",
+    "summaryTa": "Vibe Coding Summit-இன் இரண்டாம் பதிப்பு (“India's Premier Vibe Coding Summit | 2nd Edition” எனப் பட்டியலிடப்பட்டது): AI கோடிங் கருவிகள் குறித்த நேரடிப் பயிலரங்குகளும் networking-உம் கொண்ட ஒரு நாள் மாநாடு, கோயம்புத்தூர் Dr. G.R. Damodaran College of Science-இல். Computer Society of India, Coimbatore Chapter உடன் இணைந்து StartNet Vibe விளம்பரப்படுத்தியது.",
+    "recap": [
+      "The summit ran from 9 am to 7 pm on Saturday 14 June 2025 in the IT Block of Dr. G.R. Damodaran College of Science, Avinashi Road, Coimbatore, under the line “Coding at the speed of thought!”. It combined conference talks, hands-on workshops and networking.",
+      "StartNet Vibe promoted it as the summit “back with its 2nd Edition … bringing the VIBE to Coimbatore”, in association with the Computer Society of India, Coimbatore Chapter. The ticket listing names CSI Coimbatore Chapter as the organiser.",
+      "Speakers and attendance: [placeholder — to be supplied by StartNet]."
+    ],
+    "recapTa": [
+      "இந்த உச்சி மாநாடு 14 ஜூன் 2025 சனிக்கிழமை காலை 9 முதல் இரவு 7 மணி வரை, கோயம்புத்தூர் அவிநாசி சாலையில் உள்ள Dr. G.R. Damodaran College of Science-இன் IT Block-இல், “Coding at the speed of thought!” என்ற முழக்கத்துடன் நடைபெற்றது. மாநாட்டு உரைகள், நேரடிப் பயிலரங்குகள், networking ஆகியவை இடம்பெற்றன.",
+      "Computer Society of India, Coimbatore Chapter உடன் இணைந்து, “back with its 2nd Edition … bringing the VIBE to Coimbatore” என StartNet Vibe இதை விளம்பரப்படுத்தியது. டிக்கெட் பட்டியல் CSI Coimbatore Chapter-ஐ ஏற்பாட்டாளராகக் குறிப்பிடுகிறது.",
+      "பேச்சாளர்களும் வருகை எண்ணிக்கையும்: [இடநிரப்பி — StartNet வழங்க வேண்டும்]."
+    ],
+    "lists": [
+      {
+        "heading": "Tools featured",
+        "headingTa": "இடம்பெற்ற கருவிகள்",
+        "note": "From the ticket listing and StartNet Vibe's “Tools Spotlight” post.",
+        "noteTa": "டிக்கெட் பட்டியலிலும் StartNet Vibe-இன் “Tools Spotlight” பதிவிலும் இருந்து.",
+        "items": [
+          "Cursor",
+          "Replit",
+          "Windsurf",
+          "GitHub Copilot",
+          "Claude",
+          "Supabase",
+          "Bolt",
+          "Lovable"
+        ]
+      }
+    ],
+    "partners": [
+      {
+        "heading": "Sponsors and partners listed for the 2025 edition",
+        "headingTa": "2025 பதிப்புக்குப் பட்டியலிடப்பட்ட ஸ்பான்சர்களும் கூட்டாளர்களும்",
+        "note": "As named in StartNet Vibe's posts and on the ticket listing. A record of the event, not a current StartNet partnership.",
+        "noteTa": "StartNet Vibe-இன் பதிவுகளிலும் டிக்கெட் பட்டியலிலும் குறிப்பிட்டபடி. நிகழ்வின் பதிவு; தற்போதைய StartNet கூட்டாண்மை அல்ல.",
+        "items": [
+          {
+            "name": "Computer Society of India, Coimbatore Chapter",
+            "role": "In association with; named as organiser on the ticket listing",
+            "roleTa": "இணைந்து நடத்தியது; டிக்கெட் பட்டியலில் ஏற்பாட்டாளராகக் குறிப்பிடப்பட்டுள்ளது"
+          },
+          {
+            "name": "GoodBooks ERP",
+            "role": "Bronze sponsor",
+            "roleTa": "வெண்கல ஸ்பான்சர் (Bronze)"
+          },
+          {
+            "name": "Sporfy Technologies Private Limited",
+            "role": "Ticketing partner",
+            "roleTa": "டிக்கெட் கூட்டாளர்"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "label": "“India's Premier Vibe Coding Summit | 2nd Edition”, TicketPrix event page",
+        "url": "https://www.ticketprix.com/event/EVT20250514015212Uwz"
+      },
+      {
+        "label": "StartNet Vibe on Instagram, 2nd edition promo reel",
+        "url": "https://www.instagram.com/reel/DKyjBQ_psJM/"
+      },
+      {
+        "label": "StartNet Vibe on Instagram, 2nd edition post",
+        "url": "https://www.instagram.com/p/DKynx4GT_NJ/"
+      },
+      {
+        "label": "StartNet Vibe on Instagram, “In Association with” CSI Coimbatore Chapter",
+        "url": "https://www.instagram.com/p/DKyg_QZT3xQ/"
+      },
+      {
+        "label": "StartNet Vibe on Instagram, ticketing partner post",
+        "url": "https://www.instagram.com/p/DKykTq4TqVt/"
+      },
+      {
+        "label": "StartNet Vibe on Instagram, Bronze sponsor post",
+        "url": "https://www.instagram.com/p/DK1F_IKzIkL/"
+      },
+      {
+        "label": "StartNet Vibe on Instagram, “Tools Spotlight”",
+        "url": "https://www.instagram.com/p/DKzGlVnT2aq/"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13",
+    "brandUrl": "/vibe"
+  },
+  {
+    "slug": "nirf-higher-ed-summit-2024-coimbatore",
+    "title": "NIRF Higher Ed Summit 2024 · Coimbatore",
+    "titleTa": "NIRF Higher Ed Summit 2024 · கோயம்புத்தூர்",
+    "series": "nirf-higher-ed-summit",
+    "edition": "2024",
+    "endorsement": "a StartNet Research event",
+    "endorsementTa": "ஒரு StartNet Research நிகழ்வு",
+    "brand": "research",
+    "date": "2024-10-19",
+    "dateConfirmed": true,
+    "dateLabel": "19 October 2024",
+    "dateLabelTa": "19 அக்டோபர் 2024",
+    "city": "Coimbatore",
+    "cityTa": "கோயம்புத்தூர்",
+    "district": "Coimbatore",
+    "districtTa": "கோயம்புத்தூர்",
+    "venue": "Hotel Le Méridien, Coimbatore",
+    "venueTa": "Hotel Le Méridien, கோயம்புத்தூர்",
+    "coHost": "Organised by StartNet Research with the support of Startup Tamil Nadu (StartupTN), Government of Tamil Nadu",
+    "coHostTa": "தமிழ்நாடு அரசின் Startup Tamil Nadu (StartupTN) ஆதரவுடன் StartNet Research ஏற்பாடு செய்தது",
+    "format": "in-person",
+    "language": "[to be confirmed]",
+    "price": null,
+    "priceTBC": true,
+    "priceNote": "[placeholder — to be supplied by StartNet]",
+    "priceNoteTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
+    "status": "past",
+    "summary": "The Coimbatore edition of the NIRF Higher Ed Summit, a one-day conference for college and university leaders on India's National Institutional Ranking Framework (NIRF), organised by StartNet Research with the support of StartupTN at Hotel Le Méridien.",
+    "summaryTa": "NIRF Higher Ed Summit-இன் கோயம்புத்தூர் பதிப்பு: இந்தியாவின் தேசிய நிறுவனத் தரவரிசைக் கட்டமைப்பு (NIRF) குறித்து கல்லூரி, பல்கலைக்கழகத் தலைவர்களுக்கான ஒரு நாள் மாநாடு; StartupTN ஆதரவுடன் StartNet Research, Hotel Le Méridien-இல் ஏற்பாடு செய்தது.",
+    "recap": [
+      "After Salem, the summit came to Hotel Le Méridien, Coimbatore, on 19 October 2024, organised by StartNet Research with the support of Startup Tamil Nadu (StartupTN), Government of Tamil Nadu.",
+      "Keynotes came from Dr. T. Sasipraba, Vice-Chancellor, Sathyabama Institute of Science & Technology, and B.L. Rajan, Vice-President, StartupTN. Dr. Prashant R. Nair, Vice-Chairman, IQAC, Amrita Vishwa Vidyapeetham (Coimbatore campus), spoke on the benefits of international and national rankings, covering the NIRF, QS and THE parameters.",
+      "Agenda, other speakers and partners for this edition: [placeholder — to be supplied by StartNet]."
+    ],
+    "recapTa": [
+      "சேலத்துக்குப் பிறகு, இந்த உச்சி மாநாடு 19 அக்டோபர் 2024 அன்று கோயம்புத்தூர் Hotel Le Méridien-இல் நடைபெற்றது; தமிழ்நாடு அரசின் Startup Tamil Nadu (StartupTN) ஆதரவுடன் StartNet Research ஏற்பாடு செய்தது.",
+      "Sathyabama Institute of Science & Technology துணைவேந்தர் Dr. T. Sasipraba, StartupTN துணைத் தலைவர் B.L. Rajan ஆகியோர் முதன்மை உரையாற்றினர். Amrita Vishwa Vidyapeetham (கோயம்புத்தூர் வளாகம்) IQAC துணைத் தலைவர் Dr. Prashant R. Nair, NIRF, QS, THE அளவுகோல்களை உள்ளடக்கி, சர்வதேச, தேசியத் தரவரிசைகளின் பயன்கள் குறித்துப் பேசினார்.",
+      "இந்தப் பதிப்பின் நிகழ்ச்சி நிரல், பிற பேச்சாளர்கள், கூட்டாளர்கள்: [இடநிரப்பி — StartNet வழங்க வேண்டும்]."
+    ],
+    "figures": [
+      {
+        "id": "nirf-summit-2024-coimbatore-attendees",
+        "key": "nirf-summit-2024-coimbatore-attendees",
+        "value": 100,
+        "unit": "+",
+        "label": "Senior academic administrators and faculty",
+        "labelTa": "மூத்த கல்வி நிர்வாகிகளும் ஆசிரியர்களும்",
+        "tag": "B",
+        "asAt": "2024-10-22",
+        "source": "Amrita Vishwa Vidyapeetham news, 22 Oct 2024",
+        "brand": "research"
+      }
+    ],
+    "highlightsNote": "As reported by Amrita Vishwa Vidyapeetham.",
+    "highlightsNoteTa": "Amrita Vishwa Vidyapeetham தெரிவித்தபடி.",
+    "highlights": [
+      {
+        "title": "Keynotes",
+        "titleTa": "முதன்மை உரைகள்",
+        "body": "Dr. T. Sasipraba (Sathyabama Institute of Science & Technology) and B.L. Rajan (StartupTN).",
+        "bodyTa": "Dr. T. Sasipraba (Sathyabama Institute of Science & Technology), B.L. Rajan (StartupTN)."
+      },
+      {
+        "title": "“Benefits of International & National Rankings”",
+        "body": "Dr. Prashant R. Nair (Amrita Vishwa Vidyapeetham), on the NIRF, QS and THE parameters.",
+        "bodyTa": "Dr. Prashant R. Nair (Amrita Vishwa Vidyapeetham); NIRF, QS, THE அளவுகோல்கள் குறித்து."
+      }
+    ],
+    "people": [
+      {
+        "heading": "Speakers named by Amrita Vishwa Vidyapeetham",
+        "headingTa": "Amrita Vishwa Vidyapeetham குறிப்பிட்ட பேச்சாளர்கள்",
+        "note": "With the roles given in Amrita's news item of 22 October 2024.",
+        "noteTa": "22 அக்டோபர் 2024 Amrita செய்தியில் குறிப்பிட்ட பொறுப்புகளுடன்.",
+        "items": [
+          {
+            "name": "Dr. T. Sasipraba",
+            "role": "Vice-Chancellor, Sathyabama Institute of Science & Technology (keynote)",
+            "roleTa": "துணைவேந்தர், Sathyabama Institute of Science & Technology (முதன்மை உரை)"
+          },
+          {
+            "name": "B.L. Rajan",
+            "role": "Vice-President, StartupTN (keynote)",
+            "roleTa": "துணைத் தலைவர், StartupTN (முதன்மை உரை)"
+          },
+          {
+            "name": "Dr. Prashant R. Nair",
+            "role": "Vice-Chairman, IQAC, Amrita Vishwa Vidyapeetham, Coimbatore campus",
+            "roleTa": "IQAC துணைத் தலைவர், Amrita Vishwa Vidyapeetham, கோயம்புத்தூர் வளாகம்"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "label": "Amrita Vishwa Vidyapeetham news, 22 Oct 2024",
+        "url": "https://www.amrita.edu/news/amrita-iqac-vice-chair-addresses-nirf-higher-education-summit-supported-by-startuptn/"
+      },
+      {
+        "label": "nirfhesummits.in, Wayback Machine capture of 27 Dec 2024",
+        "url": "http://web.archive.org/web/20241227143658/https://nirfhesummits.in/"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13",
+    "brandUrl": "/research"
+  },
+  {
+    "slug": "nirf-higher-ed-summit-2024-salem",
+    "title": "NIRF Higher Ed Summit 2024 · Salem",
+    "titleTa": "NIRF Higher Ed Summit 2024 · சேலம்",
+    "series": "nirf-higher-ed-summit",
+    "edition": "2024",
+    "endorsement": "a StartNet Research event",
+    "endorsementTa": "ஒரு StartNet Research நிகழ்வு",
+    "brand": "research",
+    "date": "2024-08-31",
+    "dateConfirmed": true,
+    "dateLabel": "31 August 2024",
+    "dateLabelTa": "31 ஆகஸ்ட் 2024",
+    "city": "Salem",
+    "cityTa": "சேலம்",
+    "district": "Salem",
+    "districtTa": "சேலம்",
+    "venue": "CJ Pallazzio Hotel, Salem",
+    "venueTa": "CJ Pallazzio Hotel, சேலம்",
+    "coHost": "Organised by StartNet (Startnet Ventures Private Limited)",
+    "coHostTa": "StartNet (Startnet Ventures Private Limited) ஏற்பாடு செய்தது",
+    "format": "in-person",
+    "language": "[to be confirmed]",
+    "price": "paid",
+    "priceTBC": false,
+    "priceNote": "Delegate passes were ₹2,450 (1 member), ₹3,950 (2) or ₹5,350 (3), plus GST.",
+    "priceNoteTa": "பிரதிநிதி அனுமதிச்சீட்டுகள்: ₹2,450 (1 உறுப்பினர்), ₹3,950 (2), ₹5,350 (3); GST தனி.",
+    "status": "past",
+    "summary": "A one-day conference in Salem for Tamil Nadu's college and university leaders on improving their institutions' performance in India's National Institutional Ranking Framework (NIRF), under the line “Elevating Excellence in Tamil Nadu's Higher Education”. Attendance: [placeholder — to be supplied by StartNet].",
+    "summaryTa": "இந்தியாவின் தேசிய நிறுவனத் தரவரிசைக் கட்டமைப்பில் (NIRF) தங்கள் நிறுவனங்களின் செயல்திறனை மேம்படுத்துவது குறித்து, தமிழ்நாட்டின் கல்லூரி, பல்கலைக்கழகத் தலைவர்களுக்காகச் சேலத்தில் நடைபெற்ற ஒரு நாள் மாநாடு; முழக்கம்: “Elevating Excellence in Tamil Nadu's Higher Education”. வருகை எண்ணிக்கை: [இடநிரப்பி — StartNet வழங்கும்].",
+    "recap": [
+      "The NIRF Higher Ed Summit: Salem was a one-day conference on improving the performance of Tamil Nadu's higher education institutions in the National Institutional Ranking Framework (NIRF), held at CJ Pallazzio Hotel, Salem, on 31 August 2024. Its tagline was “Elevating Excellence in Tamil Nadu's Higher Education”.",
+      "The event website carried StartNet's logo and contact details. Associate partners and sponsors appeared as logos only, so their names are not listed here until StartNet confirms them.",
+      "Actual attendance, and whether the launches announced on the agenda took place: [placeholder — to be supplied by StartNet]."
+    ],
+    "recapTa": [
+      "NIRF Higher Ed Summit: Salem, தேசிய நிறுவனத் தரவரிசைக் கட்டமைப்பில் (NIRF) தமிழ்நாட்டின் உயர்கல்வி நிறுவனங்களின் செயல்திறனை மேம்படுத்துவது குறித்த ஒரு நாள் மாநாடு; 31 ஆகஸ்ட் 2024 அன்று சேலம் CJ Pallazzio Hotel-இல் நடைபெற்றது. அதன் முழக்கம்: “Elevating Excellence in Tamil Nadu's Higher Education”.",
+      "நிகழ்வு இணையதளத்தில் StartNet-இன் சின்னமும் தொடர்பு விவரங்களும் இருந்தன. இணைக் கூட்டாளர்களும் ஸ்பான்சர்களும் சின்னங்களாக மட்டுமே காட்டப்பட்டனர்; StartNet உறுதிசெய்யும் வரை அவர்களின் பெயர்கள் இங்கே பட்டியலிடப்படவில்லை.",
+      "உண்மையான வருகை எண்ணிக்கையும், நிகழ்ச்சி நிரலில் அறிவிக்கப்பட்ட வெளியீடுகள் நடந்தனவா என்பதும்: [இடநிரப்பி — StartNet வழங்க வேண்டும்]."
+    ],
+    "figures": [
+      {
+        "id": "nirf-summit-2024-salem-attendees-expected",
+        "key": "nirf-summit-2024-salem-attendees-expected",
+        "value": 200,
+        "unit": "+",
+        "label": "Attendees expected (pre-event)",
+        "labelTa": "எதிர்பார்க்கப்பட்ட பங்கேற்பாளர்கள் (நிகழ்வுக்கு முன்)",
+        "tag": "C",
+        "asAt": "Aug 2024",
+        "source": "Event website, salem.nirfhesummits.in (Wayback Machine capture, 24 Nov 2024)",
+        "note": "Pre-event promotion, not an outcome.",
+        "noteTa": "நிகழ்வுக்கு முந்தைய விளம்பரம்; விளைவு அல்ல.",
+        "brand": "research"
+      },
+      {
+        "id": "nirf-summit-2024-salem-institutions-expected",
+        "key": "nirf-summit-2024-salem-institutions-expected",
+        "value": 75,
+        "unit": "+",
+        "label": "Institutions expected (pre-event)",
+        "labelTa": "எதிர்பார்க்கப்பட்ட நிறுவனங்கள் (நிகழ்வுக்கு முன்)",
+        "tag": "C",
+        "asAt": "Aug 2024",
+        "source": "Event website, salem.nirfhesummits.in (Wayback Machine capture, 24 Nov 2024)",
+        "note": "Pre-event promotion, not an outcome.",
+        "noteTa": "நிகழ்வுக்கு முந்தைய விளம்பரம்; விளைவு அல்ல.",
+        "brand": "research"
+      }
+    ],
+    "lists": [
+      {
+        "heading": "Who it was for",
+        "headingTa": "யாருக்கானது",
+        "items": [
+          "Vice-Chancellors",
+          "Directors and principals",
+          "NIRF coordinators and IQAC heads",
+          "Deans and faculty",
+          "Administrators",
+          "EdTech providers",
+          "Policymakers"
+        ],
+        "itemsTa": [
+          "துணைவேந்தர்கள்",
+          "இயக்குநர்களும் முதல்வர்களும்",
+          "NIRF ஒருங்கிணைப்பாளர்களும் IQAC தலைவர்களும்",
+          "முதன்மையர்களும் (Deans) ஆசிரியர்களும்",
+          "நிர்வாகிகள்",
+          "EdTech நிறுவனங்கள்",
+          "கொள்கை வகுப்பாளர்கள்"
+        ]
+      },
+      {
+        "heading": "Announced on the summit agenda",
+        "headingTa": "உச்சி மாநாட்டு நிகழ்ச்சி நிரலில் அறிவிக்கப்பட்டவை",
+        "note": "Planned on the agenda. Whether these launches took place is not yet confirmed.",
+        "noteTa": "நிகழ்ச்சி நிரலில் திட்டமிடப்பட்டவை. இந்த வெளியீடுகள் நடந்தனவா என்பது இன்னும் உறுதிசெய்யப்படவில்லை.",
+        "items": [
+          "Launch of TNHEIN",
+          "Briefing on TNHEIN and member benefits",
+          "Launch of the Tamilnadu NIRF Analysis Report 2024"
+        ],
+        "itemsTa": [
+          "TNHEIN வெளியீடு",
+          "TNHEIN, உறுப்பினர் நன்மைகள் குறித்த விளக்கம்",
+          "Tamilnadu NIRF Analysis Report 2024 வெளியீடு"
+        ]
+      }
+    ],
+    "people": [
+      {
+        "heading": "Speakers listed on the event website",
+        "headingTa": "நிகழ்வு இணையதளத்தில் பட்டியலிடப்பட்ட பேச்சாளர்கள்",
+        "note": "As printed before the day, with each speaker's stated role. The site said more speakers were joining; the line-up on the day may have differed.",
+        "noteTa": "நிகழ்வுக்கு முன் அச்சிடப்பட்டபடி, ஒவ்வொருவரின் குறிப்பிட்ட பொறுப்புடன். மேலும் பேச்சாளர்கள் இணைவார்கள் என்று தளம் குறிப்பிட்டது; அன்றைய பட்டியல் மாறியிருக்கலாம்.",
+        "items": [
+          {
+            "name": "M. K. Elango",
+            "role": "Founder & CEO, StartNet",
+            "roleTa": "நிறுவனர் & CEO, StartNet"
+          },
+          {
+            "name": "Sivakumar Palanisamy",
+            "role": "Vice President, StartupTN",
+            "roleTa": "துணைத் தலைவர், StartupTN"
+          },
+          {
+            "name": "Dr. B. Sendilkumar",
+            "role": "Dean – Allied Health Sciences, VMRF-DU, Salem",
+            "roleTa": "முதன்மையர் – Allied Health Sciences, VMRF-DU, சேலம்"
+          },
+          {
+            "name": "Thirumoorthy Arumugam",
+            "role": "Managing Director, Sri Shanmugha Educational Institutions",
+            "roleTa": "நிர்வாக இயக்குநர், Sri Shanmugha Educational Institutions"
+          },
+          {
+            "name": "Dr. V. Nagaraj",
+            "role": "Managing Director & Chairman, Trueline Research Private Limited",
+            "roleTa": "நிர்வாக இயக்குநர் & தலைவர், Trueline Research Private Limited"
+          },
+          {
+            "name": "Dr. R. Sethuraman",
+            "role": "Professor, Sathyabama Institute of Science & Technology",
+            "roleTa": "பேராசிரியர், Sathyabama Institute of Science & Technology"
+          },
+          {
+            "name": "Dr. K. Maran",
+            "role": "Professor & Director, Co-Ordinator – ED Cell, Sri Sai Ram Engineering College",
+            "roleTa": "பேராசிரியர் & இயக்குநர், ஒருங்கிணைப்பாளர் – ED Cell, Sri Sai Ram Engineering College"
+          },
+          {
+            "name": "S. Murugesan",
+            "role": "Professor, Madurai Kamarajar University",
+            "roleTa": "பேராசிரியர், Madurai Kamarajar University"
+          },
+          {
+            "name": "Dr. M. V. Shankar",
+            "role": "Professor, Yogi Vemana University",
+            "roleTa": "பேராசிரியர், Yogi Vemana University"
+          },
+          {
+            "name": "Dr. K. Chennakesavulu",
+            "role": "Professor, Sathyabama Institute of Science & Technology",
+            "roleTa": "பேராசிரியர், Sathyabama Institute of Science & Technology"
+          },
+          {
+            "name": "Dr. R. Rajkumar",
+            "role": "Associate Professor, SRM Institute of Science and Technology",
+            "roleTa": "இணைப் பேராசிரியர், SRM Institute of Science and Technology"
+          },
+          {
+            "name": "Dr. P. Nagaraj",
+            "role": "Associate Professor, Kalasalingam University",
+            "roleTa": "இணைப் பேராசிரியர், Kalasalingam University"
+          },
+          {
+            "name": "S. Velayutham",
+            "role": "Founder and Director, TamiraBot Advanced Engineering Pvt Ltd",
+            "roleTa": "நிறுவனர், இயக்குநர், TamiraBot Advanced Engineering Pvt Ltd"
+          },
+          {
+            "name": "Dr. Subramanya Sarma",
+            "role": "Associate Professor, Yogi Vemana University",
+            "roleTa": "இணைப் பேராசிரியர், Yogi Vemana University"
+          },
+          {
+            "name": "Dr. M. Lakshmanan",
+            "role": "Professor and Dean IQAC, Sri Eshwar College of Engineering and Technology",
+            "roleTa": "பேராசிரியர், IQAC முதன்மையர், Sri Eshwar College of Engineering and Technology"
+          },
+          {
+            "name": "Dr. T. Sivakumar",
+            "role": "Principal, Nandha College of Pharmacy",
+            "roleTa": "முதல்வர், Nandha College of Pharmacy"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "label": "NIRF Higher Ed Summit: Salem website (salem.nirfhesummits.in), Wayback Machine capture of 24 Nov 2024",
+        "url": "http://web.archive.org/web/20241124212216/https://salem.nirfhesummits.in/"
+      },
+      {
+        "label": "Official promo video, StartNet Research on YouTube, 28 Aug 2024",
+        "url": "https://www.youtube.com/watch?v=O8nBgNH2d9M"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13",
+    "brandUrl": "/research"
+  },
+  {
+    "slug": "network-meetings-2023-09",
+    "title": "StartNet monthly network meeting · September 2023",
+    "titleTa": "StartNet மாதாந்திர வலையமைப்புச் சந்திப்பு · செப்டம்பர் 2023",
+    "series": "network-meetings",
+    "edition": "2023",
+    "brand": "startnet",
+    "date": "2023-09-30",
+    "dateConfirmed": true,
+    "dateLabel": "30 September 2023",
+    "dateLabelTa": "30 செப்டம்பர் 2023",
+    "city": "[city to be confirmed]",
+    "cityTa": "[நகரம் உறுதிசெய்யப்பட வேண்டும்]",
+    "district": "[to be confirmed]",
+    "districtTa": "[உறுதிசெய்ய வேண்டும்]",
+    "venue": "Hotel Windsor Castle",
+    "venueTa": "Hotel Windsor Castle",
+    "format": "in-person",
+    "language": "[to be confirmed]",
+    "price": null,
+    "priceTBC": true,
+    "priceNote": "[placeholder — to be supplied by StartNet]",
+    "priceNoteTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
+    "status": "past",
+    "summary": "StartNet's September 2023 monthly network meeting, held at Hotel Windsor Castle on 30 September 2023. Attendance: [placeholder — to be supplied by StartNet].",
+    "summaryTa": "StartNet-இன் செப்டம்பர் 2023 மாதாந்திர வலையமைப்புச் சந்திப்பு; 30 செப்டம்பர் 2023 அன்று Hotel Windsor Castle-இல் நடைபெற்றது. வருகை எண்ணிக்கை: [இடநிரப்பி — StartNet வழங்கும்].",
+    "recap": [
+      "StartNet's YouTube channel carries four short testimonial videos recorded at this meeting.",
+      "StartConnect's MegaPitching event was held in Salem on the same day. No source says whether it was part of this meeting."
+    ],
+    "recapTa": [
+      "இந்தச் சந்திப்பில் பதிவுசெய்யப்பட்ட நான்கு சிறிய அனுபவப் பகிர்வுக் காணொளிகள் StartNet-இன் YouTube சேனலில் உள்ளன.",
+      "அதே நாளில் சேலத்தில் StartConnect-இன் MegaPitching நிகழ்வு நடைபெற்றது. அது இந்தச் சந்திப்பின் ஒரு பகுதியா என்று எந்த ஆதாரமும் குறிப்பிடவில்லை."
+    ],
+    "sources": [
+      {
+        "label": "“StartNet September 2023 Monthly Network Meeting” testimonial, StartNet on YouTube",
+        "url": "https://www.youtube.com/watch?v=GaT8mPIl9oA"
+      },
+      {
+        "label": "StartNet media and press page, Wayback Machine capture of 19 Apr 2024",
+        "url": "http://web.archive.org/web/20240419104208/https://startnet.in/media-and-press/"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13"
+  },
+  {
+    "slug": "network-meetings-2023-09-megapitching",
+    "title": "StartConnect MegaPitching · September 2023",
+    "titleTa": "StartConnect MegaPitching · செப்டம்பர் 2023",
+    "series": "network-meetings",
+    "edition": "2023",
+    "brand": "startnet",
+    "date": "2023-09-30",
+    "dateConfirmed": true,
+    "dateLabel": "30 September 2023",
+    "dateLabelTa": "30 செப்டம்பர் 2023",
+    "city": "Salem",
+    "cityTa": "சேலம்",
+    "district": "Salem",
+    "districtTa": "சேலம்",
+    "venue": "[placeholder — to be supplied by StartNet]",
+    "venueTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
+    "format": "in-person",
+    "language": "[to be confirmed]",
+    "price": null,
+    "priceTBC": true,
+    "priceNote": "[placeholder — to be supplied by StartNet]",
+    "priceNoteTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
+    "status": "past",
+    "summary": "StartConnect's MegaPitching event in Salem on 30 September 2023, reported on StartNet's press page on 9 October 2023. Jury, pitching startups and winners: [placeholder — to be supplied by StartNet].",
+    "summaryTa": "30 செப்டம்பர் 2023 அன்று சேலத்தில் நடைபெற்ற StartConnect-இன் MegaPitching நிகழ்வு; 9 அக்டோபர் 2023 அன்று StartNet-இன் செய்திப் பக்கத்தில் வெளியிடப்பட்டது. நடுவர்கள், pitch செய்த ஸ்டார்ட்அப்கள், வெற்றியாளர்கள்: [இடநிரப்பி — StartNet வழங்கும்].",
+    "recap": [
+      "StartNet's press page reported the “StartNet (StartConnect's) MegaPitching Event” in Salem on 30 September 2023. The full post was not archived, so the jury, the number of pitches and any winners are still to be supplied: [placeholder — to be supplied by StartNet].",
+      "StartNet's September 2023 monthly network meeting was held at Hotel Windsor Castle on the same day. No source says whether the two were the same event."
+    ],
+    "recapTa": [
+      "30 செப்டம்பர் 2023 அன்று சேலத்தில் நடைபெற்ற “StartNet (StartConnect's) MegaPitching Event” பற்றி StartNet-இன் செய்திப் பக்கம் வெளியிட்டது. முழுப் பதிவு காப்பகப்படுத்தப்படவில்லை; எனவே நடுவர்கள், pitch-களின் எண்ணிக்கை, வெற்றியாளர்கள் இன்னும் வழங்கப்பட வேண்டும்: [இடநிரப்பி — StartNet வழங்க வேண்டும்].",
+      "அதே நாளில் StartNet-இன் செப்டம்பர் 2023 மாதாந்திர வலையமைப்புச் சந்திப்பு Hotel Windsor Castle-இல் நடைபெற்றது. இரண்டும் ஒரே நிகழ்வா என்று எந்த ஆதாரமும் குறிப்பிடவில்லை."
+    ],
+    "sources": [
+      {
+        "label": "StartNet media and press page, Wayback Machine capture of 19 Apr 2024",
+        "url": "http://web.archive.org/web/20240419104208/https://startnet.in/media-and-press/"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13"
+  },
+  {
+    "slug": "network-meetings-2023-08",
+    "title": "StartConnect · August 2023",
+    "titleTa": "StartConnect · ஆகஸ்ட் 2023",
+    "series": "network-meetings",
+    "edition": "2023",
+    "brand": "startnet",
+    "date": "2023-08-26",
+    "dateConfirmed": true,
+    "dateLabel": "26 August 2023",
+    "dateLabelTa": "26 ஆகஸ்ட் 2023",
+    "city": "Salem",
+    "cityTa": "சேலம்",
+    "district": "Salem",
+    "districtTa": "சேலம்",
+    "venue": "[placeholder — to be supplied by StartNet]",
+    "venueTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
+    "format": "in-person",
+    "language": "[to be confirmed]",
+    "price": null,
+    "priceTBC": true,
+    "priceNote": "[placeholder — to be supplied by StartNet]",
+    "priceNoteTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
+    "status": "past",
+    "summary": "StartConnect, a StartNet meeting in Salem on 26 August 2023, recorded on StartNet's 2023 press page. Venue, programme and attendance: [placeholder — to be supplied by StartNet].",
+    "summaryTa": "StartConnect: 26 ஆகஸ்ட் 2023 அன்று சேலத்தில் நடைபெற்ற StartNet சந்திப்பு; StartNet-இன் 2023 செய்திப் பக்கத்தில் பதிவாகியுள்ளது. நிகழ்விடம், நிகழ்ச்சிகள், வருகை எண்ணிக்கை: [இடநிரப்பி — StartNet வழங்கும்].",
+    "recap": [
+      "StartNet announced monthly networking meetings in a press post of 18 July 2023. On 9 October 2023 its press page carried a post on “StartConnect – August 26, 2023, Salem, Tamil Nadu”; the full post was not archived.",
+      "StartNet also ran a StartConnect registration page under StartNet Ventures Private Limited; it gives no date, venue or price."
+    ],
+    "recapTa": [
+      "18 ஜூலை 2023 செய்திக்குறிப்பில் StartNet மாதாந்திர வலையமைப்புச் சந்திப்புகளை அறிவித்தது. 9 அக்டோபர் 2023 அன்று அதன் செய்திப் பக்கம் “StartConnect – August 26, 2023, Salem, Tamil Nadu” பற்றிய பதிவை வெளியிட்டது; முழுப் பதிவு காப்பகப்படுத்தப்படவில்லை.",
+      "StartNet Ventures Private Limited பெயரில் StartConnect பதிவுப் பக்கமும் இருந்தது; அதில் தேதி, இடம், கட்டணம் எதுவும் இல்லை."
+    ],
+    "sources": [
+      {
+        "label": "StartNet media and press page, Wayback Machine capture of 19 Apr 2024",
+        "url": "http://web.archive.org/web/20240419104208/https://startnet.in/media-and-press/"
+      },
+      {
+        "label": "StartConnect registration page, StartNet Ventures Private Limited",
+        "url": "https://startnetindia.mojo.page/startconnect"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13"
+  },
+  {
+    "slug": "startnet-launch-2023",
+    "title": "StartNet launch event",
+    "titleTa": "StartNet தொடக்க நிகழ்வு",
+    "brand": "startnet",
+    "date": "2023-07-15",
+    "dateConfirmed": false,
+    "dateLabel": "July 2023 · exact date to be confirmed",
+    "dateLabelTa": "ஜூலை 2023 · சரியான தேதி உறுதிசெய்யப்பட வேண்டும்",
+    "city": "[city to be confirmed]",
+    "cityTa": "[நகரம் உறுதிசெய்யப்பட வேண்டும்]",
+    "district": "[to be confirmed]",
+    "districtTa": "[உறுதிசெய்ய வேண்டும்]",
+    "venue": "[placeholder — to be supplied by StartNet]",
+    "venueTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
+    "format": "in-person",
+    "language": "[to be confirmed]",
+    "price": null,
+    "priceTBC": true,
+    "priceNote": "[placeholder — to be supplied by StartNet]",
+    "priceNoteTa": "[இடநிரப்பி — StartNet வழங்க வேண்டும்]",
+    "status": "past",
+    "summary": "The launch of StartNet by StartNet Ventures Private Limited, filmed for StartNet's YouTube channel and announced on its press page on 18 July 2023. Exact date and venue: [placeholder — to be supplied by StartNet].",
+    "summaryTa": "StartNet Ventures Private Limited நடத்திய StartNet தொடக்க நிகழ்வு; StartNet-இன் YouTube சேனலுக்காகப் படமாக்கப்பட்டு, 18 ஜூலை 2023 அன்று அதன் செய்திப் பக்கத்தில் அறிவிக்கப்பட்டது. சரியான தேதியும் இடமும்: [இடநிரப்பி — StartNet வழங்கும்].",
+    "recap": [
+      "Before the launch, in June 2023, M.K. Elango described StartNet as a platform for startups and named two initiatives: EmpowHer, for women entrepreneurs, and EquiReach, for underrepresented startups.",
+      "The launch film, “Unleashing Innovation and Collaboration | StartNet Launch Event”, was uploaded to StartNet's YouTube channel on 7 July 2023. Sources disagree on the launch date, so it is shown as to be confirmed."
+    ],
+    "recapTa": [
+      "தொடக்கத்துக்கு முன், ஜூன் 2023-இல், M.K. Elango StartNet-ஐ ஸ்டார்ட்அப்களுக்கான ஒரு தளமாக விவரித்து, இரண்டு முன்னெடுப்புகளைப் பெயரிட்டார்: பெண் தொழில்முனைவோருக்கான EmpowHer, போதிய வாய்ப்பு பெறாத ஸ்டார்ட்அப்களுக்கான EquiReach.",
+      "தொடக்க நிகழ்வுக் காணொளி, “Unleashing Innovation and Collaboration | StartNet Launch Event”, 7 ஜூலை 2023 அன்று StartNet-இன் YouTube சேனலில் பதிவேற்றப்பட்டது. தொடக்கத் தேதி குறித்து ஆதாரங்கள் வேறுபடுவதால், அது உறுதிசெய்யப்பட வேண்டியதாகக் காட்டப்படுகிறது."
+    ],
+    "sources": [
+      {
+        "label": "“Unleashing Innovation and Collaboration | StartNet Launch Event”, StartNet on YouTube, 7 Jul 2023",
+        "url": "https://www.youtube.com/watch?v=-HXs7af5K1k"
+      },
+      {
+        "label": "StartNet media and press page, Wayback Machine capture of 19 Apr 2024",
+        "url": "http://web.archive.org/web/20240419104208/https://startnet.in/media-and-press/"
+      },
+      {
+        "label": "Pre-launch post by M.K. Elango on LinkedIn, June 2023",
+        "url": "https://www.linkedin.com/posts/elangomk_startnet-igniteyourjourney-entrepreneurship-activity-7073885786294677506-O0yB"
+      }
+    ],
+    "sourcesCheckedAt": "2026-10-13"
   },
   {
     "slug": "investors-summit-archive",

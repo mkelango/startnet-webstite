@@ -1,31 +1,27 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { useReducedMotion } from '../hooks/useReducedMotion.js';
 import { cx, safeId } from './_utils.js';
-import { MotionVisual } from './MotionVisual.jsx';
-import { notePageKinds } from './ArtImage.jsx';
-import { useLang } from '../lib/i18n.jsx';
+import { ArtImage } from './ArtImage.jsx';
 import './PulliTimeline.css';
 
 /*
  * PulliTimeline (DESIGN-v2 3.21.4): the brand device as a step timeline, dot → grid → network → full stop.
  * Desktop (≥1024, after mount): a 4/8 split. Left, a vertical list of disclosure buttons with a 2px hairline track, an Ink progress fill
  * (scaleY) and the active node as the red full stop (`node="accent"` uses the brand accent instead, for brand pages).
- * Right, an Ink panel with a motion visual (Canvas 2D) whose kind follows the active step (crossfades on change).
- * Mobile and SSR/prerender: a stacked hairline list, every step with its text and a 120px mini visual.
- * SSR / no JS / reduced motion: the visuals show their static frame or gradient fallback. No GSAP.
+ * Right, an Ink panel with the active step's photograph (`photos`, one manifest photo per step).
+ * Mobile and SSR/prerender: a stacked hairline list, every step with its text and a 120px photo.
+ * No GSAP.
  * Props: steps = [{ id, label, title, body }], headingLevel = 3, node = 'point' | 'accent', scrollSync = false,
- *        label (tablist aria-label), art (optional: step index → art state 0..3; default i → min(i, 3)), className.
+ *        label (tablist aria-label), photos (one manifest photo per step, shown in the panel), className.
+ * Since Oct 2026 the panel shows a photograph per step (the animated Canvas visuals are retired site-wide).
  */
-// Each art state (0..3) has its own motion visual: one point and its ripples → threads that start to flow →
-// a system in orbit → a growth line drawing itself. Ink panel (night); the brand accent comes from the page context.
-const STATE_KINDS = ['ripples', 'flow', 'orbits', 'trajectory'];
-const BRANDS = ['research', 'vibe', 'connect', 'women', 'x'];
-
-export function PulliArt({ state = 0, mini = false, brand, seed = 1, className }) {
-  const s = Math.max(0, Math.min(STATE_KINDS.length - 1, Number(state) || 0));
+/** One step's photograph (square, Ink ground while it loads). */
+export function PulliArt({ photo, mini = false, className }) {
   return (
-    <div className={cx('pulli-art', mini && 'pulli-art--mini', className)} data-state={s} aria-hidden="true">
-      <MotionVisual key={s} kind={STATE_KINDS[s]} seed={seed * 31 + s * 7} brand={brand} night hero={!mini} />
+    <div className={cx('pulli-art', mini && 'pulli-art--mini', className)} aria-hidden="true">
+      {photo && (
+        <ArtImage photo={photo} ratio="1/1" curated plan={false} noCaption sizes={mini ? '120px' : '(min-width: 1024px) 560px, 100vw'} />
+      )}
     </div>
   );
 }
@@ -43,7 +39,7 @@ function useDesktop() {
   return desk;
 }
 
-export function PulliTimeline({ steps, headingLevel = 3, node = 'point', scrollSync = false, label, art, className }) {
+export function PulliTimeline({ steps, headingLevel = 3, node = 'point', scrollSync = false, label, photos, className }) {
   const reduced = useReducedMotion();
   const desktop = useDesktop();
   const uid = safeId(useId());
@@ -52,17 +48,7 @@ export function PulliTimeline({ steps, headingLevel = 3, node = 'point', scrollS
   const tabRefs = useRef([]);
   const itemRefs = useRef([]);
   const rootRef = useRef(null);
-  const [brand, setBrand] = useState(undefined);
-  const useIso = typeof window === 'undefined' ? useEffect : useLayoutEffect;
-  const { basePath } = useLang();
-  const path = basePath || '/';
-  useIso(() => {
-    const b = rootRef.current?.closest('[data-brand]')?.getAttribute('data-brand');
-    setBrand(BRANDS.includes(b) ? b : undefined);
-    // The next ArtImage on the page avoids every kind this timeline can show (no same visual twice in a row).
-    return notePageKinds(path, `pulli-${uid}`, STATE_KINDS);
-  }, [path, uid]);
-  const stateOf = (i) => (typeof art === 'function' ? art(i) : Array.isArray(art) ? art[i] : Math.min(i, 3)) ?? 0;
+  const photoOf = (i) => (Array.isArray(photos) ? photos[i] || photos[photos.length - 1] : undefined);
 
   // Optional scroll-sync at ≥1024 (no pinning): the step whose block crosses the viewport middle becomes active.
   useEffect(() => {
@@ -159,14 +145,14 @@ export function PulliTimeline({ steps, headingLevel = 3, node = 'point', scrollS
                     <div className="pulli-timeline__body-inner">{typeof s.body === 'string' ? <p>{s.body}</p> : s.body}</div>
                   </div>
                 )}
-                <PulliArt state={stateOf(i)} mini brand={brand} seed={i + 1} className="pulli-timeline__mini" />
+                <PulliArt photo={photoOf(i)} mini className="pulli-timeline__mini" />
               </li>
             );
           })}
         </ol>
       </div>
       <div className="pulli-timeline__panel" aria-hidden="true">
-        <PulliArt state={stateOf(active)} brand={brand} seed={active + 1} />
+        <PulliArt key={active} photo={photoOf(active)} />
       </div>
     </div>
   );

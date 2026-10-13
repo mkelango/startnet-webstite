@@ -14,7 +14,7 @@ import { snxLink, waLink } from '../lib/links.js';
 import { formatDate, formatDateShort } from '../lib/format.js';
 import { BRANDS } from '../data/brands.js';
 import { isPublished, publishedLinks } from '../data/nav.js';
-import { Badge, BrandLockup, Button, Placeholder, Stat, ArtImage, MotionVisual } from '../components';
+import { Badge, BrandLockup, Button, Placeholder, Stat, ArtImage } from '../components';
 import { eventPath as eventPathOf } from '../components/_utils.js';
 import { findMetric, signInHref } from './shell.jsx';
 import './MegaMenu.css';
@@ -78,40 +78,31 @@ function Column({ col, index, reduced, onNavigate }) {
 
 /* ---------- Featured cards (dynamic where the book says so) ---------- */
 
-/** Curated library photos for the feature cards (keys from photos.manifest.json; none is used by any page). */
+/** Photos for the feature cards (keys from photos.manifest.json): StartNet's own where one fits, Indian stock otherwise. */
 const FEATURE_PHOTOS = {
-  mission: 'pool/vibereal/09', //  Who we are: the StartNet team with visitors at the booth, TNGSS 2025 (real)
-  'open-calls': 'pool/students/04', // Programmes: students working together at a table
-  partner: 'pool/professionals/01', // Partner: a team meeting around a white table
+  mission: 'pool/team/01', //      Who we are: the StartNet community at its first anniversary (real)
+  'open-calls': 'pool/students/09', // Programmes: a mentor guiding students at their computers
+  partner: 'pool/team/06', //      Partner: StartNet 2.0 agreements signed on stage (real)
+  ledger: 'pool/insights/02', //   Founder Ledger: an analyst at her computer
+  snx: 'pool/platform/03', //      StartNet X: a young founder at work
 };
-/** Data and platform panels show a motion visual instead (a photo would mean nothing there). */
-const FEATURE_MOTION = { ledger: 'trajectory', snx: 'panels' };
 
-function FeatureMedia({ kind, night = false }) {
+function FeatureMedia({ kind }) {
   const key = FEATURE_PHOTOS[kind];
   const photo = key ? photoFor(key) : undefined;
-  if (photo) {
-    return (
-      <div className="mega-feature__media">
-        <ArtImage ratio="3/2" photo={photo} curated plan={false} sizes="(min-width: 1024px) 400px, 100vw" />
-      </div>
-    );
-  }
-  if (FEATURE_MOTION[kind]) {
-    return (
-      <div className="mega-feature__media" aria-hidden="true">
-        <MotionVisual kind={FEATURE_MOTION[kind]} seed={kind.length * 31} night={night} ratio="3/2" />
-      </div>
-    );
-  }
-  return null;
+  if (!photo) return null;
+  return (
+    <div className="mega-feature__media">
+      <ArtImage ratio="3/2" photo={photo} curated plan={false} sizes="(min-width: 1024px) 400px, 100vw" />
+    </div>
+  );
 }
 
 function FeatureShell({ title, children, tone = 'sunken', eyebrow, media }) {
   const { t } = useLang();
   return (
     <aside className={`mega-feature mega-feature--${tone}${media ? ' mega-feature--media' : ''}`} aria-label={title}>
-      {media && <FeatureMedia kind={media} night={tone === 'ink'} />}
+      {media && <FeatureMedia kind={media} />}
       <p className="mega-feature__eyebrow">{eyebrow || t('Featured', 'சிறப்புப் பகுதி')}</p>
       <h3 className="mega-feature__title">{title}</h3>
       {children}
@@ -194,7 +185,7 @@ const SEATS = {
 };
 
 // The flagship series (Book 1 Part B §3.2 Events: "Next flagship"); campus build nights and sector Connects are not flagships.
-const FLAGSHIP_SERIES = ['vibathon', 'lab-to-market-summit', 'women-founders-summit', 'vibe-summit'];
+const FLAGSHIP_SERIES = ['vibathon', 'agentic-ai-connect', 'physical-ai-connect', 'lab-to-market-summit', 'women-founders-summit', 'vibe-summit'];
 const TBC = /to be confirmed|\[.*\]/i;
 
 /** The next upcoming flagship event (also linked from the mobile drawer's Events accordion). Pass enabled=false to skip the fetch. */
@@ -426,7 +417,8 @@ export default function MegaMenu({ item, reduced = false, onNavigate }) {
   }
   const Featured = FEATURED[item.featured?.kind];
   // Drop a column whose links are all unpublished (the reports column fills itself at runtime).
-  const columns = item.columns.filter((col) => isPublished(col) && (col.dynamic || publishedLinks(col).length > 0));
+  // `megaHidden` columns stay in the mobile drawer but not in this panel.
+  const columns = item.columns.filter((col) => !col.megaHidden && isPublished(col) && (col.dynamic || publishedLinks(col).length > 0));
   return (
     <div className="mega-menu__content">
       <div className="container mega-menu__inner" data-featured={item.featured?.kind}>

@@ -237,6 +237,15 @@ export default function VibeHome() {
           action={<Button variant="tertiary" to="/events?brand=vibe">{tx(t, 'See upcoming events')}</Button>}
         />
         <VibeEvents waRef="vibe-home" label={t('Upcoming StartNet Vibe events', 'வரவிருக்கும் StartNet Vibe நிகழ்வுகள்')} />
+        {/* Past Vibe events on record (docs/research/vibe-events.md): Vibathon 2025, the two 2025 summits. Tamil: draft, pending native review. */}
+        <nav className="vibe-home__past" aria-label={t('Past StartNet Vibe events', 'முந்தைய StartNet Vibe நிகழ்வுகள்')}>
+          <p className="small text-2 vibe-home__past-label">{t('Past events', 'முந்தைய நிகழ்வுகள்')}</p>
+          <ul className="vibe-home__past-list">
+            <li><Button variant="tertiary" to="/vibe/vibathon#last-edition">{t('Vibathon 2025, Tiruchengode', 'Vibathon 2025, திருச்செங்கோடு')}</Button></li>
+            <li><Button variant="tertiary" to="/vibe/summit#past">{t('Vibe Marketing Summit 2025, Salem', 'Vibe Marketing Summit 2025, சேலம்')}</Button></li>
+            <li><Button variant="tertiary" to="/vibe/summit#past">{t('Vibe Coding Summit 2025, Coimbatore', 'Vibe Coding Summit 2025, கோயம்புத்தூர்')}</Button></li>
+          </ul>
+        </nav>
       </Section>
 
       {/* What past winners did next (hidden until a real Vibe story exists) */}

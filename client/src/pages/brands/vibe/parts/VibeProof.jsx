@@ -1,17 +1,23 @@
 import { useApi } from '../../../../hooks/useApi.js';
 import { FactBand, Stat } from '../../../../components';
 import { useLang } from '../../../../lib/i18n.jsx';
-import { VIBE_PROOF, localiseMetric } from '../vibeContent.js';
+import { CURATED_METRICS, VIBE_PROOF, localiseMetric } from '../vibeContent.js';
 import './VibeProof.css';
 
 /**
  * StartNet Vibe proof band. Prefers live metrics from /api/metrics?brand=vibe; otherwise shows the one
  * sourced Book 2 figure (figures not supplied yet are left out, not shown as placeholder tiles).
+ * A metric the Vibe pages curate from sourced research (CURATED_METRICS, e.g. the Vibathon 2025 prize pool) replaces
+ * the API record with the same key.
  */
 export default function VibeProof() {
   const { t } = useLang();
   const { data } = useApi('/api/metrics?brand=vibe');
-  const metrics = Array.isArray(data) ? data.filter((m) => m && m.value !== null && m.value !== undefined) : [];
+  const metrics = Array.isArray(data)
+    ? data
+        .map((m) => (m && Object.prototype.hasOwnProperty.call(CURATED_METRICS, m.key) ? CURATED_METRICS[m.key] : m))
+        .filter((m) => m && m.value !== null && m.value !== undefined)
+    : [];
 
   if (metrics.length >= 2) {
     return (

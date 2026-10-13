@@ -61,6 +61,27 @@
   border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
 }
 
+/* ---------- The last edition (Vibathon 2025): copy, then hairline fact rows ---------- */
+.vibathon__last {
+  display: grid; gap: var(--space-8);
+  margin-top: var(--space-12); padding-top: var(--space-10);
+  border-top: 1px solid var(--color-border);
+}
+@media (min-width: 1024px) { .vibathon__last { grid-template-columns: 7fr 5fr; gap: 32px; align-items: start; } }
+.vibathon__last > * { min-width: 0; }
+.vibathon__last-head { display: grid; gap: var(--space-4); justify-items: start; }
+.vibathon__last-head .body-lg { max-width: 60ch; }
+.vibathon__last-facts { display: grid; border-top: 1px solid var(--color-border); }
+.vibathon__last-facts > div {
+  display: grid; gap: var(--space-1);
+  padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border);
+}
+@media (min-width: 640px) { .vibathon__last-facts > div { grid-template-columns: 11rem minmax(0, 1fr); gap: var(--space-4); } }
+.vibathon__last-facts dt { font-size: var(--text-meta); color: var(--color-text-muted); }
+.vibathon__last-facts dd { margin: 0; color: var(--color-text); overflow-wrap: anywhere; }
+.vibathon__last-src { color: var(--color-text-muted); max-width: 72ch; }
+@media (min-width: 1024px) { .vibathon__last-src { grid-column: 1 / -1; } }
+
 /* ---------- What it is: three numbered columns between hairlines ---------- */
 .vibathon__what { list-style: none; display: grid; margin-top: var(--space-10); border-top: 1px solid var(--color-border); }
 @media (min-width: 768px) { .vibathon__what { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

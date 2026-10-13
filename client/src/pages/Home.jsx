@@ -2,14 +2,15 @@ import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
-  Seo, Section, SectionHeader, KineticHeadline, Reveal, Button, ArtImage, FactBand, BrandTile, Scroller,
+  Seo, Section, SectionHeader, KineticHeadline, Reveal, Button, FactBand, BrandTile, Scroller,
 } from '../components';
 import { ScrubText } from '../components/ScrubText.jsx';
-import { cx } from '../components/_utils.js';
+import { cx, eventPath } from '../components/_utils.js';
 import { useApi } from '../hooks/useApi.js';
 import { useLang } from '../lib/i18n.jsx';
 import { TALENT_BRANDS } from '../data/brands.js';
 import PersonaSelector, { firstPersonaInputId } from './home/PersonaSelector.jsx';
+import HeroShowcase from './home/HeroShowcase.jsx';
 import { getPersona } from './home/personas.js';
 import { pickHomeMetrics, proofAndContext, brandMetric } from './home/homeMetrics.js';
 import { localizeMetric } from './home/homeI18n.js';
@@ -17,7 +18,8 @@ import { homeFaqItems } from './home/homeFaq.js';
 import { itemListLd } from '../lib/seo.js';
 import { cleanFaqLd, pageLd } from './brands/seoBits.js';
 import './Home.css';
-import { heroPhoto } from '../data/photos.js';
+import { STARTUPS, logoWidth } from '../data/startups.js';
+import { formatDate } from '../lib/format.js';
 
 // Everything from FounderStory down loads as its own chunk (F-33: not in the entry every page downloads, and not
 // part of Home's first load; F-14: Home's first render covers only the first screens).
@@ -34,7 +36,8 @@ const REST_TRIGGERS = ['scroll', 'wheel', 'touchstart', 'pointerdown', 'keydown'
 /**
  * True once the rest of Home should render: it is within one screen of the viewport (IntersectionObserver, which
  * also covers crawlers that render with a tall viewport), or the visitor starts interacting (first scroll, touch,
- * click or key), so the chunk is normally in well before it is scrolled to. Until then it is not downloaded.
+ * click or key), or the browser is idle after the window 'load' event, so the chunk is normally in well before it
+ * is scrolled to. Until then it is not downloaded.
  */
 function useRestOfHome() {
   const ref = useRef(null);
@@ -51,9 +54,22 @@ function useRestOfHome() {
       io = new IntersectionObserver((rs) => { if (rs.some((r) => r.isIntersecting)) go(); }, { rootMargin: '0px 0px 100% 0px' });
       io.observe(ref.current);
     }
+    // Also mount in idle time once the page has loaded (after LCP), so the chunk and its first render are usually
+    // done before the first wheel; otherwise mounting on that wheel drops a frame mid-glide.
+    let idleId = 0;
+    let idleTimer = 0;
+    const scheduleIdle = () => {
+      if ('requestIdleCallback' in window) idleId = window.requestIdleCallback(go, { timeout: 2000 });
+      else idleTimer = window.setTimeout(go, 1500);
+    };
+    if (document.readyState === 'complete') scheduleIdle();
+    else window.addEventListener('load', scheduleIdle, { once: true });
     return () => {
       REST_TRIGGERS.forEach((e) => window.removeEventListener(e, go, { passive: true, once: true }));
       if (io) io.disconnect();
+      window.removeEventListener('load', scheduleIdle);
+      if (idleId && 'cancelIdleCallback' in window) window.cancelIdleCallback(idleId);
+      clearTimeout(idleTimer);
     };
   }, [show]);
   return [ref, show];
@@ -87,21 +103,88 @@ const SEO = {
 };
 
 /*
- * Hero (DESIGN-v2 6.1, AIWO-BLUEPRINT P2): a split hero on the Ink band. The copy sits top-aligned in cols 1–6 (eyebrow →
- * h1 with one serif accent word and the red full stop → lede → actions → partner line); the image slot runs edge to edge
- * in cols 7–12 (right edge, top and bottom of the band, under the Paper sheet's rise). Phones and tablets: the image
- * comes first (4:5 on phones, 16:10 on tablets), then the copy in the same order. The slot box is sized by CSS before
- * paint (no CLS); the copy is visible from first paint (transform-only entrance).
+ * Hero (M01, v3, 14 Oct 2026). One Ink band, three layers:
+ *   1. Copy (cols 1–6): a live "next event" pill (the soonest upcoming event with a confirmed date; the eyebrow
+ *      line until events load or when there is none) → h1 with one serif accent word and the red full stop → lede →
+ *      the two actions → the partner line.
+ *   2. Showcase (cols 7–12, home/HeroShowcase.jsx): StartNet's own photographs by category (Summits, Campuses,
+ *      Women, Research, Community) in a three-tile bento mosaic. One tile crossfades at a time; then the category
+ *      moves on. Category tabs with a progress line and a pause button sit under the mosaic.
+ *   3. Proof strip (full width): the logos of companies built by founders in the StartNet community, as one-colour
+ *      marks, linking to /insights/stories#community-startups. Static row ≥1024; a slow marquee below.
+ * Phones and tablets: copy first (the headline is in the first screen), then the mosaic, then the strip.
+ * A faint pulli dot grid sits behind the copy (static CSS, no motion). The copy is visible from first paint
+ * (transform-only entrance); the mosaic boxes are sized by CSS before paint (no CLS).
  */
-function HomeHero() {
-  const { t } = useLang();
+/** The soonest upcoming event with a confirmed date (the API lists upcoming events; sort defensively). */
+function nextEvent(list) {
+  const arr = Array.isArray(list) ? list : Array.isArray(list?.items) ? list.items : [];
+  const today = new Date().toISOString().slice(0, 10);
+  return arr
+    .filter((e) => e && e.slug && e.date && e.dateConfirmed !== false && e.status !== 'past' && String(e.date) >= today)
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)))[0];
+}
+
+function HeroPill({ event }) {
+  const { t, lang, pick, localePath } = useLang();
+  if (!event) {
+    return (
+      <p className="eyebrow home-hero__eyebrow home-hero__rise">
+        {t("Tamil Nadu's founder-making network", 'தமிழ்நாட்டின் நிறுவனர்களை உருவாக்கும் வலையமைப்பு')}
+      </p>
+    );
+  }
+  const title = pick(event, 'title');
+  const city = pick(event, 'city');
+  const date = formatDate(event.date, { day: 'numeric', month: 'short' }, lang);
   return (
-    <section className="home-hero home-hero--split" data-surface="night" aria-label={t("Tamil Nadu's founder-making network", 'தமிழ்நாட்டின் நிறுவனர்களை உருவாக்கும் வலையமைப்பு')}>
+    <Link className="home-hero__pill home-hero__rise" to={localePath(eventPath(event))}>
+      <span className="home-hero__pill-tag">
+        <span className="home-hero__pill-dot" aria-hidden="true" />
+        {t('Next', 'அடுத்து')}
+      </span>
+      <span className="home-hero__pill-text">
+        <span className="home-hero__pill-title">{title}</span>
+        <span className="home-hero__pill-meta">{[date, city].filter(Boolean).join(' · ')}</span>
+      </span>
+      <ArrowRight className="home-hero__pill-arrow" size={16} strokeWidth={1.75} aria-hidden="true" />
+    </Link>
+  );
+}
+
+function HeroProof() {
+  const { t, localePath } = useLang();
+  const logos = STARTUPS.map((s) => (
+    <li key={s.slug} className="home-hero__logo">
+      <img src={s.logo} alt={s.name} loading="lazy" decoding="async" style={{ '--logo-w': `${(logoWidth(s.ratio, s.scale) * 2.1).toFixed(0)}px` }} />
+    </li>
+  ));
+  return (
+    <div className="container home-hero__proof home-hero__rise home-hero__rise--3">
+      <Link className="home-hero__proof-label" to={`${localePath('/insights/stories')}#community-startups`}>
+        {t('Built by founders in our community', 'எங்கள் சமூக நிறுவனர்கள் உருவாக்கியவை')}
+        <ArrowRight size={14} strokeWidth={1.75} aria-hidden="true" />
+      </Link>
+      <div className="home-hero__logos">
+        <ul className="home-hero__logos-track" aria-label={t('Community companies', 'சமூக நிறுவனங்கள்')}>{logos}</ul>
+        {/* Second copy for the seamless marquee on small screens; hidden from assistive tech and on wide screens. */}
+        <ul className="home-hero__logos-track home-hero__logos-track--clone" aria-hidden="true">{logos}</ul>
+      </div>
+    </div>
+  );
+}
+
+function HomeHero({ events }) {
+  const { t } = useLang();
+  const next = useMemo(() => nextEvent(events), [events]);
+  return (
+    <section className="home-hero home-hero--v3" data-surface="night" aria-label={t("Tamil Nadu's founder-making network", 'தமிழ்நாட்டின் நிறுவனர்களை உருவாக்கும் வலையமைப்பு')}>
+      <div className="home-hero__bg" aria-hidden="true" />
       <div className="container home-hero__grid">
         <div className="home-hero__copy">
-          <p className="eyebrow home-hero__eyebrow home-hero__rise">
-            {t("Tamil Nadu's founder-making network", 'தமிழ்நாட்டின் நிறுவனர்களை உருவாக்கும் வலையமைப்பு')}
-          </p>
+          <div className="home-hero__lead-slot">
+            <HeroPill event={next} />
+          </div>
           <KineticHeadline
             as="h1"
             accentWord="founder"
@@ -111,13 +194,13 @@ function HomeHero() {
           {/* Lede + CTAs render visible from the first paint (LCP); the entrance is transform-only (Home.css). */}
           <p className="body-lg home-hero__lede home-hero__rise home-hero__rise--1">
             {t(
-              'StartNet is Tamil Nadu’s founder-making network. We go to campuses, labs, workplaces and districts, and help people with the talent to build turn it into companies.',
+              'StartNet is Tamil Nadu’s founder-making network. We go to campuses, labs, workplaces and districts, and help people with talent turn it into companies.',
               'StartNet தமிழ்நாட்டின் நிறுவனர்களை உருவாக்கும் வலையமைப்பு. கல்லூரிகள், ஆய்வகங்கள், பணியிடங்கள், மாவட்டங்கள் என திறமை இருக்கும் இடத்திற்கே நாங்கள் சென்று, அந்தத் திறமையை நிறுவனங்களாக மாற்ற உதவுகிறோம்.'
             )}
           </p>
           <div className="home-hero__cta home-hero__rise home-hero__rise--2">
             <div className="home-hero__actions">
-              <Button size="lg" to="/programmes">{t('Find your programme', 'உங்கள் திட்டத்தைக் கண்டறியுங்கள்')}</Button>
+              <Button size="lg" to="/programmes" icon={ArrowRight}>{t('Find your programme', 'உங்கள் திட்டத்தைக் கண்டறியுங்கள்')}</Button>
               <Button size="lg" variant="secondary" to="/events">{t('See upcoming events', 'வரவிருக்கும் நிகழ்வுகளைப் பாருங்கள்')}</Button>
             </div>
             <p className="home-hero__partner">
@@ -128,19 +211,9 @@ function HomeHero() {
             </p>
           </div>
         </div>
+        <HeroShowcase />
       </div>
-      <div className="home-hero__media">
-        <ArtImage
-          variant="kolam"
-          ratio="4/5"
-          seed={11}
-          animate
-          photo={heroPhoto('/')}
-          priority
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          alt={t('Generative artwork: a pulli dot grid joined into a network', 'உருவாக்கக் கலைப்படைப்பு: ஒரு வலையமைப்பாக இணைக்கப்பட்ட புள்ளிக் கோலம்')}
-        />
-      </div>
+      <HeroProof />
     </section>
   );
 }
@@ -245,7 +318,7 @@ export default function Home() {
       />
 
       {/* M01 · Hero */}
-      <HomeHero />
+      <HomeHero events={eventsReq.data} />
 
       {/* M02 · Persona selector */}
       <PersonaBand />

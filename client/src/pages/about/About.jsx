@@ -57,9 +57,9 @@ const ABOUT_FAQ = [
     q: ['How long has StartNet been running events?', 'StartNet எவ்வளவு காலமாக நிகழ்வுகளை நடத்துகிறது?'],
     a: [
       // Public record starts in 2023 (launch post June 2023; incorporated 4 July 2023). Edition dates: server/data/events.json.
-      // SEO-TA: pending native review
-      'Since 2023. Our rooms include GenAI Connect (2024), D2C Connect (2024), SaaS Connect (2025), an Investors Summit and Vibathon 2025. In October 2026 we brought that work together under one promise: every talent, a founder.',
-      '2023 முதல். GenAI Connect (2024), D2C Connect (2024), SaaS Connect (2025), ஒரு Investors Summit, Vibathon 2025 ஆகியவை எங்கள் நிகழ்வுகளில் அடங்கும். அக்டோபர் 2026-இல் அந்தப் பணிகள் அனைத்தையும் ஒரே வாக்குறுதியின் கீழ் கொண்டுவந்தோம்: ஒவ்வொரு திறமையும், ஒரு நிறுவனர்.',
+      // NIRF Higher Ed Summit 2024: docs/research/nirf-and-other-events.md §1. SEO-TA: pending native review
+      'Since 2023. Our rooms include GenAI Connect (2024), D2C Connect (2024), the NIRF Higher Ed Summit (2024), SaaS Connect (2025), an Investors Summit and Vibathon 2025. In October 2026 we brought that work together under one promise: every talent, a founder.',
+      '2023 முதல். GenAI Connect (2024), D2C Connect (2024), NIRF Higher Ed Summit (2024), SaaS Connect (2025), ஒரு Investors Summit, Vibathon 2025 ஆகியவை எங்கள் நிகழ்வுகளில் அடங்கும். அக்டோபர் 2026-இல் அந்தப் பணிகள் அனைத்தையும் ஒரே வாக்குறுதியின் கீழ் கொண்டுவந்தோம்: ஒவ்வொரு திறமையும், ஒரு நிறுவனர்.',
     ],
   },
 ];
@@ -156,6 +156,18 @@ const milestones = (t) => [
     art: { variant: 'network', brand: 'connect', alt: '' },
   },
   {
+    id: 'nirf-summit-2024',
+    date: '2024',
+    title: 'NIRF Higher Ed Summit',
+    // StartNet Research's two 2024 editions (docs/research/nirf-and-other-events.md §1: the archived Salem summit site,
+    // © Startnet Ventures Private Limited 2024; Amrita Vishwa Vidyapeetham news, 22 Oct 2024). SEO-TA: pending native review
+    body: t(
+      'A one-day conference for college leaders on the NIRF rankings, run by StartNet Research in Salem (31 August 2024) and Coimbatore (19 October 2024).',
+      'NIRF தரவரிசை குறித்துக் கல்லூரித் தலைவர்களுக்கான ஒரு நாள் மாநாடு; சேலத்திலும் (31 ஆகஸ்ட் 2024) கோயம்புத்தூரிலும் (19 அக்டோபர் 2024) StartNet Research நடத்தியது.'
+    ),
+    art: { variant: 'grid', brand: 'research', alt: '' },
+  },
+  {
     id: 'investors-summit',
     date: null, // year to be supplied by StartNet (not in the public record yet); Timeline omits a missing date
     title: 'Investors Summit',
@@ -165,10 +177,11 @@ const milestones = (t) => [
     id: 'vibathon-2025',
     date: '2025',
     title: 'Vibathon 2025',
-    // K.S.R. College of Engineering event notice (ksrce.ac.in). SEO-TA: pending native review
+    // K.S.R. College of Engineering event notice (ksrce.ac.in); room and STEP: StartNet Vibe's LinkedIn announcement
+    // (9 Aug 2025) and recap (4 Oct 2025), docs/research/vibe-events.md §1. SEO-TA: pending native review
     body: t(
-      'Held on 26 September 2025 at K.S.R. College of Engineering, Tiruchengode, with CubeAI Solutions.',
-      '26 செப்டம்பர் 2025 அன்று திருச்செங்கோடு K.S.R. பொறியியல் கல்லூரியில், CubeAI Solutions உடன் இணைந்து நடைபெற்றது.'
+      'Held on 26 September 2025 in the Emerald Hall at K.S.R. College of Engineering, Tiruchengode, with CubeAI Solutions and the Society for Technocracy Engineering Professionals (STEP).',
+      '26 செப்டம்பர் 2025 அன்று திருச்செங்கோடு K.S.R. பொறியியல் கல்லூரியின் Emerald Hall-இல், CubeAI Solutions, Society for Technocracy Engineering Professionals (STEP) உடன் இணைந்து நடைபெற்றது.'
     ),
     metric: {
       value: 80, unit: '%', tag: 'B', asAt: '2025',

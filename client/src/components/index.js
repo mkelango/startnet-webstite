@@ -16,7 +16,6 @@ export { BrandLockup } from './BrandLockup.jsx';
 export { Logo } from './Logo.jsx';
 export { Breadcrumbs } from './Breadcrumbs.jsx';
 export { ArtImage } from './ArtImage.jsx';
-export { MotionVisual } from './MotionVisual.jsx';
 export { renderArt } from './renderArt.jsx';
 export { Card } from './Card.jsx';
 export { BrandTile } from './BrandTile.jsx';

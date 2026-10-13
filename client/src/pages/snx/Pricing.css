@@ -200,8 +200,12 @@
   .snx-compare { overflow: clip; border: 0; border-radius: 0; }
   .snx-compare__table { min-width: 0; }
   .snx-compare__table thead th { top: calc(var(--shell-offset, 0px) + var(--subnav-h, 48px)); }
-  .snx-compare__table tbody th { box-shadow: none; padding-left: 0; }
-  .snx-compare__corner { box-shadow: none; }
+  /* The table sits on a white sheet: inset the first and last columns so labels and ticks do not touch its edges.
+     Nothing scrolls sideways here, so the feature column is not sticky: a sticky cell is snapped to the pixel grid on
+     its own, and its row line drew a pixel off the rest of the row (rows end on fractional pixels). */
+  .snx-compare__table tbody th { position: static; box-shadow: none; padding-left: var(--space-6); }
+  .snx-compare__corner { box-shadow: none; padding-left: var(--space-6); }
+  .snx-compare__table tr > :last-child { padding-right: var(--space-6); }
 }
 @media (prefers-reduced-motion: reduce) {
   .snx-compare__hint, .snx-compare__fade { transition: none; }
@@ -214,13 +218,16 @@
 .snx-compare__table tbody .snx-compare__group th { position: static; min-width: 0; max-width: none; box-shadow: none; background: var(--card); text-align: left; padding-top: var(--space-8); padding-bottom: var(--space-3); font-size: var(--text-body); font-weight: 500; letter-spacing: -0.01em; text-transform: none; color: var(--color-text); }
 .snx-compare__group-label { position: sticky; left: var(--space-3); display: inline-block; }
 @media (min-width: 768px) {
-  .snx-compare__table tbody .snx-compare__group th { padding-left: 0; }
-  .snx-compare__group-label { left: 0; }
+  /* Same inset as the feature labels; nothing scrolls sideways, so the label need not stick. */
+  .snx-compare__table tbody .snx-compare__group th { padding-left: var(--space-6); }
+  .snx-compare__group-label { position: static; }
 }
 :lang(ta) .snx-compare__table tbody .snx-compare__group th { text-transform: none; letter-spacing: 0; font-size: var(--text-body); }
 :lang(ta) .snx-org__from-label { text-transform: none; letter-spacing: 0; }
-.snx-compare__yes { display: inline-block; color: var(--color-text); }
-.snx-compare__no { display: inline-block; color: color-mix(in srgb, var(--color-text) 20%, var(--color-border)); }
+/* Ticks and dashes are blocks centred in their cell: inline, they sat on the text baseline and rode 2–3 px above the
+   middle of the label beside them. */
+.snx-compare__yes { display: block; margin-inline: auto; color: var(--color-text); }
+.snx-compare__no { display: block; margin-inline: auto; color: color-mix(in srgb, var(--color-text) 20%, var(--color-border)); }
 .snx-compare__actions td, .snx-compare__actions th { border-bottom: 0; padding-block: var(--space-6); }
 .snx-compare__actions .button { white-space: nowrap; }
 /* Phones and Tamil: let table button labels wrap so they never widen a plan column past the screen. */

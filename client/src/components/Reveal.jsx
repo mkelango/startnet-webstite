@@ -23,22 +23,47 @@ const durationOf = (variant) => (variant === 'clip' ? CLIP_DURATION : variant ==
  * fling under CPU load could carry an element from below the fold to above it between two observer samples
  * and leave it at opacity 0 for good. So:
  *  - the observer's root is stretched far upwards: an element counts as reached once it is in the viewport
- *    (minus the 8% bottom margin) OR anywhere above it. Elements reached while above the viewport (skipped
+ *    (or within 20% of it below the fold) OR anywhere above it. Elements reached while above the viewport (skipped
  *    over, or an #anchor landing below them) jump straight to the final state, no transition;
  *  - a sweep once scrolling settles, and SAFETY_MS after mount, reveals anything in or above the viewport the
  *    observer has not reported yet (late or lost callbacks);
  *  - phase 1 always ends in phase 2 (inline opacity 1, no transition) after delay + duration, well inside
  *    SAFETY_MS. Content never stays at opacity 0.
  */
-const VIEWPORT = { margin: '100000px 0px -8% 0px', amount: 0 };
+/*
+ * The bottom margin is positive: a block starts its reveal just before it scrolls into view (20% of the viewport
+ * below the fold), so at normal reading speed the fade is under way as it appears instead of the block arriving
+ * blank and fading in on screen.
+ */
+const VIEWPORT = { margin: '100000px 0px 20% 0px', amount: 0 };
 const SAFETY_MS = 1500;
+
+/*
+ * Fast scrolling (a mouse-wheel fling, Lenis glide, End / Page Down): anything reached while the page moves faster
+ * than FAST_PX_PER_MS appears at once, with no fade or stagger. Fading blocks in under a fast scroll reads as
+ * blank areas popping in. Speed is measured from scroll events (passive) and decays when scrolling stops.
+ */
+const FAST_PX_PER_MS = 0.6;
+let lastScrollY = 0;
+let lastScrollT = 0;
+let scrollSpeed = 0;
+function trackSpeed() {
+  const now = performance.now();
+  const y = window.scrollY;
+  const dt = now - lastScrollT;
+  if (dt > 0 && dt < 200) scrollSpeed = Math.abs(y - lastScrollY) / dt;
+  else scrollSpeed = 0;
+  lastScrollY = y;
+  lastScrollT = now;
+}
+const scrollingFast = () => scrollSpeed > FAST_PX_PER_MS && performance.now() - lastScrollT < 150;
 const pending = new Map(); // element -> fire()
 let sweepTimer = 0;
 let listening = false;
 
 function sweep() {
   sweepTimer = 0;
-  const limit = window.innerHeight * 0.92;
+  const limit = window.innerHeight * 1.2;
   for (const [el, fire] of [...pending]) {
     if (!el.isConnected) { pending.delete(el); continue; }
     const r = el.getBoundingClientRect();
@@ -64,7 +89,11 @@ function watchReveal(el, reveal) {
     done = true;
     pending.delete(el);
     stopObserver?.();
-    reveal(el.getBoundingClientRect().bottom <= 0);
+    // Instant (final state, no transition) when the block is already above the viewport, the page is moving fast,
+    // or the block is already well inside the viewport when first reported (the page jumped past the reveal line
+    // between two samples, e.g. the first wheel tick of a fling).
+    const r = el.getBoundingClientRect();
+    reveal(r.bottom <= 0 || scrollingFast() || (window.scrollY > 0 && r.top < window.innerHeight * 0.75));
   };
   pending.set(el, fire);
   stopObserver = observeOnce(el, fire, VIEWPORT);
@@ -72,6 +101,9 @@ function watchReveal(el, reveal) {
   if (!listening) {
     listening = true;
     for (const type of ['scroll', 'scrollend', 'resize']) window.addEventListener(type, onScrollSettle, { passive: true });
+    lastScrollY = window.scrollY;
+    lastScrollT = performance.now();
+    window.addEventListener('scroll', trackSpeed, { passive: true });
   }
   scheduleSweep(SAFETY_MS);
   return () => {

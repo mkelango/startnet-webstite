@@ -2,7 +2,6 @@
 .dot--land {
   display: inline-block;
   animation: dot-land var(--dur-5) var(--ease-dot) var(--dot-delay, 0.45s) both;
-  will-change: transform;
 }
 @keyframes dot-land {
   0% { opacity: 0; transform: translateY(-0.55em) scale(0.6); }

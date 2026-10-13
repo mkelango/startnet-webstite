@@ -55,7 +55,7 @@ export function VideoFeature({ video, className, priority = false, variant = 'ca
   const title = pick(lang, video.title, video.titleTa);
   const caption = pick(lang, video.caption, video.captionTa);
   const chips = (lang === 'ta' && video.chipsTa) || video.chips || [];
-  const embed = `https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0&playsinline=1&modestbranding=1${video.start ? `&start=${video.start}` : ''}`;
+  const embed = `https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0&playsinline=1&modestbranding=1${video.start ? `&start=${video.start}` : ''}${video.end ? `&end=${video.end}` : ''}`;
 
   useEffect(() => {
     setPlaying(autoPlay);
@@ -138,7 +138,7 @@ export function VideoFeature({ video, className, priority = false, variant = 'ca
             {chips.map((c) => (
               <span key={c} className="video-feature__chip">{c}</span>
             ))}
-            <a className="video-feature__source" href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noopener noreferrer">
+            <a className="video-feature__source" href={`https://www.youtube.com/watch?v=${video.id}${video.start ? `&t=${video.start}s` : ''}`} target="_blank" rel="noopener noreferrer">
               {video.credit || t('Watch on YouTube', 'YouTube-இல் பார்க்க')}
               <span className="visually-hidden">{t(' (opens in a new tab)', ' (புதிய தாவலில் திறக்கும்)')}</span>
             </a>
@@ -164,7 +164,8 @@ export function VideoPlaylist({ videos, label, className }) {
   const [engaged, setEngaged] = useState(false);
   const tabs = useRef([]);
   if (!list.length) return null;
-  const current = list[Math.min(active, list.length - 1)];
+  const activeIndex = Math.min(active, list.length - 1); // the list can shrink under a kept index
+  const current = list[activeIndex];
 
   const onKeyDown = (e, i) => {
     let n = null;
@@ -180,7 +181,7 @@ export function VideoPlaylist({ videos, label, className }) {
   return (
     <div className={cx('video-playlist', engaged && 'is-engaged', className)}>
       <div className="video-playlist__inner">
-        <div className="video-playlist__stage" role="tabpanel" id={`${uid}-panel`} aria-labelledby={`${uid}-tab-${active}`}>
+        <div className="video-playlist__stage" role="tabpanel" id={`${uid}-panel`} aria-labelledby={`${uid}-tab-${activeIndex}`}>
           <VideoFeature key={current.id} video={current} variant="stage" autoPlay={engaged} onPlay={() => setEngaged(true)} />
         </div>
         <div className="video-playlist__rail">

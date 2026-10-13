@@ -175,5 +175,6 @@ export const MESSAGES = {
   tooLarge: "That's too much text for this form. Please shorten your message and try again.",
   tooMany: 'Too many attempts. Please wait 10 minutes and try again.',
   serverError: "Something went wrong on our side and your form wasn't sent. Please try again in a minute.",
+  serverErrorGeneric: 'Something went wrong on our side. Please try again in a minute.',
   notFound: "We couldn't find that. Check the address and try again.",
 };

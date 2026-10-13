@@ -2,11 +2,14 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
   Seo, BrandHero, Section, SectionHeader, Button, Card, Stat, Reveal, RevealGroup, ArtImage,
-  ProgrammeCard, EventCard, EmptyState, Accordion, Skeleton, InlineMarks,
+  ProgrammeCard, EventCard, EmptyState, Accordion, Skeleton, InlineMarks, EventVideos,
 } from '../../../components';
 import { useApi } from '../../../hooks/useApi';
 import { useLang } from '../../../lib/i18n.jsx';
 import { snxLink } from '../../../lib/links';
+import { formatDate } from '../../../lib/format.js';
+import { eventPath } from '../../../components/_utils.js';
+import { videoById } from '../../../data/videos.js';
 import ResearchProof from './components/ResearchProof';
 import ResearchJourney from './components/ResearchJourney';
 import FourParty from './components/FourParty';
@@ -15,7 +18,7 @@ import ProblemList from './components/ProblemList';
 import InterestForm from './components/InterestForm';
 import {
   RESEARCH_HOME as C, LABS_PAGE, LABS, LAB_COMMITMENTS, LAB_STOPPING_RULE, LAB_STOPPING_RULE_TA, FELLOWSHIP, IPP, TERMS, WHO, FAQ_GROUPS,
-  tr,
+  NIRF_SUMMIT, tr,
 } from './researchContent';
 import { itemListLd } from '../../../lib/seo.js';
 import { isPlaceholderAnswer } from '../../../components/_placeholders.js';
@@ -37,6 +40,59 @@ const gridFor = (n) => (n === 1 ? 'research-home__grid-1' : n === 2 ? 'grid grid
 
 /** FAQ answers: strings stay strings (FAQPage JSON-LD); answers carrying [C]/[placeholder] marks render them as chips. */
 const faqAnswer = (s) => (/\[[^\]]+\]/.test(s) ? <p><InlineMarks text={s} /></p> : s);
+
+/**
+ * Past StartNet Research event: the NIRF Higher Ed Summit 2024 (researchContent.js NIRF_SUMMIT, sourced), its two
+ * editions and the Salem promo film. An edition links to its event page only once /api/events lists it.
+ * Tamil strings: draft, pending native review.
+ */
+function PastResearchEvent() {
+  const { t, lang } = useLang();
+  const past = useApi('/api/events?brand=research&when=past');
+  const list = Array.isArray(past.data) ? past.data : [];
+  const recordFor = (ed) =>
+    list.find((e) => typeof e.date === 'string' && e.date.slice(0, 10) === ed.date && /nirf/i.test(`${e.series || ''} ${e.slug || ''} ${e.title || ''}`));
+  const video = videoById(NIRF_SUMMIT.videoId);
+  return (
+    <section className="research-home__past" aria-labelledby="research-past-title">
+      <div className="research-home__past-copy">
+        <p className="eyebrow">{t('Past event', 'முந்தைய நிகழ்வு')}</p>
+        <h3 id="research-past-title" className="h3">{NIRF_SUMMIT.name}</h3>
+        <p className="body-lg text-2">{tr(t, NIRF_SUMMIT, 'lede')}</p>
+        <p className="text-2">{tr(t, NIRF_SUMMIT, 'who')}</p>
+        <ul className="research-home__past-editions">
+          {NIRF_SUMMIT.editions.map((ed) => {
+            const record = recordFor(ed);
+            return (
+              <li key={ed.id} className="research-home__past-edition">
+                <p className="small text-2 research-home__past-when">
+                  <time className="tnum" dateTime={ed.date}>{formatDate(ed.date, undefined, lang)}</time> · {tr(t, ed, 'where')}
+                </p>
+                <h4 className="h5">{tr(t, ed, 'name')}</h4>
+                <p className="text-2">{tr(t, ed, 'body')}</p>
+                {ed.metric && <Stat metric={ed.metric} variant="compact" />}
+                <p className="caption research-home__past-src">{tr(t, ed, 'source')}</p>
+                {record && eventPath(record) && (
+                  <Button variant="tertiary" to={eventPath(record)}>{t('See the edition', 'அந்தப் பதிப்பைப் பாருங்கள்')}</Button>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      {video && (
+        <EventVideos
+          videos={[video]}
+          max={1}
+          headingLevel={4}
+          eyebrow={t('On film', 'காணொளியில்')}
+          title={t('The Salem edition promo, August 2024', 'சேலம் பதிப்பின் முன்னோட்டம், ஆகஸ்ட் 2024')}
+          className="research-home__past-film"
+        />
+      )}
+    </section>
+  );
+}
 
 export default function ResearchHome() {
   const { lang, t, localePath } = useLang();
@@ -243,6 +299,7 @@ export default function ResearchHome() {
             action={<Button variant="secondary" to="/research/lab-to-market-summit">{t('About the Summit', 'Summit பற்றி')}</Button>}
           />
         )}
+        <PastResearchEvent />
       </Section>
 
       {/* Who it's for / who pays */}

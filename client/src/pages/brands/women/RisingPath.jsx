@@ -2,15 +2,19 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useLang } from '../../../lib/i18n.jsx';
 import { PulliTimeline } from '../../../components/PulliTimeline.jsx';
+import { photoFor } from '../../../data/photos.js';
 import { JOURNEY, TA } from './womenContent.js';
 import './Women.css';
 
 /**
  * Women signature, v2 (DESIGN-v2 6.2): the journey Circles → Rise Academy → HerCapital as a PulliTimeline step
  * timeline. The progress fill and the active node carry the Women accent (no red here: brand pages keep red to the
- * h1 stop); the Ink panel draws the brand device dot → grid → network as the steps advance. Same steps, numbers,
+ * h1 stop); the Ink panel shows a photograph for each step (STEP_PHOTOS). Same steps, numbers,
  * labels, names, lines and links as before; each line links to its programme.
  */
+// Circles: a woman speaking at a women's meeting; Rise Academy: learning on her phone; HerCapital: a founder at her desk.
+const STEP_PHOTOS = ['pool/women/04', 'pool/women/11', 'pool/women/02'];
+
 export default function RisingPath() {
   const { localePath, t } = useLang();
   const steps = JOURNEY.map((j, i) => ({
@@ -32,7 +36,7 @@ export default function RisingPath() {
 
   return (
     <div className="women-path">
-      <PulliTimeline steps={steps} node="accent" headingLevel={3} label={t('Woman → Founder', TA.journey)} />
+      <PulliTimeline steps={steps} node="accent" headingLevel={3} label={t('Woman → Founder', TA.journey)} photos={STEP_PHOTOS.map((k) => photoFor(k))} />
     </div>
   );
 }

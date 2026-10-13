@@ -93,6 +93,9 @@ export const SERIES_LABELS = {
   vibathon: 'Vibathon', 'vibe-campus': 'Vibe Campus', 'vibe-summit': 'Vibe Summit', 'genai-connect': 'GenAI Connect',
   'saas-connect': 'SaaS Connect', 'd2c-connect': 'D2C Connect', 'lab-to-market-summit': 'Lab-to-Market Summit',
   'women-founders-summit': 'Women Founders Summit', 'investors-summit': 'Investors Summit', 'founders-day': 'StartNet Founders Day',
+  // Oct 2026 archive and Connect line-up (docs/research/*.md)
+  'agentic-ai-connect': 'Agentic AI Connect', 'physical-ai-connect': 'Physical AI Connect', 'vibe-coding-summit': 'Vibe Coding Summit',
+  'nirf-higher-ed-summit': 'NIRF Higher Ed Summit', 'network-meetings': 'StartNet network meetings', 'research-days': 'Research Days',
 };
 export const seriesLabel = (s) => SERIES_LABELS[s] || labelize(s);
 

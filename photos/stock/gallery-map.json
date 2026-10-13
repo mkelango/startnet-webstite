@@ -1,0 +1,824 @@
+{
+ "_about": "StartNet's own photos from the 'StartNet Gallery' folder (supplied by StartNet, Oct 2026) → photos/originals/<key>.jpg + sidecar. Run: node tools/images/gallery-import.mjs, then npm run photos. Each row: [source file, slot key, alt, caption group, crop?]. Group shots are StartNet's own event photos supplied for the website; StartNet confirms consent under its photo policy.",
+ "groups": {
+  "genai": {
+   "caption": "GenAI Connect Summit & Expo 2024, Radisson, Salem",
+   "captionTa": "GenAI Connect உச்சி மாநாடு & கண்காட்சி 2024, Radisson, சேலம்",
+   "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "genai-team": {
+   "caption": "The StartNet team at GenAI Connect 2024, Salem",
+   "captionTa": "GenAI Connect 2024-இல் StartNet குழு, சேலம்",
+   "credit": "Photo: StartNet"
+  },
+  "d2c": {
+   "caption": "D2C Connect Summit & Expo 2024, Le Méridien, Coimbatore",
+   "captionTa": "D2C Connect உச்சி மாநாடு & கண்காட்சி 2024, Le Méridien, கோயம்புத்தூர்",
+   "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "saas": {
+   "caption": "SaaS.Connect 2025, PSG Convention Centre, Coimbatore",
+   "captionTa": "SaaS.Connect 2025, PSG மாநாட்டு மையம், கோயம்புத்தூர்",
+   "credit": "Photo: Mesmerics Photography for StartNet"
+  },
+  "nirf-cbe": {
+   "caption": "NIRF Higher Ed Summit 2024, Le Méridien, Coimbatore",
+   "captionTa": "NIRF Higher Ed Summit 2024, Le Méridien, கோயம்புத்தூர்",
+   "credit": "Photo: Carnival Studios for StartNet"
+  },
+  "nirf-salem": {
+   "caption": "NIRF Higher Ed Summit 2024, CJ Pallazzio, Salem",
+   "captionTa": "NIRF Higher Ed Summit 2024, CJ Pallazzio, சேலம்",
+   "credit": "Photo: StartNet"
+  },
+  "vcs": {
+   "caption": "Vibe Coding Summit 2025, Dr. G.R. Damodaran College of Science, Coimbatore",
+   "captionTa": "Vibe Coding Summit 2025, Dr. G.R. Damodaran College of Science, கோயம்புத்தூர்",
+   "credit": "Photo: StartNet"
+  },
+  "vibathon": {
+   "caption": "Vibathon 2025, K.S.R. College of Engineering, Tiruchengode",
+   "captionTa": "Vibathon 2025, கே.எஸ்.ஆர். பொறியியல் கல்லூரி, திருச்செங்கோடு",
+   "credit": "Photo: StartNet"
+  },
+  "vms": {
+   "caption": "Vibe Marketing Summit 2025, Sona Incubation Foundation, Salem",
+   "captionTa": "Vibe Marketing Summit 2025, Sona Incubation Foundation, சேலம்",
+   "credit": "Photo: StartNet"
+  },
+  "tngss": {
+   "caption": "StartNet Vibe at TNGSS 2025, Coimbatore",
+   "captionTa": "TNGSS 2025-இல் StartNet Vibe, கோயம்புத்தூர்",
+   "credit": "Photo: StartNet"
+  },
+  "connect": {
+   "caption": "A StartNet Connect community meet-up",
+   "captionTa": "StartNet Connect சமூகச் சந்திப்பு",
+   "credit": "Photo: StartNet"
+  },
+  "anniv": {
+   "caption": "StartNet's first anniversary and the StartNet 2.0 launch",
+   "captionTa": "StartNet முதலாம் ஆண்டு விழா மற்றும் StartNet 2.0 தொடக்கம்",
+   "credit": "Photo: StartNet"
+  },
+  "network": {
+   "caption": "A StartNet network meeting",
+   "captionTa": "StartNet வலையமைப்புச் சந்திப்பு",
+   "credit": "Photo: StartNet"
+  },
+  "workshop": {
+   "caption": "A StartNet founder workshop",
+   "captionTa": "StartNet நிறுவனர் பயிலரங்கு",
+   "credit": "Photo: StartNet"
+  },
+  "imagine": {
+   "caption": "StartNet at Umagine Chennai 2023",
+   "captionTa": "Umagine Chennai 2023-இல் StartNet",
+   "credit": "Photo: StartNet"
+  },
+  "investors": {
+   "caption": "A StartNet meeting with investors and partners",
+   "captionTa": "முதலீட்டாளர்கள், கூட்டாளர்களுடன் StartNet சந்திப்பு",
+   "credit": "Photo: StartNet"
+  },
+  "women": {
+   "caption": "A StartNet Women meet-up",
+   "captionTa": "StartNet Women சந்திப்பு",
+   "credit": "Photo: StartNet"
+  }
+ },
+ "photos": [
+  [
+   "D2C Connect/Image-16.jpg",
+   "event/d2c-connect/2024",
+   "A packed ballroom at D2C Connect 2024 in Coimbatore",
+   "d2c",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "D2C Connect/Image-13.jpg",
+   "event/d2c-connect/2024-2",
+   "Visitors at the expo stalls at D2C Connect 2024",
+   "d2c",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "D2C Connect/Image-1.jpg",
+   "event/d2c-connect/2024-3",
+   "Two founders in conversation in the front row at D2C Connect 2024",
+   "d2c",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "D2C Connect/Image-7.jpg",
+   "event/d2c-connect/2024-4",
+   "A speaker at the lectern at D2C Connect 2024",
+   "d2c",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "D2C Connect/Image-14.jpg",
+   "event/d2c-connect/2024-5",
+   "The expo corridor full of visitors at D2C Connect 2024",
+   "d2c",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "D2C Connect/Image-5.jpg",
+   "event/d2c-connect/2024-6",
+   "Guests in the front row at D2C Connect 2024",
+   "d2c",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "D2C Connect/Image-3.jpg",
+   "event/d2c-connect/2024-7",
+   "A guest lighting the lamp at D2C Connect 2024",
+   "d2c",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "D2C Connect/Image-2.jpg",
+   "event/d2c-connect/2024-8",
+   "Guests standing for the opening of D2C Connect 2024",
+   "d2c",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "D2C Connect/Image-15.jpg",
+   "event/d2c-connect/2024-9",
+   "The audience facing the stage at D2C Connect 2024",
+   "d2c",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "GenAI Connect/Image-3.jpg",
+   "event/genai-connect/2024",
+   "Founders, speakers and the StartNet team together on stage at GenAI Connect 2024",
+   "genai"
+  ],
+  [
+   "GenAI Connect/Image-2.jpg",
+   "event/genai-connect/2024-7",
+   "Guests lighting the lamp to open GenAI Connect 2024",
+   "genai"
+  ],
+  [
+   "GenAI Connect/Image-4.jpg",
+   "event/genai-connect/2024-2",
+   "Attendees standing in the ballroom at GenAI Connect 2024",
+   "genai"
+  ],
+  [
+   "GenAI Connect/Image-7.jpg",
+   "event/genai-connect/2024-5",
+   "A founding team receiving a certificate on stage at GenAI Connect 2024",
+   "genai"
+  ],
+  [
+   "GenAI Connect/Image-1.jpg",
+   "event/genai-connect/2024-4",
+   "Founders and guests in the room at GenAI Connect 2024",
+   "genai"
+  ],
+  [
+   "GenAI Connect/Image-11.jpg",
+   "event/genai-connect/2024-6",
+   "Speakers welcomed on stage at GenAI Connect 2024",
+   "genai"
+  ],
+  [
+   "GenAI Connect/Image-10.jpg",
+   "event/genai-connect/2024-3",
+   "The stage at GenAI Connect 2024: Leverage AI for Inclusive Growth",
+   "genai"
+  ],
+  [
+   "GenAI Connect/Image-15.jpg",
+   "event/genai-connect/2024-8",
+   "The StartNet team outside the venue at GenAI Connect 2024",
+   "genai-team"
+  ],
+  [
+   "GenAI Connect/Image-17.jpg",
+   "event/genai-connect/2024-9",
+   "StartNet team members outside the Radisson, Salem, on GenAI Connect day",
+   "genai-team"
+  ],
+  [
+   "Startnet Research/image-11.jpg",
+   "event/nirf-higher-ed-summit/2024-coimbatore",
+   "Higher-education leaders together at the NIRF Higher Ed Summit 2024 in Coimbatore",
+   "nirf-cbe"
+  ],
+  [
+   "Startnet Research/image-1.jpg",
+   "event/nirf-higher-ed-summit/2024-coimbatore-2",
+   "A guest lighting the lamp at the NIRF Higher Ed Summit 2024, Coimbatore",
+   "nirf-cbe"
+  ],
+  [
+   "Startnet Research/image-5.jpg",
+   "event/nirf-higher-ed-summit/2024-coimbatore-3",
+   "The keynote address at the NIRF Higher Ed Summit 2024, Coimbatore",
+   "nirf-cbe"
+  ],
+  [
+   "Startnet Research/image-7.jpg",
+   "event/nirf-higher-ed-summit/2024-coimbatore-4",
+   "Faculty and leaders at a round table during the NIRF Higher Ed Summit 2024",
+   "nirf-cbe"
+  ],
+  [
+   "Startnet Research/image-8.jpg",
+   "event/nirf-higher-ed-summit/2024-coimbatore-5",
+   "A table discussion at the NIRF Higher Ed Summit 2024, Coimbatore",
+   "nirf-cbe"
+  ],
+  [
+   "Startnet Research/image-4.jpg",
+   "event/nirf-higher-ed-summit/2024-coimbatore-6",
+   "A StartNet speaker at the NIRF Higher Ed Summit 2024, Coimbatore",
+   "nirf-cbe"
+  ],
+  [
+   "Startnet Research/image-9.jpg",
+   "event/nirf-higher-ed-summit/2024-coimbatore-7",
+   "A session talk on innovation and the startup ecosystem in Tamil Nadu higher education",
+   "nirf-cbe"
+  ],
+  [
+   "Startnet Research/image-6.jpg",
+   "event/nirf-higher-ed-summit/2024-coimbatore-8",
+   "Attendees at the NIRF Higher Ed Summit 2024, Coimbatore",
+   "nirf-cbe"
+  ],
+  [
+   "Startnet Research/image-2.jpg",
+   "event/nirf-higher-ed-summit/2024-coimbatore-9",
+   "A StartNet team member lighting the lamp at the NIRF Higher Ed Summit 2024",
+   "nirf-cbe"
+  ],
+  [
+   "Startnet Research/image-18.jpg",
+   "event/nirf-higher-ed-summit/2024-salem",
+   "Faculty and institution leaders together at the NIRF Higher Ed Summit 2024 in Salem",
+   "nirf-salem"
+  ],
+  [
+   "Startnet Research/image-13.jpg",
+   "event/nirf-higher-ed-summit/2024-salem-2",
+   "A panel on stage with the audience at the NIRF Higher Ed Summit 2024, Salem",
+   "nirf-salem"
+  ],
+  [
+   "Startnet Research/image-14.jpg",
+   "event/nirf-higher-ed-summit/2024-salem-3",
+   "Lighting the lamp at the NIRF Higher Ed Summit 2024, Salem",
+   "nirf-salem"
+  ],
+  [
+   "Startnet Research/image-15.jpg",
+   "event/nirf-higher-ed-summit/2024-salem-4",
+   "A guest honoured on stage at the NIRF Higher Ed Summit 2024, Salem",
+   "nirf-salem"
+  ],
+  [
+   "Startnet Research/image-16.jpg",
+   "event/nirf-higher-ed-summit/2024-salem-5",
+   "Panellists on stage at the NIRF Higher Ed Summit 2024, Salem",
+   "nirf-salem"
+  ],
+  [
+   "Startnet Research/image-17.jpg",
+   "event/nirf-higher-ed-summit/2024-salem-6",
+   "Guests with the TNHEIN board at the NIRF Higher Ed Summit 2024, Salem",
+   "nirf-salem"
+  ],
+  [
+   "SaaS Connect/Image-12.jpg",
+   "event/saas-connect/2025-6",
+   "Founders and guests in the front rows at SaaS.Connect 2025",
+   "saas",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "SaaS Connect/Image-16.jpg",
+   "event/saas-connect/2025-7",
+   "Guests applauding a session at SaaS.Connect 2025",
+   "saas",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "SaaS Connect/Image-1.jpg",
+   "event/saas-connect/2025-8",
+   "The main stage and the audience at SaaS.Connect 2025",
+   "saas",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "SaaS Connect/Image-17.jpg",
+   "event/saas-connect/2025-9",
+   "Student volunteers behind the SaaS.Connect letters",
+   "saas",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "StartNet Vibe/image-23.jpg",
+   "event/vibathon/2025",
+   "Students building in the hall at Vibathon 2025, K.S.R. College of Engineering",
+   "vibathon",
+   [
+    0,
+    420,
+    1080,
+    390
+   ],
+   "50% 60%"
+  ],
+  [
+   "StartNet Vibe/image-25.jpg",
+   "event/vibathon/2025-2",
+   "Students filling the auditorium at Vibathon 2025",
+   "vibathon"
+  ],
+  [
+   "StartNet Vibe/image-24.jpg",
+   "event/vibathon/2025-3",
+   "College leaders and the StartNet Vibe team at K.S.R. College of Engineering for Vibathon 2025",
+   "vibathon",
+   [
+    0,
+    135,
+    1280,
+    718
+   ]
+  ],
+  [
+   "StartNet Vibe/image-26.jpg",
+   "event/vibathon/2025-4",
+   "The college honours the StartNet team on stage at Vibathon 2025",
+   "vibathon"
+  ],
+  [
+   "StartNet Vibe/image-27.jpg",
+   "event/vibathon/2025-5",
+   "A StartNet Vibe speaker addressing students at Vibathon 2025",
+   "vibathon",
+   [
+    470,
+    0,
+    810,
+    853
+   ]
+  ],
+  [
+   "Startnet Research/image-21.jpg",
+   "event/vibe-coding-summit/2025-coimbatore-3",
+   "Students building at computers during the Vibe Coding Summit 2025",
+   "vcs",
+   null,
+   "45% 85%"
+  ],
+  [
+   "Startnet Research/image-23.jpg",
+   "event/vibe-coding-summit/2025-coimbatore-2",
+   "Students and the StartNet Vibe team together at the Vibe Coding Summit 2025",
+   "vcs"
+  ],
+  [
+   "Startnet Research/image-19.jpg",
+   "event/vibe-coding-summit/2025-coimbatore",
+   "A full hall under the Vibe Coding Summit 2025 banner in Coimbatore",
+   "vcs",
+   [
+    0,
+    0,
+    1280,
+    650
+   ],
+   "55% 45%"
+  ],
+  [
+   "Startnet Research/image-20.jpg",
+   "event/vibe-coding-summit/2025-coimbatore-4",
+   "A speaker presenting at the Vibe Coding Summit 2025",
+   "vcs",
+   null,
+   "60% 55%"
+  ],
+  [
+   "Startnet Research/image-22.jpg",
+   "event/vibe-coding-summit/2025-coimbatore-5",
+   "Participants outside the venue at the Vibe Coding Summit 2025",
+   "vcs"
+  ],
+  [
+   "StartNet Vibe/image-33.jpg",
+   "event/vibe-marketing-summit-2025",
+   "Participants together at the Vibe Marketing Summit 2025 in Salem",
+   "vms"
+  ],
+  [
+   "StartNet Vibe/image-31.jpg",
+   "event/vibe-marketing-summit-2025/2",
+   "A speaker addressing the room at the Vibe Marketing Summit 2025",
+   "vms"
+  ],
+  [
+   "StartNet Vibe/image-29.jpg",
+   "event/vibe-marketing-summit-2025/3",
+   "Founders and marketers in a session at the Vibe Marketing Summit 2025",
+   "vms"
+  ],
+  [
+   "StartNet Vibe/image-28.jpg",
+   "event/vibe-marketing-summit-2025/4",
+   "The audience taking notes at the Vibe Marketing Summit 2025",
+   "vms"
+  ],
+  [
+   "StartNet Vibe/image-32.jpg",
+   "event/vibe-marketing-summit-2025/5",
+   "A participant asks a question at the Vibe Marketing Summit 2025",
+   "vms"
+  ],
+  [
+   "Startnet Connect/Image-9.jpg",
+   "pool/connectreal/01",
+   "Founders and members together at a StartNet Connect meet-up",
+   "connect"
+  ],
+  [
+   "Startnet Connect/Image-10.jpg",
+   "pool/connectreal/02",
+   "A StartNet Connect community meet-up, seated group photo",
+   "connect"
+  ],
+  [
+   "Startnet Connect/Image-13.jpg",
+   "pool/connectreal/03",
+   "Founders in a StartNet Connect session in a heritage meeting room",
+   "connect"
+  ],
+  [
+   "Startnet Connect/Image-14.jpg",
+   "pool/connectreal/04",
+   "Founders around a boardroom table at a StartNet Connect session",
+   "connect"
+  ],
+  [
+   "Startnet Connect/Image-6.jpg",
+   "pool/connectreal/05",
+   "Smiling founders in a group selfie at a StartNet Connect meet-up",
+   "connect"
+  ],
+  [
+   "Startnet Connect/Image-11.jpg",
+   "pool/connectreal/06",
+   "Four founders together at a StartNet Connect meet-up",
+   "connect"
+  ],
+  [
+   "Startnet Connect/Image-5.jpg",
+   "pool/connectreal/07",
+   "A group selfie of builders at a StartNet Connect evening",
+   "connect"
+  ],
+  [
+   "Startnet Core team/Image-16.jpg",
+   "pool/connectreal/08",
+   "A StartNet speaker leading a founder workshop on positioning",
+   "workshop"
+  ],
+  [
+   "Startnet Core team/image-24.jpg",
+   "pool/connectreal/09",
+   "Founders in a StartNet session room with a presentation on screen",
+   "workshop"
+  ],
+  [
+   "SaaS Connect/Image-10.jpg",
+   "pool/connectreal/10",
+   "A panel on the main stage at SaaS.Connect 2025",
+   "saas",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "SaaS Connect/Image-11.jpg",
+   "pool/connectreal/11",
+   "Founders in conversation in the lobby at SaaS.Connect 2025",
+   "saas",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "SaaS Connect/Image-14.jpg",
+   "pool/connectreal/12",
+   "A founder listening to a session at SaaS.Connect 2025",
+   "saas",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "Startnet Core team/Image-15.jpg",
+   "pool/connectreal/13",
+   "Founders and guests together at SaaS.Connect 2025",
+   "saas",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "Startnet Core team/Image-18.jpg",
+   "pool/connectreal/14",
+   "Founders giving a thumbs-up at SaaS.Connect 2025",
+   "saas",
+   [
+    0,
+    0,
+    1280,
+    762
+   ]
+  ],
+  [
+   "Startnet Core team/image-21.jpg",
+   "pool/connectreal/15",
+   "Two StartNet founders at the entrance of Umagine Chennai 2023",
+   "imagine"
+  ],
+  [
+   "Investor/Image-2.jpg",
+   "pool/investors/01",
+   "StartNet founders and an investor exchanging a report",
+   "investors"
+  ],
+  [
+   "Investor/Image-3.jpg",
+   "pool/investors/02",
+   "Founders and investors in a lounge meeting",
+   "investors"
+  ],
+  [
+   "Investor/Image-5.jpg",
+   "pool/investors/03",
+   "Investors and the StartNet team together after a meeting",
+   "investors"
+  ],
+  [
+   "Investor/Image-6.jpg",
+   "pool/investors/04",
+   "An investor reviewing a founder's material with the StartNet team",
+   "investors"
+  ],
+  [
+   "Investor/Image-7.jpg",
+   "pool/investors/05",
+   "An investor and a StartNet founder in conversation at a table",
+   "investors"
+  ],
+  [
+   "Investor/Image-8.jpg",
+   "pool/investors/06",
+   "An investor presenting a memento to the StartNet team",
+   "investors"
+  ],
+  [
+   "Investor/Image-9.jpg",
+   "pool/investors/07",
+   "Investors and founders together at a startup summit",
+   "investors"
+  ],
+  [
+   "Investor/Image-1.jpg",
+   "pool/investors/08",
+   "An investor meeting with the StartNet founder",
+   "investors"
+  ],
+  [
+   "Startnet Core team/image-3.jpg",
+   "pool/team/01",
+   "The StartNet community together at the first-anniversary celebration",
+   "anniv"
+  ],
+  [
+   "Startnet Core team/image-4.jpg",
+   "pool/team/02",
+   "The StartNet team with an award on stage at the first anniversary",
+   "anniv"
+  ],
+  [
+   "Startnet Core team/image-5.jpg",
+   "pool/team/03",
+   "The StartNet team celebrating on stage at the first anniversary",
+   "anniv"
+  ],
+  [
+   "Startnet Core team/image-7.jpg",
+   "pool/team/04",
+   "Raising Star Startup Award presented at StartNet's first anniversary",
+   "anniv"
+  ],
+  [
+   "Startnet Core team/image-11.jpg",
+   "pool/team/05",
+   "Founders holding their awards at StartNet's first anniversary",
+   "anniv"
+  ],
+  [
+   "Startnet Core team/image-9.jpg",
+   "pool/team/06",
+   "StartNet 2.0 collaboration agreements signed on stage",
+   "anniv"
+  ],
+  [
+   "Startnet Core team/image-2.jpg",
+   "pool/team/07",
+   "Signing a StartNet 2.0 partnership on stage",
+   "anniv"
+  ],
+  [
+   "Startnet Core team/image-6.jpg",
+   "pool/team/08",
+   "Partners holding signed StartNet 2.0 agreements",
+   "anniv"
+  ],
+  [
+   "Startnet Core team/image-10.jpg",
+   "pool/team/09",
+   "A StartNet team member applauding at the first anniversary",
+   "anniv"
+  ],
+  [
+   "Startnet Core team/image-12.jpg",
+   "pool/team/10",
+   "StartNet team members at a network meeting",
+   "network"
+  ],
+  [
+   "Startnet Core team/Image-13.jpg",
+   "pool/team/11",
+   "Founders seated at a StartNet network meeting",
+   "network"
+  ],
+  [
+   "StartNet Vibe/image-10.jpg",
+   "pool/vibereal/07",
+   "StartNet Vibe team members in VIBE T-shirts at the TNGSS 2025 backdrop",
+   "tngss"
+  ],
+  [
+   "StartNet Vibe/image-11.jpg",
+   "pool/vibereal/11",
+   "Visitors crowding the StartNet booth at TNGSS 2025",
+   "tngss"
+  ],
+  [
+   "StartNet Vibe/image-14.jpg",
+   "pool/vibereal/12",
+   "A StartNet team member explaining the programme to visitors, TNGSS 2025",
+   "tngss"
+  ],
+  [
+   "StartNet Vibe/image-15.jpg",
+   "pool/vibereal/13",
+   "Conversations inside the StartNet booth, TNGSS 2025",
+   "tngss"
+  ],
+  [
+   "StartNet Vibe/image-18.jpg",
+   "pool/vibereal/14",
+   "The StartNet team talking with visitors in a busy expo aisle, TNGSS 2025",
+   "tngss"
+  ],
+  [
+   "StartNet Vibe/image-22.jpg",
+   "pool/vibereal/15",
+   "The StartNet Vibe team at the booth, TNGSS 2025",
+   "tngss"
+  ],
+  [
+   "StartNet Vibe/image-17.jpg",
+   "pool/vibereal/16",
+   "Networking in the expo hall, TNGSS 2025",
+   "tngss"
+  ],
+  [
+   "StartNet Vibe/image-19.jpg",
+   "pool/vibereal/17",
+   "A visitor trying the Vibe Challenge on a tablet at the StartNet booth",
+   "tngss"
+  ],
+  [
+   "Startnet Women/Image-2.jpg",
+   "pool/vibereal/18",
+   "Visitors trying an AI demo on a laptop at the StartNet booth",
+   "tngss"
+  ],
+  [
+   "StartNet Vibe/image-16.jpg",
+   "pool/vibereal/20",
+   "A StartNet team member greeting a visitor at the booth, TNGSS 2025",
+   "tngss"
+  ],
+  [
+   "Startnet Women/Image-10.jpg",
+   "pool/womenreal/01",
+   "Women founders together at a StartNet Women meet-up",
+   "women"
+  ],
+  [
+   "Startnet Women/Image-7.jpg",
+   "pool/womenreal/02",
+   "Smiling women founders in a group selfie at a StartNet Women meet-up",
+   "women"
+  ],
+  [
+   "Startnet Women/Image-1.jpg",
+   "pool/womenreal/03",
+   "Women founders in conversation with the StartNet team",
+   "women"
+  ]
+ ]
+}

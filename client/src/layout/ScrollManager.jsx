@@ -3,7 +3,7 @@
 // Back/Forward (POP) restores the scroll position saved for that history entry instead, and leaves focus alone.
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLocation, useNavigationType } from 'react-router-dom';
-import { stopSmoothScroll } from '../lib/smoothScroll.js';
+import { stopSmoothScroll, jumpTo, syncSmoothScroll, hashGlideActive, hashGlideOrigin } from '../lib/smoothScroll.js';
 
 const WAIT_MS = 2500; // lazy pages may take a moment to mount
 const RESTORE_MS = 1000; // keep retrying a restore while the page grows
@@ -54,7 +54,7 @@ function restoreTo(y) {
   const tick = () => {
     if (cancelled) return;
     const max = document.documentElement.scrollHeight - window.innerHeight;
-    window.scrollTo(0, Math.min(y, Math.max(0, max)));
+    jumpTo(Math.min(y, Math.max(0, max)));
     const done = Math.abs(window.scrollY - y) < 2 || performance.now() - start > RESTORE_MS;
     if (done) { stop(); return; }
     raf = requestAnimationFrame(tick);
@@ -98,7 +98,10 @@ function settleOn(el) {
     const drift = el.getBoundingClientRect().top - dockOffset();
     const max = document.documentElement.scrollHeight - window.innerHeight;
     // Re-dock unless the page simply cannot scroll further (target near the end).
-    if (Math.abs(drift) > 4 && !(drift > 0 && window.scrollY >= max - 1)) el.scrollIntoView({ block: 'start', behavior: 'instant' });
+    if (Math.abs(drift) > 4 && !(drift > 0 && window.scrollY >= max - 1)) {
+      el.scrollIntoView({ block: 'start', behavior: 'instant' });
+      syncSmoothScroll();
+    }
     raf = requestAnimationFrame(tick);
   };
   raf = requestAnimationFrame(tick);
@@ -108,7 +111,10 @@ function settleOn(el) {
 export default function ScrollManager() {
   const { pathname, hash, key } = useLocation();
   const navType = useNavigationType();
-  const first = useRef(true);
+  // True until the first navigation inside this document. A ref flipped only when the history key changes, so
+  // StrictMode's double-run of the effects in development still sees the initial load (a `first` flag cleared by
+  // the first run made the re-run treat the load as Back/Forward and restore a stale position over the #hash).
+  const navigated = useRef(false);
   const keyRef = useRef(key);
   const lastY = useRef(0);
   const prevPath = useRef(pathname);
@@ -134,17 +140,29 @@ export default function ScrollManager() {
     return () => { clearTimeout(timer); window.removeEventListener('scroll', onScroll); window.removeEventListener('pagehide', onHide); };
   }, []);
 
-  // At commit of the next entry (before any scroll reset), store the leaving entry's last position.
+  // At commit of the next entry (before any scroll reset), store the leaving entry's last position. A new page (a
+  // link, not Back/Forward, no #target) then starts at the top in this same commit, before the browser paints it, so it
+  // never shows for a frame at the old page's scroll position.
   useLayoutEffect(() => {
     if (keyRef.current !== key) {
-      savePosition(keyRef.current, lastY.current);
+      // A #glide has already moved the page by the time this commits: Back should return to where it started.
+      savePosition(keyRef.current, hashGlideActive(hash) ? hashGlideOrigin() : lastY.current);
       keyRef.current = key;
+      navigated.current = true;
+      if (navType !== 'POP' && !hash && prevPath.current !== pathname) {
+        stopSmoothScroll();
+        jumpTo(0);
+        lastY.current = 0;
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
   // Hash targets (also on first load and same-page hash links). Back/Forward restores instead.
   useEffect(() => {
-    if (!hash || (navType === 'POP' && !first.current && readPositions()[key] != null)) return undefined;
+    if (!hash || (navType === 'POP' && navigated.current && readPositions()[key] != null)) return undefined;
+    // A same-page #link click is already gliding there (lib/smoothScrollBoot.js) and moves focus when it lands.
+    if (hashGlideActive(hash)) return undefined;
     const id = safeDecode(hash.slice(1));
     if (!id) return undefined;
     let stopSettle = null;
@@ -152,6 +170,7 @@ export default function ScrollManager() {
       if (!el) return;
       stopSmoothScroll();
       el.scrollIntoView({ block: 'start', behavior: 'instant' });
+      syncSmoothScroll();
       if (!el.hasAttribute('tabindex') && !/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)) el.setAttribute('tabindex', '-1');
       el.focus({ preventScroll: true });
       // Sections above the target may still be mounting (lazy pages, images, fonts): keep it docked for ~1 s.
@@ -164,14 +183,15 @@ export default function ScrollManager() {
   // Path changes: top of page, focus the h1, announce the title. Back/Forward: restore the saved position.
   // (Query/hash-only changes on the same path keep the position; the hash effect handles #targets.)
   useEffect(() => {
-    if (first.current) { first.current = false; prevPath.current = pathname; return undefined; }
+    if (!navigated.current) { prevPath.current = pathname; return undefined; }
     const pathChanged = prevPath.current !== pathname;
     prevPath.current = pathname;
+    if (!pathChanged && hashGlideActive(hash)) return undefined;
     const saved = navType === 'POP' ? readPositions()[key] : undefined;
     let stopRestore = null;
     stopSmoothScroll();
     if (saved != null) stopRestore = restoreTo(saved);
-    else if (!hash && pathChanged) window.scrollTo(0, 0);
+    else if (!hash && pathChanged) jumpTo(0);
     if (!pathChanged) return () => stopRestore?.();
     const stopWait = waitFor(visibleH1, (h1) => {
       if (h1 && !hash && saved == null) {

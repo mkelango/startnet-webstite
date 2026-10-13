@@ -28,8 +28,11 @@ export class ApiExceptionFilter implements ExceptionFilter {
 
     // Form endpoints say "form"; any other 400 (e.g. a malformed %-escape in a path) is about the address.
     const path = String(req?.path ?? req?.url ?? '');
-    const unreadable = path.startsWith('/api/forms') ? MESSAGES.unreadable : MESSAGES.badAddress;
+    const isForm = path.startsWith('/api/forms');
+    const unreadable = isForm ? MESSAGES.unreadable : MESSAGES.badAddress;
     const body = this.toBody(exception, unreadable);
+    // "…your form wasn't sent" is only true for a form post.
+    if (body.statusCode >= 500 && !isForm) body.message = MESSAGES.serverErrorGeneric;
     // Errors are never cached (GET /api responses carry a short public cache from apiCacheHeaders).
     res.setHeader('Cache-Control', 'no-store');
 

@@ -7,7 +7,7 @@ import { Stat } from './Stat.jsx';
 import { InlineMarks } from './InlineMarks.jsx';
 import { isPlaceholderText } from './_placeholders.js';
 import { cx, eventPath, formatLabel, hashString, langList, priceLabel } from './_utils.js';
-import { eventGallery, eventPhotoKeys, photoFor, PHOTO_SIZES } from '../data/photos.js';
+import { eventPhotoKeys, eventPool, photoFor, PHOTO_SIZES } from '../data/photos.js';
 import './EventCard.css';
 
 const VARIANTS = ['network', 'grid', 'map', 'dot', 'kolam'];
@@ -41,10 +41,10 @@ const isPh = (s) => typeof s === 'string' && /^\[.*\]$|^to be confirmed$/i.test(
 function cardPhoto(e) {
   const own = photoFor(eventPhotoKeys(e, eventPath(e)));
   if (own) return { photo: own };
-  const series = eventGallery(e.series);
-  // Gallery extras (-2, -3 …) first: an edition's main photo is the one most likely shown elsewhere on the page.
-  if (series.length) return { photoPool: [...series].sort((a, b) => /-\d+$/.test(b.key) - /-\d+$/.test(a.key)) };
-  return { photo: null };
+  // The series' photos, then related StartNet events (data/photos.js eventPool); each keeps its own caption.
+  const pool = eventPool(e);
+  if (pool.length) return { photoPool: pool };
+  return { photo: undefined };
 }
 
 export function EventCard({ event, headingLevel = 3, className }) {

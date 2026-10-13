@@ -19,7 +19,7 @@ import { ph } from './parts/ph.jsx';
 import { isPlaceholderText } from '../../../components/_placeholders.js';
 import {
   VIBATHON, VIBATHON_REGISTRATION, VIBATHON_TIMELINE, VIBATHON_TRACKS, VIBATHON_PRIZES, VIBATHON_SPONSOR_TIERS,
-  VIBATHON_FAQ, VIBATHON_FACTS, vibathonRegisterLink, tx, tr, localiseMetric,
+  VIBATHON_FAQ, VIBATHON_FACTS, VIBATHON_2025, vibathonRegisterLink, tx, tr, localiseMetric,
 } from './vibeContent.js';
 import '../brandPage.css';
 import './Vibathon.css';
@@ -126,7 +126,7 @@ export default function Vibathon() {
         </div>
       </Section>
 
-      {/* ---------- Figures ---------- */}
+      {/* ---------- Figures + the last edition ---------- */}
       <Section surface="paper" pad="sm">
         <FactBand
           className="bp-facts"
@@ -135,13 +135,33 @@ export default function Vibathon() {
           footnote={
             <InlineMarks
               text={t(
-                'Vibathon 2025 figures are from the Vibathon 2025 brochure [B]. Vibathon 2027 figures are planning targets [C], not results.',
-                'Vibathon 2025 எண்கள் Vibathon 2025 கையேட்டிலிருந்து [B]. Vibathon 2027 எண்கள் திட்ட இலக்குகள் [C], முடிவுகள் அல்ல.'
+                'Vibathon 2025 figures: the college mix is from the Vibathon 2025 brochure [B]; the team count is from StartNet Vibe’s recap [B]. Vibathon 2027 figures are planning targets [C], not results.',
+                'Vibathon 2025 எண்கள்: கல்லூரிகளின் விவரம் Vibathon 2025 கையேட்டிலிருந்து [B]; குழுக்களின் எண்ணிக்கை StartNet Vibe நிகழ்வுத் தொகுப்பிலிருந்து [B]. Vibathon 2027 எண்கள் திட்ட இலக்குகள் [C], முடிவுகள் அல்ல.'
               )}
             />
           }
           link={{ label: t('Past events archive', 'முந்தைய நிகழ்வுகளின் தொகுப்பு'), to: '/events/past' }}
         />
+
+        {/* Vibathon 2025, as the sources record it (vibeContent.js VIBATHON_2025; docs/research/vibe-events.md §1).
+            Winners are not named. Tamil: draft, pending native review. */}
+        <section className="vibathon__last" id="last-edition" aria-labelledby="vibathon-last">
+          <div className="vibathon__last-head">
+            <p className="eyebrow">{t('The last edition', 'கடந்த பதிப்பு')}</p>
+            <h2 id="vibathon-last" className="h3">{t('Vibathon 2025, Tiruchengode', 'Vibathon 2025, திருச்செங்கோடு')}</h2>
+            <p className="body-lg text-2">{tr(t, VIBATHON_2025, 'lede')}</p>
+            <p className="text-2">{tr(t, VIBATHON_2025, 'themes')}</p>
+            <Button variant="tertiary" to={VIBATHON_2025.edition}>{t('See the 2025 edition', '2025 பதிப்பைப் பாருங்கள்')}</Button>
+          </div>
+          <dl className="vibathon__last-facts">
+            <div><dt>{t('When', 'எப்போது')}</dt><dd>{tr(t, VIBATHON_2025, 'when')}</dd></div>
+            <div><dt>{t('Where', 'எங்கே')}</dt><dd>{tr(t, VIBATHON_2025, 'where')}</dd></div>
+            <div><dt>{t('In association with', 'இணைந்து நடத்தியவர்கள்')}</dt><dd>{tr(t, VIBATHON_2025, 'partners')}</dd></div>
+            <div><dt>{t('Sponsors', 'ஸ்பான்சர்கள்')}</dt><dd>{tr(t, VIBATHON_2025, 'sponsors')}</dd></div>
+            <div><dt>{t('Prizes', 'பரிசுகள்')}</dt><dd>{tr(t, VIBATHON_2025, 'prizes')}</dd></div>
+          </dl>
+          <p className="caption vibathon__last-src">{tr(t, VIBATHON_2025, 'sources')}</p>
+        </section>
       </Section>
 
       {/* ---------- What it is ---------- */}

@@ -58,8 +58,8 @@ export default function PastEvents() {
       <Seo
         title="Past startup events in Tamil Nadu: event archive"
         titleTa="கடந்த ஸ்டார்ட்அப் நிகழ்வுகள்: நிகழ்வுக் காப்பகம்"
-        description="StartNet events since 2023, by year: GenAI Connect 2024 in Salem, D2C Connect 2024, SaaS Connect 2025, Vibathon 2025 and more. Filter by brand."
-        descriptionTa="2023 முதல் ஆண்டு வாரியான StartNet நிகழ்வுகள்: சேலத்தில் GenAI Connect 2024, D2C Connect 2024, SaaS Connect 2025, Vibathon 2025. பிராண்ட் வாரியாக வடிகட்டலாம்."
+        description="StartNet events since 2023, by year: GenAI Connect 2024, the NIRF Higher Ed Summits, D2C Connect, SaaS Connect, Vibathon 2025 and more. Filter by brand."
+        descriptionTa="2023 முதல் ஆண்டு வாரியான StartNet நிகழ்வுகள்: GenAI Connect 2024, NIRF Higher Ed Summit, D2C Connect, SaaS Connect, Vibathon 2025 மற்றும் பல. பிராண்ட் வாரியாக வடிகட்டலாம்."
         jsonLd={[
           webPageLd({
             path: lang === 'ta' ? '/ta/events/past' : '/events/past',
@@ -80,8 +80,8 @@ export default function PastEvents() {
         // Public record starts in 2023; edition facts and sources: server/data/events.json. SEO-TA: pending native review
         title={t('Rooms since 2023.', '2023 முதல் அரங்குகள்.')}
         lede={t(
-          "StartNet has run rooms since 2023. The archive lists each edition with its date and venue: GenAI Connect 2024 in Salem, D2C Connect 2024 and SaaS Connect 2025 in Coimbatore, Vibathon 2025 in Tiruchengode, the Vibe Marketing Summit in Salem. Investors Summit details and attendance are added once they are verified.",
-          '2023 முதல் StartNet நிகழ்வுகளை நடத்தி வருகிறது. காப்பகம் ஒவ்வொரு பதிப்பையும் அதன் தேதி, இடத்துடன் பட்டியலிடுகிறது: சேலத்தில் GenAI Connect 2024, கோயம்புத்தூரில் D2C Connect 2024, SaaS Connect 2025, திருச்செங்கோட்டில் Vibathon 2025, சேலத்தில் Vibe Marketing Summit. Investors Summit விவரங்களும் வருகை எண்ணிக்கையும் சரிபார்க்கப்பட்ட பின் சேர்க்கப்படும்.'
+          "StartNet has run rooms since 2023. The archive lists each edition with its date, venue and sources: the 2023 network meetings, GenAI Connect 2024, the NIRF Higher Ed Summits in Salem and Coimbatore, D2C Connect 2024 and SaaS Connect 2025, the Vibe Coding and Vibe Marketing Summits, Vibathon 2025 in Tiruchengode. Investors Summit details and attendance are added once they are verified.",
+          '2023 முதல் StartNet நிகழ்வுகளை நடத்தி வருகிறது. காப்பகம் ஒவ்வொரு பதிப்பையும் அதன் தேதி, இடம், ஆதாரங்களுடன் பட்டியலிடுகிறது: 2023 வலையமைப்புச் சந்திப்புகள், GenAI Connect 2024, சேலம், கோயம்புத்தூரில் NIRF Higher Ed Summit, D2C Connect 2024, SaaS Connect 2025, Vibe Coding, Vibe Marketing உச்சி மாநாடுகள், திருச்செங்கோட்டில் Vibathon 2025. Investors Summit விவரங்களும் வருகை எண்ணிக்கையும் சரிபார்க்கப்பட்ட பின் சேர்க்கப்படும்.'
         )}
         breadcrumbs={[{ label: t('Events', 'நிகழ்வுகள்'), to: '/events' }, { label: t('Past events', 'கடந்த நிகழ்வுகள்') }]}
         actions={

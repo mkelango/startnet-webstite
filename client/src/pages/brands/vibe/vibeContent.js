@@ -184,8 +184,76 @@ export const VIBATHON_TRACKS = [
   { id: 'business-plan', name: 'Business-plan track', nameTa: 'வணிகத் திட்டப் பிரிவு', brief: 'For teams with a strong idea and a customer plan, judged on validation evidence', briefTa: 'வலுவான யோசனையும் வாடிக்கையாளர் திட்டமும் உள்ள குழுக்களுக்கு; சரிபார்ப்புச் சான்றுகளின் அடிப்படையில் மதிப்பிடப்படும்', icon: 'LineChart' },
 ];
 
+/* ------------------------------------------------------------------ Vibathon 2025 (the last edition) */
+// Sources: docs/research/vibe-events.md §1 (read 13 Oct 2026).
+//   Recap: StartNet Vibe on LinkedIn, published 4 Oct 2025
+//     https://www.linkedin.com/posts/startnetvibe_vibathon2025-aihackathon-ksrce-activity-7380212890731122688-rs6z
+//   Announcement: StartNet Vibe on LinkedIn, published 9 Aug 2025
+//     https://www.linkedin.com/posts/startnetvibe_vibathon-techhackathon-innovation-activity-7359923974471864320-BeeS
+//   KSRCE event page https://ksrce.ac.in/index.php/page?id=1082&item=315 and KSRCE "Students Achievements List
+//   2025-2026 Odd Sem" (1st and 3rd prizes, "Awarded by: StartNet Vibe and CubeAI Solutions").
+// Winners are not named on the site (StartNet decision, Oct 2026). Billing lines such as "Tamil Nadu's largest" are
+// left out (Book 2 §5.2: avoid "largest" or "first").
+// PRIZE POOL CONFLICT (docs/research/CONFLICTS.md, "Brand pages and media"): the Vibathon 2025 brochure gave ₹2.5 L,
+// the 9 Aug 2025 announcement "₹50,000 worth of exciting cash prizes" (1st ₹20,000, 2nd ₹10,000, 3rd ₹5,000, 5 × ₹3,000
+// consolation) and a dead vibathon.in snippet "₹75,000+". Per StartNet's decision the site shows the lowest sourced
+// figure, as announced, until StartNet confirms one.
+const VIBATHON_ANNOUNCE_SRC = 'StartNet Vibe announcement on LinkedIn, 9 Aug 2025';
+const VIBATHON_ANNOUNCE_SRC_TA = 'LinkedIn-இல் StartNet Vibe அறிவிப்பு, 9 ஆகஸ்ட் 2025';
+const VIBATHON_RECAP_SRC = 'StartNet Vibe recap on LinkedIn, 4 Oct 2025';
+const VIBATHON_RECAP_SRC_TA = 'LinkedIn-இல் StartNet Vibe நிகழ்வுத் தொகுப்பு, 4 அக்டோபர் 2025';
+
+export const VIBATHON_2025_POOL = {
+  id: 'v-pool25',
+  key: 'vibathon-2025-prize-pool',
+  value: 50000,
+  prefix: '₹',
+  label: 'Vibathon 2025 prize pool, as announced',
+  labelTa: 'Vibathon 2025 பரிசுத் தொகை, அறிவிக்கப்பட்டபடி',
+  tag: 'B',
+  asAt: '2025-08-09',
+  source: VIBATHON_ANNOUNCE_SRC,
+  sourceTa: VIBATHON_ANNOUNCE_SRC_TA,
+  note: 'Cash prizes as announced before the event. StartNet to confirm the final pool.',
+  noteTa: 'நிகழ்வுக்கு முன் அறிவிக்கப்பட்ட ரொக்கப் பரிசுகள். இறுதித் தொகையை StartNet உறுதிசெய்யும்.',
+};
+
+export const VIBATHON_2025_TEAMS = {
+  id: 'v-teams25',
+  key: 'vibathon-2025-teams',
+  value: 40,
+  label: 'teams took part in Vibathon 2025',
+  labelTa: 'Vibathon 2025-இல் பங்கேற்ற குழுக்கள்',
+  tag: 'B',
+  asAt: '2025-10-04',
+  source: VIBATHON_RECAP_SRC,
+  sourceTa: VIBATHON_RECAP_SRC_TA,
+};
+
+/** What happened at Vibathon 2025 (Vibathon page, "The last edition"). Every line is from the sources above. */
+export const VIBATHON_2025 = {
+  edition: '/events/vibathon/2025',
+  when: '26 September 2025',
+  whenTa: '26 செப்டம்பர் 2025',
+  where: 'Emerald Hall, K.S.R. College of Engineering, Tiruchengode',
+  whereTa: 'Emerald Hall, K.S.R. பொறியியல் கல்லூரி, திருச்செங்கோடு',
+  // The team count is a figure: it goes through <Stat> (VIBATHON_2025_TEAMS in the band above), not into this text.
+  lede: 'Vibathon 2025 was held on 26 September 2025 in the Emerald Hall at K.S.R. College of Engineering (KSRCE), Tiruchengode. Teams took their projects from concept to working prototype, and the jury evaluated live implementations.',
+  ledeTa: 'Vibathon 2025, 26 செப்டம்பர் 2025 அன்று திருச்செங்கோடு K.S.R. பொறியியல் கல்லூரியின் (KSRCE) Emerald Hall-இல் நடைபெற்றது. குழுக்கள் தங்கள் திட்டங்களை யோசனையிலிருந்து செயல்படும் முன்மாதிரி வரை கொண்டு சென்றன; நடுவர் குழு நேரடிச் செயலாக்கங்களை மதிப்பிட்டது.',
+  themes: 'Projects included cybersecurity systems, smart food management, accident prediction models and IoT-powered real-time data analytics.',
+  themesTa: 'சைபர் பாதுகாப்பு அமைப்புகள், உணவு மேலாண்மைத் தீர்வுகள், விபத்து முன்கணிப்பு மாதிரிகள், IoT அடிப்படையிலான நிகழ்நேரத் தரவுப் பகுப்பாய்வு ஆகியவை திட்டங்களில் அடங்கும்.',
+  partners: 'CubeAI Solutions, KSR Educational Institutions and the Society for Technocracy Engineering Professionals (STEP)',
+  partnersTa: 'CubeAI Solutions, KSR Educational Institutions, Society for Technocracy Engineering Professionals (STEP)',
+  sponsors: 'sashainfinity, ConcertIDC, Argit Solutions Private Limited, AI Tamilar Startup and Start Insights',
+  sponsorsTa: 'sashainfinity, ConcertIDC, Argit Solutions Private Limited, AI Tamilar Startup, Start Insights',
+  prizes: '1st and 3rd prizes went to KSRCE student teams.',
+  prizesTa: 'முதல் மற்றும் மூன்றாம் பரிசுகள் KSRCE மாணவர் குழுக்களுக்குக் கிடைத்தன.',
+  sources: 'Sources: StartNet Vibe on LinkedIn (announcement, 9 Aug 2025; recap, 4 Oct 2025); K.S.R. College of Engineering event page and students’ achievements list 2025-26.',
+  sourcesTa: 'ஆதாரங்கள்: LinkedIn-இல் StartNet Vibe (அறிவிப்பு, 9 ஆகஸ்ட் 2025; நிகழ்வுத் தொகுப்பு, 4 அக்டோபர் 2025); K.S.R. பொறியியல் கல்லூரியின் நிகழ்வுப் பக்கமும் 2025-26 மாணவர் சாதனைப் பட்டியலும்.',
+};
+
 export const VIBATHON_PRIZES = [
-  { id: 'pool', title: 'Prize pool', titleTa: 'பரிசுத் தொகை', body: PH, bodyTa: PH_TA, metric: { value: 2.5, prefix: '₹', unit: ' L', label: 'Vibathon 2025 prize pool', labelTa: 'Vibathon 2025 பரிசுத் தொகை', tag: 'B', asAt: 'Vibathon 2025', source: 'Vibathon 2025 brochure' } },
+  { id: 'pool', title: 'Prize pool', titleTa: 'பரிசுத் தொகை', body: PH, bodyTa: PH_TA, metric: VIBATHON_2025_POOL },
   { id: 'seed', title: 'Seed support', titleTa: 'விதை நிதி ஆதரவு', body: '[placeholder — terms and provider to be confirmed]', bodyTa: '[விவரம் வர உள்ளது — விதிமுறைகளும் வழங்குநரும் உறுதி செய்யப்பட உள்ளன]' },
   { id: 'launchpad', title: 'Vibe Launchpad', body: 'Guaranteed interview for winning teams', bodyTa: 'வெற்றி பெறும் குழுக்களுக்கு உறுதியான நேர்காணல்' },
   { id: 'certs', title: 'Certificates', titleTa: 'சான்றிதழ்கள்', body: '"Shipped" certificates on StartNet X for every team that demos a working product', bodyTa: 'செயல்படும் தயாரிப்பைச் செயல்விளக்கம் செய்யும் ஒவ்வொரு குழுவுக்கும் StartNet X-இல் "Shipped" சான்றிதழ்' },
@@ -217,13 +285,97 @@ const TARGET_NOTE = 'Blueprint plan. A target, not a result.';
 const TARGET_NOTE_TA = 'வரைவுத் திட்டம். இது இலக்கு, முடிவு அல்ல.';
 export const VIBATHON_FACTS = [
   { id: 'v-tier34', key: 'vibathon-2025-tier34', value: 80, unit: '%', label: 'of Vibathon 2025 colleges were Tier 3 or 4', labelTa: 'Vibathon 2025 கல்லூரிகளில் Tier 3 அல்லது 4 கல்லூரிகள்', tag: 'B', asAt: 'Vibathon 2025', source: 'Vibathon 2025 brochure' },
+  // The 2025 prize pool (VIBATHON_2025_POOL) is shown in the Prizes section; the band carries the 2025 team count.
+  VIBATHON_2025_TEAMS,
   { id: 'v-participants', key: 'vibathon-2027-participants-target', value: 3000, label: 'participants planned for Vibathon 2027', labelTa: 'Vibathon 2027-க்குத் திட்டமிடப்பட்ட பங்கேற்பாளர்கள்', tag: 'C', source: 'StartNet blueprint, objective B4 (planning target)', note: TARGET_NOTE, noteTa: TARGET_NOTE_TA },
   { id: 'v-hosts', key: 'vibathon-2027-hosts-target', value: 20, label: 'host colleges planned', labelTa: 'திட்டமிடப்பட்ட நடத்தும் கல்லூரிகள்', tag: 'C', source: 'StartNet blueprint, objective B4 (planning target)', note: TARGET_NOTE, noteTa: TARGET_NOTE_TA },
-  { id: 'v-pool25', key: 'vibathon-2025-prize-pool', value: 2.5, prefix: '₹', unit: ' L', label: 'Vibathon 2025 prize pool', labelTa: 'Vibathon 2025 பரிசுத் தொகை', tag: 'B', asAt: 'Vibathon 2025', source: 'Vibathon 2025 brochure' },
 ];
 
-/** Resolve a metric's label/note for the current language (for FactBand / Stat metric objects). */
-export const localiseMetric = (t, m) => ({ ...m, label: tr(t, m, 'label'), note: m.note ? tr(t, m, 'note') : m.note });
+/** Resolve a metric's label/note/source for the current language (for FactBand / Stat metric objects). */
+export const localiseMetric = (t, m) => ({
+  ...m,
+  label: tr(t, m, 'label'),
+  note: m.note ? tr(t, m, 'note') : m.note,
+  source: m.sourceTa ? tr(t, m, 'source') : m.source,
+});
+
+/**
+ * Figures these pages curate from sourced research, by metric key. Brand pages prefer them over an API metric with
+ * the same key, so an older server seed (e.g. the brochure's ₹2.5 L) never reaches a Vibe page.
+ */
+export const CURATED_METRICS = { [VIBATHON_2025_POOL.key]: VIBATHON_2025_POOL };
+
+/* ------------------------------------------------------------------ Vibe summits so far */
+// Sources: docs/research/vibe-events.md §2 (Vibe Coding Summit) and §3 (Vibe Marketing Summit), read 13 Oct 2026.
+// Vibe Coding Summit, 2nd edition: Ticketprix listing https://www.ticketprix.com/event/EVT20250514015212Uwz (status
+//   "Completed"; organiser on the ticket page: Computer Society of India - Coimbatore Chapter); promoted by
+//   @startnetvibe on Instagram (reel DKyjBQ_psJM, posts DKynx4GT_NJ, DKyg_QZT3xQ, DKzGlVnT2aq). StartNet is not named
+//   on the ticket page, so the organiser is phrased neutrally (StartNet decision, Oct 2026). Venue: Ticketprix and
+//   Instagram say "Dr. G.R. Damodaran College of Science"; a second Ticketprix section says "… College of Arts and
+//   Science" (CONFLICTS.md). The first edition was in Salem (reel caption); its date and venue are not known.
+// Vibe Marketing Summit 2025: StartNet Vibe post, 25 Jul 2025 (…activity-7354530389341691904-bSU5); Sona Incubation
+//   Foundation post, 29 Jul 2025 (…activity-7355841168062009344-AIZL: organiser wording, "150+" and the sessions);
+//   attendee post (…activity-7354412690724827137-gf02: student pass, 20% off). It had paid passes: never "free".
+//   "India's first" billing is left out.
+const SONA_SRC = 'Sona Incubation Foundation on LinkedIn, 29 Jul 2025';
+const SONA_SRC_TA = 'LinkedIn-இல் Sona Incubation Foundation, 29 ஜூலை 2025';
+
+/** `slug`: the events record; /vibe/summit links it only once /api/events lists it (no link to a missing page). */
+export const VIBE_SUMMITS_PAST = [
+  {
+    id: 'vibe-marketing-summit-2025',
+    name: 'Vibe Marketing Summit 2025',
+    slug: 'vibe-marketing-summit-2025',
+    when: '26 July 2025',
+    whenTa: '26 ஜூலை 2025',
+    where: 'Sona Incubation Foundation, Salem',
+    whereTa: 'Sona Incubation Foundation, சேலம்',
+    organiser: 'Organised by StartNet Ventures Private Limited in collaboration with Sona Incubation Foundation.',
+    organiserTa: 'Sona Incubation Foundation உடன் இணைந்து StartNet Ventures Private Limited ஏற்பாடு செய்தது.',
+    body: 'A day on AI in marketing: interactive workshops, live campaign demos and open discussions. Entry was by paid pass, with a student pass.',
+    bodyTa: 'சந்தைப்படுத்தலில் AI குறித்த ஒரு நாள்: ஊடாடும் பயிலரங்குகள், நேரடிப் பிரச்சார விளக்கங்கள், திறந்த கலந்துரையாடல்கள். கட்டண அனுமதிச் சீட்டு மூலம் நுழைவு; மாணவர்களுக்குத் தனி அனுமதிச் சீட்டு இருந்தது.',
+    sessions: [
+      { title: 'Keynote: The AI Marketing Revolution', titleTa: 'முதன்மை உரை: The AI Marketing Revolution', who: 'Rajesh Srinivasan' },
+      { title: 'AI & Content Automation in Marketing', who: 'M.K. Elango, StartNet' },
+      { title: 'From Traditional to AI-Driven Digital Marketing', who: 'Mani Maran Ramalingam, Thedico' },
+      { title: 'AI-Powered Go-To-Market Strategies', who: 'Arunkumar Nataraj, REAINMAKER AI' },
+      { title: 'Future-Ready Marketing Teams & Structures', who: 'Dinesh Yuvaraj, Cubeaisolutions; Venkatesh C.R., Dot Com Infoway' },
+      { title: 'Panel discussion', titleTa: 'குழு விவாதம்', who: 'Poonthamil Kumaran, Multipreneur Academy' },
+    ],
+    metric: {
+      id: 'vms25-attendees',
+      key: 'vibe-marketing-summit-2025-attendees',
+      value: 150,
+      unit: '+',
+      label: 'entrepreneurs, business leaders and marketers attended',
+      labelTa: 'தொழில்முனைவோர், வணிகத் தலைவர்கள், சந்தைப்படுத்துநர்கள் பங்கேற்றனர்',
+      tag: 'B',
+      asAt: '2025-07-29',
+      source: SONA_SRC,
+      sourceTa: SONA_SRC_TA,
+      note: 'The partner’s own figure.',
+      noteTa: 'கூட்டாளர் அமைப்பின் சொந்த எண்ணிக்கை.',
+    },
+    sources: 'Sources: Sona Incubation Foundation and StartNet Vibe on LinkedIn, July 2025.',
+    sourcesTa: 'ஆதாரங்கள்: LinkedIn-இல் Sona Incubation Foundation, StartNet Vibe, ஜூலை 2025.',
+  },
+  {
+    id: 'vibe-coding-summit-2025',
+    name: 'Vibe Coding Summit, 2nd edition',
+    nameTa: 'Vibe Coding Summit, 2-ஆம் பதிப்பு',
+    slug: 'vibe-coding-summit-2025-coimbatore',
+    when: '14 June 2025',
+    whenTa: '14 ஜூன் 2025',
+    where: 'IT Block, Dr. G.R. Damodaran College of Science, Coimbatore',
+    whereTa: 'IT Block, Dr. G.R. Damodaran College of Science, கோயம்புத்தூர்',
+    organiser: 'Promoted by StartNet Vibe; ticketing listed by the Computer Society of India, Coimbatore Chapter.',
+    organiserTa: 'StartNet Vibe விளம்பரப்படுத்தியது; டிக்கெட் பட்டியலை Computer Society of India, Coimbatore Chapter வெளியிட்டது.',
+    body: '“Coding at the speed of thought”: a one-day conference with hands-on workshops and networking. Tools featured included Cursor, Replit, Windsurf, GitHub Copilot, Claude and Supabase. The first edition was held in Salem.',
+    bodyTa: '“Coding at the speed of thought”: நேரடிப் பயிலரங்குகளும் அறிமுகச் சந்திப்புகளும் கொண்ட ஒரு நாள் மாநாடு. Cursor, Replit, Windsurf, GitHub Copilot, Claude, Supabase போன்ற கருவிகள் இடம்பெற்றன. முதல் பதிப்பு சேலத்தில் நடைபெற்றது.',
+    sources: 'Sources: Ticketprix event listing; StartNet Vibe on Instagram, June 2025.',
+    sourcesTa: 'ஆதாரங்கள்: Ticketprix நிகழ்வுப் பட்டியல்; Instagram-இல் StartNet Vibe, ஜூன் 2025.',
+  },
+];
 
 /* ------------------------------------------------------------------ Sub-pages */
 

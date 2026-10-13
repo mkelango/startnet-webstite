@@ -28,7 +28,7 @@ export const MEGA_ROUTES = [
     slugs: 'api:/api/events',
     bottomCta: null,
     notes:
-      'series = event.series; edition = event slug minus "<series>-" prefix (vibathon/2027 → vibathon-2027, vibathon/2027-district-qualifiers, genai-connect/2024; the old genai-/d2c-/saas-connect/archive URLs 301 server-side). ' +
+      'series = event.series; edition = event slug minus "<series>-" prefix (vibathon/2027 → vibathon-2027, vibathon/2027-district-qualifiers, genai-connect/2024; the old genai-/d2c-/saas-connect/archive URLs 301 server-side, and the withdrawn genai-/saas-/d2c-connect/2027 editions redirect to their series page). ' +
       'Unknown pairs render NotFound. The page publishes its own bottom CTA (Register · SNX) via usePageCta.',
   },
   {
@@ -160,6 +160,69 @@ export const MEGA_ROUTES = [
     slugs: null,
     bottomCta: null,
     notes: 'Events › Series item (no copy in Book 2 yet: page shows placeholders + register-interest form). Events menu only; brand menus keep their evergreen link. Served by events/:slug.',
+    menuOnly: true,
+  },
+  // Oct 2026 (docs/research/*.md): the live Connect flagships and the sourced archive series. New menu items, not
+  // replacements. The sector-Connect 2027 editions were withdrawn; their URLs redirect to the series page
+  // (seriesData RETIRED_EDITIONS, server routes.ts REDIRECTS).
+  {
+    path: 'events/agentic-ai-connect',
+    file: './EventsSlugDispatcher.jsx',
+    brand: null,
+    navLabel: 'Agentic AI Connect',
+    phase: 1,
+    menu: { section: 'Events', replaces: null },
+    slugs: null,
+    bottomCta: null,
+    notes: 'Events › Flagships item (StartNet Connect flagship, 14 Nov 2026, Chennai). Served by events/:slug.',
+    menuOnly: true,
+  },
+  {
+    path: 'events/physical-ai-connect',
+    file: './EventsSlugDispatcher.jsx',
+    brand: null,
+    navLabel: 'Physical AI Connect',
+    phase: 1,
+    menu: { section: 'Events', replaces: null },
+    slugs: null,
+    bottomCta: null,
+    notes: 'Events › Flagships item (StartNet Connect flagship, 8 May 2027, Chennai). Served by events/:slug.',
+    menuOnly: true,
+  },
+  {
+    path: 'events/vibe-coding-summit',
+    file: './EventsSlugDispatcher.jsx',
+    brand: null,
+    navLabel: 'Vibe Coding Summit',
+    phase: 1,
+    menu: { section: 'Events', replaces: null },
+    slugs: null,
+    bottomCta: null,
+    notes: 'Events › Series item (StartNet Vibe; edition 2, Coimbatore, 14 Jun 2025). Served by events/:slug.',
+    menuOnly: true,
+  },
+  {
+    path: 'events/nirf-higher-ed-summit',
+    file: './EventsSlugDispatcher.jsx',
+    brand: null,
+    navLabel: 'NIRF Higher Ed Summit',
+    phase: 1,
+    menu: { section: 'Events', replaces: null },
+    slugs: null,
+    bottomCta: null,
+    notes: 'Events › Series item (StartNet Research; Salem 31 Aug 2024, Coimbatore 19 Oct 2024). Served by events/:slug.',
+    menuOnly: true,
+  },
+  {
+    path: 'events/network-meetings',
+    file: './EventsSlugDispatcher.jsx',
+    brand: null,
+    navLabel: 'Network meetings, 2023',
+    phase: 1,
+    menu: { section: 'Events', replaces: null },
+    slugs: null,
+    bottomCta: null,
+    notes: 'Events › Series item (archive: StartNet monthly network meetings 2023, incl. StartConnect and MegaPitching). Served by events/:slug.',
     menuOnly: true,
   },
 ];

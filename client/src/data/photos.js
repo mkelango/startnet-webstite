@@ -1,6 +1,6 @@
 // Real photographs for image slots (StartNet's own event, campus and team photos).
 // Files are produced by `npm run photos` (tools/images/photos.mjs) from photos/originals/<key>.jpg and listed in
-// photos.manifest.json. A slot with no photo keeps its generative art (Book 3 §7.6), so nothing ever shows empty.
+// photos.manifest.json. Every slot shows a photograph: its own, a curated pick, then the themed library (Oct 2026).
 //
 // Slot keys (the original's path under photos/originals/, without the extension):
 //   hero/home, hero/research, hero/vibe, hero/connect, hero/women      page heroes (landscape or 4:5 originals)
@@ -92,27 +92,29 @@ export function libraryPhoto(theme, seed = 1) {
 // ---------- Curated picks for the most visible slots ----------
 // Page heroes by base path, and the four brand tiles. A real StartNet photo (hero/<path>) still wins over these.
 const HERO_PICKS = {
-  '/': 'pool/vibereal/05',
-  '/about': 'pool/places/07',
-  '/brands': 'pool/students/04',
-  '/research': 'pool/research/03',
-  '/vibe': 'pool/students/08',
-  '/connect': 'pool/stage/09',
-  '/women': 'pool/women/02',
-  '/startnet-x': 'pool/platform/04',
-  '/events': 'pool/stage/01',
-  '/programmes': 'pool/students/03',
-  '/insights': 'pool/insights/01',
-  '/partner': 'pool/professionals/02',
-  '/districts': 'pool/places/03',
-  '/contact': 'pool/places/02',
-  '/careers': 'pool/professionals/05',
-  '/media': 'pool/stage/12',
+  '/': 'event/saas-connect/2025-4',
+  '/about': 'pool/team/01',
+  '/brands': 'event/vibe-coding-summit/2025-coimbatore-2',
+  '/research': 'pool/research/01',
+  '/vibe': 'pool/vibereal/05',
+  '/connect': 'event/saas-connect/2025-5',
+  '/women': 'pool/women/07',
+  '/startnet-x': 'pool/platform/01',
+  '/events': 'pool/events/01',
+  '/programmes': 'pool/students/09',
+  '/insights': 'pool/insights/03',
+  '/partner': 'pool/team/06',
+  '/districts': 'pool/places/10',
+  '/contact': 'pool/team/11',
+  '/careers': 'pool/vibereal/10',
+  '/media': 'pool/events/03',
   '/connect/saas': 'event/saas-connect/2025-3',
+  '/connect/genai': 'event/genai-connect/2024',
+  '/connect/d2c': 'event/d2c-connect/2024',
   '/events/saas-connect': 'event/saas-connect/2025-3',
-  '/vibe/vibathon': 'event/vibathon/2025',
+  '/vibe/vibathon': 'event/vibathon/2025-2',
 };
-const TILE_PICKS = { research: 'pool/research/06', vibe: 'pool/vibereal/01', connect: 'pool/stage/10', women: 'pool/women/03', x: 'pool/platform/03' };
+const TILE_PICKS = { research: 'pool/research/01', vibe: 'event/vibe-coding-summit/2025-coimbatore-2', connect: 'pool/connectreal/03', women: 'pool/womenreal/01', x: 'pool/platform/01' };
 
 /** Hero photo for a page: StartNet's own (hero/<path>), else the curated pick, else undefined (themed library). */
 export function heroPhoto(basePath = '/') {
@@ -143,12 +145,15 @@ const FALLBACK = {
 };
 // Real StartNet photos first, where they fit the slot: the Vibe booth at TNGSS 2025 for students and Vibe,
 // StartNet stage photos for events, Connect, partners and community. Captions say what each photo really shows.
+// Since Oct 2026 (the StartNet Gallery): Connect meet-ups and SaaS Connect rooms (connectreal), the StartNet team
+// (team), investor meetings (investors) and StartNet Women meet-ups (womenreal) lead their themes too.
 const TIERS = {
   students: [['vibereal'], ['students']],
-  events: [['stage', 'vibereal'], ['events']],
-  professionals: [['stage'], ['professionals']],
-  partner: [['stage'], ['partner', 'professionals']],
-  community: [['stage', 'vibereal'], ['community', 'students', 'professionals', 'women']],
+  events: [['stage', 'connectreal', 'vibereal'], ['events']],
+  professionals: [['connectreal', 'stage'], ['professionals']],
+  partner: [['investors', 'connectreal', 'stage'], ['partner', 'professionals']],
+  community: [['team', 'connectreal', 'stage', 'vibereal'], ['community', 'students', 'professionals', 'women']],
+  women: [['womenreal'], ['women']],
 };
 const page = { path: null, bySlot: new Map(), used: new Set(), fixed: new Set() };
 const pageFor = (path) => {
@@ -222,6 +227,57 @@ export function eventGallery(series) {
     .map((key) => ({ key, ...manifest[key] }));
 }
 
+// ---------- Related StartNet photos for events without their own yet ----------
+// An upcoming series (or one whose photos StartNet has not supplied) shows real photographs of the closest StartNet
+// events instead of abstract art: the same brand and format, never stock. Each photo keeps its own caption, which
+// names the event it was taken at ("GenAI Connect Summit & Expo 2024, Radisson, Salem"), so nothing passes for an
+// edition that has not happened. 'pool:<theme>' entries are StartNet's own themed photos (team, investors, women…).
+const SERIES_FAMILY = {
+  'agentic-ai-connect': ['genai-connect', 'saas-connect', 'd2c-connect'],
+  'physical-ai-connect': ['d2c-connect', 'saas-connect', 'genai-connect'],
+  'genai-connect': ['saas-connect', 'd2c-connect'],
+  'saas-connect': ['genai-connect', 'd2c-connect'],
+  'd2c-connect': ['saas-connect', 'genai-connect'],
+  vibathon: ['vibe-coding-summit', 'pool:vibereal'],
+  'vibe-campus': ['vibe-coding-summit', 'vibathon', 'vibe-marketing-summit-2025'],
+  'vibe-summit': ['vibe-coding-summit', 'vibe-marketing-summit-2025', 'vibathon'],
+  'vibe-coding-summit': ['vibathon', 'vibe-marketing-summit-2025'],
+  'vibe-marketing-summit-2025': ['vibe-coding-summit', 'vibathon'],
+  'lab-to-market-summit': ['nirf-higher-ed-summit'],
+  'research-days': ['nirf-higher-ed-summit'],
+  'nirf-higher-ed-summit': ['vibe-coding-summit'],
+  'women-founders-summit': ['pool:womenreal'],
+  'investors-summit': ['pool:investors'],
+  'network-meetings': ['pool:stage', 'pool:team'],
+  'founders-day': ['pool:team', 'pool:connectreal'],
+  'startnet-launch-2023': ['pool:stage', 'pool:team'],
+};
+const familyPart = (name) => (name.startsWith('pool:') ? POOL[name.slice(5)] || [] : eventGallery(name));
+
+/** The series' own photos, else the photos of its closest StartNet events (SERIES_FAMILY), in a stable order. */
+export function familyGallery(series) {
+  if (!series) return [];
+  const own = eventGallery(series);
+  if (own.length) return own;
+  return (SERIES_FAMILY[series] || []).flatMap(familyPart);
+}
+
+/**
+ * Photos for a card about one event record, best first: the edition's own photos, then the rest of its series, then
+ * related StartNet events, each in gallery order (the strongest photo first). The slot takes the first one not
+ * already on the page (ArtImage photoPool).
+ */
+export function eventPool(e) {
+  if (!e) return [];
+  const series = e.series || e.slug;
+  const all = eventGallery(series);
+  const edition = e.series && e.slug && e.slug.startsWith(`${e.series}-`) ? e.slug.slice(e.series.length + 1) : e.edition;
+  const own = edition ? all.filter((p) => p.key === `event/${series}/${edition}` || p.key.startsWith(`event/${series}/${edition}-`)) : [];
+  const rest = all.filter((p) => !own.includes(p));
+  const family = all.length ? (SERIES_FAMILY[series] || []).flatMap(familyPart) : familyGallery(series);
+  return [...own, ...rest, ...family];
+}
+
 /** A library photo for one slot on one page: never one already shown on that page while any is left. */
 export function allocateLibraryPhoto(path, slotId, theme, seed = 1) {
   const pg = pageFor(path);
@@ -229,7 +285,9 @@ export function allocateLibraryPhoto(path, slotId, theme, seed = 1) {
   const n = Math.abs(Math.floor(Number(seed) || 0));
   const series = eventSeriesForPath(path);
   if (series) {
-    const list = eventGallery(series);
+    // The event's own photos, then related StartNet events, then StartNet's own rooms: never a stock photo.
+    const own = eventGallery(series);
+    const list = [...own, ...[...(SERIES_FAMILY[series] || []), 'pool:stage', 'pool:connectreal', 'pool:team', 'pool:vibereal'].flatMap(familyPart)];
     const free = list.find((c) => !pg.used.has(c.key) && !pg.fixed.has(c.key)) || null;
     if (free) pg.used.add(free.key);
     pg.bySlot.set(slotId, free);
@@ -262,13 +320,19 @@ export function allocateLibraryPhoto(path, slotId, theme, seed = 1) {
  */
 export function seriesPhoto(pathOrSeries) {
   const series = typeof pathOrSeries === 'string' && pathOrSeries.startsWith('/') ? eventSeriesForPath(pathOrSeries) : pathOrSeries;
-  return eventGallery(series)[0] || null;
+  return familyGallery(series)[0] || null;
 }
 
-/** The sharpest photo of one edition (largest height), for tall 4:5 posters; falls back to the series. */
+/**
+ * The sharpest photo of one edition (largest height), for tall 4:5 posters; falls back to the series, then to related
+ * StartNet events. Without photos of its own, editions of one series take different photos (by edition name).
+ */
 export function posterPhoto(series, edition) {
   const all = eventGallery(series);
   const own = edition ? all.filter((p) => p.key === `event/${series}/${edition}` || p.key.startsWith(`event/${series}/${edition}-`)) : [];
-  const pool = own.length ? own : all;
-  return pool.slice().sort((a, b) => (b.height || 0) - (a.height || 0))[0] || null;
+  const pool = (own.length ? own : all.length ? all : familyGallery(series)).slice().sort((a, b) => (b.height || 0) - (a.height || 0) || a.key.localeCompare(b.key));
+  if (own.length || !pool.length) return pool[0] || null;
+  let h = 0;
+  for (const ch of String(edition || '')) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return pool[h % Math.min(pool.length, 4)];
 }

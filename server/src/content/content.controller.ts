@@ -102,7 +102,9 @@ export class ContentController {
       : typeof q === 'string'
         ? q
         : '';
-    const n = Math.min(Math.max(Number(typeof limit === 'string' ? limit : undefined) || 30, 1), 100);
+    // A missing, non-numeric, zero or negative limit falls back to the default of 30; the maximum is 100.
+    const asked = Math.floor(Number(typeof limit === 'string' ? limit : undefined));
+    const n = Number.isFinite(asked) && asked >= 1 ? Math.min(asked, 100) : 30;
     const language = lang === 'ta' ? 'ta' : 'en';
     const results = this.searchService.search(query.slice(0, 200), n, language);
     return { query, total: results.length, results };
