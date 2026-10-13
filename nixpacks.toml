@@ -1,0 +1,23 @@
+# Coolify / Nixpacks build for startnet.in: React (Vite) front end + NestJS API in one Node process.
+# The server serves client/dist and the /api routes. It listens on $PORT, default 4321 (the port the previous
+# startnet.in site used, so the existing Coolify port setting keeps working).
+# Not run here: the SEO prerender (needs a local Chrome); the server serves the plain app without it.
+
+[phases.setup]
+nixPkgs = ["nodejs_22"]
+
+[phases.install]
+# Nixpacks builds with NODE_ENV=production; the builds need the dev dependencies (Vite, Nest CLI, TypeScript).
+cmds = [
+  "npm ci --prefix client --include=dev",
+  "npm ci --prefix server --include=dev",
+]
+
+[phases.build]
+cmds = [
+  "npm run build --prefix client",
+  "npm run build --prefix server",
+]
+
+[start]
+cmd = "PORT=${PORT:-4321} node server/dist/main.js"
