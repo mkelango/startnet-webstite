@@ -14,6 +14,7 @@ import BottomCtaBar from './BottomCtaBar.jsx';
 import BackToTop from './BackToTop.jsx';
 import ConsentBanner from './ConsentBanner.jsx';
 import ScrollManager from './ScrollManager.jsx';
+import { PhotoGradeFilter } from '../components/PhotoGradeFilter.jsx';
 import AutoContentLang from './AutoContentLang.jsx';
 import { TamilSuggestBanner } from './LanguageSwitch.jsx';
 import './MotionSwitch.jsx'; // applies the stored "Reduce motion" choice on load
@@ -113,6 +114,7 @@ export default function SiteLayout() {
             <MobileDrawer />
             <SearchMount />
             <ScrollManager />
+            <PhotoGradeFilter />
             <ShellEffects />
             <AutoContentLang />
           </div>

@@ -114,7 +114,7 @@ const HERO_PICKS = {
   '/events/saas-connect': 'event/saas-connect/2025-3',
   '/vibe/vibathon': 'event/vibathon/2025-2',
 };
-const TILE_PICKS = { research: 'pool/research/01', vibe: 'event/vibe-coding-summit/2025-coimbatore-2', connect: 'pool/connectreal/03', women: 'pool/womenreal/01', x: 'pool/platform/01' };
+const TILE_PICKS = { research: 'pool/research/07', vibe: 'event/vibe-coding-summit/2025-coimbatore-2', connect: 'pool/connectreal/03', women: 'pool/stage/01', x: 'pool/platform/01' };
 
 /** Hero photo for a page: StartNet's own (hero/<path>), else the curated pick, else undefined (themed library). */
 export function heroPhoto(basePath = '/') {
@@ -246,13 +246,19 @@ const SERIES_FAMILY = {
   'lab-to-market-summit': ['nirf-higher-ed-summit'],
   'research-days': ['nirf-higher-ed-summit'],
   'nirf-higher-ed-summit': ['vibe-coding-summit'],
-  'women-founders-summit': ['pool:womenreal'],
+  // StartNet Women photos, then women leading StartNet rooms (speaker, keynote, lamp lighting, an AI demo): never a stock photo.
+  'women-founders-summit': ['pool:womenreal', 'photo:pool/stage/01', 'photo:event/nirf-higher-ed-summit/2024-coimbatore-3', 'photo:event/nirf-higher-ed-summit/2024-coimbatore-2', 'photo:pool/vibereal/18'],
   'investors-summit': ['pool:investors'],
   'network-meetings': ['pool:stage', 'pool:team'],
   'founders-day': ['pool:team', 'pool:connectreal'],
   'startnet-launch-2023': ['pool:stage', 'pool:team'],
 };
-const familyPart = (name) => (name.startsWith('pool:') ? POOL[name.slice(5)] || [] : eventGallery(name));
+// 'pool:<theme>' a themed pool · 'photo:<key>' one manifest photo · otherwise an event series' gallery.
+const familyPart = (name) => {
+  if (name.startsWith('pool:')) return POOL[name.slice(5)] || [];
+  if (name.startsWith('photo:')) { const pic = photoFor(name.slice(6)); return pic ? [pic] : []; }
+  return eventGallery(name);
+};
 
 /** The series' own photos, else the photos of its closest StartNet events (SERIES_FAMILY), in a stable order. */
 export function familyGallery(series) {

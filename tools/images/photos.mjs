@@ -54,12 +54,13 @@ const MIME = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png',
 const walk = (d) =>
   fs.existsSync(d) ? fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)])) : [];
 const KEY_RE = /^(hero\/[a-z0-9/-]+|event\/[a-z0-9-]+(\/[a-z0-9-]+)?|story\/[a-z0-9-]+|person\/[a-z0-9-]+|pool\/[a-z]+\/\d+)$/;
-// Warm, slightly calmer grade so photos from different photographers read as one set ("grade": "warm").
-// "ink": the site's photo tone (Oct 2026 redesign, after AngelList / USVC monochrome photography): near-monochrome
-// with a warm paper tint, so every photo sits on Paper and Ink as one set. Applied to every photo ("warm" is the old
-// name, kept as an alias). Originals are never changed; re-run npm run photos after editing this.
-const INK = 'grayscale(1) contrast(1.08) brightness(1.02)';
-const GRADES = { ink: INK, warm: INK, none: null };
+// The site's photo grade (14 Oct 2026): a warm, faded monochrome fitted to reference photos StartNet chose. Neutral
+// shadows, warm grey mid-tones, cream highlights, a slight contrast lift, and 11% of the original colour kept. It is a
+// per-pixel table (tools/images/photo-grade.json): out = lut[luma] + saturation * (channel - luma). Applied to every
+// photo; a sidecar "grade": "none" keeps a photo in its own colours ("ink" and "warm" are old names for the default).
+// Originals are never changed; re-run npm run photos after editing the grade.
+const GRADE = JSON.parse(fs.readFileSync(path.join(ROOT, 'tools/images/photo-grade.json'), 'utf8'));
+const GRADES = { archive: GRADE, ink: GRADE, warm: GRADE, none: null };
 
 const originals = walk(SRC).filter((f) => MIME[path.extname(f).toLowerCase()]);
 if (!originals.length) {
@@ -131,11 +132,25 @@ try {
           canvas.height = h;
           ctx.imageSmoothingEnabled = true;
           ctx.imageSmoothingQuality = 'high';
-          ctx.fillStyle = '#F6F5F2'; // Paper behind transparent PNGs (JPEG has no alpha)
+          ctx.fillStyle = '#F4F3EF'; // Paper (--paper) behind transparent PNGs (JPEG has no alpha)
           ctx.fillRect(0, 0, w, h);
-          ctx.filter = grade || 'none';
           ctx.drawImage(img, cx, cy, cw, ch, 0, 0, w, h);
-          ctx.filter = 'none';
+          if (grade) {
+            const px = ctx.getImageData(0, 0, w, h);
+            const d = px.data;
+            const { lut, saturation: k } = grade;
+            for (let i = 0; i < d.length; i += 4) {
+              const r = d[i];
+              const g = d[i + 1];
+              const b = d[i + 2];
+              const y = 0.299 * r + 0.587 * g + 0.114 * b;
+              const t = lut[Math.round(y)];
+              d[i] = t[0] + k * (r - y);
+              d[i + 1] = t[1] + k * (g - y);
+              d[i + 2] = t[2] + k * (b - y);
+            }
+            ctx.putImageData(px, 0, 0);
+          }
           out.push({ w, webp: canvas.toDataURL('image/webp', q.webp), jpg: jpgWidths.includes(w) || w === sizes[sizes.length - 1] ? canvas.toDataURL('image/jpeg', q.jpg) : null });
         }
         return { W, H, out };
@@ -143,7 +158,7 @@ try {
       dataUrl,
       WIDTHS,
       QUALITY,
-      meta.grade === 'none' ? null : GRADES[meta.grade] || INK,
+      meta.grade === 'none' ? null : GRADES[meta.grade] || GRADE,
       JPG_WIDTHS,
       Array.isArray(meta.crop) && meta.crop.length === 4 ? meta.crop.map(Number) : null,
       Array.isArray(meta.square) && meta.square.length === 3 ? meta.square.map(Number) : null

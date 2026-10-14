@@ -56,10 +56,10 @@ export const IMAGE_PLAN = {
   // ---------- Home ----------
   '/': {
     'kolam:11': 'event/saas-connect/2025-4', //    hero: a real StartNet room, wide roundtable (4032 px)
-    'network:11': 'pool/research/01', //           brand tile, Research: a researcher with a sample
+    'network:11': 'pool/research/07', //           brand tile, Research: a researcher at a microscope (user's pick)
     'grid:23': 'event/vibe-coding-summit/2025-coimbatore-2', // brand tile, Vibe: students and the Vibe team, Vibe Coding Summit 2025
     'network:37': 'pool/connectreal/03', //        brand tile, Connect: founders in a Connect session
-    'ladder:41': 'pool/womenreal/01', //           brand tile, Women: a StartNet Women meet-up
+    'ladder:41': 'pool/stage/01', //               brand tile, Women: a woman speaker on stage at a StartNet event
     'map:38': 'event/vibathon/2025-2', //          Why Tamil Nadu: students filling the KSRCE auditorium (the user's pick)
     'network:4': 'pool/investors/03', //           partner band: investors and the StartNet team
   },
@@ -91,7 +91,7 @@ export const IMAGE_PLAN = {
     'network:3': 'pool/research/02',
     'dot:8': 'event/vibe-coding-summit/2025-coimbatore-2',
     'grid:13': 'pool/connectreal/10',
-    'kolam:21': 'pool/womenreal/02',
+    'kolam:21': 'pool/stage/01',
   },
 
   // ---------- Research ----------
@@ -151,7 +151,7 @@ export const IMAGE_PLAN = {
     'network:60': 'event/genai-connect/2024-3', // GenAI Connect
     'grid:61': 'event/saas-connect/2025', //       SaaS Connect
     'dot:62': 'event/d2c-connect/2024', //         D2C Connect
-    'kolam:63': 'pool/connectreal/01', //          all sector Connects
+    'kolam:63': 'pool/connectreal/02', //          all sector Connects
   },
 
   // ---------- Women ----------
@@ -161,7 +161,7 @@ export const IMAGE_PLAN = {
     'dot:8': 'pool/women/05', //                   TN Women Founders Report: women at a meeting
   },
   '/women/events': {
-    'network:60': 'pool/womenreal/01', //          Women Founders Summit
+    'network:60': 'pool/womenreal/03', //          Women Founders Summit
     'grid:61': 'pool/women/09', //                 Women Founders Awards: a founder with her certificate
     'dot:62': 'pool/women/04', //                  Women Circles: a woman speaking at a women's meeting
   },
@@ -173,7 +173,7 @@ export const IMAGE_PLAN = {
     'grid:27': 'event/genai-connect/2024', //      "Rooms since 2023"
     'network:41': 'event/vibathon/2025-2', //      flagship: Vibathon
     'grid:42': 'event/nirf-higher-ed-summit/2024-coimbatore-3', // flagship: Lab-to-Market Summit (research rooms)
-    'dot:43': 'pool/womenreal/01', //              flagship: Women Founders Summit & Awards
+    'dot:43': 'pool/womenreal/03', //              flagship: Women Founders Summit & Awards
     'map:44': 'pool/team/02', //                   flagship: StartNet Founders Day
   },
   '/events/past': { 'grid:23': 'event/d2c-connect/2024' }, // "Rooms since 2023": a packed D2C Connect ballroom
@@ -192,7 +192,7 @@ export const IMAGE_PLAN = {
   '/events/saas-connect': { 'network:894': 'event/saas-connect/2025-3' },
   '/events/d2c-connect': { 'network:248': 'event/d2c-connect/2024' },
   '/events/lab-to-market-summit': { 'grid:2': 'event/nirf-higher-ed-summit/2024-coimbatore' },
-  '/events/women-founders-summit': { 'kolam:604': 'pool/womenreal/01' },
+  '/events/women-founders-summit': { 'kolam:604': 'pool/womenreal/03' },
   '/events/research-days': { 'grid:850': 'event/nirf-higher-ed-summit/2024-salem' },
   '/events/vibe-marketing-summit-2025': { 'network:481': 'event/vibe-marketing-summit-2025' },
   // Series not yet held: the closest StartNet event, captioned with where it was taken.
@@ -212,7 +212,7 @@ export const IMAGE_PLAN = {
     'network:7': 'pool/students/06', //            Campus Innovation Index
     'dot:8': 'pool/research/02', //                TN Research Commercialisation Index
     'network:9': 'pool/women/05', //               TN Women Founders Report
-    'portrait:10': 'pool/connectreal/06', //       Founder stories hub card
+    'portrait:10': 'pool/connectreal/14', //       Founder stories hub card
     'kolam:11': 'pool/team/05', //                 Founder stories
     'grid:241': 'pool/insights/02', //             latest reports (cards): not the photos above
     'network:728': 'pool/professionals/04',

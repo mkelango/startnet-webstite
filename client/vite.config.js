@@ -80,16 +80,17 @@ function siteOrigin() {
   };
 }
 
-// The WhatsApp number comes from VITE_WHATSAPP_NUMBER (lib/links.js falls back to a placeholder 910000000000, which
-// is not a real number). A build without it gets a loud warning; a release build (STARTNET_RELEASE=1) is stopped.
+// The WhatsApp number defaults to StartNet's (lib/links.js WHATSAPP_DEFAULT, 919884898206); VITE_WHATSAPP_NUMBER
+// overrides it. A build that sets it to the old placeholder (910000000000) gets a loud warning; a release build
+// (STARTNET_RELEASE=1) is stopped.
 function requireWhatsappNumber() {
   return {
     name: 'startnet-require-whatsapp-number',
     apply: 'build',
     configResolved(config) {
       const n = String(config.env.VITE_WHATSAPP_NUMBER || '').replace(/[^\d]/g, '');
-      if (n && !/^910+$/.test(n)) return;
-      const msg = 'VITE_WHATSAPP_NUMBER is not set: every WhatsApp link will point to the placeholder 910000000000.';
+      if (!n || !/^910+$/.test(n)) return;
+      const msg = 'VITE_WHATSAPP_NUMBER is the placeholder 910000000000: every WhatsApp link would point to it.';
       if (process.env.STARTNET_RELEASE === '1') throw new Error(msg);
       config.logger.warn('\n[startnet] WARNING: ' + msg + '\n');
     },

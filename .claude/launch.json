@@ -43,6 +43,22 @@
       ],
       "port": 4000,
       "autoPort": false
+    },
+    {
+      "name": "startnet-vite-5174",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "client",
+        "--",
+        "--port",
+        "5174",
+        "--strictPort"
+      ],
+      "port": 5174,
+      "autoPort": false
     }
   ]
 }

@@ -94,10 +94,20 @@ covers, and the mega-menu decoration.
 
 ## Grade and placement (since the October 2026 restyle)
 
-- **One grade for every photo.** Every photo is converted to true grayscale (`INK` in `tools/images/photos.mjs`:
-  grayscale with a touch of contrast), so photos sit with the ink and paper palette of the AngelList-family
-  design (docs/DESIGN.md). Send originals in full colour: the pipeline grades them. A sidecar `"grade": "none"` keeps
-  a photo in colour. Video posters use the same grade in CSS (`components/VideoFeature.css`).
+- **One grade for every photo** (14 Oct 2026): a warm, faded monochrome fitted to reference photos StartNet chose
+  (`tools/images/photo-grade.json`). Each pixel: `lut[luma] + 0.11 × (channel − luma)`.
+
+  | Tone | Colour |
+  |---|---|
+  | Shadows | neutral black `#0A0A09` (luma 16), `#2F2D2A` (48) |
+  | Mid-tones | warm grey `#66635E` (96), `#8B8781` (128), `#AFABA4` (160) |
+  | Highlights | cream `#D4D0C6` (192), `#F8F4E9` (224), soft white `#FEFDF6` (240) |
+  | Leftover colour | 11% of the original saturation |
+  | Contrast | slight lift: shadows deepen, highlights brighten |
+
+  Send originals in full colour: `npm run photos` grades them. A sidecar `"grade": "none"` keeps a photo in colour.
+  YouTube video posters and thumbnails get the same grade as an SVG filter (`components/PhotoGradeFilter.jsx`,
+  `filter: url(#sn-photo-grade)` in `components/VideoFeature.css`). Logos stay plain grayscale.
 - **No repeats on a page.**
   - An event card shows its event's own photo.
   - Otherwise it shows one of the series' photos that isn't already on the page (`photoPool`, `claimPoolPhoto` in

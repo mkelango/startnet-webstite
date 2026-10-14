@@ -783,6 +783,29 @@
     "focus": "62% 45%",
     "credit": "Photo: Entrans"
   },
+  "event/saas-connect/2025-10": {
+    "base": "/photos/event/saas-connect/2025-10",
+    "widths": [
+      480,
+      800,
+      846
+    ],
+    "jpgWidths": [
+      800,
+      846
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 846,
+    "height": 817,
+    "alt": "Guests lighting the ceremonial lamp to open SaaS.Connect 2025",
+    "caption": "SaaS.Connect 2025, PSG Convention Centre, Coimbatore",
+    "captionTa": "SaaS.Connect 2025, PSG மாநாட்டு மையம், கோயம்புத்தூர்",
+    "focus": "50% 40%",
+    "credit": "Photo: Mesmerics Photography for StartNet"
+  },
   "event/saas-connect/2025-2": {
     "base": "/photos/event/saas-connect/2025-2",
     "widths": [
@@ -1432,29 +1455,6 @@
     "credit": "Photo: Pawan Kumar on Unsplash",
     "stock": true
   },
-  "pool/connectreal/01": {
-    "base": "/photos/pool/connectreal/01",
-    "widths": [
-      480,
-      800,
-      1200,
-      1280
-    ],
-    "jpgWidths": [
-      800,
-      1280
-    ],
-    "formats": [
-      "webp",
-      "jpg"
-    ],
-    "width": 1280,
-    "height": 960,
-    "alt": "Founders and members together at a StartNet Connect meet-up",
-    "caption": "A StartNet Connect community meet-up",
-    "captionTa": "StartNet Connect சமூகச் சந்திப்பு",
-    "credit": "Photo: StartNet"
-  },
   "pool/connectreal/02": {
     "base": "/photos/pool/connectreal/02",
     "widths": [
@@ -1520,72 +1520,6 @@
     "width": 1280,
     "height": 960,
     "alt": "Founders around a boardroom table at a StartNet Connect session",
-    "caption": "A StartNet Connect community meet-up",
-    "captionTa": "StartNet Connect சமூகச் சந்திப்பு",
-    "credit": "Photo: StartNet"
-  },
-  "pool/connectreal/05": {
-    "base": "/photos/pool/connectreal/05",
-    "widths": [
-      480,
-      800,
-      1200,
-      1280
-    ],
-    "jpgWidths": [
-      800,
-      1280
-    ],
-    "formats": [
-      "webp",
-      "jpg"
-    ],
-    "width": 1280,
-    "height": 960,
-    "alt": "Smiling founders in a group selfie at a StartNet Connect meet-up",
-    "caption": "A StartNet Connect community meet-up",
-    "captionTa": "StartNet Connect சமூகச் சந்திப்பு",
-    "credit": "Photo: StartNet"
-  },
-  "pool/connectreal/06": {
-    "base": "/photos/pool/connectreal/06",
-    "widths": [
-      480,
-      800,
-      1200,
-      1280
-    ],
-    "jpgWidths": [
-      800,
-      1280
-    ],
-    "formats": [
-      "webp",
-      "jpg"
-    ],
-    "width": 1280,
-    "height": 960,
-    "alt": "Four founders together at a StartNet Connect meet-up",
-    "caption": "A StartNet Connect community meet-up",
-    "captionTa": "StartNet Connect சமூகச் சந்திப்பு",
-    "credit": "Photo: StartNet"
-  },
-  "pool/connectreal/07": {
-    "base": "/photos/pool/connectreal/07",
-    "widths": [
-      480,
-      800
-    ],
-    "jpgWidths": [
-      800
-    ],
-    "formats": [
-      "webp",
-      "jpg"
-    ],
-    "width": 800,
-    "height": 1066,
-    "alt": "A group selfie of builders at a StartNet Connect evening",
     "caption": "A StartNet Connect community meet-up",
     "captionTa": "StartNet Connect சமூகச் சந்திப்பு",
     "credit": "Photo: StartNet"
@@ -3081,6 +3015,29 @@
     "alt": "Engineers in hard hats on site",
     "focus": "50% 35%",
     "credit": "Photo: Shubham Verma on Unsplash",
+    "stock": true
+  },
+  "pool/research/07": {
+    "base": "/photos/pool/research/07",
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "jpgWidths": [
+      800,
+      1600
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 2400,
+    "height": 3600,
+    "alt": "A researcher in a lab coat at a microscope",
+    "focus": "55% 30%",
+    "credit": "Photo: Sina Bahar on Unsplash",
     "stock": true
   },
   "pool/stage/01": {
@@ -4747,52 +4704,6 @@
     "focus": "50% 30%",
     "credit": "Photo: litoon dev on Unsplash",
     "stock": true
-  },
-  "pool/womenreal/01": {
-    "base": "/photos/pool/womenreal/01",
-    "widths": [
-      480,
-      800,
-      1200,
-      1280
-    ],
-    "jpgWidths": [
-      800,
-      1280
-    ],
-    "formats": [
-      "webp",
-      "jpg"
-    ],
-    "width": 1280,
-    "height": 720,
-    "alt": "Women founders together at a StartNet Women meet-up",
-    "caption": "A StartNet Women meet-up",
-    "captionTa": "StartNet Women சந்திப்பு",
-    "credit": "Photo: StartNet"
-  },
-  "pool/womenreal/02": {
-    "base": "/photos/pool/womenreal/02",
-    "widths": [
-      480,
-      800,
-      1200,
-      1280
-    ],
-    "jpgWidths": [
-      800,
-      1280
-    ],
-    "formats": [
-      "webp",
-      "jpg"
-    ],
-    "width": 1280,
-    "height": 960,
-    "alt": "Smiling women founders in a group selfie at a StartNet Women meet-up",
-    "caption": "A StartNet Women meet-up",
-    "captionTa": "StartNet Women சந்திப்பு",
-    "credit": "Photo: StartNet"
   },
   "pool/womenreal/03": {
     "base": "/photos/pool/womenreal/03",

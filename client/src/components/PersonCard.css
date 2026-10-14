@@ -3,9 +3,7 @@
 :root .person-card { border: 0; background: transparent; box-shadow: none; border-radius: 0; }
 .person-card__portrait { overflow: hidden; border-radius: var(--radius-media); background: var(--bone); }
 [data-surface='night'] .person-card__portrait { background: var(--night-1); }
-.person-card__portrait .art-image { filter: grayscale(1); transition: filter var(--dur-3) var(--ease-snap); }
-@media (hover: hover) { .person-card:hover .person-card__portrait .art-image { filter: none; } }
-.person-card:focus-within .person-card__portrait .art-image { filter: none; }
+/* Portraits carry the site photo grade in the file itself (tools/images/photo-grade.json): no CSS filter on top. */
 .person-card__body { display: grid; gap: 4px; }
 :root .person-card__name { font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3); }
 .person-card__name-ta { color: var(--color-text-2); font-size: var(--text-meta); }

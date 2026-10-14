@@ -21,8 +21,7 @@
 @media (hover: hover) and (pointer: fine) { .hww-door:hover { box-shadow: inset 0 0 0 1px var(--line-strong); } }
 .hww-door:focus-within::before { transform: scaleX(1); }
 @media (hover: hover) and (pointer: fine) { .hww-door:hover::before { transform: scaleX(1); } }
-.hww-door__art { filter: grayscale(1) contrast(1.05); transition: filter var(--dur-4) var(--ease-standard); }
-.hww-door:hover .hww-door__art, .hww-door:focus-within .hww-door__art { filter: none; }
+/* The door photos carry the site photo grade in the file itself: no CSS filter on top. */
 .hww-door__body { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-6); flex: 1; align-items: flex-start; }
 .hww-door__name { margin: 0; display: flex; align-items: center; gap: var(--space-3); font-weight: 500; letter-spacing: -0.01em; }
 .hww-door__name::before {
@@ -89,7 +88,3 @@
 :lang(ta) :is(.hww-door__name, .hww-horizon__name) { letter-spacing: 0; }
 :lang(ta) .hww-money__who { letter-spacing: 0; }
 
-/* Touch screens have no hover to bring the colour back, so the door images show in colour there. */
-@media (hover: none) {
-  .hww-door__art { filter: none; }
-}

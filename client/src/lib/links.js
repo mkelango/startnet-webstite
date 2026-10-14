@@ -4,14 +4,15 @@
 // app before release (every Sign in, Create your free profile, Apply and Register link goes there).
 export const SNX_ORIGIN = String(import.meta.env.VITE_SNX_ORIGIN || 'https://x.startnet.in').replace(/\/+$/, '');
 
-// The real number must be supplied by StartNet (set VITE_WHATSAPP_NUMBER at build time).
-export const WHATSAPP_NUMBER = String(import.meta.env.VITE_WHATSAPP_NUMBER || '910000000000').replace(/[^\d]/g, '');
+// StartNet's WhatsApp number (+91 98848 98206, set 14 Oct 2026). VITE_WHATSAPP_NUMBER at build time overrides it
+// (country code first, digits only, e.g. 919884898206).
+export const WHATSAPP_DEFAULT = '919884898206';
+export const WHATSAPP_NUMBER = String(import.meta.env.VITE_WHATSAPP_NUMBER || WHATSAPP_DEFAULT).replace(/[^\d]/g, '');
 export const WHATSAPP_IS_PLACEHOLDER = /^910+$/.test(WHATSAPP_NUMBER);
 
 if (WHATSAPP_IS_PLACEHOLDER && import.meta.env.DEV && typeof console !== 'undefined') {
-  // Fail loudly in development while the number is still the placeholder. (A production build must set
-  // VITE_WHATSAPP_NUMBER; the guard that stops a release build without it belongs in vite.config.js.)
-  console.warn('[StartNet] WhatsApp number is a placeholder (wa.me/910000000000). Set VITE_WHATSAPP_NUMBER.');
+  // Fail loudly in development if VITE_WHATSAPP_NUMBER sets the old placeholder (vite.config.js stops a release build).
+  console.warn('[StartNet] WhatsApp number is a placeholder (wa.me/910000000000). Fix VITE_WHATSAPP_NUMBER.');
 }
 
 /**

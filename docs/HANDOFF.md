@@ -109,6 +109,22 @@ Read this first in a new Claude session. Everything below is saved in this folde
   dot + progress line, pause button, pauses on hover/focus/off-screen/hidden tab; reduced motion = still. All 25
   photos are marked as taken on the page (hintFixedPhoto).
 
+## Photo grade changed (14 October 2026)
+
+- Every photo now uses a warm, faded monochrome fitted to four reference photos the user supplied (shadows neutral
+  `#0A0A09`, mid-tones warm grey `#8B8781`, highlights cream `#F8F4E9`, 11% of the original colour kept). Table in
+  `tools/images/photo-grade.json`, applied per pixel by `npm run photos` (all 209 photos regenerated). YouTube posters
+  and thumbnails use the same grade as an SVG filter (`components/PhotoGradeFilter.jsx`, mounted in SiteLayout). The
+  CSS grayscale on team portraits and How-we-work doors is removed (it cancelled the warmth). Logos stay grayscale.
+  Checked against the references: mean difference 1.7–2.0 levels of 255. Not pushed: push `website main` to go live.
+
+## WhatsApp number (14 October 2026)
+
+- Every WhatsApp button and link now opens chat with +91 98848 98206 (`WHATSAPP_DEFAULT` = 919884898206 in
+  `client/src/lib/links.js`; `VITE_WHATSAPP_NUMBER` still overrides it). The build warning now fires only if the
+  variable is set to the old placeholder. Checked: 0 placeholder numbers in the build; /, /vibe/vibathon,
+  /research/fellowship, /contact and /connect/saas all link to wa.me/919884898206. Not pushed yet.
+
 ## Running it
 
 - `.claude/launch.json` has three entries: `startnet-api` (Nest watch, :4000), `startnet-vite` (:5173) and `startnet-start` (production build, :4000).

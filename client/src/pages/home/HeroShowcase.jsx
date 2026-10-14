@@ -20,7 +20,7 @@ const CATEGORIES = [
   {
     id: 'summits', brand: 'connect', label: ['Summits', 'உச்சி மாநாடுகள்'],
     photos: [
-      ['pool/connectreal/05', 'StartNet Connect meet-up', 'StartNet Connect சந்திப்பு'],
+      ['event/saas-connect/2025-10', 'SaaS.Connect 2025 · lighting the lamp', 'SaaS.Connect 2025 · குத்துவிளக்கு ஏற்றல்'],
       ['event/d2c-connect/2024', 'D2C Connect 2024 · Coimbatore', 'D2C Connect 2024 · கோயம்புத்தூர்'],
       ['event/genai-connect/2024', 'GenAI Connect 2024 · Salem', 'GenAI Connect 2024 · சேலம்'],
       ['event/saas-connect/2025-8', 'SaaS.Connect 2025 · main stage', 'SaaS.Connect 2025 · முதன்மை மேடை'],
@@ -40,9 +40,7 @@ const CATEGORIES = [
   {
     id: 'women', brand: 'women', label: ['Women', 'பெண்கள்'],
     photos: [
-      ['pool/womenreal/02', 'StartNet Women meet-up', 'StartNet Women சந்திப்பு'],
       ['pool/womenreal/03', 'Women founders with the StartNet team', 'StartNet குழுவுடன் பெண் நிறுவனர்கள்'],
-      ['pool/stage/01', 'On stage · StartNet, Feb 2024', 'மேடையில் · StartNet, பிப். 2024'],
       ['event/nirf-higher-ed-summit/2024-coimbatore-3', 'Keynote · NIRF Summit 2024', 'முதன்மை உரை · NIRF Summit 2024'],
       ['event/nirf-higher-ed-summit/2024-coimbatore-2', 'Lighting the lamp · NIRF Summit 2024', 'குத்துவிளக்கு ஏற்றல் · NIRF Summit 2024'],
     ],
@@ -60,7 +58,7 @@ const CATEGORIES = [
   {
     id: 'community', brand: 'startnet', label: ['Community', 'சமூகம்'],
     photos: [
-      ['pool/connectreal/06', 'Founders, together', 'ஒன்றாக நிறுவனர்கள்'],
+      ['pool/connectreal/02', 'A StartNet Connect meet-up', 'StartNet Connect சந்திப்பு'],
       ['pool/team/01', 'StartNet’s first anniversary · 2024', 'StartNet முதல் ஆண்டு விழா · 2024'],
       ['pool/team/04', 'Raising Star Startup Award', 'Raising Star Startup விருது'],
       ['pool/investors/02', 'Founders meet investors', 'முதலீட்டாளர்களுடன் நிறுவனர்கள்'],
@@ -85,7 +83,8 @@ function tilesAt(set, tick) {
   for (let i = 1; i <= Math.min(tick, extra); i += 1) t[1 + ((i - 1) % 2)] = 2 + i;
   return t;
 }
-const ticksFor = (set) => 1 + Math.min(2, Math.max(0, set.photos.length - 3));
+// Every category stays on screen for three ticks, even one with only three photos (it simply has no swaps).
+const ticksFor = () => 3;
 
 function Picture({ photo, sizes, priority, alt }) {
   const pic = photo.pic;
