@@ -64,7 +64,17 @@ export class FrappeService {
   /** For GET /api/forms/frappe-status: is the sync configured, and can this server reach Frappe? No secrets. */
   async status() {
     const configured = { baseUrl: Boolean(this.base), apiKey: Boolean(this.key), apiSecret: Boolean(this.secret) };
-    if (!this.base) return { enabled: false, configured, reachable: false };
+    // Names only (never values): catches typos/spaces/case and shows which Coolify app this container is.
+    const env = Object.keys(process.env);
+    const diag = {
+      frappeLikeVarNames: env.filter((k) => /frap/i.test(k)).map((k) => JSON.stringify(k)),
+      coolify: Object.fromEntries(
+        ['COOLIFY_RESOURCE_UUID', 'COOLIFY_CONTAINER_NAME', 'COOLIFY_FQDN', 'COOLIFY_BRANCH', 'SOURCE_COMMIT']
+          .filter((k) => process.env[k])
+          .map((k) => [k, String(process.env[k]).slice(0, 80)]),
+      ),
+    };
+    if (!this.base) return { enabled: false, configured, reachable: false, diag };
     try {
       const res = await fetch(`${this.base}/api/method/ping`, { signal: AbortSignal.timeout(8000) });
       return { enabled: this.enabled, configured, host: new URL(this.base).host, reachable: res.ok, httpStatus: res.status };
