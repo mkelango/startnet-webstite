@@ -61,6 +61,19 @@ export class FrappeService {
     return { form: FRAPPE_FORM[rec.type] ?? rec.type, data };
   }
 
+  /** For GET /api/forms/frappe-status: is the sync configured, and can this server reach Frappe? No secrets. */
+  async status() {
+    const configured = { baseUrl: Boolean(this.base), apiKey: Boolean(this.key), apiSecret: Boolean(this.secret) };
+    if (!this.base) return { enabled: false, configured, reachable: false };
+    try {
+      const res = await fetch(`${this.base}/api/method/ping`, { signal: AbortSignal.timeout(8000) });
+      return { enabled: this.enabled, configured, host: new URL(this.base).host, reachable: res.ok, httpStatus: res.status };
+    } catch (err) {
+      const e = err as Error & { cause?: { code?: string } };
+      return { enabled: this.enabled, configured, host: new URL(this.base).host, reachable: false, error: e.cause?.code ?? e.name };
+    }
+  }
+
   /** Never throws: the submission is already safe in submissions.jsonl. */
   async send(rec: StoredSubmission): Promise<void> {
     if (!this.enabled) return;
