@@ -13,6 +13,7 @@ import {
   FieldRule,
   MESSAGES,
 } from './form-rules';
+import { FrappeService } from './frappe.service';
 
 type Payload = Record<string, unknown>;
 
@@ -68,6 +69,8 @@ function clean(value: unknown): unknown {
 export class FormsService {
   private readonly logger = new Logger('FormsService');
   private readonly file = join(STORAGE_DIR, 'submissions.jsonl');
+
+  constructor(private readonly frappe: FrappeService) {}
 
   /**
    * Accepts consents as: { consents: {contact: true} } · { consents: ['contact'] } ·
@@ -267,6 +270,8 @@ export class FormsService {
       this.logger.error(`Could not store submission ${id}: ${(err as Error).message}`);
       throw err; // → 500 "Internal server error"
     }
+    // Copy to Frappe in the background; a Frappe outage never fails the visitor's form.
+    void this.frappe.send(record);
 
     return { ok: true, id, message: rule.success(String(payload.name ?? '')) };
   }
