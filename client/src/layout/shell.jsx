@@ -1,7 +1,7 @@
 // Shared shell state + small helpers used only inside client/src/layout/.
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { BRANDS } from '../data/brands.js';
-import { snxLink } from '../lib/links.js';
+import { snxLink, SIGNIN_URL } from '../lib/links.js';
 
 const ShellContext = createContext(null);
 
@@ -181,10 +181,10 @@ export function isMinimalPath(basePath = '') {
 /** Strip the query/hash from a nav target. */
 export const pathOf = (to = '') => to.split(/[?#]/)[0];
 
-/** x.startnet.in sign-in with source, language and a return URL (Book 1 Part B §3.3). */
+/** Header sign-in: the StartNet platform (SIGNIN_URL). Arguments are kept so call sites stay unchanged. */
+// eslint-disable-next-line no-unused-vars
 export function signInHref(lang = 'en', src) {
-  const here = typeof window !== 'undefined' ? window.location.href : 'https://startnet.in/';
-  return snxLink('/login', { src: src || 'utility', lang, return: here });
+  return SIGNIN_URL;
 }
 
 /** href for a brand CTA stored as { snx: '/signup' } (StartNet X) — carries src, brand and lang. */

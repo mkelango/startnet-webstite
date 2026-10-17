@@ -4,6 +4,10 @@
 // app before release (every Sign in, Create your free profile, Apply and Register link goes there).
 export const SNX_ORIGIN = String(import.meta.env.VITE_SNX_ORIGIN || 'https://x.startnet.in').replace(/\/+$/, '');
 
+// Where the header "Sign in" (utility bar, mobile drawer, mega menu) and the /signin vanity route go (18 Oct 2026).
+// VITE_SIGNIN_URL at build time overrides it.
+export const SIGNIN_URL = String(import.meta.env.VITE_SIGNIN_URL || 'https://startnet-platform.vercel.app/');
+
 // StartNet's WhatsApp number (+91 98848 98206, set 14 Oct 2026). VITE_WHATSAPP_NUMBER at build time overrides it
 // (country code first, digits only, e.g. 919884898206).
 export const WHATSAPP_DEFAULT = '919884898206';

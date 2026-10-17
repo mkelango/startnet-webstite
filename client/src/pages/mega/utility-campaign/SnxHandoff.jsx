@@ -7,7 +7,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Seo, Breadcrumbs, BrandLockup, Button } from '../../../components';
 import { useLang } from '../../../lib/i18n.jsx';
-import { snxLink } from '../../../lib/links.js';
+import { snxLink, SIGNIN_URL } from '../../../lib/links.js';
 import './SnxHandoff.css';
 
 const BRAND_KEYS = ['research', 'vibe', 'connect', 'women', 'x'];
@@ -83,6 +83,8 @@ function useHandoffHref(mode, lang, localePath, search) {
     q.forEach((v, k) => {
       if (UTM.test(k) && v && v.length <= 100) params[k] = v;
     });
+    // /signin goes to the StartNet platform (SIGNIN_URL), same as the header "Sign in".
+    if (mode === 'signin') return SIGNIN_URL;
     return snxLink(COPY[mode].snxPath, { src: src && TOKEN.test(src) ? src : 'web', lang, ...params });
   }, [mode, lang, localePath, search]);
 }
