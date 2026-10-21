@@ -52,17 +52,19 @@ export default function StartupShowcase() {
               <p className="startup-card__desc">{tr(s.description)}</p>
 
               <dl className="startup-card__facts">
-                <div>
-                  <dt>{s.founders.length > 1 ? t('Founders', 'நிறுவனர்கள்') : t('Founder', 'நிறுவனர்')}</dt>
-                  <dd>
-                    {s.founders.map((f) => (
-                      <span key={f.name} className="startup-card__founder">
-                        {f.name}
-                        {f.role && f.role[0] !== 'Founder' && <span className="startup-card__role">{tr(f.role)}</span>}
-                      </span>
-                    ))}
-                  </dd>
-                </div>
+                {s.founders.length > 0 && (
+                  <div>
+                    <dt>{s.founders.length > 1 ? t('Founders', 'நிறுவனர்கள்') : t('Founder', 'நிறுவனர்')}</dt>
+                    <dd>
+                      {s.founders.map((f) => (
+                        <span key={f.name} className="startup-card__founder">
+                          {f.name}
+                          {f.role && f.role[0] !== 'Founder' && <span className="startup-card__role">{tr(f.role)}</span>}
+                        </span>
+                      ))}
+                    </dd>
+                  </div>
+                )}
                 {s.founded && (
                   <div>
                     <dt>{t('Founded', 'தொடக்கம்')}</dt>

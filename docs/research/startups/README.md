@@ -19,6 +19,7 @@ check the open questions below. StartNet's part in each journey is shown with a 
 | 7 | Grahaa Space (Bengaluru, 2018) | Ramesh Kumar V, Co-founder & CEO | grahaa.space/assets/logo_dark_text.png | StartNet Rising Star Startup Award, SpaceTech (1st anniversary, June 2024); GenAI Connect speaker |
 | 8 | Dotzza (Salem, 2022, by SeeDataMD) | Dr Chokkalingam Manivasagam | dotzza.com header SVG | **None found**; shown as "StartNet community startup" on StartNet's word |
 | 9 | Start Insights (Salem, 2021) | Premananth S, Founder & CEO | Webflow CDN header SVG | Pitching partner, SaaS.Connect 2025; Vibathon 2025 sponsor (`server/data/events.json`) |
+| 10 | Trueline Research (Salem, 2023; Trueline Research Private Limited) | **None shown** (not named publicly) | Supplied by StartNet (21 Oct 2026), PNG; tagline dropped for the web copy | Added on StartNet's word; shown as "StartNet community startup" |
 
 ## Open questions
 
@@ -38,3 +39,4 @@ check the open questions below. StartNet's part in each journey is shown with a 
 - **Dotzza:** founders and year come from YNOS, not dotzza.com. No StartNet link found.
 - **Start Insights:** a separate company (2021), not a StartNet product. Its own figures conflict (300+ vs 500+
   startups; $3M vs $20M raised), so none are used.
+- **Trueline Research:** truelineresearch.in is a parked domain (21 Oct 2026), so the card links to LinkedIn. LinkedIn: Salem, founded 2023, "a unit of Truline Academic and Research Centre", 11-50 staff; no founder named (Dr Nagaraj V appears in its posts). Confirm the founder, the website and StartNet's part. The supplied logo is 200 px; ask for an SVG or a larger PNG.

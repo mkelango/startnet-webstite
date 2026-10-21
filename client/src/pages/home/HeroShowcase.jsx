@@ -22,7 +22,7 @@ const CATEGORIES = [
     photos: [
       ['event/saas-connect/2025-10', 'SaaS.Connect 2025 · lighting the lamp', 'SaaS.Connect 2025 · குத்துவிளக்கு ஏற்றல்'],
       ['event/d2c-connect/2024', 'D2C Connect 2024 · Coimbatore', 'D2C Connect 2024 · கோயம்புத்தூர்'],
-      ['event/genai-connect/2024', 'GenAI Connect 2024 · Salem', 'GenAI Connect 2024 · சேலம்'],
+      ['event/genai-connect/2024-lamp', 'GenAI Connect 2024 · Salem', 'GenAI Connect 2024 · சேலம்'],
       ['event/saas-connect/2025-8', 'SaaS.Connect 2025 · main stage', 'SaaS.Connect 2025 · முதன்மை மேடை'],
       ['event/saas-connect/2025-6', 'SaaS.Connect 2025 · front rows', 'SaaS.Connect 2025 · முன்வரிசை'],
     ],

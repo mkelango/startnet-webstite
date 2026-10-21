@@ -414,6 +414,30 @@
     "captionTa": "GenAI Connect 2024-இல் StartNet குழு, சேலம்",
     "credit": "Photo: StartNet"
   },
+  "event/genai-connect/2024-lamp": {
+    "base": "/photos/event/genai-connect/2024-lamp",
+    "widths": [
+      480,
+      800,
+      1130
+    ],
+    "jpgWidths": [
+      800,
+      1130
+    ],
+    "formats": [
+      "webp",
+      "jpg"
+    ],
+    "width": 1130,
+    "height": 833,
+    "alt": "Guests lighting the traditional lamp to open GenAI Connect Summit & Expo 2024 in Salem",
+    "altTa": "சேலத்தில் GenAI Connect உச்சி மாநாடு & கண்காட்சி 2024-ஐ குத்துவிளக்கு ஏற்றித் தொடங்கும் விருந்தினர்கள்",
+    "caption": "GenAI Connect Summit & Expo 2024, Radisson, Salem",
+    "captionTa": "GenAI Connect உச்சி மாநாடு & கண்காட்சி 2024, Radisson, சேலம்",
+    "focus": "50% 30%",
+    "credit": "Photo: Carnival Studios for StartNet"
+  },
   "event/nirf-higher-ed-summit/2024-coimbatore": {
     "base": "/photos/event/nirf-higher-ed-summit/2024-coimbatore",
     "widths": [

@@ -188,6 +188,28 @@ export const STARTUPS = [
     ],
     tie: ['Pitching partner, SaaS.Connect 2025 · Vibathon 2025', 'பிட்சிங் கூட்டாளர், SaaS.Connect 2025 · Vibathon 2025'],
   },
+  {
+    slug: 'trueline-research',
+    name: 'Trueline Research',
+    // truelineresearch.in is a parked domain (21 Oct 2026), so the card links to the LinkedIn page.
+    url: 'https://www.linkedin.com/company/trueline-research-private-limited',
+    logo: '/logos/startups/trueline-research.png',
+    ratio: 632 / 121,
+    scale: 1.2, // thin wordmark beside a tall mark: enlarge to match the others' weight
+    sector: ['AI research & development', 'AI ஆய்வு & மேம்பாடு'],
+    place: ['Salem', 'சேலம்'],
+    founded: 2023,
+    founders: [], // not named publicly; ask StartNet
+    oneLiner: [
+      'AI-driven research, product development and IPR support from Salem.',
+      'சேலத்திலிருந்து AI சார்ந்த ஆய்வு, தயாரிப்பு மேம்பாடு, அறிவுசார் சொத்துரிமை ஆதரவு.',
+    ],
+    description: [
+      'Builds AI products and runs research and development for institutions and startups, with IPR and patent consulting, international research collaboration, training, internships and certification courses.',
+      'நிறுவனங்களுக்கும் ஸ்டார்ட்அப்களுக்கும் AI தயாரிப்புகளை உருவாக்கி ஆய்வு, மேம்பாட்டுப் பணிகளை நடத்துகிறது; அறிவுசார் சொத்துரிமை, காப்புரிமை ஆலோசனை, பன்னாட்டு ஆய்வுக் கூட்டுழைப்பு, பயிற்சி, இன்டர்ன்ஷிப், சான்றிதழ் படிப்புகளையும் வழங்குகிறது.',
+    ],
+    tie: ['StartNet community startup', 'StartNet சமூக ஸ்டார்ட்அப்'],
+  },
 ];
 
 /** Logo width as a % of its tile, so wide wordmarks and stacked marks carry the same visual weight. */
