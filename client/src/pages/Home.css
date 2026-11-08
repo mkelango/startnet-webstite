@@ -14,13 +14,12 @@
 /* =====================================================================================================
    Hero (SPEC §5.1 #1, §3.1 spacer note). The Ink band starts at the top of the page, under the floating header
    card: it pulls itself up over the shell spacer (--shell-top) and adds the same amount to its top padding.
-   ≥1024 landscape: copy in cols 1–6 on the pulli grid, the proof strip at the copy column's foot; the photo mosaic
-   in cols 7–12, bleeding to the top, right and bottom edges with its top-left corner rounded (--radius-panel).
+   ≥1024 landscape: copy in cols 1–6 on the pulli grid; one large photo in cols 7–12, bleeding to the top and right
+   edges with the hero family's 32 0 0 32 corners; the 64px proof strip runs the full container width at the foot.
    Phones, tablets and portrait screens: the photo first (full bleed, 4/5, capped at 72svh), then the copy, then
    the strip. Boxes are sized by CSS before paint (no CLS); the copy's entrance is transform-only.
    ===================================================================================================== */
 :root .home .home-hero--v3 {
-  --hero-bar-h: 3.5rem;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -72,7 +71,14 @@
   .home-hero__pill:hover .home-hero__pill-arrow { transform: translateX(var(--shift-1)); }
 }
 .home-hero__pill:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
-@media (max-width: 479.98px) { .home-hero__pill-meta { display: none; } }
+/* Phones: the event title wraps to a second line instead of being cut ("Agentic AI Connect …"), and the date and city
+   follow it, so the hero's one piece of event information stays readable at 320. */
+@media (max-width: 479.98px) {
+  .home-hero__pill { border-radius: var(--radius-lg); padding-block: var(--space-1); }
+  .home-hero__pill-text { flex-wrap: wrap; gap: 0 var(--space-2); white-space: normal; }
+  .home-hero__pill-title { overflow: visible; }
+  .home-hero__pill-meta::before { display: none; }
+}
 
 /* ---------- Headline (40 → 88, 500, −0.04em), lede, actions ---------- */
 :root .home .home-hero__title {
@@ -104,89 +110,35 @@
   color: var(--night-text-muted);
 }
 
-/* ---------- Mosaic: one tall photo and two stacked, 4px Ink seams, a caption chip on each ---------- */
+/* ---------- Showcase: one large photo at a time (PnP hero), the next one crossfades in over it ---------- */
 .hero-show { position: relative; display: grid; grid-template-rows: minmax(0, 1fr); min-width: 0; background: var(--night-1); }
 .home-hero__mosaic {
-  display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr); grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: var(--space-1);
+  display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr);
   width: 100%;
   aspect-ratio: 4 / 5;
   max-height: 72svh;
 }
 .home-hero__tile { position: relative; margin: 0; min-width: 0; min-height: 0; overflow: hidden; background: var(--night-1); }
-.home-hero__tile--main { grid-row: 1 / span 2; }
-/* Showcase layers (home/HeroShowcase.jsx): the incoming photo fades and settles in over the outgoing one. Tiles
-   stagger by --i (0 / 110 / 220 ms), so a category change sweeps across the mosaic. */
+/* Showcase layers (home/HeroShowcase.jsx): the incoming photo fades and settles in over the outgoing one. */
 .hero-show__layer { position: absolute; inset: 0; }
 .hero-show__picture, .hero-show__img { display: block; width: 100%; height: 100%; }
 .hero-show__img { object-fit: cover; transition: scale var(--dur-media) var(--ease-media); }
-.hero-show__layer.is-in { animation: hero-show-in 950ms var(--ease-reveal) calc(var(--i, 0) * 110ms) both; }
-@keyframes hero-show-in { from { opacity: 0; transform: scale(1.06); } to { opacity: 1; transform: none; } }
-.home-hero__chip { animation: hero-chip-in 520ms var(--ease-reveal) calc(var(--i, 0) * 110ms + 200ms) both; }
-@keyframes hero-chip-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-.home-hero__chip {
-  position: absolute; left: var(--space-3); bottom: var(--space-3); z-index: 1;
-  display: flex; align-items: center; gap: var(--space-2); width: fit-content; max-width: calc(100% - var(--space-6));
-  padding: 5px var(--space-3); border-radius: var(--radius-full);
-  background: var(--overlay-photo-strong);
-  color: var(--night-text); font-size: var(--text-caption); font-weight: 500; line-height: 1.3;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.home-hero__chip::before { content: ''; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--color-label-dot); }
-/* The tall tile and the lower tile sit on the category strip: their chips ride above it. */
-:is(.home-hero__tile--main, .home-hero__tile--bottom) .home-hero__chip { bottom: calc(var(--hero-bar-h) + var(--space-3)); }
-/* Narrow tiles: the chip may wrap to a second line rather than cut the place name. */
-@media (max-width: 767.98px) {
-  .home-hero__chip { white-space: normal; align-items: flex-start; border-radius: var(--radius-md); padding: 5px var(--space-2); left: var(--space-2); max-width: calc(100% - var(--space-4)); }
-  .home-hero__chip::before { margin-top: 5px; }
-}
-/* Phones: only the tall tile keeps its caption; the small tiles stay clean. */
-@media (max-width: 639.98px) { .home-hero__tile:not(.home-hero__tile--main) .home-hero__chip { display: none; } }
+.hero-show__layer.is-in { animation: hero-show-in 950ms var(--ease-reveal) both; }
+@keyframes hero-show-in { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: none; } }
 @media (hover: hover) and (pointer: fine) {
   .home-hero__tile:hover .hero-show__img { scale: var(--media-zoom); }
 }
 
-/* ---------- Showcase controls: a strip along the mosaic's foot (category tabs with a progress line, pause) ---------- */
-.hero-show__bar {
-  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
-  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
-  min-width: 0; min-height: var(--hero-bar-h);
-  padding: var(--space-2) var(--page-margin);
-  background: color-mix(in srgb, var(--night-0) 82%, transparent);
-}
-.hero-show__tabs { display: flex; gap: var(--space-1); min-width: 0; overflow-x: auto; scrollbar-width: none; }
-/* Narrow screens: the row scrolls sideways; an alpha fade at the right edge says there is more. */
-@media (max-width: 639.98px) {
-  .hero-show__tabs { padding-inline-end: var(--space-10); -webkit-mask-image: linear-gradient(90deg, black 84%, transparent); mask-image: linear-gradient(90deg, black 84%, transparent); }
-}
-.hero-show__tabs::-webkit-scrollbar { display: none; }
-.hero-show__tab {
-  position: relative; flex: none; display: inline-flex; align-items: center; gap: var(--space-2);
-  height: 2.25rem; padding: 0 var(--space-3); border: 0; border-radius: var(--radius-full);
-  background: transparent; color: var(--night-text-2); font: inherit; font-size: var(--text-meta); font-weight: 500;
-  cursor: pointer; overflow: hidden;
-  transition: color var(--dur-2) var(--ease-snap), background-color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
-}
-.hero-show__tab.is-active { color: var(--night-text); background: color-mix(in srgb, var(--paper) 12%, transparent); box-shadow: inset 0 0 0 1px var(--night-line-strong); }
-@media (hover: hover) and (pointer: fine) { .hero-show__tab:not(.is-active):hover { color: var(--night-text); background: color-mix(in srgb, var(--paper) 8%, transparent); } }
-.hero-show__tab:focus-visible, .hero-show__pause:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }
-/* Paper dots: no sub-brand accent on Home outside the brand tiles (SPEC §7.3). data-brand stays as a hook. */
-.hero-show__dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--night-text); opacity: 0.5; transition: opacity var(--dur-2) var(--ease-snap); }
-.hero-show__tab.is-active .hero-show__dot { opacity: 1; }
-.hero-show__progress {
-  position: absolute; left: var(--space-3); right: var(--space-3); bottom: 4px; height: 2px;
-  border-radius: 2px; background: color-mix(in srgb, var(--paper) 14%, transparent); overflow: hidden;
-}
-.hero-show__progress > span { display: block; height: 100%; background: var(--night-text); transform: scaleX(0); transform-origin: left center; will-change: transform; }
-.hero-show.is-still .hero-show__progress { display: none; }
+/* The slideshow's pause control (WCAG 2.2.2): a 36px circle on the photo's bottom-right corner, over a flat Ink scrim. */
 .hero-show__pause {
-  flex: none; display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border: 0; border-radius: 50%;
-  background: transparent; color: var(--night-text-2); box-shadow: inset 0 0 0 1px var(--night-line-strong); cursor: pointer;
-  transition: color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
+  position: absolute; right: var(--space-4); bottom: var(--space-4); z-index: 2;
+  display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border: 0; border-radius: 50%;
+  background: var(--overlay-photo-strong); color: var(--night-text); box-shadow: inset 0 0 0 1px var(--night-line-strong); cursor: pointer;
+  transition: box-shadow var(--dur-2) var(--ease-snap);
 }
-@media (hover: hover) and (pointer: fine) { .hero-show__pause:hover { color: var(--night-text); box-shadow: inset 0 0 0 1px var(--night-text-muted); } }
-@media (pointer: coarse) { .hero-show__tab, .hero-show__pause { height: 2.75rem; } .hero-show__pause { width: 2.75rem; } .home .home-hero--v3 { --hero-bar-h: 4rem; } }
-.hero-show__tab:lang(ta) { font-size: var(--text-caption); }
+@media (hover: hover) and (pointer: fine) { .hero-show__pause:hover { box-shadow: inset 0 0 0 1px var(--night-text-muted); } }
+.hero-show__pause:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+@media (pointer: coarse) { .hero-show__pause { width: 2.75rem; height: 2.75rem; } }
 
 /* Below the split: the photo runs first and full bleed, from the top of the page (under the header card). */
 @media (max-width: 1023.98px), (max-aspect-ratio: 800/1000) {
@@ -197,10 +149,18 @@
   .home-hero__mosaic { aspect-ratio: 4 / 3; }
 }
 
-/* ---------- Proof strip: community companies as one-colour Paper marks in the kit Marquee ---------- */
-.home-hero__proof { position: relative; z-index: 1; display: grid; gap: var(--space-3); min-width: 0; padding-top: var(--space-5); border-top: 1px solid var(--night-line); }
+/* ---------- Proof strip (SPEC §5.1 #1, §4.8): a 64px row pinned to the hero's foot, full container width: the label,
+   then the community companies as one-colour Paper marks in the kit Marquee, then its Pause button ---------- */
+.home-hero__proof {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: var(--space-2) var(--space-8);
+  min-width: 0; padding-top: var(--space-4); border-top: 1px solid var(--night-line);
+}
+@media (min-width: 768px) {
+  .home-hero__proof { grid-template-columns: auto minmax(0, 1fr); min-height: 4rem; padding-top: 0; }
+}
 .home-hero__proof-label {
-  justify-self: start; display: inline-block; line-height: 1.5;
+  justify-self: start; display: inline-block; line-height: 1.5; max-width: 16rem;
   color: var(--night-text-muted); font-size: var(--text-meta); text-decoration: none;
   transition: color var(--dur-2) var(--ease-snap);
 }
@@ -211,13 +171,11 @@
   .home-hero__proof-label:hover svg { transform: translateX(var(--shift-1)); }
 }
 .home-hero__proof-label:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
-/* The Marquee's Pause button shares the label's row (top right of the strip) instead of a row of its own. The label
-   keeps clear of it (the button is about 84px wide, 105px in Tamil) and wraps rather than running underneath. */
-:root .home-hero__proof .home-hero__logos { position: static; }
-:root .home-hero__proof .marquee__toggle { position: absolute; top: var(--space-3); right: 0; }
-.home-hero__proof { --proof-toggle-w: 5.5rem; }
-.home-hero__proof:lang(ta) { --proof-toggle-w: 7rem; }
-.home-hero__proof:has(.marquee__toggle) .home-hero__proof-label { max-width: calc(100% - var(--proof-toggle-w) - var(--space-4)); }
+/* The Marquee's Pause button ends the strip's row (the marks run between the label and the button). */
+:root .home-hero__proof .home-hero__logos { display: flex; align-items: center; gap: var(--space-4); min-width: 0; }
+:root .home-hero__proof .home-hero__logos .marquee__viewport { flex: 1; min-width: 0; }
+:root .home-hero__proof .home-hero__logos .marquee__track { min-height: 4rem; }
+:root .home-hero__proof .marquee__toggle { flex: none; color: var(--night-text-2); box-shadow: inset 0 0 0 1px var(--night-line-strong); }
 .home-hero__logo { display: flex; align-items: center; height: 2.25rem; }
 .home-hero__logo img {
   display: block; width: calc(var(--logo-w, 96px) * 0.86); max-height: 2rem; height: auto; object-fit: contain;
@@ -228,45 +186,38 @@
 
 /* ---------- ≥1024 landscape: the split ---------- */
 @media (min-width: 1024px) and (min-aspect-ratio: 801/1000) {
-  /* The whole band (copy, proof strip and the start of the sheet rise) fits the first screen: 32px under the header
-     card and 32px above the sheet, with the copy centred in what is left (min(45rem, 100svh) under the shell). */
+  /* The whole band (copy, photo and the proof strip, then the start of the sheet rise) fits the first screen. */
   :root .home .home-hero--v3 {
     --hero-pad-top: var(--space-8);
-    --hero-pad-bottom: var(--space-8);
     min-height: min(calc(45rem + var(--shell-top)), 100svh);
     padding-top: calc(var(--shell-top) + var(--hero-pad-top));
-    padding-bottom: calc(var(--hero-pad-bottom) + var(--sheet-radius));
+    padding-bottom: var(--sheet-radius);
   }
   .home-hero__bg { right: 55%; }
   .home-hero__grid {
     flex: 1;
     grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr) auto;
-    column-gap: var(--grid-gap); row-gap: var(--space-6);
+    column-gap: var(--grid-gap); row-gap: var(--space-8);
   }
   .home-hero__copy { grid-column: 1 / span 6; grid-row: 1; align-self: center; max-width: var(--measure-hero); padding-right: var(--space-4); }
-  .home-hero__proof { grid-column: 1 / span 6; grid-row: 2; margin-right: var(--space-8); }
-  /* The media runs from the band's top edge (under the header card) to its bottom edge (under the rising sheet) and
-     out to the viewport's right edge. */
+  .home-hero__proof { grid-column: 1 / -1; grid-row: 2; }
+  /* The photo runs from the band's top edge (under the header card) out to the viewport's right edge and down to the
+     proof strip, with the hero family's 32 0 0 32 corners (SPEC §4.5). */
   .hero-show {
-    grid-column: 7 / -1; grid-row: 1 / -1;
+    grid-column: 7 / -1; grid-row: 1;
     margin-top: calc(-1 * (var(--shell-top) + var(--hero-pad-top)));
-    margin-bottom: calc(-1 * (var(--hero-pad-bottom) + var(--sheet-radius)));
     margin-right: calc(-1 * var(--page-margin));
     margin-left: var(--space-4);
-    border-top-left-radius: var(--radius-panel);
+    border-radius: var(--radius-panel) 0 0 var(--radius-panel);
     overflow: hidden;
   }
   .home-hero__mosaic { aspect-ratio: auto; max-height: none; height: 100%; }
-  /* Tamil runs about 1.5× longer: the copy and the strip take cols 1–7 (no 600 cap) and the mosaic cols 8–12, the
-     h1 sets in two lines at a tighter leading, so the band still fits a 1440×900 first screen. */
+  /* Tamil runs about 1.5× longer: the copy takes cols 1–7 (no 600 cap) and the photo cols 8–12, the h1 sets in two
+     lines at a tighter leading, so the band still fits a 1440×900 first screen. */
   :root .home .home-hero__copy:lang(ta) { grid-column: 1 / span 7; max-width: none; }
-  :root .home .home-hero__proof:lang(ta) { grid-column: 1 / span 7; }
   :root .home .hero-show:lang(ta) { grid-column: 8 / -1; }
   :root .home .home-hero__title:lang(ta) { max-width: none; font-size: calc(var(--text-display-2xl) * 0.68); line-height: 1.15; }
   :root .home .home-hero__lede:lang(ta) { max-width: none; font-size: var(--text-body); line-height: 1.6; }
-  /* The strip stops above the rising sheet; the sheet's corners show the photo strip under them. */
-  .hero-show__bar { padding: var(--space-2) var(--space-6) calc(var(--space-2) + var(--sheet-radius)); }
-  :is(.home-hero__tile--main, .home-hero__tile--bottom) .home-hero__chip { bottom: calc(var(--hero-bar-h) + var(--sheet-radius) + var(--space-3)); }
 }
 
 /* Transform-only entrance: the copy is visible from first paint (no opacity-0 gate on LCP text). */
@@ -278,34 +229,18 @@
 .home-hero__rise--3 { animation-delay: 240ms; }
 @keyframes home-hero-rise { from { transform: translateY(var(--shift-reveal)); } to { transform: none; } }
 @media (prefers-reduced-motion: reduce) {
-  :root:not([data-motion='full']) :is(.hero-show__layer.is-in, .home-hero__chip) { animation: none; }
+  :root:not([data-motion='full']) .hero-show__layer.is-in { animation: none; }
   :root:not([data-motion='full']) .hero-show__img { transition: none; }
 }
-:root[data-motion="reduced"] :is(.hero-show__layer.is-in, .home-hero__chip) { animation: none; }
+:root[data-motion="reduced"] .hero-show__layer.is-in { animation: none; }
 
 /* Tamil: 14px minimum for chips and small labels (Book 3 §4.4). */
 .home-hero__pill-tag:lang(ta) { font-size: var(--text-caption); }
-.home-hero__chip:lang(ta) { white-space: normal; border-radius: var(--radius-md); }
 
 /* =====================================================================================================
-   "I am a…" (SPEC §5.1 #2): the section header, the persona tiles (home/PersonaSelector.css), Continue under them.
+   "I am a…" (SPEC §5.1 #2): the section header, then the persona link tiles (home/PersonaSelector.css, links mode).
    ===================================================================================================== */
-.home-persona-band__form { display: grid; gap: var(--space-8); }
-:root .home-persona-band__head { margin-bottom: calc(var(--space-head-gap) - var(--space-8)); }
 .home-persona-band__pick { min-width: 0; }
-.home-persona-band__error { margin: var(--space-4) 0 0; padding: var(--space-3) var(--space-4); border-radius: var(--radius-input); background: var(--color-error-bg); color: var(--color-error); font-weight: 500; }
-.home-persona-band__go {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3) var(--space-6);
-  padding-top: var(--space-6);
-  border-top: 1px solid var(--color-border);
-}
-.home-persona-band__hint { flex: 1 1 18rem; max-width: 40rem; margin: 0; color: var(--color-text-2); }
-.home-persona-band__go > .button { margin-left: auto; }
-@media (max-width: 599.98px) { .home-persona-band__go > .button { flex: 1 1 100%; } }
 
 /* =====================================================================================================
    Where things stand (SPEC §5.1 #3): Ink band #1, the kit FactBand at variant="lg" under a section-size statement.
@@ -417,11 +352,9 @@
    768–1023: an odd last card takes the full row instead of sitting next to an empty half.
    ===================================================================================================== */
 /* The inset Bone panel the framed cards stand on (SPEC §4.6: framed on Bone). */
-.home-open__panel { padding: var(--pad-card-lg); border-radius: var(--radius-panel); background: var(--bone); }
 .home-open__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-grid-row) var(--gap-grid); }
 .home-open__grid > * { min-width: 0; display: grid; }
 @media (min-width: 768px) { .home-open__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 768px) and (max-width: 1023.98px) { .home-open__grid > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
 @media (min-width: 1024px) { .home-open__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* =====================================================================================================

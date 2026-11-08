@@ -256,7 +256,7 @@ function ZeroResults({ q, lang }) {
             <Skeleton height="12rem" />
           ) : (
             <div className="grid grid-3">
-              {top.map((p) => <ProgrammeCard key={p.slug} programme={p} />)}
+              {top.map((p) => <ProgrammeCard key={p.slug} programme={p} art={false} />)}
             </div>
           )}
           <Button to="/programmes" variant="tertiary">{t('Find your programme', 'உங்கள் திட்டத்தைக் கண்டறியுங்கள்')}</Button>

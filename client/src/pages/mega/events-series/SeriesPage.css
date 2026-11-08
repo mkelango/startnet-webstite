@@ -5,7 +5,7 @@
    restyled here. */
 .series-page { overflow-x: clip; }
 
-.series-hero__endorse { display: block; margin-bottom: var(--space-3); font-size: var(--text-small); font-weight: var(--weight-label); color: var(--accent-night); }
+.series-hero__endorse { display: block; margin-bottom: var(--space-3); font-size: var(--text-small); font-weight: var(--weight-label); color: var(--night-text-muted); }
 .series-hero__lede { display: block; }
 .series-hero__meta { --cluster-gap: var(--space-2); }
 

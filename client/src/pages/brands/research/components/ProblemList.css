@@ -74,6 +74,8 @@
   .problist__lab { grid-column: 1; grid-row: 1; }
   .problist__title { grid-column: 2; grid-row: 1; }
   .problist__top > .badge { grid-column: 3; grid-row: 1; justify-self: start; align-self: center; }
+  /* English status chips ("Opening soon") stay on one line; Tamil may still wrap (Badge.css). */
+  .problist__top > .badge:not(:lang(ta)) .badge__text { white-space: nowrap; }
   .problist__cta { grid-column: 4; grid-row: 1; min-height: 0; align-self: center; }
   @media (hover: hover) and (pointer: fine) {
     .problist__item::before {

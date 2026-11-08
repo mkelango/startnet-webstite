@@ -15,7 +15,7 @@ import {
   PARTNER_TYPES, ALL_TYPES, ROUTING, SLA_LINE, SLA_LINE_TA,
   WA_TEXT, WA_TEXT_TA, PROOF_TA, BRAND_PROMISE_TA, enquirePath, getPartnerType, localiseSteps, tf,
 } from './partnerData.js';
-import { LedgerProof, SignedPartners, ProofNeeded } from './PartnerProof.jsx';
+import { CommunityProof, LedgerProof, SignedPartners, ProofNeeded } from './PartnerProof.jsx';
 import { hasMark } from '../../components/_placeholders.js';
 import EnquiryForm from './EnquiryForm.jsx';
 import './Partner.css';
@@ -297,6 +297,9 @@ function PartnerTypePage({ page }) {
             <h3 className="h5">{t('Signed partners', 'கையெழுத்திட்ட கூட்டாளர்கள்')}</h3>
             <SignedPartners types={page.partnerTypes} />
           </div>
+        </div>
+        <div className="partner-proofband__community">
+          <CommunityProof types={page.partnerTypes} />
         </div>
         <div className="partner-proofband__ledger">
           <LedgerProof surface="night" title={t('Founder Ledger, latest quarter', 'Founder Ledger, சமீபத்திய காலாண்டு')} />

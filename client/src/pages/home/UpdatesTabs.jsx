@@ -126,5 +126,17 @@ export default function UpdatesTabs({ events, eventsLoading }) {
     },
   ];
 
-  return <Tabs variant="underline" className="home-updates__tabs" tabs={tabs} defaultTab="news" label={t('Updates: news, events and the Founder Ledger', 'புதிய தகவல்கள்: செய்திகள், நிகழ்வுகள் மற்றும் Founder Ledger')} />;
+  // No release or coverage on file: the News tab is left out (no "No news yet" panel) and Events opens first.
+  const hasNews = press.loading || news.length > 0;
+  const shown = hasNews ? tabs : tabs.filter((tab) => tab.id !== 'news');
+  return (
+    <Tabs
+      key={hasNews ? 'with-news' : 'no-news'}
+      variant="underline"
+      className="home-updates__tabs"
+      tabs={shown}
+      defaultTab={hasNews ? 'news' : 'events'}
+      label={t('Updates: news, events and the Founder Ledger', 'புதிய தகவல்கள்: செய்திகள், நிகழ்வுகள் மற்றும் Founder Ledger')}
+    />
+  );
 }

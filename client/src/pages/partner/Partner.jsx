@@ -11,7 +11,7 @@ import {
   enquirePath, localiseSteps, tf, ALL_TYPES,
 } from './partnerData.js';
 import { webPageLd, itemListLd, langPath } from '../../lib/seo.js';
-import { LedgerProof, SignedPartners } from './PartnerProof.jsx';
+import { CommunityProof, LedgerProof, SignedPartners } from './PartnerProof.jsx';
 import './Partner.css';
 import '../utility/restKit.css';
 
@@ -215,6 +215,7 @@ export default function Partner() {
               </li>
             </ul>
           </div>
+          <CommunityProof />
         </div>
       </Section>
 

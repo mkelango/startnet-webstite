@@ -143,7 +143,15 @@
 .brand-subnav__menu-link[aria-current="page"] { color: var(--accent-text); font-weight: 500; background: var(--color-bg-tile); }
 
 /* ≥ 1024: links that the bar cannot fit are listed under "More" and hidden in the row (never half visible) */
-@media (min-width: 1024px) { .brand-subnav__list > li[data-clipped] { visibility: hidden; } }
+@media (min-width: 1024px) {
+  .brand-subnav__list > li[data-clipped] { visibility: hidden; }
+  /* With "More" in place the hidden links still take room, so the row would keep overflowing and fade its last
+     visible link: the row stops scrolling and drops its edge fades, and every link it shows is shown whole. */
+  .brand-subnav__inner:has(.brand-subnav__morewrap) .brand-subnav__scroller {
+    overflow-x: hidden;
+    -webkit-mask-image: none; mask-image: none;
+  }
+}
 /* Tamil (Book 3 §4.4): no letter-spacing on Tamil labels */
 :lang(ta) .brand-subnav__link, :lang(ta) .brand-subnav__menu-link { letter-spacing: 0; }
 

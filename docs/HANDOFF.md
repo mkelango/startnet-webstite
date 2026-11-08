@@ -4,8 +4,8 @@ Read this first in a new Claude session. Everything below is saved in this folde
 
 ## Redesign (5 Nov 2026)
 
-Branch `redesign/pnp-ui`, **not committed, not pushed** (push to `main` = live on startnet.in; wait for the user's
-approval of the integrated branch). The single source of truth is [`docs/redesign/SPEC.md`](redesign/SPEC.md):
+Branch `redesign/pnp-ui`, **committed on the branch, not pushed and not merged** (push to `main` = live on
+startnet.in; wait for the user's approval of the integrated branch). The single source of truth is [`docs/redesign/SPEC.md`](redesign/SPEC.md):
 Plug and Play look, Techstars sizing, StartNet brand (Ink/Paper, one SNX Red point, Inter + one Instrument Serif
 word, pulli dot grid, warm mono photos). Research behind it: `docs/redesign/ref-*.md` and `current-system.md`.
 `docs/DESIGN-v2.md` now points at the SPEC for look and sizing.
@@ -43,6 +43,25 @@ Still open (needs the user, content or a full build):
 - Design call: ReportCard covers are capped at 18rem (landscape in 3-up), the SPEC says 3/4 portrait.
 - Tamil drafts pending native review: SNX FactBand labels, the Insights promo row, events facets "Brand"/"Year".
 - Dev-only framer-motion warning ("non-static position") from `useScroll` on the document; not in production.
+
+Final review (8 Nov 2026): three reviewers (brand, Plug and Play likeness, responsive) raised 17 issues, all fixed.
+- Search overlay: the six red points are now Ink.
+- Placeholder marks: `metaText()` in `components/_placeholders.js` hides them in cards and heroes.
+- Home:
+  - Hero: one large crossfading photo, with the proof marquee along the bottom edge.
+  - "I am a…" tiles are direct links: Ink/Slate/Bone, with photos on the talent tiles.
+  - Programme cards show a 3:2 photo and a single meta line.
+- New `CommunityLogos` strip on Home and /partner (until partners are signed).
+- /brands: a 2×2 BrandTile grid.
+- /about: the timeline is a horizontal year carousel.
+- The brand sub-nav no longer half-fades the last link next to "More".
+
+Left on purpose, or still open:
+- The /partner hero keeps a Paper primary button, because the h1 already has the red full stop.
+- Caption chips are still on BrandTile, StoryCard and BrandHero photos. Removing them needs a slot audit first.
+- VideoFeature posters still load from i.ytimg.com.
+- Home is about 15,300px tall at 1440. Making it shorter means merging sections, which is the user's call.
+- The full `npm run build` with prerender has still not been run.
 
 ## Done
 

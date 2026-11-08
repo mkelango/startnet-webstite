@@ -15,19 +15,22 @@ import './LogoWall.css';
  * - `marquee`: the moving strip (Marquee), mono logos at 60%.
  * - `carousel` (NEW, the PnP partners section): a Scroller of logo tiles on the tile ground with the "since" caption
  *   under each; the last tile links to all partners.
+ * `allLink` (NEW, optional { label, to }) replaces the "See all partners" link (e.g. community companies → stories).
+ * A partner record may carry its own `caption` (e.g. a company's district); otherwise the caption is "since …".
  */
-export function LogoWall({ partners, variant = 'grid', title, showLink = true, className }) {
+export function LogoWall({ partners, variant = 'grid', title, showLink = true, allLink, className }) {
   const { t, lang, localePath } = useLang();
   const list = (Array.isArray(partners) ? partners : []).filter(
     (p) => p && p.name && (!p.agreementStatus || p.agreementStatus === 'signed')
   );
   if (!list.length) return null;
 
-  const allLabel = t('See all partners', 'அனைத்துக் கூட்டாளர்களையும் பாருங்கள்');
+  const allLabel = allLink?.label || t('See all partners', 'அனைத்துக் கூட்டாளர்களையும் பாருங்கள்');
+  const allTo = allLink?.to || '/partner/our-partners';
   const since = (p) => (p.since ? formatDate(p.since, { month: 'short', year: 'numeric' }, lang) : '');
   const tiles = list.map((p) => {
     const s = since(p);
-    const alt = s ? `${p.name}, ${t('partner since', 'கூட்டாளர், முதல்')} ${s}` : p.name;
+    const alt = s && !p.caption ? `${p.name}, ${t('partner since', 'கூட்டாளர், முதல்')} ${s}` : p.name;
     return (
       <figure className="logo-wall__item" key={p.slug || p.name}>
         <div className="logo-wall__logo">
@@ -37,7 +40,9 @@ export function LogoWall({ partners, variant = 'grid', title, showLink = true, c
             <span className="logo-wall__name">{p.name}</span>
           )}
         </div>
-        {s && (
+        {p.caption ? (
+          <figcaption className="logo-wall__since">{p.caption}</figcaption>
+        ) : s && (
           <figcaption className="logo-wall__since">
             {t('since', 'முதல்')} {s}
           </figcaption>
@@ -54,7 +59,7 @@ export function LogoWall({ partners, variant = 'grid', title, showLink = true, c
       <Scroller className="logo-wall__rail" label={title || t('Our partners', 'எங்கள் கூட்டாளர்கள்')} itemWidth="17.5rem">
         {tiles}
         {showLink && (
-          <Link key="all" to={localePath('/partner/our-partners')} className="logo-wall__all">
+          <Link key="all" to={localePath(allTo)} className="logo-wall__all">
             <span className="logo-wall__all-label">
               {allLabel}
               <ArrowRight size={18} strokeWidth={1.75} aria-hidden="true" className="logo-wall__all-arrow" />
@@ -78,7 +83,7 @@ export function LogoWall({ partners, variant = 'grid', title, showLink = true, c
       {title && <h2 className="logo-wall__title eyebrow">{title}</h2>}
       {body}
       {showLink && variant !== 'carousel' && (
-        <Button variant="tertiary" to="/partner/our-partners" className="logo-wall__link">
+        <Button variant="tertiary" to={allTo} className="logo-wall__link">
           {allLabel}
         </Button>
       )}

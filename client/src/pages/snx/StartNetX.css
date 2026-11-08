@@ -4,10 +4,8 @@
 .snx-hero__icons { display: inline-flex; gap: var(--space-2); color: var(--color-text-muted); }
 /* Photo hero (SPEC §5.9): the brand button (Red-600) is the hero's one red point, so the h1 full stop sets in Paper */
 :root .snx-hero .brand-hero__title .dot { color: inherit; }
-/* …and the lock-up sets mono Paper on the photo (Brand Book mono rule: one colour, the stop included), so the hero's
-   red is the CTA alone */
-:root .snx-hero .brand-lockup .brand-lockup__descriptor { color: var(--paper); }
-:root .snx-hero .brand-lockup .logo__dot { background: currentColor; }
+/* The lock-up keeps its own colours on dark photography (Brand Book 02: Paper wordmark, red full stop, red X
+   descriptor), matching the sub-nav lock-up on the same screen. */
 
 /* Statement: big regular headline left, grey lede beside it (feature-row rhythm). */
 .snx-statement { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }

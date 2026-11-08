@@ -19,6 +19,15 @@
 }
 .programme-card .card__text > * { display: inline; }
 .programme-card .card__meta { margin-top: var(--space-1); }
+/* One meta line (PnP programme card): stage chip · format · language · price · apply-by, 14px muted, wraps on phones */
+.programme-card__facts {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) 0;
+  margin: 0; font-size: var(--text-meta); line-height: 1.5; color: var(--color-text-muted);
+}
+.programme-card__fact { display: inline-flex; align-items: center; }
+.programme-card__fact + .programme-card__fact::before {
+  content: '·'; padding-inline: var(--space-2); color: var(--color-text-muted);
+}
 .programme-card__stage {
   display: inline-block;
   padding: 0 6px;

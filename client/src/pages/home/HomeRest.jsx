@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import {
   Section, SectionHeader, Reveal, RevealGroup, Button, ArtImage, Accordion,
   Stat, Scroller, EventCard, ProgrammeCard, StoryCard, LogoWall, EmptyState,
-  Skeleton, VideoFeature, CTABand,
+  Skeleton, VideoFeature, CTABand, CommunityLogos,
 } from '../../components';
 import { ClipReveal } from '../../components/ClipReveal.jsx';
 import { featuredVideos } from '../../data/videos.js';
@@ -62,7 +62,7 @@ function ClosingCta() {
       surface="night"
       className="home-close"
       title={`${t('Start where you are', 'நீங்கள் இருக்கும் இடத்திலிருந்தே தொடங்குங்கள்')}.`}
-      accentWord="Start"
+      accentWord="where"
       dot={false}
       body={t(
         'Make a free StartNet X profile and we’ll show you the next step that fits you: an event, a course, a circle or a programme.',
@@ -89,8 +89,11 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
     () => (Array.isArray(progReq.data) ? progReq.data : []).filter((p) => ACCEPTING.includes(p.status)).sort(sortCalls).slice(0, 3),
     [progReq.data]
   );
-  // Seeded placeholder stories are never listed; the section hides until a real founder story is published.
-  const stories = realStories(storiesReq.data).filter((s) => s.type !== 'recap').slice(0, 6);
+  // Seeded placeholder stories are never listed. Founder stories first; until one is published, the event recaps
+  // (each StoryCard carries its "Recap" type chip, as on /insights), so the Ink story-card block still shows.
+  const published = realStories(storiesReq.data);
+  const founderStories = published.filter((s) => s.type !== 'recap');
+  const stories = (founderStories.length ? founderStories : published.filter((s) => s.type === 'recap')).slice(0, 3);
   const partners = Array.isArray(partnersReq.data) ? partnersReq.data : [];
   const showStories = storiesReq.loading || stories.length > 0;
   const film = featuredVideos().filter((v) => v.series === 'saas-connect' && v.edition === '2025').slice(0, 1);
@@ -103,7 +106,7 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
       <FounderStory />
 
       {/* Mission 1 Lakh (Paper): 5/7, copy top-aligned; the Card panel carries the meter whose current value is the red point */}
-      <Section id="mission" className="home-mission home-lazy">
+      <Section id="mission" pad="tight" className="home-mission home-lazy">
         <div className="home-mission__inner">
           <div className="home-mission__copy">
             <SectionHeader eyebrow={t('Our goal', 'எங்கள் இலக்கு')} title="Mission 1 Lakh" />
@@ -212,7 +215,7 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
         </div>
       </Section>
 
-      {/* M06 · Open calls: open, closing and rolling (F-40); framed cards 3-up on an inset Bone panel */}
+      {/* M06 · Open calls: open, closing and rolling (F-40); photo-led programme cards 3-up on Paper */}
       <Section id="open-now" className="home-open home-lazy">
         <SectionHeader
           eyebrow={t('Programmes', 'திட்டங்கள்')}
@@ -224,13 +227,10 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
           {progReq.loading ? (
             <Skeleton height="16rem" count={1} />
           ) : programmes.length ? (
-            // SPEC §4.6: a text-only ProgrammeCard is framed, and framed cards sit on Bone: the cards stand on an inset
-            // Bone panel inside the Paper section, so the Paper → Bone alternation of the sections stays as it is.
-            <div className="home-open__panel" data-ground="bone">
-              <RevealGroup className="home-open__grid">
-                {programmes.map((p) => <ProgrammeCard key={p.slug} programme={p} />)}
-              </RevealGroup>
-            </div>
+            // SPEC §4.6: photo-led ProgrammeCards, unframed straight on the Paper section (no panel inside the section).
+            <RevealGroup className="home-open__grid">
+              {programmes.map((p) => <ProgrammeCard key={p.slug} programme={p} />)}
+            </RevealGroup>
           ) : (
             <EmptyState
               title={t('Nothing open right now.', 'இப்போது எதுவும் திறந்திருக்கவில்லை.')}
@@ -246,7 +246,7 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
       </Section>
 
       {/* Updates: a pill segmented control with a sliding indicator */}
-      <Section id="updates" surface="white" className="home-updates home-lazy">
+      <Section id="updates" surface="white" pad="tight" className="home-updates home-lazy">
         <SectionHeader
           eyebrow={t('Updates', 'புதிய தகவல்கள்')}
           title={t('News, events and the Founder Ledger', 'செய்திகள், நிகழ்வுகள் மற்றும் Founder Ledger')}
@@ -256,19 +256,22 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
         </Reveal>
       </Section>
 
-      {/* M14 · Founder stories (hidden until at least one real story exists): a 3-up grid of Ink StoryCards */}
+      {/* M14 · Founder stories (event recaps until a founder story is published; hidden when neither exists): a 3-up grid
+          of Ink StoryCards */}
       {showStories && (
       <Section id="stories" className="home-stories home-lazy">
         <SectionHeader
           eyebrow={t('Stories', 'கதைகள்')}
-          title={t('Founders, in their own words', 'நிறுவனர்கள், அவர்களின் சொந்த வார்த்தைகளில்')}
+          title={founderStories.length || storiesReq.loading
+            ? t('Founders, in their own words', 'நிறுவனர்கள், அவர்களின் சொந்த வார்த்தைகளில்')
+            : t('Event recaps', 'நிகழ்வுச் சுருக்கங்கள்')}
           action={<Button variant="tertiary" to="/insights/stories">{t('Read more stories', 'மேலும் கதைகளைப் படியுங்கள்')}</Button>}
         />
         <div className="home-block">
           {storiesReq.loading ? (
             <Skeleton height="18rem" count={1} />
           ) : (
-            <ul className="home-stories__grid" aria-label={t('Founder stories', 'நிறுவனர் கதைகள்')}>
+            <ul className="home-stories__grid" aria-label={founderStories.length ? t('Founder stories', 'நிறுவனர் கதைகள்') : t('Event recaps', 'நிகழ்வுச் சுருக்கங்கள்')}>
               {stories.map((s) => <li key={s.slug}><StoryCard story={s} /></li>)}
             </ul>
           )}
@@ -277,8 +280,8 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
       )}
 
       {/* Partner band (Paper, tight): 5/7, the copy left, the art right (the copy comes first in the DOM, so phones open
-          on the dot label and h2); the signed partners as the logo-tile carousel (LogoWall variant="carousel") under
-          both, when there are at least three */}
+          on the dot label and h2); the logo-tile carousel (LogoWall variant="carousel") under both: the signed partners
+          once there are at least three, the community companies until then */}
       <Section id="partner" pad="tight" className="home-partner home-lazy">
         <div className="home-partner__inner">
           <div className="home-partner__copy">
@@ -313,17 +316,19 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
               />
             </Reveal>
           </div>
-          {partners.length >= 3 && (
-            <div className="home-partner__logos">
-              <LogoWall partners={partners} variant="carousel" />
-            </div>
-          )}
+          {/* The signed partners once there are at least three; until then the companies built by founders in our
+              community, labelled as such (never as partners). */}
+          <div className="home-partner__logos">
+            {partners.filter((p) => p && p.agreementStatus === 'signed').length >= 3
+              ? <LogoWall partners={partners} variant="carousel" />
+              : <CommunityLogos />}
+          </div>
         </div>
       </Section>
 
       {/* AEO FAQ: drafted from Book 2 §1 and §3.0 — StartNet review. FAQPage JSON-LD is emitted by Home.jsx.
           SPEC §4.14: the header sticks in cols 1–4 at ≥1024 while the questions run in cols 6–12 (kit .faq-split). */}
-      <Section id="questions" surface="sunken" className="home-faq home-lazy" labelledBy="home-faq-title">
+      <Section id="questions" surface="sunken" pad="tight" className="home-faq home-lazy" labelledBy="home-faq-title">
         <div className="faq-split home-faq__inner">
           <div className="faq-split__head home-faq__head">
             <SectionHeader

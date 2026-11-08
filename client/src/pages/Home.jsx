@@ -1,17 +1,16 @@
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
   Seo, Section, SectionHeader, KineticHeadline, Reveal, Button, FactBand, BrandTile, Scroller, Marquee,
 } from '../components';
 import { ScrubText } from '../components/ScrubText.jsx';
-import { cx, eventPath } from '../components/_utils.js';
+import { eventPath } from '../components/_utils.js';
 import { useApi } from '../hooks/useApi.js';
 import { useLang } from '../lib/i18n.jsx';
 import { TALENT_BRANDS } from '../data/brands.js';
-import PersonaSelector, { firstPersonaInputId } from './home/PersonaSelector.jsx';
+import PersonaSelector from './home/PersonaSelector.jsx';
 import HeroShowcase from './home/HeroShowcase.jsx';
-import { getPersona } from './home/personas.js';
 import { pickHomeMetrics, proofAndContext, brandMetric } from './home/homeMetrics.js';
 import { localizeMetric } from './home/homeI18n.js';
 import { homeFaqItems } from './home/homeFaq.js';
@@ -107,9 +106,10 @@ const SEO = {
  *   1. Copy (cols 1–6, max --measure-hero) on a static pulli dot grid: a live "next event" pill (the soonest upcoming
  *      event with a confirmed date; the eyebrow line until events load or when there is none) → h1 with one serif
  *      accent word and the red full stop → lede → the two actions → the partner line.
- *   2. Showcase (cols 7–12, home/HeroShowcase.jsx): StartNet's own photographs in a three-tile mosaic that bleeds to
- *      the top, right and bottom edges (top-left corner rounded); one tile crossfades at a time.
- *   3. Proof strip (the copy column's foot): community companies as one-colour marks in the kit Marquee.
+ *   2. Showcase (cols 7–12, home/HeroShowcase.jsx): one large photo of StartNet's own at a time, bleeding to the top
+ *      and right edges (32 0 0 32 corners); the next photo crossfades in.
+ *   3. Proof strip (a 64px row at the hero's foot, full container width): community companies as one-colour marks
+ *      in the kit Marquee.
  * Phones and portrait tablets: the photo first (full bleed, under the header card), then the copy, then the strip.
  * The copy is visible from first paint (transform-only entrance); the mosaic boxes are sized by CSS (no CLS).
  */
@@ -215,68 +215,26 @@ function HomeHero({ events }) {
 }
 
 /*
- * "I am a…" (SPEC §5.1 #2): the section header, then the answers as persona tiles (§4.6: Ink / Slate tiles for the
- * four talent paths, Bone tiles for the five partner paths). The radios stay native (one group across both visual
- * groups). Continue stays aria-disabled until a choice is made.
+ * "I am a…" (SPEC §5.1 #2): the section header, then the nine personas as PnP "Who we work with" tiles (§4.6): each
+ * tile links straight to its path (no radio + Continue step). Talent tiles carry a photo of their brand; Ink, Slate
+ * and Bone alternate by position. /join keeps the radio form (the same PersonaSelector without `links`).
  */
 function PersonaBand() {
-  const [value, setValue] = useState('');
-  const [error, setError] = useState(false);
-  const navigate = useNavigate();
-  const { t, localePath } = useLang();
-  const persona = getPersona(value);
+  const { t } = useLang();
   return (
-    <Section id="i-am" className="home-persona-band">
-      <form
-        className="home-persona-band__form"
-        noValidate
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (persona) { navigate(localePath(persona.to)); return; }
-          // Same feedback as /join: say what is missing and move focus to the first option.
-          setError(true);
-          document.getElementById(firstPersonaInputId('home-persona'))?.focus();
-        }}
-      >
-        {/* The title is the radio group's label (aria-labelledby="home-persona-legend"). */}
-        <SectionHeader
-          id="home-persona-legend"
-          className="home-persona-band__head"
-          title={t('I am a…', 'நான் ஒரு…')}
-          lede={t(
-            'Pick the one closest to you and we’ll take you to the right door.',
-            'உங்களுக்கு மிக நெருக்கமானதைத் தேர்ந்தெடுங்கள்; சரியான வாசலுக்கு உங்களை அழைத்துச் செல்கிறோம்.'
-          )}
-        />
-        <Reveal delay={0.12} className="home-persona-band__pick">
-          <PersonaSelector
-            name="home-persona"
-            value={value}
-            onChange={(v) => { setValue(v); setError(false); }}
-            legendId="home-persona-legend"
-            size="lg"
-            invalid={error}
-            describedBy={error ? 'home-persona-error' : undefined}
-          />
-          {error && (
-            <p className="home-persona-band__error" id="home-persona-error" role="alert">
-              {t('Please choose the option closest to you.', 'உங்களுக்கு மிக நெருக்கமான தேர்வைத் தேர்ந்தெடுக்கவும்.')}
-            </p>
-          )}
-        </Reveal>
-        <div className="home-persona-band__go" aria-live="polite">
-          {persona && <p className="small muted home-persona-band__hint">{t(persona.next, persona.nextTa)}</p>}
-          <Button
-            type="submit"
-            size="lg"
-            icon={ArrowRight}
-            aria-disabled={!persona || undefined}
-            className={cx('home-persona-band__submit', !persona && 'is-inactive')}
-          >
-            {persona ? t(persona.stepLabel, persona.stepLabelTa) : t('Continue', 'தொடருங்கள்')}
-          </Button>
-        </div>
-      </form>
+    <Section id="i-am" pad="tight" className="home-persona-band">
+      <SectionHeader
+        id="home-persona-legend"
+        className="home-persona-band__head"
+        title={t('I am a…', 'நான் ஒரு…')}
+        lede={t(
+          'Pick the one closest to you and we’ll take you to the right door.',
+          'உங்களுக்கு மிக நெருக்கமானதைத் தேர்ந்தெடுங்கள்; சரியான வாசலுக்கு உங்களை அழைத்துச் செல்கிறோம்.'
+        )}
+      />
+      <Reveal delay={0.12} className="home-persona-band__pick">
+        <PersonaSelector name="home-persona" legendId="home-persona-legend" links />
+      </Reveal>
     </Section>
   );
 }

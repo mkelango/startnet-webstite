@@ -65,8 +65,10 @@ function VibeProgrammes() {
   const { data } = useApi('/api/programmes?brand=vibe');
   const items = Array.isArray(data) ? data : [];
   if (!items.length) return null;
+  // Paper, so it does not sit Bone-on-Bone after the Academy statement (SPEC §4.4 ground rhythm); the photo-led
+  // programme cards stand unframed on it.
   return (
-    <Section surface="white" labelledBy="vibe-home-programmes">
+    <Section surface="paper" labelledBy="vibe-home-programmes">
       <SectionHeader
         as="h2"
         eyebrow={t('Open now', 'இப்போது திறந்துள்ளவை')}

@@ -205,3 +205,15 @@ export function cleanMarks(text) {
     .replace(/[ \t]{2,}/g, ' ')
     .trim();
 }
+
+/**
+ * Card, fact-row and mega-feature meta (approved hide rule, SPEC §4.6: cards carry filled meta only): the text with
+ * its droppable marks removed (cleanMarks), or null while any register mark is left ("In [number] districts",
+ * "[to be confirmed]", "Ticket price per event [placeholder — …]"). A/B/C confidence tags stay. Detail-page body copy
+ * keeps its marks through <InlineMarks>; this helper is for meta rows only.
+ */
+export function metaText(s) {
+  if (typeof s !== 'string' || !s.trim()) return null;
+  const clean = cleanMarks(s);
+  return typeof clean === 'string' && clean.trim() && !hasMark(clean) ? clean : null;
+}

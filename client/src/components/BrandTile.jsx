@@ -19,8 +19,9 @@ const SEED = { research: 11, vibe: 23, connect: 37, women: 41, x: 5 };
  * (the whole-tile link), the journey dot label, the promise, a one-line stat and the CTA. The photo fills the lower
  * 45% at 55% opacity; on hover it runs full-bleed at full strength under a flat Ink scrim and zooms 1.05.
  * The accent never fills the tile: it is the top rule and the lock-up dot only. The stat sits outside the link.
+ * `ratio` (NEW, optional): '4/5' (default) or '4/3' for a landscape tile from 768 (the /brands 2×2 grid).
  */
-export function BrandTile({ brand, stat, headingLevel = 3, showArt = true, tone, className }) {
+export function BrandTile({ brand, stat, headingLevel = 3, showArt = true, tone, ratio, className }) {
   const { t, localePath, pick } = useLang();
   const b = BRANDS[brand];
   if (!b) return null;
@@ -33,7 +34,7 @@ export function BrandTile({ brand, stat, headingLevel = 3, showArt = true, tone,
 
   return (
     <article
-      className={cx('brand-tile', showArt && 'brand-tile--art', (tone === 'ink' || tone === 'slate') && `brand-tile--${tone}`, className)}
+      className={cx('brand-tile', showArt && 'brand-tile--art', (tone === 'ink' || tone === 'slate') && `brand-tile--${tone}`, ratio === '4/3' && 'brand-tile--landscape', className)}
       data-brand={brand}
       data-surface="night"
       data-tone={tone === 'slate' ? 'raised' : undefined}

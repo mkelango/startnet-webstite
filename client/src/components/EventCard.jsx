@@ -6,7 +6,7 @@ import { Badge } from './Badge.jsx';
 import { BRANDS } from '../data/brands.js';
 import { Stat } from './Stat.jsx';
 import { InlineMarks } from './InlineMarks.jsx';
-import { isPlaceholderText } from './_placeholders.js';
+import { isPlaceholderText, metaText } from './_placeholders.js';
 import { cx, eventPath, formatLabel, hashString, langList, priceLabel } from './_utils.js';
 import { eventPhotoKeys, eventPool, photoFor, PHOTO_SIZES } from '../data/photos.js';
 import './EventCard.css';
@@ -30,8 +30,9 @@ function dateParts(iso, lang) {
   };
 }
 
-// "[number]", "To be confirmed": nothing to show as a place.
-const isPh = (s) => typeof s === 'string' && /^\[.*\]$|^to be confirmed$/i.test(s.trim());
+// "[number]", "Qualifiers in [number] districts", "To be confirmed": nothing to show as a place. Cards carry filled
+// meta only (SPEC §4.6, the approved hide rule in _placeholders.js), so any value that still holds a mark is left out.
+const placePart = (s) => (typeof s === 'string' && !/^to be confirmed$/i.test(s.trim()) ? metaText(s) : null);
 
 /** Event card (docs/redesign/SPEC.md §4.6, the PnP event card): 3:2 media with a date chip inset top-left and the
  *  format chip top-right, then the meta row (brand dot · place), title (2 lines), 2-line summary, facts (language,
@@ -65,13 +66,17 @@ export function EventCard({ event, headingLevel = 3, className }) {
   const district = pick(e, 'district');
   const dateLabel = pick(e, 'dateLabel');
   const priceNote = pick(e, 'priceNote');
-  const placeText = [city, district && district !== city ? district : null].filter((s) => s && !isPh(s)).join(', ');
+  const placeText = [placePart(city), district && district !== city ? placePart(district) : null].filter(Boolean).join(', ');
+  const note = metaText(priceNote);
   const price = e.price ? (
     <>
       {priceLabel(e.price, lang)}
-      {priceNote && !isPlaceholderText(priceNote) ? <> · <InlineMarks text={priceNote} /></> : null}
+      {note ? <> · <InlineMarks text={note} /></> : null}
     </>
   ) : null;
+  // "[to be confirmed]" languages are left out of the card (they stay on the event page).
+  const languages = (Array.isArray(e.language) ? e.language : e.language ? [e.language] : []).filter((l) => metaText(l));
+  const dateNote = dateTbc ? metaText(dateLabel) : null;
 
   // Date as a plain meta item (same strings as the v1 date block: day + month, "TBC" + year, year + "Held").
   let dateItem = null;
@@ -142,14 +147,14 @@ export function EventCard({ event, headingLevel = 3, className }) {
       body={pick(e, 'summary') && !isPlaceholderText(pick(e, 'summary')) ? <p className="event-card__summary"><InlineMarks text={pick(e, 'summary')} /></p> : null}
       meta={
         <>
-          {((dateTbc && dateLabel && !isPlaceholderText(dateLabel)) || e.language || price) && (
+          {(dateNote || languages.length > 0 || price) && (
           <ul className="event-card__facts">
-            {dateTbc && dateLabel && !isPlaceholderText(dateLabel) && (
+            {dateNote && (
               <li className="event-card__date-label">
-                <InlineMarks text={dateLabel} />
+                <InlineMarks text={dateNote} />
               </li>
             )}
-            {e.language && <li>{langList(e.language, lang)}</li>}
+            {languages.length > 0 && <li>{langList(languages, lang)}</li>}
             {price && <li>{price}</li>}
           </ul>
           )}

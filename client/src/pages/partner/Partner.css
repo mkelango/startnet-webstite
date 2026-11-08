@@ -421,3 +421,7 @@
 .partner-enquire-page__next { scroll-margin-top: calc(var(--shell-offset, 0px) + var(--space-6)); }
 .partner-enquire-page__next > * > * + * { margin-top: var(--space-6); }
 #partner-routing, #enquire-form { scroll-margin-top: var(--shell-offset, 0px); }
+
+/* Community companies' logo carousel (PartnerProof CommunityProof), shown until partners are signed and listed */
+.partner-proofband__community:empty { display: none; }
+.partner-proofband__community { margin-top: var(--space-12); }

@@ -18,6 +18,8 @@
   color: var(--color-text);
 }
 @media (min-width: 768px) { .brand-tile { --tile-ratio: 1.25; } }
+/* ratio="4/3": a landscape tile from 768 (a minimum; long copy still grows it) */
+@media (min-width: 768px) { .brand-tile.brand-tile--landscape { --tile-ratio: 0.75; } }
 /* The ratio is a minimum, drawn by a spacer in the same grid cell as the body: long (Tamil) copy grows the tile
    instead of being clipped by its overflow: hidden. Height = width × ratio, less the block padding. */
 .brand-tile::before {

@@ -11,6 +11,7 @@ import {
   Skeleton, Scroller, CTABand, TagChip, Reveal, Accordion,
 } from '../../components';
 import { webPageLd, itemListLd } from '../../lib/seo.js';
+import { programmeCardArt } from '../../components/ProgrammeCard.jsx';
 import { useLang } from '../../lib/i18n.jsx';
 import { waLink } from '../../lib/links.js';
 import { useApi } from '../../hooks/useApi.js';
@@ -38,10 +39,8 @@ const KEY_LABELS = {
 const BRAND_ORDER = ['research', 'vibe', 'connect', 'women', 'x', 'startnet'];
 const SPRING = { type: 'spring', bounce: 0, duration: 0.32 };
 const tamilCount = (n) => (n === 1 ? 'திட்டம்' : 'திட்டங்கள்');
-// PnP programme cards (SPEC §4.6): a 3:2 photo from the brand's library pool (ArtImage picks a free one per page,
-// the same in the prerender and the app). No caption chip on card media.
-const CARD_SIZES = '(min-width: 1280px) 400px, (min-width: 768px) 50vw, 92vw';
-const cardArt = (p, seed) => ({ variant: 'grid', brand: p.brand || undefined, seed, alt: '', noCaption: true, sizes: CARD_SIZES });
+// PnP programme cards (SPEC §4.6): the card's own 3:2 library photo (ProgrammeCard programmeCardArt), seeded per slot.
+const cardArt = (p, seed) => programmeCardArt(p, seed);
 
 function FinderQuestion({ id, num, label, children }) {
   return (

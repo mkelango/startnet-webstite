@@ -151,7 +151,7 @@
 
 /* Office map: real Google Maps embed in the 12 px media frame, toned toward the paper-ink palette */
 .contact-map { position: relative; aspect-ratio: 3 / 2; border-radius: var(--radius-media); overflow: hidden; isolation: isolate; background: var(--color-bg-sunken); box-shadow: 0 0 0 1px var(--color-border); }
-.contact-map__frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(0.55) contrast(1.02); transition: filter var(--dur-3) var(--ease-standard); }
+.contact-map__frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(1) contrast(1.02); transition: filter var(--dur-3) var(--ease-standard); }
 .contact-map:hover .contact-map__frame, .contact-map:focus-within .contact-map__frame { filter: none; }
 .contact-map__link { margin-top: var(--space-3); display: inline-flex; }
 @media (max-width: 639.98px) { .contact-map { aspect-ratio: 4 / 3; } }

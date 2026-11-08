@@ -216,6 +216,7 @@ export default function StartNetX() {
       {/* Closing CTA (SPEC §5.9 #8): the Ink headband with a Paper primary; the hero holds the page's red. */}
       <CTABand
         surface="night"
+        accentWord="where"
         title={t('Start where you are.', 'நீங்கள் இருக்கும் இடத்திலிருந்தே தொடங்குங்கள்.')}
         body={t(
           "Make a free StartNet X profile and we'll show you the next step that fits you: an event, a course, a circle or a programme.",

@@ -1,71 +1,41 @@
 /* /brands: four doors, the programme finder, the shared platform and the naming rules, as calm AngelList-family
    sheets. Flat hairline cards; each brand shows its colour only in the lock-up, one dot and the arrow. */
 
-/* ===== Brand doors (docs/redesign/SPEC.md §5.2, BrandTile §4.6): a 2x2 grid of Ink / Slate tiles (checkerboard) at the
-   panel radius with --pad-card-lg, a 4px accent rule on the top edge and the 16/10 art inset at the media radius.
-   The accent stays in the rule, the lock-up and the journey dot; it never fills the tile. ===== */
+/* ===== Brand doors (docs/redesign/SPEC.md §5.2, BrandTile §4.6): a 2x2 grid of the kit BrandTile (Ink / Slate
+   checkerboard, landscape 4/3 from 768), then a hairline directory under it: one column per brand with "Who it's for",
+   the door copy and its programme links. The accent stays in the tile's rule and dots, and the directory's dot. ===== */
 .ourbrands-doors { display: grid; gap: var(--gap-grid); grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 768px) { .ourbrands-doors { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
-.ourbrands-door {
-  position: relative; display: flex; flex-direction: column; min-width: 0;
-  padding: var(--pad-card-lg); border-radius: var(--radius-panel); overflow: hidden; isolation: isolate;
-  background: var(--color-bg); color: var(--color-text);
-  --color-label-dot: var(--accent-night);
+.ourbrands-dir {
+  display: grid; gap: var(--space-10) var(--gap-grid); grid-template-columns: minmax(0, 1fr);
+  margin-top: var(--space-section-tight); padding-top: var(--space-8); border-top: 1px solid var(--color-border);
 }
-.ourbrands-door--slate {
-  --color-bg: var(--night-2);
-  --color-bg-raised: var(--night-1);
-  --color-border: var(--night-line-strong);
+@media (min-width: 640px) { .ourbrands-dir { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .ourbrands-dir { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.ourbrands-dir__col { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); min-width: 0; }
+/* Brand name as a dot label: the dot carries the brand accent, the words stay Ink */
+.ourbrands-dir__name {
+  display: inline-flex; align-items: baseline; gap: 0.6em; margin: 0;
+  font-size: var(--text-h5); font-weight: 500; color: var(--color-text);
 }
-.ourbrands-door__rule {
-  position: absolute; inset: 0 0 auto; z-index: 3; height: 4px;
-  background: var(--accent-night); pointer-events: none;
-}
-.ourbrands-door__art {
-  position: relative; display: block; overflow: hidden; isolation: isolate;
-  border-radius: var(--radius-media); background: var(--night-1);
-  aspect-ratio: 16 / 10;
-}
-.ourbrands-door__art .art-image { position: absolute; inset: 0; border-radius: 0; }
-.ourbrands-door__art .art-image :is(.art-image__photo, .art-image__svg, .art-image__picture) { width: 100%; height: 100%; object-fit: cover; }
-.ourbrands-door__art > :first-child { transition: scale var(--dur-media) var(--ease-media); }
-@media (hover: hover) and (pointer: fine) {
-  .ourbrands-door:hover .ourbrands-door__art > :first-child { scale: var(--media-zoom); }
-}
-.ourbrands-door__index {
-  position: absolute; left: 12px; top: 12px; z-index: 2;
-  font-size: var(--text-caption); font-weight: 500; letter-spacing: 0; font-variant-numeric: tabular-nums;
-  padding: 2px var(--space-2); border-radius: var(--radius-chip, var(--radius-full));
-  background: var(--paper); color: var(--sn-ink);
-}
-
-.ourbrands-door__body { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); padding-top: var(--space-6); flex: 1; }
-.ourbrands-door__name { margin: 0; font-size: var(--text-h3); color: var(--color-text); }
-/* Journey as a dot label: the dot carries the brand accent, the words stay Ink */
-.ourbrands-door__journey {
-  display: inline-flex; align-items: baseline; gap: 0.6em;
-  font-weight: 500; font-size: var(--text-label); color: var(--color-text);
-}
-.ourbrands-door__journey::before {
+.ourbrands-dir__name::before {
   content: ''; flex: none; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--color-label-dot);
   transform: translateY(-0.05em);
 }
-.ourbrands-door__who { font-size: var(--text-meta); color: var(--color-text-2); }
+.ourbrands-door__who { margin: 0; font-size: var(--text-meta); color: var(--color-text-2); }
 .ourbrands-door__who-label { display: block; margin-bottom: 2px; font-size: var(--text-meta); font-weight: 500; color: var(--color-text-muted); }
-.ourbrands-door__text { color: var(--color-text-2); max-width: 52ch; }
-/* Programmes: hairline link rows (AIWO P11), full width under the copy; order unchanged */
-.ourbrands-door__subs { align-self: stretch; margin-top: var(--space-4); }
+.ourbrands-door__text { margin: 0; font-size: var(--text-small); color: var(--color-text-2); max-width: 52ch; }
+/* Programmes: hairline link rows (AIWO P11), full column width; order unchanged */
+.ourbrands-door__subs { align-self: stretch; margin-top: var(--space-2); }
 :root .ourbrands-door__chip { font-size: var(--text-body); font-weight: 400; }
 @media (pointer: coarse) { .ourbrands-door__chip { min-height: 48px; } }
 /* Lucide ArrowRight 16 (§4.1) replaces the typed arrow; it sits on the text's centre line and nudges 4px on hover */
-.ourbrands-door .arrow { display: inline-flex; align-items: center; flex: none; }
-.ourbrands-door .arrow svg { display: block; }
-/* One red point per composition: the four reversed lock-ups set their StartNet stop in the brand's night accent */
-:root .ourbrands-door .logo__dot { background: var(--accent-night); }
-.ourbrands-door__cta { margin-top: auto; padding-top: var(--space-5); color: var(--color-text); text-decoration: none; font-size: var(--text-body); }
+.ourbrands-dir .arrow { display: inline-flex; align-items: center; flex: none; }
+.ourbrands-dir .arrow svg { display: block; }
+.ourbrands-door__cta { margin-top: auto; padding-top: var(--space-3); color: var(--color-text); text-decoration: none; font-size: var(--text-body); }
 @media (hover: hover) and (pointer: fine) {
-  .ourbrands-door:hover .ourbrands-door__cta .arrow { transform: translateX(var(--shift-1)); }
+  .ourbrands-door__cta:hover .arrow { transform: translateX(var(--shift-1)); }
 }
 
 /* ===== Not sure which door? (text left, hairline list right) ===== */

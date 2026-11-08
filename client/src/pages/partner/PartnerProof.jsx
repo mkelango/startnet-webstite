@@ -1,7 +1,7 @@
 // Proof block for partner pages: live Founder Ledger figures + signed partners only (Book 1 Part B §3.8 row 4, Book 2 Appendix B).
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { FactBand, LogoWall, Reveal, Skeleton } from '../../components';
+import { CommunityLogos, FactBand, LogoWall, Reveal, Skeleton } from '../../components';
 import { useApi } from '../../hooks/useApi.js';
 import { useLang } from '../../lib/i18n.jsx';
 import { sinceLabel } from './partnerData.js';
@@ -74,6 +74,18 @@ export function SignedPartners({ types, emptyText }) {
       </ul>
     </div>
   );
+}
+
+/**
+ * Until a partner is signed (and so listed), the PnP logo-tile carousel shows the companies built by founders in our
+ * community, labelled as such (components/CommunityLogos.jsx). Renders nothing while loading or once partners exist.
+ */
+export function CommunityProof({ types }) {
+  const { data, loading } = useApi('/api/partners');
+  const all = Array.isArray(data) ? data.filter((p) => p.agreementStatus === 'signed') : [];
+  const list = types ? all.filter((p) => types.map((x) => x.toLowerCase()).includes(String(p.type).toLowerCase())) : all;
+  if (loading || list.length) return null;
+  return <CommunityLogos className="partner-proof__community" />;
 }
 
 const PROOF_LINKS = {

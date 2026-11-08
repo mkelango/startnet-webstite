@@ -2,8 +2,12 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, X } from 'lucide-react';
 import {
-  Seo, PageHero, Section, SectionHeader, Button, BrandLockup, ArtImage, Reveal, RevealGroup, Accordion,
+  Seo, PageHero, Section, SectionHeader, Button, BrandTile, Reveal, RevealGroup, Accordion,
 } from '../../components';
+import { useApi } from '../../hooks/useApi.js';
+// Read-only reuse of Home's metric helpers (the brand stat on each tile, as on Home's door rail).
+import { brandMetric } from '../home/homeMetrics.js';
+import { localizeMetric } from '../home/homeI18n.js';
 import { itemListLd } from '../../lib/seo.js';
 import { pageLd } from './seoBits.js';
 import { useLang } from '../../lib/i18n.jsx';
@@ -103,44 +107,46 @@ const RULES_DO = [
 ];
 const RULES_DONT = ['SN Vibe', 'StartNetVibe', 'StartNet-Vibe', 'Startnet', 'Vibethon', 'StartNet. Vibe Academy'];
 
-function BrandDoor({ brand, index }) {
+/*
+ * Brand doors (SPEC §5.2: PageHero + a 2×2 BrandTile grid). Each door is the kit BrandTile (Ink / Slate checkerboard,
+ * lock-up, journey, promise, one stat, "Explore {brand}"). The programme links that used to fill each door run under
+ * the grid as a hairline directory, one column per brand ("Who it's for", the door copy, then its programmes).
+ */
+function BrandDoor({ brand, index, stat }) {
+  return (
+    <BrandTile
+      brand={brand.key}
+      tone={index % 3 === 0 ? 'ink' : 'slate'}
+      stat={stat}
+      ratio="4/3"
+      className="ourbrands-door"
+    />
+  );
+}
+
+function BrandDirectory({ brand }) {
   const { t, localePath } = useLang();
   const d = DOORS[brand.key];
   return (
-    <article
-      className={`ourbrands-door ourbrands-door--${index % 3 === 0 ? 'ink' : 'slate'}`}
-      data-brand={brand.key}
-      data-surface="night"
-      aria-labelledby={`door-${brand.key}`}
-    >
-      <span className="ourbrands-door__rule" aria-hidden="true" />
-      <Link to={localePath(brand.base)} className="ourbrands-door__art" tabIndex={-1} aria-hidden="true" draggable="false">
-        <ArtImage {...d.art} brand={brand.key} ratio="16/10" alt="" />
-        <span className="ourbrands-door__index tnum">{String(index + 1).padStart(2, '0')}</span>
+    <div className="ourbrands-dir__col" data-brand={brand.key}>
+      <p className="ourbrands-dir__name">{brand.name}</p>
+      <p className="ourbrands-door__who"><span className="ourbrands-door__who-label">{t('Who it’s for', 'யாருக்கானது')}</span> {t(d.who, d.whoTa)}</p>
+      <p className="ourbrands-door__text">{t(d.body, d.bodyTa)}</p>
+      <ul className="ourbrands-door__subs bp-linkrows" aria-label={t(`${brand.name} programmes`, `${brand.name} திட்டங்கள்`)}>
+        {d.subs.map((s) => (
+          <li key={s.to}>
+            <Link to={localePath(s.to)} className="ourbrands-door__chip bp-linkrows__link">
+              <span>{s.label}</span>
+              <span className="arrow" aria-hidden="true"><ArrowRight size={16} strokeWidth={2} /></span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Link to={localePath(brand.base)} className="ourbrands-door__cta arrow-link">
+        <span className="arrow-link__label">{t(`Explore ${brand.name}`, `${brand.name}-ஐப் பாருங்கள்`)}</span>
+        <span className="arrow" aria-hidden="true"><ArrowRight size={16} strokeWidth={2} /></span>
       </Link>
-      <div className="ourbrands-door__body">
-        <h3 id={`door-${brand.key}`} className="ourbrands-door__name">
-          <BrandLockup brand={brand.key} size="md" />
-        </h3>
-        <p className="ourbrands-door__journey">{t(brand.journey, brand.journeyTa)}</p>
-        <p className="ourbrands-door__who"><span className="ourbrands-door__who-label">{t('Who it’s for', 'யாருக்கானது')}</span> {t(d.who, d.whoTa)}</p>
-        <p className="ourbrands-door__text">{t(d.body, d.bodyTa)}</p>
-        <ul className="ourbrands-door__subs bp-linkrows" aria-label={t(`${brand.name} programmes`, `${brand.name} திட்டங்கள்`)}>
-          {d.subs.map((s) => (
-            <li key={s.to}>
-              <Link to={localePath(s.to)} className="ourbrands-door__chip bp-linkrows__link">
-                <span>{s.label}</span>
-                <span className="arrow" aria-hidden="true"><ArrowRight size={16} strokeWidth={2} /></span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <Link to={localePath(brand.base)} className="ourbrands-door__cta arrow-link">
-          <span className="arrow-link__label">{t(`Explore ${brand.name}`, `${brand.name}-ஐப் பாருங்கள்`)}</span>
-          <span className="arrow" aria-hidden="true"><ArrowRight size={16} strokeWidth={2} /></span>
-        </Link>
-      </div>
-    </article>
+    </div>
   );
 }
 
@@ -227,6 +233,7 @@ const BRANDS_FAQ = [
 
 export default function OurBrands() {
   const { t, lang, localePath } = useLang();
+  const metricsReq = useApi('/api/metrics');
   const exploreX = t('Explore StartNet X', 'StartNet X-ஐப் பாருங்கள்');
   return (
     <div className="ourbrands">
@@ -261,8 +268,13 @@ export default function OurBrands() {
       <Section pad="tight" labelledBy="ourbrands-doors-title">
         <h2 id="ourbrands-doors-title" className="visually-hidden">{t('The four StartNet brands', 'நான்கு StartNet பிராண்டுகள்')}</h2>
         <RevealGroup className="ourbrands-doors" stagger={0.08}>
-          {TALENT_BRANDS.map((b, i) => <BrandDoor key={b.key} brand={b} index={i} />)}
+          {TALENT_BRANDS.map((b, i) => (
+            <BrandDoor key={b.key} brand={b} index={i} stat={localizeMetric(brandMetric(metricsReq.data, b.key), lang)} />
+          ))}
         </RevealGroup>
+        <div className="ourbrands-dir">
+          {TALENT_BRANDS.map((b) => <BrandDirectory key={b.key} brand={b} />)}
+        </div>
       </Section>
 
       {/* Section 2 · Not sure which door? */}

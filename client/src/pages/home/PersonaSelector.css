@@ -132,3 +132,78 @@
   :root:not([data-motion='full']) :is(.home-persona__tile, .home-persona__check, .home-persona__arrow) { transition-duration: 0ms; }
 }
 :root[data-motion='reduced'] :is(.home-persona__tile, .home-persona__check, .home-persona__arrow) { transition-duration: 0ms; }
+
+/* ===== Links mode (Home, `links`): the PnP "Who we work with" tiles (SPEC §4.6 persona tile). Each tile is one link
+   straight to its path. Flat blocks by position across all nine: Ink → Slate → Bone (Bone keeps a hairline edge so
+   it holds on the Paper ground). Talent tiles ("Build something") carry a 3:2 warm mono photo of their brand inset at
+   the top; partner tiles ("Work with StartNet") carry their Lucide icon. The name sits at --text-h3 with ArrowRight 24
+   in the bottom-right corner. Hover: the photo zooms, the arrow nudges, Ink ↔ Slate swap and Bone fills Ink.
+   Grid by the selector's own width: rows (phones) → 2 columns (≥520) → 4 talent / 5 partner tiles in one row (≥960). */
+.home-persona__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--gap-grid); grid-template-columns: minmax(0, 1fr); }
+@container (min-width: 520px) {
+  .home-persona__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Five partner tiles in two columns: the fifth takes the whole last row (a short flat block, not a stretched card). */
+  .home-persona__group--work .home-persona__entry:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@container (min-width: 960px) {
+  .home-persona__group--build .home-persona__list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .home-persona__group--work .home-persona__list { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .home-persona__group--work .home-persona__entry:last-child:nth-child(odd) { grid-column: auto; }
+}
+.home-persona__entry { min-width: 0; display: grid; }
+.home-persona__entry[data-tone='ink'] { --tile: var(--night-0); --tile-hover: var(--night-2); --tile-text: var(--night-text); --tile-text-2: var(--night-text-2); }
+.home-persona__entry[data-tone='slate'] { --tile: var(--night-2); --tile-hover: var(--night-0); --tile-text: var(--night-text); --tile-text-2: var(--night-text-2); }
+.home-persona__entry[data-tone='bone'] { --tile: var(--bone); --tile-hover: var(--night-0); --tile-text: var(--color-text); --tile-text-2: var(--color-text-2); }
+
+.home-persona__link {
+  position: relative; isolation: isolate;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr; gap: var(--space-4);
+  min-height: 9rem; padding: var(--pad-card);
+  border-radius: var(--radius-panel);
+  background: var(--tile); color: var(--tile-text); text-decoration: none;
+  transition: background-color var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap);
+}
+.home-persona__entry[data-tone='bone'] .home-persona__link { box-shadow: inset 0 0 0 1px var(--color-border); }
+.home-persona__media {
+  grid-column: 1 / -1; display: block; overflow: hidden; isolation: isolate;
+  border-radius: var(--radius-media); background: var(--night-1); aspect-ratio: 3 / 2;
+}
+.home-persona__media .art-image { width: 100%; height: 100%; border-radius: 0; }
+.home-persona__media .art-image :is(.art-image__photo, .art-image__picture, img) { width: 100%; height: 100%; object-fit: cover; }
+.home-persona__media > * { transition: scale var(--dur-media) var(--ease-media); }
+.home-persona__glyph { grid-column: 1 / -1; display: inline-grid; place-items: start; color: var(--tile-text-2); }
+.home-persona__name {
+  grid-column: 1; align-self: end; min-width: 0;
+  font-size: var(--text-h3); font-weight: var(--weight-heading); line-height: var(--leading-h3); letter-spacing: var(--tracking-h3);
+  overflow-wrap: break-word; text-wrap: balance;
+}
+.home-persona__go {
+  grid-column: 2; align-self: end; justify-self: end; display: inline-grid; color: var(--tile-text-2);
+  transition: transform var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap);
+}
+.home-persona__go svg { display: block; }
+.home-persona__link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
+.home-persona__link:focus-visible .home-persona__go { transform: translateX(var(--shift-1)); }
+@media (hover: hover) and (pointer: fine) {
+  .home-persona__link:hover { background: var(--tile-hover); color: var(--night-text); }
+  .home-persona__link:hover :is(.home-persona__go, .home-persona__glyph) { color: var(--night-text); }
+  .home-persona__link:hover .home-persona__go { transform: translateX(var(--shift-1)); }
+  .home-persona__link:hover .home-persona__media > * { scale: var(--media-zoom); }
+  .home-persona__entry[data-tone='bone'] .home-persona__link:hover { box-shadow: none; }
+}
+
+/* Phones: each tile is a row (photo thumbnail or icon · name · arrow), so nine choices stay within about one screen. */
+@container (max-width: 519.98px) {
+  .home-persona__link { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto; align-items: center; min-height: 4.5rem; padding: var(--space-3) var(--space-5) var(--space-3) var(--space-3); border-radius: var(--radius-xl); }
+  .home-persona__link:not([data-photo]) { padding-left: var(--space-5); }
+  .home-persona__media { grid-column: 1; width: 5.5rem; border-radius: var(--radius-md); }
+  .home-persona__glyph { grid-column: 1; }
+  .home-persona__name { grid-column: 2; align-self: center; font-size: var(--text-h4); }
+  .home-persona__go { grid-column: 3; align-self: center; }
+}
+:lang(ta) .home-persona__name { font-size: var(--text-h4); letter-spacing: 0; }
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) :is(.home-persona__link, .home-persona__go, .home-persona__media > *) { transition-duration: 0ms; }
+}
+:root[data-motion='reduced'] :is(.home-persona__link, .home-persona__go, .home-persona__media > *) { transition-duration: 0ms; }
+:root[data-motion='reduced'] .home-persona__link:hover .home-persona__media > * { scale: none; }

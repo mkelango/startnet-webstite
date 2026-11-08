@@ -4,7 +4,7 @@ import { useLang } from '../../../lib/i18n.jsx';
 import { isConfirmed, pickLang } from '../../events/parts/eventMeta.js';
 import { eventDateRange } from '../../events/parts/eventTime.js';
 import { ART_FOR, brandOf, editionPath, seedOf, localizeEvent, enIf } from './seriesData.js';
-import { isPlaceholderText as isOnlyPlaceholder } from '../../../components/_placeholders.js';
+import { isPlaceholderText as isOnlyPlaceholder, metaText } from '../../../components/_placeholders.js';
 import { eventPool, PHOTO_SIZES } from '../../../data/photos.js';
 import './seriesParts.css';
 
@@ -26,13 +26,20 @@ export function useEventText() {
     price: (e) => {
       if (!e.price) return <InlineMarks text={e.priceNote || '[placeholder — to be supplied by StartNet]'} />;
       if (e.price === 'free' && !e.priceTBC) return t('Free', 'இலவசம்');
-      if (e.priceNote && !isOnlyPlaceholder(e.priceNote)) return <InlineMarks text={e.priceNote} />;
+      // A note that still holds a mark once cleaned ("Ticket price per event [placeholder — …]") falls back to Paid.
+      if (e.priceNote && metaText(e.priceNote)) return <InlineMarks text={metaText(e.priceNote)} />;
       return e.price === 'free' ? t('Free', 'இலவசம்') : t('Paid', 'கட்டணம் உண்டு');
     },
+    /** False while there is no price to show yet (no price on file and no filled note): fact rows leave it out. */
+    priceKnown: (e) => !!e.price || !!metaText(e.priceNote),
     /** "Venue, City", "Online", or the district. Values that are only a placeholder are left out. */
     place: (e) => {
       if (e.format === 'online') return FORMAT.online;
-      const parts = [e.venue, e.city].filter((p) => p && !isOnlyPlaceholder(p)).filter((p, i, a) => a.indexOf(p) === i);
+      // The city is left out when the venue already names it ("Radisson, Salem" + "Salem").
+      const has = (a, b) => a.split(',').map((w) => w.trim().toLowerCase()).includes(b.trim().toLowerCase());
+      const parts = [e.venue, e.city]
+        .filter((p) => p && !isOnlyPlaceholder(p))
+        .filter((p, i, a) => a.indexOf(p) === i && !(i === 1 && a[0] && has(a[0], p)));
       const district = e.district && !isOnlyPlaceholder(e.district) ? e.district : '';
       return parts.length ? <InlineMarks text={parts.join(', ')} /> : district ? <InlineMarks text={district} /> : '';
     },

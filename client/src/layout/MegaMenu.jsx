@@ -22,8 +22,8 @@ import { eventPath as eventPathOf } from '../components/_utils.js';
 import { findMetric, signInHref } from './shell.jsx';
 import './MegaMenu.css';
 import { eventPhotoKeys, photoFor } from '../data/photos.js';
+import { metaText } from '../components/_placeholders.js';
 
-const PLACEHOLDER = ['[placeholder — to be supplied by StartNet]', '[இடம்பிடிப்பு — StartNet வழங்க வேண்டும்]'];
 
 function MenuLink({ link, onNavigate }) {
   const { t, localePath } = useLang();
@@ -109,16 +109,17 @@ function FeaturedMission({ f }) {
   const pct = known ? Math.max(0, Math.min(1, metric.value / 100000)) : 0;
   return (
     <FeatureShell title={t(f.title, f.titleTa)} media="mission">
-      <div className="mega-feature__stat">
-        {known ? <Stat metric={metric} variant="compact" /> : (
-          <p className="mega-feature__body">
-            {t('Nurtured founders (L2+):', 'வளர்க்கப்பட்ட நிறுவனர்கள் (L2+):')} <Placeholder>{t(...PLACEHOLDER)}</Placeholder>
-          </p>
-        )}
-      </div>
-      <div className="mega-progress" aria-hidden="true">
-        <span className="mega-progress__bar" style={{ transform: `scaleX(${pct})` }} />
-      </div>
+      {/* The featured card carries filled meta only (approved hide rule): the stat and its bar wait for the number. */}
+      {known && (
+        <>
+          <div className="mega-feature__stat">
+            <Stat metric={metric} variant="compact" />
+          </div>
+          <div className="mega-progress" aria-hidden="true">
+            <span className="mega-progress__bar" style={{ transform: `scaleX(${pct})` }} />
+          </div>
+        </>
+      )}
       <p className="mega-feature__caption">{t('Progress toward Mission 1 Lakh', 'Mission 1 Lakh இலக்கை நோக்கிய முன்னேற்றம்')}</p>
       <Button to={f.cta.to} variant="tertiary" size="sm" icon={ArrowRight}>{ctaLabel(t, f.cta)}</Button>
     </FeatureShell>
@@ -207,7 +208,7 @@ function FeaturedFlagship({ f, onNavigate }) {
   const confirmed = ev.dateConfirmed === true || ev.confirmed === true;
   const when = confirmed && ev.date
     ? <time dateTime={ev.date}>{formatDate(ev.date, lang)}</time>
-    : <span>{t(ev.dateLabel || 'Date to be confirmed', ev.dateLabelTa || (ev.dateLabel ? undefined : 'தேதி உறுதிப்படுத்தப்பட வேண்டும்'))}</span>;
+    : <span>{t(metaText(ev.dateLabel) || 'Date to be confirmed', metaText(ev.dateLabelTa) || (metaText(ev.dateLabel) ? undefined : 'தேதி உறுதிப்படுத்தப்பட வேண்டும்'))}</span>;
   const city = ev.city && !TBC.test(ev.city) ? t(ev.city, ev.cityTa) : null;
   const evTitle = t(ev.title, ev.titleTa);
   return (
@@ -245,20 +246,15 @@ const LEDGER_TILES = [
 function FeaturedLedger({ f }) {
   const { t } = useLang();
   const { data } = useApi('/api/metrics');
+  const tiles = LEDGER_TILES.map((tile) => ({ tile, metric: findMetric(data, tile.patterns) })).filter(({ metric }) => metric && metric.value != null);
   return (
     <FeatureShell title={t(f.title, f.titleTa)} media="ledger">
-      <dl className="mega-ledger">
-        {LEDGER_TILES.map((tile) => {
-          const metric = findMetric(data, tile.patterns);
-          if (metric && metric.value != null) return <Stat key={tile.label} metric={metric} variant="compact" dl className="mega-ledger__tile" />;
-          return (
-            <div className="mega-ledger__tile" key={tile.label}>
-              <dt className="mega-ledger__label">{t(tile.label, tile.labelTa)}</dt>
-              <dd className="mega-ledger__value"><Placeholder>{t(...PLACEHOLDER)}</Placeholder></dd>
-            </div>
-          );
-        })}
-      </dl>
+      {/* Tiles with a published number only (approved hide rule); none yet = the card is its title and link. */}
+      {tiles.length > 0 && (
+        <dl className="mega-ledger">
+          {tiles.map(({ tile, metric }) => <Stat key={tile.label} metric={metric} variant="compact" dl className="mega-ledger__tile" />)}
+        </dl>
+      )}
       <Button to={f.cta.to} variant="tertiary" size="sm" icon={ArrowRight}>{ctaLabel(t, f.cta)}</Button>
     </FeatureShell>
   );

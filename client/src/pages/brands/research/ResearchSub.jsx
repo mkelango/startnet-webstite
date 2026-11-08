@@ -338,7 +338,8 @@ function Fellowship() {
 
       {prog && (
         <Block id="fellow-call" eyebrow={t('Open call', 'திறந்த அழைப்பு')} title={t('This cohort', 'இந்தக் குழு')}>
-          <ProgrammeCard programme={prog} />
+          {/* One card inside the prose column: the text card (a 3:2 photo here would run ~780px wide). */}
+          <ProgrammeCard programme={prog} art={false} />
         </Block>
       )}
     </SubShell>

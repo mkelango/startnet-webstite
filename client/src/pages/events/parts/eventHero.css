@@ -27,7 +27,7 @@
 :is(.event-hero__chips, .edition-hero__chips) { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
 :is(.event-hero__title, .edition-hero__title) { max-width: 8.83em; color: var(--night-text); overflow-wrap: break-word; }
 :lang(ta) :is(.event-hero__title, .edition-hero__title) { max-width: 13.88em; }
-:is(.event-hero__endorse, .edition-hero__endorse) { margin-top: calc(-1 * var(--space-2)); font-size: var(--text-small); font-weight: var(--weight-label); color: var(--accent-night); }
+:is(.event-hero__endorse, .edition-hero__endorse) { margin-top: calc(-1 * var(--space-2)); font-size: var(--text-small); font-weight: var(--weight-label); color: var(--night-text-muted); }
 :is(.event-hero__lede, .edition-hero__lede) { color: var(--night-text-2); max-width: var(--measure-lede); }
 :lang(ta) :is(.event-hero__lede, .edition-hero__lede) { max-width: 36em; }
 :is(.event-hero__actions, .edition-hero__actions) { --cluster-gap: var(--space-3); margin-top: var(--space-3); }

@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, CalendarDays, LayoutGrid, MessageCircle } from 'lucide-react';
 import {
-  Seo, Section, SectionHeader, PageHero, EventCard, Button, Badge, EmptyState, Skeleton, CTABand, SmartForm,
+  Seo, Section, SectionHeader, PageHero, EventCard, Button, EmptyState, Skeleton, CTABand, SmartForm,
   ArtImage, Dot, Reveal, RevealGroup, Accordion,
 } from '../../components';
 import { useLang } from '../../lib/i18n.jsx';
@@ -445,7 +445,8 @@ export default function Events() {
                 </div>
                 <div className="events-flagship__top">
                   <p className="eyebrow">{fl.brand ? `StartNet ${brandLabel(t, fl.brand)}` : t('All brands', 'அனைத்து பிராண்டுகளும்')}</p>
-                  {fl.proposed && <Badge kind="type">{t('[proposed]', '[முன்மொழிவு]')}</Badge>}
+                  {/* A "[proposed]" register mark is not shown on the card (approved hide rule, components/_placeholders.js:
+                      the claim stands without it); fl.proposed stays in the data for when StartNet confirms. */}
                 </div>
                 <h3 className="h4 events-flagship__name">{fl.name}</h3>
                 {fl.note && <p className="caption">{t(fl.note, fl.noteTa)}</p>}

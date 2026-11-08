@@ -78,7 +78,10 @@ function districtText(e, lang) {
 function placeString(e, t, lang) {
   if (e.format === 'online') return t('Online', 'ஆன்லைன்');
   const parts = [pickLang(e, 'venue', lang), pickLang(e, 'city', lang)].filter(Boolean);
-  const uniq = parts.filter((p, i) => parts.indexOf(p) === i);
+  // The city is left out when the venue already names it ("Radisson, Salem" + "Salem").
+  const named = (venue, city) => typeof venue === 'string' && typeof city === 'string'
+    && venue.split(',').map((w) => w.trim().toLowerCase()).includes(city.trim().toLowerCase());
+  const uniq = parts.filter((p, i) => parts.indexOf(p) === i && !(i === 1 && named(parts[0], p)));
   if (uniq.length > 1 && uniq.every(isPlaceholderValue)) return uniq[0];
   return uniq.join(', ') || districtText(e, lang) || '';
 }

@@ -63,9 +63,23 @@ function resolveCta(basePath, pageCta, lang) {
     if (!href && !to) continue;
     // Never link to the page you are on: fall through to the next candidate.
     if (to && pathOf(to) === basePath && !to.includes('#')) continue;
-    return { ...cta, to, href };
+    return { ...cta, to, href, fromPage: cta === pageCta };
   }
   return null;
+}
+
+// Event, edition and programme detail pages: the page's own Register / Apply is its one red CTA (SPEC §5.3, §5.5).
+const CONVERSION_PATH = /^\/(events|programmes)\/[^/]+/;
+
+/**
+ * Fill for the bar's button. The sub-brand accent fill only inside its own hub (SPEC §3.4, §7.3); a detail page's
+ * main conversion repeats the page CTA's `point`; everything else is the Ink primary (§3.7).
+ */
+function variantFor(cta, basePath) {
+  const hub = brandForPath(basePath);
+  if (hub && hub !== 'x' && cta.brand) return 'brand';
+  if (cta.fromPage && CONVERSION_PATH.test(basePath) && !(cta.to && pathOf(cta.to) === '/events')) return 'point';
+  return 'primary';
 }
 
 /** Publishes the bar's height as --bottom-cta-h on :root while it is shown. */
@@ -281,6 +295,7 @@ export default function BottomCtaBar() {
     else label = (narrow || overflow) && cta.shortLabel ? cta.shortLabel : cta.label;
   }
   const brand = cta?.brand;
+  const variant = cta ? variantFor(cta, basePath) : 'primary';
   const wa = !!cta?.href && isWhatsApp(cta.href);
   const icon = cta
     ? (typeof cta.icon === 'string' && ICONS[cta.icon]) || (wa ? MessageCircle : cta.href && isOffSite(cta.href) ? ArrowUpRight : ArrowRight)
@@ -304,7 +319,7 @@ export default function BottomCtaBar() {
           className="bottom-cta"
           role="region"
           aria-label={t('Quick actions', 'விரைவுச் செயல்கள்')}
-          data-brand={brand}
+          data-brand={variant === 'brand' ? brand : undefined}
           {...motionProps}
         >
           <div className="bottom-cta__inner">
@@ -312,7 +327,7 @@ export default function BottomCtaBar() {
               <Button
                 to={cta.to}
                 href={cta.href}
-                variant={brand && brand !== 'x' ? 'brand' : 'primary'}
+                variant={variant}
                 full
                 icon={icon}
               >

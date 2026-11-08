@@ -23,7 +23,7 @@ import { byDate, isConfirmed } from '../../events/parts/eventMeta.js';
 import { eventTimeRange, eventDateRange, dateBlock } from '../../events/parts/eventTime.js';
 import { downloadIcs } from '../../events/parts/ics.js';
 import NotFound from '../../utility/NotFound.jsx';
-import { isPlaceholderText as isOnlyPlaceholder } from '../../../components/_placeholders.js';
+import { hasMark, isPlaceholderText as isOnlyPlaceholder } from '../../../components/_placeholders.js';
 import { seriesConfig, findEdition, editionKeyOf, editionCrumb, brandOf, ART_FOR, seedOf, isPlaceholderText, localizeEvent, enIf, SERIES_SEO, editionWhenSentence, retiredSeriesOf } from './seriesData.js';
 import {
   RecordRecap, RecordHighlights, RecordPeople, RecordLists, RecordPartners, RecordSources, hasRecap, hasHighlights,
@@ -379,7 +379,8 @@ export default function EditionPage({ tab: tabProp }) {
     { label: t('Where', 'இடம்'), value: x.place(e) || '—', lang: placeL },
     e.format !== 'online' && e.district && e.district !== e.city && { label: t('District', 'மாவட்டம்'), value: <InlineMarks text={e.district} />, lang: enIf(lang, e.district) },
     { label: t('Format', 'வடிவம்'), value: x.format(e.format) },
-    { label: t('Price', 'கட்டணம்'), value: x.price(e), lang: priceL },
+    // Fact rows carry filled values only (SPEC §4.6 hide rule): no Price row until a price is on file.
+    x.priceKnown(e) && { label: t('Price', 'கட்டணம்'), value: x.price(e), lang: priceL },
   ].filter(Boolean);
 
   const faq =
@@ -673,8 +674,8 @@ export default function EditionPage({ tab: tabProp }) {
                   { label: t('Date', 'தேதி'), value: <span lang={whenL}>{x.when(e)}</span> },
                   ...(time ? [{ label: t('Time', 'நேரம்'), value: <span lang={dataLang}>{time}</span> }] : []),
                   { label: t('Where', 'இடம்'), value: <span lang={placeL}>{x.place(e) || '—'}</span> },
-                  { label: t('Language', 'மொழி'), value: x.language(e.language) },
-                  { label: t('Price', 'கட்டணம்'), value: <span lang={priceL}>{x.price(e)}</span> },
+                  ...(!hasMark(e.language) ? [{ label: t('Language', 'மொழி'), value: x.language(e.language) }] : []),
+                  ...(x.priceKnown(e) ? [{ label: t('Price', 'கட்டணம்'), value: <span lang={priceL}>{x.price(e)}</span> }] : []),
                   ...(!past && e.seats ? [{ label: t('Seats', 'இருக்கைகள்'), value: x.seats(e.seats) }] : []),
                   ...(!past && e.registrationClosesLabel ? [{ label: t('Registration closes', 'பதிவு முடிவு'), value: <span lang={enIf(lang, e.registrationClosesLabel)}><InlineMarks text={e.registrationClosesLabel} /></span> }] : []),
                 ]}

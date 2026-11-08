@@ -1,12 +1,12 @@
-// Home hero photo showcase (M01 v3.1, 14 Oct 2026): StartNet's own photographs grouped by category, shown three at a
-// time in the bento mosaic. Inside a category one tile crossfades to the next photo every TICK_MS; after the
-// category's photos have all been shown, the whole mosaic moves on to the next category (staggered crossfade).
-// The category tabs (a strip along the mosaic's foot) name each set, carry a Paper dot and a progress line, and can
-// be clicked.
+// Home hero photo showcase (SPEC §5.1 #1, the Plug and Play home hero): StartNet's own photographs, one large photo
+// at a time. Each photo holds for HOLD_MS, then the next one crossfades in over it. The order walks the categories in
+// turn (the first photo of each category, then the second of each, ...), so consecutive photos change subject.
+// The category of the photo on screen names the slideshow (aria-label); each photo's caption is its figcaption for
+// assistive tech (no caption chips over the photo, no category chip row).
 //
 // Motion rules: pauses on hover and keyboard focus, while the hero is off screen or the tab is hidden, and with the
-// pause button (WCAG 2.2.2). Reduced motion: no autoplay and no fades; the tabs still switch the set.
-// Prerender-safe: the first state is fixed (first category, its first three photos).
+// pause button (WCAG 2.2.2). Reduced motion: no autoplay and no fades.
+// Prerender-safe: the first state is fixed (the first category's first photo).
 // Every photo here is marked as taken on the page (hintFixedPhoto), so no other home slot repeats it.
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Pause, Play } from 'lucide-react';
@@ -14,9 +14,11 @@ import { useLang } from '../../lib/i18n.jsx';
 import { photoFor, hintFixedPhoto } from '../../data/photos.js';
 import { cx } from '../../components/_utils.js';
 
+// One photo every three beats of the old 1.6s mosaic tick: a full-bleed photo needs time to be seen.
 const TICK_MS = 1600;
+const HOLD_MS = TICK_MS * 3;
 
-// [manifest key, short caption EN, short caption TA]. The first photo opens the tall tile.
+// [manifest key, short caption EN, short caption TA]. The first photo opens the showcase.
 const CATEGORIES = [
   {
     id: 'summits', brand: 'connect', label: ['Summits', 'உச்சி மாநாடுகள்'],
@@ -72,21 +74,22 @@ const CATEGORIES = [
 const SETS = CATEGORIES.map((c) => ({
   ...c,
   photos: c.photos.map(([key, en, ta]) => ({ key, en, ta, pic: photoFor(key) })).filter((p) => p.pic),
-})).filter((c) => c.photos.length >= 3);
+})).filter((c) => c.photos.length > 0);
 
-// The mosaic bleeds to the viewport edge: ≥1024 it spans about half the viewport, below that the full width.
-const TILE_SIZES = ['(min-width: 1024px) 28vw, 54vw', '(min-width: 1024px) 24vw, 46vw', '(min-width: 1024px) 24vw, 46vw'];
+// The play order: photo 1 of every category, then photo 2 of every category, and so on.
+const SEQUENCE = (() => {
+  const out = [];
+  const longest = Math.max(0, ...SETS.map((s) => s.photos.length));
+  for (let i = 0; i < longest; i += 1) {
+    SETS.forEach((s) => { if (s.photos[i]) out.push({ ...s.photos[i], set: s }); });
+  }
+  return out;
+})();
 
-/** Which photo each of the three tiles shows at a given tick of a category. */
-function tilesAt(set, tick) {
-  const t = [0, 1, 2];
-  const extra = set.photos.length - 3;
-  // tick 1 swaps the top tile, tick 2 the bottom tile, … using the photos after the first three.
-  for (let i = 1; i <= Math.min(tick, extra); i += 1) t[1 + ((i - 1) % 2)] = 2 + i;
-  return t;
-}
-// Every category stays on screen for three ticks, even one with only three photos (it simply has no swaps).
-const ticksFor = () => 3;
+// The photo box is about half the viewport wide and nearly the full hero tall (>=1024), so a 3:2 photo set to cover
+// it needs its height x 1.5 in width (not the box width): that picks the 1200 / 1280 variants on desktop. Tablets show
+// it full bleed at 4/3, phones full bleed at 4/5 (capped at 72svh).
+const STAGE_SIZES = '(min-width: 1024px) calc((100vh - 8rem) * 1.5), (min-width: 600px) 100vw, 150vw';
 
 function Picture({ photo, sizes, priority, alt }) {
   const pic = photo.pic;
@@ -112,8 +115,8 @@ function Picture({ photo, sizes, priority, alt }) {
   );
 }
 
-/** One tile: the new photo fades in over the previous one, which is dropped once the fade is done. */
-function Tile({ photo, index, cls, catKey }) {
+/** The stage: the new photo fades in over the previous one, which is dropped once the fade is done. */
+function Stage({ photo }) {
   const { lang } = useLang();
   const [layers, setLayers] = useState([photo]);
   useEffect(() => {
@@ -122,27 +125,26 @@ function Tile({ photo, index, cls, catKey }) {
   const first = useRef(true);
   useEffect(() => { first.current = false; }, []);
   const top = layers[layers.length - 1];
-  const caption = lang === 'ta' ? top.ta : top.en;
   return (
-    <figure className={`home-hero__tile home-hero__tile--${cls}`} style={{ '--i': index }}>
+    <figure className="home-hero__tile home-hero__tile--main">
       {layers.map((p, i) => (
         <div
           key={p.key}
           className={cx('hero-show__layer', i === layers.length - 1 && layers.length > 1 && 'is-in')}
           onAnimationEnd={i === layers.length - 1 ? () => setLayers([p]) : undefined}
         >
-          <Picture photo={p} sizes={TILE_SIZES[index]} priority={first.current && index === 0} alt={p.pic.alt || ''} />
+          <Picture photo={p} sizes={STAGE_SIZES} priority={first.current && i === 0} alt={p.pic.alt || ''} />
         </div>
       ))}
-      <figcaption className="home-hero__chip" key={`${catKey}-${top.key}`}>{caption}</figcaption>
+      {/* The caption names the event and city for assistive tech; nothing is burned over the photo (PnP tiles are clean). */}
+      <figcaption className="visually-hidden">{lang === 'ta' ? top.ta : top.en}</figcaption>
     </figure>
   );
 }
 
 export default function HeroShowcase() {
   const { t, basePath } = useLang();
-  const [cat, setCat] = useState(0);
-  const [tick, setTick] = useState(0);
+  const [index, setIndex] = useState(0);
   const [userPaused, setUserPaused] = useState(false);
   const [hover, setHover] = useState(false);
   const [focusIn, setFocusIn] = useState(false);
@@ -150,8 +152,6 @@ export default function HeroShowcase() {
   const [pageShown, setPageShown] = useState(true);
   const [reduced, setReduced] = useState(false);
   const rootRef = useRef(null);
-  const barRef = useRef(null);
-  const tabsRef = useRef(null);
   const elapsed = useRef(0);
 
   // Mark every showcase photo as taken on this page, so other slots never repeat one.
@@ -172,12 +172,9 @@ export default function HeroShowcase() {
     return () => { mq.removeEventListener?.('change', read); io?.disconnect(); document.removeEventListener('visibilitychange', vis); };
   }, []);
 
-  const set = SETS[cat];
-  const ticks = ticksFor(set);
-  const catMs = ticks * TICK_MS;
-  const playing = !reduced && !userPaused && !hover && !focusIn && inView && pageShown && SETS.length > 1;
+  const playing = !reduced && !userPaused && !hover && !focusIn && inView && pageShown && SEQUENCE.length > 1;
 
-  // One clock: elapsed time in the current category drives both the swaps and the tab's progress line.
+  // One clock: the time the current photo has been on screen.
   useEffect(() => {
     if (!playing) return undefined;
     let raf = 0;
@@ -185,52 +182,31 @@ export default function HeroShowcase() {
     const step = (now) => {
       elapsed.current += now - last;
       last = now;
-      if (elapsed.current >= catMs) {
+      if (elapsed.current >= HOLD_MS) {
         elapsed.current = 0;
-        setTick(0);
-        setCat((c) => (c + 1) % SETS.length);
-      } else {
-        const tk = Math.floor(elapsed.current / TICK_MS);
-        setTick((prev) => (prev === tk ? prev : tk));
+        setIndex((i) => (i + 1) % SEQUENCE.length);
       }
-      if (barRef.current) barRef.current.style.transform = `scaleX(${Math.min(1, elapsed.current / catMs)})`;
       raf = requestAnimationFrame(step);
     };
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, [playing, catMs]);
+  }, [playing]);
 
-  // Keep the active tab in view when the row scrolls (phones). Scrolls the row only, never the page.
+  // Warm the next photo while this one shows.
   useEffect(() => {
-    const row = tabsRef.current;
-    const tab = row?.querySelector('.is-active');
-    if (!row || !tab || row.scrollWidth <= row.clientWidth) return;
-    const left = tab.offsetLeft - (row.clientWidth - tab.offsetWidth) / 2;
-    row.scrollTo({ left: Math.max(0, left), behavior: reduced ? 'auto' : 'smooth' });
-  }, [cat, reduced]);
-
-  // Warm the next category's photos while this one plays.
-  useEffect(() => {
-    const next = SETS[(cat + 1) % SETS.length];
+    const next = SEQUENCE[(index + 1) % SEQUENCE.length];
+    if (!next) return undefined;
     const id = window.setTimeout(() => {
-      next.photos.forEach((p, i) => {
-        const img = new Image();
-        img.sizes = TILE_SIZES[Math.min(i, 2)];
-        img.srcset = p.pic.widths.map((w) => `${p.pic.base}-${w}.webp ${w}w`).join(', ');
-      });
+      const img = new Image();
+      img.sizes = STAGE_SIZES;
+      img.srcset = next.pic.widths.map((w) => `${next.pic.base}-${w}.webp ${w}w`).join(', ');
     }, 400);
     return () => window.clearTimeout(id);
-  }, [cat]);
+  }, [index]);
 
-  const choose = (i) => {
-    elapsed.current = 0;
-    setTick(0);
-    setCat(i);
-    if (barRef.current) barRef.current.style.transform = 'scaleX(0)';
-  };
-
-  const idx = tilesAt(set, tick);
-  const tiles = ['main', 'top', 'bottom'];
+  const photo = SEQUENCE[index];
+  if (!photo) return null;
+  const set = photo.set;
   return (
     <div
       ref={rootRef}
@@ -241,40 +217,19 @@ export default function HeroShowcase() {
       onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setFocusIn(false); }}
     >
       <div className="home-hero__mosaic" id="hero-show-mosaic" role="group" aria-roledescription={t('slideshow', 'படக்காட்சி')} aria-label={t(set.label[0], set.label[1])}>
-        {tiles.map((cls, i) => (
-          <Tile key={cls} cls={cls} index={i} catKey={set.id} photo={set.photos[idx[i]]} />
-        ))}
+        <Stage photo={photo} />
       </div>
-
-      <div className="hero-show__bar">
-        <div className="hero-show__tabs" ref={tabsRef} role="group" aria-label={t('Photo categories', 'புகைப்பட வகைகள்')}>
-          {SETS.map((s, i) => (
-            <button
-              key={s.id}
-              type="button"
-              className={cx('hero-show__tab', i === cat && 'is-active')}
-              data-brand={s.brand}
-              aria-pressed={i === cat}
-              aria-controls="hero-show-mosaic"
-              onClick={() => choose(i)}
-            >
-              <span className="hero-show__dot" aria-hidden="true" />
-              {t(s.label[0], s.label[1])}
-              {i === cat && <span className="hero-show__progress" aria-hidden="true"><span ref={barRef} /></span>}
-            </button>
-          ))}
-        </div>
-        {!reduced && (
-          <button
-            type="button"
-            className="hero-show__pause"
-            onClick={() => setUserPaused((p) => !p)}
-            aria-label={userPaused ? t('Play the photo slideshow', 'படக்காட்சியை இயக்கு') : t('Pause the photo slideshow', 'படக்காட்சியை நிறுத்து')}
-          >
-            {userPaused ? <Play size={14} strokeWidth={2} aria-hidden="true" /> : <Pause size={14} strokeWidth={2} aria-hidden="true" />}
-          </button>
-        )}
-      </div>
+      {!reduced && SEQUENCE.length > 1 && (
+        <button
+          type="button"
+          className="hero-show__pause"
+          aria-controls="hero-show-mosaic"
+          onClick={() => setUserPaused((p) => !p)}
+          aria-label={userPaused ? t('Play the photo slideshow', 'படக்காட்சியை இயக்கு') : t('Pause the photo slideshow', 'படக்காட்சியை நிறுத்து')}
+        >
+          {userPaused ? <Play size={14} strokeWidth={2} aria-hidden="true" /> : <Pause size={14} strokeWidth={2} aria-hidden="true" />}
+        </button>
+      )}
     </div>
   );
 }

@@ -34,6 +34,7 @@ export { Scroller } from './Scroller.jsx';
 export { PillSubNav } from './PillSubNav.jsx';
 export { Marquee } from './Marquee.jsx';
 export { LogoWall } from './LogoWall.jsx';
+export { CommunityLogos } from './CommunityLogos.jsx';
 export { KeyFacts } from './KeyFacts.jsx';
 export { Field, CheckboxControl } from './Field.jsx';
 export { ConsentCheckbox } from './ConsentCheckbox.jsx';

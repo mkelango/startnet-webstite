@@ -37,7 +37,10 @@
 }
 .brand-hero__title { max-width: 8.83em; color: var(--color-text); }
 .brand-hero--text .brand-hero__title { max-width: 13.88em; }
-:lang(ta) .brand-hero__title { max-width: 13.88em; }
+/* Tamil (Brand Book 04: a long Tamil headline keeps to two or three lines; Tamil measure is capped in em, not ch):
+   the title steps to --text-h1 with a 36em cap, and from 1024 the copy takes cols 1–7 (below). The self-hosted Anek
+   Tamil has no width axis, so the size and the column do the work. */
+:root .brand-hero__title:lang(ta) { font-size: var(--text-h1); max-width: 36em; }
 .brand-hero__lede { margin-top: var(--space-6); max-width: var(--measure-lede); color: var(--color-text-2); }
 :lang(ta) .brand-hero__lede { max-width: 36em; }
 .brand-hero__actions { margin-top: var(--space-8); --cluster-gap: var(--space-3); }
@@ -93,6 +96,9 @@
     max-height: 560px;
     border-radius: var(--radius-panel) 0 0 var(--radius-panel);
   }
+}
+@media (min-width: 1024px) and (min-aspect-ratio: 1001 / 1000) {
+  .brand-hero--split:lang(ta) .brand-hero__inner { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
 }
 /* Portrait or near-square screens at ≥1024 (1024×1366 tablets): keep the stacked layout. */
 @media (min-width: 1024px) and (max-aspect-ratio: 1 / 1) {
