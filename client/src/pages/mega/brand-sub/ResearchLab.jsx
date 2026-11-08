@@ -310,7 +310,7 @@ function LabPage({ lab }) {
       </Section>
 
       {/* Other Wave 1 Labs + Wave 2 (proposed) */}
-      <Section surface="paper" pad="sm" labelledBy="lab-others-title">
+      <Section surface="paper" pad="tight" labelledBy="lab-others-title">
         <SectionHeader
           eyebrow={t('Wave 1 · 2027', 'அலை 1 · 2027')}
           id="lab-others-title"

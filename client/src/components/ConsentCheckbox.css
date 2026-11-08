@@ -1,11 +1,14 @@
+/* Consent per purpose (SPEC §4.12): 20px checkbox, consent text 14px / 1.5 Graphite, underlined links. */
 .consent-checkbox { display: grid; gap: var(--space-1); }
 .consent-checkbox__row { display: flex; align-items: flex-start; gap: var(--space-3); min-height: 44px; }
-.consent-checkbox__label { cursor: pointer; font-size: var(--text-small); line-height: 1.5; color: var(--color-text-2); padding-top: 0.15em; }
+.consent-checkbox__label { cursor: pointer; font-size: var(--text-meta); line-height: 1.5; color: var(--color-text-2); padding-top: 0.15em; }
+.consent-checkbox__label a,
+.consent-checkbox__notice a { color: var(--color-text-2); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+@media (hover: hover) { :is(.consent-checkbox__label, .consent-checkbox__notice) a:hover { color: var(--color-text); } }
 .consent-checkbox__optional { color: var(--color-text-muted); }
 .consent-checkbox__notice { padding-left: calc(24px + var(--space-3)); font-size: var(--text-caption); }
-.consent-checkbox__notice a { color: var(--color-text-2); }
 .consent-checkbox__error { padding-left: calc(24px + var(--space-3)); }
-.consent-checkbox--error .field__checkbox { border-color: var(--color-error); border-width: 2px; }
+.consent-checkbox--error .field__checkbox { border-color: var(--color-error); box-shadow: 0 0 0 1px var(--color-error); }
 
 /* 44px targets (WCAG 2.5.5): the label fills the 44px row; on phones / touch the privacy-notice link gets its own
    44px line, 8px clear of the label above. */

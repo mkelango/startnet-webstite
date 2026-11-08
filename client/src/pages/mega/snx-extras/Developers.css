@@ -10,12 +10,12 @@
 
 .snx-dev__principles { list-style: none; display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
 @media (min-width: 768px) { .snx-dev__principles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.snx-dev__principle { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius); box-shadow: none; min-width: 0; }
+.snx-dev__principle { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--radius-card); box-shadow: none; min-width: 0; }
 .snx-dev__principle .h5 { font-weight: 500; letter-spacing: -0.01em; }
 /* Line icon in a 40px hairline square (no tinted circle). */
 .snx-dev__icon {
   display: inline-grid; place-items: center; width: 40px; height: 40px; margin-bottom: var(--space-3);
-  border: 1px solid var(--color-border); border-radius: var(--btn-radius);
+  border: 1px solid var(--color-border); border-radius: var(--radius-full);
   background: transparent; color: var(--color-text);
 }
 .snx-dev__icon svg { width: 20px; height: 20px; }
@@ -31,7 +31,7 @@
 
 /* Night band: endpoints + samples */
 .snx-dev__table-wrap { margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); overflow-x: auto; -webkit-overflow-scrolling: touch; border-top: 1px solid var(--color-border); }
-.snx-dev__table-wrap:focus-visible { outline: 2px solid var(--accent-night); outline-offset: 2px; }
+.snx-dev__table-wrap:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
 .snx-dev__table { width: 100%; min-width: 34rem; border-collapse: collapse; font-size: var(--text-small); }
 .snx-dev__table th, .snx-dev__table td { text-align: left; vertical-align: top; padding: var(--space-4) var(--space-3); border-bottom: 1px solid var(--color-border); }
 .snx-dev__table :is(th, td):first-child { padding-left: 0; }
@@ -104,5 +104,10 @@
 @media (min-width: 1024px) { .snx-dev__form-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; } }
 .snx-dev__form-intro { display: grid; gap: var(--space-5); justify-items: start; }
 .snx-dev__form-intro .body-lg { max-width: 36rem; }
-.snx-dev__form { min-width: 0; padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius); }
+.snx-dev__form { min-width: 0; padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--radius-card); }
 @media (min-width: 768px) { .snx-dev__form { padding: var(--space-8); } }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.snx-dev__principle .h5:lang(ta),
+.snx-dev__users > .h4:lang(ta),
+.snx-dev__sample-col > .h5:lang(ta) { letter-spacing: 0; }

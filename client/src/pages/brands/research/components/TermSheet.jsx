@@ -84,6 +84,7 @@ export default function TermSheet({ compact = false }) {
                     key={s.id}
                     className={`termsheet__seg${active === s.id ? ' is-active' : ''}`}
                     style={{ flex: `${s.share} 1 0%`, '--seg': s.color }}
+                    data-party={s.id}
                     initial={reduced ? false : { scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
                     viewport={{ once: true, amount: 0.6 }}
@@ -126,6 +127,7 @@ export default function TermSheet({ compact = false }) {
                       strokeDasharray={`${Math.max(a.len - 2, 0)} ${CIRC}`}
                       strokeDashoffset={-a.offset}
                       className={`termsheet__arc${active === a.id ? ' is-active' : ''}`}
+                      data-party={a.id}
                       onMouseEnter={() => setActive(a.id)}
                     />
                   ))}
@@ -155,7 +157,7 @@ export default function TermSheet({ compact = false }) {
                     <tr key={s.id}>
                       <th scope="row">
                         <span className="termsheet__party">
-                          <span className="termsheet__swatch" style={{ '--seg': s.color }} aria-hidden="true" />
+                          <span className="termsheet__swatch" style={{ '--seg': s.color }} data-party={s.id} aria-hidden="true" />
                           {s.label}
                         </span>
                       </th>
@@ -183,7 +185,7 @@ export default function TermSheet({ compact = false }) {
                     {...segProps(s)}
                     onClick={() => setActive(s.id)}
                   >
-                    <span className="termsheet__swatch" style={{ '--seg': s.color }} aria-hidden="true" />
+                    <span className="termsheet__swatch" style={{ '--seg': s.color }} data-party={s.id} aria-hidden="true" />
                     <span className="termsheet__key-label">{s.label}</span>
                     <span className="termsheet__key-val tnum">{s.share}%</span>
                   </button>

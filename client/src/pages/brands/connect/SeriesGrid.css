@@ -23,7 +23,7 @@
 .connect-series__card {
   position: relative; display: flex; flex-direction: column; gap: var(--space-3); width: 100%;
   padding: var(--space-6); padding-top: var(--space-5);
-  background: var(--bp-card, var(--color-bg-raised)); box-shadow: inset 0 0 0 1px var(--bp-line, var(--color-border)); border-radius: var(--media-radius);
+  background: var(--bp-card, var(--color-bg-raised)); box-shadow: inset 0 0 0 1px var(--bp-line, var(--color-border)); border-radius: var(--radius-card);
   overflow: hidden;
   transition: box-shadow var(--dur-3) var(--ease-snap);
 }
@@ -81,3 +81,6 @@
 
 [data-surface="night"] .connect-series__card { background: var(--night-1); }
 :lang(ta) .connect-series__index { letter-spacing: 0; }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.connect-series__name:lang(ta) { letter-spacing: 0; }

@@ -6,9 +6,12 @@ import { useMemo, useRef, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { ArrowRight, Bell, FileText, Lock, MessageSquare } from 'lucide-react';
 import {
-  Seo, PageHero, Section, SectionHeader, Stat, TagChip, Badge, Button, RevealGroup, ReportCard,
-  Skeleton, EmptyState, KeyFacts, SmartForm, Breadcrumbs, PageLoader,
+  Seo, Section, SectionHeader, Stat, TagChip, Badge, Button, RevealGroup, ReportCard,
+  Skeleton, EmptyState, KeyFacts, SmartForm, Breadcrumbs, PageLoader, ArtImage,
 } from '../../../components';
+import { ArticleHead, ShareIcons } from '../../insights/ArticleHead.jsx';
+import { listedReport } from '../../insights/ledgerUtils.js';
+import { heroPhoto, PHOTO_SIZES } from '../../../data/photos.js';
 import { useApi } from '../../../hooks/useApi.js';
 import { useLang } from '../../../lib/i18n.jsx';
 import { webPageLd, itemListLd, langPath, articleLd } from '../../../lib/seo.js';
@@ -155,7 +158,7 @@ export default function ReportDetail() {
 }
 
 function ReportView({ report: r, all }) {
-  const { t, lang } = useLang();
+  const { t, lang, basePath } = useLang();
   const bodyRef = useRef(null);
   const x = EXTRAS[r.slug] || {};
   const en = lang === 'ta' ? 'en' : undefined; // API copy is English-only
@@ -169,6 +172,8 @@ function ReportView({ report: r, all }) {
   const comingLabel = year ? t(`Coming ${year}`, `${year}-இல் வருகிறது`) : t('Coming soon', 'விரைவில் வருகிறது');
   // The API summary may already end with the Book 2 §6.1 "Planned…" microcopy, which this page prints on its own.
   const summary = String(r.summary || '').replace(/\s*Planned\. We'll publish the method before the first edition\.\s*$/, '').trim();
+  // The same for the Tamil summary, used as the dek on /ta (the head would otherwise mix languages).
+  const summaryTa = String(r.summaryTa || '').replace(/\s*திட்டமிடப்பட்டுள்ளது\. முதல் பதிப்புக்கு முன் (?:வழிமுறையை|முறையியலை) வெளியிடுவோம்\.\s*$/, '').trim();
   const chapterName = (c) => (x.chapters && x.chapters[c] ? t(c, x.chapters[c]) : c);
   const chapterLang = (c) => (x.chapters && x.chapters[c] ? undefined : en);
 
@@ -186,7 +191,8 @@ function ReportView({ report: r, all }) {
   }, [all, r.slug, r.kind]);
 
   const navItems = NAV.map(([id, a, b]) => ({ id: `report-${id}`, label: t(a, b) }));
-  const sub = x.sub ? t(x.sub[0], x.sub[1]) : summary;
+  const subTa = lang === 'ta' && !x.sub && summaryTa ? summaryTa : null;
+  const sub = x.sub ? t(x.sub[0], x.sub[1]) : subTa || summary;
 
   const facts = [
     { label: t('Type', 'வகை'), value: kindName },
@@ -244,46 +250,64 @@ function ReportView({ report: r, all }) {
         }
       />
 
-      <PageHero
-        eyebrow={`${kindName}${r.cadence ? ` · ${r.cadence === 'Annual' ? t('Annual', 'ஆண்டுதோறும்') : r.cadence}` : ''}`}
-        titleClass="display-xl report-detail__hero-title"
-        title={r.title}
-        lede={sub}
-        breadcrumbs={[
+      <ArticleHead
+        className="article-head--rail report-detail__head"
+        crumbs={[
           { label: t('Insights', 'நுண்ணறிவுகள்'), to: '/insights' },
           { label: t('Reports', 'அறிக்கைகள்'), to: '/insights/reports' },
           { label: r.title },
         ]}
-        art={{ variant: r.kind === 'index' ? 'map' : 'network', ratio: '4/5', seed: hashSeed(r.slug), label: `${r.title}`, alt: '' }}
-        meta={
-          <div className="report-detail__badges">
-            <Badge kind="type">{kindName}</Badge>
+        meta={[kindName, r.cadence ? (r.cadence === 'Annual' ? t('Annual', 'ஆண்டுதோறும்') : r.cadence) : null]}
+        badges={
+          <>
             {year && <Badge kind="lang">{year}</Badge>}
-            {published ? <Badge kind="status" status="open">{t('Published', 'வெளியிடப்பட்டது')}</Badge> : <Badge kind="status" status="upcoming">{comingLabel}</Badge>}
-          </div>
+            {published ? <Badge kind="status" status="open">{t('Published', 'வெளியிடப்பட்டது')}</Badge> : <Badge kind="type">{comingLabel}</Badge>}
+          </>
         }
+        title={r.title}
+        titleLang={en}
+        accentFirst
+        dek={sub}
+        dekLang={x.sub || subTa ? undefined : en}
         actions={
-          published ? (
-            <Button href="#report-download" icon={FileText}>{t('Download the report', 'அறிக்கையைப் பதிவிறக்குங்கள்')}</Button>
-          ) : (
-            <Button href="#report-download" icon={Bell}>{t("Get the report when it's out", 'அறிக்கை வெளியானதும் பெறுங்கள்')}</Button>
-          )
+          <>
+            {published ? (
+              <Button variant="secondary" href="#report-download" icon={FileText}>{t('Download the report', 'அறிக்கையைப் பதிவிறக்குங்கள்')}</Button>
+            ) : (
+              <Button variant="secondary" href="#report-download" icon={Bell}>{t("Get the report when it's out", 'அறிக்கை வெளியானதும் பெறுங்கள்')}</Button>
+            )}
+            <ShareIcons title={r.title} />
+          </>
         }
       />
 
-      <Section surface="paper" className="report-detail">
-        <div className="report-detail__layout">
-          <div className="report-detail__aside">
-            <div className="report-detail__sticky">
+      <div className="container article-lead">
+        <div className="article-lead__frame">
+          <ArtImage
+            variant={r.kind === 'index' ? 'map' : 'network'}
+            ratio="16/9"
+            seed={hashSeed(r.slug)}
+            label={`${r.title}`}
+            photo={heroPhoto(basePath || '/')}
+            priority
+            sizes={PHOTO_SIZES.wide}
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div className="container grid-12 article-body report-detail">
+          <div className="article-rail report-detail__aside">
+            <div className="article-rail__sticky">
               <ChapterNav items={navItems} targetRef={bodyRef}>
                 <KeyFacts sticky={false} title={t('About this report', 'இந்த அறிக்கை பற்றி')} items={facts} />
               </ChapterNav>
             </div>
           </div>
 
-          <article className="report-detail__body" ref={bodyRef}>
+          <article className="article-main article-prose report-detail__body" ref={bodyRef}>
             {/* 1 · Summary */}
-            <section id="report-summary" className="report-detail__block" aria-labelledby="report-summary-h">
+            <section id="report-summary" className="article-block report-detail__block" aria-labelledby="report-summary-h">
               <h2 id="report-summary-h" className="h3">{t('Summary', 'சுருக்கம்')}</h2>
               {x.sub && !(x.preLaunch && !published) && summary && <p className="body-lg report-detail__summary" lang={en}>{summary}</p>}
               {!published && x.preLaunch && (
@@ -317,7 +341,7 @@ function ReportView({ report: r, all }) {
             </section>
 
             {/* 2 · Key findings (M12, each tagged) */}
-            <section id="report-findings" className="report-detail__block" aria-labelledby="report-findings-h">
+            <section id="report-findings" className="article-block report-detail__block" aria-labelledby="report-findings-h">
               <h2 id="report-findings-h" className="h3">{t('Key findings', 'முக்கியக் கண்டறிதல்கள்')}</h2>
               {published && findings.length > 0 ? (
                 <RevealGroup className="report-detail__findings">
@@ -354,7 +378,7 @@ function ReportView({ report: r, all }) {
             </section>
 
             {/* 3 · Chapters */}
-            <section id="report-chapters" className="report-detail__block" aria-labelledby="report-chapters-h">
+            <section id="report-chapters" className="article-block report-detail__block" aria-labelledby="report-chapters-h">
               <h2 id="report-chapters-h" className="h3">
                 {published ? t('Chapters', 'அத்தியாயங்கள்') : t('Planned chapters', 'திட்டமிடப்பட்ட அத்தியாயங்கள்')}
               </h2>
@@ -375,7 +399,7 @@ function ReportView({ report: r, all }) {
             </section>
 
             {/* 4 · Methodology summary */}
-            <section id="report-method" className="report-detail__block" aria-labelledby="report-method-h">
+            <section id="report-method" className="article-block report-detail__block" aria-labelledby="report-method-h">
               <h2 id="report-method-h" className="h3">{t('Methodology', 'முறையியல்')}</h2>
               {r.methodology ? (
                 <p className="report-detail__prose" lang={en}>{r.methodology}</p>
@@ -417,7 +441,7 @@ function ReportView({ report: r, all }) {
             </section>
 
             {/* 6 · Download (light gate) or notify */}
-            <section id="report-download" className="report-detail__block" aria-labelledby="report-download-h">
+            <section id="report-download" className="article-block report-detail__block" aria-labelledby="report-download-h">
               <h2 id="report-download-h" className="h3">
                 {published ? t('Download', 'பதிவிறக்கம்') : comingLabel}
               </h2>
@@ -443,8 +467,7 @@ function ReportView({ report: r, all }) {
               )}
             </section>
           </article>
-        </div>
-      </Section>
+      </div>
 
       {related.length > 0 && (
         <Section surface="white" labelledBy="report-related-h">
@@ -454,10 +477,10 @@ function ReportView({ report: r, all }) {
             title={t('Related reports', 'தொடர்புடைய அறிக்கைகள்')}
             action={<Button variant="tertiary" to="/insights/reports" icon={ArrowRight}>{t('All reports', 'அனைத்து அறிக்கைகளும்')}</Button>}
           />
-          <RevealGroup className="report-detail__related">
+          <RevealGroup className="grid grid-3 report-detail__related">
             {related.map((o) => (
               <div key={o.slug} className="report-detail__related-item">
-                <ReportCard report={o} to={reportPath(o)} />
+                <ReportCard report={listedReport(o)} to={reportPath(o)} />
               </div>
             ))}
           </RevealGroup>

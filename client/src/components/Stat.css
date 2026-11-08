@@ -1,5 +1,6 @@
-/* Stats (DESIGN-v2 3.9): numerals at --text-stat, weight 400, -0.04em, tabular; units on the baseline at 0.5em;
-   label 15px muted 12px below; one tag style 8px below the label. Value, unit, tag and as-at form one unit. */
+/* Stats (docs/redesign/SPEC.md §4.7): numerals --text-stat (32→56) / 1.05 / −0.03em / 400, tabular; units on the
+   baseline at 0.5em; label 14px / 400 Graphite at 1.43, 8px below, max 22ch; tag and as-at 8px below the label.
+   Numbers are always Ink (Paper on night), never the accent and never red. Count-up ends on the prerendered value. */
 :where(.stat) { margin: 0; }
 .stat {
   display: flex;
@@ -17,8 +18,8 @@
   margin: 0;
   font-family: var(--font-display);
   font-size: var(--text-stat);
-  font-weight: 400;
-  line-height: 1;
+  font-weight: var(--weight-body);
+  line-height: var(--leading-stat);
   letter-spacing: var(--tracking-stat);
   color: var(--color-text);
   font-variant-numeric: tabular-nums lining-nums;
@@ -38,12 +39,12 @@
 }
 :root .stat__unit--tight { margin-left: 0; font-size: 0.5em; color: var(--color-text-2); }
 :root .stat__label {
-  margin: 12px 0 0;
-  font-size: var(--text-label);
-  font-weight: 400;
-  line-height: 1.4;
-  color: var(--color-text-muted);
-  max-width: 24ch;
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-body);
+  line-height: 1.43;
+  color: var(--color-text-2);
+  max-width: 22ch;
 }
 .stat__meta {
   display: flex;
@@ -57,7 +58,7 @@
 .stat__asat { font-variant-numeric: tabular-nums; }
 .stat__corrected {
   padding: 0 6px;
-  border-radius: var(--radius-btn);
+  border-radius: var(--radius-sm);
   background: var(--color-warning-bg);
   color: var(--color-warning);
   font-weight: 500;
@@ -67,7 +68,8 @@
 
 /* Variants */
 :root .stat--default { padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
-.stat--hero .stat__value { font-size: var(--text-display-xl); }
+.stat--hero .stat__value,
+.stat--lg .stat__value { font-size: var(--text-stat-lg); }
 .stat--hero .stat__label { font-size: var(--text-body); max-width: 32ch; }
 .stat--compact .stat__value { font-size: var(--text-h3); letter-spacing: -0.02em; }
 .stat--compact .stat__label { margin-top: 4px; font-size: var(--text-caption); }
@@ -76,6 +78,8 @@
 .stat--center { align-items: center; text-align: center; }
 .stat--center .stat__value, .stat--center .stat__meta { justify-content: center; }
 :lang(ta) .stat__label { max-width: 32ch; }
+/* Tamil: no letter-spacing anywhere (SPEC §7.6), including the -0.01em / -0.02em steps on units and compact values */
+:root :lang(ta) :is(.stat__value, .stat__num, .stat__count-final, .stat__count-live, .stat__unit) { letter-spacing: 0; }
 
 /* ===== Tag popover ===== */
 .tag-pop { position: relative; display: inline-flex; z-index: 2; }

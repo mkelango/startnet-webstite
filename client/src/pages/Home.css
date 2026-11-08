@@ -1,62 +1,49 @@
-/* Home (T01) — DESIGN-v2 6.1. Ground plan: Ink hero → sheet rise → Paper (#i-am) → Ink (#where-things-stand) → Paper
-   (#brands) → Paper story (hairline) → Bone (#mission) → Paper (#why-tamil-nadu) → Ink (#on-film) → Bone (#coming-up)
-   → Paper (#open-now) → Bone (#updates) → Paper (#stories) → Bone (#partner) → Paper (#questions) → Ink CTA → footer.
-   Shared parts (Section, SectionHeader, cards, Scroller, FactBand, Stat, Tabs, Accordion, CTABand) come from the
-   foundation; this file only lays the sections out on the 12-col editorial grid and tunes the home-only pieces. */
+/* Home (T01), docs/redesign/SPEC.md §5.1: the Plug and Play home rhythm in StartNet's brand.
+   Grounds: Ink hero (runs up under the header card) → sheet rise → Paper (#i-am) → Ink band #1 (#where-things-stand)
+   → Paper (#brands) → Bone (#how-it-works) → Paper (#mission) → inset Ink panel, band #2 (#why-tamil-nadu) → Paper
+   (#on-film) → Bone (#coming-up) → Paper (#open-now) → Bone (#updates) → Paper (#stories, when shown) → Paper
+   (#partner, hairline) → Bone (#questions) → the closing Ink CTA band → the Slate newsletter → footer.
+   The kit (Section, SectionHeader, FactBand, Stat, BrandTile, Scroller, cards, Marquee, LogoWall, Accordion, CTABand)
+   draws itself; this file lays the sections out and styles the home-only pieces. Values come from tokens.css. */
 
 /* ---------- Shared ---------- */
-.home .section-header__title { text-wrap: balance; }
 .home-block { min-width: 0; }
-/* Arrow links that wrap (long Tamil labels): left-aligned, the arrow follows the text instead of the far edge. */
-.home .button--tertiary { text-align: start; justify-content: flex-start; }
 /* Below-the-fold sections skip rendering until near the viewport. */
 .home-lazy { content-visibility: auto; contain-intrinsic-size: auto 900px; }
 
-/* Section header rhythm (AIWO-BLUEPRINT 1.3 / P2 item 11): label → 24px → h2 → 32px → lede (20px, ≤44ch); the header
-   block is capped at 832px; header → content stays --space-head-gap (64px at 1440). */
-:root .home .section-header__text { max-width: 52rem; }
-:root .home .section-header__eyebrow { margin-bottom: var(--space-6); }
-:root .home .section-header__lede { margin-top: var(--space-8); max-width: 44ch; line-height: 1.5; }
-:root .home :lang(ta) .section-header__lede { max-width: 38em; }
-
 /* =====================================================================================================
-   Hero (M01, v3, 14 Oct 2026). Ink band, three layers: copy (cols 1–6) · photo mosaic (cols 7–12) · proof strip
-   (full width, hairline above). ≥1024 landscape: the band fills the first screen, copy and mosaic centred on one
-   line, the strip at the foot. Smaller screens and portrait tablets: copy first (headline in the first screen),
-   then the mosaic, then the strip as a slow marquee. Boxes are sized by CSS before paint (no CLS); the entrance is
-   transform-only, so the copy is visible from first paint.
+   Hero (SPEC §5.1 #1, §3.1 spacer note). The Ink band starts at the top of the page, under the floating header
+   card: it pulls itself up over the shell spacer (--shell-top) and adds the same amount to its top padding.
+   ≥1024 landscape: copy in cols 1–6 on the pulli grid, the proof strip at the copy column's foot; the photo mosaic
+   in cols 7–12, bleeding to the top, right and bottom edges with its top-left corner rounded (--radius-panel).
+   Phones, tablets and portrait screens: the photo first (full bleed, 4/5, capped at 72svh), then the copy, then
+   the strip. Boxes are sized by CSS before paint (no CLS); the copy's entrance is transform-only.
    ===================================================================================================== */
 :root .home .home-hero--v3 {
+  --hero-bar-h: 3.5rem;
   position: relative;
   display: flex;
   flex-direction: column;
-  padding-top: clamp(var(--space-8), 1rem + 4vw, var(--space-12));
-  padding-bottom: calc(var(--sheet-radius) + clamp(var(--space-8), 1rem + 3vw, var(--space-12)));
+  margin-top: calc(-1 * var(--shell-top));
+  padding-top: 0;
   overflow: clip;
   isolation: isolate;
 }
 
-/* Background: a faint pulli dot grid fading out from behind the copy, and a soft warm light at the top left. Static. */
-.home-hero__bg {
-  position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    radial-gradient(48rem 32rem at 12% 8%, rgb(239 68 68 / 0.07), transparent 70%),
-    radial-gradient(circle at 1px 1px, rgb(244 243 239 / 0.13) 1px, transparent 1.6px) 0 0 / 28px 28px;
-  -webkit-mask-image: radial-gradient(ellipse 75% 85% at 18% 30%, #000 10%, transparent 72%);
-  mask-image: radial-gradient(ellipse 75% 85% at 18% 30%, #000 10%, transparent 72%);
-}
+/* The static pulli dot grid (SPEC §4.16) behind the copy: the left 45% of the band from 1024, the whole band below. */
+.home-hero__bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 
-.home-hero__grid { position: relative; z-index: 1; display: grid; gap: clamp(var(--space-10), 1rem + 4vw, var(--space-16)); }
+.home-hero__grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--space-10); }
 .home-hero__copy { min-width: 0; }
 
 /* ---------- Lead line: the next-event pill (or the eyebrow), same height either way ---------- */
-.home-hero__lead-slot { min-height: 2.5rem; display: flex; align-items: center; margin-bottom: clamp(var(--space-6), 0.75rem + 1.5vw, var(--space-8)); }
+.home-hero__lead-slot { min-height: 2.5rem; display: flex; align-items: center; margin-bottom: var(--space-label-gap); }
 .home-hero__eyebrow { margin: 0; color: var(--night-text); }
 .home-hero__pill {
   display: inline-flex; align-items: center; gap: var(--space-3); max-width: 100%;
-  min-height: 2.5rem; padding: 4px var(--space-4) 4px 4px;
+  min-height: 2.5rem; padding: var(--space-1) var(--space-4) var(--space-1) var(--space-1);
   border-radius: var(--radius-full);
-  background: rgb(244 243 239 / 0.06);
+  background: color-mix(in srgb, var(--paper) 6%, transparent);
   box-shadow: inset 0 0 0 1px var(--night-line-strong);
   color: var(--night-text); text-decoration: none; font-size: var(--text-meta); line-height: 1.2;
   transition: background-color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
@@ -64,12 +51,15 @@
 .home-hero__pill-tag {
   flex: none; display: inline-flex; align-items: center; gap: 6px;
   height: 2rem; padding: 0 var(--space-3); border-radius: var(--radius-full);
-  background: var(--paper); color: var(--sn-ink); font-weight: 600; font-size: 0.8125rem; letter-spacing: 0.01em;
+  background: var(--paper); color: var(--ink-900); font-weight: 500; font-size: var(--text-caption);
 }
-.home-hero__pill-dot { position: relative; width: 7px; height: 7px; border-radius: 50%; background: var(--sn-red); }
+/* The live dot is semantic (success), never red: the h1's full stop is the hero's one red point. */
+.home-hero__pill-dot { position: relative; width: 7px; height: 7px; border-radius: 50%; background: var(--color-success); }
 .home-hero__pill-dot::after {
-  content: ''; position: absolute; inset: -4px; border-radius: 50%; background: var(--sn-red); opacity: 0;
-  animation: home-hero-ping 2.4s var(--ease-standard) infinite;
+  content: ''; position: absolute; inset: -4px; border-radius: 50%; background: var(--color-success); opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) .home-hero__pill-dot::after { animation: home-hero-ping 2.4s var(--ease-standard) infinite; }
 }
 @keyframes home-hero-ping { 0% { transform: scale(0.4); opacity: 0.45; } 80%, 100% { transform: scale(1.6); opacity: 0; } }
 .home-hero__pill-text { min-width: 0; display: inline-flex; gap: var(--space-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -78,31 +68,31 @@
 .home-hero__pill-meta::before { content: '·'; margin-right: var(--space-2); }
 .home-hero__pill-arrow { flex: none; color: var(--night-text-2); transition: transform var(--dur-2) var(--ease-snap); }
 @media (hover: hover) and (pointer: fine) {
-  .home-hero__pill:hover { background: rgb(244 243 239 / 0.1); box-shadow: inset 0 0 0 1px var(--night-text-muted); }
-  .home-hero__pill:hover .home-hero__pill-arrow { transform: translateX(3px); }
+  .home-hero__pill:hover { background: color-mix(in srgb, var(--paper) 10%, transparent); box-shadow: inset 0 0 0 1px var(--night-text-muted); }
+  .home-hero__pill:hover .home-hero__pill-arrow { transform: translateX(var(--shift-1)); }
 }
-.home-hero__pill:focus-visible { outline: 2px solid var(--night-text); outline-offset: 3px; }
-@media (max-width: 479px) { .home-hero__pill-meta { display: none; } }
+.home-hero__pill:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
+@media (max-width: 479.98px) { .home-hero__pill-meta { display: none; } }
 
-/* ---------- Headline, lede, actions ---------- */
+/* ---------- Headline (40 → 88, 500, −0.04em), lede, actions ---------- */
 :root .home .home-hero__title {
   max-width: 11ch;
   margin: 0;
   font-size: var(--text-display-2xl);
-  font-weight: 400;
-  line-height: var(--leading-display, 1.02);
-  letter-spacing: var(--tracking-display, -0.04em);
+  font-weight: var(--weight-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
   text-wrap: balance;
 }
-:root .home .home-hero__title:lang(ta) { max-width: 16ch; font-size: calc(var(--text-display-2xl) * 0.74); line-height: 1.22; letter-spacing: 0; }
+/* Tamil: tokens.css does not scale --text-display-2xl for Tamil; this ×0.74 is the only factor (G1 note). */
+:root .home .home-hero__title:lang(ta) { max-width: 16ch; font-size: calc(var(--text-display-2xl) * 0.74); }
 
-/* Lede → 40px → actions → 24px → the partner line. */
-:root .home .home-hero__lede { max-width: 38ch; margin: clamp(var(--space-6), 0.75rem + 1.5vw, var(--space-8)) 0 0; color: var(--night-text-2); font-size: var(--text-lede); line-height: 1.5; text-align: left; text-wrap: pretty; }
+:root .home .home-hero__lede { max-width: var(--measure-lede); margin: var(--space-lede-gap) 0 0; color: var(--night-text-2); font-size: var(--text-lede); line-height: var(--leading-lede); text-wrap: pretty; }
 :root .home :lang(ta) .home-hero__lede { max-width: 34em; }
-.home-hero__cta { margin-top: clamp(var(--space-8), 1rem + 1.5vw, var(--space-10)); }
+.home-hero__cta { margin-top: var(--space-8); }
 .home-hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
-@media (max-width: 479px) { .home-hero__actions > * { flex: 1 1 100%; } }
-/* "Partner with us" as an arrow link in Night text 2 → Paper, 24px under the buttons */
+@media (max-width: 479.98px) { .home-hero__actions > * { flex: 1 1 100%; } }
+/* The partner question, then "Partner with us" as the tertiary link, 24px under the buttons */
 :root .home .home-hero__partner {
   display: flex;
   flex-wrap: wrap;
@@ -113,91 +103,79 @@
   font-size: var(--text-meta);
   color: var(--night-text-muted);
 }
-:root .home .home-hero__partner-link {
-  --button-fg: var(--night-text-2);
-  --button-fg-hover: var(--paper);
-  min-height: 0;
-  padding: 0;
-  font-size: var(--text-meta);
-  font-weight: 500;
-}
-@media (pointer: coarse) { :root .home .home-hero__partner-link { min-height: 44px; } }
 
-/* ---------- Mosaic: one tall photo and two stacked, 12px gutters, 16px corners, a caption chip on each ---------- */
+/* ---------- Mosaic: one tall photo and two stacked, 4px Ink seams, a caption chip on each ---------- */
+.hero-show { position: relative; display: grid; grid-template-rows: minmax(0, 1fr); min-width: 0; background: var(--night-1); }
 .home-hero__mosaic {
   display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr); grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: var(--space-3);
-  height: clamp(20rem, 4rem + 72vw, 34rem);
+  gap: var(--space-1);
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: 72svh;
 }
-.home-hero__tile {
-  position: relative; margin: 0; min-width: 0; min-height: 0; overflow: hidden;
-  border-radius: var(--radius-lg); background: var(--night-1);
-  box-shadow: 0 0 0 1px rgb(244 243 239 / 0.06);
-}
+.home-hero__tile { position: relative; margin: 0; min-width: 0; min-height: 0; overflow: hidden; background: var(--night-1); }
 .home-hero__tile--main { grid-row: 1 / span 2; }
 /* Showcase layers (home/HeroShowcase.jsx): the incoming photo fades and settles in over the outgoing one. Tiles
    stagger by --i (0 / 110 / 220 ms), so a category change sweeps across the mosaic. */
 .hero-show__layer { position: absolute; inset: 0; }
 .hero-show__picture, .hero-show__img { display: block; width: 100%; height: 100%; }
-.hero-show__img { object-fit: cover; transition: transform var(--dur-6) var(--ease-reveal); }
+.hero-show__img { object-fit: cover; transition: scale var(--dur-media) var(--ease-media); }
 .hero-show__layer.is-in { animation: hero-show-in 950ms var(--ease-reveal) calc(var(--i, 0) * 110ms) both; }
 @keyframes hero-show-in { from { opacity: 0; transform: scale(1.06); } to { opacity: 1; transform: none; } }
 .home-hero__chip { animation: hero-chip-in 520ms var(--ease-reveal) calc(var(--i, 0) * 110ms + 200ms) both; }
 @keyframes hero-chip-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-/* A soft floor of shade so the chip always reads. */
-.home-hero__tile::after {
-  content: ''; position: absolute; inset: auto 0 0; height: 38%; pointer-events: none;
-  background: linear-gradient(to top, rgb(12 23 25 / 0.55), transparent);
-}
 .home-hero__chip {
-  position: absolute; left: var(--space-3); bottom: var(--space-3); right: var(--space-3); z-index: 1;
+  position: absolute; left: var(--space-3); bottom: var(--space-3); z-index: 1;
   display: flex; align-items: center; gap: var(--space-2); width: fit-content; max-width: calc(100% - var(--space-6));
   padding: 5px var(--space-3); border-radius: var(--radius-full);
-  background: rgb(12 23 25 / 0.58); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  box-shadow: inset 0 0 0 1px rgb(244 243 239 / 0.14);
-  color: var(--night-text); font-size: 0.75rem; font-weight: 500; line-height: 1.3;
+  background: var(--overlay-photo-strong);
+  color: var(--night-text); font-size: var(--text-caption); font-weight: 500; line-height: 1.3;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+.home-hero__chip::before { content: ''; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--color-label-dot); }
+/* The tall tile and the lower tile sit on the category strip: their chips ride above it. */
+:is(.home-hero__tile--main, .home-hero__tile--bottom) .home-hero__chip { bottom: calc(var(--hero-bar-h) + var(--space-3)); }
 /* Narrow tiles: the chip may wrap to a second line rather than cut the place name. */
 @media (max-width: 767.98px) {
-  .home-hero__chip { white-space: normal; align-items: flex-start; border-radius: var(--radius-md); padding: 5px var(--space-2); left: var(--space-2); bottom: var(--space-2); max-width: calc(100% - var(--space-4)); }
+  .home-hero__chip { white-space: normal; align-items: flex-start; border-radius: var(--radius-md); padding: 5px var(--space-2); left: var(--space-2); max-width: calc(100% - var(--space-4)); }
   .home-hero__chip::before { margin-top: 5px; }
 }
-.home-hero__chip::before { content: ''; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--sn-red); }
+/* Phones: only the tall tile keeps its caption; the small tiles stay clean. */
+@media (max-width: 639.98px) { .home-hero__tile:not(.home-hero__tile--main) .home-hero__chip { display: none; } }
 @media (hover: hover) and (pointer: fine) {
-  .home-hero__tile:hover .hero-show__img { transform: scale(1.035); }
+  .home-hero__tile:hover .hero-show__img { scale: var(--media-zoom); }
 }
 
-/* ---------- Showcase controls: category tabs (brand dot, progress line on the active one) and pause ---------- */
-.hero-show { display: grid; gap: var(--space-4); min-width: 0; }
-.hero-show__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-width: 0; }
-.hero-show__tabs {
-  display: flex; gap: var(--space-1); min-width: 0; overflow-x: auto; scrollbar-width: none;
+/* ---------- Showcase controls: a strip along the mosaic's foot (category tabs with a progress line, pause) ---------- */
+.hero-show__bar {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  min-width: 0; min-height: var(--hero-bar-h);
+  padding: var(--space-2) var(--page-margin);
+  background: color-mix(in srgb, var(--night-0) 82%, transparent);
 }
-/* Narrow screens: the row scrolls sideways; a soft fade at the right edge says there is more. */
+.hero-show__tabs { display: flex; gap: var(--space-1); min-width: 0; overflow-x: auto; scrollbar-width: none; }
+/* Narrow screens: the row scrolls sideways; an alpha fade at the right edge says there is more. */
 @media (max-width: 639.98px) {
-  .hero-show__tabs { padding-inline-end: var(--space-10); -webkit-mask-image: linear-gradient(90deg, #000 84%, transparent); mask-image: linear-gradient(90deg, #000 84%, transparent); }
+  .hero-show__tabs { padding-inline-end: var(--space-10); -webkit-mask-image: linear-gradient(90deg, black 84%, transparent); mask-image: linear-gradient(90deg, black 84%, transparent); }
 }
 .hero-show__tabs::-webkit-scrollbar { display: none; }
 .hero-show__tab {
   position: relative; flex: none; display: inline-flex; align-items: center; gap: var(--space-2);
   height: 2.25rem; padding: 0 var(--space-3); border: 0; border-radius: var(--radius-full);
-  background: transparent; color: var(--night-text-muted); font: inherit; font-size: var(--text-meta); font-weight: 500;
+  background: transparent; color: var(--night-text-2); font: inherit; font-size: var(--text-meta); font-weight: 500;
   cursor: pointer; overflow: hidden;
   transition: color var(--dur-2) var(--ease-snap), background-color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
 }
-.hero-show__tab.is-active { color: var(--night-text); background: rgb(244 243 239 / 0.09); box-shadow: inset 0 0 0 1px var(--night-line-strong); }
-@media (hover: hover) and (pointer: fine) { .hero-show__tab:not(.is-active):hover { color: var(--night-text); background: rgb(244 243 239 / 0.05); } }
-.hero-show__tab:focus-visible, .hero-show__pause:focus-visible { outline: 2px solid var(--night-text); outline-offset: 2px; }
-.hero-show__dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--sn-red); opacity: 0.55; transition: opacity var(--dur-2) var(--ease-snap); }
+.hero-show__tab.is-active { color: var(--night-text); background: color-mix(in srgb, var(--paper) 12%, transparent); box-shadow: inset 0 0 0 1px var(--night-line-strong); }
+@media (hover: hover) and (pointer: fine) { .hero-show__tab:not(.is-active):hover { color: var(--night-text); background: color-mix(in srgb, var(--paper) 8%, transparent); } }
+.hero-show__tab:focus-visible, .hero-show__pause:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }
+/* Paper dots: no sub-brand accent on Home outside the brand tiles (SPEC §7.3). data-brand stays as a hook. */
+.hero-show__dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--night-text); opacity: 0.5; transition: opacity var(--dur-2) var(--ease-snap); }
 .hero-show__tab.is-active .hero-show__dot { opacity: 1; }
-.hero-show__tab[data-brand='connect'] .hero-show__dot { background: var(--sn-connect-400, var(--sn-connect)); }
-.hero-show__tab[data-brand='vibe'] .hero-show__dot { background: var(--sn-vibe-400, var(--sn-vibe)); }
-.hero-show__tab[data-brand='women'] .hero-show__dot { background: var(--sn-women-400, var(--sn-women)); }
-.hero-show__tab[data-brand='research'] .hero-show__dot { background: var(--sn-research-400, var(--sn-research)); }
 .hero-show__progress {
   position: absolute; left: var(--space-3); right: var(--space-3); bottom: 4px; height: 2px;
-  border-radius: 2px; background: rgb(244 243 239 / 0.14); overflow: hidden;
+  border-radius: 2px; background: color-mix(in srgb, var(--paper) 14%, transparent); overflow: hidden;
 }
 .hero-show__progress > span { display: block; height: 100%; background: var(--night-text); transform: scaleX(0); transform-origin: left center; will-change: transform; }
 .hero-show.is-still .hero-show__progress { display: none; }
@@ -207,41 +185,40 @@
   transition: color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
 }
 @media (hover: hover) and (pointer: fine) { .hero-show__pause:hover { color: var(--night-text); box-shadow: inset 0 0 0 1px var(--night-text-muted); } }
-@media (pointer: coarse) { .hero-show__tab, .hero-show__pause { height: 2.75rem; } .hero-show__pause { width: 2.75rem; } }
-.hero-show__tab:lang(ta) { font-size: 0.875rem; }
-/* Phones: only the tall tile keeps its caption; the small tiles stay clean. */
-@media (max-width: 639.98px) { .home-hero__tile:not(.home-hero__tile--main) .home-hero__chip { display: none; } }
+@media (pointer: coarse) { .hero-show__tab, .hero-show__pause { height: 2.75rem; } .hero-show__pause { width: 2.75rem; } .home .home-hero--v3 { --hero-bar-h: 4rem; } }
+.hero-show__tab:lang(ta) { font-size: var(--text-caption); }
 
-/* ---------- Proof strip: community companies as one-colour marks ---------- */
-.home-hero__proof {
-  position: relative; z-index: 1;
-  display: grid; gap: var(--space-5);
-  margin-top: clamp(var(--space-10), 1rem + 4vw, var(--space-16));
+/* Below the split: the photo runs first and full bleed, from the top of the page (under the header card). */
+@media (max-width: 1023.98px), (max-aspect-ratio: 800/1000) {
+  .hero-show { order: -1; margin-inline: calc(-1 * var(--page-margin)); }
 }
-.home-hero__proof::before { content: ''; height: 1px; background: var(--night-line); margin-bottom: var(--space-1); }
+/* Tablets: a landscape crop keeps the photo from filling the whole first screen. */
+@media (min-width: 600px) and (max-width: 1023.98px), (min-width: 1024px) and (max-aspect-ratio: 800/1000) {
+  .home-hero__mosaic { aspect-ratio: 4 / 3; }
+}
+
+/* ---------- Proof strip: community companies as one-colour Paper marks in the kit Marquee ---------- */
+.home-hero__proof { position: relative; z-index: 1; display: grid; gap: var(--space-3); min-width: 0; padding-top: var(--space-5); border-top: 1px solid var(--night-line); }
 .home-hero__proof-label {
-  justify-self: start; display: inline-flex; align-items: center; gap: var(--space-2);
-  color: var(--night-text-muted); font-size: var(--text-meta); text-decoration: none; white-space: nowrap;
+  justify-self: start; display: inline-block; line-height: 1.5;
+  color: var(--night-text-muted); font-size: var(--text-meta); text-decoration: none;
   transition: color var(--dur-2) var(--ease-snap);
 }
-.home-hero__proof-label svg { transition: transform var(--dur-2) var(--ease-snap); }
+/* Inline after the last word, so a wrapped label keeps its arrow next to the text. */
+.home-hero__proof-label svg { display: inline-block; margin-left: var(--space-2); vertical-align: -0.125em; transition: transform var(--dur-2) var(--ease-snap); }
 @media (hover: hover) and (pointer: fine) {
   .home-hero__proof-label:hover { color: var(--night-text); }
-  .home-hero__proof-label:hover svg { transform: translateX(3px); }
+  .home-hero__proof-label:hover svg { transform: translateX(var(--shift-1)); }
 }
-.home-hero__logos {
-  display: flex; overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-.home-hero__logos-track {
-  flex: none; display: flex; align-items: center; gap: var(--space-10);
-  margin: 0; padding: 0 var(--space-10) 0 0; list-style: none;
-  animation: home-hero-marquee 48s linear infinite;
-}
-.home-hero__logos:hover .home-hero__logos-track { animation-play-state: paused; }
-@keyframes home-hero-marquee { to { transform: translateX(-100%); } }
-.home-hero__logo { flex: none; display: flex; align-items: center; height: 2.25rem; }
+.home-hero__proof-label:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
+/* The Marquee's Pause button shares the label's row (top right of the strip) instead of a row of its own. The label
+   keeps clear of it (the button is about 84px wide, 105px in Tamil) and wraps rather than running underneath. */
+:root .home-hero__proof .home-hero__logos { position: static; }
+:root .home-hero__proof .marquee__toggle { position: absolute; top: var(--space-3); right: 0; }
+.home-hero__proof { --proof-toggle-w: 5.5rem; }
+.home-hero__proof:lang(ta) { --proof-toggle-w: 7rem; }
+.home-hero__proof:has(.marquee__toggle) .home-hero__proof-label { max-width: calc(100% - var(--proof-toggle-w) - var(--space-4)); }
+.home-hero__logo { display: flex; align-items: center; height: 2.25rem; }
 .home-hero__logo img {
   display: block; width: calc(var(--logo-w, 96px) * 0.86); max-height: 2rem; height: auto; object-fit: contain;
   filter: brightness(0) invert(1); opacity: 0.6;
@@ -251,68 +228,72 @@
 
 /* ---------- ≥1024 landscape: the split ---------- */
 @media (min-width: 1024px) and (min-aspect-ratio: 801/1000) {
+  /* The whole band (copy, proof strip and the start of the sheet rise) fits the first screen: 32px under the header
+     card and 32px above the sheet, with the copy centred in what is left (min(45rem, 100svh) under the shell). */
   :root .home .home-hero--v3 {
-    min-height: max(40rem, calc(100svh - var(--header-h, 72px) - var(--utility-h, 36px)));
-    padding-top: clamp(var(--space-12), 1rem + 3vw, var(--space-16));
-    padding-bottom: calc(var(--sheet-radius) + clamp(var(--space-8), 0.5rem + 2vw, var(--space-10)));
+    --hero-pad-top: var(--space-8);
+    --hero-pad-bottom: var(--space-8);
+    min-height: min(calc(45rem + var(--shell-top)), 100svh);
+    padding-top: calc(var(--shell-top) + var(--hero-pad-top));
+    padding-bottom: calc(var(--hero-pad-bottom) + var(--sheet-radius));
   }
+  .home-hero__bg { right: 55%; }
   .home-hero__grid {
     flex: 1;
-    grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: center;
+    grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr) auto;
+    column-gap: var(--grid-gap); row-gap: var(--space-6);
   }
-  .home-hero__copy { grid-column: 1 / span 6; padding-right: clamp(0px, 2vw - 8px, var(--space-8)); }
-  .hero-show { grid-column: 7 / span 6; }
-  .home-hero__mosaic { height: clamp(26rem, 56svh, 33rem); }
-  .home-hero__proof {
-    grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: var(--space-12);
-    margin-top: clamp(var(--space-10), 1rem + 2.5vw, var(--space-14));
-    padding-top: var(--space-6);
+  .home-hero__copy { grid-column: 1 / span 6; grid-row: 1; align-self: center; max-width: var(--measure-hero); padding-right: var(--space-4); }
+  .home-hero__proof { grid-column: 1 / span 6; grid-row: 2; margin-right: var(--space-8); }
+  /* The media runs from the band's top edge (under the header card) to its bottom edge (under the rising sheet) and
+     out to the viewport's right edge. */
+  .hero-show {
+    grid-column: 7 / -1; grid-row: 1 / -1;
+    margin-top: calc(-1 * (var(--shell-top) + var(--hero-pad-top)));
+    margin-bottom: calc(-1 * (var(--hero-pad-bottom) + var(--sheet-radius)));
+    margin-right: calc(-1 * var(--page-margin));
+    margin-left: var(--space-4);
+    border-top-left-radius: var(--radius-panel);
+    overflow: hidden;
   }
-  /* The hairline spans the content width, not the container's gutters. */
-  .home-hero__proof::before { position: absolute; top: 0; left: var(--gutter); right: var(--gutter); margin: 0; }
-  /* Wide screens show every mark at once: a still row, no marquee. */
-  .home-hero__logos { -webkit-mask-image: none; mask-image: none; }
-  .home-hero__logos-track { flex: 1; justify-content: space-between; gap: var(--space-6); padding: 0; animation: none; }
-  .home-hero__logos-track--clone { display: none; }
-}
-/* Very wide but short screens (laptops at 1280×720): keep the mosaic inside the first screen. */
-@media (min-width: 1024px) and (max-height: 760px) and (min-aspect-ratio: 801/1000) {
-  .home-hero__mosaic { height: clamp(22rem, 52svh, 28rem); }
+  .home-hero__mosaic { aspect-ratio: auto; max-height: none; height: 100%; }
+  /* Tamil runs about 1.5× longer: the copy and the strip take cols 1–7 (no 600 cap) and the mosaic cols 8–12, the
+     h1 sets in two lines at a tighter leading, so the band still fits a 1440×900 first screen. */
+  :root .home .home-hero__copy:lang(ta) { grid-column: 1 / span 7; max-width: none; }
+  :root .home .home-hero__proof:lang(ta) { grid-column: 1 / span 7; }
+  :root .home .hero-show:lang(ta) { grid-column: 8 / -1; }
+  :root .home .home-hero__title:lang(ta) { max-width: none; font-size: calc(var(--text-display-2xl) * 0.68); line-height: 1.15; }
+  :root .home .home-hero__lede:lang(ta) { max-width: none; font-size: var(--text-body); line-height: 1.6; }
+  /* The strip stops above the rising sheet; the sheet's corners show the photo strip under them. */
+  .hero-show__bar { padding: var(--space-2) var(--space-6) calc(var(--space-2) + var(--sheet-radius)); }
+  :is(.home-hero__tile--main, .home-hero__tile--bottom) .home-hero__chip { bottom: calc(var(--hero-bar-h) + var(--sheet-radius) + var(--space-3)); }
 }
 
 /* Transform-only entrance: the copy is visible from first paint (no opacity-0 gate on LCP text). */
-.home-hero__rise { animation: home-hero-rise var(--dur-reveal, 600ms) var(--ease-reveal) both; }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion='reduced']) .home-hero__rise { animation: home-hero-rise var(--dur-reveal) var(--ease-reveal) both; }
+}
 .home-hero__rise--1 { animation-delay: 80ms; }
 .home-hero__rise--2 { animation-delay: 160ms; }
 .home-hero__rise--3 { animation-delay: 240ms; }
-@keyframes home-hero-rise { from { transform: translateY(var(--shift-reveal, 12px)); } to { transform: none; } }
+@keyframes home-hero-rise { from { transform: translateY(var(--shift-reveal)); } to { transform: none; } }
 @media (prefers-reduced-motion: reduce) {
-  .home-hero__rise, .home-hero__pill-dot::after { animation: none; }
-  .home-hero__logos { overflow-x: auto; }
-  .home-hero__logos-track { animation: none; }
-  .home-hero__logos-track--clone { display: none; }
-  .hero-show__img { transition: none; }
-  .hero-show__layer.is-in, .home-hero__chip { animation: none; }
+  :root:not([data-motion='full']) :is(.hero-show__layer.is-in, .home-hero__chip) { animation: none; }
+  :root:not([data-motion='full']) .hero-show__img { transition: none; }
 }
-:root[data-motion="reduced"] :is(.home-hero__rise, .home-hero__logos-track) { animation: none; }
-:root[data-motion="reduced"] .home-hero__pill-dot::after { animation: none; }
-:root[data-motion="reduced"] .home-hero__logos-track--clone { display: none; }
 :root[data-motion="reduced"] :is(.hero-show__layer.is-in, .home-hero__chip) { animation: none; }
 
-/* Tamil: no tracking on the pill tag; 14px minimum for chips and small labels (Book 3 §4.4). */
-.home-hero__pill-tag:lang(ta) { letter-spacing: 0; font-size: 0.875rem; }
-.home-hero__chip:lang(ta) { font-size: 0.875rem; white-space: normal; border-radius: var(--radius-md); }
+/* Tamil: 14px minimum for chips and small labels (Book 3 §4.4). */
+.home-hero__pill-tag:lang(ta) { font-size: var(--text-caption); }
+.home-hero__chip:lang(ta) { white-space: normal; border-radius: var(--radius-md); }
 
 /* =====================================================================================================
-   "I am a…" (M02): question cols 1–4, chips cols 5–12, Continue under the chips.
+   "I am a…" (SPEC §5.1 #2): the section header, the persona tiles (home/PersonaSelector.css), Continue under them.
    ===================================================================================================== */
 .home-persona-band__form { display: grid; gap: var(--space-8); }
-.home-persona-band__head { display: grid; gap: var(--space-5); align-content: start; }
-.home-persona-band__title { margin: 0; }
-.home-persona-band__lede { max-width: 30rem; margin: 0; color: var(--color-text-2); }
-:lang(ta) .home-persona-band__lede { max-width: 34rem; }
+:root .home-persona-band__head { margin-bottom: calc(var(--space-head-gap) - var(--space-8)); }
 .home-persona-band__pick { min-width: 0; }
-.home-persona-band__error { margin: var(--space-4) 0 0; padding: var(--space-3) var(--space-4); border-radius: var(--btn-radius); background: var(--color-error-bg); color: var(--color-error); font-weight: 500; }
+.home-persona-band__error { margin: var(--space-4) 0 0; padding: var(--space-3) var(--space-4); border-radius: var(--radius-input); background: var(--color-error-bg); color: var(--color-error); font-weight: 500; }
 .home-persona-band__go {
   display: flex;
   flex-wrap: wrap;
@@ -324,240 +305,103 @@
 }
 .home-persona-band__hint { flex: 1 1 18rem; max-width: 40rem; margin: 0; color: var(--color-text-2); }
 .home-persona-band__go > .button { margin-left: auto; }
-@media (max-width: 559px) { .home-persona-band__go > .button { flex: 1 1 100%; } }
-@media (min-width: 1024px) {
-  .home-persona-band__form { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; row-gap: var(--space-10); }
-  .home-persona-band__head { grid-column: 1 / span 4; grid-row: 1 / span 2; padding-right: var(--space-6); }
-  .home-persona-band__pick,
-  .home-persona-band__go { grid-column: 5 / -1; }
-}
-/* Continue before a choice: reads inactive, not broken (Bone, Ink-500 text, hairline ring; still focusable). */
-:root .home .home-persona-band__submit.is-inactive,
-:root .home .home-persona-band__submit[aria-disabled='true'] {
-  opacity: 1;
-  --button-bg: var(--bone);
-  --button-fg: var(--ink-500);
-  --button-bg-hover: var(--bone);
-  --button-fg-hover: var(--ink-500);
-  background: var(--bone);
-  color: var(--ink-600);
-  box-shadow: inset 0 0 0 1px var(--hairline);
-  cursor: not-allowed;
-  transform: none;
-}
+@media (max-width: 599.98px) { .home-persona-band__go > .button { flex: 1 1 100%; } }
 
 /* =====================================================================================================
-   Proof band (M12, #where-things-stand), AIWO-BLUEPRINT P4: the Ink band as "card + key points". The figures sit in a
-   framed card (inset 1px Night line, 12px radius): the first figure as one giant count-up numeral in Marigold (the
-   band's one colour point), the others as hairline rows (label left, tabular value right). ≥1024: card in cols 1–7,
-   the heading, the Founder Ledger link and the footnote in cols 9–12 (DOM order unchanged: heading → figures → note).
+   Where things stand (SPEC §5.1 #3): Ink band #1, the kit FactBand at variant="lg" under a section-size statement.
    ===================================================================================================== */
-:root .home-proof .fact-band { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--space-10); }
-:root .home-proof .fact-band__head {
-  display: grid;
-  justify-items: start;
-  gap: var(--space-6);
-  margin: 0;
-}
 :root .home-proof .fact-band__title {
   margin: 0;
   max-width: 16ch;
   font-size: var(--text-h2);
-  font-weight: 400;
-  line-height: 1.12;
-  letter-spacing: -0.02em;
-  color: var(--paper);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--tracking-h2);
+  color: var(--night-text);
   text-wrap: balance;
 }
-:root .home-proof .fact-band__title:lang(ta) { letter-spacing: 0; line-height: 1.35; max-width: 22ch; }
-.home-proof .fact-band__title::before { content: none; }
-:root .home-proof .fact-band__grid {
-  display: block;
-  padding: clamp(var(--space-6), 1rem + 2.5vw, var(--space-12));
-  border-radius: var(--radius-media);
-  box-shadow: inset 0 0 0 1px var(--night-line-strong);
-}
-/* The headline figure */
-:root .home .home-proof .fact-band .fact-band__grid > .stat.stat {
-  padding: 0 !important;
-  border: 0 !important;
-}
-:root .home-proof .fact-band__grid > .stat:first-child .stat__value {
-  font-size: clamp(3.75rem, 1.5rem + 7.5vw, 9rem);
-  letter-spacing: -0.045em;
-  color: var(--marigold);
-}
-:root .home-proof .fact-band__grid > .stat:first-child .stat__unit { color: var(--marigold); }
-:root .home-proof .fact-band__grid > .stat:first-child .stat__label { margin-top: var(--space-5); max-width: 32ch; font-size: var(--text-lede); line-height: 1.4; color: var(--paper); }
-:root .home-proof .fact-band__grid > .stat:first-child .stat__meta { margin-top: var(--space-3); }
-/* The supporting figures: hairline rows, label + tag left, value right */
-:root .home .home-proof .fact-band .fact-band__grid > .stat.stat:not(:first-child) {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: var(--space-6);
-  align-items: start;
-  padding: var(--space-6) 0 0 !important;
-  margin-top: var(--space-6);
-  border-top: 1px solid var(--night-line-strong) !important;
-}
-:root .home .home-proof .fact-band .fact-band__grid > .stat.stat:nth-child(2) { margin-top: clamp(var(--space-8), 1rem + 2vw, var(--space-12)); }
-:root .home-proof .fact-band__grid > .stat:not(:first-child) .stat__label { grid-column: 1; grid-row: 1; margin: 0; max-width: 34ch; font-size: var(--text-body); color: var(--night-text-2); }
-:root .home-proof .fact-band__grid > .stat:not(:first-child) .stat__meta { grid-column: 1; grid-row: 2; }
-:root .home-proof .fact-band__grid > .stat:not(:first-child) .stat__value {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  justify-content: flex-end;
-  font-size: clamp(2rem, 1.5rem + 1.6vw, 3rem);
-  color: var(--paper);
-}
-@media (max-width: 479.98px) {
-  :root .home-proof .fact-band__grid > .stat:not(:first-child) .stat__value { font-size: 1.75rem; }
-}
-/* Mobile audit: below 400px (480px in Tamil) the label column beside the figure was ~160px, so the note ran one or
-   two words a line and Tamil words split mid-word (தலைமையிலான|வை). Put the figure on its own line above the label. */
-@media (max-width: 399.98px) {
-  :root .home .home-proof .fact-band .fact-band__grid > .stat.stat:not(:first-child) { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2); }
-  :root .home .home-proof .fact-band__grid > .stat:not(:first-child) .stat__value { grid-column: 1; grid-row: 1; justify-content: flex-start; }
-  :root .home .home-proof .fact-band__grid > .stat:not(:first-child) .stat__label { grid-row: 2; }
-  :root .home .home-proof .fact-band__grid > .stat:not(:first-child) .stat__meta { grid-row: 3; }
-}
-@media (max-width: 479.98px) {
-  :root .home:lang(ta) .home-proof .fact-band .fact-band__grid > .stat.stat:not(:first-child) { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2); }
-  :root .home:lang(ta) .home-proof .fact-band__grid > .stat:not(:first-child) .stat__value { grid-column: 1; grid-row: 1; justify-content: flex-start; }
-  :root .home:lang(ta) .home-proof .fact-band__grid > .stat:not(:first-child) .stat__label { grid-row: 2; }
-  :root .home:lang(ta) .home-proof .fact-band__grid > .stat:not(:first-child) .stat__meta { grid-row: 3; }
-}
-/* Footnote: hairline-topped, 14px muted arrow link */
-:root .home-proof .fact-band__footnote {
-  margin: 0;
-  padding-top: var(--space-6);
-  border-top: 1px solid var(--night-line);
-  max-width: none;
-  font-size: var(--text-meta);
-}
+:root .home-proof .fact-band__head { align-items: end; margin-bottom: var(--space-head-gap); }
 :root .home .home-proof__footnote-link { color: var(--night-text-2); font-weight: 400; font-size: var(--text-meta); }
-:root .home .home-proof__footnote-link:hover { color: var(--paper); }
-@media (min-width: 1024px) {
-  :root .home-proof .fact-band { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; row-gap: var(--space-8); align-items: start; }
-  :root .home-proof .fact-band__head { grid-column: 9 / -1; grid-row: 1; padding-top: var(--space-4); }
-  :root .home-proof .fact-band__grid { grid-column: 1 / span 7; grid-row: 1 / span 3; }
-  :root .home-proof .fact-band__footnote { grid-column: 9 / -1; grid-row: 2; align-self: start; }
-}
+@media (hover: hover) { :root .home .home-proof__footnote-link:hover { color: var(--night-text); } }
+
+/* Arrow links (#where-things-stand footnote, #how-it-works): the Lucide ArrowRight sits centred on the label. */
+.home .arrow-link .arrow { display: inline-flex; }
+.home .arrow-link .arrow svg { display: block; }
 
 /* =====================================================================================================
-   Four doors (M03, #brands): media cards 4-up ≥1280, 2-up ≥768; a snap scroller on phones.
+   Four doors (#brands, SPEC §5.1 #4): a Scroller of the four Ink / Slate BrandTiles (min(24rem, 82vw) each).
    ===================================================================================================== */
-.home-doors__item { display: grid; min-width: 0; }
+.home-doors__item { display: grid; min-width: 0; height: 100%; }
 .home-doors__item > .brand-tile { height: 100%; }
-/* QA v6: the shared tile clamps its promise to 2 lines, which cut each brand's one-line promise mid-sentence
-   (and the Tamil promises down to 2 of 5-7 lines). On Home the promise is the tile's copy, so show all of it. */
-.home-doors .brand-tile__promise { display: block; -webkit-line-clamp: unset; line-clamp: none; overflow: visible; }
-@media (min-width: 768px) {
-  .home-doors__rail .scroller__controls,
-  .home-doors__rail .scroller__progress { display: none; }
-  :root .home-doors__rail .scroller__track {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-14, 56px) 32px;
+
+/* Rails (#brands, #coming-up): from 1024 the Scroller's counter and 48px arrows share the section header's action
+   row, so there is no extra controls row above the cards; the header's own link moves left to make room. */
+@media (min-width: 1024px) {
+  .home-rail .home-block { position: relative; }
+  .home-rail .scroller__controls {
+    position: absolute;
+    right: 0;
+    top: calc(-1 * (var(--space-head-gap) + var(--btn-icon)));
     margin: 0;
-    padding: 0;
-    overflow: visible;
-    scroll-snap-type: none;
   }
-  .home-doors__rail .scroller__item { flex: none; }
-}
-@media (min-width: 1280px) {
-  :root .home-doors__rail .scroller__track { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-/* 2-up range: a landscape crop keeps each door from becoming a full screen. */
-@media (min-width: 768px) and (max-width: 1279.98px) {
-  .home-doors .brand-tile__art .art-image { aspect-ratio: 4 / 3 !important; }
+  .home-rail:has(.scroller:not(.scroller--fits)) .section-header__action { margin-right: 13rem; }
+  .home-rail .section-header__action .button { white-space: nowrap; }
+  :root .home-rail :lang(ta) .section-header__action .button { white-space: normal; }
 }
 
 /* =====================================================================================================
-   Mission 1 Lakh (#mission): 5/7, the copy top-aligned beside a White figure panel on Bone.
+   Mission 1 Lakh (#mission, SPEC §5.1 #6): Paper, 5/7. The copy left; a Card panel right with the 2031 target at
+   --text-stat-lg, the 2040 target, and the meter whose current value is the section's red point.
    ===================================================================================================== */
 .home-mission__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); align-items: start; }
-@media (min-width: 1024px) {
-  .home-mission__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; }
-  .home-mission__copy { grid-column: 1 / span 5; }
-  .home-mission__panel { grid-column: 6 / -1; }
-}
 .home-mission__inner > * { min-width: 0; }
+@media (min-width: 1024px) {
+  .home-mission__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
+  .home-mission__copy { grid-column: 1 / span 5; }
+  .home-mission__panel { grid-column: 7 / -1; }
+}
 .home-mission__copy .section-header { margin-bottom: var(--space-6); }
-.home-mission__body { max-width: 34rem; margin: 0; color: var(--color-text-2); }
+.home-mission__body { max-width: var(--measure-lede); margin: 0; color: var(--color-text-2); }
 .home-mission__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-8); margin-top: var(--space-8); }
 .home-mission__panel {
   display: grid;
   gap: var(--space-6);
-  padding: var(--space-8) var(--space-6);
-  background: var(--card, var(--white));
-  border-radius: var(--radius-media);
-  box-shadow: inset 0 0 0 1px var(--hairline);
+  padding: var(--pad-card-lg);
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
 }
-@media (min-width: 768px) { .home-mission__panel { padding: var(--space-12); } }
-.home-mission__targets { display: grid; gap: var(--space-8); }
-.home-mission__targets .stat--default { padding-top: 0; border-top: 0; }
-/* AIWO P6: one giant numeral per stat band (tabular, Indian grouping as the data gives it). */
-:root .home-mission__targets .stat--default .stat__value { font-size: clamp(3.5rem, 1.5rem + 6.5vw, 8.5rem); letter-spacing: -0.045em; }
-:root .home-mission__targets .stat--default .stat__label { margin-top: var(--space-5); font-size: var(--text-lede); line-height: 1.4; color: var(--color-text-2); }
-.home-mission__targets .stat--default .stat__label { max-width: 34ch; }
-.home-mission__targets .stat--compact { padding-top: var(--space-6); border-top: 1px solid var(--hairline); }
+.home-mission__targets { display: grid; }
+.home-mission__targets > * + * { margin-top: var(--space-6); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
 .home-mission__tagline { margin: 0; font-size: var(--text-meta); color: var(--color-text-muted); }
 
 /* =====================================================================================================
-   Why Tamil Nadu: 7/5, the copy and a 2×2 stat grid left (hairlines), the map art right (clip-in).
+   Why Tamil Nadu (#why-tamil-nadu, SPEC §5.1 #7): the inset Ink panel (Section surface="inset", Ink band #2).
+   ≥1024: the copy in cols 1–6 beside the map art in cols 8–12, then the context figures as one hairline-topped row.
    ===================================================================================================== */
-.home-why__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); align-items: start; }
-@media (min-width: 1024px) {
-  .home-why__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; }
-  .home-why__copy { grid-column: 1 / span 7; }
-  .home-why__art { grid-column: 8 / -1; position: sticky; top: calc(var(--header-h, 72px) + 32px); }
-}
+.home-why__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); align-items: center; }
 .home-why__inner > * { min-width: 0; }
-.home-why__stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--color-border); }
-.home-why__stats > * { min-width: 0; }
-:root .home-why__stats .stat--default { padding: var(--space-6) var(--space-5) var(--space-6) 0; border-top: 0; }
-:root .home-why__stats > :nth-child(even) { padding-left: var(--space-5); padding-right: 0; border-left: 1px solid var(--color-border); }
-:root .home-why__stats > :nth-child(n + 3) { border-top: 1px solid var(--color-border); }
-/* An odd last figure spans the row, so the hairline under the pair runs the full width. */
-:root .home-why__stats > :last-child:nth-child(odd) { grid-column: 1 / -1; }
-/* QA v6: at phone width the half-column is ~134px; in Tamil the wider digit face pushed "%" onto its own line under
-   "52.3". Keep figure and unit on one line and size the figure to the column. */
-@media (max-width: 479.98px) {
-  :root .home-why__stats .stat__value { flex-wrap: nowrap; font-size: clamp(2rem, 10.5vw, 3.0625rem); }
-}
-/* Mobile audit: below 400px (480px in Tamil) the half-column left ~110px, so each label broke every one or two
-   words. Stack the figures one per row there, each under a full-width hairline. */
-@media (max-width: 399.98px) {
-  .home-why__stats { grid-template-columns: minmax(0, 1fr); }
-  :root .home .home-why__stats > * { padding: 0; border-left: 0; }
-  :root .home .home-why__stats > * + * { border-top: 1px solid var(--color-border); }
-  :root .home .home-why__stats .stat.stat--default { padding: var(--space-5) 0; }
-}
-@media (max-width: 479.98px) {
-  .home:lang(ta) .home-why__stats { grid-template-columns: minmax(0, 1fr); }
-  :root .home:lang(ta) .home-why__stats > * { padding: 0; border-left: 0; }
-  :root .home:lang(ta) .home-why__stats > * + * { border-top: 1px solid var(--color-border); }
-  :root .home:lang(ta) .home-why__stats .stat.stat--default { padding: var(--space-5) 0; }
-}
+.home-why__more { margin-top: calc(var(--space-8) - var(--space-head-gap)); }
+.home-why__art { width: 100%; max-width: 28rem; }
 @media (min-width: 1024px) {
-  :root .home-why__stats .stat--default { padding: var(--space-8) var(--space-8) var(--space-8) 0; }
-  :root .home-why__stats > :nth-child(even) { padding-left: var(--space-8); padding-right: 0; }
+  .home-why__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); row-gap: var(--space-head-gap); }
+  .home-why__copy { grid-column: 1 / span 6; }
+  .home-why__art { grid-column: 8 / -1; justify-self: end; }
+  .home-why__stats { grid-column: 1 / -1; }
 }
-.home-why__more { margin-top: var(--space-8); }
-.home-why__art { width: 100%; }
-@media (min-width: 768px) and (max-width: 1023.98px) {
-  .home-why__art .art-image { aspect-ratio: 16 / 9 !important; }
-}
-@media (max-width: 767.98px) { .home-why__art .art-image { aspect-ratio: 4 / 3 !important; } }
+.home-why__stats { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8) var(--grid-gap); }
+/* Each Stat brings its own hairline top rule (Stat.css .stat--default). */
+.home-why__cell { min-width: 0; }
+@media (min-width: 400px) { .home-why__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 768px) { .home-why__stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .home-why__stats { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); } }
+@media (max-width: 479.98px) { .home:lang(ta) .home-why__stats { grid-template-columns: minmax(0, 1fr); } }
 
 /* =====================================================================================================
-   On film (#on-film): the Ink band; the video 16/9 at full container width inside ClipReveal.
+   On film (#on-film, SPEC §5.1 #8): Paper; the video 16/9 in a 20px frame at full container width.
    ===================================================================================================== */
-.home-film__media { overflow: hidden; }
+.home-film__media { overflow: hidden; border-radius: var(--radius-xl); }
 .home-film .video-feature { margin: 0; }
-.home-film .video-feature__frame { aspect-ratio: 16 / 9; border-radius: var(--radius-media); }
+.home-film .video-feature__frame { aspect-ratio: 16 / 9; border-radius: var(--radius-xl); }
 .home-film .video-feature__caption { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: var(--space-6); }
 .home-film .video-feature__title { grid-column: 1; }
 .home-film .video-feature__meta { grid-column: 1; }
@@ -569,49 +413,43 @@
 }
 
 /* =====================================================================================================
-   Coming up / Stories: the Scroller's counter and ring buttons share the section header's action row (≥1024),
-   so there is no extra controls row above the cards. The "See all" link moves left to make room.
+   Open now (#open-now, SPEC §5.1 #10): framed ProgrammeCards on an inset Bone panel, 1 / 2 (768) / 3 (1024).
+   768–1023: an odd last card takes the full row instead of sitting next to an empty half.
    ===================================================================================================== */
-@media (min-width: 1024px) {
-  .home-rail .home-block { position: relative; }
-  .home-rail .scroller__controls {
-    position: absolute;
-    right: 0;
-    top: calc(-1 * (var(--space-head-gap) + 48px));
-    margin: 0;
-  }
-  .home-rail:has(.scroller:not(.scroller--fits)) .section-header__action { margin-right: 13rem; }
-  .home-rail .section-header__action .button { white-space: nowrap; }
-  :root .home-rail :lang(ta) .section-header__action .button { white-space: normal; }
-}
-/* 1024–1279: the 8/4 split leaves the link ~100px beside the counter; give the action half the row. */
-@media (min-width: 1024px) and (max-width: 1279.98px) {
-  :root .home-rail .section-header--has-action:not(.section-header--center) { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); }
-}
-
-/* =====================================================================================================
-   Open now: framed ProgrammeCards, 3-up ≥1024, 2-up ≥768.
-   ===================================================================================================== */
-.home-open__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
+/* The inset Bone panel the framed cards stand on (SPEC §4.6: framed on Bone). */
+.home-open__panel { padding: var(--pad-card-lg); border-radius: var(--radius-panel); background: var(--bone); }
+.home-open__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-grid-row) var(--gap-grid); }
 .home-open__grid > * { min-width: 0; display: grid; }
-@media (min-width: 768px) { .home-open__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8) 24px; } }
-@media (min-width: 1024px) { .home-open__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 32px; } }
+@media (min-width: 768px) { .home-open__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 768px) and (max-width: 1023.98px) { .home-open__grid > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
+@media (min-width: 1024px) { .home-open__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* =====================================================================================================
-   Partner band: 5/7, the copy left (cols 1–5), the art and the signed-partner wall right (cols 6–12).
+   Stories (#stories, SPEC §5.1 #12): Ink StoryCards 1 / 2 (768) / 3 (1280).
+   ===================================================================================================== */
+.home-stories__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-grid); }
+.home-stories__grid > li { display: grid; min-width: 0; }
+@media (min-width: 768px) { .home-stories__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 768px) and (max-width: 1279.98px) { .home-stories__grid > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
+@media (min-width: 1280px) { .home-stories__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* =====================================================================================================
+   Partner (#partner, SPEC §5.1 #13): Paper, tight. 5/7: the copy left (cols 1–5), the art right (cols 7–12); the
+   signed partners' logo-tile carousel under both when there are three or more.
    ===================================================================================================== */
 .home-partner__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); align-items: start; }
 @media (min-width: 1024px) {
-  .home-partner__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; }
+  .home-partner__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
   .home-partner__copy { grid-column: 1 / span 5; grid-row: 1; padding-right: var(--space-4); }
   .home-partner__aside { grid-column: 7 / -1; grid-row: 1; }
+  .home-partner__logos { grid-column: 1 / -1; }
 }
 .home-partner__inner > *, .home-partner__copy > * { min-width: 0; }
 .home-partner__copy { display: grid; gap: var(--space-5); align-content: start; }
 .home-partner__copy .eyebrow { margin: 0; }
 .home-partner__title { margin: 0; max-width: 18ch; overflow-wrap: break-word; color: var(--color-text); text-wrap: balance; }
 :lang(ta) .home-partner__title { max-width: 26ch; }
-.home-partner__lede { max-width: 36rem; margin: 0; color: var(--color-text-2); }
+.home-partner__lede { max-width: var(--measure-lede); margin: 0; color: var(--color-text-2); }
 .home-partner__aside { display: grid; gap: var(--space-10); min-width: 0; }
 .home-partner__links { list-style: none; margin: var(--space-4) 0 0; padding: 0; border-top: 1px solid var(--color-border); }
 .home-partner__link {
@@ -619,79 +457,28 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  min-height: 4.5rem;
-  padding-block: var(--space-6);
+  min-height: 4rem;
+  padding-block: var(--space-5);
   border-bottom: 1px solid var(--color-border);
   text-decoration: none;
-  transition: border-color var(--dur-3) var(--ease-snap);
   color: var(--color-text);
   font-size: var(--text-lede);
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  letter-spacing: var(--tracking-h4);
+  transition: border-color var(--dur-3) var(--ease-snap);
 }
-.home-partner__link-label {
-  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
-  padding-bottom: 0.1em;
-  transition: background-size var(--dur-3) var(--ease-snap);
-}
+.home-partner__link-label { text-decoration: underline 1px transparent; text-underline-offset: 0.18em; transition: text-decoration-color var(--dur-2) var(--ease-snap); }
 .home-partner__link svg { flex: none; color: var(--color-text-2); transition: transform var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap); }
 @media (hover: hover) and (pointer: fine) {
   .home-partner__link:hover { border-bottom-color: var(--color-text); }
-  .home-partner__link:hover svg { transform: translateX(4px); color: var(--color-text); }
-  .home-partner__link:hover .home-partner__link-label { background-size: 100% 1px; }
+  .home-partner__link:hover svg { transform: translateX(var(--shift-1)); color: var(--color-text); }
+  .home-partner__link:hover .home-partner__link-label { text-decoration-color: currentColor; }
 }
-.home-partner__link:focus-visible svg { transform: translateX(4px); color: var(--color-text); }
-.home-partner__link:focus-visible .home-partner__link-label { background-size: 100% 1px; }
-/* AIWO P11: the media at 4:3 beside the copy (16:9 on tablets so it never fills a screen). */
-:root .home-partner__art .art-image { aspect-ratio: 4 / 3 !important; }
-@media (min-width: 768px) and (max-width: 1023.98px) {
-  :root .home-partner__art .art-image { aspect-ratio: 16 / 9 !important; }
-}
+.home-partner__link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
+.home-partner__link:focus-visible svg { transform: translateX(var(--shift-1)); color: var(--color-text); }
+.home-partner__link:focus-visible .home-partner__link-label { text-decoration-color: currentColor; }
+:lang(ta) .home-partner__link { letter-spacing: 0; }
 
-/* =====================================================================================================
-   Questions (#questions): 4/8, the header sticky in cols 1–4 at ≥1024, the accordion in cols 5–12.
-   ===================================================================================================== */
-.home-faq__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; align-items: start; }
-@media (min-width: 1024px) {
-  .home-faq__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; }
-  .home-faq__head { grid-column: 1 / span 4; position: sticky; top: calc(var(--header-h, 72px) + 32px); }
-  .home-faq__head .section-header { margin-bottom: 0; }
-  .home-faq__list { grid-column: 5 / -1; }
-}
+/* Questions (#questions, SPEC §5.1 #14): Bone, the kit FAQ split (Accordion.css .faq-split). The closing CTA
+   (§5.1 #15) is the kit headband as it comes. */
 .home-faq__list { min-width: 0; }
-/* AIWO P16 rows: 20px questions at 400, 28px padding, Ink +/−, hairlines; the list hairline turns Ink on hover. */
-:root .home-faq .accordion__trigger { padding-block: 28px; font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem); font-weight: 400; }
-:root .home-faq .accordion__item { transition: border-color var(--dur-3) var(--ease-snap); }
-@media (hover: hover) and (pointer: fine) { :root .home-faq .accordion__item:hover { border-bottom-color: var(--color-text); } }
-:root .home-faq .accordion__answer { max-width: 62ch; }
-
-/* =====================================================================================================
-   Closing CTA (M04), AIWO-BLUEPRINT P15: left-aligned on the 12-col grid (statement cols 1–8 at the display size, lede
-   below, the existing buttons left: Paper filled + WhatsApp). The soft light is replaced by one hairline arc,
-   partly off-canvas bottom right; no dot grid. The statement keeps its red stop (the band's one red point).
-   ===================================================================================================== */
-:root .home-close { padding-block: clamp(var(--space-20), 3rem + 7vw, 10rem); }
-:root .home-close .cta-band__inner { justify-items: start; text-align: left; gap: var(--space-10); }
-:root .home-close .cta-band__text { justify-items: start; }
-:root .home-close .cta-band__title {
-  max-width: 14ch;
-  font-size: var(--text-display-xl);
-  line-height: 1.04;
-  text-align: left;
-}
-:root .home-close .cta-band__title:lang(ta) { max-width: 20ch; font-size: min(var(--text-h1), 2.5rem); }
-:root .home-close .cta-band__body { max-width: 40ch; margin: var(--space-8) 0 0; }
-:root .home-close .cta-band__actions { justify-content: flex-start; }
-:root .home-close .cta-band__actions > .home-close__micro { flex: 0 0 100%; max-width: none; margin: var(--space-3) 0 0; text-align: left; }
-.home-close__micro > span { display: block; max-width: 40ch; }
-@media (min-width: 1024px) {
-  :root .home-close .cta-band__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; }
-  :root .home-close .cta-band__text,
-  :root .home-close .cta-band__actions { grid-column: 1 / span 8; }
-}
-
-/* Tablet 768–1023: no 2 + 1 orphan. Three columns are too narrow for these programme cards (badges truncate), so an
-   odd last card takes the full row instead of sitting next to an empty half. */
-@media (min-width: 768px) and (max-width: 1023.98px) {
-  .home-open__grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
-}

@@ -67,9 +67,11 @@ function OptionList({ facet, values, count, onToggle, idBase }) {
   );
 }
 
+// The page margin as a computed length (--gutter is a fluid clamp(), so it cannot be parsed as px or rem).
 function readGutter() {
-  const raw = getComputedStyle(document.documentElement).getPropertyValue('--gutter').trim();
-  return (parseFloat(raw) || 1) * (raw.endsWith('px') ? 1 : 16);
+  const box = document.querySelector('.container');
+  const px = box ? parseFloat(getComputedStyle(box).paddingInlineStart) : NaN;
+  return Number.isFinite(px) && px > 0 ? px : 16;
 }
 
 function Dropdown({ facet, values, count, onToggle, idBase }) {

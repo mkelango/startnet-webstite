@@ -1,17 +1,30 @@
-/* C07 · Brand sub-nav (DESIGN-v2 3.4): a 48px Ink bar with a night-line hairline, docked under the fixed header
-   (offset published by Header.jsx; it slides to top:0 when the header hides). The brand accent is a 2px rule under
-   the current item that glides between items. Mobile: the row scrolls with an edge fade and proximity snap. */
+/* C07 · Brand sub-nav (docs/redesign/SPEC.md §3.4): a second floating card 8px under the header card. 48px Paper bar
+   at container width, radius 12, 1px hairline, sticky at top: var(--shell-offset) (it follows the header's hide /
+   show). Links 15px/500 with an active 2px accent underline that glides; the 3px accent rule runs along the bar's
+   bottom edge inside the radius (an inset shadow follows the curve). At rest the bar sits on an Ink strip that
+   continues the header band; once stuck the strip is transparent. Below 768: a row of 32px pill chips + "More". */
+.brand-subnav__sentinel { display: block; height: 0; }
 .brand-subnav {
   position: sticky; top: var(--shell-offset, 0px); z-index: 40;
-  height: var(--subnav-h);
+  padding-top: var(--header-inset);
   background: var(--night-0);
-  border-bottom: 1px solid var(--night-line);
-  color: var(--night-text);
   transition: top var(--dur-header) var(--ease-snap);
+  pointer-events: none;
 }
+.brand-subnav[data-stuck] { background: transparent; }
+.brand-subnav > .container { pointer-events: auto; }
 :root[data-header-hidden] .brand-subnav { transition-timing-function: var(--ease-header-exit); }
-.brand-subnav__inner { height: 100%; display: flex; align-items: center; gap: var(--space-4); }
-.brand-subnav__lockup { display: none; align-items: center; min-height: 44px; flex-shrink: 0; color: var(--night-text); text-decoration: none; }
+.brand-subnav__inner {
+  position: relative;
+  height: var(--subnav-h); display: flex; align-items: center; gap: var(--space-4);
+  padding: 0 var(--space-2) 0 var(--space-4);
+  border: 1px solid var(--hairline); border-radius: var(--radius-card);
+  background: var(--paper);
+  box-shadow: inset 0 -3px 0 var(--accent);
+  color: var(--color-text);
+}
+.brand-subnav[data-stuck] .brand-subnav__inner { box-shadow: inset 0 -3px 0 var(--accent), var(--shadow-header); }
+.brand-subnav__lockup { display: none; align-items: center; min-height: 40px; flex-shrink: 0; color: var(--color-text); text-decoration: none; border-radius: var(--radius-sm); }
 .brand-subnav__lockup:hover { text-decoration: none; }
 @media (min-width: 1024px) { .brand-subnav__lockup { display: inline-flex; } }
 
@@ -30,27 +43,47 @@
 .brand-subnav__list { position: relative; list-style: none; display: flex; align-items: center; gap: var(--space-1); height: 100%; width: max-content; margin: 0; padding: 0 var(--space-1); }
 @media (min-width: 1024px) { .brand-subnav__list { margin-inline: auto; } }
 .brand-subnav__list > li { height: 100%; display: flex; align-items: center; scroll-snap-align: start; }
-.brand-subnav__glide-wrap { position: absolute !important; inset: 0; pointer-events: none; }
-.brand-subnav__glide { background: var(--accent-night, var(--paper)); height: 2px; bottom: 0; }
+.brand-subnav__glide-wrap { position: absolute; inset: 0; pointer-events: none; }
+/* Active underline: 2px accent, the label's width, 8px under the label (clear of the 3px rule) */
+.brand-subnav__glide.ind--line {
+  bottom: 9px; background: var(--accent);
+  transform: translateX(calc(var(--ind-x, 0px) + var(--space-3))) scaleX(calc((var(--ind-w, 0) - 24) / 100));
+}
 .brand-subnav__list[data-ind-ready] .brand-subnav__glide { opacity: 1; }
 
 .brand-subnav__link {
   position: relative; display: inline-flex; align-items: center; gap: var(--space-1);
-  height: 100%; padding: 0 12px; border: 0; background: transparent;
-  color: var(--night-text-2); font-size: var(--text-small); font-weight: 400; white-space: nowrap; text-decoration: none;
+  height: 100%; padding: 0 var(--space-3); border: 0; background: transparent;
+  color: var(--color-text); font-size: var(--text-label); font-weight: var(--weight-label); line-height: 1; white-space: nowrap; text-decoration: none;
   transition: color var(--dur-2) var(--ease-snap);
 }
-.brand-subnav__link:hover { color: var(--paper); text-decoration: none; }
-.brand-subnav__link[aria-current='page'], .brand-subnav__more[data-active] { color: var(--paper); font-weight: 500; }
+.brand-subnav__link:hover { color: var(--color-text); text-decoration: underline; text-underline-offset: 0.3em; text-decoration-thickness: 1px; }
+.brand-subnav__link[aria-current='page'], .brand-subnav__more[data-active] { color: var(--color-text); }
+.brand-subnav__link[aria-current='page']:hover { text-decoration: none; }
 /* Before the glide is measured (no JS / prerender), the current item carries its own 2px rule */
-.brand-subnav__list:not([data-ind-ready]) .brand-subnav__link[aria-current='page'] { box-shadow: inset 0 -2px 0 var(--accent-night, var(--paper)); }
-.brand-subnav__link:focus-visible { outline: 2px solid var(--paper); outline-offset: -4px; border-radius: var(--radius-btn); }
-.brand-subnav__more { font: inherit; font-size: var(--text-small); cursor: pointer; }
+.brand-subnav__list:not([data-ind-ready]) .brand-subnav__link[aria-current='page']::after {
+  content: ''; position: absolute; left: var(--space-3); right: var(--space-3); bottom: 9px; height: 2px; background: var(--accent);
+}
+.brand-subnav__link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -4px; border-radius: var(--radius-full); }
+.brand-subnav__more { font: inherit; font-size: var(--text-label); font-weight: var(--weight-label); cursor: pointer; }
 
 .brand-subnav__cta { flex-shrink: 0; display: none; }
-.brand-subnav__cta .button { min-height: 36px; }
 @media (min-width: 480px) { .brand-subnav__cta { display: block; } }
 .brand-subnav__rule { display: none; }
+
+/* Below 768: 32px pill chips; the current chip is Ink-filled (the accent stays on the bar's rule) */
+@media (max-width: 767.98px) {
+  .brand-subnav__inner { padding-left: var(--space-1); }
+  .brand-subnav__list { gap: var(--space-2); }
+  .brand-subnav__link {
+    height: 32px; padding: 0 var(--space-3); border-radius: var(--radius-chip);
+    box-shadow: inset 0 0 0 1px var(--hairline); font-size: var(--text-meta);
+  }
+  .brand-subnav__link:hover { text-decoration: none; }
+  .brand-subnav__link[aria-current='page'] { background: var(--color-cta); color: var(--color-on-cta); box-shadow: none; }
+  .brand-subnav__list:not([data-ind-ready]) .brand-subnav__link[aria-current='page']::after,
+  .brand-subnav__glide-wrap { display: none; }
+}
 
 /* "More" sheet */
 .brand-subnav-sheet { position: fixed; inset: 0; z-index: 95; }
@@ -94,20 +127,20 @@
 .brand-subnav__more-chev { transition: transform var(--dur-2) var(--ease-standard); }
 .brand-subnav__more--menu[aria-expanded="true"] .brand-subnav__more-chev { transform: rotate(180deg); }
 @media (min-width: 1024px) {
-  .brand-subnav__more--menu[data-active] { background: transparent; color: var(--paper); box-shadow: inset 0 -2px 0 var(--accent-night, var(--paper)); }
+  .brand-subnav__more--menu[data-active]::after { content: ''; position: absolute; left: var(--space-3); right: var(--space-3); bottom: 9px; height: 2px; background: var(--accent); }
 }
 .brand-subnav__menu {
   position: absolute; top: 100%; right: 0; z-index: 2; min-width: 14rem; list-style: none;
-  margin: 0; padding: var(--space-2); background: var(--paper);
-  border: 1px solid var(--hairline); border-top: 2px solid var(--accent); border-radius: 0 0 var(--radius-media) var(--radius-media);
+  margin: var(--space-2) 0 0; padding: var(--space-2); background: var(--color-bg-chrome);
+  border-radius: var(--radius-card);
   box-shadow: var(--shadow-overlay);
 }
 .brand-subnav__menu-link {
-  display: flex; align-items: center; min-height: 44px; padding: 0 var(--space-3); border-radius: var(--radius-sm);
+  display: flex; align-items: center; min-height: 40px; padding: 0 var(--space-3); border-radius: var(--radius-md);
   color: var(--ink-900); text-decoration: none; font-size: var(--text-small); font-weight: 500; white-space: nowrap;
 }
-.brand-subnav__menu-link:hover { background: var(--bone); text-decoration: none; }
-.brand-subnav__menu-link[aria-current="page"] { color: var(--accent-text); font-weight: 500; background: var(--accent-tint); }
+.brand-subnav__menu-link:hover { background: var(--color-bg-tile); text-decoration: none; }
+.brand-subnav__menu-link[aria-current="page"] { color: var(--accent-text); font-weight: 500; background: var(--color-bg-tile); }
 
 /* ≥ 1024: links that the bar cannot fit are listed under "More" and hidden in the row (never half visible) */
 @media (min-width: 1024px) { .brand-subnav__list > li[data-clipped] { visibility: hidden; } }
@@ -117,5 +150,4 @@
 :root[data-motion="reduced"] .brand-subnav { transition: none; }
 @media (prefers-reduced-motion: reduce) { :root:not([data-motion="full"]) .brand-subnav { transition: none; } }
 
-/* Phones/tablets: 8px between chips, so "More" never touches the last link (Tamil labels at 320) */
-@media (max-width: 1023px) { .brand-subnav__list { gap: var(--space-2); } }
+

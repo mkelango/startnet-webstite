@@ -8,9 +8,9 @@
   text-align: left;
   gap: var(--space-3);
   min-height: 240px;
-  padding: 32px;
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-media);
+  padding: var(--pad-card-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
   background: var(--card);
 }
 :root :is(.section--white, .section--sunken) .empty-state { background: var(--white); }
@@ -27,6 +27,6 @@
 
 /* Phones: 24px padding (was 32); Tamil titles at 17px so "பட்டியலிடப்படவில்லை." stays whole at 320 */
 @media (max-width: 399.98px) {
-  .empty-state { padding: 24px; }
+  .empty-state { padding: var(--pad-card); }
   .empty-state__title:lang(ta) { font-size: 1.0625rem; }
 }

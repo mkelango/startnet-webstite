@@ -1,7 +1,8 @@
 // Home hero photo showcase (M01 v3.1, 14 Oct 2026): StartNet's own photographs grouped by category, shown three at a
 // time in the bento mosaic. Inside a category one tile crossfades to the next photo every TICK_MS; after the
 // category's photos have all been shown, the whole mosaic moves on to the next category (staggered crossfade).
-// The category tabs under the mosaic name each set, carry the brand dot and a progress line, and can be clicked.
+// The category tabs (a strip along the mosaic's foot) name each set, carry a Paper dot and a progress line, and can
+// be clicked.
 //
 // Motion rules: pauses on hover and keyboard focus, while the hero is off screen or the tab is hidden, and with the
 // pause button (WCAG 2.2.2). Reduced motion: no autoplay and no fades; the tabs still switch the set.
@@ -73,7 +74,8 @@ const SETS = CATEGORIES.map((c) => ({
   photos: c.photos.map(([key, en, ta]) => ({ key, en, ta, pic: photoFor(key) })).filter((p) => p.pic),
 })).filter((c) => c.photos.length >= 3);
 
-const TILE_SIZES = ['(min-width: 1024px) 26vw, 56vw', '(min-width: 1024px) 20vw, 44vw', '(min-width: 1024px) 20vw, 44vw'];
+// The mosaic bleeds to the viewport edge: ≥1024 it spans about half the viewport, below that the full width.
+const TILE_SIZES = ['(min-width: 1024px) 28vw, 54vw', '(min-width: 1024px) 24vw, 46vw', '(min-width: 1024px) 24vw, 46vw'];
 
 /** Which photo each of the three tiles shows at a given tick of a category. */
 function tilesAt(set, tick) {
@@ -232,7 +234,7 @@ export default function HeroShowcase() {
   return (
     <div
       ref={rootRef}
-      className={cx('hero-show home-hero__rise home-hero__rise--1', !playing && 'is-paused', reduced && 'is-still')}
+      className={cx('hero-show', !playing && 'is-paused', reduced && 'is-still')}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onFocus={() => setFocusIn(true)}

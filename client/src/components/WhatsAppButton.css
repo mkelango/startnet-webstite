@@ -1,6 +1,7 @@
 .whatsapp-button__glyph { flex: none; }
-.whatsapp-button--icon { width: 48px; min-width: 48px; height: 48px; padding: 0; }
-.whatsapp-button--icon.button--sm { width: 36px; min-width: 36px; height: 36px; }
-/* Icon-only: no side padding at any width or language (Tamil buttons get 20px side padding from 401px, which left
-   an 8px-wide glyph in the 48px bottom-bar button) */
+/* Icon-only: a circle of --btn-icon (48) / --btn-icon-sm (40 with size sm), as every icon button (SPEC §4.1) */
+.whatsapp-button--icon { width: var(--btn-icon); min-width: var(--btn-icon); height: var(--btn-icon); min-height: var(--btn-icon); padding: 0; border-radius: var(--radius-full); }
+.whatsapp-button--icon.button--sm { width: var(--btn-icon-sm); min-width: var(--btn-icon-sm); height: var(--btn-icon-sm); min-height: var(--btn-icon-sm); }
+/* Icon-only: no side padding at any width or language (Tamil buttons get side padding from 401px, which left an
+   8px-wide glyph in the bottom-bar button) */
 :root .button.whatsapp-button--icon:not(.button--tertiary) { padding: 0; }

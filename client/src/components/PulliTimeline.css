@@ -98,7 +98,7 @@
   .pulli-timeline__tab .pulli-timeline__title { color: var(--color-text-muted); transition: color var(--dur-2) var(--ease-snap); }
   .pulli-timeline__tab[aria-expanded='true'] .pulli-timeline__title { color: var(--color-text); }
   @media (hover: hover) { .pulli-timeline__tab:hover .pulli-timeline__title { color: var(--color-text); } }
-  .pulli-timeline__tab:focus-visible { outline-offset: 4px; border-radius: var(--radius-btn); }
+  .pulli-timeline__tab:focus-visible { outline-offset: 4px; border-radius: var(--radius-sm); }
   .pulli-timeline__panel {
     display: block;
     position: sticky;

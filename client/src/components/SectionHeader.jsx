@@ -6,11 +6,12 @@ import './SectionHeader.css';
 const TITLE_CLASS = { h1: 'h1', h2: 'h2', h3: 'h3' };
 
 /**
- * Dot label + title + lede, with an optional action (DESIGN-v2 3.8).
- * Layout: 8/4 at ≥1024 with the action on the title's last baseline; below 1024 the action sits under the lede.
+ * Dot label + title + lede, with an optional action (docs/redesign/SPEC.md §4.3).
+ * Layout: ≥768 the text block (max --measure-head) and the action side by side, bottom-aligned; below 768 the action
+ * sits under the lede.
  * Choreography: label, title and lede rise in at 0 / 60 / 120 ms, the action at 180 ms (the dot never moves);
  * the title uses the line-mask reveal (Reveal variant="mask").
- * `align="center"` centres the label and title only; the lede stays left-aligned in a centred 40ch box.
+ * `align="center"` (inset Ink panels): one centred column, the action under the lede.
  */
 export function SectionHeader({ eyebrow, title, lede, action, as = 'h2', align = 'left', id, className, contentLang }) {
   const { lang } = useLang();

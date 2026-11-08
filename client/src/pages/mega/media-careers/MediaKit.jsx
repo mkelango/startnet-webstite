@@ -171,6 +171,7 @@ export default function MediaKit() {
       />
 
       <PageHero
+        layout="text"
         eyebrow={t('Media', 'ஊடகம்')}
         title={t('Media kit.', 'ஊடகத் தொகுப்பு.')}
         lede={t(
@@ -186,7 +187,7 @@ export default function MediaKit() {
         }
       />
 
-      <Section surface="paper" pad="sm" className="mkit">
+      <Section surface="paper" pad="tight" className="mkit">
         <div className="mkit__layout">
           {/* In-page nav: sticky aside on desktop, collapsible on phones (Book 3 Part B §4, T19) */}
           <nav className="mkit-toc" id="mkit-toc" aria-label={t('On this page', 'இந்தப் பக்கத்தில்')}>
@@ -547,7 +548,7 @@ export default function MediaKit() {
         </div>
       </Section>
 
-      <CTABand surface="night"
+      <CTABand surface="paper"
         title={t('Looking for the latest news?', 'சமீபத்திய செய்திகளைத் தேடுகிறீர்களா?')}
         body={t('Press releases, coverage and sourced facts are in the media centre.', 'செய்திக் குறிப்புகள், ஊடகச் செய்திகள், ஆதாரமுள்ள தகவல்கள் ஊடக மையத்தில் உள்ளன.')}
         actions={

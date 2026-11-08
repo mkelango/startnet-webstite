@@ -1,18 +1,12 @@
-// Pointer effects for mouse and trackpad users (DESIGN-v2 3.6: transform only, content visible at rest,
-// nothing under reduced motion, nothing on touch screens).
-// - Magnetic pull: primary CTAs (primary buttons that are not small, large brand buttons, anything marked
-//   [data-magnetic]) lean at most 5px toward the pointer.
-// - Card spotlight + tilt (v2b interaction layer): linked cards and brand tiles publish the pointer position as
-//   --mx / --my (a glow border and a soft surface light follow it, styles/interactions.css) and tilt at most 3deg
-//   toward it. Media cards tilt at most 2deg. The tilt is an inline transform; the hover lift is the CSS `translate` property, so the two
-//   never fight. Leaving the card (or the window) eases it back to rest.
+// Pointer effects for mouse and trackpad users (transform only, content visible at rest, nothing under reduced
+// motion, nothing on touch screens).
+// - Magnetic pull: the one red CTA per section (Button variant="point", .button--point) leans at most 5px toward the
+//   pointer. Nothing else moves: cards no longer tilt, lift or carry a spotlight (docs/redesign/SPEC.md §4, "no lift,
+//   no shadow, no tilt"); their hover is the CSS media zoom + title underline.
 // Everything is driven by one passive pointermove listener and one rAF; nothing runs while the pointer is still.
 
-const MAGNETIC = '.button--primary:not(.button--sm), .button--brand.button--lg, [data-magnetic]';
-const TILT = '.card--link, .brand-tile';
+const MAGNETIC = '.button--point';
 const MAX = 5;
-const MAX_TILT = 3;
-const MAX_TILT_MEDIA = 2;
 
 let active = false;
 let cleanup = null;
@@ -32,19 +26,11 @@ function start() {
   html.classList.add('has-pointer-fx');
 
   let magnet = null;
-  let card = null;
   let raf = 0;
   let last = null;
   const releaseMagnet = () => {
     if (magnet) magnet.style.translate = '';
     magnet = null;
-  };
-  const releaseCard = () => {
-    if (card) {
-      card.style.transform = '';
-      card.removeAttribute('data-fx-hover');
-    }
-    card = null;
   };
 
   const apply = () => {
@@ -62,22 +48,6 @@ function start() {
       const dy = Math.max(-MAX, Math.min(MAX, (e.clientY - (r.top + r.height / 2)) * 0.2));
       m.style.translate = `${dx.toFixed(1)}px ${dy.toFixed(1)}px`;
     }
-
-    // A card being dragged in a scroller rail keeps still (the rail is moving under the pointer).
-    const c = t && !t.closest('.is-dragging') ? t.closest(TILT) : null;
-    if (c !== card) releaseCard();
-    if (c) {
-      card = c;
-      const r = c.getBoundingClientRect();
-      if (r.width < 1 || r.height < 1) return;
-      const px = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
-      const py = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
-      const max = c.classList.contains('card--framed') ? MAX_TILT : MAX_TILT_MEDIA;
-      c.style.setProperty('--mx', `${(px * 100).toFixed(1)}%`);
-      c.style.setProperty('--my', `${(py * 100).toFixed(1)}%`);
-      c.style.transform = `perspective(1100px) rotateX(${((0.5 - py) * 2 * max).toFixed(2)}deg) rotateY(${((px - 0.5) * 2 * max).toFixed(2)}deg)`;
-      c.setAttribute('data-fx-hover', '');
-    }
   };
 
   const onMove = (e) => {
@@ -87,13 +57,10 @@ function start() {
   };
 
   const onLeave = (e) => {
-    if (!e.relatedTarget) {
-      releaseMagnet();
-      releaseCard();
-    }
+    if (!e.relatedTarget) releaseMagnet();
   };
-  // Scrolling moves cards under a still pointer: drop the tilt rather than leave a stale angle.
-  const onScroll = () => { if (card) releaseCard(); };
+  // Scrolling moves the button under a still pointer: drop the pull rather than leave a stale offset.
+  const onScroll = () => { if (magnet) releaseMagnet(); };
 
   window.addEventListener('pointermove', onMove, { passive: true });
   document.addEventListener('pointerout', onLeave, { passive: true });
@@ -107,7 +74,6 @@ function start() {
     window.removeEventListener('scroll', onScroll);
     window.removeEventListener('blur', onScroll);
     releaseMagnet();
-    releaseCard();
     html.classList.remove('has-pointer-fx');
   };
 }

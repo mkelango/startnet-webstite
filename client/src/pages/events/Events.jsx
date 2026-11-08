@@ -22,7 +22,7 @@ import {
 } from './parts/eventMeta.js';
 import { monthKey, monthLabel, eventDay } from './parts/eventTime.js';
 import EventCalendar from './parts/EventCalendar.jsx';
-import EventRow from './parts/EventRow.jsx';
+import EventsTabs from './parts/EventsTabs.jsx';
 import { useSlidingIndicator } from '../../components/_indicator.js';
 import { DISTRICTS, findDistrict } from '../mega/about-districts/districtsData.js';
 import './parts/eventList.css';
@@ -88,8 +88,6 @@ export default function Events() {
   const focusHost = useRef(false);
   // 1024–1279: the facet chips fill the bar, so the List/Calendar toggle sits beside the heading instead.
   const toggleInHead = useMediaQuery('(min-width: 1024px) and (max-width: 1279px)');
-  // >= 1024px: hairline event rows (EventRow); below: the shared EventCard grid (DESIGN-v2 6.3). Same data and order.
-  const rows = useMediaQuery('(min-width: 1024px)');
   const { data, loading, error } = useApi(`/api/events?when=upcoming${retry ? `&r=${retry}` : ''}`);
 
   const all = useMemo(
@@ -117,6 +115,9 @@ export default function Events() {
     });
     return out;
   }, [paged.visible]);
+  // One card grid. Month dividers (full-row) only when every month holds 2+ events; otherwise the EventCard date
+  // chip carries the month and the grid stays 1 / 2 / 3 without half-empty rows.
+  const grouped = groups.length > 1 && groups.every((g) => g.items.length >= 2);
 
   const urlDistricts = values.district;
   const urlDistrictKey = urlDistricts.join(',');
@@ -250,8 +251,11 @@ export default function Events() {
             </Button>
           </>
         }
-        art={{ variant: 'network', ratio: '4/5', seed: 11, alt: '', animate: true }}
+        art={{ variant: 'network', seed: 11, alt: '' }}
       />
+
+      {/* Upcoming / Past folder tabs (routes), the sheet that rises over the hero */}
+      <EventsTabs current="upcoming" />
 
       {/* Listing */}
       <Section surface="paper" id="events-list" labelledBy="events-list-title" className="events-list">
@@ -312,36 +316,36 @@ export default function Events() {
           {!loading && !error && n > 0 && view === 'calendar' && <EventCalendar events={results} />}
 
           {!loading && !error && n > 0 && view === 'list' && (
-            <div ref={paged.gridRef} className="events-list__months">
-              {groups.map((g) => (
-                <section key={g.key} className="events-month" aria-labelledby={`events-month-${g.key}`}>
-                  <h3 id={`events-month-${g.key}`} className="events-month__title">
-                    <span>{g.key === 'tbc' ? t('Dates to be confirmed', 'தேதிகள் உறுதியாகவில்லை') : monthLabel(g.key, lang)}</span>
-                    <span className="events-month__count tnum">
-                      {t(`${g.items.length} ${g.items.length === 1 ? 'event' : 'events'}`, `${g.items.length} ${g.items.length === 1 ? 'நிகழ்வு' : 'நிகழ்வுகள்'}`)}
-                    </span>
-                  </h3>
-                  <motion.ul className={`events-list__grid ev-rows ${rows ? 'ev-rows--rows' : 'ev-rows--cards'}`} role="list">
-                    <AnimatePresence mode="popLayout" initial={false}>
-                      {g.items.map(({ e, i }) => (
-                        <motion.li
-                          key={e.slug}
-                          layout={reduced ? false : 'position'}
-                          data-result-index={i}
-                          className="events-list__item"
-                          initial={reduced ? false : { opacity: 0, y: 12 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={reduced ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, y: -8, transition: { duration: 0.16 } }}
-                          transition={reduced ? { duration: 0 } : SPRING}
-                        >
-                          {rows ? <EventRow event={e} headingLevel={4} /> : <EventCard event={e} headingLevel={4} />}
-                        </motion.li>
-                      ))}
-                    </AnimatePresence>
-                  </motion.ul>
-                </section>
-              ))}
-            </div>
+            <motion.ul ref={paged.gridRef} className="events-list__grid ev-rows ev-rows--cards" role="list">
+              <AnimatePresence mode="popLayout" initial={false}>
+                {groups.flatMap((g) => {
+                  const head = grouped ? [
+                    <motion.li key={`m-${g.key}`} layout={reduced ? false : 'position'} className="events-month">
+                      <h3 id={`events-month-${g.key}`} className="events-month__title">
+                        <span>{g.key === 'tbc' ? t('Dates to be confirmed', 'தேதிகள் உறுதியாகவில்லை') : monthLabel(g.key, lang)}</span>
+                        <span className="events-month__count tnum">
+                          {t(`${g.items.length} ${g.items.length === 1 ? 'event' : 'events'}`, `${g.items.length} ${g.items.length === 1 ? 'நிகழ்வு' : 'நிகழ்வுகள்'}`)}
+                        </span>
+                      </h3>
+                    </motion.li>,
+                  ] : [];
+                  return head.concat(g.items.map(({ e, i }) => (
+                    <motion.li
+                      key={e.slug}
+                      layout={reduced ? false : 'position'}
+                      data-result-index={i}
+                      className="events-list__item"
+                      initial={reduced ? false : { opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={reduced ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, y: -8, transition: { duration: 0.16 } }}
+                      transition={reduced ? { duration: 0 } : SPRING}
+                    >
+                      <EventCard event={e} headingLevel={grouped ? 4 : 3} />
+                    </motion.li>
+                  )));
+                })}
+              </AnimatePresence>
+            </motion.ul>
           )}
 
           {!loading && !error && n > 0 && view === 'list' && (
@@ -350,7 +354,7 @@ export default function Events() {
                 {t(`Showing ${paged.shown} of ${paged.total}`, `${paged.total} இல் ${paged.shown} காட்டப்படுகின்றன`)}
               </p>
               {paged.shown < paged.total && (
-                <Button variant="secondary" onClick={paged.more}>
+                <Button variant="secondary" size="lg" onClick={paged.more}>
                   {t('Load more', 'மேலும் காட்டு')}
                 </Button>
               )}
@@ -436,6 +440,7 @@ export default function Events() {
                     photo={seriesPhoto(fl.series)}
                     sizes={PHOTO_SIZES.card}
                     alt=""
+                    noCaption
                   />
                 </div>
                 <div className="events-flagship__top">
@@ -492,11 +497,11 @@ export default function Events() {
 
       {/* AEO FAQ: drafted from Book 2 §5.1 (sub-head, filters, card microcopy, archive, host band) — StartNet review */}
       <Section surface="white" labelledBy="events-faq-title" className="events-faq">
-        <div className="grid-12 events-faq__grid">
-        <div className="col-5 events-faq__head">
+        <div className="faq-split events-faq__grid">
+        <div className="faq-split__head events-faq__head">
           <SectionHeader id="events-faq-title" eyebrow={t('Questions', 'கேள்விகள்')} title={t('Common questions', 'பொதுவான கேள்விகள்')} />
         </div>
-        <div className="col-6 events-faq__list">
+        <div className="events-faq__list">
         <Accordion
           faq
           items={[
@@ -547,12 +552,12 @@ export default function Events() {
         </div>
       </Section>
 
-      {/* Host band — the page's one Night band */}
+      {/* Host band: the inset Bone headband (SPEC §5.4 #7) */}
       <CTABand
-        surface="night"
+        surface="paper"
         title={t('Want StartNet in your district or college?', 'உங்கள் மாவட்டத்திலோ கல்லூரியிலோ StartNet வேண்டுமா?')}
         actions={
-          <Button variant="primary" onClick={() => openHost()} icon={ArrowRight}>
+          <Button variant="primary" size="lg" onClick={() => openHost()} icon={ArrowRight}>
             {t('Host an event', 'நிகழ்வை நடத்துங்கள்')}
           </Button>
         }

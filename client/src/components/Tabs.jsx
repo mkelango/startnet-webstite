@@ -9,8 +9,13 @@ import './Tabs.css';
 const EASE = [0.2, 0, 0.38, 0.9];
 
 /**
- * WAI-ARIA tabs with automatic activation (arrows, Home/End) and a sliding indicator (DESIGN-v2 3.12).
- * `variant`: 'underline' (default: 2px Ink rule on a hairline base) or 'pill' (segmented: Ink pill, Paper text).
+ * WAI-ARIA tabs with automatic activation (arrows, Home/End) (docs/redesign/SPEC.md §4.9).
+ * `variant`:
+ * - 'underline' (default): 48px tabs, a 2px Ink indicator that slides along a hairline base. In-section tabs.
+ * - 'pill': 40px pills with a hairline ring, gap 8; the active one Ink-filled (a sliding Ink thumb). Filters, days.
+ * - 'folder' (NEW): PnP listing tabs. A full-bleed Bone strip with folder tabs (min 220 × 64, radius 12 12 0 0);
+ *   the active tab is Paper and merges with the Paper panel below. Below 1024: equal widths, 56 tall, square.
+ * - 'segmented' (NEW): a 40px Bone pill track; the active item is a Card thumb. View toggles.
  * Extra optional prop: `onChange(id)`.
  */
 export function Tabs({ tabs, defaultTab, label, onChange, variant = 'underline', className }) {
@@ -63,7 +68,8 @@ export function Tabs({ tabs, defaultTab, label, onChange, variant = 'underline',
   }, [current]);
 
   // One indicator slides between tabs (shared hook; transform / clip-path only).
-  useSlidingIndicator(listRef, '[aria-selected="true"]', [current, list.length, variant]);
+  const sliding = variant === 'underline' || variant === 'pill';
+  useSlidingIndicator(listRef, sliding ? '[aria-selected="true"]' : null, [current, list.length, variant]);
 
   if (!list.length) return null;
 
@@ -110,7 +116,7 @@ export function Tabs({ tabs, defaultTab, label, onChange, variant = 'underline',
               </button>
             );
           })}
-          <span className={cx('ind', variant === 'pill' ? 'ind--pill' : 'ind--line')} aria-hidden="true" />
+          {sliding && <span className={cx('ind', variant === 'pill' ? 'ind--pill' : 'ind--line')} aria-hidden="true" />}
         </div>
       </div>
       {list.map((tb) => {

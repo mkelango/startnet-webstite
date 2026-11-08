@@ -184,6 +184,84 @@ export default function DistrictPage() {
         art={<DistrictLocator district={d} nearby={nearby} />}
       />
 
+      {/* M12 · District Ledger slice: the FactBand-style counts straight after the hero (SPEC 5.8, Antler S order).
+          A Paper sheet, so it does not sit as a second Ink band against the Ink hero. */}
+      <Section id="district-ledger" labelledBy="district-ledger-title">
+        <SectionHeader
+          as="h2"
+          eyebrow={t('Founder Ledger', 'Founder Ledger')}
+          id="district-ledger-title"
+          title={t(`What we have counted in ${d.en}`, `${d.ta} மாவட்டத்தில் நாங்கள் கணக்கிட்டவை`)}
+          lede={t(
+            'We count outcomes, not attendance. Figures for this district come from the latest Ledger edition, each with a confidence tag.',
+            'வருகையை அல்ல, விளைவுகளையே எண்ணுகிறோம். இந்த மாவட்டத்தின் எண்கள் சமீபத்திய Ledger பதிப்பிலிருந்து, ஒவ்வொன்றும் நம்பகத்தன்மைக் குறியுடன்.'
+          )}
+        />
+        {ledgerLoading ? (
+          <Skeleton height="8rem" count={1} />
+        ) : (
+          <Reveal>
+            <div className="district-ledger">
+              <div className="district-ledger__cell">
+                <Stat
+                  value={numOrNull(row?.nurtured ?? row?.value ?? row?.count)}
+                  label={t(`founders nurtured (L2+) from ${d.en}`, `${d.ta} மாவட்டத்தில் வளர்க்கப்பட்ட நிறுவனர்கள் (L2+)`)}
+                  tag={rowTag}
+                  asAt={asAt || undefined}
+                  source={ledgerSource}
+                />
+              </div>
+              <div className="district-ledger__cell">
+                <Stat
+                  value={numOrNull(row?.launched)}
+                  label={t(`startups launched (L5) from ${d.en}`, `${d.ta} மாவட்டத்தில் தொடங்கப்பட்ட ஸ்டார்ட்அப்கள் (L5)`)}
+                  tag={rowTag}
+                  asAt={asAt || undefined}
+                  source={ledgerSource}
+                />
+              </div>
+              <div className="district-ledger__cell">
+                {!d.metro && contextMetric ? (
+                  <Stat
+                    metric={contextMetric}
+                    label={t(
+                      contextMetric.label,
+                      'தமிழ்நாட்டு ஸ்டார்ட்அப்களில் சென்னை, கோயம்புத்தூர், காஞ்சிபுரம் தவிர்த்த மாவட்டங்களில் உள்ளவை'
+                    )}
+                  />
+                ) : (
+                  <Stat
+                    value={null}
+                    label={t(`events run in ${d.en}`, `${d.ta} மாவட்டத்தில் நடத்தப்பட்ட நிகழ்வுகள்`)}
+                    tag="B"
+                    source={ledgerSource}
+                  />
+                )}
+              </div>
+            </div>
+          </Reveal>
+        )}
+        <p className="district-ledger__note">
+          {d.metro
+            ? t(
+                `${d.en} is one of the three metro districts, with ${otherMetros.map((m) => m.en).join(' and ')}, that our district promise is measured against.`,
+                `${otherMetros.map((m) => m.ta).join(', ')} ஆகியவற்றுடன், எங்கள் மாவட்ட வாக்குறுதி அளவிடப்படும் மூன்று பெருநகர மாவட்டங்களில் ${d.ta} ஒன்று.`
+              )
+            : t(
+                'Our district promise: we report the share of launched founders from outside Chennai, Coimbatore and Kancheepuram.',
+                'எங்கள் மாவட்ட வாக்குறுதி: சென்னை, கோயம்புத்தூர், காஞ்சிபுரம் தவிர்த்த மாவட்டங்களிலிருந்து தொடங்கிய நிறுவனர்களின் பங்கை வெளியிடுகிறோம்.'
+              )}
+        </p>
+        <div className="district-ledger__actions cluster">
+          <Button to="/insights/founder-ledger" variant="primary">
+            {t('Read the Founder Ledger', 'Founder Ledger-ஐப் படியுங்கள்')}
+          </Button>
+          <Button to="/about/evidence-standard" variant="tertiary">
+            {t('How we count', 'நாங்கள் எப்படி எண்ணுகிறோம்')}
+          </Button>
+        </div>
+      </Section>
+
       {/* M05 · Local events */}
       <Section surface="white" id="district-events" labelledBy="district-events-title">
         <SectionHeader
@@ -318,7 +396,7 @@ export default function DistrictPage() {
       </Section>
 
       {/* Local partners (signed only) */}
-      <Section surface="white" pad="sm" id="district-partners" labelledBy="district-partners-title">
+      <Section surface="white" pad="tight" id="district-partners" labelledBy="district-partners-title">
         <div className="district-partners">
           <span className="district-partners__icon" aria-hidden="true">
             <Handshake size={22} strokeWidth={1.5} />
@@ -339,83 +417,6 @@ export default function DistrictPage() {
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
-        </div>
-      </Section>
-
-      {/* M12 · District Ledger slice (the page's one Night band) */}
-      <Section surface="night" id="district-ledger" labelledBy="district-ledger-title">
-        <SectionHeader
-          as="h2"
-          eyebrow={t('Founder Ledger', 'Founder Ledger')}
-          id="district-ledger-title"
-          title={t(`What we have counted in ${d.en}`, `${d.ta} மாவட்டத்தில் நாங்கள் கணக்கிட்டவை`)}
-          lede={t(
-            'We count outcomes, not attendance. Figures for this district come from the latest Ledger edition, each with a confidence tag.',
-            'வருகையை அல்ல, விளைவுகளையே எண்ணுகிறோம். இந்த மாவட்டத்தின் எண்கள் சமீபத்திய Ledger பதிப்பிலிருந்து, ஒவ்வொன்றும் நம்பகத்தன்மைக் குறியுடன்.'
-          )}
-        />
-        {ledgerLoading ? (
-          <Skeleton height="8rem" count={1} />
-        ) : (
-          <Reveal>
-            <div className="district-ledger">
-              <div className="district-ledger__cell">
-                <Stat
-                  value={numOrNull(row?.nurtured ?? row?.value ?? row?.count)}
-                  label={t(`founders nurtured (L2+) from ${d.en}`, `${d.ta} மாவட்டத்தில் வளர்க்கப்பட்ட நிறுவனர்கள் (L2+)`)}
-                  tag={rowTag}
-                  asAt={asAt || undefined}
-                  source={ledgerSource}
-                />
-              </div>
-              <div className="district-ledger__cell">
-                <Stat
-                  value={numOrNull(row?.launched)}
-                  label={t(`startups launched (L5) from ${d.en}`, `${d.ta} மாவட்டத்தில் தொடங்கப்பட்ட ஸ்டார்ட்அப்கள் (L5)`)}
-                  tag={rowTag}
-                  asAt={asAt || undefined}
-                  source={ledgerSource}
-                />
-              </div>
-              <div className="district-ledger__cell">
-                {!d.metro && contextMetric ? (
-                  <Stat
-                    metric={contextMetric}
-                    label={t(
-                      contextMetric.label,
-                      'தமிழ்நாட்டு ஸ்டார்ட்அப்களில் சென்னை, கோயம்புத்தூர், காஞ்சிபுரம் தவிர்த்த மாவட்டங்களில் உள்ளவை'
-                    )}
-                  />
-                ) : (
-                  <Stat
-                    value={null}
-                    label={t(`events run in ${d.en}`, `${d.ta} மாவட்டத்தில் நடத்தப்பட்ட நிகழ்வுகள்`)}
-                    tag="B"
-                    source={ledgerSource}
-                  />
-                )}
-              </div>
-            </div>
-          </Reveal>
-        )}
-        <p className="district-ledger__note">
-          {d.metro
-            ? t(
-                `${d.en} is one of the three metro districts, with ${otherMetros.map((m) => m.en).join(' and ')}, that our district promise is measured against.`,
-                `${otherMetros.map((m) => m.ta).join(', ')} ஆகியவற்றுடன், எங்கள் மாவட்ட வாக்குறுதி அளவிடப்படும் மூன்று பெருநகர மாவட்டங்களில் ${d.ta} ஒன்று.`
-              )
-            : t(
-                'Our district promise: we report the share of launched founders from outside Chennai, Coimbatore and Kancheepuram.',
-                'எங்கள் மாவட்ட வாக்குறுதி: சென்னை, கோயம்புத்தூர், காஞ்சிபுரம் தவிர்த்த மாவட்டங்களிலிருந்து தொடங்கிய நிறுவனர்களின் பங்கை வெளியிடுகிறோம்.'
-              )}
-        </p>
-        <div className="district-ledger__actions cluster">
-          <Button to="/insights/founder-ledger" variant="inverse">
-            {t('Read the Founder Ledger', 'Founder Ledger-ஐப் படியுங்கள்')}
-          </Button>
-          <Button to="/about/evidence-standard" variant="tertiary">
-            {t('How we count', 'நாங்கள் எப்படி எண்ணுகிறோம்')}
-          </Button>
         </div>
       </Section>
 
@@ -494,7 +495,7 @@ export default function DistrictPage() {
       </Section>
 
       {/* Nearby districts + jump to any district (accessible twin of the locator) */}
-      <Section surface="sunken" pad="sm" id="district-nearby" labelledBy="district-nearby-title">
+      <Section surface="sunken" pad="tight" id="district-nearby" labelledBy="district-nearby-title">
         <div className="district-nearby">
           <div>
             <h2 id="district-nearby-title" className="h4">

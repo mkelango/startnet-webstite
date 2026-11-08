@@ -133,7 +133,8 @@ export default function SeriesPage({ series: seriesProp }) {
   const heroActions = (
     <>
       {next ? (
-        <Button variant={brand ? 'brand' : 'primary'} size="lg" href={registerHref}>
+        // Primary, not point: the hero title's red full stop is this section's red (SPEC §4.1).
+        <Button size="lg" href={registerHref}>
           {x.register(next)}
         </Button>
       ) : (
@@ -184,7 +185,7 @@ export default function SeriesPage({ series: seriesProp }) {
       />
 
       <PageHero
-        className="series-hero"
+        className="series-page__hero"
         eyebrow={`${t(kind[0], kind[1])} · ${brandName}`}
         title={`${cfg.name}.`}
         lede={
@@ -197,7 +198,7 @@ export default function SeriesPage({ series: seriesProp }) {
         }
         breadcrumbs={[{ label: t('Events', 'நிகழ்வுகள்'), to: '/events' }, { label: cfg.name }]}
         actions={heroActions}
-        art={{ variant: ART_FOR[brand] || 'dot', brand: brand || undefined, ratio: '4/5', seed: seedOf(key), alt: '', animate: true }}
+        art={{ variant: ART_FOR[brand] || 'dot', brand: brand || undefined, seed: seedOf(key), alt: '' }}
         meta={
           <div className="cluster series-hero__meta">
             {brand && <Badge kind="brand" brand={brand} />}
@@ -483,7 +484,7 @@ export default function SeriesPage({ series: seriesProp }) {
         actions={
           next ? (
             <>
-              <Button variant="inverse" href={registerHref}>{x.register(next)}</Button>
+              <Button href={registerHref}>{x.register(next)}</Button>
               <Button variant="tertiary" to={editionPath(next)} icon={ArrowRight}>
                 {t('See this edition', 'இந்தப் பதிப்பைப் பாருங்கள்')}
               </Button>

@@ -11,16 +11,10 @@
   justify-self: center;
   overflow: hidden; /* never let a long label widen the page */
 }
-/* ≥1024 the split hero turns .page-hero__art into an edge-to-edge panel (PageHero.css); a photo fills it, but this
-   inset card would sit glued to the panel's top edge. Centre it in the panel, clear of the Paper sheet at its foot
-   ("safe" keeps the top on screen if the hero is ever shorter than the card). */
+/* ≥1024 the split hero media frame (PageHero.css) is already a rounded Slate panel bleeding to the right edge, so the
+   inset drops its own frame there and sits centred in the panel. */
 @media (min-width: 1024px) {
-  .page-hero--split .page-hero__art:has(> .dloc) {
-    display: flex;
-    align-items: safe center;
-    justify-content: center;
-    padding: var(--space-8) var(--space-8) calc(var(--sheet-radius, 24px) + var(--space-8));
-  }
+  .page-hero__art > .dloc { border: 0; background: transparent; margin: auto; align-self: center; }
 }
 .dloc__svg { display: block; width: 100%; height: auto; overflow: visible; max-width: 100%; }
 

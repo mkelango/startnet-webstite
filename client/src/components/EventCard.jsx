@@ -1,3 +1,4 @@
+import { MapPin } from 'lucide-react';
 import { useLang } from '../lib/i18n.jsx';
 import { dateFormat, formatDate } from '../lib/format.js';
 import { Card } from './Card.jsx';
@@ -32,8 +33,9 @@ function dateParts(iso, lang) {
 // "[number]", "To be confirmed": nothing to show as a place.
 const isPh = (s) => typeof s === 'string' && /^\[.*\]$|^to be confirmed$/i.test(s.trim());
 
-/** Event card (Book 3 C24, DESIGN-v2 3.7 media card): 4:3 media, meta row (brand dot · date · place), title,
- *  2-line summary, facts (format, language, price, seats) and the CTA bottom-left. */
+/** Event card (docs/redesign/SPEC.md §4.6, the PnP event card): 3:2 media with a date chip inset top-left and the
+ *  format chip top-right, then the meta row (brand dot · place), title (2 lines), 2-line summary, facts (language,
+ *  price), the seats status row and the CTA bottom-left. */
 /**
  * The card's photo: the event's own; else one of its series' photos that is not already on the page (so several
  * cards of one series never show the same picture), then a library photo; a series with no photos keeps the art.
@@ -101,7 +103,7 @@ export function EventCard({ event, headingLevel = 3, className }) {
       ? t('Join the waitlist', 'காத்திருப்புப் பட்டியலில் சேருங்கள்')
       : t('Register', 'பதிவு செய்யுங்கள்');
 
-  // Meta row (one line): brand dot label · date · place. Separators only between present values.
+  // Meta row (one line): brand dot label · place. Separators only between present values. The date sits on the media.
   const kicker = [
     e.brand && BRANDS[e.brand] ? (
       <span key="b" className="event-card__brand" data-brand={e.brand}>
@@ -109,41 +111,51 @@ export function EventCard({ event, headingLevel = 3, className }) {
       </span>
     ) : null,
     past ? <Badge key="s" kind="status" status="past" /> : null,
-    dateItem ? <span key="d">{dateItem}</span> : null,
     placeText ? (
-      <span key="p">
+      <span key="p" className="event-card__place">
+        <MapPin size={16} strokeWidth={1.75} aria-hidden="true" className="event-card__icon" />
         <InlineMarks text={placeText} />
       </span>
     ) : null,
   ].filter(Boolean);
 
+  // On the media: the date chip (top-left) and the format chip (top-right).
+  const overlay = dateItem || e.format ? (
+    <>
+      {dateItem && <span className="event-card__date-chip">{dateItem}</span>}
+      {e.format && <Badge kind="type" className="event-card__format">{formatLabel(e.format, lang)}</Badge>}
+    </>
+  ) : null;
+
   return (
     <Card
       variant="media"
-      ratio="4/3"
+      ratio="3/2"
       to={eventPath(e)}
       brand={e.brand}
       className={cx('event-card', past && 'event-card--past', className)}
       headingLevel={headingLevel}
-      art={{ variant: VARIANTS[h % VARIANTS.length], seed: h % 997, ratio: '4/3', brand: e.brand, ...cardPhoto(e), sizes: PHOTO_SIZES.card }}
+      art={{ variant: VARIANTS[h % VARIANTS.length], seed: h % 997, ratio: '3/2', brand: e.brand, ...cardPhoto(e), sizes: PHOTO_SIZES.card, noCaption: true }}
+      mediaOverlay={overlay}
       kicker={kicker.length ? <span className="event-card__kicker">{kicker}</span> : null}
       title={pick(e, 'title')}
       body={pick(e, 'summary') && !isPlaceholderText(pick(e, 'summary')) ? <p className="event-card__summary"><InlineMarks text={pick(e, 'summary')} /></p> : null}
       meta={
         <>
+          {((dateTbc && dateLabel && !isPlaceholderText(dateLabel)) || e.language || price) && (
           <ul className="event-card__facts">
             {dateTbc && dateLabel && !isPlaceholderText(dateLabel) && (
               <li className="event-card__date-label">
                 <InlineMarks text={dateLabel} />
               </li>
             )}
-            {e.format && <li>{formatLabel(e.format, lang)}</li>}
             {e.language && <li>{langList(e.language, lang)}</li>}
             {price && <li>{price}</li>}
-            {!past && e.seats && SEATS[e.seats] && (
-              <li className={cx('event-card__seats', `event-card__seats--${e.seats}`)}>{t(SEATS[e.seats][0], SEATS[e.seats][1])}</li>
-            )}
           </ul>
+          )}
+          {!past && e.seats && SEATS[e.seats] && (
+            <p className={cx('event-card__seats', `event-card__seats--${e.seats}`)}>{t(SEATS[e.seats][0], SEATS[e.seats][1])}</p>
+          )}
           {past && outcome && <Stat metric={outcome} variant="compact" />}
         </>
       }

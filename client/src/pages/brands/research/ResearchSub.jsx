@@ -136,14 +136,28 @@ function Labs() {
       ]}
       factsAction={<Button variant="brand" full href="#register-interest">{register}</Button>}
       after={
-        <InterestSection
-          title={t('Register interest in a Lab.', 'ஓர் ஆய்வகத்தில் சேர ஆர்வத்தைப் பதிவு செய்யுங்கள்.')}
-          body={t(
-            'Tell us which Lab fits your research. We will reply with the host institution and problem statements as soon as they are confirmed.',
-            'உங்கள் ஆய்வுக்குப் பொருந்தும் ஆய்வகம் எது என்று சொல்லுங்கள். தலைமைக் கல்வி நிறுவனமும் சிக்கல் அறிக்கைகளும் உறுதியானதும் உங்களுக்குப் பதில் அனுப்புவோம்.'
-          )}
-          source="research-labs"
-        />
+        <>
+          <InterestSection
+            title={t('Register interest in a Lab.', 'ஓர் ஆய்வகத்தில் சேர ஆர்வத்தைப் பதிவு செய்யுங்கள்.')}
+            body={t(
+              'Tell us which Lab fits your research. We will reply with the host institution and problem statements as soon as they are confirmed.',
+              'உங்கள் ஆய்வுக்குப் பொருந்தும் ஆய்வகம் எது என்று சொல்லுங்கள். தலைமைக் கல்வி நிறுவனமும் சிக்கல் அறிக்கைகளும் உறுதியானதும் உங்களுக்குப் பதில் அனுப்புவோம்.'
+            )}
+            source="research-labs"
+          />
+          {/* Closing headband (§5.2 sub pages): CTABand brand after the interest form */}
+          <CTABand
+            brand="research"
+            className="brand-close"
+            title={t('Talk to us about sponsoring a Lab', 'ஆய்வக ஸ்பான்சர்ஷிப் பற்றி எங்களிடம் பேசுங்கள்')}
+            actions={
+              <>
+                <Button variant="brand" to="/partner/enquire?type=gcc&ref=research-labs-close">{t('Sponsor a Lab', 'ஓர் ஆய்வகத்துக்கு ஸ்பான்சர் செய்யுங்கள்')}</Button>
+                <Button variant="whatsapp" href={waLink(WA_TEXT, 'research-labs')}>{t('Talk to the Research team', 'Research குழுவிடம் பேசுங்கள்')}</Button>
+              </>
+            }
+          />
+        </>
       }
     >
       <nav className="research-sub__jump" aria-label={t('Labs on this page', 'இந்தப் பக்கத்தில் உள்ள ஆய்வகங்கள்')}>
@@ -278,6 +292,7 @@ function Fellowship() {
       factsAction={<Button variant="brand" full href={applyHref}>{cta}</Button>}
       after={
         <>
+          <InterestSection title={t('Get notified when the next cohort opens.', 'அடுத்த குழு தொடங்கும்போது அறிவிப்பைப் பெறுங்கள்.')} body={micro} source="research-fellowship" />
           <CTABand
             surface="paper"
             brand="research"
@@ -291,7 +306,6 @@ function Fellowship() {
               </>
             }
           />
-          <InterestSection title={t('Get notified when the next cohort opens.', 'அடுத்த குழு தொடங்கும்போது அறிவிப்பைப் பெறுங்கள்.')} body={micro} source="research-fellowship" />
         </>
       }
     >

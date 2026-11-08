@@ -1,5 +1,5 @@
-// C05 · Bottom sticky CTA bar (Book 1 Part B §3.4, Book 4 IX-03). < 1024 px only.
-// One context-aware primary button + a WhatsApp icon button. Hidden while the drawer or search is open,
+// C05 · Bottom sticky CTA bar (SPEC §3.7, Book 4 IX-03). < 1024 px only: a 64px Card bar with a top hairline.
+// One context-aware primary button (Ink; brand fill on a hub) + a 44px WhatsApp icon button. Hidden while the drawer or search is open,
 // while a form field has focus, while the consent banner is up, and while an on-page primary CTA
 // (any element marked [data-primary-cta], or a hero action row) is in view, so the CTA is never shown twice.
 // A hero CTA still below the fold also holds the bar back: it appears once the hero's actions have scrolled away.
@@ -302,7 +302,6 @@ export default function BottomCtaBar() {
           key="cta-bar"
           ref={barRef}
           className="bottom-cta"
-          data-surface="night"
           role="region"
           aria-label={t('Quick actions', 'விரைவுச் செயல்கள்')}
           data-brand={brand}

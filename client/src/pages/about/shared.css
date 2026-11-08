@@ -25,7 +25,7 @@
 }
 @container scroll-state(stuck: top) {
   .about-bar__sheet {
-    background: rgb(244 243 239 / 0.92);
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
     -webkit-backdrop-filter: saturate(1.2) blur(16px);
     backdrop-filter: saturate(1.2) blur(16px);
   }
@@ -47,7 +47,7 @@
 }
 .about-toc--bar .about-toc__list::-webkit-scrollbar { display: none; }
 .about-toc--bar .about-toc__list > li { flex-shrink: 0; }
-/* The sliding Ink pill: one layer as wide as the scrolled row, clipped to the current chip (round ends kept). */
+/* The sliding thumb: one layer as wide as the scrolled row, clipped to the current chip (round ends kept). */
 .about-pill__ind {
   position: absolute;
   top: 0; left: 0; bottom: 0;
@@ -55,26 +55,28 @@
   z-index: 0;
   pointer-events: none;
   border-radius: var(--radius-full);
-  background: var(--sn-ink);
+  /* SPEC §4.9 segmented: a Card thumb on the Bone track (the current label stays Ink, Tabs.css). */
+  background: var(--color-bg-raised);
   opacity: 0;
   clip-path: inset(var(--ind-y, 0px) calc(var(--ind-sw, 100%) - var(--ind-x, 0px) - var(--ind-w, 0px)) calc(100% - var(--ind-y, 0px) - var(--ind-h, 0px)) var(--ind-x, 0px) round 9999px);
   transition: clip-path var(--dur-3) var(--ease-snap), opacity var(--dur-2) var(--ease-snap);
 }
 [data-ind-ready] > .about-pill__ind { opacity: 1; }
+:root :is(.section--white, .section--sunken) .about-pill__ind { background: var(--color-bg-form); }
 @media (prefers-reduced-motion: reduce) { .about-pill__ind { transition: opacity 0ms; } }
 :root[data-motion='reduced'] .about-pill__ind { transition: opacity 0ms; }
 /* Edge fades show only on the side(s) with hidden chips; toggled from scroll position in shared.jsx. */
 .about-toc--bar .about-toc__list[data-fade-end] {
-  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
-  mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+  -webkit-mask-image: linear-gradient(to right, black calc(100% - 32px), transparent);
+  mask-image: linear-gradient(to right, black calc(100% - 32px), transparent);
 }
 .about-toc--bar .about-toc__list[data-fade-start] {
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 32px);
-  mask-image: linear-gradient(to right, transparent, #000 32px);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 32px);
+  mask-image: linear-gradient(to right, transparent, black 32px);
 }
 .about-toc--bar .about-toc__list[data-fade-start][data-fade-end] {
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
-  mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
+  mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
 }
 .about-toc--bar .about-toc__link { font-size: var(--text-meta); }
 /* The chip row scrolls sideways (overflow clips): keep the focus ring inside the chip. */
@@ -101,7 +103,7 @@
 
 /* ---------- Pending (placeholder) figures: a hairline cell like the figures beside it ---------- */
 .about-pending { display: flex; flex-direction: column; gap: var(--space-3); padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
-.about-pending__label { font-weight: 500; font-size: var(--text-body); letter-spacing: -0.01em; }
+.about-pending__label { font-weight: 500; font-size: var(--text-body); letter-spacing: var(--tracking-h4); }
 .about-pending__value { margin: 0; display: flex; flex-direction: column; gap: var(--space-2); align-items: flex-start; }
 .about-pending__tag { font-variant-numeric: tabular-nums; }
 
@@ -124,7 +126,7 @@
 .eyebrow .about-num { font-size: inherit; }
 
 /* ---------- Common blocks reused across about pages ---------- */
-.about-statement { font-size: var(--text-h2); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; max-width: 28ch; text-wrap: balance; }
+.about-statement { font-size: var(--text-h2); font-weight: 400; line-height: 1.2; letter-spacing: var(--tracking-h2); max-width: 28ch; text-wrap: balance; }
 .about-rule { border: 0; border-top: var(--border-hair); margin: 0; }
 .about-note { font-size: var(--text-small); color: var(--color-text-muted); }
 .about-note em { font-style: italic; }

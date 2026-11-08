@@ -1,12 +1,15 @@
-// C03 · Mega menu panel content (Book 1 Part B §3.2, AIWO blueprint P1). The open/close shell lives in Header.jsx.
-// Variants: 'columns' (intro + 2–4 columns in cols 1–8 · the featured card in cols 9–12, led by a media ·
-// footer strip) and 'brands' (4 accent-ruled columns + ink strip).
+// C03 · Mega menu panel content (docs/redesign/SPEC.md §3.2, Plug and Play "two panes"). The open/close shell lives
+// in Header.jsx.
+// Left pane (Card, 300px): the section name as a dot label, the intro line, then the menu's lead links (its
+// "See all" overview plus the former footer-strip links) at 20px/500 with a nudging arrow.
+// Right pane (Bone): the link columns, and the featured live-data card as the last column (280px).
+// Variant 'brands': the right pane holds one column per sub-brand (accent dot + brand name); the platform line and
+// its CTA close the left pane.
 // Featured-card media: a real photograph where it shows the panel's own subject (curated from the library, used on
 // no page in data/imagePlan.js, so it never repeats a photo on the page behind the panel); the event's own photo
-// (or a motion visual) for the next flagship; a motion visual for data and platform panels (Ledger, StartNet X).
+// (or a motion visual) for the next flagship. One photo per menu at most.
 // Copy comes from data/nav.js (English + *Ta fields); Tamil strings here are drafts pending native review.
 import { Link } from 'react-router-dom';
-import { m } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, MessageCircle } from 'lucide-react';
 import { useLang } from '../lib/i18n.jsx';
 import { useApi } from '../hooks/useApi.js';
@@ -14,7 +17,7 @@ import { snxLink, waLink } from '../lib/links.js';
 import { formatDate, formatDateShort } from '../lib/format.js';
 import { BRANDS } from '../data/brands.js';
 import { isPublished, publishedLinks } from '../data/nav.js';
-import { Badge, BrandLockup, Button, Placeholder, Stat, ArtImage } from '../components';
+import { Badge, Button, Placeholder, Stat, ArtImage } from '../components';
 import { eventPath as eventPathOf } from '../components/_utils.js';
 import { findMetric, signInHref } from './shell.jsx';
 import './MegaMenu.css';
@@ -22,20 +25,12 @@ import { eventPhotoKeys, photoFor } from '../data/photos.js';
 
 const PLACEHOLDER = ['[placeholder — to be supplied by StartNet]', '[இடம்பிடிப்பு — StartNet வழங்க வேண்டும்]'];
 
-const colVariants = {
-  hidden: { opacity: 0, y: 6 },
-  show: (i) => ({ opacity: 1, y: 0, transition: { delay: Math.min(i, 5) * 0.04, duration: 0.24, ease: [0.2, 0, 0, 1] } }),
-};
-
 function MenuLink({ link, onNavigate }) {
   const { t, localePath } = useLang();
   return (
     <li>
       <Link to={localePath(link.to)} className="mega-menu__link" onClick={onNavigate}>
-        <span className="mega-menu__link-label">
-          {t(link.label, link.labelTa)}
-          <ArrowRight size={16} strokeWidth={1.75} aria-hidden="true" className="mega-menu__link-arrow" />
-        </span>
+        <span className="mega-menu__link-label">{t(link.label, link.labelTa)}</span>
         {link.note && <span className="mega-menu__link-note">{t(link.note, link.noteTa)}</span>}
       </Link>
     </li>
@@ -54,16 +49,10 @@ function ReportLinks({ onNavigate }) {
   ));
 }
 
-function Column({ col, index, reduced, onNavigate }) {
+function Column({ col, onNavigate }) {
   const { t } = useLang();
   return (
-    <m.div
-      className="mega-menu__col"
-      custom={index}
-      variants={reduced ? undefined : colVariants}
-      initial={reduced ? false : 'hidden'}
-      animate="show"
-    >
+    <div className="mega-menu__col">
       <h3 className="mega-menu__col-title">
         {t(col.heading, col.headingTa)}
         {col.meta && <span className="mega-menu__col-meta">{col.meta}</span>}
@@ -72,7 +61,7 @@ function Column({ col, index, reduced, onNavigate }) {
         {col.dynamic === 'reports' && <ReportLinks onNavigate={onNavigate} />}
         {publishedLinks(col).map((l) => <MenuLink key={l.to + l.label} link={l} onNavigate={onNavigate} />)}
       </ul>
-    </m.div>
+    </div>
   );
 }
 
@@ -98,7 +87,7 @@ function FeatureMedia({ kind }) {
   );
 }
 
-function FeatureShell({ title, children, tone = 'sunken', eyebrow, media }) {
+function FeatureShell({ title, children, tone = 'card', eyebrow, media }) {
   const { t } = useLang();
   return (
     <aside className={`mega-feature mega-feature--${tone}${media ? ' mega-feature--media' : ''}`} aria-label={title}>
@@ -278,9 +267,9 @@ function FeaturedLedger({ f }) {
 function FeaturedSnx({ f }) {
   const { t, lang } = useLang();
   return (
-    <FeatureShell title={t(f.title, f.titleTa)} tone="ink" eyebrow="StartNet X" media="snx">
+    <FeatureShell title={t(f.title, f.titleTa)} eyebrow="StartNet X" media="snx">
       <div className="mega-feature__actions">
-        <Button href={snxLink('/signup', { src: 'menu', lang })} variant="inverse" size="sm">{ctaLabel(t, f.cta)}</Button>
+        <Button href={snxLink('/signup', { src: 'menu', lang })} size="sm">{ctaLabel(t, f.cta)}</Button>
         <a href={signInHref(lang, 'menu')} className="mega-feature__textlink">
           {t('Sign in', 'உள்நுழைக')} <ArrowUpRight size={14} aria-hidden="true" />
           <span className="visually-hidden">{t(' (opens StartNet X)', ' (StartNet X-இல் திறக்கும்)')}</span>
@@ -322,119 +311,101 @@ const FEATURED = {
 
 /* ---------- Panel ---------- */
 
-function Intro({ item, onNavigate }) {
+/** Left-pane lead links: the section overview ("See all …") first, then the links of the former footer strip. */
+function leadLinks(item) {
+  const list = [];
+  if (item.seeAll) list.push(item.seeAll);
+  (item.footer || []).filter(isPublished).forEach((l) => list.push(l));
+  return list;
+}
+
+function LeadLink({ link, onNavigate }) {
   const { t, localePath } = useLang();
   return (
-    <div className="mega-menu__intro">
-      <h2 className="mega-menu__title">
-        <Link to={localePath(item.to)} onClick={onNavigate} className="mega-menu__title-link">
-          {t(item.label, item.labelTa)}
-          <ArrowRight size={22} aria-hidden="true" className="mega-menu__title-arrow" />
-        </Link>
-      </h2>
+    <li>
+      <Link to={localePath(link.to)} onClick={onNavigate} className="mega-menu__lead">
+        <span>{t(link.label, link.labelTa)}</span>
+        <ArrowRight size={16} strokeWidth={2} aria-hidden="true" className="mega-menu__lead-arrow" />
+      </Link>
+    </li>
+  );
+}
+
+function LeftPane({ item, onNavigate, children }) {
+  const { t } = useLang();
+  return (
+    <div className="mega-menu__left">
+      <h2 className="mega-menu__eyebrow">{t(item.label, item.labelTa)}</h2>
       <p className="mega-menu__lede">{t(item.intro, item.introTa)}</p>
+      <ul className="mega-menu__leads">
+        {leadLinks(item).map((l) => <LeadLink key={l.to + l.label} link={l} onNavigate={onNavigate} />)}
+      </ul>
+      {children}
     </div>
   );
 }
 
-function Strip({ item, onNavigate }) {
+function BrandsPanel({ item, onNavigate }) {
   const { t, localePath } = useLang();
-  const footer = (item.footer || []).filter(isPublished);
+  const f = item.featured;
   return (
-    <div className="mega-menu__strip">
-      <div className="container mega-menu__strip-inner">
-        {footer.length > 0 && (
-          <ul className="mega-menu__strip-list">
-            {footer.map((l) => (
-              <li key={l.label}>
-                <Link to={localePath(l.to)} onClick={onNavigate}>{t(l.label, l.labelTa)}</Link>
-              </li>
-            ))}
-          </ul>
+    <div className="mega-menu__content mega-menu__content--brands">
+      <LeftPane item={item} onNavigate={onNavigate}>
+        {f && (
+          <div className="mega-menu__platform">
+            <p className="mega-menu__platform-text">{t(f.title, f.titleTa)}</p>
+            <ul className="mega-menu__leads">
+              <LeadLink link={f.cta} onNavigate={onNavigate} />
+            </ul>
+          </div>
         )}
-        <Link to={localePath(item.seeAll.to)} onClick={onNavigate} className="mega-menu__seeall">
-          {t(item.seeAll.label, item.seeAll.labelTa)} <ArrowRight size={16} aria-hidden="true" />
-        </Link>
+      </LeftPane>
+      <div className="mega-menu__right" style={{ '--cols': item.columns.length }}>
+        {item.columns.map((col) => (
+          <div key={col.brand} data-brand={col.brand} className="mega-menu__col mega-menu__brand">
+            <Link
+              to={localePath(col.visit.to)}
+              className="mega-menu__brand-head"
+              onClick={onNavigate}
+              aria-label={`${col.heading}, ${t(col.journey, col.journeyTa)}`}
+            >
+              <span className="mega-menu__brand-name">{col.heading}</span>
+              <span className="mega-menu__brand-journey">{t(col.journey, col.journeyTa)}</span>
+            </Link>
+            <ul className="mega-menu__list">
+              {publishedLinks(col).map((l) => <MenuLink key={l.to} link={l} onNavigate={onNavigate} />)}
+            </ul>
+            <Link to={localePath(col.visit.to)} className="mega-menu__brand-visit" onClick={onNavigate}>
+              {t(col.visit.label, col.visit.labelTa)} <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-function BrandsPanel({ item, reduced, onNavigate }) {
-  const { t, localePath } = useLang();
-  return (
-    <>
-      <div className="container mega-menu__inner mega-menu__inner--brands">
-        <Intro item={item} onNavigate={onNavigate} />
-        <div className="mega-menu__brands">
-          {item.columns.map((col, i) => (
-            <m.div
-              key={col.brand}
-              data-brand={col.brand}
-              className="mega-menu__brand"
-              custom={i}
-              variants={reduced ? undefined : colVariants}
-              initial={reduced ? false : 'hidden'}
-              animate="show"
-            >
-              <Link
-                to={localePath(col.visit.to)}
-                className="mega-menu__brand-head"
-                onClick={onNavigate}
-                aria-label={`${col.heading}, ${t(col.journey, col.journeyTa)}`}
-              >
-                <BrandLockup brand={col.brand} size="sm" />
-                <span className="mega-menu__brand-journey">{t(col.journey, col.journeyTa)}</span>
-              </Link>
-              <ul className="mega-menu__list">
-                {publishedLinks(col).map((l) => <MenuLink key={l.to} link={l} onNavigate={onNavigate} />)}
-              </ul>
-              <Link to={localePath(col.visit.to)} className="mega-menu__brand-visit" onClick={onNavigate}>
-                {t(col.visit.label, col.visit.labelTa)} <ArrowRight size={16} aria-hidden="true" />
-              </Link>
-            </m.div>
-          ))}
-        </div>
-      </div>
-      <div className="mega-menu__inkstrip" data-surface="night">
-        <div className="container mega-menu__inkstrip-inner">
-          <p>{t(item.featured.title, item.featured.titleTa)}</p>
-          <Button to={item.featured.cta.to} variant="inverse" size="sm" icon={ArrowRight}>{ctaLabel(t, item.featured.cta)}</Button>
-        </div>
-      </div>
-    </>
-  );
-}
-
-export default function MegaMenu({ item, reduced = false, onNavigate }) {
-  if (item.variant === 'brands') {
-    return (
-      <div className="mega-menu__content">
-        <BrandsPanel item={item} reduced={reduced} onNavigate={onNavigate} />
-        <Strip item={item} onNavigate={onNavigate} />
-      </div>
-    );
-  }
+export default function MegaMenu({ item, onNavigate }) {
+  if (item.variant === 'brands') return <BrandsPanel item={item} onNavigate={onNavigate} />;
   const Featured = FEATURED[item.featured?.kind];
   // Drop a column whose links are all unpublished (the reports column fills itself at runtime).
   // `megaHidden` columns stay in the mobile drawer but not in this panel.
   const columns = item.columns.filter((col) => !col.megaHidden && isPublished(col) && (col.dynamic || publishedLinks(col).length > 0));
   return (
     <div className="mega-menu__content">
-      <div className="container mega-menu__inner" data-featured={item.featured?.kind}>
-        <Intro item={item} onNavigate={onNavigate} />
-        <div className="mega-menu__cols" style={{ '--mega-cols': columns.length }}>
-          {columns.map((col, i) => (
-            <Column key={col.heading} col={col} index={i} reduced={reduced} onNavigate={onNavigate} />
-          ))}
-        </div>
+      <LeftPane item={item} onNavigate={onNavigate} />
+      <div
+        className="mega-menu__right"
+        data-featured={Featured ? item.featured.kind : undefined}
+        style={{ '--cols': columns.length }}
+      >
+        {columns.map((col) => <Column key={col.heading} col={col} onNavigate={onNavigate} />)}
         {Featured && (
           <div className="mega-menu__feature-slot" onClick={(e) => { if (e.target.closest('a')) onNavigate?.(e); }}>
             <Featured f={item.featured} onNavigate={onNavigate} />
           </div>
         )}
       </div>
-      <Strip item={item} onNavigate={onNavigate} />
     </div>
   );
 }

@@ -1,32 +1,47 @@
 /* /brands: four doors, the programme finder, the shared platform and the naming rules, as calm AngelList-family
    sheets. Flat hairline cards; each brand shows its colour only in the lock-up, one dot and the arrow. */
 
-/* ===== Brand doors (DESIGN-v2 6.2): a 2x2 grid of large unframed media cards at ≥768 (16/10 media, 12px radius),
-   each with the brand accent only in its journey dot label, and the arrow link bottom-left. Staggered reveal. ===== */
-.ourbrands-doors { display: grid; gap: var(--space-12) 32px; grid-template-columns: minmax(0, 1fr); }
-@media (min-width: 768px) { .ourbrands-doors { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-16) 24px; } }
-@media (min-width: 1024px) { .ourbrands-doors { gap: var(--space-20) 32px; } }
+/* ===== Brand doors (docs/redesign/SPEC.md §5.2, BrandTile §4.6): a 2x2 grid of Ink / Slate tiles (checkerboard) at the
+   panel radius with --pad-card-lg, a 4px accent rule on the top edge and the 16/10 art inset at the media radius.
+   The accent stays in the rule, the lock-up and the journey dot; it never fills the tile. ===== */
+.ourbrands-doors { display: grid; gap: var(--gap-grid); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 768px) { .ourbrands-doors { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
-.ourbrands-door { position: relative; display: flex; flex-direction: column; min-width: 0; }
+.ourbrands-door {
+  position: relative; display: flex; flex-direction: column; min-width: 0;
+  padding: var(--pad-card-lg); border-radius: var(--radius-panel); overflow: hidden; isolation: isolate;
+  background: var(--color-bg); color: var(--color-text);
+  --color-label-dot: var(--accent-night);
+}
+.ourbrands-door--slate {
+  --color-bg: var(--night-2);
+  --color-bg-raised: var(--night-1);
+  --color-border: var(--night-line-strong);
+}
+.ourbrands-door__rule {
+  position: absolute; inset: 0 0 auto; z-index: 3; height: 4px;
+  background: var(--accent-night); pointer-events: none;
+}
 .ourbrands-door__art {
-  position: relative; display: block; overflow: hidden;
-  border-radius: var(--radius-media); background: var(--bone);
+  position: relative; display: block; overflow: hidden; isolation: isolate;
+  border-radius: var(--radius-media); background: var(--night-1);
   aspect-ratio: 16 / 10;
 }
-.ourbrands-door__art .art-image { border-radius: 0; aspect-ratio: 16 / 10 !important; height: 100%; }
-.ourbrands-door__art > :first-child { transition: transform var(--dur-media) var(--ease-snap); }
+.ourbrands-door__art .art-image { position: absolute; inset: 0; border-radius: 0; }
+.ourbrands-door__art .art-image :is(.art-image__photo, .art-image__svg, .art-image__picture) { width: 100%; height: 100%; object-fit: cover; }
+.ourbrands-door__art > :first-child { transition: scale var(--dur-media) var(--ease-media); }
 @media (hover: hover) and (pointer: fine) {
-  .ourbrands-door:hover .ourbrands-door__art > :first-child { transform: scale(1.03); }
+  .ourbrands-door:hover .ourbrands-door__art > :first-child { scale: var(--media-zoom); }
 }
 .ourbrands-door__index {
   position: absolute; left: 12px; top: 12px; z-index: 2;
   font-size: var(--text-caption); font-weight: 500; letter-spacing: 0; font-variant-numeric: tabular-nums;
-  padding: 2px var(--space-2); border-radius: var(--radius-btn);
-  background: var(--sn-ink); color: var(--paper);
+  padding: 2px var(--space-2); border-radius: var(--radius-chip, var(--radius-full));
+  background: var(--paper); color: var(--sn-ink);
 }
 
 .ourbrands-door__body { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); padding-top: var(--space-6); flex: 1; }
-.ourbrands-door__name { margin: 0; font-size: var(--text-h3); }
+.ourbrands-door__name { margin: 0; font-size: var(--text-h3); color: var(--color-text); }
 /* Journey as a dot label: the dot carries the brand accent, the words stay Ink */
 .ourbrands-door__journey {
   display: inline-flex; align-items: baseline; gap: 0.6em;
@@ -43,9 +58,14 @@
 .ourbrands-door__subs { align-self: stretch; margin-top: var(--space-4); }
 :root .ourbrands-door__chip { font-size: var(--text-body); font-weight: 400; }
 @media (pointer: coarse) { .ourbrands-door__chip { min-height: 48px; } }
+/* Lucide ArrowRight 16 (§4.1) replaces the typed arrow; it sits on the text's centre line and nudges 4px on hover */
+.ourbrands-door .arrow { display: inline-flex; align-items: center; flex: none; }
+.ourbrands-door .arrow svg { display: block; }
+/* One red point per composition: the four reversed lock-ups set their StartNet stop in the brand's night accent */
+:root .ourbrands-door .logo__dot { background: var(--accent-night); }
 .ourbrands-door__cta { margin-top: auto; padding-top: var(--space-5); color: var(--color-text); text-decoration: none; font-size: var(--text-body); }
 @media (hover: hover) and (pointer: fine) {
-  .ourbrands-door:hover .ourbrands-door__cta .arrow { transform: translateX(4px); }
+  .ourbrands-door:hover .ourbrands-door__cta .arrow { transform: translateX(var(--shift-1)); }
 }
 
 /* ===== Not sure which door? (text left, hairline list right) ===== */
@@ -138,3 +158,8 @@
   :lang(ta) .ourbrands-platform__title { font-size: var(--text-h2); }
 }
 .ourbrands-unsure { align-items: start; }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.ourbrands-unsure__persona-label:lang(ta),
+.ourbrands-level__head .h5:lang(ta),
+.ourbrands-level__example:lang(ta) { letter-spacing: 0; }

@@ -1,5 +1,5 @@
 // /events/past — Past events archive, by year. Copy: Book 2 §5.1 "Past events (archive)". SEO: Book 1 Part A §9.5.
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import { Seo, Section, PageHero, EventCard, Button, EmptyState, Skeleton, CTABand, RevealGroup, EventVideos } from '../../components';
 import { featuredVideos } from '../../data/videos.js';
@@ -8,11 +8,11 @@ import { waLink } from '../../lib/links.js';
 import { useApi } from '../../hooks/useApi.js';
 import { webPageLd, itemListLd } from '../../lib/seo.js';
 import { eventPath } from '../../components/_utils.js';
-import { useFacetParams } from '../programmes/parts/facets.js';
+import FacetBar from '../programmes/parts/FacetBar.jsx';
+import { useFacetParams, matchesAll, facetCount } from '../programmes/parts/facets.js';
 import { brandLabel } from './parts/eventMeta.js';
 import { yearOf } from './parts/eventTime.js';
-import EventRow from './parts/EventRow.jsx';
-import { useMediaQuery } from '../../layout/shell.jsx';
+import EventsTabs from './parts/EventsTabs.jsx';
 import './parts/eventList.css';
 import './PastEvents.css';
 
@@ -24,28 +24,37 @@ const ts = (e) => {
 };
 /** Newest first; undated archive entries last. */
 const newestFirst = (a, b) => (ts(a) === ts(b) ? 0 : ts(b) - ts(a));
+const yearKey = (e) => (e.date && yearOf(e.date)) || UNDATED;
+// The same FacetBar as /events (SPEC §5.4 #3): Brand and Year facets, state in the URL (?brand=vibe&year=2025).
+const PAST_KEYS = ['brand', 'year'];
+const PAST_VOCAB = { brand: BRAND_ORDER, year: (v) => (/^(\d{4}|undated)$/.test(v) ? v : null) };
+const PAST_PREDS = { brand: (e, v) => e.brand === v, year: (e, v) => yearKey(e) === v };
 
 export default function PastEvents() {
   const { t, lang } = useLang();
   const yearLabel = (y) => (y === UNDATED ? t('Year to be confirmed', 'ஆண்டு உறுதியாகவில்லை') : y);
   const [retry, setRetry] = useState(0);
   const { data, loading, error } = useApi(`/api/events?when=past${retry ? `&r=${retry}` : ''}`);
-  const f = useFacetParams(['brand']);
-  const brand = f.values.brand[0];
-  // >= 1024px: hairline rows with muted dates (EventRow); below: the shared EventCard grid (DESIGN-v2 6.3).
-  const rows = useMediaQuery('(min-width: 1024px)');
+  const f = useFacetParams(PAST_KEYS, PAST_VOCAB);
+  const { values } = f;
 
   const all = useMemo(
     () => (Array.isArray(data) ? [...data].filter((e) => e.status !== 'upcoming').sort(newestFirst) : []),
     [data]
   );
   const brands = useMemo(() => BRAND_ORDER.filter((b) => all.some((e) => e.brand === b)), [all]);
-  const shown = useMemo(() => (brand ? all.filter((e) => e.brand === brand) : all), [all, brand]);
+  const allYears = useMemo(() => [...new Set(all.map(yearKey))], [all]);
+  const shown = useMemo(() => all.filter((e) => matchesAll(e, values, PAST_PREDS)), [all, values]);
+  const count = useCallback((k, v) => facetCount(all, values, PAST_PREDS, k, v), [all, values]);
+  const facets = [
+    { key: 'brand', label: t('Brand', 'பிராண்ட்'), options: brands.map((b) => ({ value: b, label: brandLabel(t, b) })) },
+    { key: 'year', label: t('Year', 'ஆண்டு'), options: allYears.map((y) => ({ value: y, label: y === UNDATED ? t('Undated', 'தேதியில்லை') : y })) },
+  ];
 
   const years = useMemo(() => {
     const map = new Map();
     shown.forEach((e) => {
-      const y = (e.date && yearOf(e.date)) || UNDATED;
+      const y = yearKey(e);
       if (!map.has(y)) map.set(y, []);
       map.get(y).push(e);
     });
@@ -91,42 +100,37 @@ export default function PastEvents() {
         }
         // AIWO split hero: copy left, media right. Past events keep the art (PHOTOS.md), unless StartNet supplies
         // this page's own hero photo.
-        art={{ variant: 'grid', ratio: '4/5', seed: 23, alt: '' }}
+        art={{ variant: 'grid', seed: 23, alt: '' }}
       />
 
-      <Section surface="paper" className="past-events__body" pad="sm">
-        {(brands.length > 0 || years.length > 1) && (
-          <div className="past-events__nav">
-            {brands.length > 0 && (
-              <div className="past-events__brands" role="group" aria-label={t('Filter by brand', 'பிராண்ட் வாரியாக வடிகட்டுங்கள்')}>
-                <button type="button" className={`chip past-events__chip${!brand ? ' is-on' : ''}`} aria-pressed={!brand} onClick={() => f.setFacet('brand', [])}>
-                  {t('All', 'அனைத்தும்')}
-                </button>
-                {brands.map((b) => (
-                  <button
-                    key={b}
-                    type="button"
-                    data-brand={b}
-                    className={`chip past-events__chip${brand === b ? ' is-on' : ''}`}
-                    aria-pressed={brand === b}
-                    onClick={() => f.setFacet('brand', brand === b ? [] : [b])}
-                  >
-                    <span className="past-events__chip-dot" aria-hidden="true" />
-                    {brandLabel(t, b)}
-                  </button>
-                ))}
-              </div>
-            )}
-            {years.length > 1 && (
-              <nav className="past-events__years" aria-label={t('Jump to year', 'ஆண்டுக்குச் செல்லுங்கள்')}>
-                {years.map(([y]) => (
-                  <a key={y} href={`#year-${y}`} className="past-events__year-link tnum">
-                    {y === UNDATED ? t('Undated', 'தேதியில்லை') : y}
-                  </a>
-                ))}
-              </nav>
-            )}
-          </div>
+      {/* Upcoming / Past folder tabs (routes), the sheet that rises over the hero */}
+      <EventsTabs current="past" />
+
+      <Section surface="paper" className="past-events__body" pad="tight">
+        {(brands.length > 0 || allYears.length > 1) && (
+          <FacetBar
+            className="past-events__bar"
+            label={t('Filter by brand', 'பிராண்ட் வாரியாக வடிகட்டுங்கள்')}
+            facets={facets}
+            values={values}
+            count={count}
+            onToggle={f.toggle}
+            onClear={f.clear}
+            total={shown.length}
+            noun="events"
+            clearable={f.activeCount > 0}
+            extra={
+              years.length > 1 ? (
+                <nav className="past-events__years" aria-label={t('Jump to year', 'ஆண்டுக்குச் செல்லுங்கள்')}>
+                  {years.map(([y]) => (
+                    <a key={y} href={`#year-${y}`} className="past-events__year-link tnum">
+                      {y === UNDATED ? t('Undated', 'தேதியில்லை') : y}
+                    </a>
+                  ))}
+                </nav>
+              ) : undefined
+            }
+          />
         )}
 
         <p className="visually-hidden" role="status" aria-live="polite">
@@ -191,10 +195,10 @@ export default function PastEvents() {
                     {t(`${items.length} ${items.length === 1 ? 'event' : 'events'}`, `${items.length} ${items.length === 1 ? 'நிகழ்வு' : 'நிகழ்வுகள்'}`)}
                   </p>
                 </header>
-                <RevealGroup as="ul" className={`past-events__grid ev-rows ${rows ? 'ev-rows--rows' : 'ev-rows--cards'}`}>
+                <RevealGroup as="ul" className="past-events__grid ev-rows ev-rows--cards">
                   {items.map((e) => (
                     <li key={e.slug}>
-                      {rows ? <EventRow event={e} muted /> : <EventCard event={e} />}
+                      <EventCard event={e} />
                     </li>
                   ))}
                 </RevealGroup>
@@ -212,7 +216,7 @@ export default function PastEvents() {
       </Section>
 
       <CTABand
-        surface="night"
+        surface="paper"
         title={t('Want StartNet in your district or college?', 'உங்கள் மாவட்டத்திலோ கல்லூரியிலோ StartNet வேண்டுமா?')}
         actions={
           <Button to="/events#host" icon={ArrowRight}>

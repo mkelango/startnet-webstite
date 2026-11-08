@@ -65,33 +65,14 @@
 .ledger-period__notice {
   display: flex; gap: var(--space-3); align-items: flex-start;
   margin-top: var(--space-6); padding: var(--space-4) var(--space-5);
-  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  border: 1px solid var(--color-border); border-radius: var(--radius-card);
   background: var(--card);
   color: var(--color-text-2); font-size: var(--text-small);
 }
 .ledger-period__notice svg { flex: none; margin-top: 0.15em; color: var(--color-text-muted); }
 
 /* KPI band: 1 → 2×2 → 4-up, light numerals between vertical hairlines, ruled top and bottom */
-.ledger-period-kpis {
-  display: grid; grid-template-columns: minmax(0, 1fr);
-  border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);
-}
-@media (min-width: 600px) { .ledger-period-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1024px) { .ledger-period-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-.ledger-period-kpis > * { min-width: 0; }
-.ledger-period-kpis > * + * { border-top: 1px solid var(--color-border); }
-.ledger-period-kpis__item { padding: var(--space-8) var(--space-6) var(--space-8) 0; height: 100%; min-width: 0; }
-@media (min-width: 600px) and (max-width: 1023.98px) {
-  .ledger-period-kpis > * + * { border-top: 0; }
-  .ledger-period-kpis > :nth-child(n + 3) { border-top: 1px solid var(--color-border); }
-  .ledger-period-kpis > .ledger-period-kpis__item:nth-child(2n) { border-left: 1px solid var(--color-border); padding-left: var(--space-6); }
-}
-@media (min-width: 1024px) {
-  .ledger-period-kpis > * + * { border-top: 0; border-left: 1px solid var(--color-border); }
-  .ledger-period-kpis__item { padding: var(--space-10) var(--space-6); }
-  .ledger-period-kpis > .ledger-period-kpis__item:first-child { padding-left: 0; }
-}
-.ledger-period-kpis .stat--hero .stat__value { font-size: clamp(2.75rem, 1.75rem + 3vw, 4.5rem); }
+/* KPI band: the kit FactBand variant="lg"; only the legend under it is styled here. */
 .ledger-period-kpis__ph { font-size: var(--text-small); }
 .ledger-period-kpis__rule {
   display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); max-width: 70ch;
@@ -162,20 +143,18 @@
   display: grid; grid-template-columns: minmax(0, 1fr); gap: 1px;
   margin-top: var(--space-4);
   background: var(--color-border);
-  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  border: 1px solid var(--color-border); border-radius: var(--radius-card);
   overflow: hidden;
 }
 @media (min-width: 640px) { .ledger-period-outcomes__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .ledger-period-outcomes__item { padding: var(--space-6); background: var(--card); min-width: 0; height: 100%; }
-.ledger-period-outcomes__item .stat--compact .stat__value { font-size: var(--text-h2); }
 .ledger-period-outcomes__ev { margin-top: var(--space-3); font-size: var(--text-caption); color: var(--color-text-muted); }
 .ledger-period-outcomes__women {
   display: grid; gap: var(--space-6); align-content: start;
   padding: clamp(var(--space-6), 1rem + 2vw, var(--space-10));
-  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  border: 1px solid var(--color-border); border-radius: var(--radius-card);
 }
 .ledger-period-outcomes--solo .ledger-period-outcomes__women { max-width: 52rem; }
-.ledger-period-outcomes__women .section-header { margin-bottom: 0; }
 
 /* The reality check: a quiet statement under a hairline, not a call-out box */
 .ledger-period__reality {
@@ -190,7 +169,7 @@
 .ledger-period-more {
   display: grid; gap: var(--space-8);
   padding: var(--space-8) var(--space-6);
-  border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card);
+  border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--card);
 }
 .ledger-period-more > * { display: grid; gap: var(--space-3); align-content: start; min-width: 0; }
 .ledger-period-more .h4 { font-weight: 500; letter-spacing: -0.01em; }

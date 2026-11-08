@@ -4,23 +4,26 @@ import { cx } from './_utils.js';
 import './CTABand.css';
 
 /**
- * Call-to-action band (DESIGN-v2 3.15 as revised by the AIWO blueprint P15): a left-aligned statement on the 12-col
- * grid (cols 1–8) at --text-display-xl with one serif `accentWord` (an existing trailing full stop becomes the red
- * <Dot/>, the band's one red point), the lede below at 40ch in the muted colour, then the buttons left: the first
- * filled, the next as an outline ring, 56px tall. The only decoration is ONE thin hairline arc, partly off-canvas at
- * the bottom right (no dot grid, no glow). Straight edges. Surfaces: night, paper (default), accent (brand fill).
+ * CTA headband (docs/redesign/SPEC.md §3.6, the Plug and Play headband). Headline left, actions right (≥1024: 7fr / 5fr,
+ * bottom-aligned); stacked below 1024 with full-width actions below 600. The title is `--text-h2` with one serif
+ * `accentWord`; an existing trailing full stop becomes the red <Dot/> (the band's one red point) unless `dot={false}`
+ * (use that when an action is `variant="point"`, so the band keeps a single red point).
+ * Looks (the props are unchanged):
+ *   surface="night"            Ink band, full bleed, static pulli dot grid on the right 40% (`pulli={false}` drops it)
+ *   surface="paper" (default)  an inset Bone panel inside the container (mid-page, mid-article)
+ *   brand="…" or surface="accent"  Ink band + a 3px accent rule on the top edge (never an accent ground)
  */
-export function CTABand({ title, body, actions, surface = 'paper', brand, eyebrow, accentWord, id, className }) {
+export function CTABand({ title, body, actions, surface = 'paper', brand, eyebrow, accentWord, dot = true, pulli = true, id, className }) {
+  const look = brand || surface === 'accent' ? 'brand' : surface === 'night' ? 'night' : 'paper';
+  const ink = look !== 'paper';
   return (
     <section
       id={id}
-      className={cx('cta-band', `cta-band--${surface}`, className)}
-      data-surface={surface === 'night' ? 'night' : undefined}
+      className={cx('cta-band', `cta-band--${look}`, className)}
+      data-surface={ink ? 'night' : undefined}
       data-brand={brand || undefined}
     >
-      <svg className="cta-band__arc" viewBox="0 0 900 900" aria-hidden="true" focusable="false">
-        <circle cx="450" cy="450" r="449" />
-      </svg>
+      {ink && pulli && <div className="cta-band__pulli u-pulli" aria-hidden="true" />}
       <div className="container">
         <div className="cta-band__inner">
           <div className="cta-band__text">
@@ -31,7 +34,7 @@ export function CTABand({ title, body, actions, surface = 'paper', brand, eyebro
             )}
             {title && (
               <Reveal as="h2" className="cta-band__title">
-                {accentHeadline(title, { accentWord })}
+                {accentHeadline(title, { accentWord, dot })}
               </Reveal>
             )}
             {body && (

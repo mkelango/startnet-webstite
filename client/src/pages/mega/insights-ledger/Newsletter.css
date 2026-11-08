@@ -8,8 +8,8 @@
 .newsletter-page-signup > * { min-width: 0; }
 .newsletter-page-signup__form {
   /* DESIGN-v2 3.14: the form sits on a White card (12px, hairline ring, 32/24 padding) */
-  padding: 24px;
-  border: 0; box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-media);
+  padding: var(--space-6);
+  border: 0; box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-card);
   background: var(--white);
 }
 .newsletter-page-signup__privacy { margin-top: var(--space-4); font-size: var(--text-small); color: var(--color-text-2); }
@@ -28,16 +28,16 @@
 }
 .newsletter-page-topics__rule {
   position: absolute; left: 0; top: calc(var(--space-5) + 0.6em); width: 8px; height: 8px;
-  border-radius: 50%; background: var(--accent-fill, var(--accent, var(--color-point)));
+  border-radius: 50%; background: var(--accent-fill, var(--accent, var(--color-text)));
 }
-.newsletter-page-topics__item:not([data-brand]) .newsletter-page-topics__rule { background: var(--color-point); }
+.newsletter-page-topics__item:not([data-brand]) .newsletter-page-topics__rule { background: var(--color-text); } /* dots are never red (SPEC §7.2) */
 .newsletter-page-topics__name { font-weight: 500; color: var(--color-text); }
 .newsletter-page-topics__body { font-size: var(--text-small); color: var(--color-text-2); overflow-wrap: anywhere; }
 
 /* Sample issue: an email-like card */
 .newsletter-page-issue {
   margin-top: var(--space-4); max-width: 48rem;
-  border: var(--border-hair); border-radius: var(--media-radius);
+  border: var(--border-hair); border-radius: var(--radius-card);
   background: var(--card); overflow: hidden;
 }
 .newsletter-page-issue__head {
@@ -97,7 +97,7 @@
 }
 .newsletter-page-wa__actions { margin-top: var(--space-6); }
 .newsletter-page-wa__rules {
-  padding: var(--space-6); border: var(--border-hair); border-radius: var(--media-radius); background: var(--card);
+  padding: var(--space-6); border: var(--border-hair); border-radius: var(--radius-card); background: var(--card);
 }
 @media (min-width: 768px) { .newsletter-page-wa__rules { padding: var(--space-8); } }
 .newsletter-page-wa__rules-title { display: flex; align-items: center; gap: var(--space-2); font-weight: 500; color: var(--color-text); }

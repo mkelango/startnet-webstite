@@ -12,7 +12,8 @@ const KIND = {
 };
 const ART = { ledger: 'grid', report: 'network', index: 'map' };
 
-/** Report card (Book 3 C29): cover art, kind chip, title, year, 1–3 key findings, formats. */
+/** Report card (Book 3 C29, docs/redesign/SPEC.md §4.6): a 3:4 cover (8px, hairline), kind chip (Ink) + year,
+ *  title (3 lines), summary, 1–3 key findings as left-rule stats, formats. */
 export function ReportCard({ report, to, headingLevel = 3, className }) {
   const { t, lang, pick } = useLang();
   if (!report) return null;
@@ -27,7 +28,7 @@ export function ReportCard({ report, to, headingLevel = 3, className }) {
       to={link}
       className={cx('report-card', upcoming && 'report-card--upcoming', className)}
       headingLevel={headingLevel}
-      art={{ variant: ART[r.kind] || 'grid', seed: hashString(r.slug || r.title || '') % 997, ratio: '3/2', night: r.kind === 'ledger' }}
+      art={{ variant: ART[r.kind] || 'grid', seed: hashString(r.slug || r.title || '') % 997, ratio: '3/4', night: r.kind === 'ledger' }}
       badges={
         <>
           {r.kind && <Badge kind="type">{KIND[r.kind] ? t(KIND[r.kind][0], KIND[r.kind][1]) : r.kind}</Badge>}

@@ -25,6 +25,7 @@ import {
   byDate, seriesLabel, isConfirmed, dateTextFor, dateText, formatLabel, langLabel, seatsLabel, pickLang,
 } from './parts/eventMeta.js';
 import './parts/eventList.css';
+import './parts/eventHero.css';
 import './EventDetail.css';
 import { eventPath } from '../../components/_utils.js';
 import { eventLd } from '../../lib/seo.js';
@@ -466,32 +467,34 @@ export default function EventDetail() {
     setAdded(true);
   };
 
-  const calendarButton = (fullWidth) =>
+  // Hero: a secondary lg beside Register; ticket card: a tertiary link under the red Register (SPEC §5.5).
+  const calendarButton = (fullWidth, variant = 'secondary', size = 'md') =>
     confirmed ? (
-      <Button variant="secondary" onClick={addToCalendar} icon={added ? Check : CalendarPlus} full={fullWidth}>
+      <Button variant={variant} size={size} onClick={addToCalendar} icon={added ? Check : CalendarPlus} full={fullWidth}>
         {added ? t('Added to calendar', 'நாள்காட்டியில் சேர்க்கப்பட்டது') : t('Add to calendar', 'நாள்காட்டியில் சேர்க்கவும்')}
       </Button>
     ) : (
-      <Button variant="secondary" href={waDate} icon={BellRing} full={fullWidth}>
+      <Button variant={variant} size={size} href={waDate} icon={BellRing} full={fullWidth}>
         {t('Get the date on WhatsApp', 'தேதியை WhatsApp-இல் பெறுங்கள்')}
       </Button>
     );
 
   const actions = past ? (
     <>
-      <Button to="/events" icon={ArrowRight} data-primary-cta="">
+      <Button size="lg" to="/events" icon={ArrowRight} data-primary-cta="">
         {t('See upcoming events', 'வரவிருக்கும் நிகழ்வுகளைப் பாருங்கள்')}
       </Button>
-      <Button variant="secondary" to="/events/past">
+      <Button variant="secondary" size="lg" to="/events/past">
         {t('Browse past events', 'கடந்த நிகழ்வுகளைப் பாருங்கள்')}
       </Button>
     </>
   ) : (
     <>
-      <Button variant={brand ? 'brand' : 'primary'} href={registerHref} data-primary-cta="">
+      {/* The red point is the ticket card's Register; the hero's is the Paper primary on Ink. */}
+      <Button size="lg" href={registerHref} data-primary-cta="">
         {registerLabel}
       </Button>
-      {calendarButton(false)}
+      {calendarButton(false, 'secondary', 'lg')}
     </>
   );
 
@@ -825,7 +828,7 @@ export default function EventDetail() {
               <ArtImage
                 variant={ART[e.brand] || 'dot'}
                 brand={e.brand}
-                ratio={singleCol ? '21/9' : '4/5'}
+                ratio={singleCol ? '21/9' : '4/3'}
                 seed={seedOf(e.slug)}
                 alt=""
                 photo={photoFor(eventPhotoKeys(e, eventPath(e))) ?? null}
@@ -885,15 +888,15 @@ export default function EventDetail() {
                 items={asideFacts}
                 action={
                   past ? (
-                    <Button to="/events" full>
+                    <Button size="lg" to="/events" full>
                       {t('See upcoming events', 'வரவிருக்கும் நிகழ்வுகளைப் பாருங்கள்')}
                     </Button>
                   ) : (
                     <div className="event-detail__aside-actions">
-                      <Button variant={brand ? 'brand' : 'primary'} href={registerHref} full>
+                      <Button variant="point" size="lg" href={registerHref} full>
                         {registerLabel}
                       </Button>
-                      {calendarButton(true)}
+                      {calendarButton(false, 'tertiary')}
                       <Button variant="whatsapp" href={waRegister} full>
                         {t('Chat on WhatsApp', 'WhatsApp-இல் பேசுங்கள்')}
                       </Button>
@@ -935,7 +938,8 @@ export default function EventDetail() {
 
       {past ? (
         <CTABand
-          surface="night"
+          surface="paper"
+          dot={false}
           title={t('Find a room full of builders near you.', 'உங்கள் அருகில் உருவாக்குநர்கள் நிறைந்த ஓர் அரங்கைக் கண்டறியுங்கள்.')}
           body={t(
             'Summits, sector Connects, campus build nights and district editions across Tamil Nadu. Most first events are free.',
@@ -949,7 +953,8 @@ export default function EventDetail() {
         />
       ) : (
         <CTABand
-          surface="night"
+          surface="paper"
+          dot={false}
           title={t('Register on WhatsApp in under a minute.', 'WhatsApp-இல் ஒரு நிமிடத்துக்குள் பதிவு செய்யுங்கள்.')}
           body={
             <>
@@ -958,7 +963,7 @@ export default function EventDetail() {
           }
           actions={
             <>
-              <Button variant={brand ? 'brand' : 'primary'} href={registerHref}>{registerLabel}</Button>
+              <Button href={registerHref}>{registerLabel}</Button>
               <Button variant="whatsapp" href={waRegister}>
                 {t('Chat on WhatsApp', 'WhatsApp-இல் பேசுங்கள்')}
               </Button>

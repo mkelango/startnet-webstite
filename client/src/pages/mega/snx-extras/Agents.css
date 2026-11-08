@@ -7,7 +7,7 @@
 .snx-agents__intro { display: grid; gap: var(--space-8); align-items: end; }
 @media (min-width: 1024px) { .snx-agents__intro { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-16); } }
 /* The count: a big light numeral in a hairline frame (no coloured top rule). */
-.snx-agents__count { padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius); min-width: 0; }
+.snx-agents__count { padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--radius-card); min-width: 0; }
 .snx-agents__count .stat--default { padding-top: 0; border-top: 0; }
 
 .snx-agents__grid { display: grid; gap: var(--space-3); margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); grid-template-columns: 1fr; }
@@ -17,14 +17,14 @@
 .snx-agents__card {
   display: grid; gap: var(--space-4); grid-template-rows: auto auto 1fr auto; align-content: start; min-width: 0;
   padding: var(--space-6); background: var(--card);
-  border: 1px solid var(--color-border); border-radius: var(--media-radius); box-shadow: none;
+  border: 1px solid var(--color-border); border-radius: var(--radius-card); box-shadow: none;
 }
 .snx-agents__card--more { background: transparent; border-style: dashed; border-color: color-mix(in srgb, var(--color-text) 20%, var(--color-border)); }
 .snx-agents__card-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); }
 /* Line icon in a 40px hairline square (no tinted circle). */
 .snx-agents__icon {
   display: inline-grid; place-items: center; width: 40px; height: 40px; flex: none;
-  border: 1px solid var(--color-border); border-radius: var(--btn-radius);
+  border: 1px solid var(--color-border); border-radius: var(--radius-full);
   background: transparent; color: var(--color-text);
 }
 .snx-agents__icon svg { width: 20px; height: 20px; }
@@ -38,7 +38,7 @@
 .snx-agents__guard-intro { display: grid; gap: var(--space-5); justify-items: start; }
 .snx-agents__guard-icon {
   display: inline-grid; place-items: center; width: 40px; height: 40px;
-  border: 1px solid var(--night-line); border-radius: var(--btn-radius);
+  border: 1px solid var(--night-line); border-radius: var(--radius-full);
   color: var(--night-text);
 }
 .snx-agents__guard-lede { color: var(--color-text-2); max-width: 40ch; }
@@ -66,3 +66,11 @@
 
 .snx-agents__faq { margin-top: var(--space-8); }
 .snx-agents__updates { margin-top: var(--space-8); }
+
+/* Tamil: no tracking on headings (SPEC §7.6) */
+:lang(ta) .snx-agents__name.h4 { letter-spacing: 0; }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.snx-agents__name.h4:lang(ta),
+.snx-agents__data-item .h5:lang(ta),
+.snx-agents__grievance .h5:lang(ta) { letter-spacing: 0; }

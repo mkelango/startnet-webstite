@@ -22,7 +22,7 @@ export function SnxModuleCard({ module, to, index }) {
   return (
     <article className="snx-module">
       <div className="snx-module__top">
-        <span className="snx-module__icon" aria-hidden="true">{Icon && <Icon size={22} strokeWidth={1.5} />}</span>
+        <span className="snx-module__icon" aria-hidden="true">{Icon && <Icon size={24} strokeWidth={1.75} />}</span>
         {typeof index === 'number' && <span className="snx-module__num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>}
       </div>
       <h3 className="snx-module__name h5">

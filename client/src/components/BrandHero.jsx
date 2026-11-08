@@ -35,16 +35,26 @@ export function JourneyLine({ text, className }) {
 }
 
 /**
- * Brand hero (Book 3 C11, DESIGN-v2 3.5, AIWO blueprint P2): lock-up, journey dot label (the brand accent), H1,
- * lede, CTAs and the media. `layout="split"` (default): at ≥1024 the copy sits in cols 1–6 and the media runs edge to
- * edge in cols 7–12 (right viewport edge, top and bottom of the band); below 1024 a photograph leads full bleed and a
- * motion visual follows the copy. `layout="contained"`: the older 5/7 grid with a 16/10 media bleeding right.
- * `meta` sits in normal flow under the lede as a hairline-topped row. `accentWord`: one Latin word in the serif accent.
+ * Brand hero (docs/redesign/SPEC.md §4.5): the PageHero Ink band with the brand lock-up and the journey dot label
+ * (the brand accent, a permitted accent use) in place of the eyebrow, then H1 (--text-display-xl), lede, actions and
+ * the `endorsement` as a 13px line under the actions. No accent-coloured ground.
+ * `layout="split"` (default; "contained" is an alias): ≥1024 the copy in cols 1–6 and the media 16/10 in cols 7–12,
+ * bleeding to the right viewport edge with its left corners --radius-panel. Below 1024 the copy comes first and the
+ * media follows at full container width, 3/2. `layout="photo"` (NEW): a full-bleed warm mono photo under a flat Ink
+ * scrim, the copy bottom-left. `meta` sits in normal flow under the actions as a hairline-topped row.
+ * `accentWord`: one Latin word in the serif accent. `compact`: a smaller h1 and no media.
  */
 export function BrandHero({ brand, title, lede, actions, art, meta, endorsement, compact = false, className, contentLang, sweep = true, accentWord, layout = 'split' }) {
   const { t, lang, basePath } = useLang();
+  const photoMode = layout === 'photo' && !compact;
   // Real photo for this page's hero, when StartNet has supplied one (data/photos.js: hero/<page path>).
-  const heroDefaults = { ratio: '16/10', animate: true, photo: heroPhoto(basePath || '/'), priority: true, sizes: PHOTO_SIZES.hero };
+  const heroDefaults = {
+    ratio: photoMode ? '16/9' : '16/10',
+    animate: true,
+    photo: heroPhoto(basePath || '/'),
+    priority: true,
+    sizes: photoMode ? '100vw' : PHOTO_SIZES.hero,
+  };
   // Extra optional prop `contentLang`: lang of the hero copy. When omitted, English-only string
   // title/lede on /ta pages are marked lang="en" automatically (WCAG 3.1.2).
   // Extra optional prop `sweep` (default true): false hides the accent sweep. It is also hidden
@@ -52,16 +62,20 @@ export function BrandHero({ brand, title, lede, actions, art, meta, endorsement,
   const rootLang = contentLang && contentLang !== lang ? contentLang : undefined;
   const b = BRANDS[brand] || null;
   const journey = b ? t(b.journey, b.journeyTa) : null;
-  const artNode =
-    art === undefined && b ? renderArt({ ...heroDefaults, variant: ART_FOR[brand] || 'grid', seed: 3 }) : renderArt(art, heroDefaults);
+  const artNode = compact
+    ? null
+    : art === undefined && b
+      ? renderArt({ ...heroDefaults, variant: ART_FOR[brand] || 'grid', seed: 3 })
+      : renderArt(art, heroDefaults);
+  const mode = artNode ? (photoMode ? 'photo' : 'split') : 'text';
 
   return (
     <header
       className={cx(
         'brand-hero',
+        `brand-hero--${mode}`,
         compact && 'brand-hero--compact',
         artNode && 'brand-hero--with-art',
-        artNode && !compact && layout === 'split' && 'brand-hero--split',
         !sweep && 'brand-hero--no-sweep',
         className
       )}
@@ -70,6 +84,7 @@ export function BrandHero({ brand, title, lede, actions, art, meta, endorsement,
       lang={rootLang}
     >
       <span className="brand-hero__sweep" aria-hidden="true" />
+      {mode === 'photo' && <div className="brand-hero__bg">{artNode}</div>}
       <div className="container brand-hero__inner">
         <div className="brand-hero__text">
           <div className="brand-hero__id">
@@ -84,11 +99,6 @@ export function BrandHero({ brand, title, lede, actions, art, meta, endorsement,
             accentWord={accentWord}
             lang={rootLang ? undefined : contentLangFor(lang, title)}
           />
-          {endorsement && (
-            <p className="brand-hero__endorsement" lang={rootLang ? undefined : contentLangFor(lang, endorsement)}>
-              {endorsement}
-            </p>
-          )}
           {/* LCP: lede and primary CTA paint on first render (transform-only entrance, no fade). */}
           {lede && (
             <div
@@ -104,13 +114,18 @@ export function BrandHero({ brand, title, lede, actions, art, meta, endorsement,
               {actions}
             </div>
           )}
+          {endorsement && (
+            <p className="brand-hero__endorsement" lang={rootLang ? undefined : contentLangFor(lang, endorsement)}>
+              {endorsement}
+            </p>
+          )}
           {meta && (
             <div className="brand-hero__meta hero-rise" style={{ '--rise-delay': '0.34s' }}>
               {meta}
             </div>
           )}
         </div>
-        {artNode && !compact && <div className="brand-hero__art">{artNode}</div>}
+        {mode === 'split' && <div className="brand-hero__art">{artNode}</div>}
       </div>
     </header>
   );

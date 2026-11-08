@@ -5,7 +5,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Download, History, BookOpen, ArrowRight, ChevronDown } from 'lucide-react';
-import { Seo, PageHero, Section, SectionHeader, Stat, TagChip, Button, Reveal, RevealGroup } from '../../components';
+import { Seo, PageHero, Section, SectionHeader, Stat, TagChip, Button, Reveal, RevealGroup, FactBand } from '../../components';
+import { InsightsTabs } from './InsightsTabs.jsx';
 import { isPlaceholderText, realMetrics } from '../../components/_placeholders.js';
 import { useApi } from '../../hooks/useApi.js';
 import { useLang } from '../../lib/i18n.jsx';
@@ -19,7 +20,6 @@ import {
   normaliseCorrections, outsideMetroShare, ledgerCSV, hasLedgerValues, downloadText, fmtDate, levelName, levelRule, withKpiTa, ledgerDatasetLd, LEDGER_MEASURES,
 } from './ledgerUtils.js';
 import './FounderLedger.css';
-import '../utility/restKit.css';
 
 
 // `label` is also the match key against /api/ledger outcomes rows, so it stays English.
@@ -130,7 +130,6 @@ export default function FounderLedger() {
       />
 
       <PageHero
-        className="rk-page"
         surface="night"
         eyebrow={t('Insights', 'நுண்ணறிவுகள்')}
         title="Founder Ledger"
@@ -159,7 +158,9 @@ export default function FounderLedger() {
         }
       />
 
-      {/* The first sheet carries the sticky edition bar and every data block below it. */}
+      <InsightsTabs current="/insights/founder-ledger" />
+
+      {/* The sheet carries the sticky edition bar and every data block below it. */}
       <div className="ledger__sheet">
       {/* Period selector — sticky on desktop */}
       <div className="ledger__bar" role="region" aria-label={t('Edition and downloads', 'பதிப்பும் பதிவிறக்கங்களும்')}>
@@ -209,15 +210,10 @@ export default function FounderLedger() {
       <div className={refetching ? 'ledger__frame is-refetching' : 'ledger__frame'} aria-busy={loading}>
         {/* KPI band 4-up: hidden until at least one headline figure is published */}
         {headline.length > 0 && (
-        <Section pad="sm" labelledBy="ledger-kpis-title" className="ledger-sec ledger-sec--kpis">
+        <Section pad="tight" labelledBy="ledger-kpis-title" className="ledger-sec ledger-sec--kpis">
           <h2 id="ledger-kpis-title" className="visually-hidden">{t('Headline figures', 'முக்கிய எண்கள்')}</h2>
-          <RevealGroup className="ledger-kpis" key={`k-${p.id}`}>
-            {headline.map((k) => (
-              <div className="ledger-kpis__item" key={k.id || k.key}>
-                <Stat metric={loc(k)} variant="hero" />
-              </div>
-            ))}
-          </RevealGroup>
+          {/* SPEC §5.6: the headline figures as the large fact band (40→72 numerals, hairline cells). */}
+          <FactBand key={`k-${p.id}`} className="ledger-kpis" variant="lg" metrics={headline.map(loc)} />
           <p className="ledger-kpis__rule">
             <span className="ledger-kpis__rule-item">
               <TagChip tag="A" /> <span>{t('verified against a primary source', 'முதன்மை ஆதாரத்துடன் சரிபார்க்கப்பட்டது')}</span>
@@ -480,8 +476,19 @@ export default function FounderLedger() {
               </RevealGroup>
             </div>
             )}
-            <div className="ledger-women">
-              <SectionHeader eyebrow={t('Women share', 'பெண்களின் பங்கு')} title={t('Against a 40% floor', '40% குறைந்தபட்ச இலக்குக்கு எதிராக')} as={outcomeItems.length ? 'h3' : 'h2'} />
+            {/* Women share: a Card panel (SPEC §5.6 charts in Card panels). Alone, its heading is the section header
+                above the panel; next to the outcomes it is the panel's own h3. */}
+            <div className="ledger-women-wrap">
+              {!outcomeItems.length && (
+                <SectionHeader eyebrow={t('Women share', 'பெண்களின் பங்கு')} title={t('Against a 40% floor', '40% குறைந்தபட்ச இலக்குக்கு எதிராக')} as="h2" />
+              )}
+            <div className="ins-panel ledger-women">
+              {outcomeItems.length > 0 && (
+                <div className="ledger-women__head">
+                  <p className="eyebrow">{t('Women share', 'பெண்களின் பங்கு')}</p>
+                  <h3 className="h3 ledger-women__title">{t('Against a 40% floor', '40% குறைந்தபட்ச இலக்குக்கு எதிராக')}</h3>
+                </div>
+              )}
               {women?.value != null && <Stat metric={loc(women)} variant="default" />}
               <ShareMeter
                 value={womenValue}
@@ -496,6 +503,7 @@ export default function FounderLedger() {
                 {t('The 40% floor is a target', '40% குறைந்தபட்சம் ஓர் இலக்கு')} <TagChip tag="C" />{' '}
                 {t('across all StartNet programmes.', '(அனைத்து StartNet திட்டங்களிலும்).')}
               </p>
+            </div>
             </div>
           </div>
         </Section>
@@ -591,7 +599,7 @@ export default function FounderLedger() {
 
         {/* Get this data: only once the CSV carries figures (an all-empty file is not data). */}
         {csvReady && (
-        <Section pad="sm" labelledBy="ledger-data-title" className="ledger-sec">
+        <Section pad="tight" labelledBy="ledger-data-title" className="ledger-sec">
           <div className="ledger-data">
             <div>
               <h2 id="ledger-data-title" className="h3">{t('Get this data', 'இந்தத் தரவைப் பெறுங்கள்')}<span className="dot">.</span></h2>

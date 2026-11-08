@@ -10,7 +10,7 @@
 }
 .gov-block__icon svg { width: 20px; height: 20px; }
 .gov-block__n { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); }
-.gov-block__title { margin: 0; flex-basis: 100%; font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+.gov-block__title { margin: 0; flex-basis: 100%; font-weight: 400; letter-spacing: var(--tracking-h2); line-height: 1.1; }
 @media (min-width: 768px) { .gov-block__title { flex-basis: auto; } }
 .gov-block__body { display: grid; gap: var(--space-5); max-width: var(--measure); }
 .gov-block__body .body-lg { color: var(--color-text-2); }

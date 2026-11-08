@@ -1,93 +1,86 @@
-/* CTA band (DESIGN-v2 3.15 / AIWO P15): straight edges, --space-section padding, a left-aligned statement at
-   --text-display-xl (400), lede 40ch below, filled + ring buttons left, one thin hairline arc bottom-right. */
+/* CTA headband (docs/redesign/SPEC.md §3.6, PnP headband): headline left, actions right, bottom-aligned (≥1024,
+   7fr / 5fr); stacked below. Night / brand: an Ink band, full bleed, --space-cta-band padding, a static pulli dot grid
+   on the right 40%; brand adds a 3px accent rule on the top edge. Paper: the same layout as an inset Bone panel. */
 .cta-band {
   position: relative;
-  padding-block: var(--space-section);
-  background: var(--bone);
+  padding-block: var(--space-cta-band);
   color: var(--color-text);
-  overflow: clip;
   isolation: isolate;
+  overflow: clip;
 }
-.cta-band--night { background: var(--night-0); }
-:root .section--night + .cta-band--night,
-:root .cta-band--night + .cta-band--night { border-top: 1px solid var(--night-line); }
-.cta-band--accent {
-  --color-bg: var(--accent-fill);
-  --color-text: var(--accent-on-fill);
-  --color-text-2: var(--accent-on-fill);
-  --color-text-muted: var(--accent-on-fill);
-  --color-link: var(--accent-on-fill);
-  --color-link-standalone: var(--accent-on-fill);
-  --color-focus: var(--accent-on-fill);
-  --color-label-dot: var(--accent-on-fill);
-  --accent-text: var(--accent-on-fill);
-  background: var(--accent-fill);
-  color: var(--accent-on-fill);
-}
-/* On an accent fill the primary button inverts */
-.cta-band--accent .button--primary,
-.cta-band--accent .button--brand {
-  --button-bg: var(--accent-on-fill);
-  --button-fg: var(--accent-fill);
-  --button-bg-hover: color-mix(in srgb, var(--accent-on-fill) 88%, var(--accent-fill));
-  --button-fg-hover: var(--accent-fill);
-}
-.cta-band--accent .dot { color: inherit; }
+.cta-band--night,
+.cta-band--brand { background: var(--color-bg); }
+.cta-band--paper { padding-block: var(--space-section-tight); background: transparent; }
+/* Never two Ink grounds touching without a seam */
+:root :is(.section--night, .cta-band--night, .cta-band--brand) + :is(.cta-band--night, .cta-band--brand) { border-top: 1px solid var(--night-line); }
 
-/* One thin hairline arc (AIWO P15): a 1px circle outline partly off-canvas at the bottom right. Static, decorative,
-   behind the text. Paper / Bone: --line-strong; Ink: --night-line-strong; brand fill: the on-fill colour at 24%. */
-.cta-band__arc {
-  position: absolute;
-  z-index: -1;
-  right: max(-22rem, -24vw);
-  bottom: max(-30rem, -34vw);
-  width: min(62rem, 72vw);
-  height: auto;
-  aspect-ratio: 1;
-  fill: none;
-  stroke: var(--line-strong);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-  pointer-events: none;
+/* Brand: a 3px accent rule on the top edge (StartNet X's accent is SNX Red, so its band keeps the red stop instead) */
+.cta-band--brand:not([data-brand='x'])::before {
+  content: ''; position: absolute; z-index: 1; inset: 0 0 auto; height: 3px;
+  background: var(--accent-night); pointer-events: none;
 }
-.cta-band--night .cta-band__arc { stroke: var(--night-line-strong); }
-.cta-band--accent .cta-band__arc { stroke: color-mix(in srgb, var(--accent-on-fill) 24%, transparent); }
-@media (max-width: 767.98px) { .cta-band__arc { right: -40vw; bottom: -52vw; width: 110vw; } }
 
-/* Left-aligned statement on the 12-col grid: text in cols 1–8, the buttons under it */
-.cta-band__inner { display: grid; justify-items: start; gap: var(--space-10); text-align: left; }
-.cta-band__text { min-width: 0; display: grid; justify-items: start; max-width: 54rem; }
-@media (min-width: 1024px) { .cta-band__text { max-width: calc((100% - 11 * 32px) / 12 * 8 + 7 * 32px); } }
-.cta-band__eyebrow { margin-bottom: var(--space-6); }
+/* Pulli dot grid: static texture on the right 40% of an Ink band (≥768), behind the text */
+.cta-band__pulli { position: absolute; z-index: -1; inset: 0 0 0 auto; width: 40%; pointer-events: none; display: none; }
+@media (min-width: 768px) { .cta-band__pulli { display: block; } }
+
+/* Layout: stacked, then 7fr / 5fr from 1024 with the actions bottom-right */
+.cta-band__inner { display: grid; gap: var(--space-8); align-items: end; text-align: left; }
+@media (min-width: 1024px) {
+  .cta-band__inner { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--gap-split); }
+}
+.cta-band--paper .cta-band__inner {
+  padding: var(--pad-card-lg);
+  border-radius: var(--radius-panel);
+  background: var(--bone);
+}
+.cta-band__text { min-width: 0; display: grid; justify-items: start; }
+:root .cta-band__eyebrow { margin: 0 0 var(--space-label-gap); }
 :root .cta-band__title {
   margin: 0;
-  font-size: var(--text-display-xl);
-  font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: var(--tracking-display);
   max-width: 16ch;
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-heading);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--tracking-h2);
+  color: var(--color-text);
   text-align: left;
   text-wrap: balance;
 }
-/* Tamil words run long: one step down so a single word never widens the band (Book 3 §4.4). */
-:root .cta-band__title:lang(ta) { font-size: min(var(--text-h2, 2rem), 2rem); letter-spacing: 0; line-height: 1.3; overflow-wrap: break-word; max-width: 26ch; }
-@media (max-width: 359.98px) { :root .cta-band__title:lang(ta) { font-size: 1.375rem; overflow-wrap: anywhere; } }
-.cta-band__body { margin-top: var(--space-8); width: 100%; max-width: 40ch; text-align: left; color: var(--color-text-2); }
+/* Tamil words run long: a wider measure, and a single word may wrap rather than widen the band (Book 3 §4.4) */
+:root .cta-band__title:lang(ta) { max-width: 26ch; letter-spacing: 0; overflow-wrap: break-word; }
+@media (max-width: 359.98px) { :root .cta-band__title:lang(ta) { overflow-wrap: anywhere; } }
+.cta-band__body {
+  margin-top: var(--space-4); width: 100%; max-width: 40ch;
+  font-size: var(--text-lede); line-height: var(--leading-lede); color: var(--color-text-2); text-align: left;
+}
 :lang(ta) .cta-band__body { max-width: 36em; }
-.cta-band__actions { display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: center; gap: var(--space-3); }
-/* AIWO 1.5: the CTA band is the one place with a filled button and a ring side by side, both 56px. */
-:root .cta-band__actions > .button:not(.button--tertiary):not(.button--sm) { min-height: 56px; padding-inline: 32px; font-size: 1rem; }
+
+/* Actions: right-aligned from 1024, gap 12; full width below 600 (tertiary links stay inline) */
+.cta-band__actions { min-width: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: var(--space-3); }
+@media (min-width: 1024px) { .cta-band__actions { justify-content: flex-end; } }
+/* Primary = Button size lg (48px pill) whatever size the page passed */
+:root .cta-band__actions > .button:not(.button--tertiary):not(.button--sm) {
+  min-height: var(--btn-h-lg); padding-inline: var(--btn-px-lg); font-size: var(--text-button-lg);
+}
+/* A second filled button reads as the secondary (ring) next to the first */
 :root .cta-band__actions > .button ~ .button:is(.button--primary, .button--inverse) {
-  --button-bg: transparent; --button-fg: var(--color-text); --button-ring: var(--line-strong);
-  --button-bg-hover: rgb(12 23 25 / 0.04); --button-fg-hover: var(--color-text); --button-ring-hover: var(--color-text);
-  --button-bg-active: rgb(12 23 25 / 0.08);
+  --button-bg: transparent; --button-fg: var(--color-text); --button-ring: var(--color-border-control);
+  --button-bg-hover: var(--color-cta); --button-fg-hover: var(--color-on-cta); --button-ring-hover: var(--color-cta);
+  --button-bg-active: var(--color-cta-active);
 }
-:root .cta-band--night .cta-band__actions > .button ~ .button:is(.button--primary, .button--inverse),
 :root [data-surface='night'] .cta-band__actions > .button ~ .button:is(.button--primary, .button--inverse) {
-  --button-fg: var(--paper); --button-ring: rgb(244 243 239 / 0.32);
-  --button-bg-hover: rgb(244 243 239 / 0.08); --button-fg-hover: var(--paper); --button-ring-hover: var(--paper);
-  --button-bg-active: rgb(244 243 239 / 0.12);
+  --button-fg: var(--night-text); --button-ring: var(--night-text-muted);
+  --button-bg-hover: var(--paper); --button-fg-hover: var(--ink-900); --button-ring-hover: var(--paper);
+  --button-bg-active: var(--bone);
 }
-@media (max-width: 479px) { .cta-band__actions > .button:not(.button--tertiary) { flex: 1 1 100%; } }
-/* A footnote passed with the actions: a full-width line under the buttons, left-aligned, muted */
-.cta-band__actions > :is(p, small) { flex: 1 1 100%; max-width: 48ch; margin: var(--space-3) 0 0; text-align: left; font-size: var(--text-meta); color: var(--color-text-muted); }
+@media (max-width: 599.98px) {
+  .cta-band__actions > .button:not(.button--tertiary) { flex: 1 1 100%; width: 100%; }
+}
+/* A footnote passed with the actions: a full-width muted line under the buttons */
+.cta-band__actions > :is(p, small) {
+  flex: 1 1 100%; max-width: 48ch; margin: var(--space-1) 0 0;
+  font-size: var(--text-meta); color: var(--color-text-muted); text-align: left;
+}
+@media (min-width: 1024px) { .cta-band__actions > :is(p, small) { text-align: right; } }

@@ -7,7 +7,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { ArrowRight, Download, BookOpen, History, Lock } from 'lucide-react';
 import {
   Seo, PageHero, Section, SectionHeader, Stat, TagChip, Button, Reveal, RevealGroup,
-  InlineMarks, Badge, Skeleton, EmptyState, CTABand,
+  InlineMarks, Badge, Skeleton, EmptyState, CTABand, FactBand,
 } from '../../../components';
 import { useApi } from '../../../hooks/useApi.js';
 import { useLang } from '../../../lib/i18n.jsx';
@@ -144,7 +144,7 @@ export default function LedgerPeriod() {
         meta={
           <div className="ledger-period__meta">
             {upcoming ? (
-              <Badge kind="status" status="upcoming">{t('Not yet published', 'இன்னும் வெளியிடப்படவில்லை')}</Badge>
+              <Badge kind="type">{t('Not yet published', 'இன்னும் வெளியிடப்படவில்லை')}</Badge>
             ) : (
               <Badge kind="type">{t('Frozen edition', 'மாற்றப்படாத பதிப்பு')}</Badge>
             )}
@@ -229,18 +229,13 @@ export default function LedgerPeriod() {
       <div className="ledger-period__frame" aria-busy={loading || undefined}>
         {/* KPI band 4-up: hidden until at least one headline figure is published */}
         {((loading && !d) || headline.length > 0) && (
-        <Section pad="sm" labelledBy="ledger-period-kpis" className="ledger-period-sec">
+        <Section pad="tight" labelledBy="ledger-period-kpis" className="ledger-period-sec">
           <h2 id="ledger-period-kpis" className="visually-hidden">{t('Headline figures', 'முக்கிய எண்கள்')}</h2>
           {loading && !d ? (
             <Skeleton height="8rem" count={1} />
           ) : (
-            <RevealGroup className="ledger-period-kpis">
-              {headline.map((k, i) => (
-                <div className="ledger-period-kpis__item" key={k?.id || i}>
-                  <Stat metric={tr(k)} variant="hero" />
-                </div>
-              ))}
-            </RevealGroup>
+            // SPEC §5.6: the headline figures as the large fact band.
+            <FactBand className="ledger-period-kpis" variant="lg" metrics={headline.map(tr)} />
           )}
           <p className="ledger-period-kpis__rule">
             <TagChip tag="A" /> {t('verified against a primary source', 'முதன்மை ஆதாரத்துடன் சரிபார்க்கப்பட்டது')} ·{' '}
@@ -512,7 +507,7 @@ export default function LedgerPeriod() {
         </Section>
 
         {/* Method + other editions */}
-        <Section pad="sm" labelledBy="ledger-period-more" className="ledger-period-sec">
+        <Section pad="tight" labelledBy="ledger-period-more" className="ledger-period-sec">
           <div className="ledger-period-more">
             <div className="ledger-period-more__method">
               <h2 id="ledger-period-more" className="h4">{t('How these figures were counted', 'இந்த எண்கள் எப்படி எண்ணப்பட்டன')}</h2>

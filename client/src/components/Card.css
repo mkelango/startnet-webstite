@@ -1,7 +1,10 @@
-/* Cards (DESIGN-v2 3.7). Two families; every card belongs to one.
-   A. .card--media  editorial, unframed: 12px media at a fixed ratio, meta, title, 2-line text, CTA bottom-left.
-   B. .card--framed text-first: Card #FBFAF7 (White on Bone), hairline ring, 2px Ink top rule on hover. No lift.
-   Selectors that must outrank page CSS in lazy chunks carry :root. */
+/* Cards (docs/redesign/SPEC.md §4.6). Every card belongs to one family:
+   A. .card--framed  Card ground, 1px hairline, 12px radius, --pad-card; media inset inside the padding at 8px.
+   B. .card--media   unframed editorial card: 16px media at a fixed ratio, then eyebrow / title / text / meta.
+   C. .card--place   district / location tile: full 4/5 photo, flat Ink scrim, name centred in Paper.
+   .card--night (surface="night") makes A or B an Ink card (StoryCard).
+   Hover (the PnP set, the same everywhere): media zoom 1.05 (styles/pointerFx.css), title underline, arrow nudge.
+   No shadows, no lift, no top rule. Selectors that must outrank page CSS in lazy chunks carry :root. */
 .card {
   position: relative;
   display: flex;
@@ -10,61 +13,50 @@
   height: 100%;
   color: var(--color-text);
 }
+/* The media frame clips the hover zoom; isolation keeps the radius clip in Safari while the image scales */
+.card__media {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--color-bg-sunken);
+}
+.card__media .art-image { border-radius: inherit; }
+.card__media .art-image--photo,
+.card__media .art-image :is(svg, picture) { height: 100%; }
+[data-surface='night'] .card__media { background: var(--night-1); }
 
-/* ---------- B. Framed ---------- */
+/* ---------- A. Framed ---------- */
 :root .card--framed {
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-media);
-  background: var(--card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-raised);
   box-shadow: none;
   transition: border-color var(--dur-2) var(--ease-snap);
 }
-:root :is(.section--white, .section--sunken, [data-ground='bone']) .card--framed { background: var(--white); }
-:root [data-surface='night'] .card--framed { background: var(--night-1); border-color: var(--night-line); }
-/* Top rule: a 2px Ink bar that draws in from the left (clip-path keeps the corner shape) */
-.card--framed::after {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  z-index: 2;
-  border-radius: inherit;
-  border-top: 2px solid var(--color-text);
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path var(--dur-3) var(--ease-snap);
-  pointer-events: none;
-}
-:root .card--framed.card--brand::after { border-top-color: var(--accent); }
-:root [data-surface='night'] .card--framed.card--brand::after { border-top-color: var(--accent-night); }
 @media (hover: hover) {
-  :root .card--framed.card--link:hover { border-color: var(--line-strong); }
-  :root [data-surface='night'] .card--framed.card--link:hover { border-color: var(--night-line-strong); }
-  .card--framed.card--link:hover::after { clip-path: inset(0 0 0 0); }
+  :root .card--framed.card--link:hover { border-color: var(--color-border-strong); }
 }
-.card--framed:focus-within::after { clip-path: inset(0 0 0 0); }
-.card--framed .card__media {
-  position: relative;
+.card--framed > .card__media {
+  margin: var(--pad-card) var(--pad-card) 0;
+  border-radius: var(--radius-md);
+}
+.card--framed .card__body { padding: var(--pad-card); }
+/* Body 15px Graphite; cards with media clamp it to 3 lines (text-only cards read in full) */
+.card--framed .card__text { font-size: var(--text-small); }
+.card--framed:has(> .card__media) .card__text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  border-radius: calc(var(--radius-media) - 1px) calc(var(--radius-media) - 1px) 0 0;
-  background: var(--bone);
 }
-.card--framed .card__media .art-image { border-radius: 0; }
-.card--framed .card__body { padding: 28px; }
-@media (max-width: 767.98px) { .card--framed .card__body { padding: 24px; } }
+.card--framed:has(> .card__media) .card__text > * { display: inline; }
 
-/* ---------- A. Media (unframed) ---------- */
-:root .card--media { border: 0; border-radius: 0; background: transparent; box-shadow: none; }
-.card--media .card__media {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-media);
-  background: var(--bone);
-}
-[data-surface='night'] .card--media .card__media { background: var(--night-1); }
-.card--media .card__media .art-image { height: 100%; border-radius: inherit; }
-.card--media .card__media .art-image--photo,
-.card--media .card__media .art-image :is(svg, picture) { height: 100%; }
-.card--media .card__body { padding: 20px 0 0; gap: 8px; }
-.card--media .card__title { font-size: var(--text-h3); }
+/* ---------- B. Media (unframed) ---------- */
+:root .card--media { border: 0; border-radius: var(--radius-media); background: transparent; box-shadow: none; }
+.card--media > .card__media { border-radius: var(--radius-media); }
+.card--media .card__media .art-image { height: 100%; }
+.card--media .card__body { padding: var(--space-4) 0 0; gap: var(--space-2); }
 .card--media .card__text {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -73,8 +65,75 @@
   overflow: hidden;
 }
 .card--media .card__text > * { display: inline; }
-.card--media .card__footer { padding-top: 16px; }
-/* Hover (fine pointers): 1.03 media zoom (styles/pointerFx.css), title underline sweep, arrow nudge (below) */
+.card--media .card__footer { padding-top: var(--space-4); }
+
+/* ---------- Ink card (surface="night"): radius 12, the media flush at the top with no radius of its own ---------- */
+:root .card--night {
+  border: 0;
+  border-radius: var(--radius-card);
+  background: var(--color-bg);
+  overflow: hidden;
+  isolation: isolate;
+}
+:root .card--night > .card__media { margin: 0; border-radius: 0; }
+:root .card--night .card__body { padding: var(--pad-card); }
+.card--night .card__text { font-size: var(--text-small); color: var(--color-text-2); }
+/* On an Ink section the Ink card steps up to Night-1 so it still reads as a card */
+:root [data-surface='night'] .card--night { background: var(--night-1); }
+
+/* ---------- C. Place tile ---------- */
+:root .card--place {
+  justify-content: center;
+  height: auto;
+  aspect-ratio: var(--ar-portrait);
+  border: 0;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ink-900);
+  color: var(--paper);
+}
+.card--place > .card__media { position: absolute; inset: 0; border-radius: inherit; background: var(--ink-900); }
+.card--place > .card__media > .art-image { position: absolute; inset: 0; height: 100%; }
+/* A flat Ink scrim (no gradients), deeper on hover */
+.card--place > .card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--overlay-photo);
+  transition: background-color var(--dur-media) var(--ease-media);
+  pointer-events: none;
+}
+.card--place .card__body {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  align-items: center;
+  padding: var(--pad-card-lg);
+  text-align: center;
+}
+/* The name stays one size: no title jump on hover (SPEC §7.14) */
+:root .card--place .card__title { font-size: var(--text-h2); line-height: var(--leading-h2); letter-spacing: var(--tracking-h2); color: var(--paper); }
+.card--place :is(.card__kicker, .card__meta, .card__text) { color: var(--night-text-2); }
+.card--place .card__footer {
+  position: absolute;
+  inset-inline: 0;
+  bottom: var(--space-8);
+  justify-content: center;
+  padding: 0 var(--pad-card);
+  transition: opacity var(--dur-2) var(--ease-snap), translate var(--dur-2) var(--ease-snap);
+}
+:root .card--place .card__cta { margin: 0; color: var(--paper); }
+@media (hover: hover) and (pointer: fine) {
+  .card--place .card__footer { opacity: 0; translate: 0 var(--shift-2); }
+  .card--place.card--link:hover .card__footer { opacity: 1; translate: 0 0; }
+}
+.card--place:focus-within .card__footer { opacity: 1; translate: 0 0; }
+@media (hover: hover) {
+  .card--place.card--link:hover > .card__media::after { background: var(--overlay-photo-strong); }
+}
+.card--place:focus-within > .card__media::after { background: var(--overlay-photo-strong); }
 
 /* ---------- Shared parts ---------- */
 .card__body {
@@ -82,6 +141,7 @@
   flex: 1;
   flex-direction: column;
   gap: var(--space-3);
+  min-width: 0;
 }
 .card__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .card__eyebrow { margin: 0; }
@@ -89,13 +149,15 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 4px 12px;
+  gap: var(--space-1) var(--space-3);
   font-size: var(--text-meta);
   line-height: 1.45;
   color: var(--color-text-muted);
   font-variant-numeric: tabular-nums lining-nums;
 }
-.card__title { font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3); text-wrap: pretty; hyphens: manual; }
+/* Card titles: --text-h4 (16 → 22), 500 (theme.css sets weight + tracking). No serif accent in card titles. */
+.card__title { font-size: var(--text-h4); font-weight: var(--weight-heading); line-height: var(--leading-h4); text-wrap: pretty; hyphens: manual; }
+.card__title em { font-family: inherit; font-style: normal; }
 .card__link { color: inherit; text-decoration: none; }
 .card__link::after {
   content: '';
@@ -105,10 +167,15 @@
   border-radius: inherit;
 }
 .card__link:focus-visible { outline: none; }
-.card:has(.card__link:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 4px; border-radius: var(--radius-media); }
-.card__title-text { padding-bottom: 0.06em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-@media (hover: hover) { .card--link:hover .card__title-text { background-size: 100% 1px; } }
-.card--link:focus-within .card__title-text { background-size: 100% 1px; }
+/* The whole-card link puts the 2px ring on the card itself (it follows the card's radius + the offset) */
+.card:has(.card__link:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
+/* Ink cards on a Paper ground keep an Ink ring (their own --color-focus is Paper); on Ink grounds the ring is Paper */
+:root .card:is(.card--night, .card--place):has(.card__link:focus-visible) { outline-color: var(--ink-900); }
+:root [data-surface='night'] .card:is(.card--night, .card--place):has(.card__link:focus-visible) { outline-color: var(--paper); }
+/* Title underline (1px, 0.18em offset) on hover / keyboard focus. The base .u-sweep background stays at 0. */
+.card__title-text { -webkit-box-decoration-break: clone; box-decoration-break: clone; text-decoration: underline 1px transparent; text-underline-offset: 0.18em; transition: text-decoration-color var(--dur-2) var(--ease-snap); }
+@media (hover: hover) { .card--link:hover .card__title-text { text-decoration-color: currentColor; } }
+.card--link:focus-within .card__title-text { text-decoration-color: currentColor; }
 .card__text { color: var(--color-text-2); font-size: var(--text-body); }
 .card__meta { color: var(--color-text-muted); font-size: var(--text-meta); font-variant-numeric: tabular-nums lining-nums; }
 .card__footer {
@@ -122,22 +189,23 @@
 }
 /* Anything interactive inside the card sits above the link overlay */
 .card__meta a, .card__meta button, .card__footer a, .card__footer button, .card .tag-pop, .card__actions { position: relative; z-index: 3; }
-/* CTA: arrow link, bottom-left, Ink (brand text accent inside a brand scope) */
+/* CTA: the tertiary look (Ink text, 500, trailing arrow), bottom-left. Ink in brand scopes too (SPEC §5.2, §7.3). */
 :root .card__cta {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
   margin-right: auto;
   font-weight: 500;
-  font-size: var(--text-small);
+  font-size: var(--text-button);
+  line-height: 1.2;
   color: var(--color-text);
 }
-:root [data-brand] .card__cta { color: var(--accent-text); }
-.card__cta-arrow { transition: transform var(--dur-2) var(--ease-snap); }
+:root .card--night .card__cta { color: var(--color-text); }
+.card__cta-arrow { flex: none; transition: transform var(--dur-2) var(--ease-snap); }
 @media (hover: hover) {
-  .card--link:hover .card__cta-arrow { transform: translateX(4px); }
+  .card--link:hover .card__cta-arrow { transform: translateX(var(--shift-1)); }
 }
-.card--link:focus-within .card__cta-arrow { transform: translateX(4px); }
+.card--link:focus-within .card__cta-arrow { transform: translateX(var(--shift-1)); }
 
 /* Small dl of facts used by programme / event cards: 2-column hairline rows */
 .card-facts {
@@ -146,10 +214,17 @@
   margin: 0;
   font-size: var(--text-meta);
 }
-.card-facts dt, .card-facts dd { padding-block: 8px; border-top: 1px solid var(--color-border); }
+.card-facts dt, .card-facts dd { padding-block: var(--space-2); border-top: 1px solid var(--color-border); }
 .card-facts dt { color: var(--color-text-muted); padding-right: var(--space-4); }
 .card-facts dd { margin: 0; color: var(--color-text); font-weight: 500; font-variant-numeric: tabular-nums; }
 .card-facts > :nth-child(-n + 2) { border-top: 0; }
+/* Tamil, 768–1023: a set of exactly three cards runs 3-up there (base.css), about 210px wide, and Tamil labels and
+   values no longer fit side by side (they ran past the card edge on /ta/women). Stack each label over its value. */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  :lang(ta) :where(.grid-3, .grid-4):has(> :nth-child(3):last-child) .card-facts { grid-template-columns: minmax(0, 1fr); }
+  :lang(ta) :where(.grid-3, .grid-4):has(> :nth-child(3):last-child) .card-facts dt { padding-right: 0; padding-bottom: 0; }
+  :lang(ta) :where(.grid-3, .grid-4):has(> :nth-child(3):last-child) .card-facts dd { border-top: 0; padding-top: var(--space-1); }
+}
 /* Keep an open tag popover above neighbouring cards */
 .card:focus-within, .card:has(.tag-pop__button[aria-expanded='true']) { z-index: 3; }
 
@@ -163,10 +238,65 @@
 @media (max-width: 479.98px) { .card__badges { flex-wrap: wrap; } }
 .card__badges:lang(ta) { flex-wrap: wrap; }
 
-/* Tamil phones: long compounds (e.g. "கண்காணிக்கப்படுகின்றன.", ~235px at 16px) split mid-word in a 232px card
-   body at 17px. 20px padding and 16px text keep them whole from 320 up (the 267px
-   "தொழில்முறையாளர்களுக்கான" fits from 360). */
+/* Tamil phones: long compounds (e.g. "கண்காணிக்கப்படுகின்றன.", ~235px at 16px) split mid-word in a narrow card
+   body. The 20px --pad-card floor and 16px text keep them whole from 320 up. */
 @media (max-width: 399.98px) {
-  :lang(ta) .card--framed .card__body { padding: 20px; }
-  :lang(ta) .card--framed .card__text { font-size: 1rem; }
+  :lang(ta) .card--framed .card__text { font-size: var(--text-small); }
+}
+
+/* ---------- Tablet grids (640–1023): the full-row odd last card turns horizontal ----------
+   base.css runs .grid-3 / .grid-4 as 2-up from 640 to 1023 and lets an odd last item take the whole row (a set of
+   exactly three runs 3-up from 768). That wide card lays out media 5 / body 7 instead of becoming one oversized
+   image. The media is drawn absolutely inside its frame so it fills the row height without fighting the inline
+   aspect-ratio (no important flag). Place tiles keep their 4/5 shape. */
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  :where(.grid-3, .grid-4) > :last-child:nth-child(odd):not(:nth-child(3)) .card:has(> .card__media):not(.card--place),
+  :where(.grid-3, .grid-4) > .card:last-child:nth-child(odd):not(:nth-child(3)):has(> .card__media):not(.card--place) {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: var(--space-6);
+    align-items: stretch;
+  }
+  :where(.grid-3, .grid-4) > :last-child:nth-child(odd):not(:nth-child(3)) .card:not(.card--place) > .card__media,
+  :where(.grid-3, .grid-4) > .card:last-child:nth-child(odd):not(:nth-child(3)):not(.card--place) > .card__media {
+    aspect-ratio: auto;
+    min-height: 12rem;
+    /* An inline ratio on the frame (StoryCard 16/10) would size it from the stretched row height (704px in a 268px
+       column at 768); stretching the inline axis too keeps it in its column. */
+    justify-self: stretch;
+  }
+  :where(.grid-3, .grid-4) > :last-child:nth-child(odd):not(:nth-child(3)) .card:not(.card--place) > .card__media > .art-image,
+  :where(.grid-3, .grid-4) > .card:last-child:nth-child(odd):not(:nth-child(3)):not(.card--place) > .card__media > .art-image {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+  }
+  :where(.grid-3, .grid-4) > :last-child:nth-child(odd):not(:nth-child(3)) .card--media > .card__body,
+  :where(.grid-3, .grid-4) > .card--media:last-child:nth-child(odd):not(:nth-child(3)) > .card__body { padding-top: 0; }
+  :where(.grid-3, .grid-4) > :last-child:nth-child(odd):not(:nth-child(3)) .card--framed > .card__media,
+  :where(.grid-3, .grid-4) > .card--framed:last-child:nth-child(odd):not(:nth-child(3)) > .card__media {
+    margin: var(--pad-card) 0 var(--pad-card) var(--pad-card);
+  }
+  :where(.grid-3, .grid-4) > :last-child:nth-child(odd):not(:nth-child(3)) .card--framed > .card__body,
+  :where(.grid-3, .grid-4) > .card--framed:last-child:nth-child(odd):not(:nth-child(3)) > .card__body { padding-left: 0; }
+}
+/* 640–767: an exactly-three set is still 2 + 1, so its third card takes the same wide horizontal treatment */
+@media (min-width: 640px) and (max-width: 767.98px) {
+  :where(.grid-3, .grid-4) > :last-child:nth-child(3) .card:has(> .card__media):not(.card--place),
+  :where(.grid-3, .grid-4) > .card:last-child:nth-child(3):has(> .card__media):not(.card--place) {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: var(--space-6);
+    align-items: stretch;
+  }
+  :where(.grid-3, .grid-4) > :last-child:nth-child(3) .card:not(.card--place) > .card__media,
+  :where(.grid-3, .grid-4) > .card:last-child:nth-child(3):not(.card--place) > .card__media { aspect-ratio: auto; min-height: 12rem; justify-self: stretch; }
+  :where(.grid-3, .grid-4) > :last-child:nth-child(3) .card:not(.card--place) > .card__media > .art-image,
+  :where(.grid-3, .grid-4) > .card:last-child:nth-child(3):not(.card--place) > .card__media > .art-image { position: absolute; inset: 0; height: 100%; }
+  :where(.grid-3, .grid-4) > :last-child:nth-child(3) .card--media > .card__body,
+  :where(.grid-3, .grid-4) > .card--media:last-child:nth-child(3) > .card__body { padding-top: 0; }
+  :where(.grid-3, .grid-4) > :last-child:nth-child(3) .card--framed > .card__media,
+  :where(.grid-3, .grid-4) > .card--framed:last-child:nth-child(3) > .card__media { margin: var(--pad-card) 0 var(--pad-card) var(--pad-card); }
+  :where(.grid-3, .grid-4) > :last-child:nth-child(3) .card--framed > .card__body,
+  :where(.grid-3, .grid-4) > .card--framed:last-child:nth-child(3) > .card__body { padding-left: 0; }
 }

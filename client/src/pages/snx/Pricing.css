@@ -67,37 +67,27 @@
 @media (hover: hover) and (pointer: fine) { .snx-plans__btn:not(:disabled):hover { box-shadow: inset 0 0 0 1px var(--color-text); background: rgb(12 23 25 / 0.04); } }
 .snx-plans__btn:disabled { opacity: 0.4; cursor: default; }
 
-/* Plan card: flat var(--card), hairline, 12px frame, no resting shadow, no lift (the button is the link). */
+/* Plan card (SPEC §5.9 #6): Card ground, 1px hairline, radius 12, --pad-card-lg; no top rule, no lift (the button is
+   the link). A recommended plan (.snx-plan--recommended) takes a 2px Ink ring, never red. */
 .snx-plan {
   display: flex; flex-direction: column; gap: var(--space-5);
   position: relative; overflow: hidden;
-  padding: 28px; min-width: 0;
-  background: var(--card); border: 0; border-radius: var(--radius-media);
-  box-shadow: inset 0 0 0 1px var(--hairline);
+  padding: var(--pad-card-lg); min-width: 0;
+  background: var(--color-bg-raised); border: 0; border-radius: var(--radius-card);
+  box-shadow: inset 0 0 0 1px var(--color-border);
   transition: box-shadow var(--dur-2) var(--ease-snap);
 }
-.section--white .snx-plan, .section--sunken .snx-plan { background: var(--white); }
-/* Framed-card top rule (DESIGN-v2 3.7): 2px Ink, scaleX on hover / focus-within; no red badge, no lift. */
-.snx-plan::before {
-  content: ''; position: absolute; inset: 0 0 auto; height: 2px; background: var(--color-text);
-  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
-}
 .snx-plan:focus-within { box-shadow: inset 0 0 0 1px var(--line-strong); }
-.snx-plan:focus-within::before { transform: scaleX(1); }
 @media (hover: hover) and (pointer: fine) {
   .snx-plan:hover { box-shadow: inset 0 0 0 1px var(--line-strong); }
-  .snx-plan:hover::before { transform: scaleX(1); }
 }
-.snx-plan .stat__value { font-variant-numeric: tabular-nums lining-nums; }
+.snx-plan.snx-plan--recommended { box-shadow: inset 0 0 0 2px var(--color-text); }
 .snx-plan__head { display: grid; gap: var(--space-1); }
 .snx-plan__name.h4 { font-weight: 500; letter-spacing: -0.01em; }
 .snx-plan__for { font-size: var(--text-small); color: var(--color-text-muted); }
 .snx-plan__price { padding-bottom: var(--space-5); border-bottom: 1px solid var(--color-border); min-height: 9rem; }
-/* The price block's rule under the plan head: a hairline, not the 2px ink rule of the default Stat. */
-.snx-plan .stat--default { padding-top: var(--space-5); border-top: 1px solid var(--color-border); }
-/* Price: big and light, capped at h1 so the figure never crowds a narrow card; the unit always sits on its own line
-   (the Free card reserves that line with a non-breaking space) so every card's rows line up. */
-.snx-plan .stat__value { font-size: min(var(--text-stat), var(--text-h1)); font-weight: 400; letter-spacing: -0.035em; row-gap: 0; }
+/* Price: the kit Stat at --text-stat. The unit always sits on its own line (the Free card reserves that line with a
+   non-breaking space) so every card's rows line up. */
 .snx-plan .stat__unit { flex-basis: 100%; margin-top: var(--space-2); line-height: 1.2; font-size: var(--text-small); font-weight: 400; letter-spacing: 0; color: var(--color-text-muted); }
 .snx-plan__alt { margin-top: var(--space-2); font-size: var(--text-small); color: var(--color-text-2); }
 .snx-plan__list { list-style: none; display: grid; gap: var(--space-2); font-size: var(--text-small); flex: 1; align-content: start; }
@@ -105,7 +95,7 @@
 .snx-plan__list li svg { margin-top: 0.2em; color: var(--color-text); }
 .snx-plan__inherit { font-weight: 500; }
 .snx-plan__list li.snx-plan__inherit { color: var(--color-text); }
-.snx-plan__notes { list-style: none; display: grid; gap: var(--space-2); padding: var(--space-3); border-radius: var(--btn-radius); background: var(--bone); font-size: var(--text-caption); color: var(--color-text-2); }
+.snx-plan__notes { list-style: none; display: grid; gap: var(--space-2); padding: var(--space-3); border-radius: var(--radius-md); background: var(--bone); font-size: var(--text-caption); color: var(--color-text-2); }
 .snx-plan__cta { margin-top: auto; }
 /* Grid layouts (tablet 2-up, desktop 4-up): cards share row tracks so heads, prices, lists and buttons align. */
 @media (min-width: 768px) {
@@ -137,14 +127,14 @@
 .snx-compare {
   position: relative; min-width: 0; max-width: 100%;
   overflow-x: auto; overflow-y: hidden;
-  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  border: 1px solid var(--color-border); border-radius: var(--radius-card);
 }
 .snx-compare:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 .snx-compare__table { width: 100%; min-width: 44rem; border-collapse: separate; border-spacing: 0; font-size: var(--text-small); }
 .snx-compare__table th, .snx-compare__table td { padding: var(--space-4) var(--space-3); border-bottom: 1px solid var(--color-border); text-align: center; vertical-align: middle; background: var(--card); }
 .snx-compare__table tbody th { text-align: left; font-weight: 400; color: var(--color-text); position: sticky; left: 0; z-index: 1; min-width: 12rem; box-shadow: 1px 0 0 var(--color-border); }
 .snx-compare__table thead th { position: sticky; top: 0; z-index: 2; text-align: center; vertical-align: bottom; padding-block: var(--space-5); }
-.snx-compare__corner { left: 0; z-index: 3 !important; box-shadow: 1px 0 0 var(--color-border); }
+.snx-compare__table thead th.snx-compare__corner { left: 0; z-index: 3; box-shadow: 1px 0 0 var(--color-border); }
 @media (max-width: 39.99em) {
   .snx-compare__table { min-width: 36rem; }
   .snx-compare__table th, .snx-compare__table td { padding: var(--space-3); }
@@ -169,7 +159,7 @@
     top: calc(var(--shell-offset, 0px) + var(--subnav-h, 48px));
     overflow: hidden;
     border: 1px solid var(--color-border); border-bottom: 0;
-    border-radius: var(--media-radius) var(--media-radius) 0 0;
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
     background: var(--card);
     box-shadow: 0 1px 0 var(--color-border);
     transition: top var(--dur-header) var(--ease-snap); /* in step with .brand-subnav, so no gap opens on reveal */
@@ -179,17 +169,17 @@
   .snx-compare__table--head th { box-sizing: border-box; }
   .snx-compare__table--head thead th { position: static; }
   .snx-compare__table--head .snx-compare__corner { position: sticky; left: 0; }
-  .snx-compare { border-top: 0; border-radius: 0 0 var(--media-radius) var(--media-radius); }
+  .snx-compare { border-top: 0; border-radius: 0 0 var(--radius-card) var(--radius-card); }
 
   /* Real header row: in the accessibility tree, zero height on screen. */
-  .snx-compare__thead th { padding-block: 0 !important; border-bottom: 0; height: 0; }
+  .snx-compare__table .snx-compare__thead th { padding-block: 0; border-bottom: 0; height: 0; }
   .snx-compare__thead th > * {
     position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
   }
 
   .snx-compare__fade {
     display: block; position: absolute; top: 1px; right: 1px; bottom: 1px; width: 2.5rem; z-index: 3;
-    pointer-events: none; border-radius: 0 0 var(--media-radius) 0;
+    pointer-events: none; border-radius: 0 0 var(--radius-card) 0;
     background: linear-gradient(to right, transparent, var(--card));
     transition: opacity var(--dur-2) var(--ease-standard);
   }
@@ -262,7 +252,7 @@
   .snx-orgs > *, .snx-orgs > :nth-child(4), .snx-orgs > :nth-child(5), .snx-orgs > :last-child:nth-child(odd) { grid-column: auto; }
 }
 /* Licence card: flat hairline card, no coloured top bar. */
-.snx-org { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius); min-width: 0; }
+.snx-org { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--radius-card); min-width: 0; }
 .snx-org__tier.h5 { font-weight: 500; letter-spacing: -0.01em; }
 .snx-org__includes { flex: 1; font-size: var(--text-small); color: var(--color-text-2); }
 /* "From" label, amount and tag on their own rows so every tier's footer has the same shape. */
@@ -283,7 +273,16 @@
 .brand-layout[data-brand='x'],
 .brand-layout[data-brand='x'] [data-brand='x']:not([data-surface='night']) { --color-label-dot: var(--color-text); }
 .brand-layout[data-brand='x'] [data-surface='night'] { --color-label-dot: var(--paper); }
-:root .brand-layout[data-brand='x'] .button--tertiary { --button-fg: var(--color-link-standalone); --button-fg-hover: var(--color-link-standalone); }
-:root .brand-layout[data-brand='x'] [data-surface='night'] .button--tertiary { --button-fg: var(--paper); --button-fg-hover: var(--paper); }
-:root .brand-layout[data-brand='x'] .brand-hero__journey { color: var(--night-text-2); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey { color: var(--night-text-2); flex-wrap: nowrap; align-items: baseline; }
 :root .brand-layout[data-brand='x'] .brand-hero__journey::before { background: var(--paper); }
+
+/* Tamil: no tracking on headings (SPEC §7.6) */
+:lang(ta) :is(.snx-plan__name.h4, .snx-org__tier.h5, .snx-price__compare-title.h3, .snx-compare__plan, .snx-org__price) { letter-spacing: 0; }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.snx-plan__name.h4:lang(ta),
+.snx-price__compare-title.h3:lang(ta),
+.snx-compare__plan:lang(ta),
+.snx-compare__table tbody .snx-compare__group th:lang(ta),
+.snx-org__tier.h5:lang(ta),
+.snx-org__price:lang(ta) { letter-spacing: 0; }

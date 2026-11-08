@@ -18,7 +18,7 @@
 .vibe-timeline__when { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; font-size: var(--text-meta); font-weight: 500; color: var(--color-text-muted); font-variant-numeric: tabular-nums lining-nums; }
 .vibe-timeline__now-chip {
   padding: 0 var(--space-2); border-radius: var(--btn-radius);
-  background: var(--accent-fill); color: var(--accent-on-fill); font-size: var(--text-caption); font-weight: 500;
+  background: var(--color-cta); color: var(--color-on-cta); font-size: var(--text-caption); font-weight: 500;
 }
 .vibe-timeline__title { font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); line-height: 1.2; }
 .vibe-timeline__stage--future .vibe-timeline__title { color: var(--color-text); }
@@ -74,3 +74,6 @@
 @media (min-width: 1280px) {
   :lang(ta) .vibe-timeline__title { font-size: min(var(--text-h5), 1.32vw); }
 }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.vibe-timeline__title:lang(ta) { letter-spacing: 0; }

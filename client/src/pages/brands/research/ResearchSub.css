@@ -46,13 +46,12 @@
   .research-sub__stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .research-sub__stats > * + * { border-left: 1px solid var(--color-border); padding-left: var(--space-6); }
 }
-.research-sub__stats .stat--compact .stat__value { font-size: var(--text-h2); }
 
 /* Lab articles */
 .research-sub__labs { width: 100%; display: grid; gap: var(--space-6); }
 .research-sub__lab {
   display: grid; gap: var(--space-6); padding: var(--space-6);
-  background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius);
+  background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--radius-card);
   scroll-margin-top: var(--space-2);
 }
 .research-sub__lab:target { border-color: var(--color-text); box-shadow: inset 0 0 0 1px var(--color-text); }
@@ -61,17 +60,17 @@
 /* Mobile audit: below 768px the card is one column, so the 144px square sat alone at the left of a ~290px card
    (a shrunk desktop thumbnail). Run the image across the card as a 16:9 header instead. */
 @media (max-width: 767.98px) {
-  .research-sub__lab-art { max-width: none; }
-  :root .research-sub__lab-art .art-image { aspect-ratio: 16 / 9 !important; }
+  .research-sub__lab-art { position: relative; max-width: none; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius-md); }
+  .research-sub__lab-art > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .research-sub__lab-art :is(.art-image__photo, .art-image__svg, .art-image__picture) { width: 100%; height: 100%; object-fit: cover; }
 }
-.research-sub__lab-art .art-image { border-radius: calc(var(--media-radius) - 4px); }
 .research-sub__lab-body { display: grid; gap: var(--space-3); justify-items: start; min-width: 0; }
 .research-sub__dl { margin: var(--space-2) 0 0; width: 100%; display: grid; font-size: var(--text-small); border-top: 1px solid var(--color-border); }
 .research-sub__dl div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-1) var(--space-4); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
 .research-sub__dl dt { color: var(--color-text-muted); }
 .research-sub__dl dd { margin: 0; }
 .research-sub__lab-more { width: 100%; font-size: var(--text-small); }
-.research-sub__lab-more summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 500; color: var(--accent-text); }
+.research-sub__lab-more summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 500; color: var(--color-text); }
 .research-sub__lab-more p { margin-top: var(--space-2); color: var(--color-text-2); }
 .research-sub__lab-actions { --cluster-gap: var(--space-3); margin-top: var(--space-2); }
 
@@ -82,7 +81,7 @@
 @media (min-width: 1280px) { .research-sub__wave2 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .research-sub__wave2-card {
   display: grid; gap: var(--space-1); padding: var(--space-5);
-  border: 1px dashed var(--line-strong); border-radius: var(--media-radius);
+  border: 1px dashed var(--line-strong); border-radius: var(--radius-card);
   background: transparent; color: var(--color-text-muted);
 }
 .research-sub__wave2-name { font-weight: 500; color: var(--color-text-2); overflow-wrap: break-word; }
@@ -106,16 +105,15 @@
 /* Lab sponsorship (target of /research/labs#sponsor) */
 .research-sub__sponsor {
   display: grid; gap: var(--space-4); justify-items: start;
-  padding: var(--space-8); border-radius: var(--media-radius);
+  padding: var(--pad-card-lg); border-radius: var(--radius-card);
   background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line);
 }
 .research-sub__sponsor:target { border-color: var(--color-text); box-shadow: inset 0 0 0 1px var(--color-text); }
 .research-sub__sponsor p { max-width: var(--measure); color: var(--color-text-2); }
 /* Mobile audit: in the 32px-padded card the CTA wrapped to two lines inside a 44px box with no vertical padding.
-   Phones: 24px card padding and a full-width CTA with room for a second line. */
+   Phones: the CTA runs the full card width. */
 @media (max-width: 479.98px) {
-  .research-sub__sponsor { padding: var(--space-6); }
-  :root .research-sub__sponsor > .button { justify-self: stretch; padding-block: var(--space-3); }
+  .research-sub__sponsor > * { justify-self: stretch; }
 }
 
 /* V-R1: Tamil in the narrow 8/4 main column at 1024–1279. Three steps in a row left 181 px per title

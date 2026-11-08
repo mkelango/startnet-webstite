@@ -1,47 +1,44 @@
-/* Section header (DESIGN-v2 3.8 / 2.3, AIWO blueprint 1.3 / top-15 #11): label → 24 → title → 32 → lede (20px,
-   Ink-2, 44ch, 1.5 leading); header block ≤ 832px; header → content --space-head-gap (64px at 1440).
-   8/4 grid at ≥1024 with the action on the title's last baseline. */
+/* Section header (docs/redesign/SPEC.md §4.3): dot label → --space-label-gap → h2 (--text-h2 / 1.12 / −0.025em / 500,
+   max 18ch) → --space-lede-gap → lede (--text-lede / 1.4, Graphite, max --measure-lede) → --space-head-gap.
+   ≥768 with an action: grid minmax(0, --measure-head) auto, the action ("View all" link or carousel arrows) at the
+   right, bottom-aligned. Below 768 the action drops under the lede, left-aligned, 16px down.
+   align="center" (inset Ink panels only): one column, centred text, the action under the lede. */
 .section-header {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  row-gap: var(--space-6);
-  column-gap: 32px;
+  row-gap: var(--space-4);
+  column-gap: var(--space-8);
   margin-bottom: var(--space-head-gap);
 }
-.section-header__text { min-width: 0; max-width: var(--measure-head, 52rem); }
-.section-header__eyebrow { margin: 0 0 var(--space-label-gap, 1.5rem); }
-.section-header__title { color: var(--color-text); }
+.section-header__text { min-width: 0; max-width: var(--measure-head); }
+.section-header__eyebrow { margin: 0 0 var(--space-label-gap); }
+/* 18ch in em (1ch of Inter = 0.631em) so the measure is the same before and after the font swap */
+:root .section-header__title { color: var(--color-text); max-width: 11.36em; }
+:root .section-header__title.h1 { max-width: 13.88em; }
 :root .section-header__lede {
-  margin-top: var(--space-lede-gap, 2rem);
-  max-width: var(--measure-lede, 44ch);
+  margin-top: var(--space-lede-gap);
+  max-width: var(--measure-lede);
   color: var(--color-text-2);
   font-size: var(--text-lede);
-  line-height: 1.5;
-  letter-spacing: -0.005em;
+  line-height: var(--leading-lede);
+  letter-spacing: 0;
 }
-:root :lang(ta) .section-header__lede { max-width: 36em; letter-spacing: 0; }
+:root :lang(ta) .section-header__lede { max-width: 36em; }
+:root :lang(ta) .section-header__title { max-width: none; }
 .section-header__lede > * + * { margin-top: 0.75em; }
 .section-header__action { min-width: 0; justify-self: start; }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .section-header--has-action:not(.section-header--center) {
-    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
-    grid-template-areas: 'label .' 'title action' 'lede .';
-    row-gap: 0;
+    grid-template-columns: minmax(0, var(--measure-head)) auto;
+    justify-content: space-between;
+    align-items: end;
   }
-  .section-header--has-action:not(.section-header--center) .section-header__text { display: contents; }
-  .section-header--has-action:not(.section-header--center) .section-header__eyebrow { grid-area: label; justify-self: start; }
-  .section-header--has-action:not(.section-header--center) .section-header__title { grid-area: title; max-width: var(--measure-head, 52rem); }
-  .section-header--has-action:not(.section-header--center) .section-header__lede { grid-area: lede; }
-  .section-header--has-action:not(.section-header--center) .section-header__action { grid-area: action; justify-self: end; align-self: end; padding-bottom: 6px; }
+  .section-header--has-action:not(.section-header--center) .section-header__action { justify-self: end; }
 }
 
-/* Centre (CTA-band style statements only): label and title centred, the lede left-aligned in a centred 40ch box */
+/* Centre: one column, centred label, title and lede; the action follows the lede. */
 .section-header--center { justify-items: center; text-align: center; }
 .section-header--center .section-header__text { margin-inline: auto; display: grid; justify-items: center; }
-.section-header--center .section-header__lede { margin-inline: auto; text-align: left; }
+.section-header--center :is(.section-header__title, .section-header__lede) { margin-inline: auto; }
 .section-header--center .section-header__action { justify-self: center; }
-@media (min-width: 1024px) {
-  .section-header--center.section-header--has-action { grid-template-columns: minmax(0, 1fr); }
-  .section-header--center.section-header--has-action .section-header__action { justify-self: center; }
-}

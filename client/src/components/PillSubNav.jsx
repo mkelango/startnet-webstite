@@ -5,12 +5,12 @@ import { cx } from './_utils.js';
 import './PillSubNav.css';
 
 /**
- * Sticky pill sub-nav with scroll-spy (AIWO blueprint P17, top-15 #14), for long pages with in-page sections
+ * Sticky pill sub-nav with scroll-spy (docs/redesign/SPEC.md §4.9, Surge D), for long pages with in-page sections
  * (About, brand hubs, programme / event detail).
  *
  *   <PillSubNav items={[{ id: 'outcome', label: 'Outcome' }, …]} label="On this page" />
  *
- * - A strip of 44px pill chips under the header, sticky at the header's visible height (--shell-offset, which drops
+ * - A 56px strip of 36px pill chips (44 on touch) under the header, sticky at the header's visible height (--shell-offset, which drops
  *   to 0 when the header hides on scroll down, so the strip rides up with it).
  * - Scroll-spy: the section crossing the upper part of the viewport marks its chip current (aria-current="location",
  *   Ink fill; Paper fill on a night strip). The current chip is kept in view in the sideways-scrolling row.
@@ -48,6 +48,18 @@ export function PillSubNav({ items, label, night = false, className }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
+  // Hash links and back/forward land clear of the header, a brand sub-nav and this bar (SPEC §4.9 scroll-margin-top).
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav || !ids.length) return undefined;
+    const brand = nav.closest('.brand-layout') ? ' + var(--subnav-h, 0px)' : '';
+    const margin = `calc(var(--shell-offset, 0px)${brand} + ${(nav.offsetHeight || 56) + 16}px)`;
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
+    els.forEach((el) => { el.style.scrollMarginTop = margin; });
+    return () => els.forEach((el) => { el.style.scrollMarginTop = ''; });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+
   // Keep the current chip visible in the row (scrolls the row only, never the page).
   useEffect(() => {
     const row = rowRef.current;
@@ -63,9 +75,11 @@ export function PillSubNav({ items, label, night = false, className }) {
     const target = document.getElementById(id);
     if (!target || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     e.preventDefault();
-    const shell = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--shell-offset')) || 0;
+    const rootStyle = getComputedStyle(document.documentElement);
+    const shell = parseFloat(rootStyle.getPropertyValue('--shell-offset')) || 0;
+    const sub = navRef.current && navRef.current.closest('.brand-layout') ? parseFloat(rootStyle.getPropertyValue('--subnav-h')) || 0 : 0;
     const bar = navRef.current ? navRef.current.offsetHeight : 0;
-    const y = window.scrollY + target.getBoundingClientRect().top - shell - bar - 16;
+    const y = window.scrollY + target.getBoundingClientRect().top - shell - sub - bar - 16;
     window.scrollTo({ top: Math.max(0, y), behavior: reduced ? 'auto' : 'smooth' });
     if (history.replaceState) history.replaceState(null, '', `#${id}`);
     if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');

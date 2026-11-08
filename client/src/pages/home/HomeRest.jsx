@@ -51,9 +51,9 @@ const sortCalls = programmeMeta.sortCalls || ((a, b) => {
 });
 
 /*
- * Closing CTA (DESIGN-v2 3.15 / 6.1): the shared Ink CTA band, a quiet centred statement on the static pulli grid.
- * The title's full stop was already part of the line (read by screen readers, drawn as the red point); it is now the
- * band's <Dot/> via CTABand, so the visible and spoken text are unchanged. The lede sits left-aligned in a centred box.
+ * Closing CTA (SPEC §5.1 #15): the kit Ink CTA headband (headline left, actions right from 1024). Join is the page's
+ * main conversion, so it is the red `point` button and the title drops its red full stop (`dot={false}`): the band
+ * keeps one red point. The full stop is still part of the title text.
  */
 function ClosingCta() {
   const { t } = useLang();
@@ -63,13 +63,14 @@ function ClosingCta() {
       className="home-close"
       title={`${t('Start where you are', 'நீங்கள் இருக்கும் இடத்திலிருந்தே தொடங்குங்கள்')}.`}
       accentWord="Start"
+      dot={false}
       body={t(
         'Make a free StartNet X profile and we’ll show you the next step that fits you: an event, a course, a circle or a programme.',
         'இலவச StartNet X சுயவிவரத்தை உருவாக்குங்கள்; உங்களுக்குப் பொருந்தும் அடுத்த படியை நாங்கள் காட்டுவோம்: ஒரு நிகழ்வு, ஒரு பயிற்சி, ஒரு வட்டம் அல்லது ஒரு திட்டம்.'
       )}
       actions={(
         <>
-          <Button size="lg" to="/join">{t('Join StartNet', 'StartNet-இல் இணையுங்கள்')}</Button>
+          <Button size="lg" variant="point" to="/join">{t('Join StartNet', 'StartNet-இல் இணையுங்கள்')}</Button>
           <Button size="lg" variant="whatsapp" href={waLink('Hi StartNet', 'home')}>{t('Chat on WhatsApp', 'WhatsApp-இல் பேசுங்கள்')}</Button>
           <p className="home-close__micro">
             <span>{t('Free for individuals. Takes about two minutes. Tamil or English.', 'தனிநபர்களுக்கு இலவசம். சுமார் இரண்டு நிமிடங்கள் ஆகும். தமிழ் அல்லது ஆங்கிலம்.')}</span>
@@ -93,18 +94,16 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
   const partners = Array.isArray(partnersReq.data) ? partnersReq.data : [];
   const showStories = storiesReq.loading || stories.length > 0;
   const film = featuredVideos().filter((v) => v.series === 'saas-connect' && v.edition === '2025').slice(0, 1);
-  // Strict Paper / Bone alternation (DESIGN-v2 6.1): when the stories band is hidden, the last two grounds swap so
-  // Updates (Bone) is never followed by another Bone band.
-  const partnerSurface = showStories ? 'sunken' : 'paper';
-  const faqSurface = showStories ? 'paper' : 'sunken';
+  // Grounds (SPEC §5.1): Updates (Bone) → Stories (Paper, when shown) → Partner (Paper, hairline between) →
+  // Questions (Bone) → the closing Ink band.
 
   return (
     <>
-      {/* M07 · How it works, dot → grid → network → full stop, with a sticky StartNet X profile tracker */}
+      {/* M07 · How it works (Bone), dot → grid → network → full stop, with a sticky StartNet X profile tracker */}
       <FounderStory />
 
-      {/* Mission 1 Lakh: 5/7, copy top-aligned; the figure panel carries the meter whose current value is the red point */}
-      <Section id="mission" surface="sunken" className="home-mission home-lazy">
+      {/* Mission 1 Lakh (Paper): 5/7, copy top-aligned; the Card panel carries the meter whose current value is the red point */}
+      <Section id="mission" className="home-mission home-lazy">
         <div className="home-mission__inner">
           <div className="home-mission__copy">
             <SectionHeader eyebrow={t('Our goal', 'எங்கள் இலக்கு')} title="Mission 1 Lakh" />
@@ -123,7 +122,7 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
           </div>
           <Reveal delay={0.12} className="home-mission__panel">
             <div className="home-mission__targets">
-              <Stat metric={localizeMetric(m.target2031, lang)} variant="default" />
+              <Stat metric={localizeMetric(m.target2031, lang)} variant="lg" />
               <Stat metric={localizeMetric(m.target2040, lang)} variant="compact" />
             </div>
             <p className="caption home-mission__tagline">{t('Target · planning assumption', 'இலக்கு · திட்டமிடல் அனுமானம்')}</p>
@@ -132,8 +131,9 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
         </div>
       </Section>
 
-      {/* Why Tamil Nadu: 7/5, copy and a 2×2 stat grid left, the map art right (clip-in) */}
-      <Section id="why-tamil-nadu" className="home-why home-lazy">
+      {/* Why Tamil Nadu (SPEC §5.1 #7): the inset Ink panel, Ink band #2. Copy and the map art side by side from 1024,
+          then the context figures as one hairline-topped row. */}
+      <Section id="why-tamil-nadu" surface="inset" className="home-why home-lazy">
         <div className="home-why__inner">
           <div className="home-why__copy">
             <SectionHeader
@@ -144,9 +144,6 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
                 'தமிழ்நாட்டில் மாணவர்கள், ஆய்வாளர்கள், பெண் நிறுவனர்கள், Global Capability Centres அனைத்தும் உள்ளன. குறைவாக இருப்பது, திறமையை நிறுவனங்களாக மாற்ற உதவும் போதுமான மனிதர்கள்தான், குறிப்பாகச் சென்னைக்கு வெளியே.'
               )}
             />
-            <RevealGroup className="home-why__stats">
-              {context.map((s) => <Stat key={s.id} metric={s} />)}
-            </RevealGroup>
             <Reveal className="home-why__more">
               <Button variant="tertiary" to="/insights">{t('Explore Insights', 'நுண்ணறிவுகளை ஆராயுங்கள்')}</Button>
             </Reveal>
@@ -156,14 +153,19 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
               variant="map"
               ratio="4/5"
               seed={38}
+              night
               alt={t("Abstract dot map of Tamil Nadu's 38 districts", 'தமிழ்நாட்டின் 38 மாவட்டங்களின் புள்ளி வரைபடம் (கலைப்படைப்பு)')}
             />
           </Reveal>
+          <RevealGroup className="home-why__stats">
+            {context.map((s) => <div key={s.id} className="home-why__cell"><Stat metric={s} /></div>)}
+          </RevealGroup>
         </div>
       </Section>
 
-      {/* On film: the SaaS Connect 2025 film (0:12–5:50) (data/videos.js) on the Ink band, 16/9, opened up by ClipReveal */}
-      <Section id="on-film" surface="night" className="home-film home-lazy">
+      {/* On film: the SaaS Connect 2025 film (0:12–5:50) (data/videos.js) on Paper (SPEC §5.1 #8: Ink bands are capped
+          at two), 16/9 in a 20px frame, opened up by ClipReveal */}
+      <Section id="on-film" className="home-film home-lazy">
         {film.length > 0 && (
           <>
             <SectionHeader
@@ -193,7 +195,7 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
           {eventsReq.loading ? (
             <Skeleton height="22rem" count={1} />
           ) : events.length ? (
-            <Scroller label={t('Upcoming events', 'வரவிருக்கும் நிகழ்வுகள்')} itemWidth="min(20rem, 82vw)">
+            <Scroller label={t('Upcoming events', 'வரவிருக்கும் நிகழ்வுகள்')} itemWidth="min(20rem, 82vw)" nudge={false}>
               {events.slice(0, 8).map((e) => <EventCard key={e.slug} event={e} />)}
             </Scroller>
           ) : (
@@ -210,7 +212,7 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
         </div>
       </Section>
 
-      {/* M06 · Open calls: open, closing and rolling (F-40); framed cards 3-up */}
+      {/* M06 · Open calls: open, closing and rolling (F-40); framed cards 3-up on an inset Bone panel */}
       <Section id="open-now" className="home-open home-lazy">
         <SectionHeader
           eyebrow={t('Programmes', 'திட்டங்கள்')}
@@ -222,9 +224,13 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
           {progReq.loading ? (
             <Skeleton height="16rem" count={1} />
           ) : programmes.length ? (
-            <RevealGroup className="home-open__grid">
-              {programmes.map((p) => <ProgrammeCard key={p.slug} programme={p} />)}
-            </RevealGroup>
+            // SPEC §4.6: a text-only ProgrammeCard is framed, and framed cards sit on Bone: the cards stand on an inset
+            // Bone panel inside the Paper section, so the Paper → Bone alternation of the sections stays as it is.
+            <div className="home-open__panel" data-ground="bone">
+              <RevealGroup className="home-open__grid">
+                {programmes.map((p) => <ProgrammeCard key={p.slug} programme={p} />)}
+              </RevealGroup>
+            </div>
           ) : (
             <EmptyState
               title={t('Nothing open right now.', 'இப்போது எதுவும் திறந்திருக்கவில்லை.')}
@@ -250,9 +256,9 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
         </Reveal>
       </Section>
 
-      {/* M14 · Founder stories (hidden until at least one real story exists) */}
+      {/* M14 · Founder stories (hidden until at least one real story exists): a 3-up grid of Ink StoryCards */}
       {showStories && (
-      <Section id="stories" className="home-stories home-rail home-lazy">
+      <Section id="stories" className="home-stories home-lazy">
         <SectionHeader
           eyebrow={t('Stories', 'கதைகள்')}
           title={t('Founders, in their own words', 'நிறுவனர்கள், அவர்களின் சொந்த வார்த்தைகளில்')}
@@ -262,32 +268,19 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
           {storiesReq.loading ? (
             <Skeleton height="18rem" count={1} />
           ) : (
-            <Scroller label={t('Founder stories', 'நிறுவனர் கதைகள்')} itemWidth="min(22rem, 82vw)">
-              {stories.map((s) => <StoryCard key={s.slug} story={s} />)}
-            </Scroller>
+            <ul className="home-stories__grid" aria-label={t('Founder stories', 'நிறுவனர் கதைகள்')}>
+              {stories.map((s) => <li key={s.slug}><StoryCard story={s} /></li>)}
+            </ul>
           )}
         </div>
       </Section>
       )}
 
-      {/* Partner band: 5/7, the copy left, the art (and the signed-partner wall, when there is one) right */}
-      <Section id="partner" surface={partnerSurface} className="home-partner home-lazy">
+      {/* Partner band (Paper, tight): 5/7, the copy left, the art right (the copy comes first in the DOM, so phones open
+          on the dot label and h2); the signed partners as the logo-tile carousel (LogoWall variant="carousel") under
+          both, when there are at least three */}
+      <Section id="partner" pad="tight" className="home-partner home-lazy">
         <div className="home-partner__inner">
-          <div className="home-partner__aside">
-            <Reveal variant="clip" className="home-partner__art">
-              <ArtImage
-                variant="network"
-                ratio="3/2"
-                seed={4}
-                alt={t('Generative artwork: dots joined into a network', 'உருவாக்கக் கலைப்படைப்பு: ஒரு வலையமைப்பாக இணைந்த புள்ளிகள்')}
-              />
-            </Reveal>
-            {partners.length >= 3 && (
-              <div className="home-partner__logos">
-                <LogoWall partners={partners} />
-              </div>
-            )}
-          </div>
           <div className="home-partner__copy">
             <Reveal as="p" className="eyebrow">{t('Partner with us', 'எங்களுடன் கூட்டு சேருங்கள்')}</Reveal>
             <Reveal as="h2" delay={0.06} className="h2 home-partner__title">
@@ -310,14 +303,29 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
               ))}
             </RevealGroup>
           </div>
+          <div className="home-partner__aside">
+            <Reveal variant="clip" className="home-partner__art">
+              <ArtImage
+                variant="network"
+                ratio="3/2"
+                seed={4}
+                alt={t('Generative artwork: dots joined into a network', 'உருவாக்கக் கலைப்படைப்பு: ஒரு வலையமைப்பாக இணைந்த புள்ளிகள்')}
+              />
+            </Reveal>
+          </div>
+          {partners.length >= 3 && (
+            <div className="home-partner__logos">
+              <LogoWall partners={partners} variant="carousel" />
+            </div>
+          )}
         </div>
       </Section>
 
       {/* AEO FAQ: drafted from Book 2 §1 and §3.0 — StartNet review. FAQPage JSON-LD is emitted by Home.jsx.
-          4/8: the header sticks in cols 1–4 at ≥1024 while the questions scroll in cols 5–12. */}
-      <Section id="questions" surface={faqSurface} className="home-faq home-lazy" labelledBy="home-faq-title">
-        <div className="home-faq__inner">
-          <div className="home-faq__head">
+          SPEC §4.14: the header sticks in cols 1–4 at ≥1024 while the questions run in cols 6–12 (kit .faq-split). */}
+      <Section id="questions" surface="sunken" className="home-faq home-lazy" labelledBy="home-faq-title">
+        <div className="faq-split home-faq__inner">
+          <div className="faq-split__head home-faq__head">
             <SectionHeader
               eyebrow={t('Common questions', 'பொதுவான கேள்விகள்')}
               title={<span id="home-faq-title">{t('Questions about StartNet', 'StartNet பற்றிய கேள்விகள்')}</span>}

@@ -1,14 +1,13 @@
-// C09 · Footer (Book 1 Part B §3.8, DESIGN-v2 3.16, AIWO blueprint P18): six rows on an Ink surface; every link,
-// label, column and the order are unchanged. Row 1 sets the drawn wordmark large (mono Paper, so the tagline's full
-// stop stays the footer's one red point) beside the newsletter; then a hairline and the link columns at equal
-// widths; socials in 40px ring circles; the legal row closes the page (the old Night-1 watermark is retired).
-// 1 brand & newsletter · 2 link columns (6 → 3 → accordions) · 3 social & channels ·
-// 4 partner logos (only signed partners with logo permission; omitted when none) · 5 ThinkTN line (locked) · 6 legal + Cookie settings + Reduce motion.
-// Pages that carry their own newsletter sign-up (FOOTER_NEWSLETTER_SKIP) do not repeat it here (M-57 / F-29).
+// C09 · Footer (docs/redesign/SPEC.md §3.5): two blocks. 1 · the newsletter band on Slate (night, raised), which keeps
+// the footer apart from an Ink CTABand directly above it. 2 · the footer body on Bone: the large Ink wordmark (its red
+// stop is the body's one red point), tagline and "Contact us" beside the link columns; socials as 48px rounded squares
+// and the partner names; the ThinkTN line (locked); the legal row with Cookie settings and the Reduce motion switch.
+// Every link, label, column and their order are unchanged. Link groups are plain headed lists at every width.
+// Pages that carry their own newsletter sign-up (FOOTER_NEWSLETTER_SKIP, or `newsletter={false}`) do not repeat it.
 // Tamil strings are drafts pending native review (Book 2 §14).
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronDown, Instagram, Linkedin, MessageCircle, Twitter, Youtube } from 'lucide-react';
+import { ArrowRight, Instagram, Linkedin, MessageCircle, Twitter, Youtube } from 'lucide-react';
 import { useLang } from '../lib/i18n.jsx';
 import { useApi } from '../hooks/useApi.js';
 import { waLink } from '../lib/links.js';
@@ -29,8 +28,12 @@ const REGISTERED_OFFICE = [
   '112/2F4, ஃபேர்லேண்ட்ஸ், 3-ஆவது குறுக்குத் தெரு, ஃபேர்லேண்ட்ஸ், சேலம், தமிழ்நாடு 636016',
 ];
 
-/** Language-stripped paths whose page already has a newsletter sign-up of its own. */
-const FOOTER_NEWSLETTER_SKIP = ['/insights', '/insights/reports'];
+/** Language-stripped paths whose page already has a newsletter sign-up of its own, or (Contact, SPEC §5.8) ends on its
+ *  own form. The shell renders one Footer for every route, so this list is how a route opts out of the band. */
+const FOOTER_NEWSLETTER_SKIP = ['/insights', '/insights/reports', '/contact'];
+
+/** The copyright year, fixed into the HTML when the page is prerendered at build time. */
+const YEAR = new Date().getFullYear();
 
 const sinceText = (since, lang) => {
   if (!since) return '';
@@ -42,19 +45,11 @@ const sinceText = (since, lang) => {
 
 function FooterColumn({ col }) {
   const { t, localePath } = useLang();
-  const [open, setOpen] = useState(false);
-  const listId = useId();
-  const heading = t(col.heading, col.headingTa);
+  // Every group is open at every width (PnP: no accordions); the head is a plain dot-label heading.
   return (
-    <div className="site-footer__col" data-open={open || undefined}>
-      <h2 className="site-footer__col-h">
-        <button type="button" className="site-footer__col-toggle" aria-expanded={open} aria-controls={listId} onClick={() => setOpen((o) => !o)}>
-          {heading}
-          <ChevronDown size={18} aria-hidden="true" />
-        </button>
-        <span className="site-footer__col-title">{heading}</span>
-      </h2>
-      <ul id={listId} className="site-footer__list">
+    <div className="site-footer__col">
+      <h2 className="site-footer__col-h">{t(col.heading, col.headingTa)}</h2>
+      <ul className="site-footer__list">
         {publishedLinks(col).map((l) => (
           <li key={l.to}>
             <Link to={localePath(l.to)} className="site-footer__link" data-brand={l.brand}>
@@ -100,7 +95,7 @@ function PartnerRow({ enabled }) {
     : [];
   if (partners.length === 0) return null; // omitted, never padded
   return (
-    <div className="site-footer__row site-footer__partners">
+    <div className="site-footer__partners">
       <h2 className="site-footer__row-h">{t('Our partners', 'எங்கள் கூட்டாளர்கள்')}</h2>
       <ul className="site-footer__partner-list">
         {partners.map((p) => {
@@ -123,32 +118,21 @@ function PartnerRow({ enabled }) {
   );
 }
 
-export default function Footer() {
+export default function Footer({ newsletter = true }) {
   const { t, lang, localePath, basePath } = useLang();
   const { openConsent } = useShell();
   const footerRef = useRef(null);
   const near = useNearViewport(footerRef);
-  const showNewsletter = !FOOTER_NEWSLETTER_SKIP.includes(basePath);
+  const showNewsletter = newsletter && !FOOTER_NEWSLETTER_SKIP.includes(basePath);
 
   return (
-    <footer ref={footerRef} className="site-footer" data-surface="night">
-      <div className="container">
-        {/* Row 1 · Brand & newsletter */}
-        <div className="site-footer__row site-footer__brand-row" data-no-newsletter={showNewsletter ? undefined : ''}>
-          <div className="site-footer__brand">
-            <Link to={localePath('/')} aria-label={t('StartNet home', 'StartNet முகப்பு')} className="site-footer__logo">
-              <Logo mono size="xl" className="site-footer__wordmark-logo" />
-            </Link>
-            <p className="site-footer__tagline" lang={t('en', 'ta')}>
-              {t('Every talent, a founder', 'ஒவ்வொரு திறமையும், ஒரு நிறுவனர்')}<Dot />
-            </p>
-            <p className="site-footer__positioning">
-              {/* SEO-TA: pending native review */}
-              {t('Tamil Nadu’s founder-making network. Headquartered in Salem, working across Tamil Nadu.', 'தமிழ்நாட்டின் நிறுவனர்களை உருவாக்கும் வலையமைப்பு. சேலத்தைத் தலைமையிடமாகக் கொண்டு, தமிழ்நாடு முழுவதும் செயல்படுகிறது.')}
-            </p>
-          </div>
-          {showNewsletter && (
-            <div className="site-footer__newsletter">
+    <footer ref={footerRef} className="site-footer" data-no-newsletter={showNewsletter ? undefined : ''}>
+      {/* Block 1 · Newsletter band (Slate) */}
+      {showNewsletter && (
+        <div className="site-footer__nl" data-surface="night" data-tone="raised">
+          <div className="container site-footer__nl-inner">
+            <div className="site-footer__nl-text">
+              <p className="eyebrow site-footer__nl-eyebrow">{t('The StartNet newsletter', 'StartNet செய்திமடல்')}</p>
               <h2 className="site-footer__nl-title">
                 {t('One email. What opened, what happened, what’s next.', 'ஒரே மின்னஞ்சல். எது திறந்தது, என்ன நடந்தது, அடுத்து என்ன.')}
               </h2>
@@ -163,6 +147,8 @@ export default function Footer() {
                   </>
                 )}
               </p>
+            </div>
+            <div className="site-footer__newsletter">
               <NewsletterForm compact night />
               <p className="site-footer__dpdp">
                 {lang === 'ta' ? (
@@ -180,82 +166,103 @@ export default function Footer() {
                 )}
               </p>
             </div>
-          )}
+          </div>
         </div>
+      )}
 
-        {/* Row 2 · Link columns */}
-        <nav className="site-footer__row site-footer__cols" aria-label={t('Footer', 'அடிக்குறிப்பு இணைப்புகள்')}>
-          {FOOTER_COLUMNS.filter((col) => publishedLinks(col).length > 0).map((col) => <FooterColumn key={col.id} col={col} />)}
-        </nav>
+      {/* Block 2 · Footer body (Bone) */}
+      <div className="site-footer__body" data-ground="bone">
+        <div className="container">
+          {/* Row 1 · Brand + link columns */}
+          <div className="site-footer__top">
+            <div className="site-footer__brand">
+              <Link to={localePath('/')} aria-label={t('StartNet home', 'StartNet முகப்பு')} className="site-footer__logo">
+                <Logo size="xl" className="site-footer__wordmark-logo" />
+              </Link>
+              <p className="site-footer__tagline" lang={t('en', 'ta')}>
+                {t('Every talent, a founder', 'ஒவ்வொரு திறமையும், ஒரு நிறுவனர்')}<Dot />
+              </p>
+              <p className="site-footer__positioning">
+                {/* SEO-TA: pending native review */}
+                {t('Tamil Nadu’s founder-making network. Headquartered in Salem, working across Tamil Nadu.', 'தமிழ்நாட்டின் நிறுவனர்களை உருவாக்கும் வலையமைப்பு. சேலத்தைத் தலைமையிடமாகக் கொண்டு, தமிழ்நாடு முழுவதும் செயல்படுகிறது.')}
+              </p>
+              <Link to={localePath('/contact')} className="site-footer__contact">
+                <span>{t('Contact us', 'எங்களைத் தொடர்புகொள்ளுங்கள்')}</span>
+                <ArrowRight size={20} strokeWidth={1.75} aria-hidden="true" className="site-footer__contact-arrow" />
+              </Link>
+            </div>
+            <nav className="site-footer__cols" aria-label={t('Footer', 'அடிக்குறிப்பு இணைப்புகள்')}>
+              {FOOTER_COLUMNS.filter((col) => publishedLinks(col).length > 0).map((col) => <FooterColumn key={col.id} col={col} />)}
+            </nav>
+          </div>
 
-        {/* Row 3 · Social & channels */}
-        <div className="site-footer__row site-footer__social">
-          <h2 className="site-footer__row-h">{t('Follow StartNet', 'StartNet-ஐப் பின்தொடருங்கள்')}</h2>
-          <ul className="site-footer__social-list">
-            {SOCIAL_CHANNELS.filter((s) => s.url).map((s) => {
-              const Icon = SOCIAL_ICONS[s.id];
-              return (
-                <li key={s.id}>
-                  <a className="site-footer__social-item site-footer__social-item--link" href={s.url} target="_blank" rel="noopener noreferrer me">
-                    <span className="site-footer__social-icon" aria-hidden="true"><Icon size={18} /></span>
-                    <span>{s.label}</span>
-                    <span className="visually-hidden">{t(' (opens in a new tab)', ' (புதிய தாவலில் திறக்கும்)')}</span>
+          {/* Row 2 · Social & channels, then partner names (conditional) */}
+          <div className="site-footer__row site-footer__connect">
+            <div className="site-footer__social">
+              <h2 className="site-footer__row-h">{t('Follow StartNet', 'StartNet-ஐப் பின்தொடருங்கள்')}</h2>
+              <ul className="site-footer__social-list">
+                {SOCIAL_CHANNELS.filter((s) => s.url).map((s) => {
+                  const Icon = SOCIAL_ICONS[s.id];
+                  return (
+                    <li key={s.id}>
+                      <a className="site-footer__social-item site-footer__social-item--link" href={s.url} target="_blank" rel="noopener noreferrer me" title={s.label}>
+                        <Icon size={20} strokeWidth={1.75} aria-hidden="true" />
+                        <span className="visually-hidden">{s.label}{t(' (opens in a new tab)', ' (புதிய தாவலில் திறக்கும்)')}</span>
+                      </a>
+                    </li>
+                  );
+                })}
+                <li>
+                  <a
+                    className="site-footer__social-item site-footer__social-item--link"
+                    href={waLink(t('Hi StartNet, please add me to the WhatsApp channel', 'வணக்கம் StartNet, என்னை WhatsApp சேனலில் சேர்க்கவும்'), 'footer')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={t('WhatsApp channel', 'WhatsApp சேனல்')}
+                  >
+                    <MessageCircle size={20} strokeWidth={1.75} aria-hidden="true" />
+                    <span className="visually-hidden">{t('WhatsApp channel', 'WhatsApp சேனல்')}{t(' (opens WhatsApp)', ' (WhatsApp-இல் திறக்கும்)')}</span>
                   </a>
                 </li>
-              );
-            })}
-            <li>
-              <a
-                className="site-footer__social-item site-footer__social-item--link"
-                href={waLink(t('Hi StartNet, please add me to the WhatsApp channel', 'வணக்கம் StartNet, என்னை WhatsApp சேனலில் சேர்க்கவும்'), 'footer')}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="site-footer__social-icon" aria-hidden="true"><MessageCircle size={18} /></span>
-                <span>{t('WhatsApp channel', 'WhatsApp சேனல்')}</span>
-                <span className="visually-hidden">{t(' (opens WhatsApp)', ' (WhatsApp-இல் திறக்கும்)')}</span>
-              </a>
-            </li>
-          </ul>
-          {/* SEO-TA: pending native review */}
-          <p className="site-footer__handles">
-            {t('@startnetindia on LinkedIn, X and YouTube.', 'LinkedIn, X, YouTube-இல் @startnetindia.')}
-          </p>
-        </div>
+              </ul>
+              {/* SEO-TA: pending native review */}
+              <p className="site-footer__handles">
+                {t('@startnetindia on LinkedIn, X and YouTube.', 'LinkedIn, X, YouTube-இல் @startnetindia.')}
+              </p>
+            </div>
+            <PartnerRow enabled={near} />
+          </div>
 
-        {/* Row 4 · Partner logos (conditional) */}
-        <PartnerRow enabled={near} />
+          {/* Row 3 · ThinkTN line (text only, never beside a logo), a hairline, then the legal row */}
+          <div className="site-footer__row site-footer__thinktn">
+            <p>
+              {t(THINKTN_LINE, THINKTN_LINE_TA)}{' '}
+              <Link to={localePath('/about/thinktn-alliance')} className="site-footer__thinktn-link">
+                {t('About the partnership', 'இந்தக் கூட்டணி பற்றி')} <ArrowRight size={14} aria-hidden="true" />
+              </Link>
+            </p>
+          </div>
 
-        {/* Row 5 · ThinkTN line — text only, never beside a logo */}
-        <div className="site-footer__row site-footer__thinktn">
-          <p>
-            {t(THINKTN_LINE, THINKTN_LINE_TA)}{' '}
-            <Link to={localePath('/about/thinktn-alliance')} className="site-footer__thinktn-link">
-              {t('About the partnership', 'இந்தக் கூட்டணி பற்றி')} <ArrowRight size={14} aria-hidden="true" />
-            </Link>
-          </p>
-        </div>
-
-        {/* Row 6 · Legal */}
-        <div className="site-footer__row site-footer__legal">
-          <p className="site-footer__copy">
-            © 2026 {LEGAL_ENTITY} · CIN <span className="tnum">{LEGAL_CIN}</span> · {t('Registered office', 'பதிவு அலுவலகம்')}:{' '}
-            {t(...REGISTERED_OFFICE)}
-          </p>
-          <ul className="site-footer__legal-list" aria-label={t('Legal', 'சட்டத் தகவல்')}>
-            {LEGAL_LINKS.filter(isPublished).map((l) => (
-              <li key={l.label}>
-                {l.action === 'cookies' ? (
-                  <button type="button" className="site-footer__legal-link site-footer__legal-btn" onClick={openConsent}>
-                    {t(l.label, l.labelTa)}
-                  </button>
-                ) : (
-                  <Link to={localePath(l.to)} className="site-footer__legal-link">{t(l.label, l.labelTa)}</Link>
-                )}
-              </li>
-            ))}
-          </ul>
-          <MotionSwitch className="site-footer__motion" />
+          <div className="site-footer__legal">
+            <p className="site-footer__copy">
+              © {YEAR} {LEGAL_ENTITY} · CIN <span className="tnum">{LEGAL_CIN}</span> · {t('Registered office', 'பதிவு அலுவலகம்')}:{' '}
+              {t(...REGISTERED_OFFICE)}
+            </p>
+            <ul className="site-footer__legal-list" aria-label={t('Legal', 'சட்டத் தகவல்')}>
+              {LEGAL_LINKS.filter(isPublished).map((l) => (
+                <li key={l.label}>
+                  {l.action === 'cookies' ? (
+                    <button type="button" className="site-footer__legal-link site-footer__legal-btn" onClick={openConsent}>
+                      {t(l.label, l.labelTa)}
+                    </button>
+                  ) : (
+                    <Link to={localePath(l.to)} className="site-footer__legal-link">{t(l.label, l.labelTa)}</Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+            <MotionSwitch className="site-footer__motion" />
+          </div>
         </div>
       </div>
     </footer>

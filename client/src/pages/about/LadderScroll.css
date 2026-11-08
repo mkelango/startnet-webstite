@@ -16,7 +16,7 @@
   background: var(--color-text); color: var(--color-bg); font-weight: 500; font-size: var(--text-small);
 }
 .mission-ladder__step.is-tracked .mission-ladder__badge { box-shadow: none; border: 1px dashed var(--color-border-control); }
-.mission-ladder__name { margin: 0 0 var(--space-1); font-weight: 500; letter-spacing: -0.01em; }
+.mission-ladder__name { margin: 0 0 var(--space-1); font-weight: 500; letter-spacing: var(--tracking-h4); }
 .mission-ladder__def { color: var(--color-text-2); font-size: var(--text-small); }
 
 /* ---- Pinned (desktop) ---- */
@@ -27,17 +27,17 @@
 @keyframes mission-ladder-in { from { opacity: 0; transform: translateY(var(--shift-3)); } to { opacity: 1; transform: none; } }
 /* Big light numerals (Meridian): "L3 / 7" */
 .mission-ladder__now-code {
-  font-size: var(--text-display-xl); font-weight: 400; line-height: 1; letter-spacing: -0.035em;
+  font-size: var(--text-display-xl); font-weight: 400; line-height: 1; letter-spacing: var(--tracking-h1);
   font-variant-numeric: tabular-nums lining-nums;
 }
-.mission-ladder__now-of { font-size: var(--text-h4); color: var(--color-text-muted); font-weight: 400; letter-spacing: -0.02em; }
-.mission-ladder__now-name { font-size: var(--text-h3); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; margin-top: var(--space-3); }
+.mission-ladder__now-of { font-size: var(--text-h4); color: var(--color-text-muted); font-weight: 400; letter-spacing: var(--tracking-h2); }
+.mission-ladder__now-name { font-size: var(--text-h3); font-weight: 400; letter-spacing: var(--tracking-h2); line-height: 1.1; margin-top: var(--space-3); }
 .mission-ladder__now-def { font-size: var(--text-body-lg); color: var(--color-text-2); margin-top: var(--space-3); max-width: 36ch; min-height: 3.2em; }
 
 .mission-ladder__chart { position: relative; height: min(58vh, 30rem); }
 .mission-ladder__bars { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; align-items: end; }
 .mission-ladder__bar {
-  position: relative; height: calc(var(--h) * 100%); margin-inline: var(--space-1); padding: 0; border: 0; border-radius: var(--btn-radius) var(--btn-radius) 0 0;
+  position: relative; height: calc(var(--h) * 100%); margin-inline: var(--space-1); padding: 0; border: 0; border-radius: var(--radius-sm) var(--radius-sm) 0 0;
   background: var(--color-bg-sunken); overflow: hidden; cursor: pointer; text-align: left;
   transition: transform var(--dur-2) var(--ease-snap);
 }

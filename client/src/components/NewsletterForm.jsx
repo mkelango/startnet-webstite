@@ -221,7 +221,7 @@ export function NewsletterForm({ compact = false, night = false, defaultTopics, 
           className="newsletter__email"
         />
         {compact && (
-          <Button type="submit" loading={submitting} className="newsletter__submit" variant={night ? 'inverse' : 'primary'}>
+          <Button type="submit" size="lg" loading={submitting} className="newsletter__submit" variant={night ? 'inverse' : 'primary'}>
             {t('Subscribe', 'செய்திமடலைப் பெறுங்கள்')}
           </Button>
         )}

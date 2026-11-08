@@ -138,39 +138,40 @@ export const HOW_IT_WORKS = [
 export const localiseSteps = (t) => HOW_IT_WORKS.map((s) => ({ title: tf(t, s, 'title'), body: tf(t, s, 'body') }));
 
 /** Book 1 Part B §3.2 ⑦ — ready-made solutions column. */
+/** Ready-made solutions. `audience` is the PARTNER_TYPES key whose label is the card's type Badge (SPEC 5.7 #4). */
 export const SOLUTIONS = [
   {
-    title: 'District Ecosystem Programme', to: '/partner/district-programme',
+    title: 'District Ecosystem Programme', to: '/partner/district-programme', audience: 'government',
     body: 'All four StartNet brands in one district for a year.',
     bodyTa: 'ஒரு மாவட்டத்தில் ஓராண்டுக்கு StartNet-இன் நான்கு பிராண்டுகளும்.',
   },
   {
-    title: 'Institution Partner Programme', to: '/research/institution-partner-programme',
+    title: 'Institution Partner Programme', to: '/research/institution-partner-programme', audience: 'institutions',
     body: 'Lab membership, innovation policy kit, faculty development and your own StartNet X space.',
     bodyTa: 'Lab உறுப்பினர், புத்தாக்கக் கொள்கைத் தொகுப்பு, ஆசிரியர் மேம்பாடு, உங்களுக்கென ஒரு StartNet X தளம்.',
   },
   {
-    title: 'Lab sponsorship', titleTa: 'Lab நிதி ஆதரவு', to: '/research/labs#sponsor',
+    title: 'Lab sponsorship', titleTa: 'Lab நிதி ஆதரவு', to: '/research/labs#sponsor', audience: 'sponsors',
     body: 'Sponsor a StartNet Lab and co-sign its problem statements.',
     bodyTa: 'ஒரு StartNet Lab-க்கு நிதி ஆதரவளித்து, அதன் சவால் அறிக்கைகளில் இணைந்து கையெழுத்திடுங்கள்.',
   },
   {
-    title: 'Vibathon partnerships', titleTa: 'Vibathon கூட்டாண்மைகள்', to: '/vibe/vibathon#partners',
+    title: 'Vibathon partnerships', titleTa: 'Vibathon கூட்டாண்மைகள்', to: '/vibe/vibathon#partners', audience: 'sponsors',
     body: 'Sponsor a track at Vibathon, a StartNet Vibe programme.',
     bodyTa: 'StartNet Vibe திட்டமான Vibathon-இல் ஒரு பிரிவுக்கு நிதி ஆதரவளியுங்கள்.',
   },
   {
-    title: 'GCC talent package', titleTa: 'GCC திறமையாளர் தொகுப்பு', to: '/partner/gccs#talent',
+    title: 'GCC talent package', titleTa: 'GCC திறமையாளர் தொகுப்பு', to: '/partner/gccs#talent', audience: 'gccs',
     body: 'Opted-in access to talent from StartNet programmes.',
     bodyTa: 'StartNet திட்டங்களிலிருந்து, ஒப்புதல் அளித்த திறமையாளர்களை அணுகும் வாய்ப்பு.',
   },
   {
-    title: 'Intrapreneur-to-founder programme', titleTa: 'ஊழியர்களை நிறுவனர்களாக்கும் திட்டம்', to: '/partner/gccs#intrapreneurs',
+    title: 'Intrapreneur-to-founder programme', titleTa: 'ஊழியர்களை நிறுவனர்களாக்கும் திட்டம்', to: '/partner/gccs#intrapreneurs', audience: 'gccs',
     body: 'A founder programme for your own staff.',
     bodyTa: 'உங்கள் சொந்த ஊழியர்களுக்கான ஒரு நிறுவனர் திட்டம்.',
   },
   {
-    title: 'CSR founder programmes', titleTa: 'CSR நிறுவனர் திட்டங்கள்', to: '/partner/csr',
+    title: 'CSR founder programmes', titleTa: 'CSR நிறுவனர் திட்டங்கள்', to: '/partner/csr', audience: 'csr',
     body: 'Student-founder, women-founder and district programmes with quarterly outcome reports.',
     bodyTa: 'மாணவ நிறுவனர், பெண் நிறுவனர், மாவட்டத் திட்டங்கள், காலாண்டு விளைவு அறிக்கைகளுடன்.',
   },

@@ -13,7 +13,6 @@
 .vibe-ways__body > p { margin: 0; max-width: 44ch; }
 .vibe-ways__meta { display: inline-flex; align-items: center; gap: 0.6em; font-size: var(--text-meta); font-weight: 500; color: var(--color-text); }
 .vibe-ways__meta::before { content: ''; flex: none; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--color-label-dot); }
-.vibe-home__ways .feature-tabs__panel .art-image { aspect-ratio: 4 / 3; }
 /* Collapsed tabs and inactive media panels leave the tab order (they stay in the DOM and in the prerender) */
 .vibe-home__ways .feature-tabs__body:not([data-open]) .feature-tabs__body-inner { visibility: hidden; transition: visibility 0s 400ms; }
 .vibe-home__ways .feature-tabs__panel:not(.is-active) { visibility: hidden; transition: opacity 400ms var(--ease-standard), visibility 0s 400ms; }
@@ -33,29 +32,31 @@
 .vibe-home__lang svg { color: var(--color-text-2); }
 .vibe-home__lang--ta { font-family: "Anek Tamil Variable", var(--font-sans); font-size: 1.05em; }
 /* English pages: system Tamil face instead of the 50 KB Anek webfont (the /ta pages already load Anek) */
-html:not([lang="ta"]) .vibe-home__lang--ta,
-html:not([lang="ta"]) .vibe-home__academy-glyph:not(.vibe-home__academy-glyph--en) {
+html:not([lang="ta"]) .vibe-home__lang--ta {
   font-family: "Nirmala UI", "Tamil Sangam MN", "Noto Sans Tamil Variable", sans-serif;
 }
 .vibe-home__fee { padding: var(--space-5) 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); width: 100%; }
 .vibe-home__academy-frame { display: block; }
-.vibe-home__academy-art { position: relative; border-radius: var(--media-radius); overflow: hidden; }
-/* The two scripts as quiet paper glyphs on the photo (regular weight; orange only on the Tamil letter) */
-.vibe-home__academy-glyph {
-  /* Bottom-right, clear of the photo caption (bottom-left) */
-  position: absolute; right: 7%; bottom: 2%; z-index: 2;
-  font-family: "Anek Tamil Variable", var(--font-display);
-  font-size: clamp(6rem, 4rem + 10vw, 13rem); font-weight: 400; line-height: 1;
-  color: var(--accent-night);
-  pointer-events: none;
-}
-.vibe-home__academy-glyph--en {
-  right: auto; left: 7%; top: 5%; bottom: auto;
-  color: var(--night-text); font-family: var(--font-display); font-weight: 400; letter-spacing: -0.04em;
+.vibe-home__academy-art { position: relative; border-radius: var(--radius-media); overflow: hidden; isolation: isolate; }
+/* A plain warm-mono tile (§4.5/§4.6: no overlays but flat scrims); the media zooms on hover like every kit tile */
+.vibe-home__academy-art .art-image { border-radius: 0; }
+.vibe-home__academy-art :is(.art-image__photo, .art-image__svg) { transition: scale var(--dur-media) var(--ease-media); }
+@media (hover: hover) and (pointer: fine) {
+  .vibe-home__academy-art:hover :is(.art-image__photo, .art-image__svg) { scale: var(--media-zoom); }
 }
 
 /* ---------- Programmes, events, stories ---------- */
 .vibe-home__programmes, .vibe-home__stories { margin-top: var(--space-8); }
+/* One story: header cols 1–6 (bottom-aligned with the card), the card cols 8–12 from 1024 */
+.vibe-home__stories-pair { display: grid; gap: var(--space-8); }
+:root .vibe-home__stories-pair .vibe-home__stories-head .section-header { grid-template-columns: minmax(0, 1fr); margin-bottom: 0; }
+:root .vibe-home__stories-pair .vibe-home__stories-head .section-header__action { justify-self: start; }
+.vibe-home__stories-one { max-width: 32rem; }
+@media (min-width: 1024px) {
+  .vibe-home__stories-pair { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: end; }
+  .vibe-home__stories-head { grid-column: 1 / span 6; }
+  .vibe-home__stories-one { grid-column: 8 / -1; max-width: none; }
+}
 /* Past events: one hairline row of text links under the upcoming list */
 .vibe-home__past { margin-top: var(--space-10); padding-top: var(--space-5); border-top: 1px solid var(--color-border); display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-5); }
 .vibe-home__past-label { margin: 0; }
@@ -63,7 +64,7 @@ html:not([lang="ta"]) .vibe-home__academy-glyph:not(.vibe-home__academy-glyph--e
 .vibe-home__past-list > li { min-width: 0; max-width: 100%; }
 .vibe-home__story-slot {
   display: grid; grid-template-rows: auto 1fr;
-  background: var(--bp-card); border-radius: var(--media-radius); overflow: hidden;
+  background: var(--bp-card); border-radius: var(--radius-card); overflow: hidden;
   border: 1px dashed var(--color-border-control);
 }
 .vibe-home__story-body { display: grid; gap: var(--space-2); padding: var(--space-5); align-content: start; }
@@ -81,3 +82,6 @@ html:not([lang="ta"]) .vibe-home__academy-glyph:not(.vibe-home__academy-glyph--e
 @media (min-width: 1024px) and (max-width: 1279.98px) {
   :lang(ta) .vibe-home__colleges { grid-template-columns: minmax(0, 1fr); justify-items: start; }
 }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.vibe-home__colleges .h3:lang(ta) { letter-spacing: 0; }

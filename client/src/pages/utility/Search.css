@@ -21,7 +21,7 @@
 .search-form__field {
   display: flex; align-items: center; gap: var(--space-2);
   padding: var(--space-1) var(--space-1) var(--space-1) var(--space-5);
-  background: var(--night-1); border: 1px solid var(--color-border-control); border-radius: var(--btn-radius);
+  background: var(--night-1); border: 1px solid var(--color-border-control); border-radius: var(--radius-input);
   transition: border-color var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard);
 }
 @media (hover: hover) and (pointer: fine) { .search-form__field:hover { border-color: var(--night-text-muted); } }
@@ -83,7 +83,7 @@
 :root .search-result .search-result__chips .badge.badge { box-shadow: none; background: none; }
 .search-result__chips .badge--type { color: var(--color-text-muted); }
 .search-result__chips .badge--brand { color: var(--color-text-2); }
-.search-result__title.h5 { font-weight: 500; letter-spacing: -0.01em; }
+.search-result__title.h5 { font-weight: 500; letter-spacing: var(--tracking-h4); }
 .search-result__link { color: var(--color-text); text-decoration: none; }
 .search-result__link:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
 .search-result__snippet { color: var(--color-text-2); }
@@ -101,7 +101,7 @@
 /* No results: hairline route rows, then the open programmes */
 .search-zero { display: grid; gap: var(--space-12); padding-block: var(--space-2) var(--space-6); }
 .search-zero__head > * + * { margin-top: var(--space-4); }
-.search-zero__head :is(h2, h3).h3 { font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+.search-zero__head :is(h2, h3).h3 { font-weight: 400; letter-spacing: var(--tracking-h2); line-height: 1.1; }
 .search-zero__routes { display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--color-border); }
 @media (min-width: 768px) { .search-zero__routes { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-8); } }
 .search-zero__route {
@@ -109,7 +109,7 @@
   min-height: 72px; padding-block: var(--space-5); border-bottom: 1px solid var(--color-border);
   color: var(--color-text); text-decoration: none;
 }
-.search-zero__route .h5 { font-weight: 500; letter-spacing: -0.01em; }
+.search-zero__route .h5 { font-weight: 500; letter-spacing: var(--tracking-h4); }
 .search-zero__route svg { flex: none; color: var(--color-text); transition: transform var(--dur-2) var(--ease-standard); }
 .search-zero__route:hover .h5 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
 @media (hover: hover) and (pointer: fine) { .search-zero__route:hover svg { transform: translateX(var(--shift-1)); } }

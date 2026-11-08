@@ -15,10 +15,10 @@
 }
 .hww-matrix__master, .hww-matrix__base {
   display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3);
-  padding: var(--space-4); border-radius: var(--btn-radius);
+  padding: var(--space-4); border-radius: var(--radius-card);
 }
 .hww-matrix__master { box-shadow: inset 0 0 0 1px var(--line-strong); }
-.hww-matrix__mastername { font-weight: 500; font-size: var(--text-h5); letter-spacing: -0.02em; }
+.hww-matrix__mastername { font-weight: 500; font-size: var(--text-h5); letter-spacing: var(--tracking-h2); }
 .hww-matrix__masterline { color: var(--color-text-muted); font-size: var(--text-small); }
 .hww-matrix__base {
   background: var(--night-0); color: var(--night-text); text-decoration: none;
@@ -27,7 +27,7 @@
 .hww-matrix__base .hww-matrix__tier { background: var(--night-2); color: var(--night-text-2); }
 @media (hover: hover) and (pointer: fine) { .hww-matrix__base:hover { background: var(--night-1); } }
 .hww-matrix__base:active { transform: scale(0.99); }
-.hww-matrix__basename { font-weight: 500; font-size: var(--text-h5); letter-spacing: -0.01em; }
+.hww-matrix__basename { font-weight: 500; font-size: var(--text-h5); letter-spacing: var(--tracking-h4); }
 .hww-matrix__baseline { color: var(--night-text-2); font-size: var(--text-small); }
 
 .hww-matrix__table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
@@ -35,7 +35,7 @@
 .hww-matrix__colhead { padding: var(--space-1); vertical-align: bottom; }
 .hww-matrix__brandbtn {
   width: 100%; min-height: 44px; display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
-  padding: var(--space-2) var(--space-1); border: 0; border-radius: var(--btn-radius);
+  padding: var(--space-2) var(--space-1); border: 0; border-radius: var(--radius-md);
   background: transparent; font-size: var(--text-caption); font-weight: 500; color: var(--color-text-2);
   transition: background-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard);
 }
@@ -65,7 +65,7 @@
 .hww-matrix__rowhead { text-align: left; padding: var(--space-1) 0; font-weight: 400; border-top: 1px solid var(--color-border); }
 .hww-matrix__enginebtn {
   width: 100%; min-height: 44px; display: flex; align-items: center; gap: var(--space-2);
-  padding: 0 var(--space-3); border: 0; border-radius: var(--btn-radius); background: transparent;
+  padding: 0 var(--space-3); border: 0; border-radius: var(--radius-md); background: transparent;
   font-size: var(--text-small); font-weight: 500; color: var(--color-text-2); text-align: left;
   transition: background-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard);
 }
@@ -95,7 +95,7 @@ tr.is-on .hww-matrix__pip, .hww-matrix__cell.is-col .hww-matrix__pip { opacity: 
   animation: hww-panel-in var(--dur-4) var(--ease-enter) both;
 }
 @keyframes hww-panel-in { from { opacity: 0; transform: translateX(var(--shift-2)); } to { opacity: 1; transform: none; } }
-.hww-matrix__ptitle { margin: 0; font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; }
+.hww-matrix__ptitle { margin: 0; font-weight: 500; letter-spacing: var(--tracking-h2); line-height: 1.1; }
 .hww-matrix__pk { margin-top: var(--space-2); font-size: var(--text-small); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--color-text-muted); }
 .hww-matrix__pbody { color: var(--color-text-2); }
 .hww-matrix__pnote { font-size: var(--text-small); color: var(--color-text-muted); }

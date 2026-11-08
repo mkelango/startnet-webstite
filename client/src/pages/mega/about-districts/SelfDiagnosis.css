@@ -63,7 +63,7 @@
   border-top: 1px solid var(--color-border);
 }
 .sd-chapter__n { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; margin: 0; }
-.sd-chapter__title { margin: 0; font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+.sd-chapter__title { margin: 0; font-weight: 400; letter-spacing: var(--tracking-h2); line-height: 1.1; }
 :lang(ta) .sd-chapter__title { letter-spacing: 0; line-height: 1.35; }
 .sd-chapter__body { display: grid; gap: var(--space-5); min-width: 0; }
 .sd-chapter__body > p, .sd-chapter__body > ul { max-width: var(--measure); }
@@ -80,7 +80,7 @@
   border-radius: var(--media-radius);
   display: grid; gap: var(--space-3); align-content: start;
 }
-.sd-measure__title { margin: 0; font-weight: 500; letter-spacing: -0.01em; }
+.sd-measure__title { margin: 0; font-weight: 500; letter-spacing: var(--tracking-h4); }
 :lang(ta) .sd-measure__title { letter-spacing: 0; }
 .sd-measure__body { margin: 0; color: var(--color-text-2); }
 .sd-measure__stats { margin: var(--space-2) 0 0; display: grid; gap: var(--space-3); }
@@ -179,11 +179,11 @@
 .sd-link:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 .sd-link svg:last-child { transition: transform var(--dur-2) var(--ease-standard); }
 @media (hover: hover) { .sd-link:hover svg:last-child { transform: translateX(var(--shift-1)); } }
-.sd-link:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--btn-radius); }
+.sd-link:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--radius-sm); }
 
 /* Funding disclosure band */
 .sd-disclosure { gap: var(--space-2); max-width: var(--measure); }
-.sd-disclosure h2 { font-weight: 500; letter-spacing: -0.01em; }
+.sd-disclosure h2 { font-weight: 500; letter-spacing: var(--tracking-h4); }
 :lang(ta) .sd-disclosure h2 { letter-spacing: 0; }
 .sd-disclosure p { margin: 0; color: var(--color-text-2); }
 
@@ -219,9 +219,6 @@
 /* 2-up on tablets: an odd last card spans the row as a horizontal card (no 2+1 orphan) */
 @media (min-width: 768px) and (max-width: 1023.98px) {
   .sd-related > :last-child:nth-child(odd) { grid-column: 1 / -1; }
-  .sd-related > :last-child:nth-child(odd) > .card:has(> .card__media) { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
-  .sd-related > :last-child:nth-child(odd) > .card.card > .card__media { height: 100%; border-radius: calc(var(--media-radius) - 1px) 0 0 calc(var(--media-radius) - 1px); }
-  .sd-related > :last-child:nth-child(odd) > .card > .card__media .art-image { aspect-ratio: auto !important; height: 100%; min-height: 12rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

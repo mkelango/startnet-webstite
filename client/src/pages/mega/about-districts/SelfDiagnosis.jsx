@@ -293,6 +293,8 @@ export default function SelfDiagnosis() {
         ]}
         eyebrow={t('Annual self-diagnosis', 'ஆண்டு சுய மதிப்பீடு')}
         title={t('StartNet scores itself.', 'StartNet தன்னைத் தானே மதிப்பிடுகிறது.')}
+        // The serif accent lands on "itself", never on the brand name (a second StartNet logotype otherwise).
+        accentWord="itself"
         titleClass="display-xl sd-hero__title"
         lede={t(
           'Once a year we publish where StartNet is falling short, against the same evidence standard we use for every other number.',
@@ -518,7 +520,7 @@ export default function SelfDiagnosis() {
         </Section>
 
         {/* Sponsor / funding disclosure: its own band, after the method, never beside findings (T07). */}
-        <Section surface="sunken" pad="sm" id="sd-sponsor" labelledBy="sd-sponsor-h">
+        <Section surface="sunken" pad="tight" id="sd-sponsor" labelledBy="sd-sponsor-h">
           <div className="sd-layout sd-layout--tail">
             <div className="sd-layout__main sd-disclosure">
               <p className="sd-chapter__n tnum" aria-hidden="true">05</p>

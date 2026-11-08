@@ -10,9 +10,8 @@ import {
 import { useApi } from '../../hooks/useApi.js';
 import { useLang } from '../../lib/i18n.jsx';
 import { webPageLd, itemListLd, langPath, ORG_REF, absUrl } from '../../lib/seo.js';
-import { localiseItem, withKpiTa } from './ledgerUtils.js';
-
-const withFindingsTa = (r) => (Array.isArray(r.keyFindings) ? { ...r, keyFindings: r.keyFindings.map(withKpiTa) } : r);
+import { localiseItem, withKpiTa, listedReport } from './ledgerUtils.js';
+import { InsightsTabs } from './InsightsTabs.jsx';
 import './Reports.css';
 
 const KINDS = [
@@ -34,8 +33,6 @@ const CHAPTERS = [
 
 const PLANNED_NOTE = ["Planned. We'll publish the method before the first edition.", 'திட்டமிடப்பட்டுள்ளது. முதல் பதிப்புக்கு முன் முறையியலை வெளியிடுவோம்.'];
 
-/** Grid modifier so a 3-up row never ends with one card alone (see Reports.css). */
-const gridMod = (n) => (n % 3 === 1 && n > 3 ? ' reports-grid--r1' : n % 3 === 2 ? ' reports-grid--r2' : '');
 
 export default function Reports() {
   const { t, lang } = useLang();
@@ -80,7 +77,7 @@ export default function Reports() {
   });
 
   const card = (r) => (
-    <div id={cardId(r)} key={r.slug} className="reports-grid__item"><ReportCard report={withFindingsTa(localiseItem(onPageReport(r), lang))} /></div>
+    <div id={cardId(r)} key={r.slug} className="reports-grid__item"><ReportCard report={listedReport(localiseItem(onPageReport(r), lang))} /></div>
   );
 
   return (
@@ -111,22 +108,27 @@ export default function Reports() {
         breadcrumbs={[{ label: t('Insights', 'நுண்ணறிவுகள்'), to: '/insights' }, { label: t('Reports', 'அறிக்கைகள்') }]}
       />
 
+      <InsightsTabs current="/insights/reports" />
+
       {/* Library */}
-      <Section surface="paper" pad="sm">
-        <div className="reports-filter" role="group" aria-label={t('Filter by kind', 'வகை வாரியாக வடிகட்டு')}>
-          {KINDS.map((k) => (
-            <button key={k.value || 'all'} type="button" className="reports-filter__chip" aria-pressed={kind === k.value} onClick={() => setKind(k.value)}>
-              {t(k.label[0], k.label[1])}
-              <span className="reports-filter__count">{k.value ? all.filter((r) => r.kind === k.value).length : all.length}</span>
-            </button>
-          ))}
+      <Section surface="paper" pad="tight">
+        {/* Filter band (SPEC §5.6): Bone, radius 12, padding 24, kit filter chips. */}
+        <div className="ins-filter reports-filter">
+          <div className="ins-filter__chips" role="group" aria-label={t('Filter by kind', 'வகை வாரியாக வடிகட்டு')}>
+            {KINDS.map((k) => (
+              <button key={k.value || 'all'} type="button" className="chip reports-filter__chip" aria-pressed={kind === k.value} onClick={() => setKind(k.value)}>
+                {t(k.label[0], k.label[1])}
+                <span className="chip__count reports-filter__count">{k.value ? all.filter((r) => r.kind === k.value).length : all.length}</span>
+              </button>
+            ))}
+          </div>
         </div>
         <p className="visually-hidden" aria-live="polite">
           {loading ? t('Loading reports', 'அறிக்கைகள் ஏற்றப்படுகின்றன') : t(`${list.length} reports`, `${list.length} அறிக்கைகள்`)}
         </p>
 
         {loading ? (
-          <div className="grid grid-3 reports-grid"><Skeleton height="20rem" count={3} /></div>
+          <div className="ins-grid reports-grid"><Skeleton height="20rem" count={3} /></div>
         ) : error ? (
           <EmptyState
             title={t("We couldn't load reports just now.", 'அறிக்கைகளை இப்போது ஏற்ற முடியவில்லை.')}
@@ -137,7 +139,7 @@ export default function Reports() {
             {published.length > 0 && (
               <div className="reports-group">
                 <h2 className="reports-group__title h4">{t('Published', 'வெளியிடப்பட்டவை')}</h2>
-                <RevealGroup className={`grid grid-3 reports-grid${gridMod(published.length)}`} key={kind || 'all'}>
+                <RevealGroup className="ins-grid reports-grid" key={kind || 'all'}>
                   {published.map(card)}
                 </RevealGroup>
               </div>
@@ -146,7 +148,7 @@ export default function Reports() {
               <div className="reports-group">
                 <h2 className="reports-group__title h4">{t('Planned', 'திட்டமிடப்பட்டவை')}</h2>
                 <p className="reports-group__note">{t(...PLANNED_NOTE)}</p>
-                <RevealGroup className={`grid grid-3 reports-grid${gridMod(upcoming.length)}`} key={kind || 'all'}>
+                <RevealGroup className="ins-grid reports-grid" key={kind || 'all'}>
                   {upcoming.map(card)}
                 </RevealGroup>
               </div>
@@ -163,14 +165,14 @@ export default function Reports() {
       </Section>
 
       {/* TN Founder Report landing — the page's one Night band */}
-      <Section surface="night" id="tn-founder-report-2027" labelledBy="tnfr-title">
+      <Section surface="inset" id="tn-founder-report-2027" labelledBy="tnfr-title">
         <div className="reports-tnfr">
           <Reveal className="reports-tnfr__cover">
             <ArtImage variant="map" night ratio="4/5" seed={38} label={`TN Founder Report ${year}`} alt="" animate />
           </Reveal>
           <div className="reports-tnfr__copy">
             <p className="eyebrow">{t('Annual report', 'ஆண்டு அறிக்கை')}</p>
-            <h2 id="tnfr-title" className="display-xl reports-tnfr__title">
+            <h2 id="tnfr-title" className="h2 reports-tnfr__title">
               TN Founder Report {year}
             </h2>
             <p className="body-lg reports-tnfr__sub">
@@ -237,7 +239,7 @@ export default function Reports() {
         </div>
       </Section>
 
-      <Section surface="paper" id="reports-newsletter" width="narrow" pad="sm">
+      <Section surface="paper" id="reports-newsletter" pad="tight">
         <div className="reports-news" ref={newsRef}>
           <div>
             <p className="eyebrow">{t('Insights newsletter', 'நுண்ணறிவுகள் செய்திமடல்')}</p>

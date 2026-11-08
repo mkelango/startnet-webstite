@@ -103,7 +103,7 @@ export default function OpenCalls() {
             }
           />
         ) : n ? (
-          <RevealGroup as="ul" className={`open-calls-grid${n === 4 ? ' open-calls-grid--four' : ''}`} role="list">
+          <RevealGroup as="ul" className="open-calls-grid" role="list">
             {list.map((p) => (
               <li key={p.slug} className="open-calls-grid__item">
                 <ProgrammeCard programme={p} />

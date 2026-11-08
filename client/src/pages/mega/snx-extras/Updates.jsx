@@ -10,7 +10,7 @@ import { useSearchParams } from 'react-router-dom';
 import { ArrowRight, CalendarClock } from 'lucide-react';
 import {
   Seo, BrandHero, Breadcrumbs, Section, SectionHeader, Button, Badge, EmptyState, NewsletterForm,
-  RevealGroup, Dot,
+  RevealGroup, Dot, CTABand,
 } from '../../../components';
 import { useLang } from '../../../lib/i18n.jsx';
 import { snxPageLd } from '../../snx/snxSeo.js';
@@ -257,6 +257,24 @@ export default function Updates() {
           </div>
         </div>
       </Section>
+
+      {/* Closing headband (SPEC §5.9 #8): the Ink band with a Paper primary */}
+      <CTABand
+        surface="night"
+        title={t('One profile, from first event to first funding.', 'முதல் நிகழ்விலிருந்து முதல் நிதி வரை, ஒரே சுயவிவரம்.')}
+        body={t(
+          'Free for individuals. Works on your phone, on WhatsApp and in Tamil.',
+          'தனிநபர்களுக்கு இலவசம். உங்கள் கைபேசியிலும், WhatsApp-இலும், தமிழிலும் செயல்படும்.'
+        )}
+        actions={
+          <>
+            <Button href={snxLink('/signup', { src: 'snx-updates', brand: 'x', lang })}>
+              {t('Create your free profile', 'உங்கள் இலவச சுயவிவரத்தை உருவாக்குங்கள்')}
+            </Button>
+            <Button variant="secondary" to="/startnet-x/modules">{t('See all modules', 'அனைத்து தொகுதிகளையும் பாருங்கள்')}</Button>
+          </>
+        }
+      />
     </div>
   );
 }

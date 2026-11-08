@@ -2,6 +2,12 @@
    flat hairline cards, one calm night band. */
 .snx-hero__micro { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); font-size: var(--text-small); color: var(--color-text-2); }
 .snx-hero__icons { display: inline-flex; gap: var(--space-2); color: var(--color-text-muted); }
+/* Photo hero (SPEC §5.9): the brand button (Red-600) is the hero's one red point, so the h1 full stop sets in Paper */
+:root .snx-hero .brand-hero__title .dot { color: inherit; }
+/* …and the lock-up sets mono Paper on the photo (Brand Book mono rule: one colour, the stop included), so the hero's
+   red is the CTA alone */
+:root .snx-hero .brand-lockup .brand-lockup__descriptor { color: var(--paper); }
+:root .snx-hero .brand-lockup .logo__dot { background: currentColor; }
 
 /* Statement: big regular headline left, grey lede beside it (feature-row rhythm). */
 .snx-statement { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
@@ -21,6 +27,8 @@
 :lang(ta) .snx-statement__text { font-size: min(var(--text-display-xl), var(--text-h1)); }
 :lang(ta) .snx-statement__text.display-xl { letter-spacing: 0; line-height: 1.3; max-width: 26ch; }
 .snx-statement__sub { color: var(--color-text-2); max-width: 36rem; }
+/* The statement's full stop sets in Ink: the hero CTA is the page's red point */
+:root .snx-statement__text .dot { color: inherit; }
 
 /* Profile thread: a hairline rail, small brand dots, the red full stop travelling across. */
 .snx-thread { position: relative; margin-top: clamp(var(--space-12), 2rem + 3vw, var(--space-20)); overflow-x: clip; padding-block: var(--space-2); }
@@ -52,25 +60,53 @@
 
 /* Modules */
 /* 9 modules: 1 → 2 (last card spans, no orphan) → 3 × 3 from 768. */
-.snx-modules { display: grid; gap: 24px; margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); grid-template-columns: minmax(0, 1fr); }
+.snx-modules { display: grid; gap: var(--gap-grid); margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 640px) and (max-width: 767px) {
   .snx-modules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .snx-modules > :last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
 @media (min-width: 768px) { .snx-modules { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
-/* Audiences: each tab panel is a feature row (title + grey lede + action left, hairline list right). */
-.snx-audiences { margin-top: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)); }
-.snx-aud { display: grid; gap: var(--space-10); padding-top: var(--space-6); }
-@media (min-width: 1024px) { .snx-aud { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; } }
-.snx-aud__intro { display: grid; gap: var(--space-5); justify-items: start; }
-.snx-aud__intro .h3 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
-.snx-aud__intro .button { margin-top: var(--space-3); }
-.snx-aud__blocks { list-style: none; display: grid; gap: 0; border-top: 1px solid var(--color-border); }
-.snx-aud__block { display: grid; grid-template-columns: 3rem 1fr; column-gap: var(--space-4); row-gap: var(--space-1); padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border); }
-.snx-aud__block .h5 { font-weight: 500; letter-spacing: -0.01em; }
-.snx-aud__num { grid-row: span 2; font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; padding-top: 2px; }
-.snx-aud__proof { grid-column: 1 / -1; }
+/* Terms / proof band under the modules (SPEC §5.9 #4) */
+.snx-facts { margin-top: clamp(var(--space-12), 2rem + 3vw, var(--space-20)); }
+
+/* Audiences (SPEC §5.9 #5): six persona tiles, Ink / Slate / Bone by position, 1 → 2 (640) → 3 (1024) columns.
+   Each tile is one link to its audience page: number, name at --text-h3, the promise, an arrow bottom-right. */
+.snx-audiences {
+  list-style: none; margin: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12)) 0 0; padding: 0;
+  display: grid; gap: var(--gap-grid); grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 640px) { .snx-audiences { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .snx-audiences { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* The li carries data-surface="night" for the text tokens only; the link draws the tile, so the li paints nothing */
+:root .snx-persona { min-width: 0; display: flex; background: none; border-radius: var(--radius-panel); }
+.snx-persona__link {
+  position: relative; flex: 1; min-width: 0; min-height: 220px;
+  display: grid; grid-template-rows: auto auto 1fr auto; align-content: start; gap: var(--space-3);
+  padding: var(--pad-card-lg); border-radius: var(--radius-panel);
+  background: var(--snx-tile-bg); color: var(--color-text); text-decoration: none;
+  transition: background-color var(--dur-2) var(--ease-standard);
+}
+.snx-persona--ink { --snx-tile-bg: var(--night-0); --snx-tile-hover: var(--night-1); }
+.snx-persona--slate { --snx-tile-bg: var(--night-2); --snx-tile-hover: var(--night-1); }
+.snx-persona--bone { --snx-tile-bg: var(--bone); --snx-tile-hover: var(--ink-100); }
+.snx-persona__num { font-size: var(--text-caption); font-weight: 500; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+:root .snx-persona__name {
+  margin: 0; max-width: 16em; color: var(--color-text);
+  font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3);
+}
+.snx-persona__sub { margin: 0; max-width: 40ch; font-size: var(--text-small); color: var(--color-text-2); }
+.snx-persona__arrow {
+  justify-self: end; align-self: end; display: inline-flex; color: var(--color-text);
+  transition: transform var(--dur-2) var(--ease-snap);
+}
+@media (hover: hover) and (pointer: fine) {
+  .snx-persona__link:hover { background: var(--snx-tile-hover); }
+  .snx-persona__link:hover .snx-persona__arrow { transform: translateX(var(--shift-1)); }
+}
+/* The tiles sit on Paper, so the focus ring is Ink outside the tile (a Paper night ring would vanish) */
+:root .snx-persona__link:focus-visible { outline: 2px solid var(--ink-900); outline-offset: 3px; }
+.snx-persona__link:focus-visible .snx-persona__arrow { transform: translateX(var(--shift-1)); }
 
 /* Trust (the page's one night band): a calm statement, hairline details. */
 .snx-trust { display: grid; gap: var(--space-8); justify-items: start; }
@@ -101,10 +137,9 @@
 @media (min-width: 1024px) { .snx-price-teaser { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); } }
 .snx-price-teaser > div:first-child { display: grid; gap: var(--space-5); justify-items: start; }
 .snx-price-teaser__sub { max-width: 36rem; }
-.snx-price-teaser > div:first-child > .button { margin-top: var(--space-2); }
 .snx-price-teaser__stats {
   display: grid; grid-template-columns: minmax(0, 1fr);
-  background: var(--card); box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-media);
+  background: var(--card); box-shadow: inset 0 0 0 1px var(--hairline); border-radius: var(--radius-card);
 }
 .snx-price-teaser__stats > .stat { padding: var(--space-6); border-top: 0; }
 /* Long units ("/month") sit on the baseline at a small size beside the figure instead of wrapping under it */
@@ -124,7 +159,10 @@
 .brand-layout[data-brand='x'],
 .brand-layout[data-brand='x'] [data-brand='x']:not([data-surface='night']) { --color-label-dot: var(--color-text); }
 .brand-layout[data-brand='x'] [data-surface='night'] { --color-label-dot: var(--paper); }
-:root .brand-layout[data-brand='x'] .button--tertiary { --button-fg: var(--color-link-standalone); --button-fg-hover: var(--color-link-standalone); }
-:root .brand-layout[data-brand='x'] [data-surface='night'] .button--tertiary { --button-fg: var(--paper); --button-fg-hover: var(--paper); }
-:root .brand-layout[data-brand='x'] .brand-hero__journey { color: var(--night-text-2); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey { color: var(--night-text-2); flex-wrap: nowrap; align-items: baseline; }
 :root .brand-layout[data-brand='x'] .brand-hero__journey::before { background: var(--paper); }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.snx-statement__text.display-xl:lang(ta),
+.snx-thread__name:lang(ta),
+.snx-trust__text.display-xl:lang(ta) { letter-spacing: 0; }

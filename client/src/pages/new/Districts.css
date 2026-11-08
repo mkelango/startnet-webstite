@@ -1,53 +1,33 @@
-/* /districts. Prefix: .districts-
-   AngelList-family directory: one hairline grid, no card fills. Rows on phones (1 col below 640) → 2 cols at 640
-   → 3 at 1024 → 4 at 1280. Cells are separated by 1px lines (top rule on the list, bottom rule per cell, a left
-   rule on every cell that does not start a row). */
-.districts-note { margin: var(--space-5) 0 var(--space-10); color: var(--color-text-2); max-width: var(--measure); }
+/* /districts (docs/redesign/SPEC.md §5.8). Prefix: .districts-
+   Region chips + name filter, then a 2 (600) / 3 (1024) grid of framed district tiles (Card ground on the Bone
+   section, hairline, --radius-card, --pad-card): the name at --text-h3 with its other-script twin, then the links.
+   Below 600 the 38 districts are a dense hairline list (name + twin left, the two links right), not 38 stacked cards.
+   Place tiles (SPEC 5.8 Card variant="place") wait for per-district photos; there are none yet. */
+.districts-note { margin: 0 0 var(--space-8); color: var(--color-text-2); max-width: var(--measure); }
+.districts-zones { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-6); }
 
 .districts-grid {
   list-style: none; margin: 0; padding: 0;
-  display: grid; gap: 0; grid-template-columns: minmax(0, 1fr);
-  border-top: 1px solid var(--color-border);
+  display: grid; gap: var(--gap-grid); grid-template-columns: minmax(0, 1fr);
 }
-@media (min-width: 640px) { .districts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 600px) { .districts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .districts-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (min-width: 1280px) { .districts-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
 .districts-card {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-  gap: 0 var(--space-4); min-width: 0;
-  padding: var(--space-4) 0 var(--space-2);
-  border-bottom: 1px solid var(--color-border);
-}
-@media (min-width: 640px) {
-  .districts-card { flex-direction: column; flex-wrap: nowrap; align-items: flex-start; justify-content: flex-start; gap: var(--space-2); padding: var(--space-5) var(--space-6) var(--space-3) 0; }
-  .districts-card:nth-child(2n) { padding-left: var(--space-6); border-left: 1px solid var(--color-border); }
-}
-@media (min-width: 1024px) {
-  .districts-card:nth-child(2n) { padding-left: 0; border-left: 0; }
-  .districts-card:not(:nth-child(3n + 1)) { padding-left: var(--space-6); border-left: 1px solid var(--color-border); }
-}
-@media (min-width: 1280px) {
-  .districts-card:not(:nth-child(3n + 1)) { padding-left: 0; border-left: 0; }
-  .districts-card:not(:nth-child(4n + 1)) { padding-left: var(--space-6); border-left: 1px solid var(--color-border); }
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); min-width: 0;
+  padding: var(--pad-card); background: var(--color-bg-raised);
+  border: 1px solid var(--color-border); border-radius: var(--radius-card);
 }
 
-.districts-card__name {
-  flex: 1 1 12rem;
-  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-1) var(--space-2);
-  min-width: 0;
-  font-weight: 500; letter-spacing: -0.01em;
-  overflow-wrap: anywhere;
-}
-:lang(ta) .districts-card__name { letter-spacing: 0; }
-@media (min-width: 640px) { .districts-card__name { flex: none; } }
-@media (max-width: 639px) {
-  .districts-card__name { font-size: 1.0625rem; overflow-wrap: break-word; }
-  :lang(ta) .districts-card__name { font-size: 0.9375rem; }
+:root .districts-card__name {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-1) var(--space-3);
+  min-width: 0; margin: 0;
+  font-size: var(--text-h3); font-weight: 500; line-height: var(--leading-h3); letter-spacing: var(--tracking-h3);
+  overflow-wrap: break-word;
 }
 .districts-card__alt { font-size: var(--text-small); font-weight: 400; letter-spacing: 0; color: var(--color-text-muted); }
 
-.districts-card__links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--space-5); margin-top: auto; }
+.districts-card__links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--space-5); margin-top: auto; padding-top: var(--space-2); border-top: 1px solid var(--color-border); align-self: stretch; }
 .districts-card__count { font-weight: 400; color: var(--color-text-muted); }
 .districts-nowrap { white-space: nowrap; }
 
@@ -72,7 +52,7 @@
 .districts-card__link svg { flex: none; color: var(--color-text-muted); transition: color var(--dur-2) var(--ease-standard); }
 .districts-card__link:hover { color: var(--color-text); text-decoration: underline; text-underline-offset: 0.2em; }
 .districts-card__link:hover svg { color: var(--color-text); }
-.districts-card__link:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--btn-radius); }
+.districts-card__link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); border-radius: var(--radius-sm); }
 
 /* Filter: 48px input, 16px+ text so iOS does not zoom */
 .districts-filter { display: grid; gap: var(--space-2); margin-bottom: var(--space-8); max-width: 28rem; }
@@ -80,13 +60,31 @@
 .districts-filter__box { position: relative; }
 .districts-filter__icon { position: absolute; left: var(--space-4); top: 50%; transform: translateY(-50%); color: var(--color-text-muted); pointer-events: none; }
 .districts-filter__input {
-  width: 100%; min-height: 48px; padding: var(--space-2) var(--space-4) var(--space-2) calc(var(--space-4) + 26px);
+  width: 100%; min-height: var(--input-h); padding: var(--space-2) var(--space-4) var(--space-2) calc(var(--space-4) + 26px);
   font: inherit; font-size: max(16px, var(--text-body)); color: var(--color-text);
-  background: var(--white); border: 1px solid var(--color-border-control); border-radius: var(--radius-btn);
+  background: var(--color-bg-form); border: 1px solid var(--color-border-control); border-radius: var(--radius-input);
   transition: border-color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
 }
-@media (hover: hover) { .districts-filter__input:hover { border-color: var(--color-text); } }
-.districts-filter__input:focus-visible { outline: none; box-shadow: 0 0 0 1px var(--ink-900); border-color: var(--ink-900); }
+@media (hover: hover) { .districts-filter__input:hover { border-color: var(--ink-600); } }
+.districts-filter__input:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); box-shadow: 0 0 0 1px var(--ink-900); border-color: var(--ink-900); }
 .districts-filter__count { font-size: var(--text-small); color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
 .districts-none { margin-bottom: var(--space-6); color: var(--color-text-2); }
 .districts-card__name > span { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+
+/* Phones: hairline rows. The links wrap under the name when a long name (or Tamil) needs the width. */
+@media (max-width: 599.98px) {
+  .districts-grid { gap: 0; border-top: 1px solid var(--color-border); }
+  .districts-card {
+    flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 var(--space-3);
+    padding: var(--space-2) 0; background: none; border: 0; border-bottom: 1px solid var(--color-border); border-radius: 0;
+  }
+  :root .districts-card__name {
+    /* min-content floor: a short name keeps the links on its row; a long one (Tamil) moves them to the next row
+       instead of breaking the name mid-word. */
+    flex: 1 1 6rem; min-width: min-content; flex-direction: column; align-items: flex-start; gap: 0;
+    font-size: var(--text-h5); line-height: var(--leading-h4); letter-spacing: var(--tracking-h4);
+  }
+  .districts-card__name > span { overflow-wrap: break-word; }
+  .districts-card__alt { font-size: var(--text-caption); }
+  .districts-card__links { flex: none; margin-top: 0; padding-top: 0; border-top: 0; align-self: auto; gap: 0 var(--space-3); }
+}

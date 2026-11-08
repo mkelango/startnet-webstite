@@ -1,15 +1,20 @@
+/* Marquee (docs/redesign/SPEC.md §4.8, the Antler strip): a 64px row, gap 56, linear at --marquee-speed (32 px/s),
+   an 80px mask fade at each edge (an alpha mask, not a colour gradient). Pauses on hover / focus and with the Pause
+   button; reduced motion renders a static wrapped row. */
 .marquee { position: relative; display: grid; gap: var(--space-3); min-width: 0; }
 .marquee__viewport {
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 64px, #000 calc(100% - 64px), transparent);
-  mask-image: linear-gradient(to right, transparent, #000 64px, #000 calc(100% - 64px), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent);
+  mask-image: linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent);
 }
 .marquee__track {
   display: flex;
+  align-items: center;
   width: max-content;
-  gap: var(--space-10);
+  min-height: 4rem;
+  gap: var(--space-14);
   margin: 0;
-  padding: var(--space-2) 0;
+  padding: 0;
   list-style: none;
   will-change: transform;
 }
@@ -20,30 +25,32 @@
 .marquee.is-dragging .marquee__viewport { cursor: grabbing; user-select: none; }
 .marquee.is-dragging .marquee__item { pointer-events: none; }
 .marquee__item img { -webkit-user-drag: none; user-select: none; }
-.marquee__viewport:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; -webkit-mask-image: none; mask-image: none; }
+.marquee__viewport:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); -webkit-mask-image: none; mask-image: none; }
 .marquee__toggle {
   justify-self: end;
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  min-height: 36px;
+  min-height: var(--btn-h-sm);
   padding: 0 var(--space-3);
   border: 0;
   border-radius: var(--radius-full);
   background: transparent;
-  box-shadow: inset 0 0 0 1px var(--line-strong);
+  box-shadow: inset 0 0 0 1px var(--color-border-control);
   color: var(--color-text-2);
   font-size: var(--text-caption);
   font-weight: 500;
   transition: box-shadow var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap);
 }
 @media (hover: hover) { .marquee__toggle:hover { box-shadow: inset 0 0 0 1px var(--color-text); color: var(--color-text); } }
-:root [data-surface='night'] .marquee__toggle { box-shadow: inset 0 0 0 1px var(--night-line-strong); }
+.marquee__toggle:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
 
 .marquee--static {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-6) var(--space-10);
+  align-items: center;
+  gap: var(--space-6) var(--space-14);
   list-style: none;
+  margin: 0;
   padding: 0;
 }

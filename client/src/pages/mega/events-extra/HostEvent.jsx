@@ -284,6 +284,7 @@ export default function HostEvent() {
       />
 
       <PageHero
+        className="hostev-hero"
         eyebrow={t('Events · Take part', 'நிகழ்வுகள் · பங்கேற்க')}
         title={t('Host StartNet in your college or district.', 'உங்கள் கல்லூரியிலோ மாவட்டத்திலோ StartNet-ஐ நடத்துங்கள்.')}
         lede={t(
@@ -309,7 +310,7 @@ export default function HostEvent() {
             </Button>
           </>
         }
-        art={{ variant: 'map', ratio: '4/5', seed: 38, alt: t('Generative map of Tamil Nadu districts', 'தமிழ்நாட்டு மாவட்டங்களின் வரைகலை வரைபடம்') }}
+        art={{ variant: 'map', seed: 38, alt: t('Generative map of Tamil Nadu districts', 'தமிழ்நாட்டு மாவட்டங்களின் வரைகலை வரைபடம்') }}
       />
 
       {/* The content is one paper sheet sliding over the ink hero (theme.css styles the element after .page-hero). */}
@@ -518,7 +519,7 @@ export default function HostEvent() {
         body={t('Tell us where, and we will find the format that fits.', 'எங்கே என்று சொல்லுங்கள்; பொருந்தும் வடிவத்தை நாங்கள் கண்டறிவோம்.')}
         actions={
           <>
-            <Button variant="inverse" href="#host-form" icon={ArrowDown}>
+            <Button href="#host-form" icon={ArrowDown}>
               {t('Host an event', 'நிகழ்வை நடத்துங்கள்')}
             </Button>
             <Button variant="tertiary" to="/events" className="hostev-cta-secondary">

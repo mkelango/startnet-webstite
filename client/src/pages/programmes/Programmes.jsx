@@ -38,6 +38,10 @@ const KEY_LABELS = {
 const BRAND_ORDER = ['research', 'vibe', 'connect', 'women', 'x', 'startnet'];
 const SPRING = { type: 'spring', bounce: 0, duration: 0.32 };
 const tamilCount = (n) => (n === 1 ? 'திட்டம்' : 'திட்டங்கள்');
+// PnP programme cards (SPEC §4.6): a 3:2 photo from the brand's library pool (ArtImage picks a free one per page,
+// the same in the prerender and the app). No caption chip on card media.
+const CARD_SIZES = '(min-width: 1280px) 400px, (min-width: 768px) 50vw, 92vw';
+const cardArt = (p, seed) => ({ variant: 'grid', brand: p.brand || undefined, seed, alt: '', noCaption: true, sizes: CARD_SIZES });
 
 function FinderQuestion({ id, num, label, children }) {
   return (
@@ -78,7 +82,7 @@ function ResultsGrid({ items, gridRef, reduced }) {
             exit={reduced ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, scale: 0.97 }}
             transition={reduced ? { duration: 0 } : SPRING}
           >
-            <ProgrammeCard programme={p} />
+            <ProgrammeCard programme={p} art={cardArt(p, i + 1)} />
           </motion.li>
         ))}
       </AnimatePresence>
@@ -424,9 +428,9 @@ export default function Programmes() {
                     </Button>
                   </div>
                   <ul className="programmes-results__grid" role="list">
-                    {closest.items.slice(0, 3).map((p) => (
+                    {closest.items.slice(0, 3).map((p, i) => (
                       <li key={p.slug}>
-                        <ProgrammeCard programme={p} />
+                        <ProgrammeCard programme={p} art={cardArt(p, 40 + i)} />
                       </li>
                     ))}
                   </ul>
@@ -448,14 +452,14 @@ export default function Programmes() {
               'விரைவில் முடிவடைபவை முதலில், பிறகு எப்போது வேண்டுமானாலும் சேரக்கூடிய தொடர்ச்சியான அழைப்புகள்.'
             )}
             action={
-              <Button variant="inverse" onClick={showOpenOnly}>
+              <Button variant="secondary" onClick={showOpenOnly}>
                 {t('Show only open calls', 'திறந்த அழைப்புகளை மட்டும் காட்டுங்கள்')}
               </Button>
             }
           />
           <Scroller label={t('Open calls', 'திறந்த அழைப்புகள்')} itemWidth="min(22rem, 85vw)">
-            {openCalls.map((p) => (
-              <ProgrammeCard key={p.slug} programme={p} />
+            {openCalls.map((p, i) => (
+              <ProgrammeCard key={p.slug} programme={p} art={cardArt(p, 60 + i)} />
             ))}
           </Scroller>
         </Section>
@@ -519,15 +523,15 @@ export default function Programmes() {
 
       {/* AEO FAQ: drafted from Book 2 §4 (finder, programme index, price note) and §13.4 (Join) — StartNet review */}
       <Section surface="paper" labelledBy="programmes-faq-title" className="programmes-faq">
-        <div className="grid-12 programmes-faq__grid">
-        <div className="col-5 programmes-faq__head">
+        <div className="faq-split programmes-faq__grid">
+        <div className="faq-split__head programmes-faq__head">
         <SectionHeader
           id="programmes-faq-title"
           eyebrow={t('Questions', 'கேள்விகள்')}
           title={t('Common questions', 'பொதுவான கேள்விகள்')}
         />
         </div>
-        <div className="col-6 programmes-faq__list">
+        <div className="programmes-faq__list">
         <Accordion
           faq
           items={[

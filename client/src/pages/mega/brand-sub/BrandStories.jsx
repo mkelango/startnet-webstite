@@ -135,7 +135,7 @@ function StoriesView({ brand }) {
         }
       />
 
-      <Section surface="paper" pad="sm" labelledBy="brand-stories-results">
+      <Section surface="paper" pad="tight" labelledBy="brand-stories-results">
         <h2 id="brand-stories-results" className="visually-hidden">{t(`${brandName} stories`, `${brandName} கதைகள்`)}</h2>
 
         {all.length > 0 && (
@@ -218,7 +218,7 @@ function StoriesView({ brand }) {
       </Section>
 
       {/* Share a story: consent-first, via WhatsApp or the contact form */}
-      <Section surface="white" pad="sm" labelledBy="brand-stories-share">
+      <Section surface="white" pad="tight" labelledBy="brand-stories-share">
         <div className="brand-stories__share">
           <div className="brand-stories__share-text">
             <h2 id="brand-stories-share" className="h4">{t('Have a story to tell?', 'சொல்ல ஒரு கதை இருக்கிறதா?')}</h2>

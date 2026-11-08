@@ -31,14 +31,11 @@
 /* The current language is text, not a link (F-30) */
 .lang-switch__opt--current { color: var(--color-text); font-weight: 500; cursor: default; }
 .lang-switch__opt--current:hover { text-decoration: none; }
-.utilitybar .lang-switch__opt--current { color: var(--night-text); }
 
-/* In the Ink header: the compact switch is a 40px ring circle like the search button */
-:root .site-header .lang-switch__opt { color: var(--night-text-2); }
-:root .site-header .lang-switch__opt[aria-current] { color: var(--night-text); }
-:root .site-header .lang-switch--compact { --color-focus: var(--paper); min-width: 40px; min-height: 40px; color: var(--night-text-muted); box-shadow: inset 0 0 0 1px var(--night-line-strong); }
-:root .site-header .lang-switch--compact .is-active { color: var(--night-text); font-weight: 500; }
-:root .site-header .lang-switch--compact:hover { background: rgb(244 243 239 / 0.08); }
+/* In the nav card (MinimalHeader): the compact switch is a 40px ring circle like the search button */
+:root .site-header .lang-switch--compact { min-width: var(--btn-icon-sm); min-height: var(--btn-icon-sm); color: var(--color-text-2); box-shadow: inset 0 0 0 1px var(--color-border-control); }
+:root .site-header .lang-switch--compact .is-active { color: var(--color-text); }
+@media (hover: hover) { :root .site-header .lang-switch--compact:hover { background: var(--color-bg-tile); } }
 @media (pointer: coarse) { :root .site-header .lang-switch--compact { min-width: 44px; min-height: 44px; } }
 /* One-time Tamil offer: on Ink */
 :root .lang-suggest { --color-focus: var(--paper); background: var(--night-1); color: var(--night-text); border-bottom: 1px solid var(--night-line); }

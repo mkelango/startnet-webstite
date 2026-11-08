@@ -89,3 +89,6 @@ a.vibe-journey__link:hover .vibe-journey__via { text-decoration-color: currentCo
   :root:not([data-motion='full']) .vibe-journey :is(.vibe-journey__fill, .vibe-journey__rail) { transition: none; }
 }
 :root[data-motion='reduced'] .vibe-journey :is(.vibe-journey__fill, .vibe-journey__rail) { transition: none; }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.vibe-journey__verb:lang(ta) { letter-spacing: 0; }

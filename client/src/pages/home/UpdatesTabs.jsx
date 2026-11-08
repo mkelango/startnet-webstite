@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { Tabs, Stat, Skeleton, Button, EmptyState } from '../../components';
 import { isPlaceholderText, realMetrics } from '../../components/_placeholders.js';
 import { useApi } from '../../hooks/useApi.js';
@@ -31,7 +32,7 @@ function DatedList({ items, empty }) {
               )}
               {it.meta && <p className="home-updates__meta small muted">{it.meta}</p>}
             </div>
-            <span className="home-updates__arrow" aria-hidden="true">→</span>
+            <span className="home-updates__arrow" aria-hidden="true"><ArrowRight size={18} strokeWidth={1.75} /></span>
           </li>
         );
       })}
@@ -125,5 +126,5 @@ export default function UpdatesTabs({ events, eventsLoading }) {
     },
   ];
 
-  return <Tabs variant="pill" className="home-updates__tabs" tabs={tabs} defaultTab="news" label={t('Updates: news, events and the Founder Ledger', 'புதிய தகவல்கள்: செய்திகள், நிகழ்வுகள் மற்றும் Founder Ledger')} />;
+  return <Tabs variant="underline" className="home-updates__tabs" tabs={tabs} defaultTab="news" label={t('Updates: news, events and the Founder Ledger', 'புதிய தகவல்கள்: செய்திகள், நிகழ்வுகள் மற்றும் Founder Ledger')} />;
 }

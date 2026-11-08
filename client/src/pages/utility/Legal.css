@@ -72,7 +72,7 @@
 .legal-section > * + * { margin-top: 1em; }
 .legal-body .legal-section > h2 {
   margin-top: var(--space-12); padding-top: var(--space-8); border-top: 1px solid var(--color-border);
-  font-size: var(--text-h3); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15;
+  font-size: var(--text-h3); font-weight: 400; letter-spacing: var(--tracking-h2); line-height: 1.15;
 }
 .legal-body .legal-section > h2 + * { margin-top: var(--space-5); }
 .legal-body ul { padding-left: 1.25em; }
@@ -89,7 +89,7 @@
     linear-gradient(to left, rgb(0 0 0 / 0.08), transparent) right / 0.75rem 100% no-repeat scroll;
 }
 .legal-body .legal-table { margin-top: var(--space-6); }
-.legal-table:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--btn-radius); }
+.legal-table:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--radius-sm); }
 .legal-table table, .legal-changes table { width: 100%; border-collapse: collapse; font-size: var(--text-small); line-height: 1.5; }
 .legal-table table { min-width: 32rem; }
 .legal-table th, .legal-table td, .legal-changes th, .legal-changes td {
@@ -108,8 +108,8 @@
 .legal-link svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
 @media (hover: hover) and (pointer: fine) { .legal-link:hover svg { transform: translateX(var(--shift-1)); } }
 
-.legal-changes { margin-top: var(--space-16) !important; padding-top: var(--space-8); border-top: 1px solid var(--color-border); }
-.legal-body .legal-changes > h2 { font-weight: 500; letter-spacing: -0.01em; margin-top: 0; padding-top: 0; border-top: 0; font-size: var(--text-h5); }
+:root .legal-changes { margin-top: var(--space-16); padding-top: var(--space-8); border-top: 1px solid var(--color-border); }
+.legal-body .legal-changes > h2 { font-weight: 500; letter-spacing: var(--tracking-h4); margin-top: 0; padding-top: 0; border-top: 0; font-size: var(--text-h5); }
 
 .legal-layout > * { min-width: 0; }
 .legal-changes th, .legal-changes td { overflow-wrap: break-word; padding-inline: var(--space-2); }

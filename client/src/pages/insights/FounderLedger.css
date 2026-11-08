@@ -13,11 +13,9 @@
 @media (min-width: 1024px) { .ledger__edition-meta:lang(ta) { min-height: calc(2 * 1.6em); } }
 .ledger__edition-meta.is-pending { visibility: hidden; }
 
-/* The first sheet (theme.css slides it over the hero) holds the edition bar and all data blocks. Its top padding is
-   the bar's room, not a full section space; overflow: clip rounds the bar's corners without breaking sticky. */
+/* The sheet under the folder tabs holds the edition bar and all data blocks. overflow: clip keeps sticky working. */
 .ledger .ledger__sheet {
   background: var(--color-bg);
-  padding-top: var(--space-4);
   overflow: clip;
 }
 
@@ -45,7 +43,7 @@
   appearance: none; -webkit-appearance: none;
   min-height: 44px; padding: 0 var(--space-10) 0 var(--space-4);
   background: var(--card); color: var(--color-text);
-  border: 1px solid var(--color-border-control); border-radius: var(--btn-radius);
+  border: 1px solid var(--color-border-control); border-radius: var(--radius-input);
   font-weight: 500; font-variant-numeric: tabular-nums;
 }
 .ledger__select-wrap select:disabled { opacity: 1; cursor: default; }
@@ -72,7 +70,7 @@
 
 .ledger__notice {
   margin-top: var(--space-6); padding: var(--space-4) var(--space-5);
-  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  border: 1px solid var(--color-border); border-radius: var(--radius-card);
   background: var(--card);
   color: var(--color-text-2); font-size: var(--text-small);
 }
@@ -83,32 +81,7 @@
 /* Sections inside the sheet: the first one starts close under the edition bar. */
 .ledger .ledger__frame > .ledger-sec:first-child { padding-top: clamp(var(--space-10), 2rem + 2vw, var(--space-16)); }
 
-/* KPI band 4-up → 2×2 → 1: light numerals between vertical hairlines, ruled top and bottom */
-.ledger-kpis {
-  display: grid; gap: 0;
-  grid-template-columns: 1fr;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-}
-@media (min-width: 600px) { .ledger-kpis { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .ledger-kpis { grid-template-columns: repeat(4, 1fr); } }
-.ledger-kpis > * { min-width: 0; }
-.ledger-kpis > * + * { border-top: 1px solid var(--color-border); }
-.ledger-kpis__item { padding: var(--space-8) var(--space-6) var(--space-8) 0; min-width: 0; height: 100%; }
-@media (min-width: 600px) and (max-width: 1023.98px) {
-  .ledger-kpis > * + * { border-top: 0; }
-  .ledger-kpis > :nth-child(n + 3) { border-top: 1px solid var(--color-border); }
-  .ledger-kpis > :nth-child(2n) { border-left: 1px solid var(--color-border); }
-  .ledger-kpis > .ledger-kpis__item:nth-child(2n) { padding-left: var(--space-6); }
-}
-@media (min-width: 1024px) {
-  .ledger-kpis > * + * { border-top: 0; border-left: 1px solid var(--color-border); }
-  .ledger-kpis__item { padding: var(--space-10) var(--space-6); }
-  .ledger-kpis > .ledger-kpis__item:first-child { padding-left: 0; }
-}
-.ledger-kpis .stat--hero .stat__value { font-size: clamp(2.75rem, 1.75rem + 3vw, 4.5rem); }
-.ledger-kpis__label { font-size: var(--text-small); color: var(--color-text-2); margin-bottom: var(--space-3); }
-.ledger-kpis__value { font-size: var(--text-small); }
+/* KPI band: the kit FactBand variant="lg" (SPEC §4.7); only the tag legend under it is styled here. */
 .ledger-kpis__rule {
   display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-5);
   margin-top: var(--space-5); font-size: var(--text-caption); color: var(--color-text-muted);
@@ -126,13 +99,8 @@
   display: grid; place-items: center;
   padding: clamp(var(--space-8), 1rem + 4vw, var(--space-16));
   border: 1px solid var(--color-border);
-  border-radius: var(--media-radius);
+  border-radius: var(--radius-card);
   background-color: var(--card);
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--color-border) 55%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--color-border) 55%, transparent) 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-position: center center;
 }
 .ledger-mission__copy { --stack-gap: var(--space-5); }
 .ledger-mission__copy .h2 { max-width: 18ch; }
@@ -169,7 +137,7 @@
 .section--white .ledger-table-wrap--fade { --lt-bg: var(--card); }
 .ledger-table__title { margin-top: var(--space-12); font-size: var(--text-body-lg); font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; color: var(--color-text); }
 .ledger-table__title + .ledger-table-wrap { margin-top: var(--space-4); }
-.ledger-table-wrap--scroll { max-height: 32rem; overflow: auto; border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card); }
+.ledger-table-wrap--scroll { max-height: 32rem; overflow: auto; border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--card); }
 .ledger-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: var(--text-small); }
 .ledger-table caption { text-align: left; font-weight: 500; padding-bottom: var(--space-3); color: var(--color-text); font-size: var(--text-body); }
 .ledger-table th, .ledger-table td { padding: var(--space-4); border-bottom: 1px solid var(--color-border); text-align: right; vertical-align: top; }
@@ -213,15 +181,11 @@
 .ledger-district { display: grid; gap: var(--space-6); margin-top: var(--space-4); }
 @media (min-width: 1024px) { .ledger-district { grid-template-columns: 8fr 4fr; align-items: start; } }
 .ledger-district__aside { --stack-gap: var(--space-6); }
-.ledger-district__share { padding: var(--space-8) var(--space-6); border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card); }
-.ledger-district__share .stat__value { font-size: clamp(2.75rem, 1.75rem + 3vw, 4rem); }
+.ledger-district__share { padding: var(--pad-card); border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--card); }
 .ledger-district__share-label { font-size: var(--text-small); color: var(--color-text-2); margin-bottom: var(--space-3); }
 .ledger-district__map {
-  padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--media-radius);
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--color-border) 55%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--color-border) 55%, transparent) 1px, transparent 1px);
-  background-size: 24px 24px;
+  padding: var(--pad-card); border: 1px solid var(--color-border); border-radius: var(--radius-card);
+  background-color: var(--card);
 }
 .ledger-district__map .caption { display: inline-block; background: var(--color-bg); padding: var(--space-2) var(--space-3); border-radius: var(--btn-radius); color: var(--color-text-2); }
 
@@ -235,21 +199,18 @@
   display: grid; grid-template-columns: minmax(0, 1fr); gap: 1px;
   margin-top: var(--space-4);
   background: var(--color-border);
-  border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  border: 1px solid var(--color-border); border-radius: var(--radius-card);
   overflow: hidden;
 }
 @media (min-width: 640px) { .ledger-outcomes__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .ledger-outcomes__item { padding: var(--space-6); background: var(--card); min-width: 0; }
-.ledger-outcomes__item .stat--compact .stat__value { font-size: var(--text-h2); }
 .ledger-outcomes__ph { margin-top: var(--space-2); }
 .ledger-outcomes__evidence { margin-top: var(--space-3); font-size: var(--text-caption); color: var(--color-text-muted); }
-.ledger-women {
-  display: grid; gap: var(--space-5); align-content: start;
-  padding: clamp(var(--space-6), 1rem + 2vw, var(--space-10));
-  border: 1px solid var(--color-border); border-radius: var(--media-radius);
-}
-.ledger-outcomes--solo .ledger-women { max-width: 52rem; }
-.ledger-women .section-header { margin-bottom: 0; }
+/* Women share: an .ins-panel Card panel (Card / White on Bone, hairline, radius 12, --pad-card). */
+.ledger-women-wrap { display: grid; gap: var(--space-8); align-content: start; min-width: 0; }
+.ledger-women { display: grid; gap: var(--space-5); align-content: start; }
+.ledger-women__head { display: grid; gap: var(--space-3); }
+.ledger-women__title:lang(ta) { letter-spacing: 0; }
 .ledger-women .caption { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); }
 
 /* Method: a hairline disclosure */
@@ -268,7 +229,7 @@
 .ledger-method__chev { transition: transform var(--dur-3) var(--ease-standard); color: var(--color-text-muted); }
 .ledger-method[open] .ledger-method__chev { transform: rotate(180deg); }
 .ledger-method__body { display: grid; gap: var(--space-8); padding-bottom: var(--space-10); max-width: 56rem; }
-.ledger-method__body > .button { justify-self: start; }
+.ledger-method__body > a { justify-self: start; }
 .ledger-method__list { padding-left: 1.25em; display: grid; gap: var(--space-3); color: var(--color-text-2); }
 .ledger-method__list li::marker { color: var(--ink-400); }
 .ledger-levels { list-style: none; display: grid; border-top: 1px solid var(--color-border); }
@@ -296,10 +257,9 @@
 /* Data band: a flat card on the sheet, the download as the one ink button */
 .ledger-data {
   display: grid; gap: var(--space-6); align-items: center;
-  padding: clamp(var(--space-8), 1.5rem + 2vw, var(--space-12));
-  border: 1px solid var(--color-border);
-  border-radius: var(--media-radius);
-  background: var(--card);
+  padding: var(--pad-card-lg);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-tile);
 }
 .ledger-data .h3 { font-weight: 400; letter-spacing: -0.02em; }
 .ledger-data .h3:lang(ta) { letter-spacing: 0; }

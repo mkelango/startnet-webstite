@@ -1,7 +1,7 @@
-/* Scroller (DESIGN-v2 3.11): right-bleed snap rail. The first card sits on the container edge; later cards run off
-   the viewport edge. Controls (AIWO P5): a tabular "01 / 08" counter (16px muted, the current index in Ink) + two
-   48px round ring buttons (the disabled one at 35%).
-   A 1px progress hairline runs under the track. */
+/* Scroller (docs/redesign/SPEC.md §4.10): right-bleed snap rail. The first card sits on the container edge; later
+   cards run off the viewport edge. Controls: a tabular "01 / 08" counter (13px muted, the current index in Ink) + two
+   48px circle buttons (1px control ring; hover Ink fill; 40% at the ends; hidden below 768, where the rail swipes).
+   A 1px progress hairline runs under the track. No autoplay. */
 .scroller { position: relative; min-width: 0; }
 .scroller__controls {
   display: flex;
@@ -13,46 +13,52 @@
 /* Directly under a section header with no action: the controls share the header's last row at ≥1024 */
 @media (min-width: 1024px) {
   .section-header:not(.section-header--has-action) + .scroller > .scroller__controls {
-    margin-top: calc(-1 * (48px + var(--space-head-gap)));
+    margin-top: calc(-1 * (var(--btn-icon) + var(--space-head-gap)));
     margin-bottom: var(--space-head-gap);
     margin-left: auto;
     width: max-content;
   }
 }
-.scroller__status { margin: 0 var(--space-4) 0 0; font-size: 1rem; line-height: 1; color: var(--color-text-muted); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; white-space: nowrap; }
+/* Counter "01 / 08": 13px tabular, muted, the current index in Ink */
+.scroller__status { margin: 0 var(--space-3) 0 0; font-size: var(--text-caption); font-weight: 500; line-height: 1; color: var(--color-text-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .scroller__count-now { color: var(--color-text); }
 .scroller__count-sep { color: var(--color-text-muted); }
 .scroller--fits .scroller__controls,
 .scroller--fits .scroller__progress { display: none; }
+/* 48px circle buttons: 1px control ring, Ink arrow; hover = Ink fill, Paper arrow (PnP circle inversion, in Ink) */
 .scroller__btn {
   display: inline-grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
+  width: var(--btn-icon);
+  height: var(--btn-icon);
+  padding: 0;
   border: 0;
   border-radius: var(--radius-full);
   background: transparent;
-  box-shadow: inset 0 0 0 1px var(--line-strong);
+  box-shadow: inset 0 0 0 1px var(--color-border-control);
   color: var(--color-text);
-  transition: background-color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap), opacity var(--dur-2) var(--ease-snap), transform var(--dur-1) var(--ease-standard);
+  transition: background-color var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap), opacity var(--dur-2) var(--ease-snap);
 }
-:root [data-surface='night'] .scroller__btn { box-shadow: inset 0 0 0 1px var(--night-line-strong); }
-.scroller__btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.scroller__btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
 @media (hover: hover) {
-  .scroller__btn:hover:not(:disabled):not([aria-disabled='true']) { box-shadow: inset 0 0 0 1px var(--color-text); background: rgb(12 23 25 / 0.04); }
-  :root [data-surface='night'] .scroller__btn:hover:not(:disabled):not([aria-disabled='true']) { box-shadow: inset 0 0 0 1px var(--paper); background: rgb(244 243 239 / 0.08); }
+  .scroller__btn:hover:not(:disabled):not([aria-disabled='true']) { box-shadow: inset 0 0 0 1px var(--color-cta); background: var(--color-cta); color: var(--color-on-cta); }
 }
-.scroller__btn:active:not(:disabled):not([aria-disabled='true']) { transform: scale(0.96); }
-.scroller__btn:disabled, .scroller__btn[aria-disabled='true'] { opacity: 0.35; cursor: default; }
-.scroller__track:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; border-radius: var(--radius-btn); }
+.scroller__btn:active:not(:disabled):not([aria-disabled='true']) { background: var(--color-cta-active); color: var(--color-on-cta); }
+.scroller__btn:disabled, .scroller__btn[aria-disabled='true'] { opacity: 0.4; cursor: default; }
+.scroller__track:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); border-radius: var(--radius-card); }
+/* Below 768: swipe; the counter stays, the buttons go */
+@media (max-width: 767.98px) {
+  .scroller__btn { display: none; }
+  .scroller__status { margin-right: 0; }
+}
 
-/* Track: gap 32 (20 below 768); snap; no scrollbar */
+/* Track: --gap-grid (16 → 24); snap; no scrollbar */
 .scroller__track {
   --scroller-item: min(84%, 22rem);
   --scroller-start: var(--gutter);
   --scroller-end: var(--gutter);
   display: flex;
-  gap: 20px;
+  gap: var(--gap-grid);
   margin: 0 calc(-1 * var(--scroller-end)) 0 calc(-1 * var(--scroller-start));
   padding: var(--space-1) var(--scroller-end) var(--space-4) var(--scroller-start);
   list-style: none;
@@ -69,9 +75,6 @@
   min-width: 0;
   scroll-snap-align: start;
   display: grid;
-}
-@media (min-width: 768px) {
-  .scroller__track { gap: 32px; }
 }
 /* When the scroller spans the container, Scroller.jsx measures the room to both viewport edges */
 .scroller--bleed .scroller__track { --scroller-start: var(--scroller-bleed-start); --scroller-end: var(--scroller-bleed-end); }

@@ -19,7 +19,7 @@ export default function WomenProof() {
   if (!shown.length) return null;
 
   return (
-    <Section surface="white" pad="sm" labelledBy="women-proof-title">
+    <Section surface="white" pad="tight" labelledBy="women-proof-title">
       <h2 id="women-proof-title" className="visually-hidden">{t('StartNet Women in numbers', 'எண்களில் StartNet Women')}</h2>
       <div className="women-proof">
         <div className={`women-proof__grid bp-statrow${shown.length === 1 ? ' bp-statrow--single' : ''}`}>

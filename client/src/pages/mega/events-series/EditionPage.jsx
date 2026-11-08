@@ -17,7 +17,7 @@ import { useLang } from '../../../lib/i18n.jsx';
 import { snxLink, waLink } from '../../../lib/links.js';
 import { useApi } from '../../../hooks/useApi.js';
 import { useSlidingIndicator } from '../../../components/_indicator.js';
-import { usePageCta } from '../../../layout/shell.jsx';
+import { usePageCta, useMediaQuery } from '../../../layout/shell.jsx';
 import { BRANDS } from '../../../data/brands.js';
 import { byDate, isConfirmed } from '../../events/parts/eventMeta.js';
 import { eventTimeRange, eventDateRange, dateBlock } from '../../events/parts/eventTime.js';
@@ -30,6 +30,7 @@ import {
   hasJuryGroup, peopleNames, recordFigures,
 } from '../../events/parts/EventRecord.jsx';
 import { useEventText, EditionCard } from './seriesParts.jsx';
+import '../../events/parts/eventHero.css';
 import './EditionPage.css';
 import { eventGallery, eventPhotoKeys, photoFor, posterPhoto, PHOTO_SIZES } from '../../../data/photos.js';
 import { eventPath } from '../../../components/_utils.js';
@@ -193,8 +194,8 @@ function Speakers({ e, x }) {
           </p>
         </div>
       )}
-      <div className="edition-panel__sub">
-        <h3 className="h4">{x.t('Want to speak or mentor?', 'பேச அல்லது வழிகாட்ட விரும்புகிறீர்களா?')}</h3>
+      <div className="edition-panel__sub edition-speak">
+        <h3 className="h5">{x.t('Want to speak or mentor?', 'பேச அல்லது வழிகாட்ட விரும்புகிறீர்களா?')}</h3>
         <p className="text-2">
           {x.t('Tell us what you would like to talk about or mentor on.', 'நீங்கள் எதைப் பற்றிப் பேச அல்லது வழிகாட்ட விரும்புகிறீர்கள் என்று சொல்லுங்கள்.')}
         </p>
@@ -217,6 +218,8 @@ export default function EditionPage({ tab: tabProp }) {
   const retired = retiredSeriesOf(series, edition);
   const [microOpen, setMicroOpen] = useState(false); // phones: the eligibility/fee note folds behind a toggle
   const tab = TAB_IDS.includes(tabProp) ? tabProp : tabFromPath(pathname);
+  // Below 1024 the poster is a short landscape band under the copy (as EventDetail).
+  const singleCol = useMediaQuery('(max-width: 1023px)');
 
   const { data, loading, error } = useApi(series && !retired ? `/api/events?series=${encodeURIComponent(series)}` : null);
   const events = useMemo(() => (Array.isArray(data) ? data : []), [data]);
@@ -346,13 +349,14 @@ export default function EditionPage({ tab: tabProp }) {
     downloadIcs(e);
     setAdded(true);
   };
-  const calendarButton = (fullWidth, size) =>
+  // Hero: a secondary lg beside Register; ticket card: a tertiary link under the red Register (SPEC §5.5).
+  const calendarButton = (fullWidth, size, variant = 'secondary') =>
     past ? null : confirmed ? (
-      <Button variant="secondary" size={size} onClick={addToCalendar} icon={added ? Check : CalendarPlus} full={fullWidth}>
+      <Button variant={variant} size={size} onClick={addToCalendar} icon={added ? Check : CalendarPlus} full={fullWidth}>
         {added ? t('Added to calendar', 'நாட்காட்டியில் சேர்க்கப்பட்டது') : t('Add to calendar', 'நாட்காட்டியில் சேர்க்கவும்')}
       </Button>
     ) : (
-      <Button variant="secondary" size={size} href={waDate} icon={BellRing} full={fullWidth}>
+      <Button variant={variant} size={size} href={waDate} icon={BellRing} full={fullWidth}>
         {t('Get the date on WhatsApp', 'தேதியை WhatsApp-இல் பெறுங்கள்')}
       </Button>
     );
@@ -564,16 +568,17 @@ export default function EditionPage({ tab: tabProp }) {
               <div className="cluster edition-hero__actions hero-rise" data-primary-cta="">
                 {past ? (
                   <>
-                    <Button to={`/events/${series}`} icon={ArrowRight}>
+                    <Button size="lg" to={`/events/${series}`} icon={ArrowRight}>
                       {t(`All ${cfg.name} editions`, `அனைத்து ${cfg.name} பதிப்புகளும்`)}
                     </Button>
-                    <Button variant="secondary" to="/events">
+                    <Button variant="secondary" size="lg" to="/events">
                       {t('See upcoming events', 'வரவிருக்கும் நிகழ்வுகளைப் பாருங்கள்')}
                     </Button>
                   </>
                 ) : (
                   <>
-                    <Button variant={brand ? 'brand' : 'primary'} size="lg" href={registerHref}>
+                    {/* The red point is the ticket card's Register; the hero's is the Paper primary on Ink. */}
+                    <Button size="lg" href={registerHref}>
                       {x.register(e)}
                     </Button>
                     {/* Same size as the register button beside it. */}
@@ -615,7 +620,7 @@ export default function EditionPage({ tab: tabProp }) {
               <ArtImage
                 variant={ART_FOR[brand] || 'dot'}
                 brand={brand || undefined}
-                ratio="4/5"
+                ratio={singleCol ? '21/9' : '4/3'}
                 seed={seedOf(e.slug)}
                 alt=""
                 animate
@@ -675,15 +680,16 @@ export default function EditionPage({ tab: tabProp }) {
                 ]}
                 action={
                   past ? (
-                    <Button to="/events" full>
+                    <Button size="lg" to="/events" full>
                       {t('See upcoming events', 'வரவிருக்கும் நிகழ்வுகளைப் பாருங்கள்')}
                     </Button>
                   ) : (
                     <div className="edition-body__aside-actions">
-                      <Button variant={brand ? 'brand' : 'primary'} href={registerHref} full>
+                      <Button variant="point" size="lg" href={registerHref} full>
                         {x.register(e)}
                       </Button>
-                      {calendarButton(true)}
+                      {/* One WhatsApp action in the ticket card: the date alert link shows only in the hero. */}
+                      {confirmed && calendarButton(false, 'md', 'tertiary')}
                       <Button variant="whatsapp" href={waRegister} full icon={MessageCircle}>
                         {t('Chat on WhatsApp', 'WhatsApp-இல் பேசுங்கள்')}
                       </Button>
@@ -743,7 +749,8 @@ export default function EditionPage({ tab: tabProp }) {
       )}
 
       <CTABand
-        surface="night"
+        surface="paper"
+        dot={false}
         title={past ? t('Find a room full of builders near you.', 'உங்களுக்கு அருகில் உருவாக்குநர்கள் நிறைந்த ஓர் அரங்கைக் கண்டறியுங்கள்.') : t('Register on WhatsApp in under a minute.', 'ஒரு நிமிடத்துக்குள் WhatsApp-இல் பதிவு செய்யுங்கள்.')}
         body={
           past ? (

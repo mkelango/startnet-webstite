@@ -1,4 +1,5 @@
-/* Event card (DESIGN-v2 3.7, media family): two text styles only, meta (14px muted) and title.
+/* Event card (docs/redesign/SPEC.md §4.6, media family): 3:2 media with a date chip (top-left) and a format chip
+   (top-right) inset 12px; then meta (14px muted), title, summary, facts and the seats status row.
    Separators are drawn only between present values, inline, so no line ends or starts with a stray "·". */
 .event-card__kicker { display: inline; }
 .event-card__kicker > * + *::before {
@@ -8,6 +9,8 @@
   color: var(--color-text-muted);
 }
 .event-card__kicker .badge { min-height: 20px; vertical-align: 1px; }
+.event-card__place { display: inline; }
+.event-card__icon { display: inline-block; margin-inline-end: 0.3em; vertical-align: -0.2em; color: var(--color-text-muted); }
 /* Brand as a dot label: the accent dot, then the name */
 .event-card__brand { display: inline-flex; align-items: baseline; gap: 0.45em; color: var(--color-text); font-weight: 500; }
 .event-card__brand::before {
@@ -20,14 +23,58 @@
   transform: translateY(-0.05em);
 }
 [data-surface='night'] .event-card__brand::before { background: var(--accent-night); }
-.event-card__date { color: var(--color-text); }
+
+/* Date chip: Card ground, 8px radius, day (18→20 / 500) over month (13 / 500) */
+.event-card__date-chip {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 2;
+  display: grid;
+  min-width: 3.25rem;
+  padding: 6px 10px;
+  border-radius: var(--radius-md);
+  background: var(--card);
+  color: var(--ink-900);
+  text-align: center;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.event-card__date-chip .event-card__date { display: grid; justify-items: center; color: inherit; }
+.event-card__date-chip .event-card__day { font-size: var(--text-h5); font-weight: 500; line-height: 1.1; }
+.event-card__date-chip .event-card__month { font-size: var(--text-caption); font-weight: 500; line-height: 1.3; color: var(--ink-600); }
+.event-card__date-chip .event-card__date--year .event-card__day,
+.event-card__date-chip .event-card__date--tbc .event-card__day { font-size: var(--text-h6); }
+/* Format chip on the photo: Paper ground, Ink text */
+:root .event-card__format {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 2;
+  max-width: calc(100% - 6rem);
+  background: var(--paper);
+  box-shadow: none;
+  color: var(--ink-900);
+}
+.event-card--past .event-card__date-chip .event-card__day { color: var(--ink-600); }
+
+.event-card .card__title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .event-card__summary { display: inline; }
-.event-card .card__meta { display: grid; gap: var(--space-3); }
+.event-card .card__meta { display: grid; gap: var(--space-2); }
 .event-card__facts { display: block; list-style: none; margin: 0; padding: 0; font-size: var(--text-meta); color: var(--color-text-muted); }
 .event-card__facts li { display: inline; }
 .event-card__facts li + li::before { content: '\00b7'; display: inline-block; margin-inline: 0.5em; }
 .event-card__facts .tag-chip { vertical-align: middle; }
-.event-card__seats--few { color: var(--color-warning); font-weight: 500; }
-.event-card__seats--full { color: var(--color-error); font-weight: 500; }
 .event-card__date-label { color: var(--color-text); font-weight: 500; }
-.event-card--past .event-card__date { color: var(--color-text-muted); }
+/* Seats status row: a 6px dot + 13px text. The dot is semantic (success / warning), never red. */
+.event-card__seats { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-caption); font-weight: 500; color: var(--color-text-2); }
+.event-card__seats::before { content: ''; flex: none; width: 6px; height: 6px; border-radius: var(--radius-full); background: var(--color-success); }
+.event-card__seats--few { color: var(--color-warning); }
+.event-card__seats--few::before { background: var(--color-warning-icon); }
+.event-card__seats--full { color: var(--color-text-muted); }
+.event-card__seats--full::before { background: var(--color-text-muted); }

@@ -92,7 +92,7 @@ export default function WomenHome() {
       <BrandHero
         brand="women"
         className="brand-hero--portrait-art"
-        title={t("Half of Tamil Nadu's startups are women-led. Now for the capital.", 'தமிழ்நாட்டின் ஸ்டார்ட்அப்களில் பாதி பெண்கள் தலைமையிலானவை. இனி முதலீட்டுக்கான நேரம்.')}
+        title={t("Half of Tamil Nadu's startups are women‑led. Now for the capital.", 'தமிழ்நாட்டின் ஸ்டார்ட்அப்களில் பாதி பெண்கள் தலைமையிலானவை. இனி முதலீட்டுக்கான நேரம்.')}
         lede={t(
           'StartNet Women helps women build product and service companies and get them ready for investment, with formats that fit around real lives.',
           'உண்மையான வாழ்க்கைக்கு ஏற்ற வடிவங்களுடன், பெண்கள் தயாரிப்பு மற்றும் சேவை நிறுவனங்களை உருவாக்கி, அவற்றை முதலீட்டுக்குத் தயார்படுத்த StartNet Women உதவுகிறது.'

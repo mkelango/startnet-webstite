@@ -51,15 +51,30 @@ const DISTRICTS = [
   ['Virudhunagar', 'விருதுநகர்'],
 ];
 
+// Zone filter (SPEC §5.8): the four regions people use to place a district. Every district belongs to one zone;
+// "All" is the default, so the prerender and first paint show all 38. SEO-TA: zone names pending native review.
+const ZONES = [
+  { id: 'north', en: 'Chennai and North', ta: 'சென்னையும் வடக்கும்',
+    list: ['Chennai', 'Chengalpattu', 'Kancheepuram', 'Tiruvallur', 'Ranipet', 'Vellore', 'Tirupathur', 'Tiruvannamalai', 'Viluppuram', 'Kallakurichi'] },
+  { id: 'west', en: 'West (Kongu)', ta: 'மேற்கு (கொங்கு)',
+    list: ['Coimbatore', 'Tiruppur', 'Erode', 'Salem', 'Namakkal', 'Nilgiris', 'Karur', 'Dharmapuri', 'Krishnagiri'] },
+  { id: 'central', en: 'Central (Delta)', ta: 'மத்தியம் (டெல்டா)',
+    list: ['Thanjavur', 'Tiruvarur', 'Nagapattinam', 'Mayiladuthurai', 'Tiruchirappalli', 'Pudukkottai', 'Ariyalur', 'Perambalur', 'Cuddalore'] },
+  { id: 'south', en: 'South', ta: 'தெற்கு',
+    list: ['Madurai', 'Dindigul', 'Theni', 'Sivaganga', 'Ramanathapuram', 'Virudhunagar', 'Thoothukudi', 'Tirunelveli', 'Tenkasi', 'Kanniyakumari'] },
+];
+
 export default function Districts() {
   const { t, lang, localePath } = useLang();
   const ta = lang === 'ta';
   const [q, setQ] = useState('');
+  const [zone, setZone] = useState('all');
   const shown = useMemo(() => {
     const needle = q.trim().toLowerCase();
-    if (!needle) return DISTRICTS;
-    return DISTRICTS.filter(([en, tam]) => en.toLowerCase().includes(needle) || tam.includes(q.trim()));
-  }, [q]);
+    const inZone = zone === 'all' ? null : ZONES.find((z) => z.id === zone)?.list;
+    return DISTRICTS.filter(([en, tam]) =>
+      (!inZone || inZone.includes(en)) && (!needle || en.toLowerCase().includes(needle) || tam.includes(q.trim())));
+  }, [q, zone]);
 
   // Count upcoming events per district (events carry a free-text district/city). Until they do, every
   // district shows zero, so one note offers to host instead of 38 empty filtered lists.
@@ -122,6 +137,20 @@ export default function Districts() {
         <p className="districts-note" role="note">
           {t('District pages are coming.', 'மாவட்டப் பக்கங்கள் விரைவில் வரும்.')}
         </p>
+
+        <div className="districts-zones" role="group" aria-label={t('Filter by region', 'பகுதி வாரியாக வடிகட்டவும்')}>
+          {[{ id: 'all', en: 'All', ta: 'அனைத்தும்' }, ...ZONES].map((z) => (
+            <button
+              key={z.id}
+              type="button"
+              className="chip"
+              aria-pressed={zone === z.id}
+              onClick={() => setZone(z.id)}
+            >
+              {t(z.en, z.ta)}
+            </button>
+          ))}
+        </div>
 
         <div className="districts-filter" role="search">
           <label htmlFor="districts-q" className="districts-filter__label">

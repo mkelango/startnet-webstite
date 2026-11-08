@@ -14,7 +14,7 @@ export default function ConnectProof() {
   if (!metrics.length) return null;
 
   return (
-    <Section surface="paper" pad="sm" labelledBy="connect-proof-title">
+    <Section surface="paper" pad="tight" labelledBy="connect-proof-title">
       <h2 id="connect-proof-title" className="visually-hidden">{t('StartNet Connect in numbers', 'எண்களில் StartNet Connect')}</h2>
       <FactBand className="bp-facts" metrics={metrics} title={t('StartNet Connect in numbers', 'எண்களில் StartNet Connect')} link={{ label: t('Read the Founder Ledger', 'Founder Ledger-ஐப் படியுங்கள்'), to: '/insights/founder-ledger' }} />
     </Section>

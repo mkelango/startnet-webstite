@@ -2,6 +2,48 @@
 
 Read this first in a new Claude session. Everything below is saved in this folder and is **not committed** (about 80 changed or new files; see `git status`).
 
+## Redesign (5 Nov 2026)
+
+Branch `redesign/pnp-ui`, **not committed, not pushed** (push to `main` = live on startnet.in; wait for the user's
+approval of the integrated branch). The single source of truth is [`docs/redesign/SPEC.md`](redesign/SPEC.md):
+Plug and Play look, Techstars sizing, StartNet brand (Ink/Paper, one SNX Red point, Inter + one Instrument Serif
+word, pulli dot grid, warm mono photos). Research behind it: `docs/redesign/ref-*.md` and `current-system.md`.
+`docs/DESIGN-v2.md` now points at the SPEC for look and sizing.
+
+Groups G1–G9b rebuilt tokens, chrome, kit and every page template; G10 integrated:
+- Kit fixes asked for by the page groups: tertiary links and card CTAs stay Ink in brand scopes (no accent links),
+  `badge--upcoming` is neutral Bone/Graphite (no blue), Tamil stats have no letter-spacing, `strong`/`b` are 500,
+  the Tamil serif-word reset inherits weight and tracking, the serif `em` is inline so it never wraps away from its
+  full stop, `Scroller nudge={false}` works, EventCard photos carry no caption chip, Tamil card facts stack in 3-up
+  tablet grids. The page-level stopgaps for these were removed (brandPage.css, snx/*.css, events, programmes,
+  OpenCalls, EditionPage, Partner.css).
+- `.back-to-top` now lives only in `layout/BackToTop.css` (removed from `styles/interactions.css`).
+- Deprecated tokens with zero uses deleted from `tokens.css` (§2.3; `--ledger-600` kept, MediaKit uses it).
+- Checks: client `vite build` passes; entry chunk +0.85 KB brotli vs `c47f703` (limit +3 KB); 0 hex and 0
+  `!important` added outside `tokens.css`; DOM sweep of all 454 sitemap routes (EN + TA) plus /contact, /signin
+  and a 404 at 375 / 700 / 768 / 900 / 1000 / 1024 / 1440 (grid3 checks included): 0 horizontal overflow, exactly
+  one visible `<h1>` on every route, 0 console errors or page errors, no two Ink bands touching and at most 2 mid-page
+  Ink bands. It found 3 layout breaks, now fixed (/ta/women card facts at 768, ReportCard chips at 700–1000, the
+  single related StoryCard at 700–768). Image-slot audit (r7 slots.mjs, 227 EN routes): 386 slots, all manifest
+  photos, 0 motion art. The sweep script is a scratch copy of grid3.mjs that reads routes from the API sitemap.
+
+Still open (needs the user, content or a full build):
+- **Full `npm run build` + prerender not run in G10** (forbidden in that session: needs Chrome and ~10 min). Run it,
+  then check every `client/dist/prerender/*.html` has one `<h1>` and full text (A1/A4), and run
+  `node tools/audit/agents/r6-tablet/grid3.mjs` (it reads the prerender folder).
+- Content decisions: the "I am" first line on persona tiles (Home, Contact); a "(required)" mark on forms; a
+  "Most chosen" badge on SNX Pro; a dedicated closing line for `/research` (its CTABand repeats the h1); closing
+  CTABands for `/research/lab-to-market-summit`, `/problem-statements`, `/terms`; a portrait story rail on
+  `/programmes`; district photos for `Card variant="place"` and photo heroes on district pages; a shorter label for
+  the Tamil "Upcoming events" folder tab at 375.
+- Data: curated mega-menu lead links need a `lead` array in `data/nav.js` ("Who we are" shows 4, spec says 2–3);
+  `server/data/stories.json` (vibathon-2025-recap) still shows a "[placeholder]" chip; `partners.json` and
+  `press.json` are empty, so LogoWall and Quote were checked only in a temporary render; brand e-mail addresses on
+  /contact are unconfirmed.
+- Design call: ReportCard covers are capped at 18rem (landscape in 3-up), the SPEC says 3/4 portrait.
+- Tamil drafts pending native review: SNX FactBand labels, the Insights promo row, events facets "Brand"/"Year".
+- Dev-only framer-motion warning ("non-static position") from `useScroll` on the document; not in production.
+
 ## Done
 
 1. **Home page sections**

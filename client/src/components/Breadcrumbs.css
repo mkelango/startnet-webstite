@@ -1,27 +1,34 @@
-/* Breadcrumbs (DESIGN-v2 3.18): 14px; muted on Paper, Night-text-2 on Ink; "/" separators; current item Paper. */
-.breadcrumbs { font-size: var(--text-meta); color: var(--color-text-muted); }
+/* Breadcrumbs (SPEC §4.5): 13px; muted on Paper, --night-text-muted on Ink; Lucide ChevronRight 14 separators;
+   the current item in the text colour. Below 768 a single back link to the parent. */
+.breadcrumbs { font-size: var(--text-caption); line-height: 1.4; color: var(--color-text-muted); }
 .breadcrumbs__list {
   display: none;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-1) var(--space-2);
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.breadcrumbs__item { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 32px; }
-.breadcrumbs__item a { display: inline-flex; align-items: center; min-height: 32px; color: var(--color-text-2); text-decoration: none; }
+.breadcrumbs__item { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 24px; }
+.breadcrumbs__item a { display: inline-flex; align-items: center; min-height: 24px; color: var(--color-text-muted); text-decoration: none; }
 @media (pointer: coarse) { .breadcrumbs__item a { min-height: 44px; } }
-.breadcrumbs__item a:hover { color: var(--color-text); text-decoration: underline; text-decoration-color: var(--color-link-decoration); }
-.breadcrumbs__item [aria-current='page'] { color: var(--color-text); font-weight: 500; }
-.breadcrumbs__sep { color: var(--color-border-strong); flex: none; }
+.breadcrumbs__item a:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+.breadcrumbs__item [aria-current='page'] { color: var(--color-text); font-weight: var(--weight-label); }
+.breadcrumbs__sep { flex: none; color: var(--color-text-muted); }
 .breadcrumbs__back {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   min-height: 44px;
   color: var(--color-text-2);
-  font-weight: 500;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-label);
   text-decoration: none;
 }
 @media (min-width: 768px) {
@@ -30,8 +37,9 @@
 }
 
 /* On the Ink band */
-:root [data-surface='night'] .breadcrumbs { color: var(--night-text-2); }
-:root [data-surface='night'] .breadcrumbs a { color: var(--night-text-2); }
-:root [data-surface='night'] .breadcrumbs a:hover { color: var(--paper); }
-:root [data-surface='night'] .breadcrumbs [aria-current='page'] { color: var(--paper); }
-:root [data-surface='night'] .breadcrumbs__sep { color: var(--night-line-strong); }
+:root [data-surface='night'] .breadcrumbs,
+:root [data-surface='night'] .breadcrumbs a,
+:root [data-surface='night'] .breadcrumbs__sep { color: var(--night-text-muted); }
+:root [data-surface='night'] .breadcrumbs a:hover,
+:root [data-surface='night'] .breadcrumbs [aria-current='page'] { color: var(--night-text); }
+:root [data-surface='night'] a.breadcrumbs__back { color: var(--night-text-2); }

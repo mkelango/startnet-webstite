@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
   Seo, BrandHero, Section, SectionHeader, Button, Card, Stat, Reveal, RevealGroup, ArtImage,
-  ProgrammeCard, EventCard, EmptyState, Accordion, Skeleton, InlineMarks, EventVideos,
+  ProgrammeCard, EventCard, EmptyState, Accordion, Skeleton, InlineMarks, EventVideos, CTABand,
 } from '../../../components';
 import { useApi } from '../../../hooks/useApi';
 import { useLang } from '../../../lib/i18n.jsx';
-import { snxLink } from '../../../lib/links';
+import { snxLink, waLink } from '../../../lib/links';
 import { formatDate } from '../../../lib/format.js';
 import { eventPath } from '../../../components/_utils.js';
 import { videoById } from '../../../data/videos.js';
@@ -26,6 +26,8 @@ import { ScrubText } from '../../../components/ScrubText.jsx';
 import { cleanFaqLd, pageLd } from '../seoBits.js';
 import '../brandPage.css';
 import './ResearchHome.css';
+
+const WA_TEXT = "Hi StartNet Research, I'd like to talk to the Research team.";
 
 /** Programmes listed on this brand home (ItemList JSON-LD). */
 const RESEARCH_PROGRAMMES = [
@@ -135,7 +137,7 @@ export default function ResearchHome() {
       />
 
       {/* Proof band */}
-      <Section surface="white" pad="sm" labelledBy="research-proof-title">
+      <Section surface="white" pad="tight" labelledBy="research-proof-title">
         <h2 id="research-proof-title" className="visually-hidden">{t('StartNet Research in figures', 'எண்களில் StartNet Research')}</h2>
         <ResearchProof />
       </Section>
@@ -181,7 +183,6 @@ export default function ResearchHome() {
                 tag="C"
                 source={t('StartNet Research Lab charter (planning target)', 'StartNet Research ஆய்வக சாசனம் (திட்ட இலக்கு)')}
                 note={t('Target per Lab per year', 'ஒவ்வோர் ஆய்வகத்துக்கும் ஆண்டு இலக்கு')}
-                variant="compact"
               />
             ))}
           </RevealGroup>
@@ -283,10 +284,14 @@ export default function ResearchHome() {
         />
         {events.loading && <Skeleton height="18rem" count={1} />}
         {!events.loading && eventList.length === 1 && (
-          /* One event: a full-width horizontal feature card, not a lone cell in a 3-column grid */
-          <Reveal className="research-home__event-feature">
-            <EventCard event={eventList[0]} />
-          </Reveal>
+          /* One event: a 2-column split, the card in cols 1–5 and the past Summit beside it in cols 7–12, so the row
+             never reads as a lone cell in an empty 3-up grid */
+          <div className="research-home__events-pair">
+            <Reveal className="research-home__event-feature">
+              <EventCard event={eventList[0]} />
+            </Reveal>
+            <PastResearchEvent />
+          </div>
         )}
         {!events.loading && eventList.length > 1 && (
           <RevealGroup className={`grid ${eventList.length === 2 ? 'grid-2' : 'grid-3'}`}>
@@ -299,7 +304,7 @@ export default function ResearchHome() {
             action={<Button variant="secondary" to="/research/lab-to-market-summit">{t('About the Summit', 'Summit பற்றி')}</Button>}
           />
         )}
-        <PastResearchEvent />
+        {(events.loading || eventList.length !== 1) && <PastResearchEvent />}
       </Section>
 
       {/* Who it's for / who pays */}
@@ -349,7 +354,7 @@ export default function ResearchHome() {
       </Section>
 
       {/* FAQ */}
-      <Section labelledBy="research-faq">
+      <Section className="bp-faq" labelledBy="research-faq">
         <SectionHeader eyebrow={t('FAQ', 'அடிக்கடி கேட்கப்படும் கேள்விகள்')} title={<span id="research-faq">{t('Before you start', 'தொடங்கும் முன்')}</span>} />
         <div className="research-home__faq">
           {/* A question whose answer is still only a placeholder ("Fee: [placeholder — …]") is hidden; so is an emptied group. */}
@@ -357,7 +362,7 @@ export default function ResearchHome() {
             .filter(({ items }) => items.length > 0)
             .map(({ g, items }) => (
               <div key={g.id} className="research-home__faq-group">
-                <h3 className="h5 research-home__faq-title">{tr(t, g, 'title')}</h3>
+                <h3 className="research-home__faq-title">{tr(t, g, 'title')}</h3>
                 <Accordion
                   items={items.map((it) => ({ id: it.id, question: tr(t, it, 'question'), answer: faqAnswer(tr(t, it, 'answer')) }))}
                   headingLevel={4}
@@ -378,6 +383,19 @@ export default function ResearchHome() {
           source="research-home"
         />
       </Section>
+
+      {/* Closing headband (§5.2 #11): the brand CTA band, the page's second Ink band after the institution band */}
+      <CTABand
+        brand="research"
+        className="brand-close"
+        title={tr(t, C, 'h1')}
+        actions={
+          <>
+            <Button variant="brand" href={applyHref}>{tr(t, FELLOWSHIP, 'cta')}</Button>
+            <Button variant="whatsapp" href={waLink(WA_TEXT, 'research-home')}>{t('Talk to the Research team', 'Research குழுவிடம் பேசுங்கள்')}</Button>
+          </>
+        }
+      />
     </div>
   );
 }

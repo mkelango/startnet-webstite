@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { useLang } from '../lib/i18n.jsx';
 import { cx } from './_utils.js';
 import { SITE_ORIGIN } from '../lib/seo.js';
 import './Breadcrumbs.css';
 
-/** Canonical trail Home › Section › Page (Book 3 C08). < 768px: a single back link. */
+/** Canonical trail Home › Section › Page (SPEC §4.5): 13px, Lucide ChevronRight 14 separators. < 768px: a single back link. */
 export function Breadcrumbs({ items, className }) {
   const { t, localePath } = useLang();
   const list = [{ label: t('Home', 'முகப்பு'), to: '/' }, ...(Array.isArray(items) ? items.filter(Boolean) : [])];
@@ -36,9 +36,7 @@ export function Breadcrumbs({ items, className }) {
                 <span aria-current={last ? 'page' : undefined}>{item.label}</span>
               )}
               {!last && (
-                <span className="breadcrumbs__sep" aria-hidden="true">
-                  /
-                </span>
+                <ChevronRight className="breadcrumbs__sep" size={14} strokeWidth={2} aria-hidden="true" focusable="false" />
               )}
             </li>
           );

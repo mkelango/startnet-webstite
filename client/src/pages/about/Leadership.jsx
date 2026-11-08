@@ -1,7 +1,7 @@
 // /about/leadership · Leadership & team (T10 People). Copy: Book 2 §2.3 verbatim.
 // People come from GET /api/people?group=…; the founding team falls back to the Book 2 copy if the API is empty.
 // Tamil: roleTa / bioTa from the API win; the local drafts below are fallbacks (pending native review).
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Seo, PageHero, Section, SectionHeader, RevealGroup, PersonCard, Button, CTABand, TagChip, Skeleton, EventVideos,
 } from '../../components';
@@ -131,6 +131,37 @@ export default function Leadership() {
   const [filter, setFilter] = useState('all');
   const filterRef = useRef(null);
   usePillIndicator(filterRef, '[aria-pressed="true"]', [filter]);
+  // Phones (and long Tamil labels): the filter scrolls sideways. Keep the pressed button in view and fade only the
+  // edge that has more to show (data-fade="start|end|both"), so the cut reads as "scrolls", not as a clipped label.
+  useEffect(() => {
+    const el = filterRef.current;
+    if (!el) return undefined;
+    const sync = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      const atStart = el.scrollLeft <= 2;
+      const atEnd = el.scrollLeft >= max - 2;
+      const fade = max <= 2 ? '' : atStart ? 'end' : atEnd ? 'start' : 'both';
+      if (fade) el.setAttribute('data-fade', fade);
+      else el.removeAttribute('data-fade');
+    };
+    sync();
+    el.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    return () => {
+      el.removeEventListener('scroll', sync);
+      window.removeEventListener('resize', sync);
+    };
+  }, []);
+  useEffect(() => {
+    const el = filterRef.current;
+    const btn = el?.querySelector('[aria-pressed="true"]');
+    if (!el || !btn || el.scrollWidth <= el.clientWidth) return;
+    const pad = 40; // clear the 32px edge fade
+    const left = btn.offsetLeft;
+    const right = left + btn.offsetWidth;
+    if (left - pad < el.scrollLeft) el.scrollTo({ left: Math.max(0, left - pad) });
+    else if (right + pad > el.scrollLeft + el.clientWidth) el.scrollTo({ left: right + pad - el.clientWidth });
+  }, [filter]);
   const founders = useApi('/api/people?group=leadership');
   const leads = useApi('/api/people?group=brand-leads');
   const advisory = useApi('/api/people?group=advisory');
@@ -192,7 +223,7 @@ export default function Leadership() {
       </div>
 
       {show('founders') && (
-        <Section id="founding-team" pad="sm">
+        <Section id="founding-team" pad="tight">
           <SectionHeader title={t('Founding team', 'நிறுவனர் குழு')} />
           {founders.loading && !apiFounders.length ? (
             <Skeleton height="20rem" count={3} />
@@ -215,7 +246,7 @@ export default function Leadership() {
       )}
 
       {show('leads') && (
-        <Section id="brand-leads" surface="white" pad="sm">
+        <Section id="brand-leads" surface="white" pad="tight">
           <SectionHeader
             title={t('Brand leads', 'பிராண்ட் தலைவர்கள்')}
             lede={t(
@@ -242,7 +273,7 @@ export default function Leadership() {
       )}
 
       {show('councils') && (
-        <Section id="advisory-councils" pad="sm">
+        <Section id="advisory-councils" pad="tight">
           <SectionHeader
             title={t('Advisory councils', 'ஆலோசனைக் குழுக்கள்')}
             lede={t(

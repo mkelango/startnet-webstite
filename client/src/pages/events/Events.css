@@ -1,129 +1,107 @@
-/* /events — events hub (DESIGN-v2 6.3). The list is a calm Paper sheet: heading + live count, a sticky hairline
-   filter bar (FacetBar pills + the List/Calendar segmented control), then month groups — a month header row over
-   AIWO hairline event rows at >= 1024px (parts/eventList.css), EventCards below. Flagships are AIWO portfolio
-   cards (4:3 media + label, title, date, arrow link); the FAQ is an AIWO 5/6 split. */
+/* /events — events listing (docs/redesign/SPEC.md §5.4).
+   PageHero → Upcoming / Past folder tabs (parts/EventsTabs) → the Paper listing: heading + live count, the sticky
+   Paper filter strip (FacetBar + List / Calendar), month groups of EventCards 1 / 2 (768) / 3 (1280), Load more →
+   flagships on Bone → past-events split → FAQ split → the inset Bone host headband. Kit classes are not restyled. */
 .events-list__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-3) var(--space-6); }
-/* 1024–1279: the List/Calendar toggle sits in the heading row, so the sticky filter bar stays one row */
+/* 1024–1279: the List / Calendar toggle sits in the heading row, so the sticky filter strip stays one row */
 .events-list__head-toggle { align-self: center; }
 .events-list__head:has(.events-list__head-toggle) .events-list__count { margin-left: auto; }
-.events-list__count { font-size: var(--text-lede); font-weight: 400; color: var(--color-text-2); font-variant-numeric: tabular-nums; }
-.events-list__bar {
-  /* Docks under the visible header (--shell-offset is 0 while the header is hidden), so there is no see-through gap. */
-  position: sticky; top: var(--shell-offset, 0px); z-index: 20;
-  transition: top var(--dur-3) var(--ease-standard);
-  margin: var(--space-10) 0 var(--space-4); padding: var(--space-3) 0; background: var(--paper); border-bottom: 1px solid var(--hairline);
-}
-@media (min-width: 1024px) { .events-list__bar { padding: var(--space-4) 0; } }
-.events-list__bar + .facetbar__active { margin-bottom: var(--space-4); }
-.events-list__results { margin-top: var(--space-6); }
+.events-list__count { font-size: var(--text-lede); color: var(--color-text-2); font-variant-numeric: tabular-nums; }
 
-/* List / Calendar: .segmented (components/Tabs.css) + the gliding Ink pill (components/_indicator.css) */
+/* Filter strip: Paper, padding 32 0, sticky under the header (--shell-offset is 0 while the header hides) */
+.events-list__bar {
+  position: sticky; top: var(--shell-offset, 0px); z-index: var(--z-subnav);
+  transition: top var(--dur-header) var(--ease-standard);
+  margin: var(--space-8) calc(-1 * var(--page-margin)) var(--space-4);
+  padding: var(--space-3) var(--page-margin);
+  background: var(--paper); box-shadow: inset 0 -1px 0 var(--color-border);
+}
+@media (min-width: 1024px) { .events-list__bar { padding-block: var(--space-8); } }
+.events-list__bar + .facetbar__active { margin-bottom: var(--space-4); }
+.events-list__results { margin-top: var(--space-8); }
+
+/* List / Calendar: the shared .segmented control (Tabs.css) */
 .events-view.segmented { flex: none; }
 .events-view__btn { gap: var(--space-2); cursor: pointer; }
 .events-view__btn svg { flex: none; }
-/* Phones: icon-only toggle so Filter + quick chip + toggle fit one row (labels stay for screen readers). */
-@media (max-width: 479px) {
+/* Phones: icon-only toggle so Filter + quick chip + toggle fit one row (labels stay for screen readers) */
+@media (max-width: 479.98px) {
   .events-view__btn { min-width: 44px; justify-content: center; padding: 0 var(--space-3); }
   .events-view__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
 
-/* Month groups: a header row (month + count), then the rows / cards */
-.events-list__months { display: grid; gap: var(--space-16); }
-.events-month { display: grid; gap: var(--space-6); min-width: 0; }
+/* One card grid; a month divider (only when every month has 2+ events) spans the full row */
+.ev-rows > .events-month { grid-column: 1 / -1; display: block; min-width: 0; }
+.ev-rows > .events-month:not(:first-child) { margin-top: var(--space-8); }
 .events-month__title {
   display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4);
-  font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3, -0.015em); line-height: 1.2;
+  padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-h3); font-weight: var(--weight-heading); line-height: var(--leading-h3); letter-spacing: var(--tracking-h3);
 }
-.events-month__count { font-size: var(--text-meta); font-weight: 400; letter-spacing: 0; color: var(--color-text-2); }
-:lang(ta) .events-month__title { letter-spacing: 0; }
+.events-month__count { font-size: var(--text-meta); font-weight: var(--weight-body); letter-spacing: 0; color: var(--color-text-2); }
 .events-list__grid { list-style: none; position: relative; }
 .events-list__item { display: flex; min-width: 0; }
 .events-list__item > * { flex: 1; min-width: 0; }
 /* Skeleton grid (no month groups) */
-div.events-list__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: var(--space-6); }
+div.events-list__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: var(--gap-grid); }
 
-.events-loadmore { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); margin-top: var(--space-12); }
+.events-loadmore { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); margin-top: var(--space-16); }
 .events-loadmore .caption { color: var(--color-text-2); }
 
 .events-error {
-  display: grid; gap: var(--space-3); justify-items: start; padding: var(--space-8);
-  border-radius: var(--radius-media); background: var(--card); box-shadow: inset 0 0 0 1px var(--hairline);
+  display: grid; gap: var(--space-3); justify-items: start;
+  padding: var(--space-8); border-radius: var(--radius-card); background: var(--color-bg-tile);
 }
 .events-empty { display: grid; gap: var(--space-4); justify-items: start; }
 .events-link-btn {
-  border: 0; background: none; padding: 0; min-height: 44px; color: var(--color-text); font-weight: 500;
-  text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-underline-offset: 0.2em;
+  border: 0; background: none; padding: 0; min-height: 44px; color: var(--color-text); font-weight: var(--weight-label);
+  text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-decoration-thickness: 1px; text-underline-offset: 0.18em;
   transition: text-decoration-color var(--dur-2) var(--ease-snap);
 }
 .events-link-btn:hover { text-decoration-color: currentColor; }
 
-/* Flagships: AIWO portfolio cards. A 4:3 media slot (12px brand radius, Bone placeholder, no shadow), then the label,
-   title, date meta and an arrow link pinned to the card foot. 32px column gap, 56px row gap; no boxes, no lifts.
-   Hover: the media eases to 1.03 over --dur-media and the title underlines (fine pointers, motion welcome). */
+/* ---------- Flagships: media cards (16px 4/3 media, label, title, date, arrow link) ---------- */
 .events-flagships__grid {
-  list-style: none; display: grid; margin-top: var(--space-head-gap, var(--space-12)); grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-14, 56px) 32px;
+  list-style: none; display: grid; margin-top: 0; grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-grid-row) var(--gap-grid);
 }
-.events-flagship { position: relative; display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
-.events-flagship__media {
-  margin-bottom: var(--space-4); border-radius: var(--radius-media); overflow: hidden; background: var(--bone);
-  isolation: isolate;
-}
-.events-flagship__media .art-image { border-radius: 0; transition: transform var(--dur-media, 480ms) var(--ease-standard); }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  :root:not([data-motion='reduced']) .events-flagship:hover .events-flagship__media .art-image { transform: scale(1.03); }
-}
-.events-flagship__top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); min-height: 20px; }
-/* A status badge must not push this card's title below its neighbours' (eyebrow rows are 20px). */
-.events-flagship__top .badge { margin-block: -2px; }
-.events-flagship__top .eyebrow { font-size: var(--text-meta); color: var(--color-text); }
-.events-flagship__name { font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3, -0.015em); text-wrap: balance; }
-:lang(ta) .events-flagship__name { letter-spacing: 0; }
-.events-flagship .caption { color: var(--color-text-2); }
-.events-flagship__date { display: flex; align-items: flex-start; gap: var(--space-2); font-size: var(--text-meta); font-weight: 400; color: var(--color-text-2); font-variant-numeric: tabular-nums; }
-.events-flagship__date svg { flex: none; margin-top: 0.2em; color: var(--color-text-2); }
-.events-flagship__cta { margin-top: auto; padding-top: var(--space-3); }
-/* One red point: the flagship cues are Ink, not the brand accent */
-.events-flagship__cta .button--tertiary { color: var(--color-text); }
-.events-flagship .badge { border-style: dashed; }
-/* Four flagships: 2 x 2 from 640 to 1279px (never 3 + 1), four across from 1280px */
-@media (min-width: 640px) { .events-flagships__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Four flagships: 2 × 2 from 600 to 1279 (never 3 + 1), four across from 1280 */
+@media (min-width: 600px) { .events-flagships__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1280px) { .events-flagships__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.events-flagship { position: relative; display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
+.events-flagship__media { margin-bottom: var(--space-2); border-radius: var(--radius-media); overflow: hidden; isolation: isolate; background: var(--color-bg-raised); }
+@media (hover: hover) and (pointer: fine) {
+  .events-flagship:hover .events-flagship__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+}
+.events-flagship__top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); min-height: var(--chip-h-sm); }
+.events-flagship__name { font-size: var(--text-h4); font-weight: var(--weight-heading); line-height: var(--leading-h4); letter-spacing: var(--tracking-h4); text-wrap: balance; }
+.events-flagship .caption { color: var(--color-text-2); }
+.events-flagship__date { display: flex; align-items: flex-start; gap: var(--space-2); font-size: var(--text-meta); color: var(--color-text-2); font-variant-numeric: tabular-nums; }
+.events-flagship__date svg { flex: none; margin-top: 0.2em; }
+.events-flagship__cta { margin-top: auto; padding-top: var(--space-2); }
 
-/* Past events teaser: AIWO split feature. Copy in cols 1-6 (top-aligned with the media), media in cols 7-12 running to
-   the viewport's right edge at >= 1024px (left corners keep the 12px brand radius). The action is an arrow link. */
+/* ---------- Past events teaser: copy 6 / media 6 ---------- */
 .events-past__grid { display: grid; gap: var(--space-10); align-items: center; }
-@media (min-width: 1024px) {
-  .events-past__grid { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 32px; }
-  .events-past__copy { padding-right: var(--space-12); }
-  .events-past__art { margin-right: calc(-1 * var(--page-margin)); }
-  .events-past__art .art-image { border-radius: var(--radius-media) 0 0 var(--radius-media); }
-}
+@media (min-width: 1024px) { .events-past__grid { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); column-gap: var(--gap-split); } }
 .events-past__copy > * + * { margin-top: var(--space-6); }
-.events-past__copy > .eyebrow + * { margin-top: var(--space-6); }
+.events-past__copy > .eyebrow + * { margin-top: var(--space-label-gap); }
 .events-past__copy > .body-lg + * { margin-top: var(--space-8); }
-.events-past__title { max-width: 14ch; font-size: var(--text-h1); font-weight: 400; letter-spacing: var(--tracking-h1, -0.035em); line-height: 1.08; }
-:lang(ta) .events-past__title { letter-spacing: 0; }
-.events-past__copy .body-lg { max-width: 52ch; line-height: 1.6; }
-.events-past__art { min-width: 0; }
-.events-past__art .art-image { border-radius: var(--radius-media); background: var(--bone); }
+.events-past__title { max-width: 11.36em; font-size: var(--text-h2); font-weight: var(--weight-heading); line-height: var(--leading-h2); letter-spacing: var(--tracking-h2); }
+.events-past__copy .body-lg { max-width: var(--measure-lede); }
+.events-past__art { min-width: 0; border-radius: var(--radius-media); overflow: hidden; isolation: isolate; background: var(--color-bg-raised); }
 
-/* FAQ: AIWO 5/6 split (header in cols 1-5, sticky; questions in cols 7-12) */
-.events-faq__grid { row-gap: var(--space-8); }
-@media (min-width: 1024px) {
-  .events-faq__head { position: sticky; top: calc(var(--shell-offset, var(--header-h)) + var(--space-8)); align-self: start; transition: top var(--dur-3) var(--ease-standard); }
-}
-
-/* html { scroll-padding-top } already clears the header; no extra margin, or #host lands ~200px low. */
+/* html { scroll-padding-top } already clears the header; no extra margin, or #host lands low. */
 .events-host-anchor { scroll-margin-top: 0; }
-.events-host__card { margin-top: var(--space-head-gap, var(--space-10)); }
+.events-host__card { margin-top: 0; }
 
 @media (prefers-reduced-motion: reduce) {
-  .events-flagship__media .art-image, .events-faq__head, .events-list__bar { transition: none; }
+  :root:not([data-motion='full']) :is(.events-list__bar, .events-link-btn) { transition: none; }
 }
-:root[data-motion='reduced'] :is(.events-flagship__media .art-image, .events-faq__head, .events-list__bar) { transition: none; }
+:root[data-motion='reduced'] :is(.events-list__bar, .events-link-btn) { transition: none; }
 
-/* AIWO P16: the questions take cols 7-12 (a one-column gutter after the header in cols 1-5) */
-@media (min-width: 1024px) { .grid-12 > .events-faq__list { grid-column: 7 / span 6; } }
-/* 640-1023: the stacked teaser media stays a calm 16:9 band instead of a 540px-tall 4:3 block */
-@media (min-width: 640px) and (max-width: 1023.98px) { .events-past__art .art-image { aspect-ratio: 16 / 9 !important; } }
+
+/* Tamil hero title (≥768): one step down to --text-h1 so long Tamil words don't run one per line and push the
+   actions below the fold (61px display-xl wrapped to 5 lines at 1440). Below 768 PageHero.css sets its own size. */
+@media (min-width: 768px) {
+  :root .events .page-hero__title:lang(ta) { font-size: var(--text-h1); line-height: var(--leading-h1); }
+}

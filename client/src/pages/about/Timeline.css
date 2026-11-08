@@ -40,7 +40,7 @@
 }
 .about-timeline__date {
   margin: 0;
-  font-size: var(--text-meta); font-weight: 500; line-height: 1.4; letter-spacing: 0;
+  font-size: var(--text-caption); font-weight: 500; line-height: 1.4; letter-spacing: 0;
   color: var(--color-text-muted);
   font-variant-numeric: tabular-nums lining-nums;
 }
@@ -51,8 +51,7 @@
 .about-timeline__item--future .about-timeline__title { color: var(--color-text-2); }
 .about-timeline__metric { padding-top: var(--space-2); }
 .about-timeline__pending { font-size: var(--text-meta); color: var(--color-text-muted); }
-.about-timeline__art { border-radius: var(--radius-media); overflow: hidden; background: var(--bone); max-width: 28rem; }
-.about-timeline__art .art-image { border-radius: var(--radius-media); }
+.about-timeline__art { border-radius: var(--radius-media); overflow: hidden; isolation: isolate; background: var(--color-bg-sunken); max-width: 28rem; }
 
 @media (min-width: 768px) {
   .about-timeline__item { grid-template-columns: 9rem minmax(0, 1fr); column-gap: var(--space-8); }
@@ -62,14 +61,11 @@
 @media (min-width: 1024px) {
   .about-timeline__item { grid-template-columns: 12rem minmax(0, 1fr) minmax(0, 16rem); column-gap: var(--space-12, 48px); }
   .about-timeline__item--art { grid-template-columns: 12rem minmax(0, 1fr) minmax(0, 16rem); }
-  .about-timeline__date { font-size: var(--text-lede); font-weight: 400; color: var(--color-text); }
-  .about-timeline__item--future .about-timeline__date { color: var(--color-text-muted); }
-  .about-timeline__node { top: calc(var(--space-8) + 0.62em - 5px); }
 }
 /* Hover: the row's art zooms 1.03 (fine pointers only) */
 @media (hover: hover) and (pointer: fine) {
-  .about-timeline__art :is(img, svg) { transition: transform var(--dur-media, 480ms) var(--ease-snap); }
-  .about-timeline__item:hover .about-timeline__art :is(img, svg) { transform: scale(1.03); }
+  .about-timeline__art :is(img, svg) { transition: transform var(--dur-media) var(--ease-media); }
+  .about-timeline__item:hover .about-timeline__art :is(img, svg) { transform: scale(var(--media-zoom)); }
 }
 @media (prefers-reduced-motion: reduce) { .about-timeline__art :is(img, svg) { transition: none; } }
 :root[data-motion='reduced'] .about-timeline__art :is(img, svg) { transition: none; }

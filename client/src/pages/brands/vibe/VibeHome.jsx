@@ -37,10 +37,23 @@ function WinnerStories({ children }) {
   const { data } = useApi('/api/stories?brand=vibe');
   const stories = realStories(data).slice(0, 3);
   if (!stories.length) return null;
+  /* One story: the header in cols 1–6 and the card in cols 8–12, never a lone card in an empty 3-up grid */
+  if (stories.length === 1) {
+    return (
+      <Section surface="white" labelledBy="vibe-home-stories">
+        <div className="vibe-home__stories-pair">
+          <div className="vibe-home__stories-head">{children}</div>
+          <Reveal className="vibe-home__stories-one">
+            <StoryCard story={stories[0]} />
+          </Reveal>
+        </div>
+      </Section>
+    );
+  }
   return (
     <Section surface="white" labelledBy="vibe-home-stories">
       {children}
-      <RevealGroup className="grid grid-3 vibe-home__stories">
+      <RevealGroup className={`grid ${stories.length === 2 ? 'grid-2' : 'grid-3'} vibe-home__stories`}>
         {stories.map((s) => <StoryCard key={s.slug} story={s} />)}
       </RevealGroup>
     </Section>
@@ -105,7 +118,7 @@ export default function VibeHome() {
       />
 
       {/* Proof band */}
-      <Section surface="paper" pad="sm" labelledBy="vibe-home-proof">
+      <Section surface="paper" pad="tight" labelledBy="vibe-home-proof">
         <h2 id="vibe-home-proof" className="visually-hidden">{t('StartNet Vibe in figures', 'எண்களில் StartNet Vibe')}</h2>
         <VibeProof />
       </Section>
@@ -218,8 +231,6 @@ export default function VibeHome() {
                 transition={{ duration: 0.8, ease: [0.4, 0.14, 0.3, 1] }}
               >
                 <ArtImage variant="grid" brand="vibe" ratio="1/1" seed={23} alt="" />
-                <span className="vibe-home__academy-glyph" aria-hidden="true" lang="ta">அ</span>
-                <span className="vibe-home__academy-glyph vibe-home__academy-glyph--en" aria-hidden="true">A</span>
               </motion.div>
             </motion.div>
           </Reveal>
@@ -263,7 +274,7 @@ export default function VibeHome() {
       </WinnerStories>
 
       {/* Colleges band */}
-      <Section surface="paper" pad="sm" labelledBy="vibe-home-colleges">
+      <Section surface="paper" pad="tight" labelledBy="vibe-home-colleges">
         <div className="vibe-home__colleges">
           <div>
             <p className="eyebrow">{t('For colleges', 'கல்லூரிகளுக்கு')}</p>

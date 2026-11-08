@@ -25,7 +25,7 @@
    stacks as a labelled card so no column is clipped or needs sideways scroll. */
 .research-lab__table-wrap {
   width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;
-  box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius);
+  box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--radius-card);
   background: var(--bp-card);
 }
 .research-lab__table-wrap:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
@@ -123,7 +123,7 @@
 }
 .research-lab__wave2-card {
   display: grid; gap: var(--space-1); padding: var(--space-5);
-  border: 1px dashed var(--line-strong); border-radius: var(--media-radius);
+  border: 1px dashed var(--line-strong); border-radius: var(--radius-card);
   background: transparent; color: var(--color-text-muted);
 }
 .research-lab__wave2-card .caption { color: var(--color-text-muted); }
@@ -142,8 +142,8 @@
   .research-lab__others:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) {
     display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--space-6); align-items: stretch;
   }
-  .research-lab__others:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media { width: 100%; height: 100%; min-width: 0; margin-bottom: 0; }
-  .research-lab__others:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media .art-image { aspect-ratio: auto !important; width: 100%; height: 100%; min-height: 12rem; }
+  .research-lab__others:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media { position: relative; width: 100%; height: 100%; min-width: 0; min-height: 12rem; margin-bottom: 0; aspect-ratio: auto; }
+  .research-lab__others:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media > .art-image { position: absolute; inset: 0; height: 100%; }
 }
 @media (min-width: 640px) and (max-width: 1023.98px) {
   /* Four wave-2 labs: 2 × 2, not 3 + 1 */

@@ -47,7 +47,7 @@
 :root .problist__title { margin: 0; font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); line-height: 1.25; max-width: 36ch; }
 .problist__cta {
   display: inline-flex; align-items: center; gap: 10px; min-height: 44px; justify-self: start;
-  font-weight: 500; color: var(--accent-text); text-decoration: none;
+  font-weight: 500; color: var(--color-text); text-decoration: none;
 }
 .problist__cta-label {
   background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
@@ -94,3 +94,6 @@
   :lang(ta) .problist__cta { grid-column: 2 / -1; grid-row: 2; justify-self: start; }
 }
 .problist__more { margin-top: var(--space-8); display: flex; justify-content: flex-start; }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+:root .problist__title:lang(ta) { letter-spacing: 0; }

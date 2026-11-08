@@ -29,7 +29,7 @@
   content: '↓'; content: '↓' / ''; position: absolute; top: calc(-1 * var(--space-8) / 2 - 0.5em); left: var(--space-6);
   color: var(--color-text-muted); font-size: var(--text-small); line-height: 1; height: 1em;
 }
-.about-model__stage .h4 { margin: 0; font-weight: 500; letter-spacing: -0.01em; }
+.about-model__stage .h4 { margin: 0; font-weight: 500; letter-spacing: var(--tracking-h4); }
 .about-model__stage--platform { background: var(--night-0); color: var(--night-text); box-shadow: none; }
 .about-model__stage--platform .about-model__step,
 .about-model__stage--platform .about-model__text { color: var(--night-text-2); }

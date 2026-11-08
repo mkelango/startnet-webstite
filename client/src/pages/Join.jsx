@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { AnimatePresence, m as motion } from 'framer-motion'; // light m inside the shell's LazyMotion
 import { ArrowRight, RotateCcw, ShieldCheck } from 'lucide-react';
-import { Seo, Section, KineticHeadline, Button, BrandLockup, Badge } from '../components';
+import { Seo, Section, PageHero, Button, BrandLockup, Badge } from '../components';
 import { useLang } from '../lib/i18n.jsx';
 import { snxLink, waLink } from '../lib/links.js';
 import { useReducedMotion } from '../hooks/useReducedMotion.js';
@@ -10,7 +10,6 @@ import PersonaSelector, { firstPersonaInputId } from './home/PersonaSelector.jsx
 import { INTENTS, getPersona, isTalent } from './home/personas.js';
 import { pageLd } from './brands/seoBits.js';
 import './Join.css';
-import './utility/restKit.css';
 
 /*
  * /join (T13) — Book 1 Part B §5.1 persona selector + optional intent question, then one next
@@ -18,6 +17,9 @@ import './utility/restKit.css';
  * Copy: Book 2 §13.4 (H1, sub-head), §1.10 microcopy, §14.3 Tamil CTAs.
  * Other Tamil strings are DRAFTS (Book 2 §14 status) — native Tamil review pending before launch.
  * Nothing is stored on startnet.in.
+ * Layout (docs/redesign/SPEC.md §6.3 G6): the Ink text hero (PageHero layout="text": the step label, h1, lede and the
+ * two-step progress line), then the step itself in a White form card on the rising Paper sheet: the persona tiles
+ * (§4.6) with the optional intent chips, or the one next-step card.
  */
 
 const PERSONA_NAME = 'join-persona';
@@ -102,21 +104,27 @@ export default function Join() {
         jsonLd={pageLd({ path: '/join', lang, name: t(SEO.seoTitle, SEO.seoTitleTa), description: t(SEO.meta, SEO.metaTa) })}
       />
 
+      <PageHero
+        layout="text"
+        className="join__hero"
+        eyebrow={(
+          <span className="join__progress" aria-live="polite">
+            {step === 'choose'
+              ? t('Step 1 of 2 · About you', 'படி 1 / 2 · உங்களைப் பற்றி')
+              : t('Step 2 of 2 · Your next step', 'படி 2 / 2 · உங்கள் அடுத்த படி')}
+          </span>
+        )}
+        title={t('Join StartNet', 'StartNet-இல் இணையுங்கள்')}
+        lede={t(SEO.description, SEO.descriptionTa)}
+        meta={(
+          <div className="join__bar" aria-hidden="true">
+            <span className="join__bar-fill" data-step={step} />
+          </div>
+        )}
+      />
+
       <Section className="join__section">
         <div className="join__inner">
-          <header className="join__head rk-page">
-            <p className="eyebrow join__progress" aria-live="polite">
-              {step === 'choose'
-                ? t('Step 1 of 2 · About you', 'படி 1 / 2 · உங்களைப் பற்றி')
-                : t('Step 2 of 2 · Your next step', 'படி 2 / 2 · உங்கள் அடுத்த படி')}
-            </p>
-            <KineticHeadline as="h1" className="h1 join__title" text={t('Join StartNet', 'StartNet-இல் இணையுங்கள்')} />
-            <p className="body-lg join__lede">{t(SEO.description, SEO.descriptionTa)}</p>
-            <div className="join__bar" aria-hidden="true">
-              <span className="join__bar-fill" data-step={step} />
-            </div>
-          </header>
-
           <AnimatePresence mode="wait" initial={false}>
             {step === 'choose' ? (
               <motion.form key="choose" className="join__form" onSubmit={onSubmit} noValidate {...fade}>

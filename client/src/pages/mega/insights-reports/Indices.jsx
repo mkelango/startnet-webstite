@@ -12,6 +12,7 @@ import NotifyForm from './NotifyForm.jsx';
 import { INDEX_CONTENT } from './indexContent.js';
 import { INDEX_ROUTES, INDEX_SLUGS, TAG_RULES, splitPlaceholder, localLabel } from './shared.js';
 import './Indices.css';
+import { InsightsTabs } from '../../insights/InsightsTabs.jsx';
 
 const RULES = [
   {
@@ -75,7 +76,6 @@ export default function Indices() {
 
       <PageHero
         eyebrow={t('Insights · Indices', 'நுண்ணறிவுகள் · குறியீடுகள்')}
-        titleClass="display-xl indices-hero__title"
         title={t('Named, quotable frameworks.', 'பெயரிடப்பட்ட, மேற்கோள் காட்டக்கூடிய கட்டமைப்புகள்.')}
         lede={t(
           'Three indices on how Tamil Nadu makes founders: in its institutions, in its research and among founders themselves. Each publishes its method before its first edition.',
@@ -91,6 +91,8 @@ export default function Indices() {
         }
       />
 
+      <InsightsTabs current="/insights/indices" />
+
       <Section surface="paper" labelledBy="indices-list-h">
         <SectionHeader
           id="indices-list-h"
@@ -98,14 +100,16 @@ export default function Indices() {
           title={t('What each index scores', 'ஒவ்வொரு குறியீடும் எதை மதிப்பிடுகிறது')}
           lede={t("Planned. We'll publish the method before the first edition.", 'திட்டமிடப்பட்டுள்ளது. முதல் பதிப்புக்கு முன் முறையியலை வெளியிடுவோம்.')}
         />
-        <RevealGroup className="indices-grid">
+        <RevealGroup className="grid grid-3 indices-grid">
           {INDEX_SLUGS.map((slug) => {
             const c = INDEX_CONTENT[slug];
             const rec = records.find((r) => r.slug === INDEX_ROUTES[slug]);
             const lbl = localLabel(rec?.statusLabel || '', rec?.statusLabelTa, lang);
             const st = splitPlaceholder(lbl.text);
             // The badge already says "Planned"; only show the API label when it adds something (a date, a launch moment).
-            const stText = /^planned$/i.test(splitPlaceholder(rec?.statusLabel || '').text) ? '' : st.text;
+            // "Planned · October 2027" → "October 2027": the badge already carries the word.
+            const stRest = st.text.replace(/^\s*(?:planned|திட்டமிடப்பட்டுள்ளது|திட்டமிடப்பட்டது)\s*·\s*/i, '');
+            const stText = /^planned$/i.test(splitPlaceholder(rec?.statusLabel || '').text) ? '' : stRest.charAt(0).toUpperCase() + stRest.slice(1);
             const live = rec?.status === 'published';
             return (
               <div key={slug} className="indices-grid__item">
@@ -117,7 +121,8 @@ export default function Indices() {
                   art={{ variant: c.art, seed: c.seed, ratio: '3/2', alt: '' }}
                   meta={
                     <div className="indices-card__meta">
-                      <Badge kind="status" status={live ? 'open' : 'upcoming'}>
+                      {/* Planned is a neutral Bone chip (SPEC §4.13: no blue status). */}
+                      <Badge kind={live ? 'status' : 'type'} status={live ? 'open' : undefined}>
                         {live ? t('Published', 'வெளியிடப்பட்டது') : t('Planned', 'திட்டமிடப்பட்டது')}
                       </Badge>
                       {/* The inline note ("[date TBC]") is an editorial mark: only the real label shows. */}
@@ -137,7 +142,7 @@ export default function Indices() {
       </Section>
 
       {/* The page's one Night band: the rules every index follows. */}
-      <Section surface="night" labelledBy="indices-rules-h">
+      <Section surface="inset" labelledBy="indices-rules-h">
         <SectionHeader
           id="indices-rules-h"
           eyebrow={t('How every index works', 'ஒவ்வொரு குறியீடும் செயல்படும் விதம்')}

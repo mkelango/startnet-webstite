@@ -6,23 +6,15 @@
 .connect-home__whocard {
   position: relative; overflow: hidden;
   display: grid; gap: var(--space-3); align-content: start; height: 100%;
-  padding: var(--space-8); background: var(--bp-card);
-  box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius);
+  padding: var(--pad-card-lg); background: var(--bp-card);
+  box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--radius-card);
   transition: box-shadow var(--dur-3) var(--ease-snap);
 }
-/* Framed-card top rule (DESIGN-v2 3.7) */
-.connect-home__whocard::before {
-  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--color-text);
-  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
-}
-/* Hover only for a real pointer: on touch a tap left the card stuck in its hover state */
+/* Framed card (SPEC §4.6): no top rule; hover (real pointers only) and focus strengthen the hairline */
 .connect-home__whocard:focus-within { box-shadow: inset 0 0 0 1px var(--bp-line-strong); }
-.connect-home__whocard:focus-within::before { transform: scaleX(1); }
 @media (hover: hover) and (pointer: fine) {
   .connect-home__whocard:hover { box-shadow: inset 0 0 0 1px var(--bp-line-strong); }
-  .connect-home__whocard:hover::before { transform: scaleX(1); }
 }
-@media (max-width: 767.98px) { .connect-home__whocard { padding: var(--space-6); } }
 .connect-home__whoicon { color: var(--color-text); margin-bottom: var(--space-2); width: 24px; height: 24px; stroke-width: 1.5; }
 .connect-home__whocard .h4 { font-size: var(--text-h3); }
 .connect-home__whotasks { list-style: none; display: grid; margin-top: var(--space-3); border-top: 1px solid var(--color-border); }
@@ -63,12 +55,11 @@
 .connect-home__offer p { max-width: 52ch; }
 .connect-home__scalecta { margin-top: var(--space-8); }
 .connect-home__scaleart { max-width: 30rem; width: 100%; justify-self: center; }
-.connect-home__scaleart .art-image { border-radius: var(--media-radius); }
 
 /* StartNet Angels — coming state: a dashed hairline frame, nothing louder */
 .connect-home__angels {
   position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); justify-items: start;
-  padding: var(--space-8) var(--space-6); border: 1px dashed var(--line-strong); border-radius: var(--media-radius);
+  padding: var(--space-8) var(--space-6); border: 1px dashed var(--line-strong); border-radius: var(--radius-card);
   background: transparent;
 }
 @media (min-width: 768px) { .connect-home__angels { padding: var(--space-12); } }
@@ -79,3 +70,6 @@
 .connect-home__angelsbody { max-width: 44rem; }
 /* ~70 characters per line at most (F-62: was ~106 at 1024). */
 .connect-home__legal { max-width: 70ch; padding-top: var(--space-5); border-top: 1px solid var(--color-border); width: 100%; color: var(--color-text-muted); }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.connect-home__offer h3:lang(ta) { letter-spacing: 0; }

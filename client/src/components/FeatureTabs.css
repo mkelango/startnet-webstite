@@ -19,7 +19,7 @@
 }
 .feature-tabs__tab[aria-expanded='true'] { color: var(--color-text); }
 @media (hover: hover) { .feature-tabs__tab:hover { color: var(--color-text); } }
-.feature-tabs__tab:focus-visible { outline-offset: 2px; border-radius: var(--radius-btn); }
+.feature-tabs__tab:focus-visible { outline-offset: 2px; border-radius: var(--radius-sm); }
 /* Body: always in the DOM, collapsed with grid rows (never display:none) */
 .feature-tabs__body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 400ms cubic-bezier(0.25, 1, 0.5, 1); }
 .feature-tabs__body[data-open] { grid-template-rows: 1fr; }

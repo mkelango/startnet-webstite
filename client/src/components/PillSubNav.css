@@ -1,51 +1,64 @@
-/* Sticky pill sub-nav (AIWO P17): a Paper strip with a hairline bottom, 44px pill chips, the current one Ink-filled.
-   Sticky at the header's visible height (--shell-offset follows the header's hide / show). */
+/* Sticky pill sub-nav with scroll-spy (docs/redesign/SPEC.md §4.9, Surge D): a 56px Paper bar with a hairline
+   bottom, sticky at the header's visible height (--shell-offset; plus --subnav-h under a brand sub-nav). Items are
+   36px pills: hairline ring, Ink text, hover Bone; the current one Ink-filled. Below 1024 the row scrolls sideways
+   with an edge fade. Anchors land clear of the header and the bar (scroll-margin set by PillSubNav.jsx). */
 .pill-subnav {
   position: sticky;
   top: var(--shell-offset, 0px);
-  z-index: 20;
+  z-index: var(--z-subnav);
   background: var(--paper);
-  border-bottom: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--color-border);
   transition: top var(--dur-header) var(--ease-header-exit);
 }
+:root .brand-layout .pill-subnav { top: calc(var(--shell-offset, 0px) + var(--subnav-h)); }
 .pill-subnav--night { background: var(--night-0); border-bottom-color: var(--night-line); }
 .pill-subnav__row {
   display: flex;
+  align-items: center;
   gap: var(--space-2);
+  min-height: 56px;
   margin: 0 calc(-1 * var(--gutter));
-  padding: var(--space-3) var(--gutter);
+  padding: var(--space-2) var(--gutter);
   list-style: none;
   overflow-x: auto;
   scrollbar-width: none;
   overscroll-behavior-x: contain;
 }
 .pill-subnav__row::-webkit-scrollbar { display: none; }
+@media (max-width: 1023.98px) {
+  .pill-subnav__row {
+    -webkit-mask-image: linear-gradient(to right, transparent, var(--ink-900) var(--gutter), var(--ink-900) calc(100% - 32px), transparent);
+    mask-image: linear-gradient(to right, transparent, var(--ink-900) var(--gutter), var(--ink-900) calc(100% - 32px), transparent);
+  }
+}
 .pill-subnav__row > li { flex: none; }
 .pill-subnav__chip {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
-  padding: 0 18px;
-  border-radius: var(--radius-full);
-  box-shadow: inset 0 0 0 1px var(--line-strong);
+  min-height: 36px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-chip);
+  box-shadow: inset 0 0 0 1px var(--color-border);
   color: var(--color-text);
-  font-size: var(--text-small);
-  font-weight: 500;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-label);
   line-height: 1.2;
   white-space: nowrap;
   text-decoration: none;
   transition: background-color var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
 }
+@media (pointer: coarse) { .pill-subnav__chip { min-height: 44px; } }
 .pill-subnav__chip:hover { text-decoration: none; }
 @media (hover: hover) {
-  .pill-subnav__chip:not([aria-current]):hover { box-shadow: inset 0 0 0 1px var(--color-text); }
+  .pill-subnav__chip:not([aria-current]):hover { background: var(--bone); }
+  .pill-subnav--night .pill-subnav__chip:not([aria-current]):hover { background: var(--night-1); }
 }
-.pill-subnav__chip[aria-current] { background: var(--sn-ink); color: var(--paper); box-shadow: none; }
+.pill-subnav__chip[aria-current] { background: var(--ink-900); color: var(--paper); box-shadow: none; }
 .pill-subnav--night .pill-subnav__chip { color: var(--night-text); box-shadow: inset 0 0 0 1px var(--night-line-strong); }
-.pill-subnav--night .pill-subnav__chip[aria-current] { background: var(--paper); color: var(--sn-ink); box-shadow: none; }
-.pill-subnav__chip:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.pill-subnav--night .pill-subnav__chip[aria-current] { background: var(--paper); color: var(--ink-900); box-shadow: none; }
+.pill-subnav__chip:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
 :lang(ta) .pill-subnav__chip { letter-spacing: 0; }
-:root[data-motion='reduced'] :is(.pill-subnav, .pill-subnav__chip) { transition: none; }
+:root[data-motion="reduced"] :is(.pill-subnav, .pill-subnav__chip) { transition: none; }
 @media (prefers-reduced-motion: reduce) {
-  :root:not([data-motion='full']) :is(.pill-subnav, .pill-subnav__chip) { transition: none; }
+  :root:not([data-motion="full"]) :is(.pill-subnav, .pill-subnav__chip) { transition: none; }
 }

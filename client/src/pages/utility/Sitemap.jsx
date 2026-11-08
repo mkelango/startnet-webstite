@@ -221,6 +221,7 @@ export default function Sitemap() {
         )}
       />
       <PageHero
+        layout="text"
         eyebrow={t('Sitemap', 'தள வரைபடம்')}
         title={t('Every page, in one place.', 'ஒவ்வொரு பக்கமும், ஒரே இடத்தில்.')}
         lede={t(

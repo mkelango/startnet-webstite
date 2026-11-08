@@ -65,8 +65,9 @@ function PartnerTypePage({ page }) {
     window.setTimeout(() => el.querySelector('input, select, textarea')?.focus({ preventScroll: true }), reduced ? 0 : 450);
   };
 
-  // AIWO 1.5: one filled button per hero; any further action is an arrow link (the ring style is kept for CTA bands).
-  const heroVariant = (c, i) => (i === 0 ? c.variant || 'primary' : 'tertiary');
+  // SPEC §7.2: the hero h1 ends in the red full stop, so the first action is the Paper primary (never `point` in the
+  // same section as a red .dot) unless the data asks for another variant; any further action is a secondary ring.
+  const heroVariant = (c, i) => (i === 0 ? c.variant || 'primary' : 'secondary');
   const ctaButtons = (size = 'lg') =>
     page.ctas.map((c, i) =>
       c.enquire ? (
@@ -349,7 +350,7 @@ function PartnerTypePage({ page }) {
       </Section>
 
       {/* Other ways to partner */}
-      <Section surface="white" pad="sm">
+      <Section surface="white" pad="tight">
         <nav aria-label={t('Other ways to partner', 'கூட்டு சேர மற்ற வழிகள்')} className="partner-others">
           <p className="eyebrow">{t('Other ways to partner', 'கூட்டு சேர மற்ற வழிகள்')}</p>
           <ul role="list">

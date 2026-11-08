@@ -1,5 +1,5 @@
-// C43 · Consent banner (Book 2 §13.1 copy, Book 3 C43). DPDP: non-essential off by default,
-// "Reject non-essential" and "Accept all" have equal size and weight, never blocks reading (non-modal region,
+// C43 · Consent banner (Book 2 §13.1 copy, Book 3 C43, SPEC §3.7). DPDP: non-essential off by default,
+// "Reject non-essential" (secondary ring) and "Accept all" (Ink primary, never red) have equal size and weight, never blocks reading (non-modal region,
 // early in tab order), reopened from the footer "Cookie settings". Choice stored in localStorage (6 months, versioned).
 // While shown, its height is published as --consent-h so pages can keep focused controls clear of it (WCAG 2.4.11).
 // Reopened from "Cookie settings": Esc closes it, and closing returns focus to the control that opened it.
@@ -276,7 +276,7 @@ export default function ConsentBanner() {
               <div className="cookie-banner__actions" data-count={manage ? 2 : 3}>
                 {manage ? (
                   <>
-                    <button type="button" className="cookie-banner__btn" onClick={() => finish(prefs)}>{t('Save my choices', 'என் தேர்வுகளைச் சேமி')}</button>
+                    <button type="button" className="cookie-banner__btn cookie-banner__btn--primary" onClick={() => finish(prefs)}>{t('Save my choices', 'என் தேர்வுகளைச் சேமி')}</button>
                     <button type="button" className="cookie-banner__btn" onClick={() => finish({ analytics: false, marketing: false })}>
                       {rejectLabel}
                     </button>
@@ -286,7 +286,7 @@ export default function ConsentBanner() {
                     <button type="button" className="cookie-banner__btn" onClick={() => finish({ analytics: false, marketing: false })}>
                       {rejectLabel}
                     </button>
-                    <button type="button" className="cookie-banner__btn" onClick={() => finish({ analytics: true, marketing: true })}>
+                    <button type="button" className="cookie-banner__btn cookie-banner__btn--primary" onClick={() => finish({ analytics: true, marketing: true })}>
                       {acceptLabel}
                     </button>
                     <button type="button" className="cookie-banner__text-btn" onClick={() => { focusPrefs.current = true; setManage(true); }}>

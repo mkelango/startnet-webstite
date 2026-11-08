@@ -1,15 +1,7 @@
-/* /insights/indices — indices hub. Oct 2026: the four rules as blueprint cells (1px dividers in one hairline frame),
+/* /insights/indices — indices hub (SPEC §5.6): folder tabs, the index grid, then the four rules as cells (1px dividers in one hairline frame),
    quiet icons, hairline tag legend. */
-.indices-grid { display: grid; gap: var(--space-6); margin-top: var(--space-8); }
-@media (min-width: 768px) { .indices-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1024px) { .indices-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-/* 2-up on tablets: an odd last card spans the row as a horizontal card (no 2+1 orphan) */
-@media (min-width: 768px) and (max-width: 1023.98px) {
-  .indices-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
-  .indices-grid > :last-child:nth-child(odd) > .card:has(> .card__media) { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
-  .indices-grid > :last-child:nth-child(odd) > .card.card > .card__media { height: 100%; border-radius: calc(var(--media-radius) - 1px) 0 0 calc(var(--media-radius) - 1px); }
-  .indices-grid > :last-child:nth-child(odd) > .card > .card__media .art-image { aspect-ratio: auto !important; height: 100%; min-height: 12rem; }
-}
+/* The listing grid is .ins-grid (insightsKit.css): 1 / 2 / 3, gap-x 24, gap-y --space-grid-row. */
+.indices-grid { margin-top: var(--space-8); }
 .indices-grid__item { display: flex; min-width: 0; }
 .indices-grid__item > * { flex: 1; }
 .indices-card__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
@@ -17,7 +9,7 @@
 
 .indices-rules {
   display: grid; gap: 1px; margin-top: var(--space-4);
-  background: var(--color-border); border: 1px solid var(--color-border); border-radius: var(--media-radius); overflow: hidden;
+  background: var(--color-border); border: 1px solid var(--color-border); border-radius: var(--radius-card); overflow: hidden;
 }
 @media (min-width: 768px) { .indices-rules { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .indices-rules { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
@@ -42,8 +34,6 @@
 
 .indices-grid, .indices-rules, .indices-notify { overflow-wrap: anywhere; }
 
-/* Tamil display words are long: step the hero down on small phones so nothing overflows at 320px. */
-@media (max-width: 479px) { .indices-hero__title { font-size: var(--text-h1); } }
 .indices-tags { overflow-wrap: anywhere; }
 .indices-tags__row { min-width: 0; max-width: 100%; }
 .indices-tags__row dd { min-width: 0; }

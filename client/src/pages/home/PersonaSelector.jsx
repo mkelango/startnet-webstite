@@ -1,26 +1,26 @@
 import { Link } from 'react-router-dom';
-import { Check } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import { useLang } from '../../lib/i18n.jsx';
 import { PERSONAS, PERSONA_GROUPS, PERSONA_EXTRAS } from './personas.js';
 import './PersonaSelector.css';
 
 /**
- * "I am a…" selector (Book 1 Part B §5.1, Book 4 IX-10). Native radios styled as tiles:
+ * "I am a…" selector (Book 1 Part B §5.1, Book 4 IX-10). Native radios styled as the SPEC §4.6 persona tiles:
  * one radio group (shared name) across both visual groups, so arrow keys move through all nine.
  * Props: value, onChange(id), name, legendId, legend (node), showExtras,
  *        invalid? (sets aria-invalid on the group), describedBy? (id of an error/hint for aria-describedby),
- *        variant? 'tiles' (default, /join) | 'list' (hairline rows) | 'chips' (Home, DESIGN-v2 3.12: a pill chip grid).
+ *        size? 'md' (default, /join: 120px tiles) | 'lg' (Home: 220px tiles from 768).
  *        With no `legend`, `legendId` may point at a heading rendered outside the group (Home does this).
  */
 /** id of the first radio, for moving focus there on an empty submit. */
 export const firstPersonaInputId = (name = 'persona') => `${name}-${PERSONAS[0].id}`;
 
-export default function PersonaSelector({ value, onChange, name = 'persona', legendId, legend, showExtras = true, invalid = false, describedBy, variant = 'tiles' }) {
+export default function PersonaSelector({ value, onChange, name = 'persona', legendId, legend, showExtras = true, invalid = false, describedBy, size = 'md' }) {
   const { t, localePath } = useLang();
   const lid = legendId || `${name}-legend`;
   return (
     <div
-      className={`home-persona home-persona--${variant}`}
+      className={`home-persona home-persona--tiles home-persona--${size === 'lg' ? 'lg' : 'md'}`}
       role="radiogroup"
       aria-labelledby={lid}
       aria-invalid={invalid || undefined}
@@ -47,9 +47,10 @@ export default function PersonaSelector({ value, onChange, name = 'persona', leg
                     onChange={() => onChange?.(p.id)}
                   />
                   <label htmlFor={id} className="home-persona__tile">
-                    <span className="home-persona__icon" aria-hidden="true"><Icon size={variant === 'tiles' ? 22 : variant === 'chips' ? 18 : 20} strokeWidth={1.5} /></span>
+                    <span className="home-persona__icon" aria-hidden="true"><Icon size={24} strokeWidth={1.75} /></span>
                     <span className="home-persona__label">{t(p.label, p.labelTa)}</span>
-                    <span className="home-persona__check" aria-hidden="true"><Check size={variant === 'chips' ? 14 : 16} strokeWidth={2.5} /></span>
+                    <span className="home-persona__check" aria-hidden="true"><Check size={14} strokeWidth={2.5} /></span>
+                    <span className="home-persona__arrow" aria-hidden="true"><ArrowRight size={24} strokeWidth={1.75} /></span>
                   </label>
                 </div>
               );

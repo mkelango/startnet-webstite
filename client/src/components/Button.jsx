@@ -6,11 +6,17 @@ import { cx, isExternal, isSnx, isHttp, renderIcon } from './_utils.js';
 import './Button.css';
 
 /**
- * Button (DESIGN-v2 3.6): 4px rectangle, weight 500. Renders <Link> (to), <a> (href) or <button>.
- * Variants: primary (Ink → Red-600 on hover), secondary (ring), tertiary (arrow link), brand, whatsapp, inverse.
- * Tertiary = text + arrow that nudges on hover. A trailing "→" typed in a string label is wrapped in
- * span.arrow[aria-hidden] (same visible text) so it nudges like the icon.
- * Extra optional prop `shortLabel`: shown instead of the label below 400px (keep it a shortening of the label).
+ * Button (docs/redesign/SPEC.md §4.1): a pill, weight 500, sizes sm 32 / md 40 / lg 48 (40 / 44 on touch).
+ * Renders <Link> (to), <a> (href) or <button>.
+ * Variants: primary (Ink fill, Slate hover; Paper on Ink), point (the ONE red CTA: Red-600 → 700 → 800, at most once
+ * per section, never beside a red .dot), secondary (control ring → Ink fill), tertiary (text + trailing arrow),
+ * brand (accent fill), inverse (Paper on photos), whatsapp (as secondary).
+ * A trailing "→" typed in a string label is wrapped in span.arrow[aria-hidden] (same visible text) so it nudges.
+ * Optional props:
+ * - `shortLabel`: shown instead of the label below 400px (keep it a shortening of the label).
+ * - `arrow` (default false): a trailing Lucide ArrowRight that nudges 4px on hover (tertiary always has one).
+ * - `iconOnly` (default false): a circle (40, or 48 at size="lg") holding only `icon`; a string child becomes the
+ *   visually hidden label, otherwise pass `aria-label`.
  */
 export const Button = forwardRef(function Button(
   {
@@ -26,6 +32,8 @@ export const Button = forwardRef(function Button(
     loading,
     children,
     shortLabel,
+    arrow = false,
+    iconOnly = false,
     className,
     ...rest
   },
@@ -38,16 +46,19 @@ export const Button = forwardRef(function Button(
   const external = link && isExternal(link) && !/^(mailto|tel):/i.test(link);
   const snx = link && isSnx(link);
 
+  const iconSize = ICON_SIZE[size] || ICON_SIZE.md;
   let trailing = null;
-  if (icon) trailing = renderIcon(icon, { size: size === 'sm' ? 16 : 18, 'aria-hidden': true, strokeWidth: 2 });
-  else if (external) trailing = <ArrowUpRight size={size === 'sm' ? 15 : 17} aria-hidden="true" strokeWidth={2} />;
-  else if (variant === 'tertiary') trailing = <ArrowRight size={size === 'sm' ? 16 : 18} aria-hidden="true" strokeWidth={2} />;
+  if (icon) trailing = renderIcon(icon, { size: iconSize, 'aria-hidden': true, strokeWidth: iconSize <= 16 ? 2 : 1.75 });
+  else if (external && !iconOnly) trailing = <ArrowUpRight size={iconSize} aria-hidden="true" strokeWidth={iconSize <= 16 ? 2 : 1.75} />;
+  else if ((variant === 'tertiary' || arrow) && !iconOnly) trailing = <ArrowRight size={iconSize} aria-hidden="true" strokeWidth={iconSize <= 16 ? 2 : 1.75} />;
 
   const classes = cx(
     'button',
     `button--${variant}`,
     `button--${size}`,
     full && 'button--full',
+    iconOnly && 'button--icon',
+    (arrow || variant === 'tertiary') && 'button--arrow',
     loading && 'button--loading',
     trailing && 'button--has-icon',
     shortLabel && 'button--has-short',
@@ -55,7 +66,17 @@ export const Button = forwardRef(function Button(
   );
 
   const label = withArrow(children);
-  const inner = (
+  const inner = iconOnly ? (
+    <>
+      {trailing && <span className="button__icon" aria-hidden="true">{trailing}</span>}
+      {children != null && children !== '' && <span className="visually-hidden">{children}</span>}
+      {external && (
+        <span className="visually-hidden">
+          {snx ? t(' (opens StartNet X)', ' (StartNet X-இல் திறக்கும்)') : t(' (external site)', ' (வெளி இணையதளம்)')}
+        </span>
+      )}
+    </>
+  ) : (
     <>
       <span className="button__label">
         {shortLabel ? (
@@ -124,6 +145,9 @@ export const Button = forwardRef(function Button(
     </button>
   );
 });
+
+/** Icon size per button size (SPEC §4.1: 16 / 18 / 20). */
+const ICON_SIZE = { sm: 16, md: 18, lg: 20 };
 
 /** "Register →" → "Register " + <span class="arrow" aria-hidden>→</span>: same visible text, the glyph can nudge. */
 function withArrow(node) {

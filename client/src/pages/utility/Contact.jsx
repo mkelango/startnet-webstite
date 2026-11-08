@@ -1,7 +1,7 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, MessageCircle, Mail, Handshake, Layers, Newspaper, Briefcase, ShieldCheck } from 'lucide-react';
 import {
-  Seo, PageHero, Section, SectionHeader, SmartForm, Button, ArtImage, Placeholder, Reveal, RevealGroup,
+  Seo, Section, SectionHeader, SmartForm, Button, Reveal, RevealGroup, Breadcrumbs, KineticHeadline,
 } from '../../components';
 import { useLang } from '../../lib/i18n.jsx';
 import { webPageLd, langPath, ORG_REF } from '../../lib/seo.js';
@@ -92,8 +92,9 @@ export default function Contact() {
             {BRAND_MAILS.map((b) => (
               <a key={b} href={`mailto:${b}@startnet.in`} data-brand={b}>{b}@startnet.in</a>
             ))}
-          </span>{' '}
-          <Placeholder>[confirm]</Placeholder>
+          </span>
+          {/* The brand addresses are still "[confirm]" in the register. Like the SLA marks elsewhere, the editorial
+              mark is not shown on the live page. */}
         </>
       ),
     },
@@ -131,38 +132,65 @@ export default function Contact() {
         )}
       />
 
-      <PageHero
-        className="rk-page"
-        eyebrow={t('Contact', 'தொடர்புக்கு')}
-        title={t('Talk to the right team.', 'சரியான குழுவிடம் பேசுங்கள்.')}
-        lede={lang === 'ta'
-          ? 'உங்களுக்கு என்ன தேவை என்று சொல்லுங்கள்; சரியான குழுவுக்கு அனுப்புவோம். இரண்டு வேலை நாட்களுக்குள் பதிலளிக்கிறோம்.' // SEO-TA: pending native review
-          : "Tell us what you need and we'll route it. We reply within two working days."}
-        breadcrumbs={[{ label: t('Contact', 'தொடர்புக்கு') }]}
-        actions={
-          <>
+      {/* Contact hero (SPEC §5.8): a Bone band, no Ink hero and no sheet rise. Centred label, h1 at --text-h1 and a
+          16px paragraph, then the step indicator and the persona tiles (the quick routes), then the form card. */}
+      <header className="contact-hero rk-page" data-ground="bone">
+        <div className="container contact-hero__inner">
+          <Breadcrumbs items={[{ label: t('Contact', 'தொடர்புக்கு') }]} className="contact-hero__crumbs" />
+          <p className="eyebrow contact-hero__eyebrow">{t('Contact', 'தொடர்புக்கு')}</p>
+          <KineticHeadline
+            text={t('Talk to the right team.', 'சரியான குழுவிடம் பேசுங்கள்.')}
+            as="h1"
+            accentFirst
+            className="contact-hero__title"
+          />
+          <p className="contact-hero__lede">
+            {lang === 'ta'
+              ? 'உங்களுக்கு என்ன தேவை என்று சொல்லுங்கள்; சரியான குழுவுக்கு அனுப்புவோம். இரண்டு வேலை நாட்களுக்குள் பதிலளிக்கிறோம்.' // SEO-TA: pending native review
+              : "Tell us what you need and we'll route it. We reply within two working days."}
+          </p>
+          <div className="contact-hero__actions cluster" data-primary-cta="">
             <Button href="#contact-form" size="lg">{t('Send a message', 'செய்தி அனுப்புங்கள்')}</Button>
             <Button variant="tertiary" size="lg" icon={MessageCircle} href={waLink('Hi StartNet', `contact, ${lang}`)}>
               {t('Chat on WhatsApp', 'WhatsApp-இல் பேசுங்கள்')}
             </Button>
-          </>
-        }
-      />
+          </div>
+          {/* Step indicator (SPEC §4.12): 32px circles, the first step active. Steps 1–2 jump to their section. */}
+          <ol className="contact-steps" role="list">
+            <li className="contact-steps__item is-active" aria-current="step">
+              <a href="#contact-routes"><span className="contact-steps__num" aria-hidden="true">1</span>{t('Quick routes', 'விரைவு வழிகள்')}</a>
+            </li>
+            <li className="contact-steps__item">
+              <a href="#contact-form"><span className="contact-steps__num" aria-hidden="true">2</span>{t('Write to us', 'எங்களுக்கு எழுதுங்கள்')}</a>
+            </li>
+            <li className="contact-steps__item">
+              <span><span className="contact-steps__num" aria-hidden="true">3</span>{t('We reply within two working days', 'இரண்டு வேலை நாட்களுக்குள் பதிலளிக்கிறோம்')}</span>
+            </li>
+          </ol>
+        </div>
+      </header>
 
-      {/* Quick routes */}
-      <Section surface="white">
+      {/* Quick routes as persona tiles (SPEC §4.6): Ink / Slate / Bone by index, panel radius. */}
+      <Section id="contact-routes" pad="tight" className="contact-routes-section">
         <SectionHeader
           eyebrow={t('Quick routes', 'விரைவு வழிகள்')}
           title={t('Go straight to the team you need.', 'உங்களுக்குத் தேவையான குழுவிடம் நேரடியாகச் செல்லுங்கள்.')}
           as="h2"
         />
-        <RevealGroup as="ul" className="contact-routes">
-          {routes.map((r) => {
+        <RevealGroup as="ul" className="contact-routes" role="list">
+          {routes.map((r, i) => {
             const Icon = r.icon;
+            const tone = ['ink', 'slate', 'bone'][i % 3];
             return (
-              <li key={r.title} className="contact-route">
+              <li
+                key={r.title}
+                className={`contact-route contact-route--${tone}`}
+                data-surface={tone === 'bone' ? undefined : 'night'}
+                data-tone={tone === 'slate' ? 'raised' : undefined}
+                data-ground={tone === 'bone' ? 'bone' : undefined}
+              >
                 <Icon aria-hidden="true" size={24} strokeWidth={1.75} className="contact-route__icon" />
-                <h3 className="h5">{r.title}</h3>
+                <h3 className="contact-route__title">{r.title}</h3>
                 {r.note && <p className="contact-route__note">{r.note}</p>}
                 {r.body && <p className="contact-route__body">{r.body}</p>}
                 {r.action && <div className="contact-route__action">{r.action}</div>}
@@ -173,7 +201,7 @@ export default function Contact() {
       </Section>
 
       {/* Form */}
-      <Section id="contact-form">
+      <Section id="contact-form" surface="white">
         <div className="contact-formwrap">
           <div className="contact-formwrap__intro">
             <p className="eyebrow">{t('Write to us', 'எங்களுக்கு எழுதுங்கள்')}</p>
@@ -221,7 +249,7 @@ export default function Contact() {
       </Section>
 
       {/* Office + grievance */}
-      <Section surface="white">
+      <Section>
         <div className="contact-office">
           <Reveal className="contact-office__card">
             <p className="eyebrow">{t('Office', 'அலுவலகம்')}</p>

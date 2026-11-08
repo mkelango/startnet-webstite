@@ -15,22 +15,18 @@
   .research-home__commit-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .research-home__commit-grid > * + * { border-left: 1px solid var(--color-border); padding-left: var(--space-6); }
 }
-.research-home__commit-grid .stat--compact .stat__value { font-size: var(--text-h1); }
 .research-home__stop { margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid var(--color-border); color: var(--color-text-2); font-size: var(--text-small); max-width: var(--measure); }
 .research-home__stop strong { font-weight: 500; color: var(--color-text); }
 .research-home__labs { margin-top: var(--space-12); display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr); }
 /* Four Labs: 1 / 2x2 / 4 across (auto-fill gave 3 + an orphan at laptop widths) */
 @media (min-width: 640px) { .research-home__labs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1280px) { .research-home__labs { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-5); } }
-/* Phones: a 3:1 art strip keeps each Lab card short (3:2 art made them ~520px tall) */
-@media (max-width: 479px) { .research-home__labs .card__media .art-image { aspect-ratio: 3 / 1 !important; } }
 .research-home__nowrap { white-space: nowrap; }
 
 /* Fellowship feature: media frame + text column */
 .research-home__fellow-title { margin: var(--space-5) 0 var(--space-5); }
 .research-home__fellow-copy > * + * { margin-top: var(--space-5); }
 .research-home__fellow-copy .eyebrow + .research-home__fellow-title { margin-top: var(--space-5); }
-.research-home__fellow-art .art-image { border-radius: var(--media-radius); }
 .research-home__fellow-facts { margin: var(--space-6) 0 0; display: grid; border-top: 1px solid var(--color-border); }
 .research-home__fellow-facts div { display: flex; justify-content: space-between; gap: var(--space-4); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
 .research-home__fellow-facts dt { color: var(--color-text-muted); }
@@ -38,6 +34,7 @@
 .research-home__actions { --cluster-gap: var(--space-3) var(--space-5); margin-top: var(--space-6); }
 .research-home__progs { margin-top: var(--space-20); display: grid; gap: var(--space-6); }
 .research-home__progs > .h4 { font-weight: 400; font-size: var(--text-h3); letter-spacing: -0.015em; }
+:lang(ta) .research-home__progs > .h4 { letter-spacing: 0; }
 @media (min-width: 1024px) { .research-home__fellow-art { max-width: 30rem; } }
 /* Single column: cap the ladder art (it ran 975x1219 at 1023px) */
 @media (max-width: 1023px) { .research-home__fellow-art { max-width: min(100%, 24rem); } }
@@ -54,7 +51,7 @@
 .research-home__terms-copy > * + * { margin-top: var(--space-5); }
 .research-home__more {
   display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px;
-  font-weight: 500; color: var(--accent-text); text-decoration: none;
+  font-weight: 500; color: var(--color-text); text-decoration: none;
 }
 .research-home__more svg { transition: transform var(--dur-2) var(--ease-standard); }
 @media (hover: hover) and (pointer: fine) {
@@ -80,18 +77,27 @@
 .research-home__ipp-copy > * + * { margin-top: var(--space-6); }
 .research-home__ipp-stat { padding: var(--space-5) 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
 
-/* FAQ: three hairline columns */
-.research-home__faq { margin-top: var(--space-10); display: grid; gap: var(--space-12); }
-@media (min-width: 1024px) { .research-home__faq { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-8); } }
-.research-home__faq-title { padding-bottom: var(--space-4); margin-bottom: 0; font-weight: 400; color: var(--color-text-muted); font-size: var(--text-body); }
+/* FAQ (§4.14 split via .bp-faq): the heading sticky in cols 1–4, the three groups stacked in cols 6–12, each group
+   titled by a muted 15px label above its accordion */
+.research-home__faq { margin-top: var(--space-8); display: grid; gap: var(--space-10); }
+@media (min-width: 1024px) { .research-home__faq { margin-top: 0; } }
+:root .research-home__faq-title {
+  margin: 0 0 var(--space-2); font-size: var(--text-label); font-weight: 500; line-height: 1.4; letter-spacing: 0;
+  color: var(--color-text-muted);
+}
 .research-home__labs > * > *, .research-home__commit-grid > * > * { height: 100%; }
 
-/* Single upcoming event: horizontal feature card */
-@media (min-width: 768px) {
-  .research-home__event-feature .card { flex-direction: row; }
-  .research-home__event-feature .card__media { flex: 0 0 42%; align-self: stretch; border-radius: calc(var(--media-radius) - 1px) 0 0 calc(var(--media-radius) - 1px); }
-  .research-home__event-feature .card__media > * { height: 100%; }
-  .research-home__event-feature .card__body { min-width: 0; padding: var(--space-8); }
+/* Single upcoming event: one card at grid-cell width (a full-width 3/2 image would fill the screen) */
+.research-home__event-feature { max-width: min(100%, 26rem); }
+/* One upcoming event beside the past Summit: cols 1–5 | cols 7–12 from 1024 */
+@media (min-width: 1024px) {
+  .research-home__events-pair {
+    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: start;
+  }
+  .research-home__events-pair > .research-home__event-feature { grid-column: 1 / span 5; max-width: none; }
+  .research-home__events-pair > .research-home__past {
+    grid-column: 7 / -1; grid-template-columns: minmax(0, 1fr); margin-top: 0; padding-top: 0; border-top: 0;
+  }
 }
 
 /* Past event (NIRF Higher Ed Summit 2024): copy and two edition rows left, the promo film right */
@@ -113,3 +119,6 @@
 .research-home__past-when { margin: 0; font-variant-numeric: tabular-nums lining-nums; }
 .research-home__past-src { color: var(--color-text-muted); }
 .research-home__past-film { margin-top: 0; }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.research-home__progs > .h4:lang(ta) { letter-spacing: 0; }

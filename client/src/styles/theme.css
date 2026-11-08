@@ -9,28 +9,27 @@
  * Selectors start with :root so they outrank component CSS that loads later from lazy route chunks.
  */
 
-/* ---------- Headlines: regular-weight grotesk (Brand Book 04.3) ---------- */
+/* ---------- Headlines: Inter 500 (Brand Book 04.3 display at 500; SPEC §2.1) ---------- */
 :root :is(h1, .h1, .display-xl, .display-2xl, .page-hero__title, .brand-hero__title, .home-hero__title) {
   font-family: var(--font-display);
   font-weight: var(--weight-display);
 }
 :root :is(.display-xl, .display-2xl, .page-hero__title, .brand-hero__title, .home-hero__title) {
   letter-spacing: var(--tracking-display);
-  line-height: 1.04;
+  line-height: var(--leading-display);
 }
-:root :is(.display-2xl, .home-hero__title) { line-height: var(--leading-display); }
 :root :is(h1, .h1):not(.display-xl, .display-2xl, .page-hero__title, .brand-hero__title, .home-hero__title) {
   letter-spacing: var(--tracking-h1);
-  line-height: var(--leading-h1, 1.08);
+  line-height: var(--leading-h1);
 }
 :root :is(.h2, .section-header__title) {
   font-family: var(--font-display);
   font-weight: var(--weight-heading);
-  letter-spacing: var(--tracking-heading);
-  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-h2);
+  line-height: var(--leading-h2);
 }
 :root :is(h2, h3).card__title,
-:root .card__title { font-weight: var(--weight-heading); letter-spacing: var(--tracking-h3); }
+:root .card__title { font-weight: var(--weight-heading); letter-spacing: var(--tracking-h4); }
 
 /* Serif accent: ONE word per English headline; the full stop is never inside it. Never on Tamil. */
 :root .kinetic__accent,
@@ -40,9 +39,16 @@
   font-weight: 400;
   letter-spacing: 0;
   font-size: 1.04em;
+  /* Inline (not inline-block), so the word never wraps away from the punctuation after it ("founder." / "record,").
+     The tighter line-height keeps the serif's taller ascent/descent from growing the line box (G10). */
+  display: inline;
+  line-height: 0.9;
+  margin-bottom: 0;
 }
 :root:lang(ta) .kinetic__accent,
-:root:lang(ta) :is(h1, h2, .h1, .h2, .section-header__title, .cta-band__title) em { font-family: inherit; font-style: normal; font-size: 1em; }
+:root:lang(ta) :is(h1, h2, .h1, .h2, .section-header__title, .cta-band__title) em {
+  font-family: inherit; font-style: normal; font-weight: inherit; letter-spacing: inherit; font-size: 1em; line-height: inherit; display: inline; margin-bottom: 0;
+}
 
 /* ---------- "● Dot" labels instead of uppercase eyebrows (Latin and Tamil alike) ---------- */
 :root .eyebrow {
@@ -73,7 +79,7 @@
 :root :is(.home-hero, .page-hero, .brand-hero) {
   background-color: var(--night-0);
   color: var(--night-text);
-  padding-bottom: calc(var(--space-16) + var(--sheet-radius));
+  padding-bottom: calc(var(--space-hero-bottom) + var(--sheet-radius));
 }
 :root :is(.page-hero, .brand-hero) .page-hero__lede,
 :root .brand-hero__lede,
@@ -98,6 +104,41 @@
 :root .section--paper + .section--paper { border-top: 1px solid var(--hairline); }
 :root .section--night + .section--night { border-top: 1px solid var(--night-line); }
 
+/* Inset Ink panel (Section surface="inset", SPEC §4.4): PnP's rounded Ink panel inside a Paper margin. The section
+   itself stays Paper; the panel is painted behind the content (::before), 12px in from each edge, so the markup is
+   the usual section > .container. Section.jsx marks it data-surface="night" for the night text tokens. Below 768
+   it runs full bleed with square corners. It counts as an Ink band. */
+:root .section--inset {
+  isolation: isolate;
+  background-color: var(--paper);
+  padding-block: calc(var(--space-3) + var(--space-section));
+}
+:root .section--inset::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: var(--space-3) var(--header-side);
+  border-radius: var(--radius-panel);
+  background-color: var(--night-0);
+}
+:root .section--inset.section--pad-tight,
+:root .section--inset.section--pad-sm { padding-block: calc(var(--space-3) + var(--space-section-tight)); }
+:root .section--inset.section--pad-none { padding-block: var(--space-3); }
+@media (max-width: 767.98px) {
+  :root .section--inset { padding-block: var(--space-section); }
+  :root .section--inset.section--pad-tight,
+  :root .section--inset.section--pad-sm { padding-block: var(--space-section-tight); }
+  :root .section--inset.section--pad-none { padding-block: 0; }
+  :root .section--inset::before { inset: 0; border-radius: 0; }
+}
+
+/* ---------- Pulli dot grid (SPEC §4.16): the only texture. Static, never on photos or cards, never animated ---------- */
+.u-pulli {
+  background-image: radial-gradient(circle, var(--pulli-dot) 1px, transparent 1.5px);
+  background-size: var(--pulli-size) var(--pulli-size);
+  background-position: 0 0;
+}
+
 /* ---------- One sheet rise per page: the first Paper sheet slides over the Ink hero (Brand Book 05.8 item 5) ---------- */
 :root :is(.home-hero, .page-hero, .brand-hero) + :not(.section--night, [data-surface='night'], script, style) {
   position: relative;
@@ -109,7 +150,7 @@
    scrolls under it (evidence chips at z-index 2, cards) never paints over the docked bar or takes its taps. */
 :root :is(.home-hero, .page-hero, .brand-hero) + :is(.about-bar, .pill-subnav) { z-index: 20; }
 
-/* ---------- Media: 12px frames, quiet keyline, Bone placeholder ---------- */
+/* ---------- Media: 16px frames (--radius-media), quiet keyline, Bone placeholder ---------- */
 :root .art-image--photo { border-radius: var(--radius-media); }
 :root .art-image--photo::after {
   content: '';
@@ -130,10 +171,10 @@
 :root ::selection { background: rgb(239 68 68 / 0.2); color: inherit; }
 
 /* ---------- Layout utilities: the 12-column editorial grid ---------- */
-.grid-12 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--gutter); }
+.grid-12 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--grid-gap); }   /* 16 / 24 / 32 */
 .grid-12 > * { grid-column: 1 / -1; min-width: 0; }
 @media (min-width: 1024px) {
-  .grid-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; }
+  .grid-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
   /* The span sits on grid-column-end, so a .col-start-* on the same element keeps it (7 / span 6, not one column). */
   .grid-12 > .col-3 { grid-column: auto / span 3; }
   .grid-12 > .col-4 { grid-column: auto / span 4; }

@@ -6,8 +6,9 @@ import { isPlaceholderMetric } from './_placeholders.js';
 import './FactBand.css';
 
 /**
- * Proof / fact band (Book 3 C14, DESIGN-v2 3.9). 1–4 Stats in a <dl>: a row with vertical hairlines at ≥1024,
- * 2×2 below. A link with no title ("How we count…") is shown as the band's hairline-topped footnote row.
+ * Proof / fact band (docs/redesign/SPEC.md §4.7). 1–4 Stats in a <dl>: a row with 1px left rules between cells
+ * (none on the first) at ≥768, 2×2 below; a top hairline and --space-band padding. `variant="lg"` sets the numerals
+ * at --text-stat-lg (40→72: Mission meter, hub hero stats, gallery pairing); any other variant is passed to Stat. A link with no title ("How we count…") is shown as the band's hairline-topped footnote row.
  * C-tag figures are never summed with A/B figures; each Stat carries its own tag.
  * Figures with no value yet are left out, and a band with no real figure renders nothing (no heading-only band).
  */
@@ -17,7 +18,7 @@ export function FactBand({ metrics, surface = 'paper', title, footnote, link, va
   const night = surface === 'night';
   return (
     <div
-      className={cx('fact-band', `fact-band--${surface}`, `fact-band--n${Math.max(list.length, 1)}`, className)}
+      className={cx('fact-band', `fact-band--${surface}`, `fact-band--n${Math.max(list.length, 1)}`, variant === 'lg' && 'fact-band--lg', className)}
       data-surface={night ? 'night' : undefined}
     >
       {(title || link) && (

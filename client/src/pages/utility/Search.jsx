@@ -188,7 +188,7 @@ export default function Search() {
       )}
 
       {q && (
-        <Section surface="white" pad="sm" className="search-sheet">
+        <Section surface="white" pad="tight" className="search-sheet">
           <p className="visually-hidden" role="status" aria-live="polite">
             {loading
               ? t('Searching', 'தேடுகிறது')

@@ -136,7 +136,7 @@ export default function JobDetail() {
       />
 
       {/* Head on the ink band; the body sheet slides over it. */}
-      <Section surface="night" pad="sm" className="job__head-section">
+      <Section surface="night" pad="tight" className="job__head-section">
         <div className="job__head">
           <Breadcrumbs items={[{ label: t('Careers', 'பணி வாய்ப்புகள்'), to: '/careers' }, { label: titleIsMark ? t('Open role', 'பணி வாய்ப்பு') : role.title }]} />
           <div className="cluster job__chips">
@@ -159,7 +159,7 @@ export default function JobDetail() {
       </Section>
 
       {/* Body + key facts aside */}
-      <Section surface="paper" pad="sm">
+      <Section surface="paper" pad="tight">
         <div className="job__layout">
           <div className="job__main">
             <section className="job__block" aria-labelledby="job-outcome-h">
@@ -272,7 +272,7 @@ export default function JobDetail() {
 
       {/* Other roles */}
       {others.length > 0 && (
-        <Section surface="paper" pad="sm" labelledBy="job-more-h">
+        <Section surface="paper" pad="tight" labelledBy="job-more-h">
           <div className="job__more-head">
             <h2 id="job-more-h" className="h4">{t('Other open roles', 'பிற பணி வாய்ப்புகள்')}</h2>
             <Button variant="tertiary" to="/careers">{t('All open roles', 'எல்லாப் பணி வாய்ப்புகளும்')}</Button>
@@ -291,7 +291,7 @@ export default function JobDetail() {
         </Section>
       )}
 
-      <CTABand surface="night"
+      <CTABand surface="paper"
         title={t(`Ready to apply for ${plainTitle}?`, `${plainTitle}-க்கு விண்ணப்பிக்கத் தயாரா?`)}
         body={t("Don't see your role? Send us a note about what you'd do here.", 'உங்களுக்கான பணி இல்லையா? இங்கு நீங்கள் என்ன செய்வீர்கள் என்று எங்களுக்கு எழுதுங்கள்.')}
         actions={

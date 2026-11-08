@@ -1,6 +1,7 @@
 /* Partner pages (/partner, /partner/:type, /partner/enquire, /partner/our-partners). Prefix: .partner-
-   AngelList-family finish (Oct 2026): hairline rows instead of boxed cards, dot markers instead of coloured bars,
-   regular-weight titles, flat var(--card) cards, blueprint numbers between hairlines, calm night bands. */
+   Redesign (docs/redesign/SPEC.md 5.7, PnP audience landing): informative tiles at the panel radius for the doors,
+   service cards for the ready-made solutions, flat Card panels, hairline rows for lists, calm night bands.
+   No overrides of kit classes (6.1 rule 3): FactBand, Stat, LogoWall and PageHero take the kit look. */
 
 .partner-link {
   display: inline-flex; align-items: center; gap: var(--space-2);
@@ -22,61 +23,56 @@
 .section--night:is(.partner-district, .partner-proofband) { background-image: none; }
 .section--night:is(.partner-district, .partner-proofband)::before { display: none; }
 
-/* ---------- Hub: partner-by-type doors (full-width hairline rows) ---------- */
+/* ---------- Hub: partner-by-type doors (informative tiles, SPEC 4.6) ----------
+   Card tiles on the Bone section, --radius-panel, --pad-card-lg, min-height 200. 1 col on phones, 2 from 600 (the
+   odd last tile takes the row), and at >=1024 a 6-col grid: the first three span 2, the last two span 3 (3 + 2). */
 .partner-doors {
-  /* DESIGN-v2 6.4: PartnerType as framed top-rule columns. 1 col on phones, 2 from 768, and at ≥1024 a 6-col
-     grid where the first three span 2 and the last two span 3 (3 + 2, no orphan). */
-  list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px;
+  list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-grid);
   margin: 0; padding: 0;
 }
-@media (min-width: 768px) { .partner-doors { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; } }
+@media (min-width: 600px) {
+  .partner-doors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .partner-doors > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
 @media (min-width: 1024px) {
-  .partner-doors { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 32px; }
-  .partner-doors > * { grid-column: span 2; }
-  .partner-doors > :nth-child(n + 4) { grid-column: span 3; }
+  .partner-doors { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .partner-doors > *, .partner-doors > :last-child:nth-child(odd) { grid-column: span 2; }
+  .partner-doors > :nth-child(n + 4), .partner-doors > :last-child:nth-child(n + 4) { grid-column: span 3; }
 }
 .partner-door {
-  /* AIWO P14: an open column under a 1px Ink top rule (no box); the rule thickens to 2px on hover / focus-within. */
   position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3);
   min-height: 100%;
-  padding: 28px 0 0;
-  border-top: 1px solid var(--color-text);
+  padding: var(--pad-card-lg); border-radius: var(--radius-panel);
+  background: var(--color-bg-raised); color: var(--color-text);
 }
-@media (min-width: 1024px) { .partner-doors { row-gap: 56px; } }
-.partner-door::before {
-  content: ''; position: absolute; inset: -1px 0 auto; height: 2px; background: var(--color-text);
-  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
-}
-.partner-door:focus-within::before { transform: scaleX(1); }
-@media (hover: hover) and (pointer: fine) { .partner-door:hover::before { transform: scaleX(1); } }
-.partner-door__index { order: 0; font-size: var(--text-meta); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
-.partner-door__icon { order: 1; color: var(--color-text); margin-block: var(--space-4) var(--space-2); }
-.partner-door .partner-door__title {
+@media (min-width: 768px) { .partner-door { min-height: 200px; } }
+.partner-door__index { order: 0; font-size: var(--text-caption); font-weight: 500; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
+.partner-door__icon { order: 1; color: var(--color-text); margin-block: var(--space-4) var(--space-2); width: 24px; height: 24px; }
+:root .partner-door .partner-door__title {
   order: 2; margin: 0;
-  font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3, -0.015em);
-  overflow-wrap: break-word; hyphens: auto;
+  font-size: var(--text-h3); font-weight: 500; line-height: var(--leading-h3); letter-spacing: var(--tracking-h3);
+  overflow-wrap: break-word;
 }
 .partner-door__link { color: inherit; text-decoration: none; }
-.partner-door__link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.partner-door__link::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
 .partner-door__link:focus-visible { outline: 0; box-shadow: none; }
-.partner-door:has(.partner-door__link:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.partner-door:has(.partner-door__link:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
 .partner-door__body { order: 3; color: var(--color-text-2); max-width: 40ch; }
 .partner-door__more {
-  order: 4; margin-top: auto; padding-top: var(--space-4); display: inline-flex; align-items: center; gap: 10px;
+  order: 4; margin-top: auto; padding-top: var(--space-4); display: inline-flex; align-items: center; gap: var(--space-2);
   font-size: var(--text-body); font-weight: 500; color: var(--color-text);
-  transition: color var(--dur-2) var(--ease-standard);
 }
-.partner-door__more svg { flex: none; transition: transform var(--dur-2) var(--ease-standard); }
+.partner-door__more svg { flex: none; transition: transform var(--dur-2) var(--ease-snap); }
+.partner-door:focus-within .partner-door__more svg { transform: translateX(var(--shift-1)); }
 @media (hover: hover) and (pointer: fine) {
-  .partner-door:hover .partner-door__more { color: var(--color-text); }
-  .partner-door:hover .partner-door__more svg { transform: translateX(4px); }
-  .partner-door:hover .partner-door__link { text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-decoration-thickness: 1.5px; text-underline-offset: 0.16em; }
+  .partner-door:hover .partner-door__more svg { transform: translateX(var(--shift-1)); }
+  .partner-door:hover .partner-door__link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
 }
 
 .partner-also {
   display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-6);
   /* AIWO P11 tail: the remaining doors as one hairline row under the columns */
-  margin-top: var(--space-14, 56px); padding-top: var(--space-4); border-top: 1px solid var(--color-border);
+  margin-top: var(--space-12); padding-top: var(--space-4); border-top: 1px solid var(--color-border);
   font-size: var(--text-small);
 }
 .partner-also__label { color: var(--color-text-muted); font-weight: 400; }
@@ -95,32 +91,47 @@
 /* Single-column below 1024: keep the square map from filling a 975px-tall block. */
 @media (max-width: 1023px) { .partner-district__art { width: 100%; max-width: 30rem; } }
 
-/* ---------- Ready-made solutions: two-column hairline link list ---------- */
+/* ---------- Ready-made solutions: service cards (PnP findYourFit, SPEC 5.7 #4) ----------
+   A 2-column grid of Card tiles on the Bone section: type Badge, --text-h3 title, 2 lines, ArrowRight bottom-right.
+   The odd last card keeps one column (a full-row text card would be mostly empty). */
 .partner-solutions {
-  list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); margin-top: 0; padding: 0;
-  border-top: 1px solid var(--color-border);
+  list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-grid); margin: 0; padding: 0;
 }
-@media (min-width: 900px) { .partner-solutions { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-12); } }
-.partner-solution { display: grid; border-bottom: 1px solid var(--color-border); }
+@media (min-width: 768px) {
+  .partner-solutions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.partner-solution { display: grid; }
 .partner-solution__link {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-1) var(--space-4); align-content: start; align-items: start;
-  padding: var(--space-6) 0; min-height: 44px; color: inherit; text-decoration: none;
+  position: relative;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto 1fr auto; gap: var(--space-3) var(--space-4);
+  min-height: 12.5rem; padding: var(--pad-card-lg); border-radius: var(--radius-panel);
+  background: var(--color-bg-raised); color: inherit; text-decoration: none;
 }
-.partner-solution .partner-solution__title { grid-column: 1; font-size: var(--text-h5); font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; }
-.partner-solution__body { grid-column: 1; color: var(--color-text-2); font-size: var(--text-small); }
+:root .partner-solution .partner-solution__title {
+  grid-column: 1 / -1; font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); line-height: var(--leading-h3);
+}
+.partner-solution__badge { grid-column: 1 / -1; justify-self: start; }
+.partner-solution__body {
+  grid-column: 1 / -1; color: var(--color-text-2); font-size: var(--text-body); max-width: 40ch;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
+}
 .partner-solution__arrow {
-  grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--color-text-muted);
-  transition: transform var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard);
+  grid-column: 2; grid-row: 4; justify-self: end; align-self: end; color: var(--color-text);
+  width: 24px; height: 24px;
+  transition: transform var(--dur-2) var(--ease-snap);
 }
-.partner-solution__link:hover .partner-solution__title { text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-decoration-thickness: 1.5px; text-underline-offset: 0.18em; }
-.partner-solution__link:focus-visible .partner-solution__arrow { color: var(--color-text); transform: translateX(var(--shift-2)); }
-@media (hover: hover) and (pointer: fine) { .partner-solution__link:hover .partner-solution__arrow { color: var(--color-text); transform: translateX(var(--shift-2)); } }
+.partner-solution__link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
+.partner-solution__link:focus-visible .partner-solution__arrow { transform: translateX(var(--shift-1)); }
+@media (hover: hover) and (pointer: fine) {
+  .partner-solution__link:hover .partner-solution__title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+  .partner-solution__link:hover .partner-solution__arrow { transform: translateX(var(--shift-1)); }
+}
 
 /* ---------- Proof ---------- */
 .partner-proof { display: grid; gap: var(--space-12); }
 .partner-proof__row { display: grid; gap: var(--space-10); }
 @media (min-width: 1024px) { .partner-proof__row { grid-template-columns: 7fr 5fr; gap: var(--space-16); } }
-.partner-proof .partner-proof__subhead { margin-bottom: var(--space-5); font-size: var(--text-h5); font-weight: 500; letter-spacing: -0.01em; }
+:root .partner-proof .partner-proof__subhead { margin-bottom: var(--space-5); font-size: var(--text-h5); font-weight: 500; letter-spacing: var(--tracking-h4); }
 /* Proof links: a full-width hairline list (title left, arrow right). */
 .partner-proof__links { list-style: none; display: grid; align-content: start; margin: 0; padding: 0; border-top: 1px solid var(--color-border); }
 .partner-proof__links li { border-bottom: 1px solid var(--color-border); }
@@ -134,10 +145,9 @@
 /* Nothing signed yet: a flat note card (solid hairline, no dashed "slot"). */
 .partner-proof__none {
   display: grid; gap: var(--space-3); justify-items: start;
-  padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  padding: var(--pad-card); background: var(--color-bg-raised); border: 1px solid var(--color-border); border-radius: var(--radius-card);
   color: var(--color-text-2);
 }
-[data-surface='night'] .partner-proof__none { background: var(--night-1); border-color: var(--night-line); }
 .partner-proof__none p { max-width: var(--measure); margin: 0; }
 .partner-proof__none .partner-link { min-height: 44px; } /* WCAG 2.5.5-size tap target on phones */
 .partner-proof__names { list-style: none; display: grid; margin-top: var(--space-6); padding: 0; border-top: 1px solid var(--color-border); }
@@ -145,32 +155,11 @@
 .partner-proof__name { font-weight: 500; }
 .partner-proof__since { color: var(--color-text-muted); font-size: var(--text-small); font-variant-numeric: tabular-nums; }
 
-/* Founder Ledger figures: USVC blueprint numbers (light numerals between hairlines; theme draws the vertical dividers). */
-.partner-ledger .fact-band__title { font-weight: 500; letter-spacing: -0.01em; }
-.partner-ledger .fact-band__grid { border-top: 1px solid var(--color-border); }
-.partner-ledger .stat--default { border-top: 0; padding-top: var(--space-6); }
-
-/* Signed partners' logos: a blueprint grid of hairline cells (here and on /partner/our-partners). Each cell draws
-   all four hairlines with shadows that overlap their neighbours, so the frame wraps only the cells that exist. */
-:is(.partner-ourwall, .partner-proof__partners) .logo-wall__grid { gap: 0; padding: 1px 0 0 1px; }
-:is(.partner-ourwall, .partner-proof__partners) .logo-wall__grid > li {
-  display: grid;
-  box-shadow:
-    1px 0 0 0 var(--color-border), 0 1px 0 0 var(--color-border), 1px 1px 0 0 var(--color-border),
-    inset 1px 0 0 0 var(--color-border), inset 0 1px 0 0 var(--color-border);
-}
-:is(.partner-ourwall, .partner-proof__partners) .logo-wall__item { align-content: space-between; gap: var(--space-3); padding: var(--space-5); }
-:is(.partner-ourwall, .partner-proof__partners) .logo-wall__grid .logo-wall__logo {
-  min-width: 0; height: 88px; padding: 0; border: 0; border-radius: 0; background: transparent;
-}
-:is(.partner-ourwall, .partner-proof__partners) .logo-wall__name { font-weight: 500; color: var(--color-text); }
-:is(.partner-ourwall, .partner-proof__partners) .logo-wall__since { font-size: var(--text-small); }
-
 .partner-proofneeded__objection { margin-bottom: var(--space-8); }
 .partner-proofneeded__q { display: block; font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); margin-bottom: var(--space-3); }
 .partner-proofneeded__objection q {
   display: block; max-width: 26ch;
-  font-size: var(--text-h3); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em;
+  font-size: var(--text-h3); font-weight: 400; line-height: var(--leading-h3); letter-spacing: var(--tracking-h3);
 }
 .partner-proofneeded__lead { color: var(--color-text-2); margin-bottom: var(--space-4); }
 .partner-proofneeded__list { list-style: none; display: grid; gap: 0; padding: 0; border-top: 1px solid var(--color-border); }
@@ -193,16 +182,16 @@
   position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3);
   padding-block: var(--space-6) var(--space-8);
   border-bottom: 1px solid var(--color-border);
-  scroll-margin-top: calc(var(--header-h) + var(--space-8));
+  scroll-margin-top: calc(var(--shell-offset, 0px) + var(--space-8));
 }
 @media (min-width: 768px) {
   .partner-offer { grid-template-columns: 3rem minmax(0, 5fr) minmax(0, 6fr); gap: var(--space-6); align-items: start; padding-block: var(--space-8); }
   .partner-offer--brand { grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 6fr); }
 }
 @media (min-width: 1024px) { .partner-offer { gap: var(--space-10); } }
-.partner-offer:target { box-shadow: var(--focus-ring); border-radius: var(--btn-radius); }
+.partner-offer:target { box-shadow: var(--focus-ring); border-radius: var(--radius-card); }
 .partner-offer__index { font-size: var(--text-small); font-weight: 400; color: var(--color-text-muted); padding-top: 0.45em; }
-.partner-offer .partner-offer__title { margin: 0; font-size: var(--text-h3); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; overflow-wrap: break-word; }
+:root .partner-offer .partner-offer__title { margin: 0; font-size: var(--text-h3); font-weight: 500; line-height: var(--leading-h3); letter-spacing: var(--tracking-h3); overflow-wrap: break-word; }
 .partner-offer__text { display: grid; gap: var(--space-4); justify-items: start; align-content: start; min-width: 0; }
 .partner-offer__body { color: var(--color-text-2); max-width: 40rem; }
 .partner-offer__stat { padding-top: var(--space-2); }
@@ -230,14 +219,14 @@
 .partner-detail__aside { display: grid; gap: var(--space-5); }
 .partner-detail__how .body-lg { margin-top: var(--space-4); max-width: 36rem; color: var(--color-text-2); }
 
-.partner-checklist { list-style: none; display: grid; gap: 0; margin-top: var(--space-6) !important; padding: 0; border-top: 1px solid var(--color-border); }
+:root .partner-checklist { list-style: none; display: grid; gap: 0; margin-top: var(--space-6); padding: 0; border-top: 1px solid var(--color-border); }
 .partner-checklist li { display: flex; gap: var(--space-4); align-items: baseline; padding-block: var(--space-4); border-bottom: 1px solid var(--color-border); }
 .partner-checklist__icon { flex: none; align-self: center; color: var(--color-text); }
-.partner-checklist .h5 { font-weight: 400; letter-spacing: -0.01em; }
+.partner-checklist .h5 { font-weight: 400; letter-spacing: var(--tracking-h4); }
 
 .partner-note {
-  padding: var(--space-4) var(--space-5); border: 1px solid var(--color-border); border-radius: var(--media-radius);
-  background: var(--card); color: var(--color-text-2);
+  padding: var(--space-4) var(--space-5); border: 1px solid var(--color-border); border-radius: var(--radius-card);
+  background: var(--color-bg-raised); color: var(--color-text-2);
   font-size: var(--text-small); max-width: var(--measure);
 }
 .partner-rule { font-size: var(--text-small); color: var(--color-text-2); max-width: var(--measure); }
@@ -245,19 +234,15 @@
 
 .partner-tier {
   display: grid; gap: var(--space-4); align-content: start; justify-items: start;
-  padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius);
-  box-shadow: none;
-  scroll-margin-top: calc(var(--header-h) + var(--space-8));
+  padding: var(--pad-card-lg); background: var(--color-bg-raised); border: 1px solid var(--color-border); border-radius: var(--radius-card);
+  scroll-margin-top: calc(var(--shell-offset, 0px) + var(--space-8));
 }
-@media (min-width: 768px) { .partner-tier { padding: var(--space-8); } }
-.partner-tier > .stat { justify-self: stretch; }
-/* The card is the frame: no second rule above the figure. */
-.partner-tier .stat--default { border-top: 0; padding-top: 0; }
-.partner-tier .h4 { font-weight: 500; letter-spacing: -0.01em; }
+.partner-tier > * { justify-self: stretch; }
+.partner-tier .h4 { font-weight: 500; letter-spacing: var(--tracking-h4); }
 .partner-tier__note { color: var(--color-text-2); font-size: var(--text-small); }
 
 .partner-legal {
-  padding: var(--space-5); border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card);
+  padding: var(--pad-card); border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-bg-raised);
   font-size: var(--text-small); display: grid; gap: var(--space-2);
 }
 .partner-legal strong { font-weight: 500; }
@@ -272,32 +257,27 @@
   .partner-proofband__grid > :first-child { padding-right: var(--space-12); }
   .partner-proofband__partners { padding-left: var(--space-12); border-left: 1px solid var(--color-border); }
 }
-.partner-proofband__partners h3 { margin-bottom: var(--space-5); font-weight: 500; letter-spacing: -0.01em; }
+.partner-proofband__partners h3 { margin-bottom: var(--space-5); font-weight: 500; letter-spacing: var(--tracking-h4); }
 .partner-proofband__ledger { margin-top: var(--space-12); }
 .partner-proofband__ledger:has(.fact-band) { padding-top: var(--space-10); border-top: 1px solid var(--color-border); }
 
 /* ---------- Enquiry panel / page: context + form in a flat hairline card ---------- */
-.partner-enquire-panel { scroll-margin-top: var(--header-h); }
+.partner-enquire-panel { scroll-margin-top: var(--shell-offset, 0px); }
 .partner-enquire { display: grid; gap: var(--space-10); }
 @media (min-width: 1024px) {
   .partner-enquire { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; }
-  /* /partner/enquire: context left, form right (the form stays first in reading order and on phones). */
-  .partner-enquire--page .partner-enquire__aside { grid-column: 1; grid-row: 1; }
-  .partner-enquire--page .partner-enquire__form { grid-column: 2; grid-row: 1; }
   .partner-enquire__intro, .partner-enquire__aside { position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-6)); }
 }
 .partner-enquire__intro > * + * { margin-top: var(--space-5); }
 .partner-enquire__intro > .partner-route { margin-top: var(--space-8); }
 .partner-enquire__intro .text-2 { max-width: 36rem; }
 .partner-enquire__form {
-  /* DESIGN-v2 3.14: White form card, 12px, hairline ring, 32/24 padding */
-  padding: 24px; background: var(--white); border: 0; border-radius: var(--radius-media);
-  box-shadow: inset 0 0 0 1px var(--hairline);
+  /* SPEC 4.12: White form card, 12px radius, hairline, --pad-card-lg */
+  padding: var(--pad-card-lg); background: var(--color-bg-form); border: 1px solid var(--color-border); border-radius: var(--radius-card);
 }
-@media (min-width: 768px) { .partner-enquire__form { padding: 32px; } }
 .partner-enquire__alt { font-size: var(--text-small); color: var(--color-text-muted); }
 .partner-enquire__aside > * > * + * { margin-top: var(--space-6); }
-.partner-enquire__aside h2 { font-size: var(--text-h3); font-weight: 500; line-height: 1.1; letter-spacing: -0.02em; }
+:root .partner-enquire__aside h2 { font-size: var(--text-h3); font-weight: 500; line-height: var(--leading-h3); letter-spacing: var(--tracking-h3); }
 .partner-enquire__wa { margin-top: var(--space-8); }
 
 /* Routing facts: hairline rows, quiet key / regular value. */
@@ -312,13 +292,10 @@
 .partner-next li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: var(--space-4); align-items: center; padding-block: var(--space-4); border-bottom: 1px solid var(--color-border); }
 .partner-next svg {
   box-sizing: content-box; width: 20px; height: 20px; padding: 9px;
-  border: 1px solid var(--color-border); border-radius: var(--btn-radius); color: var(--color-text);
+  border: 1px solid var(--color-border); border-radius: var(--radius-full); color: var(--color-text);
 }
 
 .partner-routing { display: grid; gap: var(--space-8); }
-.partner-routing__intro > * + * { margin-top: var(--space-5); }
-.partner-routing__intro .text-2 { max-width: 40rem; }
-.partner-routing__intro .h3 { font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
 /* Hairline rows on the card sheet: no frame, no header band. The cover gradients match the sheet (var(--card)).
    The inset lives on the outer cells, not the wrapper, so the row hairlines still run the full card width;
    the same rule pads header and body cells, so each column shares one left edge. */
@@ -336,11 +313,11 @@
 .partner-routing__table {
   /* Edge fade while the table overflows sideways (tablet widths). */
   background:
-    linear-gradient(to right, var(--card), transparent) left / 1.5rem 100% no-repeat local,
-    linear-gradient(to left, var(--card), transparent) right / 1.5rem 100% no-repeat local,
+    linear-gradient(to right, var(--color-bg-raised), transparent) left / 1.5rem 100% no-repeat local,
+    linear-gradient(to left, var(--color-bg-raised), transparent) right / 1.5rem 100% no-repeat local,
     linear-gradient(to right, color-mix(in srgb, var(--night-0) 12%, transparent), transparent) left / 0.75rem 100% no-repeat scroll,
     linear-gradient(to left, color-mix(in srgb, var(--night-0) 12%, transparent), transparent) right / 0.75rem 100% no-repeat scroll,
-    var(--card);
+    var(--color-bg-raised);
 }
 /* Stacked label/value rows instead of a sideways scroller. Enquire.jsx sets --stacked below 600px, and below
    1280px in Tamil (V-P1: Tamil headers split mid-word in a 3-column table at tablet/laptop widths). */
@@ -380,9 +357,10 @@
 
 /* ---------- Hub FAQ: header left, hairline accordion right ---------- */
 .partner-faq__grid { display: grid; gap: 0; }
+/* SPEC 4.14: header in cols 1-4 (sticky), the list in cols 6-12. */
 @media (min-width: 1024px) {
-  .partner-faq__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-16); align-items: start; }
-  .partner-faq__grid .section-header { position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-6)); margin-bottom: 0; }
+  .partner-faq__grid { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); column-gap: calc(100% / 12 + var(--grid-gap)); align-items: start; }
+  .partner-faq__grid > .section-header { position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-6)); margin-bottom: 0; }
 }
 
 /* ---------- Our partners ---------- */
@@ -391,7 +369,7 @@
 @media (min-width: 900px) { .partner-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-16); } }
 .partner-group .partner-group__title {
   display: flex; align-items: baseline; gap: var(--space-2); padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border);
-  font-weight: 500; letter-spacing: -0.01em;
+  font-weight: 500; letter-spacing: var(--tracking-h4);
 }
 .partner-group__count { font-size: var(--text-small); color: var(--color-text-muted); font-weight: 400; }
 .partner-group__list { list-style: none; padding: 0; }
@@ -413,10 +391,7 @@
 :lang(ta) .partner-proofneeded__objection q { letter-spacing: 0; line-height: var(--leading-heading); }
 :lang(ta) .partner-door__index { letter-spacing: 0; }
 /* Tamil door titles run ~40% longer: a smaller heading, and a wider title column while the rows are tight. */
-:lang(ta) .partner-door .partner-door__title { font-size: var(--text-h4); letter-spacing: 0; line-height: 1.3; }
-@media (min-width: 1024px) and (max-width: 1439px) {
-  :lang(ta) .partner-door { grid-template-columns: 2.5rem 2rem minmax(0, 5fr) minmax(0, 5fr) auto; }
-}
+:root :lang(ta) .partner-door .partner-door__title { font-size: var(--text-h4); }
 :lang(ta) .partner-how .steps__title { font-size: 1.125rem; }
 @media (min-width: 1024px) {
   :lang(ta) :is(.partner-offers--n4, .partner-offers--brands) .partner-offer__title { font-size: var(--text-h4); }
@@ -426,18 +401,7 @@
   :lang(ta) .partner-how { grid-template-columns: 1fr; gap: var(--space-10); }
 }
 /* No negative tracking on Tamil headings set here. */
-:lang(ta) :is(.partner-offer .partner-offer__title, .partner-enquire__aside h2, .partner-routing__intro .h3, .partner-solution .partner-solution__title, .partner-checklist .h5) { letter-spacing: 0; line-height: 1.3; }
-
-/* Solution rows (AIWO hairline rows): a quiet row wash on hover; the arrow nudges 4px. Section ground is Bone,
-   so the wash is White. Opacity only. */
-.partner-solution__link { position: relative; isolation: isolate; }
-.partner-solution__link::before {
-  content: ''; position: absolute; inset: 0 calc(-1 * var(--space-4)); z-index: -1;
-  border-radius: var(--radius-btn); background: var(--white); opacity: 0;
-  transition: opacity var(--dur-2) var(--ease-snap);
-}
-@media (hover: hover) and (pointer: fine) { .partner-solution__link:hover::before { opacity: 1; } }
-@media (hover: hover) and (pointer: fine) { .partner-solution__link:hover .partner-solution__arrow { transform: translateX(4px); } }
+:lang(ta) :is(.partner-offer .partner-offer__title, .partner-enquire__aside h2, .partner-solution .partner-solution__title, .partner-checklist .h5) { letter-spacing: 0; line-height: 1.3; }
 
 /* QA v6 (Tamil partner-type heroes): "நிறுவனர்களிடமிருந்து" (/ta/partner/gccs, ~11.5em) and "பார்வையாளர்களைச்"
    (/ta/partner/sponsors, ~11.2em) are wider than the 592px title column at 1440 (and the 18ch cap on phones), so they
@@ -450,3 +414,10 @@
 @media (min-width: 1024px) and (max-width: 1279.98px) {
   .partner-hero.page-hero--split .page-hero__title:lang(ta) { font-size: min(var(--text-display-xl), 2.5rem); max-width: none; overflow-wrap: normal; }
 }
+
+/* ---------- /partner/enquire: the contact template (SPEC 5.7 → 5.8) ----------
+   Contact.css draws the Bone centred hero, the step indicator and the 768 form column; these are the extras. */
+.partner-enquire-hero__sla { justify-content: center; margin-top: var(--space-5); }
+.partner-enquire-page__next { scroll-margin-top: calc(var(--shell-offset, 0px) + var(--space-6)); }
+.partner-enquire-page__next > * > * + * { margin-top: var(--space-6); }
+#partner-routing, #enquire-form { scroll-margin-top: var(--shell-offset, 0px); }

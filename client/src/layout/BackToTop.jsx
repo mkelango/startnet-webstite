@@ -1,4 +1,4 @@
-// Back to top (v2b interaction layer). A 48px Ink ring button, bottom-right, that appears once the visitor is more
+// Back to top (SPEC §3.7). A 48px Card circle with a hairline (BackToTop.css), bottom-right, that appears once the visitor is more
 // than two viewport heights down and glides the page back up (Lenis when running, instant under reduced motion).
 // Focus then moves to the skip link's target (<main>), so keyboard and screen-reader users land at the top too.
 // It sits above the mobile bottom CTA bar, steps aside while the consent card or a modal is open (CSS), and is
@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { ArrowUp } from 'lucide-react';
 import { useLang } from '../lib/i18n.jsx';
 import { scrollToY } from '../lib/smoothScroll.js';
+import './BackToTop.css';
 
 const SHOW_AFTER = 2; // viewport heights
 const PHONE = '(max-width: 767.98px)';
@@ -68,7 +69,7 @@ export default function BackToTop() {
       aria-label={t('Back to top', 'மேலே செல்லவும்')}
       title={t('Back to top', 'மேலே செல்லவும்')}
     >
-      <ArrowUp size={20} strokeWidth={1.9} aria-hidden="true" className="back-to-top__icon" />
+      <ArrowUp size={20} strokeWidth={1.75} aria-hidden="true" className="back-to-top__icon" />
     </button>
   );
 }

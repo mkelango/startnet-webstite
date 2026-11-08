@@ -8,7 +8,9 @@ import { ctaLabelFor, cx, formatLabel, langList, priceLabel } from './_utils.js'
 import './ProgrammeCard.css';
 
 /**
- * Programme card (Book 3 C23): brand chip, status chip, title, L → L, format, language, price, apply-by, CTA.
+ * Programme card (Book 3 C23, docs/redesign/SPEC.md §4.6): status chip + brand chip, title (--text-h3, 2 lines),
+ * a short summary, the facts (L → L, format, language, price, apply-by) and the CTA. With `art` it is the PnP
+ * programme card: unframed on Paper (framed on Bone grounds) with the 3:2 media at 16px on top.
  * Optional `art` (ArtImage props or a node) puts a media at the top of the card, 3:2 by default (AIWO P9); `artRatio`
  * changes the ratio. Without `art` the card is text only, as before.
  */
@@ -37,8 +39,8 @@ export function ProgrammeCard({ programme, headingLevel = 3, className, art, art
       ratio={art ? artRatio : undefined}
       badges={
         <>
-          {p.brand && <Badge kind="brand" brand={p.brand} />}
           {p.status && <Badge kind="status" status={p.status} />}
+          {p.brand && <Badge kind="brand" brand={p.brand} />}
         </>
       }
       title={pick(p, 'title')}

@@ -110,6 +110,7 @@ export default function Media() {
       />
 
       <PageHero
+        layout="text"
         className="rk-hero rk-page"
         eyebrow={t('Media', 'ஊடகம்')}
         title={t('Media centre', 'ஊடக மையம்')}

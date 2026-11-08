@@ -50,33 +50,8 @@
   gap: var(--space-4) var(--space-6); margin-top: var(--space-12); padding-top: var(--space-6); border-top: 1px solid var(--color-border);
 }
 
-/* ≥1024: events as hairline rows (DESIGN-v2 6.2 / 6.3): a 4:3 thumbnail | kicker, title, summary | facts and the
-   arrow link. Below 1024 they stay media cards. Same data and order. */
-@media (min-width: 1024px) {
-  .brand-events__grid--rows { grid-template-columns: minmax(0, 1fr); gap: 0; border-top: 1px solid var(--color-border); }
-  .brand-events__grid--rows > li { border-bottom: 1px solid var(--color-border); }
-  :root .brand-events__grid--rows .event-card {
-    position: relative; isolation: isolate;
-    display: grid; grid-template-columns: 200px minmax(0, 1fr); column-gap: 32px; align-items: start;
-    padding-block: var(--space-8);
-  }
-  :root .brand-events__grid--rows .event-card .card__media { grid-column: 1; margin: 0; }
-  :root .brand-events__grid--rows .event-card .card__body {
-    grid-column: 2; display: grid; grid-template-columns: minmax(0, 1fr) 240px; column-gap: 32px; row-gap: var(--space-2);
-    align-content: start; padding: 0;
-  }
-  :root .brand-events__grid--rows .event-card .card__body > * { grid-column: 1; margin: 0; }
-  :root .brand-events__grid--rows .event-card .card__meta { grid-column: 2; grid-row: 1 / span 3; align-self: start; }
-  :root .brand-events__grid--rows .event-card .card__footer { grid-column: 2; grid-row: 4; align-self: end; margin-top: var(--space-3); }
-  @media (hover: hover) and (pointer: fine) {
-    .brand-events__grid--rows .event-card::before {
-      content: ''; position: absolute; inset: 0 calc(-1 * var(--space-4)); z-index: -1;
-      border-radius: var(--radius-btn); background: color-mix(in srgb, var(--color-text) 4%, transparent);
-      opacity: 0; transition: opacity var(--dur-2) var(--ease-snap);
-    }
-    .brand-events__grid--rows .event-card:hover::before { opacity: 1; }
-  }
-}
+/* Events run as the kit EventCard grid at every width (SPEC §5.4 listing template); the old ≥1024 hairline-row
+   override of the card internals is retired. */
 @media (prefers-reduced-motion: reduce) {
   .brand-events__when-btn { transition: none; }
 }
@@ -95,8 +70,8 @@
   :is(.brand-events__series, .brand-events__grid--rows):not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) {
     display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--space-6); align-items: stretch;
   }
-  :is(.brand-events__series, .brand-events__grid--rows):not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media { width: 100%; height: 100%; min-width: 0; margin-bottom: 0; }
-  :is(.brand-events__series, .brand-events__grid--rows):not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media .art-image { aspect-ratio: auto !important; width: 100%; height: 100%; min-height: 12rem; }
+  :is(.brand-events__series, .brand-events__grid--rows):not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media { position: relative; width: 100%; height: 100%; min-width: 0; min-height: 12rem; margin-bottom: 0; aspect-ratio: auto; }
+  :is(.brand-events__series, .brand-events__grid--rows):not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media > .art-image { position: absolute; inset: 0; height: 100%; }
 }
 /* 1024–1279: auto-fit fits three 16rem tracks, so four series ran 3 + 1. Four run 2 × 2 here and 4 across from 1280. */
 @media (min-width: 1024px) and (max-width: 1279.98px) {

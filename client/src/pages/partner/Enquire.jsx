@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { MessageCircle, Clock, Hash, UserCheck, CalendarCheck } from 'lucide-react';
-import { Seo, PageHero, Section, Button, Reveal } from '../../components';
+import { Seo, Section, SectionHeader, Button, Reveal, Breadcrumbs, KineticHeadline } from '../../components';
 import { useLang } from '../../lib/i18n.jsx';
 import { waLink } from '../../lib/links.js';
 import { useMediaQuery } from '../../layout/shell.jsx';
@@ -9,6 +9,7 @@ import {
   TENDER_NOTE, TENDER_NOTE_TA, PARTNER_TYPES, tf,
 } from './partnerData.js';
 import EnquiryForm from './EnquiryForm.jsx';
+import '../utility/Contact.css';
 import './Partner.css';
 
 // Accept both enquiry values (?type=institution) and partner page slugs (?type=institutions).
@@ -47,25 +48,49 @@ export default function Enquire() {
         )}
       />
 
-      <PageHero
-        eyebrow={t('Partner with us', 'எங்களுடன் கூட்டு சேருங்கள்')}
-        title={t('Tell us what you need.', 'உங்களுக்கு என்ன தேவை என்று சொல்லுங்கள்.')}
-        lede={t(
-          'One form for every kind of partner. Choose your organisation type and we route it to the right team.',
-          'எல்லா வகைக் கூட்டாளர்களுக்கும் ஒரே படிவம். உங்கள் நிறுவன வகையைத் தேர்ந்தெடுங்கள்; சரியான குழுவுக்கு அனுப்புகிறோம்.'
-        )}
-        breadcrumbs={[{ label: t('Partner with us', 'எங்களுடன் கூட்டு சேருங்கள்'), to: '/partner' }, { label: t('Enquire', 'விசாரணை') }]}
-        meta={
-          <p className="partner-hero-sla">
+      {/* SPEC 5.7: /partner/enquire uses the contact template (5.8): a Bone centred hero (no Ink band, no sheet rise),
+          the step indicator, then one centred column with the form in a White card (max 768). */}
+      <header className="contact-hero partner-enquire-hero rk-page" data-ground="bone">
+        <div className="container contact-hero__inner">
+          <Breadcrumbs
+            items={[{ label: t('Partner with us', 'எங்களுடன் கூட்டு சேருங்கள்'), to: '/partner' }, { label: t('Enquire', 'விசாரணை') }]}
+            className="contact-hero__crumbs"
+          />
+          <p className="eyebrow contact-hero__eyebrow">{t('Partner with us', 'எங்களுடன் கூட்டு சேருங்கள்')}</p>
+          <KineticHeadline
+            text={t('Tell us what you need.', 'உங்களுக்கு என்ன தேவை என்று சொல்லுங்கள்.')}
+            as="h1"
+            accentWord="need"
+            className="contact-hero__title"
+          />
+          <p className="contact-hero__lede">
+            {t(
+              'One form for every kind of partner. Choose your organisation type and we route it to the right team.',
+              'எல்லா வகைக் கூட்டாளர்களுக்கும் ஒரே படிவம். உங்கள் நிறுவன வகையைத் தேர்ந்தெடுங்கள்; சரியான குழுவுக்கு அனுப்புகிறோம்.'
+            )}
+          </p>
+          <p className="partner-hero-sla partner-enquire-hero__sla">
             <Clock aria-hidden="true" size={16} /> {slaLine}
           </p>
-        }
-      />
+          {/* Step indicator (SPEC 4.12): choose the type, it is routed to an owner, then what happens next. */}
+          <ol className="contact-steps" role="list">
+            <li className="contact-steps__item is-active" aria-current="step">
+              <a href="#enquire-form"><span className="contact-steps__num" aria-hidden="true">1</span>{colType}</a>
+            </li>
+            <li className="contact-steps__item">
+              <a href="#partner-routing"><span className="contact-steps__num" aria-hidden="true">2</span>{colOwner}</a>
+            </li>
+            <li className="contact-steps__item">
+              <a href="#enquire-next"><span className="contact-steps__num" aria-hidden="true">3</span>{t('What happens next', 'அடுத்து என்ன நடக்கும்')}</a>
+            </li>
+          </ol>
+        </div>
+      </header>
 
-      {/* Paper sheet so the form's flat #FBFAF7 card reads; the routing table sits on the white sheet below. */}
-      <Section>
-        <div className="partner-enquire partner-enquire--page">
-          <div className="partner-enquire__form">
+      {/* One centred column: the form in a White card, then what happens after you send. */}
+      <Section id="enquire-form">
+        <div className="contact-formwrap partner-enquire-page">
+          <div className="contact-formwrap__form">
             <EnquiryForm
               key={`${type}-${topic}-${ref || ''}-${brand || ''}`}
               defaultType={type}
@@ -75,7 +100,7 @@ export default function Enquire() {
             />
           </div>
 
-          <aside className="partner-enquire__aside" aria-label={t('What happens after you send', 'அனுப்பிய பிறகு என்ன நடக்கும்')}>
+          <aside id="enquire-next" className="partner-enquire__aside partner-enquire-page__next" aria-label={t('What happens after you send', 'அனுப்பிய பிறகு என்ன நடக்கும்')}>
             <Reveal>
               <h2 className="h4">{t('What happens next', 'அடுத்து என்ன நடக்கும்')}</h2>
               <ol className="partner-next" role="list">
@@ -110,7 +135,6 @@ export default function Enquire() {
                   variant="whatsapp"
                   href={waLink(t(WA_TEXT, WA_TEXT_TA), `partner-enquire, ${lang}`)}
                   icon={MessageCircle}
-                  full
                 >
                   {t('WhatsApp our partnerships team', 'எங்கள் கூட்டாண்மைக் குழுவுடன் WhatsApp-இல் பேசுங்கள்')}
                 </Button>
@@ -120,18 +144,18 @@ export default function Enquire() {
         </div>
       </Section>
 
-      <Section surface="white" labelledBy="partner-routing-title">
+      <Section id="partner-routing" surface="white" labelledBy="partner-routing-title">
         <div className="partner-routing">
-          <div className="partner-routing__intro">
-            <p className="eyebrow">{t('Routing', 'அனுப்பும் முறை')}</p>
-            <h2 id="partner-routing-title" className="h3">{t('Who reads your enquiry', 'உங்கள் விசாரணையை யார் படிப்பார்கள்')}</h2>
-            <p className="text-2">
-              {t(
-                'Each enquiry is recorded with its source page and assigned by organisation type. If we miss the reply time, it is escalated.',
-                'ஒவ்வொரு விசாரணையும் அது வந்த பக்கத்துடன் பதிவுசெய்யப்பட்டு, நிறுவன வகைப்படி ஒதுக்கப்படுகிறது. பதில் நேரத்தைத் தவறவிட்டால், அது மேல்நிலைக்குக் கொண்டு செல்லப்படும்.'
-              )}
-            </p>
-          </div>
+          <SectionHeader
+            id="partner-routing-title"
+            eyebrow={t('Routing', 'அனுப்பும் முறை')}
+            title={t('Who reads your enquiry', 'உங்கள் விசாரணையை யார் படிப்பார்கள்')}
+            lede={t(
+              'Each enquiry is recorded with its source page and assigned by organisation type. If we miss the reply time, it is escalated.',
+              'ஒவ்வொரு விசாரணையும் அது வந்த பக்கத்துடன் பதிவுசெய்யப்பட்டு, நிறுவன வகைப்படி ஒதுக்கப்படுகிறது. பதில் நேரத்தைத் தவறவிட்டால், அது மேல்நிலைக்குக் கொண்டு செல்லப்படும்.'
+            )}
+            as="h2"
+          />
           {/* Its own name, distinct from the section heading (F-88). */}
           <div
             className={`partner-routing__table${stackedTable ? ' partner-routing__table--stacked' : ''}`}

@@ -5,9 +5,10 @@ import { Fragment, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ArrowRight, Link2, Share2, Check, Clock, MapPin } from 'lucide-react';
 import {
-  Seo, Section, Breadcrumbs, Badge, ArtImage, Stat, PersonCard, StoryCard, Button, WhatsAppButton,
-  RevealGroup, Reveal, KineticHeadline, Skeleton, EmptyState,
+  Seo, Section, SectionHeader, Badge, ArtImage, Stat, PersonCard, StoryCard, Button, WhatsAppButton,
+  RevealGroup, Skeleton, EmptyState, CTABand,
 } from '../../components';
+import { ArticleHead, ShareIcons } from './ArticleHead.jsx';
 import { useApi } from '../../hooks/useApi.js';
 import { useLang } from '../../lib/i18n.jsx';
 import { BRANDS } from '../../data/brands.js';
@@ -134,19 +135,16 @@ export default function StoryDetail() {
     type: 'Article',
   });
 
-  /* Next step (M04) */
+  /* Next step (M04): the after-article CTA headband, an inset Bone panel (SPEC §3.6 surface="paper"). */
   const nextStep = (
-    <Section surface="white" pad="sm">
-      <div className="story__measure story__next">
-        <div>
-          <p className="eyebrow">{t('Your next step', 'உங்கள் அடுத்த அடி')}</p>
-          <h2 className="h3">
-            {brand ? t(brand.journey, brand.journeyTa) : t('Every talent, a founder', 'ஒவ்வொரு திறமையும், ஒரு நிறுவனர்')}
-            <span className="dot">.</span>
-          </h2>
-          {brand && <p className="text-2">{t(brand.promise, brand.promiseTa || PROMISE_TA[story.brand])}</p>}
-        </div>
-        <div className="cluster">
+    <CTABand
+      surface="paper"
+      className="story__next"
+      eyebrow={t('Your next step', 'உங்கள் அடுத்த அடி')}
+      title={`${brand ? t(brand.journey, brand.journeyTa) : t('Every talent, a founder', 'ஒவ்வொரு திறமையும், ஒரு நிறுவனர்')}.`}
+      body={brand ? t(brand.promise, brand.promiseTa || PROMISE_TA[story.brand]) : undefined}
+      actions={
+        <>
           {story.programme && (
             <Button to={`/programmes/${story.programme}`} icon={ArrowRight}>{t('See the programme', 'திட்டத்தைப் பாருங்கள்')}</Button>
           )}
@@ -154,10 +152,16 @@ export default function StoryDetail() {
             <Button variant={story.programme ? 'secondary' : 'primary'} to={brand.cta.to}>{t(brand.cta.label, brand.cta.labelTa)}</Button>
           )}
           {!brand && <Button to="/programmes">{t('Find your programme', 'உங்கள் திட்டத்தைக் கண்டறியுங்கள்')}</Button>}
-        </div>
-      </div>
-    </Section>
+        </>
+      }
+    />
   );
+
+  const crumbs = [
+    { label: t('Insights', 'நுண்ணறிவுகள்'), to: '/insights' },
+    { label: t('Stories', 'கதைகள்'), to: '/insights/stories' },
+    { label: pageTitle },
+  ];
 
   // Placeholder story (no consented story yet): the route stays (server/client route-sync), noindex, but the page shows
   // an honest "on its way" state instead of placeholder title, byline and body text.
@@ -165,20 +169,15 @@ export default function StoryDetail() {
     return (
       <article className="story" data-brand={brand ? story.brand : undefined}>
         <Seo title={seoTitle} description={seoDescription} type="website" noindex jsonLd={storyLd} />
-        <Section surface="night" pad="sm" className="story__head-section">
-          <div className="story__measure">
-            <Breadcrumbs
-              items={[
-                { label: t('Insights', 'நுண்ணறிவுகள்'), to: '/insights' },
-                { label: t('Stories', 'கதைகள்'), to: '/insights/stories' },
-                { label: pageTitle },
-              ]}
-            />
-            <div className="cluster story__chips">
-              <Badge kind="type">{typeLabel}</Badge>
-              {brand && <Badge kind="brand" brand={story.brand}>{brand.name}</Badge>}
-            </div>
-            <h1 className="story__title h1">{pageTitle}</h1>
+        <ArticleHead
+          className="story__head"
+          crumbs={crumbs}
+          meta={[typeLabel]}
+          badges={brand ? <Badge kind="brand" brand={story.brand}>{brand.name}</Badge> : null}
+          title={pageTitle}
+          plainTitle
+        >
+          <div className="story__empty">
             <EmptyState
               title={t(`A ${brandName} founder story is on its way.`, `${brandName} நிறுவனர் கதை விரைவில் வரும்.`)}
               body={t(
@@ -189,7 +188,7 @@ export default function StoryDetail() {
               headingLevel={2}
             />
           </div>
-        </Section>
+        </ArticleHead>
         {nextStep}
       </article>
     );
@@ -199,33 +198,32 @@ export default function StoryDetail() {
     <article className="story" data-brand={brand ? story.brand : undefined}>
       <Seo title={seoTitle} description={seoDescription} type={placeholder ? 'website' : 'article'} noindex={placeholder} jsonLd={storyLd} />
 
-      <Section surface="night" pad="sm" className="story__head-section">
-        <div className="story__measure">
-          <Breadcrumbs
-            items={[
-              { label: t('Insights', 'நுண்ணறிவுகள்'), to: '/insights' },
-              { label: t('Stories', 'கதைகள்'), to: '/insights/stories' },
-              { label: pageTitle },
-            ]}
-          />
-          <div className="cluster story__chips">
-            <Badge kind="type">{typeLabel}</Badge>
-            {brand && <Badge kind="brand" brand={story.brand}>{brand.name}</Badge>}
-            {from && to && <Badge kind="level">{from.code} → {to.code}</Badge>}
-          </div>
-          {placeholder ? (
-            <h1 className="story__title h1" lang={enLang('title')}><RichText text={title} /></h1>
-          ) : (
-            <div lang={enLang('title')}><KineticHeadline text={title} as="h1" className="story__title h1" /></div>
-          )}
-          {excerpt && (
-            <Reveal as="p" className="story__standfirst body-lg" lang={enLang('excerpt')}>
-              <RichText text={excerpt} />
-            </Reveal>
-          )}
-          <p className="story__byline">
+      {/* Same template as the report: the head lines up with the prose column (cols 4–10 of the grid-12 body). */}
+      <ArticleHead
+        className="article-head--rail story__head"
+        crumbs={crumbs}
+        meta={[
+          typeLabel,
+          story.date ? <time dateTime={story.date}>{fmtDate(story.date, lang)}</time> : null,
+        ]}
+        badges={
+          brand || (from && to) ? (
+            <>
+              {brand && <Badge kind="brand" brand={story.brand}>{brand.name}</Badge>}
+              {from && to && <Badge kind="level">{from.code} → {to.code}</Badge>}
+            </>
+          ) : null
+        }
+        title={placeholder ? <RichText text={title} /> : title}
+        plainTitle={placeholder}
+        accentFirst
+        titleLang={enLang('title')}
+        dek={excerpt ? <p><RichText text={excerpt} /></p> : null}
+        dekLang={enLang('excerpt')}
+        byline={
+          <>
             {personName && !isPlaceholder(personName) && (
-              <span className="story__by" lang={lang === 'ta' && !person?.nameTa && !(phTa && isPlaceholder(personName)) ? 'en' : undefined}>
+              <span className="article-head__author" lang={lang === 'ta' && !person?.nameTa && !(phTa && isPlaceholder(personName)) ? 'en' : undefined}>
                 <RichText text={(lang === 'ta' && person?.nameTa) || (phTa && isPlaceholder(personName) ? phTa.person : personName)} />
               </span>
             )}
@@ -235,37 +233,35 @@ export default function StoryDetail() {
                 <span lang={enLang('district')}><RichText text={pickLang(story, 'district', lang)} /></span>
               </span>
             )}
-            {story.date && <span><time dateTime={story.date}>{fmtDate(story.date, lang)}</time></span>}
             {story.readingMinutes && (
               <span>
                 <Clock size={14} aria-hidden="true" />{' '}
                 {t(`${story.readingMinutes} min read`, `${story.readingMinutes} நிமிட வாசிப்பு`)}
               </span>
             )}
-          </p>
+          </>
+        }
+        actions={<ShareIcons title={pageTitle} />}
+      />
+
+      <div className="container article-lead">
+        <div className="article-lead__frame">
+          <ArtImage
+            variant={story.type === 'recap' ? 'network' : 'portrait'}
+            brand={brand ? story.brand : undefined}
+            ratio="16/9"
+            seed={hash(story.slug)}
+            photo={story.placeholder ? null : photoFor(`story/${story.slug}`) ?? null}
+            priority
+            sizes={PHOTO_SIZES.wide}
+            label={[story.programme && prettify(story.programme), isPlaceholder(story.district) ? null : story.district].filter(Boolean).join(', ') || undefined}
+            alt=""
+          />
         </div>
-      </Section>
-
-      {/* The media frame straddles the ink head band and the paper body (Oct 2026). */}
-      <div className="story__media-band">
-      <div className="container story__media">
-        <ArtImage
-          variant={story.type === 'recap' ? 'network' : 'portrait'}
-          brand={brand ? story.brand : undefined}
-          ratio="3/2"
-          seed={hash(story.slug)}
-          photo={story.placeholder ? null : photoFor(`story/${story.slug}`) ?? null}
-          priority
-          sizes={PHOTO_SIZES.wide}
-          label={[story.programme && prettify(story.programme), isPlaceholder(story.district) ? null : story.district].filter(Boolean).join(', ') || undefined}
-          alt=""
-          animate
-        />
-      </div>
       </div>
 
-      <Section surface="paper" pad="sm">
-        <div className="story__measure story__body" lang={lang === 'ta' && !bodyTa && paras.length ? 'en' : undefined}>
+      <div className="container grid-12 article-body story__grid">
+        <div className="article-main article-prose story__body" lang={lang === 'ta' && !bodyTa && paras.length ? 'en' : undefined}>
           {paras.map((para, i) => (
             <Fragment key={i}>
               <p><RichText text={para} /></p>
@@ -292,26 +288,24 @@ export default function StoryDetail() {
           <div lang={lang === 'ta' ? 'ta' : undefined}>
             <ShareRow title={pageTitle} />
           </div>
-        </div>
-      </Section>
 
-      {person?.name && !isPlaceholderText(person.name) && (
-        <Section surface="paper" pad="sm">
-          <div className="story__measure story__person">
-            <PersonCard person={{ ...person, brand: person.brand || story.brand }} />
-          </div>
-        </Section>
-      )}
+          {person?.name && !isPlaceholderText(person.name) && (
+            <div className="story__person">
+              <PersonCard person={{ ...person, brand: person.brand || story.brand }} />
+            </div>
+          )}
+        </div>
+      </div>
 
       {nextStep}
 
       {relatedList.length > 0 && (
         <Section surface="paper">
-          <div className="story__related-head">
-            <h2 className="h3">{t('More stories', 'மேலும் கதைகள்')}</h2>
-            <Button variant="tertiary" to="/insights/stories" icon={ArrowRight}>{t('All stories', 'அனைத்துக் கதைகள்')}</Button>
-          </div>
-          <RevealGroup className="grid grid-3">
+          <SectionHeader
+            title={t('More stories', 'மேலும் கதைகள்')}
+            action={<Button variant="tertiary" to="/insights/stories" icon={ArrowRight}>{t('All stories', 'அனைத்துக் கதைகள்')}</Button>}
+          />
+          <RevealGroup className="grid grid-3 story__related">
             {relatedList.map((s) => <StoryCard key={s.slug} story={s} />)}
           </RevealGroup>
         </Section>

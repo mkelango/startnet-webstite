@@ -1,8 +1,11 @@
-// C07 · Brand sub-nav (Book 1 Part B §4): 48 px sticky bar docked under the global header.
-// Lock-up left → brand home · 5–7 local links centre · one brand CTA right · 3 px accent rule.
-// Mobile: horizontally scrolling chip row with edge fades and the CTA pinned right; when two or more items would sit
-// beyond the sixth chip, a "More" chip opens a sheet. >= 1024: when the links overflow the bar, a "More" menu lists the
-// clipped ones, and the current link is always scrolled into view.
+// C07 · Brand sub-nav (docs/redesign/SPEC.md §3.4): a 48px Paper card (radius 12, hairline, 3px accent rule along its
+// bottom edge) at container width, sticky 8px under the floating header card (top: var(--shell-offset)).
+// Lock-up left → brand home · 5–7 local links (15px/500, active 2px accent underline) · one brand CTA right.
+// At rest it sits on an Ink strip continuing the header band; once stuck (data-stuck) the strip turns transparent so
+// only the card floats over the page, like the header.
+// Mobile: a horizontally scrolling row of 32px pill chips with edge fades and the CTA pinned right; when two or more
+// items would sit beyond the sixth chip, a "More" chip opens a sheet. >= 1024: when the links overflow the bar, a
+// "More" menu lists the clipped ones, and the current link is always scrolled into view.
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
@@ -98,6 +101,31 @@ function MoreSheet({ open, onClose, links, brand, current }) {
     </AnimatePresence>,
     document.body
   );
+}
+
+/**
+ * True once the bar has left its place in the flow and sticks under the header (its top sits below the sentinel
+ * that marks where it would be). Read once per scroll frame; no layout reads otherwise.
+ */
+function useStuck(navRef, sentinelRef) {
+  const [stuck, setStuck] = useState(false);
+  useEffect(() => {
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      const nav = navRef.current;
+      const mark = sentinelRef.current;
+      if (!nav || !mark) return;
+      const next = nav.getBoundingClientRect().top > mark.getBoundingClientRect().bottom + 0.5;
+      setStuck((s) => (s === next ? s : next));
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(check); };
+    check();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => { cancelAnimationFrame(raf); window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); };
+  }, [navRef, sentinelRef]);
+  return stuck;
 }
 
 /** >= 1024: which links are clipped by the scroller (either edge). Recomputed on resize, scroll and font load. */
@@ -199,10 +227,13 @@ export default function BrandSubNav({ brand: brandKey }) {
   const isMobile = useMediaQuery('(max-width: 1023px)');
   const scroller = useRef(null);
   const listRef = useRef(null);
+  const navRef = useRef(null);
+  const sentinelRef = useRef(null);
   const edges = useEdgeFades(scroller);
   const [moreOpen, setMoreOpen] = useState(false);
 
   useEffect(() => { setMoreOpen(false); }, [pathname]);
+  const stuck = useStuck(navRef, sentinelRef);
 
   const clipped = useClipped(scroller, !!brand && !isMobile, [brandKey, pathname]);
   // DESIGN-v2 3.4: the accent 2px rule under the current item glides between items (transform only).
@@ -255,8 +286,11 @@ export default function BrandSubNav({ brand: brandKey }) {
   const ctaHref = cta ? brandCtaHref(cta, brandKey, lang) : undefined;
 
   return (
-    <nav className="brand-subnav" aria-label={brand.name} data-brand={brandKey} data-surface="night">
-      <div className="container brand-subnav__inner">
+    <>
+    <span ref={sentinelRef} className="brand-subnav__sentinel" aria-hidden="true" />
+    <nav ref={navRef} className="brand-subnav" aria-label={brand.name} data-brand={brandKey} data-stuck={stuck || undefined}>
+      <div className="container">
+      <div className="brand-subnav__inner">
         <Link to={localePath(brand.base)} className="brand-subnav__lockup" aria-label={t(`${brand.name} home`, `${brand.name} முகப்பு`)}>
           <BrandLockup brand={brandKey} size="sm" />
         </Link>
@@ -323,9 +357,11 @@ export default function BrandSubNav({ brand: brandKey }) {
             </Button>
           </div>
         )}
+        <span className="brand-subnav__rule" aria-hidden="true" />
       </div>
-      <span className="brand-subnav__rule" aria-hidden="true" />
+      </div>
       <MoreSheet open={moreOpen} onClose={() => setMoreOpen(false)} links={hidden} brand={brand} current={current} />
     </nav>
+    </>
   );
 }

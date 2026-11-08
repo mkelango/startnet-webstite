@@ -133,7 +133,7 @@ function EventsView({ brand }) {
       />
 
       {/* Series strip: the brand's evergreen series pages */}
-      <Section surface="paper" pad="sm" labelledBy="brand-events-series">
+      <Section surface="paper" pad="tight" labelledBy="brand-events-series">
         <SectionHeader
           id="brand-events-series"
           eyebrow={t('Series', 'தொடர்கள்')}

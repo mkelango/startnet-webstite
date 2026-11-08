@@ -158,7 +158,7 @@ export default function ThinkTN() {
         }
       />
 
-      <Section pad="sm">
+      <Section pad="tight">
         <Reveal>
           <FirewallDiagram />
         </Reveal>
@@ -197,7 +197,7 @@ export default function ThinkTN() {
       </Section>
 
       {/* White sheet: the paper CTA band below would otherwise merge with a sunken section. */}
-      <Section surface="white" pad="sm">
+      <Section surface="white" pad="tight">
         <div className="about-two-col">
           <Reveal>
             <p className="eyebrow"><Num n={3} /> · {t('Related party', 'தொடர்புடைய தரப்பு')}</p>

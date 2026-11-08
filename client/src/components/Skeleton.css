@@ -4,7 +4,7 @@
   display: block;
   width: 100%;
   overflow: hidden;
-  border-radius: var(--radius-btn);
+  border-radius: var(--radius-sm);
   background: var(--bone);
 }
 [data-surface='night'] .skeleton__block { background: var(--night-2); }

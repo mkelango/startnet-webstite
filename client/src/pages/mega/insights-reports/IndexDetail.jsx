@@ -5,8 +5,10 @@ import { useMemo, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { ArrowRight, Bell } from 'lucide-react';
 import {
-  Seo, PageHero, Section, SectionHeader, Stat, TagChip, Badge, Button, Reveal, RevealGroup, Card, KeyFacts,
+  Seo, Section, SectionHeader, Stat, TagChip, Badge, Button, Reveal, RevealGroup, Card, KeyFacts, ArtImage,
 } from '../../../components';
+import { ArticleHead, ShareIcons } from '../../insights/ArticleHead.jsx';
+import { heroPhoto, PHOTO_SIZES } from '../../../data/photos.js';
 import { useApi } from '../../../hooks/useApi.js';
 import { useLang } from '../../../lib/i18n.jsx';
 import { fitTitle, fitDescription } from '../../programmes/parts/seoFit.js';
@@ -40,7 +42,7 @@ export default function IndexDetail() {
 }
 
 function IndexView({ slug, c }) {
-  const { t, lang } = useLang();
+  const { t, lang, basePath } = useLang();
   const bodyRef = useRef(null);
   const { data: reports } = useApi('/api/reports');
   const { data: metrics } = useApi(c.context.length ? '/api/metrics' : null);
@@ -80,39 +82,44 @@ function IndexView({ slug, c }) {
         )}
       />
 
-      <PageHero
-        surface="night"
-        eyebrow={t('Index', 'குறியீடு')}
-        titleClass="display-xl index-detail__hero-title"
-        title={c.name}
-        lede={t(c.lede[0], c.lede[1])}
-        breadcrumbs={[
+      <ArticleHead
+        className="article-head--rail index-detail__head"
+        crumbs={[
           { label: t('Insights', 'நுண்ணறிவுகள்'), to: '/insights' },
           { label: t('Indices', 'குறியீடுகள்'), to: '/insights/indices' },
           { label: c.name },
         ]}
-        art={{ variant: c.art, ratio: '4/5', seed: c.seed, night: true, label: c.name, alt: '' }}
-        meta={
-          <div className="index-detail__badges">
-            <Badge kind="type">{t(c.short[0], c.short[1])}</Badge>
+        meta={[t('Index', 'குறியீடு'), t(c.short[0], c.short[1])]}
+        badges={
+          <>
             {year && <Badge kind="lang">{year}</Badge>}
-            <Badge kind="status" status={published ? 'open' : 'upcoming'}>
+            <Badge kind={published ? 'status' : 'type'} status={published ? 'open' : undefined}>
               {published ? t('Published', 'வெளியிடப்பட்டது') : t('Planned', 'திட்டமிடப்பட்டது')}
             </Badge>
-          </div>
+          </>
         }
+        title={c.name}
+        titleLang={lang === 'ta' ? 'en' : undefined}
+        accentFirst
+        dek={t(c.lede[0], c.lede[1])}
         actions={
           <>
-            <Button href="#index-notify" icon={Bell}>{t('Notify me', 'எனக்கு அறிவியுங்கள்')}</Button>
+            <Button variant="secondary" href="#index-notify" icon={Bell}>{t('Notify me', 'எனக்கு அறிவியுங்கள்')}</Button>
             {c.primary && <Button variant="tertiary" to={c.primary.to}>{t(c.primary.en, c.primary.ta)}</Button>}
+            <ShareIcons title={c.name} />
           </>
         }
       />
 
-      <Section surface="paper" className="index-detail">
-        <div className="index-detail__layout">
-          <div className="index-detail__aside">
-            <div className="index-detail__sticky">
+      <div className="container article-lead">
+        <div className="article-lead__frame">
+          <ArtImage variant={c.art} ratio="16/9" seed={c.seed} label={c.name} photo={heroPhoto(basePath || '/')} priority sizes={PHOTO_SIZES.wide} alt="" />
+        </div>
+      </div>
+
+      <div className="container grid-12 article-body index-detail">
+          <div className="article-rail index-detail__aside">
+            <div className="article-rail__sticky">
               <ChapterNav items={navItems} targetRef={bodyRef}>
                 <KeyFacts
                   sticky={false}
@@ -134,8 +141,8 @@ function IndexView({ slug, c }) {
             </div>
           </div>
 
-          <article className="index-detail__body" ref={bodyRef}>
-            <section id="index-about" className="index-detail__block" aria-labelledby="index-about-h">
+          <article className="article-main article-prose index-detail__body" ref={bodyRef}>
+            <section id="index-about" className="article-block index-detail__block" aria-labelledby="index-about-h">
               <h2 id="index-about-h" className="h3">{t('What it is', 'இது என்ன')}</h2>
               {c.hook && (
                 <p className="index-detail__hook">
@@ -153,7 +160,7 @@ function IndexView({ slug, c }) {
               )}
             </section>
 
-            <section id="index-measured" className="index-detail__block" aria-labelledby="index-measured-h">
+            <section id="index-measured" className="article-block index-detail__block" aria-labelledby="index-measured-h">
               <h2 id="index-measured-h" className="h3">{t("What's measured", 'எதை அளவிடுகிறது')}</h2>
               {c.scope ? (
                 <>
@@ -190,7 +197,7 @@ function IndexView({ slug, c }) {
               )}
             </section>
 
-            <section id="index-method" className="index-detail__block" aria-labelledby="index-method-h">
+            <section id="index-method" className="article-block index-detail__block" aria-labelledby="index-method-h">
               <h2 id="index-method-h" className="h3">{t('Method', 'முறையியல்')}</h2>
               <ul className="index-detail__rules">
                 <li>{t("We'll publish the method before the first edition.", 'முதல் பதிப்புக்கு முன் முறையியலை வெளியிடுவோம்.')}</li>
@@ -212,7 +219,7 @@ function IndexView({ slug, c }) {
               </div>
             </section>
 
-            <section id="index-status" className="index-detail__block" aria-labelledby="index-status-h">
+            <section id="index-status" className="article-block index-detail__block" aria-labelledby="index-status-h">
               <h2 id="index-status-h" className="h3">{t('Publication status', 'வெளியீட்டு நிலை')}</h2>
               <ol className="index-detail__timeline">
                 <li data-state="done">
@@ -231,7 +238,7 @@ function IndexView({ slug, c }) {
               </ol>
             </section>
 
-            <section id="index-scores" className="index-detail__block" aria-labelledby="index-scores-h">
+            <section id="index-scores" className="article-block index-detail__block" aria-labelledby="index-scores-h">
               <h2 id="index-scores-h" className="h3">{t('Scores', 'மதிப்பெண்கள்')}</h2>
               {findings.length > 0 && (
                 <RevealGroup className="index-detail__findings">
@@ -251,10 +258,9 @@ function IndexView({ slug, c }) {
               </span>
             </section>
           </article>
-        </div>
-      </Section>
+      </div>
 
-      <Section surface="paper" id="index-notify" width="narrow" labelledBy="index-notify-h">
+      <Section surface="white" id="index-notify" width="narrow" labelledBy="index-notify-h">
         <div className="index-detail__notify">
           <Reveal>
             <p className="eyebrow">{t('Planned', 'திட்டமிடப்பட்டது')}</p>
@@ -269,14 +275,14 @@ function IndexView({ slug, c }) {
         </div>
       </Section>
 
-      <Section surface="white" labelledBy="index-others-h">
+      <Section surface="paper" labelledBy="index-others-h">
         <SectionHeader
           id="index-others-h"
           eyebrow={t('Indices', 'குறியீடுகள்')}
           title={t('Other indices', 'பிற குறியீடுகள்')}
           action={<Button variant="tertiary" to="/insights/indices" icon={ArrowRight}>{t('All indices', 'அனைத்துக் குறியீடுகளும்')}</Button>}
         />
-        <RevealGroup className="index-detail__others">
+        <RevealGroup className="grid grid-2 index-detail__others">
           {others.map((s) => {
             const o = INDEX_CONTENT[s];
             return (

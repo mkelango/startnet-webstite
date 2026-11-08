@@ -14,29 +14,22 @@
   padding: var(--space-4) var(--space-5);
   text-align: left; border: 0; overflow: hidden;
   background: var(--bp-card, var(--color-bg-raised)); color: var(--color-text);
-  box-shadow: inset 0 0 0 1px var(--bp-line, var(--color-border)); border-radius: var(--media-radius);
-  transition: box-shadow var(--dur-2) var(--ease-snap), background-color var(--dur-2) var(--ease-snap), transform var(--dur-1) var(--ease-standard);
+  box-shadow: inset 0 0 0 1px var(--bp-line, var(--color-border)); border-radius: var(--radius-card);
+  transition: box-shadow var(--dur-2) var(--ease-snap), background-color var(--dur-2) var(--ease-snap);
 }
-/* Framed-card top rule on hover; the chosen track keeps an Ink ring (DESIGN-v2 3.7 / 3.12). No tilt, no lift. */
-.vibe-tracks__card::before {
-  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--color-text);
-  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
-}
+/* Framed card (SPEC §4.6): hover strengthens the hairline; the chosen track keeps an Ink ring. No top rule, no press scale. */
 @media (hover: hover) and (pointer: fine) {
   .vibe-tracks__card:hover { box-shadow: inset 0 0 0 1px var(--bp-line-strong, var(--line-strong)); }
-  .vibe-tracks__card:hover::before { transform: scaleX(1); }
 }
-.vibe-tracks__card:active { transform: scale(0.98); }
 .vibe-tracks__card.is-selected { box-shadow: inset 0 0 0 1px var(--color-text); }
-.vibe-tracks__card.is-selected::before { transform: scaleX(1); }
 .vibe-tracks__card:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
 .vibe-tracks__num { position: absolute; top: var(--space-4); right: var(--space-5); font-size: var(--text-caption); font-weight: 400; color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
-.vibe-tracks__card.is-selected .vibe-tracks__num { color: var(--accent-text); font-weight: 500; }
+.vibe-tracks__card.is-selected .vibe-tracks__num { color: var(--color-text); font-weight: 500; }
 .vibe-tracks__icon { color: var(--color-text); }
 .vibe-tracks__name { font-family: var(--font-display); font-weight: 500; font-size: var(--text-h5); line-height: 1.2; letter-spacing: var(--tracking-h3); }
 
 .vibe-tracks__panel {
-  border-radius: var(--media-radius);
+  border-radius: var(--radius-card);
   background: var(--bp-card, var(--color-bg-raised));
   box-shadow: inset 0 0 0 1px var(--bp-line, var(--color-border));
   padding: var(--space-6);
@@ -44,7 +37,7 @@
   scroll-margin-bottom: calc(var(--bottom-cta-h, 64px) + 16px);
   scroll-margin-top: var(--space-2); /* on top of the global scroll-padding-top (header + sub-nav) */
 }
-@media (min-width: 1024px) { .vibe-tracks__panel { position: sticky; top: calc(var(--header-h-compact) + var(--subnav-h) + var(--space-6)); padding: var(--space-8); } }
+@media (min-width: 1024px) { .vibe-tracks__panel { position: sticky; top: calc(var(--shell-offset, var(--header-h-compact)) + var(--subnav-h) + var(--space-6)); padding: var(--space-8); } }
 .vibe-tracks__panel-inner { display: grid; gap: var(--space-5); }
 .vibe-tracks__panel-head { display: flex; gap: var(--space-4); align-items: center; }
 .vibe-tracks__panel-icon { flex: none; color: var(--color-text); }
@@ -60,8 +53,6 @@
 .vibe-tracks__name { overflow-wrap: break-word; }
 .vibe-tracks__facts dd { margin: 0; font-size: var(--text-small); }
 
-@media (prefers-reduced-motion: reduce) { .vibe-tracks__card { transform: none !important; } }
-:root[data-motion="reduced"] .vibe-tracks__card { transform: none !important; }
 /* Long Tamil words must not widen a card past its grid column */
 .vibe-tracks__item, .vibe-tracks__card { min-width: 0; }
 @media (max-width: 359px) { :lang(ta) .vibe-tracks__name { font-size: var(--text-small); } }
@@ -69,3 +60,6 @@
 @media (min-width: 640px) and (max-width: 1279.98px) {
   :lang(ta) .vibe-tracks__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.vibe-tracks__name:lang(ta) { letter-spacing: 0; }

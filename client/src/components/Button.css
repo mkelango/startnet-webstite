@@ -1,43 +1,46 @@
-/* Buttons (DESIGN-v2 3.6): 4px rectangles, weight 500. Primary is Ink and turns Red-600 only while someone
-   interacts with it (one red point at rest). Selectors carry :root where they must outrank page CSS in lazy chunks. */
+/* Buttons (docs/redesign/SPEC.md §4.1): pills, weight 500, sentence case. Sizes sm 32 / md 40 / lg 48 (40 / 44 on
+   touch, tokens.css). Primary is Ink and stays Ink on hover (Slate); red is variant="point" only, once per section.
+   Every colour comes from the semantic tokens, so [data-surface='night'] remaps them (primary turns Paper, Ink text).
+   Selectors carry :root where they must outrank page CSS in lazy chunks. */
 .button {
-  --button-bg: var(--sn-ink);
-  --button-fg: var(--paper);
+  --button-bg: var(--color-cta);
+  --button-fg: var(--color-on-cta);
   --button-ring: transparent;
-  --button-bg-hover: var(--sn-red-600);
-  --button-fg-hover: #FFFFFF;
+  --button-bg-hover: var(--color-cta-hover);
+  --button-fg-hover: var(--color-on-cta);
   --button-ring-hover: transparent;
-  --button-bg-active: var(--sn-red-700);
+  --button-bg-active: var(--color-cta-active);
+  --button-h: var(--btn-h-md);
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: 44px;
-  padding: 0 18px;
+  min-height: var(--button-h);
+  padding: 0 var(--btn-px-md);
   border: 0;
   border-radius: var(--radius-btn);
   background: var(--button-bg);
   box-shadow: inset 0 0 0 1px var(--button-border, var(--button-ring));
   color: var(--button-fg);
   font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.005em;
+  font-size: var(--text-button);
+  font-weight: var(--weight-label);
+  line-height: 1;
+  letter-spacing: 0;
   text-align: center;
   text-decoration: none;
-  white-space: normal;
+  text-transform: none;
+  white-space: nowrap;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition:
     background-color var(--dur-2) var(--ease-snap),
     color var(--dur-2) var(--ease-snap),
-    box-shadow var(--dur-2) var(--ease-snap),
-    transform var(--dur-1) var(--ease-standard);
+    box-shadow var(--dur-2) var(--ease-snap);
 }
-.button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
-.button:active:not([aria-disabled='true']):not(:disabled) { transform: scale(0.97); background: var(--button-bg-active, var(--button-bg-hover)); color: var(--button-fg-hover); }
+.button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
+.button:active:not([aria-disabled='true']):not(:disabled) { background: var(--button-bg-active, var(--button-bg-hover)); color: var(--button-fg-hover); }
 
 @media (hover: hover) {
   .button:hover:not([aria-disabled='true']):not(:disabled) {
@@ -46,17 +49,17 @@
     box-shadow: inset 0 0 0 1px var(--button-border-hover, var(--button-ring-hover));
     text-decoration: none;
   }
-  .button:hover .button__icon { transform: translateX(4px); }
-  .button[href^='http']:hover .button__icon { transform: translate(2px, -2px); }
-  .whatsapp-button:hover .button__icon { transform: none; }
+  .button:not(.button--icon):hover .button__icon { transform: translateX(var(--shift-1)); }
+  .button:not(.button--icon)[href^='http']:hover .button__icon { transform: translate(2px, -2px); }
+  .button.whatsapp-button:not(.button--icon):hover .button__icon { transform: none; }
 }
-.button:focus-visible .button__icon { transform: translateX(4px); }
+.button:not(.button--icon):focus-visible .button__icon { transform: translateX(var(--shift-1)); }
 
-.button__label { display: inline-block; min-width: 0; text-wrap: balance; }
+.button__label { display: inline-block; min-width: 0; line-height: 1.2; }
 .button__icon { display: inline-flex; flex: none; transition: transform var(--dur-2) var(--ease-snap); }
 .button .arrow { display: inline-block; transition: transform var(--dur-2) var(--ease-snap); }
-@media (hover: hover) { .button:hover .arrow { transform: translateX(4px); } }
-.button:focus-visible .arrow { transform: translateX(4px); }
+@media (hover: hover) { .button:hover .arrow { transform: translateX(var(--shift-1)); } }
+.button:focus-visible .arrow { transform: translateX(var(--shift-1)); }
 /* Icons never shrink inside a squeezed button */
 .button svg { flex: none; }
 
@@ -67,91 +70,119 @@
   .button--has-short .button__label-full { display: none; }
   .button--has-short .button__label-short { display: inline; }
 }
+/* Narrow phones: a long label wraps inside the pill instead of pushing the page sideways. */
+@media (max-width: 479.98px) {
+  .button { white-space: normal; text-wrap: balance; }
+  .button:not(.button--tertiary, .button--icon) { padding-block: var(--space-2); }
+}
 @media (max-width: 374.98px) {
-  .button:not(.button--tertiary) { padding-inline: var(--space-4); }
+  .button:not(.button--tertiary, .button--icon) { padding-inline: var(--space-4); }
 }
 
-/* Sizes: sm 36 · md 44 · lg 52 */
-.button--sm { min-height: 36px; padding: 0 14px; font-size: var(--text-meta); }
-.button--md { min-height: 44px; padding: 0 18px; }
-.button--lg { min-height: 52px; padding: 0 24px; font-size: 1rem; }
+/* Sizes: sm 32 · md 40 · lg 48 (touch: sm 40, md 44; tokens.css) */
+.button--sm { --button-h: var(--btn-h-sm); padding-inline: var(--btn-px-sm); font-size: var(--text-button-sm); }
+.button--md { --button-h: var(--btn-h-md); padding-inline: var(--btn-px-md); }
+.button--lg { --button-h: var(--btn-h-lg); padding-inline: var(--btn-px-lg); font-size: var(--text-button-lg); }
 .button--full { display: flex; width: 100%; }
-@media (pointer: coarse) {
-  .button--sm, .button--md { min-height: 44px; }
-}
 
-/* Tamil: same 4px radius, no tracking; long labels grow in height instead of truncating. */
+/* Tamil: min-height (never a fixed height), labels wrap and grow the pill, padding-block 8, no tracking. */
 :lang(ta) .button {
-  font-size: var(--text-small);
   line-height: 1.35;
   letter-spacing: 0;
+  white-space: normal;
   text-wrap: balance;
-  padding-block: 10px;
+  padding-block: var(--space-2);
 }
-:lang(ta) .button:not(.button--tertiary) { padding-inline: var(--space-5); }
-@media (max-width: 400px) {
-  :lang(ta) .button:not(.button--tertiary) { padding-inline: 0.875rem; gap: var(--space-1); }
+:lang(ta) .button__label { line-height: 1.35; }
+@media (max-width: 399.98px) {
+  :lang(ta) .button:not(.button--tertiary, .button--icon) { padding-inline: var(--btn-px-sm); gap: var(--space-1); }
 }
 
 /* ---------- Variants ---------- */
-/* primary: Ink → Red-600 on hover → Red-700 pressed. On Ink: Paper → white. */
-.button--primary { --button-bg: var(--sn-ink); --button-fg: var(--paper); --button-bg-hover: var(--sn-red-600); --button-fg-hover: #FFFFFF; --button-bg-active: var(--sn-red-700); }
-:root [data-surface='night'] .button--primary { --button-bg: var(--paper); --button-fg: var(--sn-ink); --button-bg-hover: #FFFFFF; --button-fg-hover: var(--sn-ink); --button-bg-active: #FFFFFF; }
-/* secondary: hairline ring → Ink ring + 4% wash. On Ink: Paper ring 32% → Paper. */
+/* primary: Ink → Slate → Ink-800. On Ink the tokens turn it Paper → White → Bone with Ink text. */
+.button--primary {
+  --button-bg: var(--color-cta); --button-fg: var(--color-on-cta);
+  --button-bg-hover: var(--color-cta-hover); --button-fg-hover: var(--color-on-cta); --button-bg-active: var(--color-cta-active);
+}
+/* point (NEW): the one red CTA. Red-600 (white 4.83:1) → Red-700 → Red-800, the same on Ink. */
+.button--point {
+  --button-bg: var(--color-action); --button-fg: var(--color-on-action);
+  --button-bg-hover: var(--color-action-hover); --button-fg-hover: var(--color-on-action); --button-bg-active: var(--color-action-active);
+}
+/* secondary: control ring (Ink-500, 4.5:1) → Ink fill + Paper text. On Ink: Paper 60% ring → Paper fill + Ink text. */
 .button--secondary,
 .button--whatsapp {
-  --button-bg: transparent; --button-fg: var(--sn-ink); --button-ring: var(--line-strong);
-  --button-bg-hover: rgb(12 23 25 / 0.04); --button-fg-hover: var(--sn-ink); --button-ring-hover: var(--sn-ink);
-  --button-bg-active: rgb(12 23 25 / 0.08);
+  --button-bg: transparent; --button-fg: var(--color-text); --button-ring: var(--color-border-control);
+  --button-bg-hover: var(--color-cta); --button-fg-hover: var(--color-on-cta); --button-ring-hover: var(--color-cta);
+  --button-bg-active: var(--color-cta-active);
 }
 :root [data-surface='night'] :is(.button--secondary, .button--whatsapp) {
-  --button-bg: transparent; --button-fg: var(--paper); --button-ring: rgb(244 243 239 / 0.32);
-  --button-bg-hover: rgb(244 243 239 / 0.08); --button-fg-hover: var(--paper); --button-ring-hover: var(--paper);
-  --button-bg-active: rgb(244 243 239 / 0.12);
+  --button-ring: color-mix(in srgb, var(--paper) 60%, transparent);
+  --button-bg-hover: var(--paper); --button-fg-hover: var(--ink-900); --button-ring-hover: var(--paper);
+  --button-bg-active: var(--bone);
 }
-/* brand: accent fill, 8% darker on hover */
+/* brand: accent fill; an 8% (hover) / 16% (pressed) Ink veil drawn as an inset shadow over the fill */
 .button--brand {
   --button-bg: var(--accent-fill); --button-fg: var(--accent-on-fill);
-  --button-bg-hover: color-mix(in oklab, var(--accent-fill), #000 8%); --button-fg-hover: var(--accent-on-fill);
-  --button-bg-active: color-mix(in oklab, var(--accent-fill), #000 14%);
+  --button-bg-hover: var(--accent-fill); --button-fg-hover: var(--accent-on-fill); --button-bg-active: var(--accent-fill);
+  --button-ring-hover: transparent;
 }
-/* whatsapp: neutral secondary + the 20px glyph in Ink (Paper on Ink). No green fill. */
+@media (hover: hover) {
+  .button--brand:hover:not([aria-disabled='true']):not(:disabled) { box-shadow: inset 0 0 0 999px color-mix(in srgb, var(--ink-900) 8%, transparent); }
+}
+.button--brand:active:not([aria-disabled='true']):not(:disabled) { box-shadow: inset 0 0 0 999px color-mix(in srgb, var(--ink-900) 16%, transparent); }
+/* whatsapp: neutral secondary + the glyph in the text colour. No green fill. */
 .whatsapp-button__glyph { color: currentColor; }
-/* inverse: Paper fill, Ink text → white */
+/* inverse (for photos): Paper fill, Ink text → White → Bone */
 .button--inverse {
-  --button-bg: var(--paper); --button-fg: var(--sn-ink);
-  --button-bg-hover: #FFFFFF; --button-fg-hover: var(--sn-ink); --button-bg-active: #FFFFFF;
+  --button-bg: var(--paper); --button-fg: var(--ink-900);
+  --button-bg-hover: var(--white); --button-fg-hover: var(--ink-900); --button-bg-active: var(--bone);
 }
 
-/* tertiary: the arrow link (base.css .arrow-link): arrow +4px and an underline sweep */
+/* tertiary: a text link with the trailing arrow. No box, auto height, underline + arrow nudge on hover. */
 .button--tertiary {
   --button-bg: transparent; --button-fg: var(--color-link-standalone);
   --button-bg-hover: transparent; --button-fg-hover: var(--color-link-standalone); --button-bg-active: transparent;
-  padding-inline: 0;
-  min-height: 44px;
-  border-radius: var(--radius-btn);
-  gap: 10px;
+  min-height: 0;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  gap: var(--space-2);
   text-align: left;
   justify-content: flex-start;
+  line-height: 1.4;
 }
 .button--tertiary .button__label {
-  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
-  padding-bottom: 0.08em;
-  transition: background-size var(--dur-3) var(--ease-snap);
+  line-height: 1.4;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: transparent;
+  transition: text-decoration-color var(--dur-2) var(--ease-snap);
 }
 @media (hover: hover) {
-  .button--tertiary:hover .button__label { background-size: 100% 1px; }
+  .button--tertiary:hover .button__label { text-decoration-color: currentColor; }
 }
-.button--tertiary:focus-visible .button__label { background-size: 100% 1px; }
-.button--tertiary:active:not([aria-disabled='true']):not(:disabled) { transform: none; }
-:root [data-surface='night'] .button--tertiary { --button-fg: var(--paper); --button-fg-hover: var(--paper); }
-/* Inside a brand scope, tertiary links follow the brand's text accent (night remaps --accent-text to accent-night). */
-:root [data-brand] .button--tertiary { --button-fg: var(--accent-text); --button-fg-hover: var(--accent-text); }
+.button--tertiary:focus-visible .button__label { text-decoration-color: currentColor; }
+/* Touch: the link keeps a 44px target without growing visually */
+@media (pointer: coarse) { .button--tertiary { min-height: 44px; } }
+:root [data-surface='night'] .button--tertiary { --button-fg: var(--color-link-standalone); --button-fg-hover: var(--color-link-standalone); }
+/* Tertiary links stay Ink (Paper on night) inside brand scopes too: the accent is never a link colour (SPEC §5.2). */
 
-/* Icon-only buttons keep a square hit area */
-:root .button:has(> .button__label:empty) { padding-inline: 0; min-width: 44px; justify-content: center; }
+/* Icon-only (NEW iconOnly / .button--icon): a circle, 40 (sm/md) or 48 (lg), same variants. aria-label required. */
+:root .button--icon {
+  width: var(--btn-icon-sm);
+  min-width: var(--btn-icon-sm);
+  min-height: var(--btn-icon-sm);
+  height: var(--btn-icon-sm);
+  padding: 0;
+  border-radius: var(--radius-full);
+}
+:root .button--icon.button--lg { width: var(--btn-icon); min-width: var(--btn-icon); min-height: var(--btn-icon); height: var(--btn-icon); }
+:root .button--icon.button--sm { width: var(--btn-h-sm); min-width: var(--btn-h-sm); min-height: var(--btn-h-sm); height: var(--btn-h-sm); }
+/* Legacy icon-only buttons (an empty label) keep a round hit area too */
+:root .button:has(> .button__label:empty) { padding-inline: 0; min-width: var(--button-h); justify-content: center; }
 
-/* Disabled: 40% opacity, still announced */
+/* Disabled: 40% opacity, still announced, no hover change */
 .button:disabled,
 .button[aria-disabled='true'] { opacity: 0.4; cursor: not-allowed; }
 .button--loading:disabled { opacity: 1; cursor: progress; }
@@ -182,5 +213,8 @@
 }
 @media (prefers-reduced-motion: reduce) {
   :root:not([data-motion='full']) .button__dots i { animation: none; opacity: 0.8; }
+  :root:not([data-motion='full']) .button__icon,
+  :root:not([data-motion='full']) .button .arrow { transition: none; }
 }
 :root[data-motion='reduced'] .button__dots i { animation: none; opacity: 0.8; }
+:root[data-motion='reduced'] :is(.button__icon, .button .arrow) { transition: none; }

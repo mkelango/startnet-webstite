@@ -1,6 +1,7 @@
-/* How it works × dot → grid → network → full stop (Book 2 §1.4, Book 3 §1.1). A Paper section, 5/7 at ≥1024: the
-   header and a StartNet X profile card sticky on the left; the four steps down a vertical rail on the right, each led
-   by its pulli glyph. Only the full stop glyph is red (one red point per composition). */
+/* How it works × dot → grid → network → full stop (Book 2 §1.4, Book 3 §1.1; SPEC §5.1 #5). A Bone section, 5/7 at
+   ≥1024: the header and a StartNet X profile card (Card, radius 12, hairline, no shadow) sticky on the left; the four
+   steps down a vertical rail on the right, each led by its pulli glyph and a Steps-style number (32px Ink circle).
+   Only the full stop glyph is red (one red point per composition). */
 .home-story { position: relative; }
 
 .home-story__layout {
@@ -14,7 +15,7 @@
     column-gap: clamp(var(--space-12), 1rem + 5vw, var(--space-24));
     align-items: start;
   }
-  .home-story__intro { position: sticky; top: calc(var(--header-h, 72px) + var(--space-8)); }
+  .home-story__intro { position: sticky; top: calc(var(--shell-offset, 80px) + var(--space-8)); }
   /* Too tall for the viewport (FounderStory.jsx useIntroFits): scrolls normally; `top` stays set (ignored when static) for the measurement. */
   .home-story--unpinned .home-story__intro { position: static; }
 }
@@ -26,8 +27,7 @@
   padding: var(--space-6);
   background: var(--color-bg-raised);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-1);
+  border-radius: var(--radius-card);
 }
 .home-story__profile-head {
   display: flex;
@@ -44,10 +44,10 @@
   width: 28px;
   height: 28px;
   border-radius: var(--radius-full);
-  background: var(--sn-ink);
+  background: var(--ink-900);
   color: var(--paper);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: var(--text-caption);
+  font-weight: 500;
 }
 .home-story__track { list-style: none; margin: 0; padding: 0; position: relative; }
 /* The rail joining the marks. */
@@ -85,11 +85,11 @@
 .home-story__track-num { font-size: var(--text-caption); font-variant-numeric: tabular-nums lining-nums; }
 .home-story__track-title { font-size: var(--text-small); font-weight: 500; }
 .home-story__track-row.is-done { color: var(--color-text-2); }
-.home-story__track-row.is-done .home-story__track-mark { background: var(--sn-ink); box-shadow: none; }
+.home-story__track-row.is-done .home-story__track-mark { background: var(--ink-900); box-shadow: none; }
 .home-story__track-row.is-current { color: var(--color-text); }
 .home-story__track-row.is-current .home-story__track-mark {
   background: var(--color-bg-raised);
-  box-shadow: inset 0 0 0 5px var(--sn-ink);
+  box-shadow: inset 0 0 0 5px var(--ink-900);
   transform: scale(1.15);
 }
 
@@ -121,7 +121,7 @@
   top: calc(var(--space-6) + var(--tile));
   bottom: calc(var(--space-6) + var(--tile));
   width: 1px;
-  background: repeating-linear-gradient(to bottom, var(--line-strong) 0 4px, transparent 4px 8px);
+  background: var(--color-border-strong);
 }
 .home-story__step {
   position: relative;
@@ -130,13 +130,12 @@
   gap: var(--space-6);
   padding: var(--space-6);
   border: 1px solid transparent;
-  border-radius: var(--radius-lg);
-  transition: background-color var(--dur-3) ease, border-color var(--dur-3) ease, box-shadow var(--dur-3) ease;
+  border-radius: var(--radius-card);
+  transition: background-color var(--dur-3) ease, border-color var(--dur-3) ease;
 }
 .home-story__step.is-current {
   background: var(--color-bg-raised);
   border-color: var(--color-border);
-  box-shadow: var(--shadow-2);
 }
 .home-story__glyph {
   position: relative;
@@ -145,40 +144,49 @@
   place-items: center;
   width: var(--tile);
   height: var(--tile);
-  border-radius: var(--radius-lg);
-  background: var(--bone);
-  color: var(--sn-ink);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-raised);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+  color: var(--color-text);
   transition: background-color var(--dur-3) ease, color var(--dur-3) ease;
 }
-.home-story__step.is-current .home-story__glyph { background: var(--sn-ink); color: var(--paper); }
+.home-story__step.is-current .home-story__glyph { background: var(--ink-900); box-shadow: none; color: var(--paper); }
 .home-story__glyph-svg { width: 40px; height: 40px; }
 .home-story__point { fill: var(--color-point); }
 
 .home-story__meta {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   gap: var(--space-2) var(--space-3);
   margin: 0;
   font-size: var(--text-meta);
   line-height: 1.4;
 }
+/* Steps-style number (SPEC §4.15): 13px/500 Paper in a 32px Ink circle */
 .home-story__num {
-  font-weight: 600;
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  background: var(--ink-900);
+  color: var(--paper);
+  font-size: var(--text-caption);
+  font-weight: 500;
   font-variant-numeric: tabular-nums lining-nums;
-  color: var(--color-text);
 }
 .home-story__concept { color: var(--color-text-muted); }
 :root .home-story__title {
-  margin: var(--space-2) 0 0;
-  font-size: clamp(1.5rem, 1.3rem + 0.6vw, 1.875rem);
-  font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: -0.015em;
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-h3);
+  font-weight: var(--weight-heading);
+  line-height: var(--leading-h3);
+  letter-spacing: var(--tracking-h3);
   color: var(--color-text);
 }
-:root .home-story__title:lang(ta) { font-size: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem); line-height: 1.35; letter-spacing: 0; }
-.home-story__body { margin: var(--space-3) 0 0; max-width: 52ch; font-size: var(--text-body); line-height: 1.6; color: var(--color-text-2); }
+.home-story__body { margin: var(--space-2) 0 0; max-width: 52ch; font-size: var(--text-small); line-height: var(--leading-body); color: var(--color-text-2); }
 
 /* Phones: smaller tiles, tighter padding. */
 @media (max-width: 639.98px) {

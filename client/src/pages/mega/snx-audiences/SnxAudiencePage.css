@@ -56,7 +56,7 @@
 .snx-aud-page__module {
   position: relative; display: flex; flex-direction: column; gap: var(--space-3); min-width: 0;
   padding: var(--space-6);
-  background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius); box-shadow: none;
+  background: var(--card); border: 1px solid var(--color-border); border-radius: var(--radius-card); box-shadow: none;
   transition: transform var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard);
 }
 @media (hover: hover) and (pointer: fine) {
@@ -70,7 +70,7 @@
 /* Line icon in a 40px hairline square (no tinted circle). */
 .snx-aud-page__module-icon {
   display: inline-grid; place-items: center; width: 40px; height: 40px; margin-bottom: var(--space-3);
-  border: 1px solid var(--color-border); border-radius: var(--btn-radius);
+  border: 1px solid var(--color-border); border-radius: var(--radius-full);
   background: transparent; color: var(--color-text);
 }
 .snx-aud-page__module-icon svg { width: 20px; height: 20px; }
@@ -98,7 +98,7 @@
 .snx-aud-page__price-notes li::marker { color: var(--color-text-muted); }
 .snx-aud-page__price-stats {
   display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr);
-  background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  background: var(--card); border: 1px solid var(--color-border); border-radius: var(--radius-card);
 }
 .snx-aud-page__price-stats > .stat { padding: var(--space-6); border-top: 0; min-width: 0; }
 .snx-aud-page__price-stats > .stat + .stat { border-top: 1px solid var(--color-border); }
@@ -165,7 +165,7 @@
 .snx-aud-page__demo-alt a { color: var(--color-text); font-weight: 500; }
 .snx-aud-page__demo-form {
   min-width: 0; padding: var(--space-6);
-  background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius);
+  background: var(--card); border: 1px solid var(--color-border); border-radius: var(--radius-card);
 }
 @media (min-width: 768px) { .snx-aud-page__demo-form { padding: var(--space-8); } }
 
@@ -181,9 +181,7 @@
 .brand-layout[data-brand='x'],
 .brand-layout[data-brand='x'] [data-brand='x']:not([data-surface='night']) { --color-label-dot: var(--color-text); }
 .brand-layout[data-brand='x'] [data-surface='night'] { --color-label-dot: var(--paper); }
-:root .brand-layout[data-brand='x'] .button--tertiary { --button-fg: var(--color-link-standalone); --button-fg-hover: var(--color-link-standalone); }
-:root .brand-layout[data-brand='x'] [data-surface='night'] .button--tertiary { --button-fg: var(--paper); --button-fg-hover: var(--paper); }
-:root .brand-layout[data-brand='x'] .brand-hero__journey { color: var(--night-text-2); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey { color: var(--night-text-2); flex-wrap: nowrap; align-items: baseline; }
 :root .brand-layout[data-brand='x'] .brand-hero__journey::before { background: var(--paper); }
 
 /* QA v6 (Tamil, /ta/startnet-x/gccs): "முன்னோட்டங்களும்" (~10.4em) overran the 592px hero column at 1440 and split
@@ -198,3 +196,12 @@
   :lang(ta) .snx-aud-page__module { padding-inline: var(--space-4); }
   :lang(ta) .snx-aud-page__module-why { font-size: 0.9375rem; line-height: 1.6; }
 }
+
+/* Tamil: no tracking on headings (SPEC §7.6) */
+:lang(ta) :is(.snx-aud-page__give-title.h4, .snx-aud-page__module-name.h5, .snx-aud-page__proof-item .h5, .snx-aud-page__others-title.h5) { letter-spacing: 0; }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.snx-aud-page__give-title.h4:lang(ta),
+.snx-aud-page__module-name.h5:lang(ta),
+.snx-aud-page__proof-item .h5:lang(ta),
+.snx-aud-page__others-title.h5:lang(ta) { letter-spacing: 0; }

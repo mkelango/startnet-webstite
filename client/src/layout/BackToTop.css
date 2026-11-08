@@ -1,0 +1,75 @@
+/* Back to top (SPEC §3.7): a 48px Card circle with a 1px hairline and a 20px Ink ArrowUp, 16px from the bottom-right
+   corner, z 54 (under the bottom CTA bar, the header and the consent card). Hover: Ink fill, Paper arrow (never red).
+   This file owns the whole block: look, show / hide, the glide above the bottom CTA bar, the step-aside for the consent
+   card and modals, and the reduced-motion end state (moved here from styles/interactions.css by G10). */
+.back-to-top {
+  position: fixed;
+  z-index: var(--z-back-to-top);
+  right: var(--space-4);
+  bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+  display: inline-grid;
+  place-items: center;
+  width: var(--btn-icon);
+  height: var(--btn-icon);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--card);
+  color: var(--ink-900);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.92);
+  transition:
+    opacity var(--dur-3) var(--ease-snap),
+    transform 0.5s var(--ease-reveal),
+    translate var(--dur-3) var(--ease-snap),
+    visibility 0s linear var(--dur-3),
+    background-color var(--dur-2) var(--ease-snap),
+    color var(--dur-2) var(--ease-snap);
+}
+.back-to-top[data-shown] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity var(--dur-3) var(--ease-snap),
+    transform 0.5s var(--ease-reveal),
+    translate var(--dur-3) var(--ease-snap),
+    visibility 0s linear 0s,
+    background-color var(--dur-2) var(--ease-snap),
+    color var(--dur-2) var(--ease-snap);
+}
+.back-to-top__icon { transition: transform var(--dur-2) var(--ease-snap); }
+@media (hover: hover) and (pointer: fine) {
+  .back-to-top:hover { background: var(--ink-900); color: var(--paper); box-shadow: inset 0 0 0 1px var(--ink-900); }
+  .back-to-top:hover .back-to-top__icon { transform: translateY(-3px); }
+}
+.back-to-top:active { transform: scale(0.94); }
+.back-to-top:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
+
+/* Above the mobile bottom CTA bar while it is shown (BottomCtaBar sets data-bottom-cta-shown): `bottom` stays put and
+   the button glides up with `translate` to 12px over the bar's measured height, instead of hopping each time the bar
+   comes and goes (a layout shift). */
+@media (max-width: 1023.98px) {
+  :root[data-bottom-cta-shown] .back-to-top {
+    translate: 0 calc(var(--space-4) + env(safe-area-inset-bottom, 0px) - var(--bottom-cta-h, 64px) - var(--space-3));
+  }
+  /* Focus scrolling keeps a focused control clear of the button too: it then sits 12px above the bar, 48px tall */
+  :root[data-bottom-cta-shown]:has(.back-to-top[data-shown]) {
+    scroll-padding-bottom: max(80px, calc(var(--consent-h, 0px) + 16px), calc(var(--bottom-cta-h, 64px) + 12px + 48px + 8px));
+  }
+}
+
+/* Step aside for the consent card and for modals (drawer, search, sheets) */
+:root:has(.cookie-banner) .back-to-top,
+:root[data-modal-open] .back-to-top { opacity: 0; visibility: hidden; pointer-events: none; }
+
+/* Reduced motion: final state, no travel */
+:root[data-motion='reduced'] .back-to-top,
+:root[data-motion='reduced'] .back-to-top__icon { transition: none; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) :is(.back-to-top, .back-to-top__icon) { transition: none; transform: none; }
+}
+@media print { .back-to-top { display: none; } }

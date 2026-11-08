@@ -1,0 +1,290 @@
+/* Insights page kit (docs/redesign/SPEC.md §5.6, G9a). Shared by the hub, the listings and the article pages:
+   folder tabs (links), the Bone filter band, the inline promo row, the PnP article template and the Card panel
+   that frames charts. Values come from tokens only. */
+
+/* ---------- Folder tabs (links). Same look as Tabs variant="folder" (§4.9) ---------- */
+.ins-tabs {
+  position: relative;
+  background: var(--color-bg-tile);
+  box-shadow: inset 0 -1px 0 var(--color-border);
+  padding-top: var(--space-12);
+}
+.ins-tabs__list {
+  position: relative;
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ins-tabs__list > li { display: flex; flex: 0 1 13.75rem; min-width: 0; }
+.ins-tabs__tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  min-height: 64px;
+  padding: var(--space-2) var(--space-6);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  box-shadow: inset 0 0 0 1px var(--color-border);
+  color: var(--color-text-2);
+  font-size: var(--text-h5);
+  font-weight: var(--weight-heading);
+  line-height: var(--leading-h4);
+  text-align: center;
+  text-decoration: none;
+  transition: background-color var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap);
+}
+@media (hover: hover) {
+  .ins-tabs__tab:not([aria-current]):hover { background: var(--card); color: var(--color-text); }
+}
+.ins-tabs__tab[aria-current] {
+  background: var(--color-bg);
+  color: var(--color-text);
+  box-shadow: inset 0 1px 0 var(--color-border), inset 1px 0 0 var(--color-border), inset -1px 0 0 var(--color-border);
+}
+.ins-tabs__tab:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -4px; }
+/* Below 1024 (SPEC §4.9): equal-width tabs, 56 tall, radius 0, every tab visible with no hidden overflow:
+   one row of six from 768, a 3 × 2 grid below 768. The current tab is Paper with a 2px Ink rule. */
+@media (max-width: 1023.98px) {
+  .ins-tabs { padding-top: var(--space-6); box-shadow: none; }
+  .ins-tabs__list {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1px;
+    border-block: 1px solid var(--color-border);
+    background: var(--color-border);
+  }
+  .ins-tabs__list > li { min-width: 0; }
+  .ins-tabs__tab {
+    min-height: 56px;
+    padding: var(--space-2) var(--space-2);
+    border-radius: 0;
+    box-shadow: none;
+    background: var(--color-bg-tile);
+    font-size: var(--text-small);
+    overflow-wrap: anywhere;
+  }
+  .ins-tabs__tab[aria-current] { background: var(--color-bg); box-shadow: inset 0 -2px 0 var(--color-text); }
+}
+@media (max-width: 767.98px) {
+  .ins-tabs__list { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-inline: calc(-1 * var(--gutter)); }
+}
+:lang(ta) .ins-tabs__tab { line-height: 1.4; }
+
+/* ---------- Filter band: Bone, radius 12, padding 24; chips (`.chip`) + selects + Clear ---------- */
+.ins-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4) var(--space-6);
+  padding: var(--space-6);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-tile);
+}
+.ins-filter__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); min-width: 0; }
+.ins-filter__label { font-size: var(--text-caption); font-weight: var(--weight-label); color: var(--color-text-muted); }
+.ins-filter__chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.ins-filter__chips .chip { display: inline-flex; align-items: center; gap: var(--space-2); }
+.ins-filter__dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.ins-filter__dot[data-brand='research'] { background: var(--sn-research); }
+.ins-filter__dot[data-brand='vibe'] { background: var(--sn-vibe); }
+.ins-filter__dot[data-brand='connect'] { background: var(--sn-connect); }
+.ins-filter__dot[data-brand='women'] { background: var(--sn-women); }
+.ins-filter__clear {
+  min-height: 44px;
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  font-size: var(--text-small);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--color-link-decoration);
+  text-underline-offset: 0.18em;
+}
+.ins-filter__count { width: 100%; margin: 0; font-size: var(--text-caption); color: var(--color-text-muted); }
+@media (min-width: 1024px) { .ins-filter__count { width: auto; margin-left: auto; } }
+.ins-filter__count + .ins-filter__clear { margin-left: 0; }
+
+/* ---------- Listing grid: 1 / 2 / 3, gap-x 24, gap-y --space-grid-row ---------- */
+.ins-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--gap-grid);
+  row-gap: var(--space-grid-row);
+}
+.ins-grid > * { min-width: 0; }
+@media (min-width: 640px) { .ins-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .ins-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Inline promo row after every 6th item: Bone, radius 12, padding 32; --text-h3 copy in cols 1–8, action in 9–12. */
+.ins-promo {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--space-5);
+  align-items: center;
+  padding: var(--space-8);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-tile);
+}
+.ins-promo__title { margin: 0; font-size: var(--text-h3); line-height: var(--leading-h3); font-weight: var(--weight-heading); letter-spacing: var(--tracking-h3); max-width: 32ch; }
+.ins-promo__title:lang(ta) { letter-spacing: 0; }
+.ins-promo__action { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+@media (min-width: 1024px) {
+  .ins-promo { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); column-gap: var(--grid-gap); }
+  .ins-promo__action { justify-content: flex-end; }
+}
+
+/* ---------- Card panel (charts, data blocks): Card ground, hairline, radius 12, --pad-card ---------- */
+.ins-panel {
+  min-width: 0;
+  padding: var(--pad-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--card);
+}
+:root :is(.section--white, .section--sunken) .ins-panel { background: var(--white); }
+
+/* ---------- Article template (report / index / story detail) ---------- */
+/* The head is the first Paper sheet: its 32px top corners show the Ink spacer strip behind them. */
+.article-head {
+  position: relative;
+  isolation: isolate;
+  padding-top: var(--space-16);
+}
+.article-head::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: -2;
+  height: var(--sheet-radius);
+  background: var(--night-0);
+}
+.article-head::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
+  background: var(--color-bg);
+}
+.article-head__inner { display: grid; justify-items: start; max-width: var(--measure-article); min-width: 0; margin-inline: auto; }
+/* With a chapter rail the head lines up with the prose column (cols 4–12). */
+@media (min-width: 1024px) {
+  .article-head--rail .article-head__inner { margin-inline: calc((100% + var(--grid-gap)) / 4) 0; }
+}
+.article-head__crumbs { margin-bottom: var(--space-6); }
+.article-head__meta {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-label);
+  color: var(--color-text-muted);
+}
+.article-head__meta-item + .article-head__meta-item::before { content: '·'; margin-inline: var(--space-2); }
+.article-head__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-5); }
+.article-head__title { max-width: 22ch; font-size: var(--text-h1); overflow-wrap: break-word; }
+.article-head__title:lang(ta) { max-width: none; }
+.article-head__dek {
+  margin-top: var(--space-5);
+  max-width: var(--measure-lede);
+  font-size: var(--text-lede);
+  line-height: 1.5;
+  color: var(--color-text-2);
+}
+.article-head__dek > p { margin: 0; }
+.article-head__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4) var(--space-6);
+  width: 100%;
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+.article-head__by {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-5);
+  min-width: 0;
+  font-size: var(--text-meta);
+  color: var(--color-text-muted);
+}
+.article-head__by > span { display: inline-flex; align-items: center; gap: var(--space-1); }
+.article-head__author { color: var(--color-text); font-size: var(--text-label); font-weight: var(--weight-label); text-decoration: underline; text-decoration-color: var(--color-link-decoration); text-underline-offset: 0.18em; }
+.article-head__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.article-head__row:not(:has(.article-head__by)) { justify-content: flex-start; }
+
+/* Lead image: full container width, 16/9, radius 20, margin-block 48. */
+.article-lead { margin-block: var(--space-12); }
+.article-lead__frame { overflow: hidden; isolation: isolate; border-radius: var(--radius-xl); }
+@media (max-width: 767.98px) { .article-lead { margin-block: var(--space-8); } }
+
+/* Body: the 12-column grid, chapter rail in cols 1–3 (sticky ≥1024), prose in cols 4–10. */
+.article-body { padding-top: var(--space-12); padding-bottom: var(--space-section); row-gap: var(--space-8); }
+.article-lead + .article-body { padding-top: 0; }
+.article-rail { min-width: 0; }
+.article-main { min-width: 0; overflow-wrap: break-word; }
+@media (min-width: 1024px) {
+  .article-body { align-items: start; }
+  .grid-12 > .article-rail { grid-column: 1 / span 3; align-self: stretch; }
+  .grid-12 > .article-main { grid-column: 4 / span 7; }
+  .grid-12 > .article-main--wide { grid-column: 4 / -1; }
+  .article-rail__sticky {
+    position: sticky;
+    top: calc(var(--shell-offset, var(--header-h)) + var(--space-6));
+    max-height: calc(100vh - var(--shell-offset, var(--header-h)) - var(--space-12));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+/* Prose: 17px / 1.7, a line of at most ~75 characters. */
+.article-prose { max-width: 37rem; font-size: var(--text-body); line-height: 1.7; color: var(--color-text); }
+.article-prose > * + * { margin-top: 1.25em; }
+.article-prose h2 { margin-top: 2em; font-size: var(--text-h3); line-height: var(--leading-h3); letter-spacing: var(--tracking-h3); }
+.article-prose h3 { margin-top: 1.6em; font-size: var(--text-h5); line-height: var(--leading-h4); }
+.article-prose :is(h2, h3):lang(ta) { letter-spacing: 0; }
+.article-prose blockquote {
+  margin-inline: 0;
+  padding-left: var(--space-6);
+  border-left: 2px solid var(--color-text);
+  font-size: var(--text-quote);
+  line-height: 1.3;
+}
+.article-prose figure { overflow: hidden; border-radius: var(--radius-media); }
+.article-prose table { width: 100%; border-collapse: collapse; }
+.article-prose :is(th, td) { padding: var(--space-3); border-bottom: 1px solid var(--color-border); text-align: left; }
+:lang(ta) .article-prose { max-width: 40rem; }
+
+/* "What's inside" box at the top of the prose: Bone, radius 12, padding 24. */
+.article-inside { padding: var(--space-6); border-radius: var(--radius-card); background: var(--color-bg-tile); }
+
+/* Article sections inside the prose column: a hairline between blocks, block titles at --text-h3. */
+.article-block { display: grid; gap: var(--space-5); min-width: 0; scroll-margin-top: calc(var(--shell-offset, var(--header-h)) + var(--space-6)); }
+.article-block + .article-block { padding-top: var(--space-10); border-top: 1px solid var(--color-border); }
+.article-block > h2 { font-size: var(--text-h3); line-height: var(--leading-h3); font-weight: var(--weight-heading); letter-spacing: var(--tracking-h3); }
+.article-block > h2:lang(ta) { letter-spacing: 0; }
+
+/* Phones and tablets: one column pinned to the container, so a long Tamil word cannot widen it. The chapter toggle
+   stays above the prose; the key facts panel follows the prose, so the first sentence is not a screen away. */
+@media (max-width: 1023.98px) {
+  .article-body { grid-template-columns: minmax(0, 1fr); }
+  .article-rail, .article-rail__sticky, .article-rail .chapter-nav { display: contents; }
+  .article-rail .chapter-nav__nav { order: 0; }
+  .article-main { order: 1; }
+  .article-rail .chapter-nav__extra { order: 2; padding-top: 0; border-top: 0; }
+}
+/* Below 768 the photo caption chip would cover much of the 16/9 lead image: it is left out there.
+   (:root override of a kit class inside the article template, flagged for G10 per SPEC §6.1 rule 1.) */
+@media (max-width: 767.98px) {
+  :root .article-lead .art-image__label { display: none; }
+}
+.article-head__share { display: inline-flex; align-items: center; gap: var(--space-2); }

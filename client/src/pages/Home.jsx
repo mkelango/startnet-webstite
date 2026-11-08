@@ -2,7 +2,7 @@ import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
-  Seo, Section, SectionHeader, KineticHeadline, Reveal, Button, FactBand, BrandTile, Scroller,
+  Seo, Section, SectionHeader, KineticHeadline, Reveal, Button, FactBand, BrandTile, Scroller, Marquee,
 } from '../components';
 import { ScrubText } from '../components/ScrubText.jsx';
 import { cx, eventPath } from '../components/_utils.js';
@@ -103,18 +103,15 @@ const SEO = {
 };
 
 /*
- * Hero (M01, v3, 14 Oct 2026). One Ink band, three layers:
- *   1. Copy (cols 1–6): a live "next event" pill (the soonest upcoming event with a confirmed date; the eyebrow
- *      line until events load or when there is none) → h1 with one serif accent word and the red full stop → lede →
- *      the two actions → the partner line.
- *   2. Showcase (cols 7–12, home/HeroShowcase.jsx): StartNet's own photographs by category (Summits, Campuses,
- *      Women, Research, Community) in a three-tile bento mosaic. One tile crossfades at a time; then the category
- *      moves on. Category tabs with a progress line and a pause button sit under the mosaic.
- *   3. Proof strip (full width): the logos of companies built by founders in the StartNet community, as one-colour
- *      marks, linking to /insights/stories#community-startups. Static row ≥1024; a slow marquee below.
- * Phones and tablets: copy first (the headline is in the first screen), then the mosaic, then the strip.
- * A faint pulli dot grid sits behind the copy (static CSS, no motion). The copy is visible from first paint
- * (transform-only entrance); the mosaic boxes are sized by CSS before paint (no CLS).
+ * Hero (SPEC §5.1 #1, the Plug and Play home hero). One Ink band that runs up under the floating header card:
+ *   1. Copy (cols 1–6, max --measure-hero) on a static pulli dot grid: a live "next event" pill (the soonest upcoming
+ *      event with a confirmed date; the eyebrow line until events load or when there is none) → h1 with one serif
+ *      accent word and the red full stop → lede → the two actions → the partner line.
+ *   2. Showcase (cols 7–12, home/HeroShowcase.jsx): StartNet's own photographs in a three-tile mosaic that bleeds to
+ *      the top, right and bottom edges (top-left corner rounded); one tile crossfades at a time.
+ *   3. Proof strip (the copy column's foot): community companies as one-colour marks in the kit Marquee.
+ * Phones and portrait tablets: the photo first (full bleed, under the header card), then the copy, then the strip.
+ * The copy is visible from first paint (transform-only entrance); the mosaic boxes are sized by CSS (no CLS).
  */
 /** The soonest upcoming event with a confirmed date (the API lists upcoming events; sort defensively). */
 function nextEvent(list) {
@@ -154,22 +151,20 @@ function HeroPill({ event }) {
 
 function HeroProof() {
   const { t, localePath } = useLang();
+  // SPEC §5.1: the proof strip is the kit Marquee (64px row, Paper marks at 60%), pinned to the hero's foot. It pauses
+  // on hover / focus and with its Pause button, and is a static wrapped row under reduced motion.
   const logos = STARTUPS.map((s) => (
-    <li key={s.slug} className="home-hero__logo">
+    <span key={s.slug} className="home-hero__logo">
       <img src={s.logo} alt={s.name} loading="lazy" decoding="async" style={{ '--logo-w': `${(logoWidth(s.ratio, s.scale) * 2.1).toFixed(0)}px` }} />
-    </li>
+    </span>
   ));
   return (
-    <div className="container home-hero__proof home-hero__rise home-hero__rise--3">
+    <div className="home-hero__proof home-hero__rise home-hero__rise--3">
       <Link className="home-hero__proof-label" to={`${localePath('/insights/stories')}#community-startups`}>
         {t('Built by founders in our community', 'எங்கள் சமூக நிறுவனர்கள் உருவாக்கியவை')}
         <ArrowRight size={14} strokeWidth={1.75} aria-hidden="true" />
       </Link>
-      <div className="home-hero__logos">
-        <ul className="home-hero__logos-track" aria-label={t('Community companies', 'சமூக நிறுவனங்கள்')}>{logos}</ul>
-        {/* Second copy for the seamless marquee on small screens; hidden from assistive tech and on wide screens. */}
-        <ul className="home-hero__logos-track home-hero__logos-track--clone" aria-hidden="true">{logos}</ul>
-      </div>
+      <Marquee className="home-hero__logos" items={logos} label={t('Community companies', 'சமூக நிறுவனங்கள்')} />
     </div>
   );
 }
@@ -179,7 +174,8 @@ function HomeHero({ events }) {
   const next = useMemo(() => nextEvent(events), [events]);
   return (
     <section className="home-hero home-hero--v3" data-surface="night" aria-label={t("Tamil Nadu's founder-making network", 'தமிழ்நாட்டின் நிறுவனர்களை உருவாக்கும் வலையமைப்பு')}>
-      <div className="home-hero__bg" aria-hidden="true" />
+      {/* The static pulli dot grid on the left 45% (SPEC §4.16), behind the copy. */}
+      <div className="home-hero__bg u-pulli" aria-hidden="true" />
       <div className="container home-hero__grid">
         <div className="home-hero__copy">
           <div className="home-hero__lead-slot">
@@ -212,16 +208,16 @@ function HomeHero({ events }) {
           </div>
         </div>
         <HeroShowcase />
+        <HeroProof />
       </div>
-      <HeroProof />
     </section>
   );
 }
 
 /*
- * "I am a…" (DESIGN-v2 6.1 / 3.12): the question on the left (cols 1–4), the answers as a chip grid on the right.
- * The radios stay native (one group across both visual groups). Continue reads inactive (aria-disabled, Bone) until
- * a choice is made, instead of a faded "broken" button.
+ * "I am a…" (SPEC §5.1 #2): the section header, then the answers as persona tiles (§4.6: Ink / Slate tiles for the
+ * four talent paths, Bone tiles for the five partner paths). The radios stay native (one group across both visual
+ * groups). Continue stays aria-disabled until a choice is made.
  */
 function PersonaBand() {
   const [value, setValue] = useState('');
@@ -242,22 +238,23 @@ function PersonaBand() {
           document.getElementById(firstPersonaInputId('home-persona'))?.focus();
         }}
       >
-        <div id="home-persona-legend" className="home-persona-band__head">
-          <Reveal as="h2" className="h2 home-persona-band__title">{t('I am a…', 'நான் ஒரு…')}</Reveal>
-          <Reveal as="p" delay={0.06} className="body-lg home-persona-band__lede">
-            {t(
-              'Pick the one closest to you and we’ll take you to the right door.',
-              'உங்களுக்கு மிக நெருக்கமானதைத் தேர்ந்தெடுங்கள்; சரியான வாசலுக்கு உங்களை அழைத்துச் செல்கிறோம்.'
-            )}
-          </Reveal>
-        </div>
+        {/* The title is the radio group's label (aria-labelledby="home-persona-legend"). */}
+        <SectionHeader
+          id="home-persona-legend"
+          className="home-persona-band__head"
+          title={t('I am a…', 'நான் ஒரு…')}
+          lede={t(
+            'Pick the one closest to you and we’ll take you to the right door.',
+            'உங்களுக்கு மிக நெருக்கமானதைத் தேர்ந்தெடுங்கள்; சரியான வாசலுக்கு உங்களை அழைத்துச் செல்கிறோம்.'
+          )}
+        />
         <Reveal delay={0.12} className="home-persona-band__pick">
           <PersonaSelector
             name="home-persona"
             value={value}
             onChange={(v) => { setValue(v); setError(false); }}
             legendId="home-persona-legend"
-            variant="chips"
+            size="lg"
             invalid={error}
             describedBy={error ? 'home-persona-error' : undefined}
           />
@@ -327,20 +324,22 @@ export default function Home() {
       <Section surface="night" id="where-things-stand" className="home-proof">
         <FactBand
           surface="night"
+          variant="lg"
           title={<ScrubText as="span" className="home-proof__statement">{t('Where things stand', 'இப்போதைய நிலை')}</ScrubText>}
           metrics={proof}
           footnote={(
             <Link className="arrow-link home-proof__footnote-link" to={localePath('/about/evidence-standard')}>
               <span className="arrow-link__label">{t('How we count, and what we got wrong.', 'நாங்கள் எப்படி எண்ணுகிறோம், எங்கே தவறினோம்.')}</span>
-              <span className="arrow" aria-hidden="true">→</span>
+              <span className="arrow" aria-hidden="true"><ArrowRight size={16} strokeWidth={1.75} /></span>
             </Link>
           )}
           link={{ label: t('Read the Founder Ledger', 'Founder Ledger-ஐப் படியுங்கள்'), to: '/insights/founder-ledger' }}
         />
       </Section>
 
-      {/* M03 · Four doors: media cards, 4-up ≥1280, 2-up ≥768, a snap scroller on phones (same items, same order) */}
-      <Section id="brands" className="home-doors">
+      {/* M03 · Four doors (SPEC §5.1 #4): a Scroller of the four Ink / Slate BrandTiles; its counter and arrows share
+          the header's action row from 1024 (.home-rail). */}
+      <Section id="brands" className="home-doors home-rail">
         <SectionHeader
           eyebrow={t('Our brands', 'எங்கள் பிராண்டுகள்')}
           title={t('Four doors into founding', 'நிறுவனராவதற்கு நான்கு வாசல்கள்')}
@@ -350,13 +349,15 @@ export default function Home() {
           )}
           action={<Button variant="tertiary" to="/brands">{t('See all our brands', 'எங்கள் அனைத்துப் பிராண்டுகளையும் பாருங்கள்')}</Button>}
         />
-        <Scroller className="home-doors__rail" label={t('The four StartNet brands', 'நான்கு StartNet பிராண்டுகள்')} itemWidth="min(19rem, 80vw)">
-          {TALENT_BRANDS.map((b, i) => (
-            <Reveal key={b.key} delay={Math.min(i, 5) * 0.06} className="home-doors__item">
-              <BrandTile brand={b.key} stat={localizeMetric(brandMetric(metricsReq.data, b.key), lang)} />
-            </Reveal>
-          ))}
-        </Scroller>
+        <div className="home-block">
+          <Scroller className="home-doors__rail" label={t('The four StartNet brands', 'நான்கு StartNet பிராண்டுகள்')} itemWidth="min(24rem, 82vw)" nudge={false}>
+            {TALENT_BRANDS.map((b, i) => (
+              <Reveal key={b.key} delay={Math.min(i, 5) * 0.06} className="home-doors__item">
+                <BrandTile brand={b.key} stat={localizeMetric(brandMetric(metricsReq.data, b.key), lang)} />
+              </Reveal>
+            ))}
+          </Scroller>
+        </div>
       </Section>
 
       {/* M07 → M04: FounderStory, Mission 1 Lakh, Why Tamil Nadu, events, open calls, updates, stories, partners,

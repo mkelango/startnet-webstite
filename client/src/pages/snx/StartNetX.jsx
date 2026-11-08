@@ -2,10 +2,10 @@
 import { m as motion } from 'framer-motion'; // light m inside the shell's LazyMotion
 import { ArrowRight, ShieldCheck, Smartphone, MessageCircle, Languages } from 'lucide-react';
 import {
-  Seo, BrandHero, Section, SectionHeader, Button, Tabs, RevealGroup, Reveal, Stat, CTABand, Dot, WhatsAppButton,
-  Accordion,
+  Seo, BrandHero, Section, SectionHeader, Button, RevealGroup, Reveal, Stat, CTABand, WhatsAppButton,
+  Accordion, FactBand,
 } from '../../components';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSnxT } from './snxTamil.js';
 import { snxLink } from '../../lib/links.js';
 import { BRANDS } from '../../data/brands.js';
@@ -47,15 +47,17 @@ export default function StartNetX() {
         })}
       />
 
+      {/* SPEC §5.9: the photo hero; the brand (Red-600) button is the page's red point, so the h1 stop stays Paper. */}
       <BrandHero
-        className="rk-page"
+        className="rk-page snx-hero"
         brand="x"
+        layout="photo"
         title={tx('One profile, from first event to first funding.')}
         lede={tx("StartNet X is the platform behind every StartNet programme. You get one profile that remembers what you've done, suggests what's next and stays in your control.")}
         actions={
           <>
-            <Button size="lg" href={signup}>{t('Create your free profile', 'உங்கள் இலவச சுயவிவரத்தை உருவாக்குங்கள்')}</Button>
-            <Button variant="tertiary" size="lg" href={signin}>{t('Sign in', 'உள்நுழைக')}</Button>
+            <Button variant="brand" size="lg" href={signup}>{t('Create your free profile', 'உங்கள் இலவச சுயவிவரத்தை உருவாக்குங்கள்')}</Button>
+            <Button variant="secondary" size="lg" href={signin}>{t('Sign in', 'உள்நுழைக')}</Button>
           </>
         }
         meta={
@@ -73,7 +75,7 @@ export default function StartNetX() {
       <Section surface="paper">
         <div className="snx-statement">
           <Reveal as="p" className="snx-statement__text display-xl">
-            {t('Free for talent. One profile from first Vibathon to first funding', 'திறமையாளர்களுக்கு இலவசம். முதல் Vibathon-இலிருந்து முதல் நிதி வரை ஒரே சுயவிவரம்')}<Dot animate />
+            {t('Free for talent. One profile from first Vibathon to first funding', 'திறமையாளர்களுக்கு இலவசம். முதல் Vibathon-இலிருந்து முதல் நிதி வரை ஒரே சுயவிவரம்')}<span className="dot">.</span>
           </Reveal>
           <Reveal as="p" className="snx-statement__sub body-lg" delay={0.1}>
             {t(
@@ -101,6 +103,16 @@ export default function StartNetX() {
             <SnxModuleCard key={m.id} module={m} index={i} to={`/startnet-x/modules#${m.id}`} />
           ))}
         </RevealGroup>
+        {/* SPEC §5.9 #4: the terms / proof band between the modules and the audiences. Tamil: draft, pending native review. */}
+        <FactBand
+          className="snx-facts"
+          metrics={[
+            { id: 'snx-modules', value: 9, label: t('Modules on one profile', 'ஒரே சுயவிவரத்தில் உள்ள தொகுதிகள்') },
+            { id: 'snx-brands', value: 4, label: t('StartNet brands your profile follows', 'உங்கள் சுயவிவரம் தொடரும் StartNet பிராண்டுகள்') },
+            { id: 'snx-langs', value: 2, label: t('Languages: Tamil and English', 'மொழிகள்: தமிழும் ஆங்கிலமும்') },
+            { id: 'snx-rejections', value: 0, label: t('Automated rejections, ever', 'தானியங்கி நிராகரிப்புகள், ஒருபோதும் இல்லை') },
+          ]}
+        />
       </Section>
 
       {/* Built for */}
@@ -113,13 +125,17 @@ export default function StartNetX() {
             'நிறுவனர்களும் கற்பவர்களும் StartNet X-ஐ இலவசமாகப் பயன்படுத்துகிறார்கள். கல்வி நிறுவனங்கள், இன்குபேட்டர்கள், GCC-கள், அரசு, முதலீட்டாளர்கள் தங்கள் திட்டங்களை இதில் நடத்துகிறார்கள்.'
           )}
         />
-        <div className="snx-audiences">
-          <Tabs
-            label={t('StartNet X audiences', 'StartNet X பயனர்கள்')}
-            defaultTab="founders"
-            tabs={AUDIENCES.map((a) => ({ id: a.id, label: tx(a.label), content: <AudiencePanel a={a} lang={lang} t={t} tx={tx} /> }))}
-          />
-        </div>
+        {/* SPEC §5.9 #5: six persona tiles (PnP "Who we work with"), each a door to its /startnet-x/{audience} page */}
+        <RevealGroup as="ul" className="snx-audiences" aria-label={t('StartNet X audiences', 'StartNet X பயனர்கள்')}>
+          {AUDIENCES.map((a, i) => {
+            const tone = TILE_TONES[i % TILE_TONES.length];
+            return (
+              <li key={a.id} className={`snx-persona snx-persona--${tone}`} data-surface={tone === 'bone' ? undefined : 'night'}>
+                <AudienceTile a={a} index={i} />
+              </li>
+            );
+          })}
+        </RevealGroup>
       </Section>
 
       {/* Trust strip — the page's one Night band */}
@@ -197,10 +213,9 @@ export default function StartNetX() {
         </div>
       </Section>
 
-      {/* Closing CTA on paper: the red stays on the one conversion button (AngelList family: one accent). */}
+      {/* Closing CTA (SPEC §5.9 #8): the Ink headband with a Paper primary; the hero holds the page's red. */}
       <CTABand
-        surface="paper"
-        brand="x"
+        surface="night"
         title={t('Start where you are.', 'நீங்கள் இருக்கும் இடத்திலிருந்தே தொடங்குங்கள்.')}
         body={t(
           "Make a free StartNet X profile and we'll show you the next step that fits you: an event, a course, a circle or a programme.",
@@ -217,29 +232,18 @@ export default function StartNetX() {
   );
 }
 
-function AudiencePanel({ a, lang, t, tx }) {
+const TILE_TONES = ['ink', 'slate', 'bone'];
+
+/** Persona tile (inside an Ink / Slate / Bone li by position): the audience name at --text-h3, its promise, an arrow. */
+function AudienceTile({ a, index }) {
+  const { tx, localePath } = useSnxT();
   return (
-    <div className="snx-aud">
-      <div className="snx-aud__intro">
-        <h3 className="h3">{tx(a.title)}</h3>
-        <p className="body-lg text-2">{tx(a.sub)}</p>
-        {a.cta.snx ? (
-          <Button href={snxLink(a.cta.snx, { src: `snx-${a.id}`, brand: 'x', lang })}>{t('Create your free profile', 'உங்கள் இலவச சுயவிவரத்தை உருவாக்குங்கள்')}</Button>
-        ) : (
-          <Button variant="secondary" to={`${a.cta.to}-${a.id}`}>{tx(a.cta.label)}</Button>
-        )}
-      </div>
-      <ol className="snx-aud__blocks">
-        {a.blocks.map((b, i) => (
-          <li key={b.title} className="snx-aud__block">
-            <span className="snx-aud__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-            <h4 className="h5">{tx(b.title)}</h4>
-            <p className="text-2">{tx(b.body)}</p>
-          </li>
-        ))}
-      </ol>
-      {/* "Institutions using StartNet X: [placeholder]" is hidden until a tenant signs. */}
-    </div>
+    <Link to={localePath(`/startnet-x/${a.id}`)} className="snx-persona__link">
+      <span className="snx-persona__num tnum" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+      <h3 className="snx-persona__name">{tx(a.label)}</h3>
+      <p className="snx-persona__sub">{tx(a.sub)}</p>
+      <span className="snx-persona__arrow" aria-hidden="true"><ArrowRight size={24} strokeWidth={1.75} /></span>
+    </Link>
   );
 }
 

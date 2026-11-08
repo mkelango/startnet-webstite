@@ -1,5 +1,5 @@
 import { Children, isValidElement, useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useLang } from '../lib/i18n.jsx';
 import { useReducedMotion } from '../hooks/useReducedMotion.js';
 import { cx } from './_utils.js';
@@ -22,7 +22,8 @@ import './Scroller.css';
  * - Touch-only devices (phones, tablets): no scroll link either. The nudge would park the rail part-way into the
  *   first card (about 70px cut off at 375px) and switches snapping off; phones swipe natively with card snap instead,
  *   and the next card peeking at the screen edge (plus the edge fade) is the "more this way" hint.
- * Extra optional props: `ordered` (renders <ol>), `className`.
+ * Extra optional props: `ordered` (renders <ol>), `className`, `nudge` (default true; false keeps the drag and the
+ *   inertia but drops the scroll-linked slide, so the first card stays on the content edge).
  */
 const pad2 = (n) => String(n).padStart(2, '0');
 
@@ -42,7 +43,7 @@ function useTouchOnly() {
   return touch;
 }
 
-export function Scroller({ label, children, itemWidth, ordered = false, className }) {
+export function Scroller({ label, children, itemWidth, ordered = false, className, nudge = true }) {
   const { t } = useLang();
   const reduced = useReducedMotion();
   const touchOnly = useTouchOnly();
@@ -168,8 +169,10 @@ export function Scroller({ label, children, itemWidth, ordered = false, classNam
     let glide = 0; // inertial glide after a drag release
     let visible = false; // the rail is on (or near) the screen
 
-    // How far the page scroll slides the rail on its own: about one card, at most 40% of the visible width.
-    const nudge = () => {
+    // How far the page scroll slides the rail on its own: about one card, at most 40% of the visible width
+    // (0 with nudge={false}: the rail then moves only when the visitor drags, swipes or uses the buttons).
+    const nudgeBy = () => {
+      if (!nudge) return 0;
       const max = el.scrollWidth - el.clientWidth;
       const first = el.firstElementChild;
       const second = first && first.nextElementSibling;
@@ -181,7 +184,7 @@ export function Scroller({ label, children, itemWidth, ordered = false, classNam
     let geo = null;
     const measure = () => {
       const r = root.getBoundingClientRect();
-      geo = { top: r.top + window.scrollY, h: r.height, vh: window.innerHeight || 1, max: Math.max(0, el.scrollWidth - el.clientWidth), nudge: nudge() };
+      geo = { top: r.top + window.scrollY, h: r.height, vh: window.innerHeight || 1, max: Math.max(0, el.scrollWidth - el.clientWidth), nudge: nudgeBy() };
     };
     const progress = () => {
       // 0 as the rail enters at the bottom, 1 as it leaves at the top; slide across the middle 70%.
@@ -341,7 +344,7 @@ export function Scroller({ label, children, itemWidth, ordered = false, classNam
       el.removeEventListener('dragstart', noNativeDrag);
       root.classList.remove('is-dragging');
     };
-  }, [linked, count]);
+  }, [linked, count, nudge]);
 
   // Keyboard: Left / Right arrows move one card while focus is inside the rail (or on its controls).
   const goRef = useRef(null);
@@ -409,7 +412,7 @@ export function Scroller({ label, children, itemWidth, ordered = false, classNam
           aria-disabled={state.atStart || undefined}
           aria-label={t('Previous', 'முந்தையவை')}
         >
-          <ChevronLeft size={20} strokeWidth={1.75} aria-hidden="true" />
+          <ArrowLeft size={20} strokeWidth={1.75} aria-hidden="true" />
         </button>
         <button
           type="button"
@@ -418,7 +421,7 @@ export function Scroller({ label, children, itemWidth, ordered = false, classNam
           aria-disabled={state.atEnd || undefined}
           aria-label={t('Next', 'அடுத்தவை')}
         >
-          <ChevronRight size={20} strokeWidth={1.75} aria-hidden="true" />
+          <ArrowRight size={20} strokeWidth={1.75} aria-hidden="true" />
         </button>
       </div>
       <List

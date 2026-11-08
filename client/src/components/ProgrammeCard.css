@@ -1,15 +1,45 @@
-/* Programme card (DESIGN-v2 3.7, framed family): key/value facts as hairline rows (Card.css .card-facts). */
+/* Programme card (docs/redesign/SPEC.md §4.6): framed family; key/value facts as hairline rows (Card.css .card-facts).
+   Title --text-h3 (20 → 24) on 2 lines, the summary on 2. With media it is unframed on Paper, framed on Bone. */
+:root .programme-card .card__title {
+  font-size: var(--text-h3);
+  line-height: var(--leading-h3);
+  letter-spacing: var(--tracking-h3);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.programme-card .card__text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.programme-card .card__text > * { display: inline; }
 .programme-card .card__meta { margin-top: var(--space-1); }
 .programme-card__stage {
   display: inline-block;
   padding: 0 6px;
-  border-radius: var(--radius-btn);
+  border-radius: var(--radius-chip);
   box-shadow: inset 0 0 0 1px var(--color-border-control);
   font-weight: 500;
-  font-size: 0.75rem;
+  font-size: var(--text-caption);
   line-height: 1.6;
 }
 .programme-card--closed .card__title { color: var(--color-text-2); }
 
-/* Phones: the stage chip at the 14px text minimum */
-@media (max-width: 767.98px) { .programme-card__stage { font-size: 0.875rem; } }
+/* With media on Paper: unframed, the 16px media flush on top (PnP programme card) */
+:root .programme-card:has(> .card__media):not(:is(.section--white, .section--sunken, [data-ground='bone'], [data-surface='night']) *) {
+  border: 0;
+  border-radius: var(--radius-media);
+  background: transparent;
+}
+:root .programme-card:has(> .card__media):not(:is(.section--white, .section--sunken, [data-ground='bone'], [data-surface='night']) *) > .card__media {
+  margin: 0;
+  border-radius: var(--radius-media);
+}
+:root .programme-card:has(> .card__media):not(:is(.section--white, .section--sunken, [data-ground='bone'], [data-surface='night']) *) > .card__body {
+  padding: var(--space-4) 0 0;
+}

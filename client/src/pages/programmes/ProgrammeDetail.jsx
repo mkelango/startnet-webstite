@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import { Check, ArrowRight, BellRing } from 'lucide-react';
 import {
   Seo, Section, SectionHeader, BrandHero, PageHero, Breadcrumbs, KeyFacts, Badge, Button, Steps, Ladder,
-  Accordion, ProgrammeCard, CTABand, Skeleton, RevealGroup,
+  Accordion, ProgrammeCard, CTABand, Skeleton, RevealGroup, PillSubNav,
 } from '../../components';
 import { useLang } from '../../lib/i18n.jsx';
 import { snxLink, waLink } from '../../lib/links.js';
@@ -257,13 +257,14 @@ export default function ProgrammeDetail() {
     .map((l) => (LANG_NAMES[l] ? t(LANG_NAMES[l][0], LANG_NAMES[l][1]) : l))
     .join(' · ') || '—';
 
+  // The hero action is the page's one red point (SPEC §5.3); every repeat of it is an Ink / Paper primary.
   const primaryButton = (heroPrimary) =>
     open ? (
-      <Button variant="brand" href={applyHref} icon={ArrowRight} data-primary-cta={heroPrimary ? '' : undefined}>
+      <Button variant={heroPrimary ? 'point' : 'primary'} size="lg" href={applyHref} icon={ArrowRight} data-primary-cta={heroPrimary ? '' : undefined}>
         {ctaLabel}
       </Button>
     ) : (
-      <Button variant="brand" href={notifyHref} icon={BellRing} data-primary-cta={heroPrimary ? '' : undefined}>
+      <Button variant={heroPrimary ? 'point' : 'primary'} size="lg" href={notifyHref} icon={BellRing} data-primary-cta={heroPrimary ? '' : undefined}>
         {notifyLabel}
       </Button>
     );
@@ -273,7 +274,7 @@ export default function ProgrammeDetail() {
     <>
       {primaryButton(true)}
       {moreUrl && (
-        <Button variant="tertiary" to={moreUrl}>
+        <Button variant="secondary" size="lg" to={moreUrl}>
           {t(`More about ${name}`, `${name} பற்றி மேலும்`)}
         </Button>
       )}
@@ -363,18 +364,29 @@ export default function ProgrammeDetail() {
     : null;
   const ladderFrom = levelCode(p.stageEntry);
   const ladderTo = levelCode(p.stageExit);
+  const hasWho = entry > 0 || eligibility.text?.length > 0 || showHeadline;
+  // In-page pill nav (SPEC §5.3): only the sections this programme has, labelled with their own eyebrows.
+  const subnav = [
+    hasWho && { id: 'who', label: t("Who it's for", 'யாருக்கானது') },
+    outcomes.text?.length > 0 && { id: 'what-you-get', label: t('What you get', 'உங்களுக்குக் கிடைப்பவை') },
+    { id: 'how', label: t('How applying works', 'விண்ணப்பிக்கும் முறை') },
+    { id: 'faqs', label: t('FAQ', 'அடிக்கடி கேட்கப்படும் கேள்விகள்') },
+  ].filter(Boolean);
 
   return (
     <div className="programme-detail" data-brand={p.brand}>
       {/* Distinct from the brand landing page title (e.g. /women/summit), F-70 */}
       <Seo title={seoTitle} description={seoDescription} jsonLd={courseJsonLd} />
 
-      {/* The breadcrumbs sit on the ink band, joined to the hero below (no light strip between header and hero). */}
-      <div className="programme-detail__crumbs-band" data-surface="night">
-        <div className="container programme-detail__crumbs">
-          <Breadcrumbs items={crumbs} />
+      {/* BrandHero has no breadcrumbs slot: the trail sits on the Ink band, over the hero's top padding
+          (ProgrammeDetail.css). PageHero carries its own breadcrumbs in the text column. */}
+      {brand && (
+        <div className="programme-detail__crumbs-band" data-surface="night">
+          <div className="container programme-detail__crumbs">
+            <Breadcrumbs items={crumbs} />
+          </div>
         </div>
-      </div>
+      )}
 
       {brand ? (
         <BrandHero
@@ -394,9 +406,11 @@ export default function ProgrammeDetail() {
           lede={<Copy p={p} field="summary" lang={lang} />}
           actions={heroActions}
           meta={meta}
-          titleClass="h1"
+          breadcrumbs={crumbs}
         />
       )}
+
+      <PillSubNav items={subnav} />
 
       <Section surface="paper" className="programme-detail__body">
         <div className="programme-detail__layout">
@@ -409,11 +423,11 @@ export default function ProgrammeDetail() {
                 action={
                   <div className="programme-detail__aside-actions">
                     {open ? (
-                      <Button variant="brand" href={applyHref} full icon={ArrowRight}>
+                      <Button href={applyHref} full icon={ArrowRight}>
                         {closesLabel(ctaLabel)}
                       </Button>
                     ) : (
-                      <Button variant="brand" href={notifyHref} full icon={BellRing}>
+                      <Button href={notifyHref} full icon={BellRing}>
                         {notifyLabel}
                       </Button>
                     )}
@@ -450,8 +464,8 @@ export default function ProgrammeDetail() {
             {/* Who it's for — opens with the programme's headline (the separate Overview band was near-empty and
                 repeated "For:" from Key facts, F-70). */}
             {/* "Who it's for" needs a ladder, eligibility or a headline; otherwise it would be a heading on its own. */}
-            {(entry > 0 || eligibility.text?.length > 0 || showHeadline) && (
-            <section className="programme-detail__block" aria-labelledby="pd-who">
+            {hasWho && (
+            <section id="who" className="programme-detail__block" aria-labelledby="pd-who">
               {showHeadline && (
                 // The programme's first lede: scroll-scrubbed word by word (one per page; plain text in SSR, reduced
                 // motion and Tamil). Copy with register marks keeps the static RichText rendering.
@@ -502,7 +516,7 @@ export default function ProgrammeDetail() {
 
             {/* What you get (hidden until the outcomes are supplied) */}
             {outcomes.text?.length > 0 && (
-            <section className="programme-detail__block" aria-labelledby="pd-get">
+            <section id="what-you-get" className="programme-detail__block" aria-labelledby="pd-get">
               <p className="eyebrow">{t('What you get', 'உங்களுக்குக் கிடைப்பவை')}</p>
               <h2 id="pd-get" className="h2">
                 {t('What you leave with', 'நீங்கள் பெற்றுச் செல்வது')}
@@ -520,7 +534,7 @@ export default function ProgrammeDetail() {
             )}
 
             {/* How applying works (Book 1 Part B §9.1) */}
-            <section className="programme-detail__block" aria-labelledby="pd-how">
+            <section id="how" className="programme-detail__block" aria-labelledby="pd-how">
               <p className="eyebrow">{t('How applying works', 'விண்ணப்பிக்கும் முறை')}</p>
               <h2 id="pd-how" className="h2">{t('From application to decision', 'விண்ணப்பம் முதல் முடிவு வரை')}</h2>
               <Steps
@@ -554,7 +568,7 @@ export default function ProgrammeDetail() {
             {/* Mentors and faculty / past-cohort outcomes: hidden until StartNet supplies them (named with consent). */}
 
             {/* FAQ */}
-            <section className="programme-detail__block" aria-labelledby="pd-faq">
+            <section id="faqs" className="programme-detail__block" aria-labelledby="pd-faq">
               <p className="eyebrow">{t('FAQ', 'அடிக்கடி கேட்கப்படும் கேள்விகள்')}</p>
               <h2 id="pd-faq" className="h2">{t('Questions people ask', 'மக்கள் கேட்கும் கேள்விகள்')}</h2>
               <Accordion items={buildFaq(p, t, lang)} faq />
@@ -587,8 +601,7 @@ export default function ProgrammeDetail() {
       )}
 
       <CTABand
-        surface="accent"
-        brand={p.brand}
+        surface="night"
         title={
           open
             ? applyBy

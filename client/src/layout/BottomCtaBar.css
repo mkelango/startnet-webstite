@@ -1,23 +1,26 @@
-/* C05 · Bottom CTA bar (DESIGN-v2 3.17): Ink, 64px + safe area, < 1024 only; shows after the hero, hides over the
-   footer; transform-only enter/exit. */
+/* C05 · Bottom CTA bar (SPEC §3.7): a 64px Card bar (+ safe area) with a top hairline, padding 8 16, z 55, < 1024
+   only; the context CTA full width (Ink primary, brand fill on a hub) + a 44px WhatsApp icon button. Shows after the
+   hero, hides over the footer; transform-only enter/exit. On a hub page the hairline takes the brand accent. */
 .bottom-cta {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 55;
-  background: var(--night-0);
-  border-top: 1px solid var(--night-line);
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-bottom-cta);
+  background: var(--card);
+  color: var(--ink-900);
+  box-shadow: inset 0 1px 0 var(--hairline);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-.bottom-cta::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--accent-night, var(--accent-fill)); opacity: 0; }
-.bottom-cta[data-brand]::before { opacity: 1; }
+.bottom-cta[data-brand]:not([data-brand='x']) { box-shadow: inset 0 2px 0 var(--accent); }
 .bottom-cta__inner {
-  display: flex; align-items: center; gap: var(--space-3);
-  min-height: 64px; padding: var(--space-2) var(--gutter);
+  display: flex; align-items: center; gap: var(--space-2);
+  min-height: 64px; padding: var(--space-2) var(--space-4);
 }
 .bottom-cta__primary { flex: 1; min-width: 0; }
 .bottom-cta__primary > * { width: 100%; }
+/* The WhatsApp icon button: a 44px circle (secondary ring), whatever the coarse-pointer button sizes say */
+:root .bottom-cta .whatsapp-button--icon { width: 44px; min-width: 44px; height: 44px; min-height: 44px; }
 @media (min-width: 1024px) { .bottom-cta { display: none; } }
 
-/* One line, never taller than the 64 px spec: long labels truncate (short labels are used < 360 px) */
-.bottom-cta__primary .button { min-width: 0; max-width: 100%; }
+/* One line, never taller than the 64 px bar: long labels truncate (short labels are used < 360 px) */
+.bottom-cta__primary .button { min-width: 0; max-width: 100%; min-height: 44px; }
 .bottom-cta__primary .button__label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 
 /* Any modal sheet (drawer, search, sub-nav "More", page sheets via useModal) hides the bar */
@@ -30,4 +33,3 @@ html[data-modal-open] .bottom-cta { display: none; }
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2;
   font-size: var(--text-small); line-height: 1.25; letter-spacing: 0;
 }
-

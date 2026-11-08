@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { SectionHeader, Reveal, RevealGroup } from '../../components';
 import { useLang } from '../../lib/i18n.jsx';
 import './FounderStory.css';
@@ -111,7 +112,7 @@ export default function FounderStory() {
   const introFits = useIntroFits(intro);
 
   return (
-    <section ref={root} className={`section section--paper home-story${introFits ? '' : ' home-story--unpinned'}`} id="how-it-works">
+    <section ref={root} className={`section section--sunken section--pad-default home-story${introFits ? '' : ' home-story--unpinned'}`} id="how-it-works">
       <div className="container section__inner home-story__layout">
         <div ref={intro} className="home-story__intro">
           <SectionHeader
@@ -144,7 +145,7 @@ export default function FounderStory() {
               {t('Every step is recorded on your StartNet X profile, which you control.', 'ஒவ்வொரு படியும் உங்கள் கட்டுப்பாட்டில் உள்ள StartNet X சுயவிவரத்தில் பதிவாகிறது.')}
             </p>
             <Link className="arrow-link home-story__link" to={localePath('/startnet-x')}>
-              <span className="arrow-link__label">{t('How StartNet X works', 'StartNet X எப்படிச் செயல்படுகிறது')}</span> <span className="arrow" aria-hidden="true">→</span>
+              <span className="arrow-link__label">{t('How StartNet X works', 'StartNet X எப்படிச் செயல்படுகிறது')}</span> <span className="arrow" aria-hidden="true"><ArrowRight size={16} strokeWidth={1.75} /></span>
             </Link>
           </Reveal>
         </div>

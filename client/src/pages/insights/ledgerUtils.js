@@ -3,6 +3,7 @@
 // pages keep working whether a figure arrives as a number or as a Metric object.
 import { createElement } from 'react';
 import { BRANDS } from '../../data/brands.js';
+import { isPlaceholderMetric } from '../../components/_placeholders.js';
 
 /** Founder ladder L1–L7 (Book 2 §2.3 / Book 1 §7). */
 export const LEVELS = [
@@ -355,3 +356,12 @@ export function ledgerDatasetLd({ id, label, path, lang = 'en', description, pub
 
 /** What the Ledger measures (Book 2 §2.4 / §6.2 KPI names). */
 export const LEDGER_MEASURES = ['Founders nurtured (L2+)', 'Startups launched', 'Capital raised', 'Pilots signed', 'Share of women founders', 'Districts active'];
+
+/**
+ * A report for a listing card (hub "Latest reports", the Reports library, related rows): key findings without a
+ * published value are left out, so a card never prints "[placeholder]" figures. Tamil labels via withKpiTa.
+ */
+export const listedReport = (r) =>
+  r && Array.isArray(r.keyFindings)
+    ? { ...r, keyFindings: r.keyFindings.filter((m) => !isPlaceholderMetric(m)).map(withKpiTa) }
+    : r;

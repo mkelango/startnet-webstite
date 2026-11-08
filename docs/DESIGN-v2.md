@@ -1,5 +1,10 @@
 # StartNet UI v2: brand book applied, reference-grade finish
 
+> **Superseded for look and sizing (5 Nov 2026):** the redesign on branch `redesign/pnp-ui` follows
+> [`docs/redesign/SPEC.md`](redesign/SPEC.md) (Plug and Play look, Techstars sizing, StartNet brand). Where this file
+> and the SPEC disagree on tokens, components or page templates, the SPEC wins. The hard rule below (no copy, data,
+> link, order or nav changes) still applies.
+
 Status: implementation spec, 2026-10-09. It supersedes `docs/DESIGN.md` wherever the two disagree.
 Sources, in order of authority: (1) **StartNet Brand Book v1.0** (`brand-book/out/StartNet-Brand-Book-v1.0.pdf`,
 readable sources in `brand-book/pages/*.html`), (2) the reference analyses of aiwo-website-new-v1.vercel.app,

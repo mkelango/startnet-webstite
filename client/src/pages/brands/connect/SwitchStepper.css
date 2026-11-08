@@ -1,6 +1,6 @@
 .connect-switch {
   display: grid; gap: var(--space-6);
-  padding: var(--space-6); box-shadow: inset 0 0 0 1px var(--color-border); border-radius: var(--media-radius);
+  padding: var(--space-6); box-shadow: inset 0 0 0 1px var(--color-border); border-radius: var(--radius-card);
   background: var(--color-bg-raised);
 }
 @media (min-width: 768px) { .connect-switch { padding: var(--space-10); } }
@@ -26,16 +26,15 @@
 @media (min-width: 560px) and (max-width: 899px) { .connect-switch__step { flex-direction: column; align-items: flex-start; } }
 @media (min-width: 900px) { .connect-switch__step { padding: var(--space-3) var(--space-4); } }
 @media (hover: hover) { .connect-switch__step:hover { box-shadow: inset 0 0 0 1px var(--color-text); color: var(--color-text); } }
-.connect-switch__step:active { transform: scale(0.98); }
 .connect-switch__step[aria-current="step"] { box-shadow: inset 0 0 0 1px var(--color-text); color: var(--color-text); background: color-mix(in srgb, var(--color-text) 6%, transparent); }
 .connect-switch__num {
   flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: var(--radius-full);
   border: 1px solid var(--color-border-control); font-size: var(--text-caption); font-weight: 500; font-variant-numeric: tabular-nums;
   transition: background-color var(--dur-2) var(--ease-snap), border-color var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap);
 }
-/* Done stages in the text colour; the current stage carries the accent (the current value) */
+/* Done stages in the text colour; the current stage adds a ring (the accent stays in the brand button) */
 .connect-switch__step[data-state="done"] .connect-switch__num { background: var(--color-text); border-color: var(--color-text); color: var(--color-bg-raised); }
-.connect-switch__step[aria-current="step"] .connect-switch__num { background: var(--accent-fill); border-color: var(--accent-fill); color: var(--accent-on-fill); }
+.connect-switch__step[aria-current="step"] .connect-switch__num { background: var(--color-text); border-color: var(--color-text); color: var(--color-bg-raised); box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 3px var(--color-text); }
 .connect-switch__label { font-size: var(--text-small); font-weight: 500; min-width: 0; }
 
 /* Panel */
@@ -93,10 +92,11 @@
 }
 [data-surface="night"] .connect-switch__navbtn { box-shadow: inset 0 0 0 1px rgb(244 243 239 / 0.32); }
 @media (hover: hover) { .connect-switch__navbtn:hover:not(:disabled) { box-shadow: inset 0 0 0 1px var(--color-text); background: color-mix(in srgb, var(--color-text) 6%, transparent); } }
-.connect-switch__navbtn:active:not(:disabled) { transform: scale(0.98); }
-/* Next: the brand button (accent fill, 8% darker on hover) */
-.connect-switch__navbtn--next { background: var(--accent-fill); box-shadow: none !important; color: var(--accent-on-fill); }
-@media (hover: hover) { .connect-switch__navbtn--next:hover:not(:disabled) { background: color-mix(in oklab, var(--accent-fill), #000 8%); } }
+/* Next: the brand button (accent fill; hover lays an 8% Ink veil over it, as Button variant="brand") */
+.connect-switch__navbtn.connect-switch__navbtn--next { background: var(--accent-fill); box-shadow: none; color: var(--accent-on-fill); }
+@media (hover: hover) {
+  .connect-switch__navbtn.connect-switch__navbtn--next:hover:not(:disabled) { background: var(--accent-fill); box-shadow: inset 0 0 0 999px rgb(12 23 25 / 0.08); }
+}
 .connect-switch__navbtn:disabled { opacity: 0.35; cursor: default; }
 .connect-switch__navbtn svg { flex-shrink: 0; transition: transform var(--dur-2) var(--ease-snap); }
 @media (hover: hover) { .connect-switch__navbtn--next:hover:not(:disabled) svg { transform: translateX(4px); } }
@@ -126,3 +126,6 @@
   :lang(ta) .connect-switch__step { flex-direction: row; align-items: center; }
 }
 :lang(ta) .connect-switch__label { line-height: 1.4; }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.connect-switch__verdict:lang(ta) { letter-spacing: 0; }

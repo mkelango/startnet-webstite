@@ -9,7 +9,7 @@
 .women-awards__why-text .body-lg { max-width: var(--measure); }
 .women-awards__why-stat {
   min-width: 0; padding: var(--space-8);
-  background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius);
+  background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--radius-card);
 }
 .women-awards__why-stat .stat { border-top: 0; padding-top: 0; }
 
@@ -24,18 +24,13 @@
 .women-awards__cat {
   display: grid; gap: var(--space-3); align-content: start; justify-items: start; width: 100%; height: 100%;
   padding: var(--space-6); background: var(--bp-card);
-  box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius);
+  box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--radius-card);
   position: relative; overflow: hidden;
   transition: box-shadow var(--dur-3) var(--ease-snap);
 }
-/* Framed-card top rule (DESIGN-v2 3.7) */
-.women-awards__cat::before {
-  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--color-text);
-  transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-3) var(--ease-snap);
-}
+/* Framed card (SPEC §4.6): no top rule; hover strengthens the hairline */
 @media (hover: hover) and (pointer: fine) {
   .women-awards__cat:hover { box-shadow: inset 0 0 0 1px var(--bp-line-strong); }
-  .women-awards__cat:hover::before { transform: scaleX(1); }
 }
 .women-awards__cat .h4, .women-awards__cat h3 { font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); }
 .women-awards__cat-num { font-variant-numeric: tabular-nums lining-nums; font-weight: 400; font-size: var(--text-meta); line-height: 1; color: var(--color-text-muted); }
@@ -55,7 +50,7 @@
 .women-awards__criterion p { max-width: var(--measure); }
 .women-awards__jury {
   display: grid; gap: var(--space-4); align-content: start;
-  padding: var(--space-6); background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--media-radius);
+  padding: var(--space-6); background: var(--bp-card); box-shadow: inset 0 0 0 1px var(--bp-line); border-radius: var(--radius-card);
 }
 .women-awards__jury-dl { margin: 0; display: grid; font-size: var(--text-small); border-top: var(--border-hair); }
 .women-awards__jury-dl div { display: grid; gap: var(--space-1); padding: var(--space-3) 0; border-bottom: var(--border-hair); }
@@ -72,7 +67,7 @@
   box-shadow: inset 0 0 0 1px var(--color-border-control);
   font-weight: 500; font-size: var(--text-meta); font-variant-numeric: tabular-nums lining-nums;
 }
-.women-awards__step:first-child .women-awards__step-dot { background: var(--accent-fill); box-shadow: none; color: var(--accent-on-fill); }
+.women-awards__step:first-child .women-awards__step-dot { background: var(--color-cta); box-shadow: none; color: var(--color-on-cta); }
 .women-awards__step:not(:last-child)::after {
   content: ''; position: absolute; left: calc(1.25rem - 0.5px); top: 2.5rem; bottom: calc(-1 * var(--space-6));
   width: 1px; background: var(--color-border);
@@ -106,6 +101,10 @@
   .women-awards__cats:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) {
     display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--space-6); align-items: stretch;
   }
-  .women-awards__cats:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media { width: 100%; height: 100%; min-width: 0; margin-bottom: 0; }
-  .women-awards__cats:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media .art-image { aspect-ratio: auto !important; width: 100%; height: 100%; min-height: 12rem; }
+  .women-awards__cats:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media { position: relative; width: 100%; height: 100%; min-width: 0; min-height: 12rem; margin-bottom: 0; aspect-ratio: auto; }
+  .women-awards__cats:not(:has(> :nth-child(3):last-child)) > :last-child:nth-child(odd) .card:has(> .card__media) > .card__media > .art-image { position: absolute; inset: 0; height: 100%; }
 }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.women-awards__cat .h4:lang(ta),
+.women-awards__cat h3:lang(ta) { letter-spacing: 0; }

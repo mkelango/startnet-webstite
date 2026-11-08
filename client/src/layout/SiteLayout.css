@@ -1,8 +1,9 @@
 /* Global shell */
 .site-shell { min-height: 100vh; display: flex; flex-direction: column; }
 .site-shell__page { flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
-.site-shell__spacer { height: var(--header-h); flex-shrink: 0; }
-@media (min-width: 1024px) { .site-shell__spacer { height: calc(var(--utility-h) + var(--header-h)); } }
+/* The Ink field under the fixed floating card (SPEC §3.1): spacer, card and hero read as one Ink band.
+   --shell-top = 112 (tab 32 + gap 8 + card 72) from 1024, 64 (gap 8 + card 56) below. */
+.site-shell__spacer { height: var(--shell-top); flex-shrink: 0; background: var(--night-0); }
 .site-shell__main { flex: 1; outline: none; min-width: 0; }
 .site-shell__main:focus { box-shadow: none; }
 

@@ -1,9 +1,9 @@
-/* Registration countdown on the ink hero: a hairline frame; the days figure is the one small accent block. */
+/* Registration countdown on the ink hero: a hairline frame; the days figure sits in a Paper chip (no accent ground). */
 .vibathon-countdown {
   display: inline-flex; align-items: center; gap: var(--space-4);
   padding: var(--space-2) var(--space-5) var(--space-2) var(--space-2);
   box-shadow: inset 0 0 0 1px var(--color-border);
-  border-radius: var(--media-radius);
+  border-radius: var(--radius-card);
   background: transparent;
   max-width: 100%;
 }
@@ -11,7 +11,7 @@
   display: inline-flex; align-items: baseline; gap: var(--space-1);
   padding: var(--space-2) var(--space-3);
   border-radius: var(--btn-radius);
-  background: var(--accent-fill); color: var(--accent-on-fill);
+  background: var(--color-cta); color: var(--color-on-cta);
   font-weight: 400; line-height: 1; font-variant-numeric: tabular-nums lining-nums;
 }
 .vibathon-countdown__num { font-size: var(--text-h3); font-weight: 400; letter-spacing: -0.02em; }
@@ -19,3 +19,6 @@
 .vibathon-countdown__icon { flex: none; color: var(--color-text); margin-left: var(--space-2); }
 .vibathon-countdown__text { font-size: var(--text-meta); font-weight: 500; line-height: 1.4; font-variant-numeric: tabular-nums lining-nums; }
 @media (max-width: 479px) { .vibathon-countdown { align-items: flex-start; } }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.vibathon-countdown__num:lang(ta) { letter-spacing: 0; }

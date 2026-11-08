@@ -24,7 +24,7 @@
 .connect-network__node[data-group="gccs"] circle:not(.connect-network__hit) { fill: var(--ink-400); stroke: var(--ink-400); }
 .connect-network__node[data-group="investors"] circle:not(.connect-network__hit) { fill: var(--color-bg-raised); stroke: var(--ink-600); stroke-width: 2.5; }
 .connect-network__node[data-state="active"] circle:not(.connect-network__hit) { fill: var(--accent); stroke: var(--accent); }
-.connect-network__node--centre circle { fill: var(--color-text) !important; stroke: var(--color-bg-raised) !important; stroke-width: 4 !important; }
+.connect-network__node.connect-network__node--centre circle:not(.connect-network__hit) { fill: var(--color-text); stroke: var(--color-bg-raised); stroke-width: 4; }
 .connect-network__hit { fill: transparent; stroke: none; cursor: pointer; }
 .connect-network__node[data-state="dim"] { opacity: 0.18; }
 .connect-network__node--hub[data-state="active"] circle:not(.connect-network__hit) { stroke-width: 4; stroke: color-mix(in srgb, var(--accent) 30%, transparent); }
@@ -56,3 +56,6 @@
 }
 .connect-network__caption .h5 { font-size: var(--text-h3); font-weight: 500; letter-spacing: var(--tracking-h3); }
 .connect-network__how { color: var(--color-text-2); max-width: 44ch; }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.connect-network__caption .h5:lang(ta) { letter-spacing: 0; }

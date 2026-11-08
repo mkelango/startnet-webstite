@@ -17,7 +17,7 @@
 .rjourney__body { margin-top: var(--space-2); max-width: 32ch; font-weight: 400; letter-spacing: -0.015em; }
 .rjourney__link {
   display: inline-flex; align-items: center; gap: var(--space-2); margin-top: var(--space-4);
-  min-height: 44px; font-weight: 500; color: var(--accent-text); text-decoration: none;
+  min-height: 44px; font-weight: 500; color: var(--color-text); text-decoration: none;
 }
 .rjourney__link svg { transition: transform var(--dur-2) var(--ease-standard); }
 @media (hover: hover) and (pointer: fine) {
@@ -61,3 +61,7 @@
   :lang(ta) .rjourney__title { font-size: var(--text-body); line-height: 1.35; }
 }
 :lang(ta) .rjourney__title { overflow-wrap: break-word; }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.rjourney__title:lang(ta),
+.rjourney__body:lang(ta) { letter-spacing: 0; }

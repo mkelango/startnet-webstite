@@ -1,123 +1,187 @@
-/* C09 · Footer (DESIGN-v2 3.16, AIWO P18): an Ink band with a night-line top hairline. Row 1 (6/6): the large mono
-   wordmark + tagline (its full stop is the footer's one red point) beside the newsletter; a hairline; Row 2 the link
-   grid at equal widths (6 / 3 / 2 columns) with dot-label heads; socials in 40px ring circles; the legal row last. */
+/* C09 · Footer (docs/redesign/SPEC.md §3.5). Two blocks:
+   1 · the newsletter band: Slate (data-surface night + data-tone raised), --space-cta-band, 7fr / 5fr from 1024;
+   2 · the footer body: Bone (data-ground="bone": muted text steps to Graphite), Ink text. Row 1 is the large Ink
+       wordmark (its red stop is the body's one red point) + tagline + "Contact us" beside the link groups (5fr / 7fr
+       from 1024); row 2 socials as 48px rounded squares + partner names; row 3 the ThinkTN line, a hairline and the
+       13px Graphite legal row. Groups are plain headed lists at every width (no accordions). */
 :root .site-footer {
-  padding-block: 96px 0;
-  background: var(--night-0);
-  border-top: 1px solid var(--night-line);
+  padding-bottom: var(--space-8);
+  background: var(--bone);
+  color: var(--ink-900);
   font-size: var(--text-small);
-  overflow: hidden;
+  overflow: clip;
 }
-.site-footer a { color: var(--night-text-2); }
-.site-footer a:hover { color: var(--paper); }
-.site-footer :focus-visible { outline-color: var(--paper); }
-.site-footer__row { padding-block: var(--space-12); border-top: 1px solid var(--night-line); }
-.site-footer__row:first-child { border-top: 0; padding-top: 0; padding-bottom: 64px; }
-/* Row heads are dot labels (Paper dot), never uppercase */
-.site-footer__row-h,
-.site-footer__col-title {
-  display: inline-flex; align-items: center; gap: 0.6em;
-  margin: 0 0 20px; font-size: var(--text-label); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--paper);
-}
-.site-footer__row-h::before,
-.site-footer__col-title::before { content: ''; flex: none; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--paper); }
 
-/* Row 1 · large wordmark + newsletter (6/6) */
-.site-footer__brand-row { display: grid; gap: var(--space-12); }
-@media (min-width: 1024px) { .site-footer__brand-row { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 32px; align-items: start; } }
-.site-footer__logo { display: inline-flex; color: var(--paper); text-decoration: none; border-radius: var(--radius-btn); }
-:root .site-footer__logo .logo { --logo-size: clamp(3.5rem, 2rem + 6.4vw, 7.5rem); color: var(--paper); letter-spacing: -0.045em; line-height: 0.9; }
+/* ---------- Block 1 · newsletter band (Slate) ---------- */
+.site-footer__nl { padding-block: var(--space-cta-band); }
+.site-footer__nl-inner { display: grid; gap: var(--space-8); }
+/* Split from 1024 (spec: 768): at 768–1023 the 5fr column is ~250px, which squeezes the consent text into a narrow
+   strip; stacked there, the form gets the full row with its submit beside the input. */
+@media (min-width: 1024px) {
+  .site-footer__nl-inner { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--gap-split); align-items: center; }
+}
+.site-footer__nl-text { min-width: 0; }
+:root .site-footer__nl-eyebrow { margin: 0 0 var(--space-label-gap); }
+:root .site-footer__nl-title {
+  margin: 0; max-width: 26ch;
+  font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-heading);
+  line-height: var(--leading-h3); letter-spacing: var(--tracking-h3);
+  color: var(--night-text); text-wrap: balance;
+}
+.site-footer__nl-body { margin-top: var(--space-3); max-width: 52ch; font-size: var(--text-small); color: var(--night-text-2); }
+.site-footer__newsletter { display: grid; gap: var(--space-4); min-width: 0; }
+.site-footer__dpdp { font-size: var(--text-caption); line-height: 1.5; color: var(--night-text-muted); }
+.site-footer__dpdp a { color: var(--night-text-2); text-decoration-color: var(--color-link-decoration); }
+.site-footer__dpdp a:hover { color: var(--night-text); text-decoration-color: currentColor; }
+
+/* ---------- Block 2 · footer body (Bone) ---------- */
+.site-footer__body { padding-top: var(--space-section-tight); color: var(--color-text); }
+.site-footer__body :focus-visible { outline-color: var(--color-focus); }
+
+/* Row 1 · brand (5fr) + link groups (7fr) from 1024 */
+.site-footer__top { display: grid; gap: var(--space-12); padding-bottom: var(--space-12); }
+@media (min-width: 1024px) {
+  .site-footer__top { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--gap-split); align-items: start; }
+}
+.site-footer__brand { min-width: 0; container-type: inline-size; display: grid; justify-items: start; }
+.site-footer__logo { display: inline-flex; color: var(--ink-900); text-decoration: none; border-radius: var(--radius-sm); }
+/* Ink word + the red stop (Logo's own dot); never wider than the brand column */
+:root .site-footer__logo .logo {
+  --logo-size: min(clamp(3.5rem, 2rem + 6.4vw, 7.5rem), 19cqi);
+  color: var(--ink-900); letter-spacing: -0.045em; line-height: 0.9;
+}
 :root .site-footer__tagline {
-  margin-top: var(--space-6); font-family: var(--font-display);
-  font-size: var(--text-h3); font-weight: 400; line-height: 1.25; letter-spacing: var(--tracking-h3);
-  color: var(--paper); max-width: 24ch; text-wrap: balance;
+  margin-top: var(--space-6); max-width: 24ch;
+  font-family: var(--font-display); font-size: var(--text-h5); font-weight: var(--weight-body);
+  line-height: var(--leading-h4); letter-spacing: var(--tracking-h4);
+  color: var(--ink-900); text-wrap: balance;
 }
+/* The wordmark carries the body's red point, so the tagline's full stop is Ink */
+:root .site-footer__tagline .dot { color: inherit; }
 :lang(ta) .site-footer__tagline { letter-spacing: 0; }
-.site-footer__positioning { margin-top: var(--space-3); color: var(--night-text-2); font-size: var(--text-body); max-width: 44ch; }
-:root .site-footer__newsletter { display: grid; gap: var(--space-3); padding: 0; border: 0; border-radius: 0; background: transparent; }
-@media (min-width: 1024px) { :root .site-footer__newsletter { padding: var(--space-2) 0 0; border: 0; } }
-.site-footer__nl-title { margin: 0 0 var(--space-1); font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem); font-weight: 400; line-height: 1.2; letter-spacing: -0.015em; color: var(--paper); max-width: 26ch; text-wrap: balance; }
-:lang(ta) .site-footer__nl-title { letter-spacing: 0; font-size: 1.25rem; }
-.site-footer__nl-body { color: var(--night-text-2); font-size: var(--text-body); max-width: 52ch; }
-.site-footer__dpdp { font-size: var(--text-caption); color: var(--night-text-muted); }
-.site-footer__dpdp a { color: var(--night-text-2); }
+.site-footer__positioning { margin-top: var(--space-3); max-width: 44ch; font-size: var(--text-small); color: var(--color-text-2); }
+/* Inline, so a label that wraps (Tamil on phones) keeps the arrow right after its last word */
+.site-footer__contact {
+  display: inline-block; padding-block: var(--space-2); margin-top: var(--space-4);
+  font-size: var(--text-h5); font-weight: var(--weight-label); line-height: var(--leading-h4); letter-spacing: var(--tracking-h4);
+  color: var(--ink-900); text-decoration: underline; text-decoration-color: transparent;
+  text-decoration-thickness: 1px; text-underline-offset: 0.18em;
+  transition: text-decoration-color var(--dur-2) var(--ease-snap);
+}
+:lang(ta) .site-footer__contact { letter-spacing: 0; }
+.site-footer__contact-arrow { display: inline-block; margin-inline-start: var(--space-2); vertical-align: -0.2em; transition: transform var(--dur-2) var(--ease-snap); }
+.site-footer__contact:hover { color: var(--ink-900); text-decoration-color: currentColor; }
+.site-footer__contact:is(:hover, :focus-visible) .site-footer__contact-arrow { transform: translateX(var(--shift-1)); }
 
-/* Row 2 · link grid at equal widths: 2 columns on phones, 3 at ≥768, 6 at ≥1024; links ~44px apart (AIWO) */
-.site-footer__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-10) 32px; align-items: start; padding-top: var(--space-16); }
+/* Link groups: 1 / 2 (600) / 3 (768) columns, 32 apart. In the 7fr pane they run 2-up at 1024–1279 and 3-up (two
+   rows) from 1280: the spec's six columns in a ~700px pane would leave ~90px each and wrap most labels. */
+.site-footer__cols {
+  display: grid; grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-10) var(--gap-grid-loose); align-items: start;
+}
+@media (min-width: 600px) { .site-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 768px) { .site-footer__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (min-width: 1024px) { .site-footer__cols { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
-.site-footer__col-h { margin: 0; font-size: inherit; font-weight: inherit; }
-.site-footer__col-toggle { display: none; }
-.site-footer__col-title { display: inline-flex; }
+/* 1024–1279: the 7fr pane is ~480px, so 3 columns would be ~137px and split long (Tamil) labels: 2-up there */
+@media (min-width: 1024px) and (max-width: 1279.98px) { .site-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .site-footer__col { min-width: 0; }
-.site-footer__list { list-style: none; display: grid; gap: 14px; margin: 0; padding: 0; }
+
+/* Group and row heads: 15px/500 Ink dot labels (Ink dot), never uppercase */
+.site-footer__col-h,
+.site-footer__row-h {
+  display: flex; align-items: center; gap: 0.6em;
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-sans); font-size: var(--text-label); font-weight: var(--weight-label);
+  line-height: var(--leading-h4); letter-spacing: 0; text-transform: none; color: var(--ink-900);
+}
+.site-footer__col-h::before,
+.site-footer__row-h::before { content: ''; flex: none; width: 0.55em; height: 0.55em; border-radius: 50%; background: currentColor; }
+
+.site-footer__list { list-style: none; display: grid; gap: var(--space-3); margin: 0; padding: 0; }
 .site-footer__link {
-  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 24px;
-  font-size: var(--text-label); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.2em;
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 24px; max-width: 100%;
+  font-size: var(--text-meta); font-weight: var(--weight-body); line-height: 1.43;
+  color: var(--color-text-2); text-decoration: underline; text-decoration-color: transparent;
+  text-decoration-thickness: 1px; text-underline-offset: 0.18em;
   transition: color var(--dur-2) var(--ease-snap), text-decoration-color var(--dur-2) var(--ease-snap);
 }
-.site-footer__link:hover { color: var(--paper); text-decoration-color: rgb(244 243 239 / 0.6); }
-.site-footer__brand-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-night); flex: none; }
+.site-footer__link:hover { color: var(--ink-900); text-decoration-color: currentColor; }
+.site-footer__brand-dot { flex: none; width: 0.5em; height: 0.5em; border-radius: 50%; background: var(--accent); }
 
-/* Row 3 · social: 40px ring circles + the existing labels */
-.site-footer__social-list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-6); margin: 0; padding: 0; }
-.site-footer__social-item { display: inline-flex; align-items: center; gap: var(--space-3); min-height: 44px; color: var(--night-text-2); text-decoration: none; }
-.site-footer__social-icon {
-  display: inline-grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 50%;
-  box-shadow: inset 0 0 0 1px var(--night-line-strong); color: var(--paper);
-  transition: background-color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
+/* Rows 2 and 3 */
+.site-footer__row { padding-block: var(--space-10); border-top: 1px solid var(--color-border); }
+
+/* Row 2 · socials (48px rounded squares) + partner names */
+.site-footer__connect { display: grid; gap: var(--space-8); align-items: start; }
+@media (min-width: 1024px) { .site-footer__connect { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--gap-split); } }
+.site-footer__social-list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; }
+.site-footer__social-item {
+  display: inline-grid; place-items: center; width: var(--btn-icon); height: var(--btn-icon);
+  border-radius: var(--radius-card); background: var(--card); box-shadow: inset 0 0 0 1px var(--color-border);
+  color: var(--ink-900); text-decoration: none;
+  transition: background-color var(--dur-2) var(--ease-snap), color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
 }
-.site-footer__social-item--link:hover { color: var(--paper); text-decoration: none; }
-.site-footer__social-item--link:hover .site-footer__social-icon { background: rgb(244 243 239 / 0.08); box-shadow: inset 0 0 0 1px var(--night-text-muted); }
-.site-footer__handles { margin-top: var(--space-4); font-size: var(--text-caption); color: var(--night-text-muted); }
+.site-footer__social-item--link:hover { background: var(--ink-900); color: var(--paper); box-shadow: inset 0 0 0 1px var(--ink-900); text-decoration: none; }
+.site-footer__handles { margin-top: var(--space-4); font-size: var(--text-caption); color: var(--color-text-muted); }
 
-/* Row 4 · partners (grayscale wordmarks) */
-.site-footer__partner-list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-8); align-items: center; margin: 0; padding: 0; }
+.site-footer__partners { min-width: 0; }
+.site-footer__partner-list { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-8); margin: 0; padding: 0; }
 .site-footer__partner {
-  display: inline-flex; align-items: center; min-height: 44px; font-weight: 500; font-size: var(--text-body-lg);
-  letter-spacing: -0.01em; color: var(--night-text-muted); text-decoration: none; filter: grayscale(1);
+  display: inline-flex; align-items: center; min-height: 28px;
+  font-size: var(--text-lede); font-weight: var(--weight-label); line-height: 1; letter-spacing: var(--tracking-h4);
+  color: var(--ink-900); text-decoration: underline; text-decoration-color: transparent;
+  text-decoration-thickness: 1px; text-underline-offset: 0.18em; filter: grayscale(1);
 }
-.site-footer__partner:hover { color: var(--paper); text-decoration: none; }
+.site-footer__partner:hover { color: var(--ink-900); text-decoration-color: currentColor; }
 
-/* Row 5 · ThinkTN */
-.site-footer__thinktn p { max-width: 72ch; color: var(--night-text-muted); font-size: var(--text-small); }
-.site-footer__thinktn-link { display: inline-flex; align-items: center; gap: var(--space-1); white-space: nowrap; font-weight: 500; min-height: 32px; }
+/* Row 3 · ThinkTN (locked copy), then a hairline and the legal row */
+.site-footer__thinktn { padding-bottom: var(--space-8); }
+.site-footer__thinktn p { max-width: 72ch; font-size: var(--text-small); color: var(--color-text-2); }
+.site-footer__thinktn-link {
+  display: inline-flex; align-items: center; gap: var(--space-1); min-height: 32px; white-space: nowrap;
+  font-weight: var(--weight-label); color: var(--ink-900);
+}
+.site-footer__thinktn-link:hover { color: var(--ink-900); }
 
-/* Row 6 · legal: 13px, one weight, 16px gaps (no bullets); the last row of the page */
-.site-footer__legal { display: grid; gap: var(--space-4); padding-block: var(--space-8) var(--space-10); font-size: var(--text-caption); color: var(--night-text-muted); }
+/* Legal: 13px Graphite, one weight, 16px gaps (no bullets); the last row of the page */
+.site-footer__legal {
+  display: grid; gap: var(--space-4); padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-caption); color: var(--color-text-2);
+}
 @media (min-width: 1024px) {
-  .site-footer__legal { grid-template-columns: 1fr auto; align-items: center; }
-  .site-footer__legal-list { grid-column: 1 / 2; }
+  .site-footer__legal { grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--space-8); }
+  .site-footer__copy, .site-footer__legal-list { grid-column: 1; }
   .site-footer__motion { grid-column: 2; grid-row: 1 / span 2; justify-self: end; }
 }
-.site-footer__copy { color: var(--night-text-muted); }
-.site-footer__legal-list { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; padding: 0; }
-.site-footer a.site-footer__legal-link, .site-footer__legal-link { display: inline-flex; align-items: center; min-height: 32px; color: var(--night-text-muted); text-decoration: none; font-size: var(--text-caption); font-weight: 400; }
-@media (max-width: 767.98px) { .site-footer a.site-footer__legal-link, .site-footer .site-footer__legal-link { min-height: 44px; } .site-footer__legal-list { gap: 8px 20px; } }
-.site-footer a.site-footer__legal-link:hover, .site-footer__legal-btn:hover { color: var(--paper); text-decoration: underline; text-decoration-color: currentColor; }
-.site-footer__legal-btn { display: inline-flex; align-items: center; min-height: 32px; border: 0; background: transparent; padding: 0; font: inherit; font-size: var(--text-caption); line-height: inherit; cursor: pointer; font-weight: 400; color: var(--night-text-muted); }
-@media (max-width: 767.98px) { .site-footer .site-footer__legal-btn { min-height: 44px; } }
+.site-footer__copy { color: var(--color-text-2); }
+.site-footer__legal-list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); margin: 0; padding: 0; }
+.site-footer__legal-link,
+.site-footer__legal-btn {
+  display: inline-flex; align-items: center; min-height: 32px;
+  font: inherit; font-size: var(--text-caption); font-weight: var(--weight-body);
+  color: var(--color-text-2); text-decoration: none;
+}
+.site-footer__legal-btn { padding: 0; border: 0; background: transparent; line-height: inherit; cursor: pointer; }
+.site-footer__legal-link:hover,
+.site-footer__legal-btn:hover { color: var(--ink-900); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
 
-/* Phones and tablets: 44 px targets for the logo and the ThinkTN link */
-@media (max-width: 1023px), (pointer: coarse) {
-  .site-footer__logo, .site-footer__thinktn-link { display: inline-flex; align-items: center; min-height: 44px; }
+/* Touch: the logo and the ThinkTN link get 44px targets; text links 32px tall, 4px apart (36px pitch) */
+@media (max-width: 1023.98px), (pointer: coarse) {
+  .site-footer__logo, .site-footer__thinktn-link { min-height: 44px; }
 }
 @media (pointer: coarse) {
-  .site-footer__link, .site-footer a.site-footer__legal-link, .site-footer .site-footer__legal-link, .site-footer .site-footer__legal-btn { min-height: 44px; }
-  .site-footer__legal-list { row-gap: 8px; }
+  .site-footer__link { min-height: 32px; }
+  .site-footer__list { gap: var(--space-1); }
+  .site-footer__legal-link, .site-footer__legal-btn { min-height: 44px; }
+  .site-footer__legal-list { row-gap: 0; }
 }
-/* Pages with their own newsletter sign-up: row 1 is the brand block only */
-@media (min-width: 1024px) { .site-footer__brand-row[data-no-newsletter] { grid-template-columns: 1fr; } }
+@media (max-width: 767.98px) {
+  .site-footer__legal-link, .site-footer__legal-btn { min-height: 44px; }
+  .site-footer__legal-list { gap: 0 var(--space-5); }
+  /* Short labels ("Terms", "Media") still get a 44px-wide target */
+  .site-footer__link, .site-footer__legal-link { min-width: 44px; }
+}
 
 /* While the cookie banner is open (ConsentBanner sets html[data-consent-open] and --consent-h), the page ends with
    room for it, so the last footer controls can scroll clear of the fixed banner (WCAG 2.4.11). */
-html[data-consent-open] .site-footer__legal { padding-bottom: calc(var(--space-10) + var(--consent-h, 0px)); }
-
-/* Tamil phones: one link column. Single Tamil words in the footer ("பல்கலைக்கழகங்கள்" ≈ 166px) are wider than a
-   124px half column at 320, so links ran into the next column. */
-@media (max-width: 399.98px) {
-  :lang(ta) .site-footer__cols { grid-template-columns: minmax(0, 1fr); gap: var(--space-8); }
-}
-.site-footer__link { max-width: 100%; }
-/* Phones: short labels ("Terms", "Media") still get a 44px-wide target */
-@media (max-width: 767.98px) { .site-footer__link, .site-footer .site-footer__legal-link { min-width: 44px; } }
+html[data-consent-open] .site-footer__legal { padding-bottom: var(--consent-h, 0px); }

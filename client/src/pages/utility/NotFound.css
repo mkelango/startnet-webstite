@@ -12,7 +12,7 @@
 .notfound__mark { display: inline-flex; align-items: center; gap: 0.6em; }
 .notfound__dot {
   display: block; width: 0.75rem; aspect-ratio: 1; border-radius: 50%;
-  background: var(--color-point);
+  background: var(--color-label-dot); /* §4.2: dot labels are never red; the h1 full stop is the one red point */
 }
 .notfound__code { font-size: var(--text-body); font-weight: 400; color: var(--color-text); letter-spacing: 0; }
 
@@ -49,7 +49,7 @@
 .notfound__field {
   display: flex; align-items: center; gap: var(--space-2);
   padding: var(--space-1) var(--space-1) var(--space-1) var(--space-4);
-  background: var(--card); border: 1px solid var(--color-border-control); border-radius: var(--btn-radius);
+  background: var(--card); border: 1px solid var(--color-border-control); border-radius: var(--radius-input);
   transition: border-color var(--dur-2) var(--ease-standard), box-shadow var(--dur-2) var(--ease-standard);
 }
 @media (hover: hover) and (pointer: fine) { .notfound__field:hover { border-color: color-mix(in srgb, var(--color-text) 60%, var(--color-border-control)); } }
@@ -79,7 +79,7 @@
 .notfound__links li { border-bottom: 1px solid var(--color-border); }
 .notfound__link {
   display: flex; align-items: center; gap: var(--space-4); min-height: 64px; padding-block: var(--space-4);
-  color: var(--color-text); text-decoration: none; font-size: var(--text-h5); font-weight: 400; letter-spacing: -0.01em;
+  color: var(--color-text); text-decoration: none; font-size: var(--text-h5); font-weight: 400; letter-spacing: var(--tracking-h4);
 }
 .notfound__link > svg:first-child { flex: none; color: var(--color-text-muted); }
 .notfound__link span { flex: 1; min-width: 0; }

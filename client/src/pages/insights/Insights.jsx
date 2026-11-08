@@ -1,20 +1,20 @@
 // T06 Insights hub (Book 1 Part B §6.2: Night hero → Ledger at a glance → reports → indices → stories → newsletter).
 // Copy: Book 2 §6.1 verbatim. Tamil: drafts pending native review (Book 2 §14); report and index names stay Latin.
-import { useEffect, useRef } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import { ArrowRight, Bell } from 'lucide-react';
 import {
   Seo, PageHero, Section, SectionHeader, Button, Stat, Card, Badge, ReportCard, StoryCard, Scroller,
-  NewsletterForm, Reveal, RevealGroup, Skeleton, ArtImage,
+  NewsletterForm, Reveal, RevealGroup, Skeleton, ArtImage, CTABand,
 } from '../../components';
 import { useApi } from '../../hooks/useApi.js';
 import { useLang } from '../../lib/i18n.jsx';
 import { webPageLd, itemListLd, langPath, ORG_REF, absUrl } from '../../lib/seo.js';
 import { ColumnChart } from './LedgerCharts.jsx';
+import { InsightsTabs } from './InsightsTabs.jsx';
 import { LocalText } from './RichText.jsx';
 import { isPlaceholderMetric, isPlaceholderText, realStories } from '../../components/_placeholders.js';
-import { normaliseLevels, periodInfo, findKpi, fmtDate, localiseItem, levelName, withKpiTa } from './ledgerUtils.js';
+import { normaliseLevels, periodInfo, findKpi, fmtDate, localiseItem, levelName, withKpiTa, listedReport } from './ledgerUtils.js';
 import './Insights.css';
-import '../utility/restKit.css';
 
 const PLANNED_NOTE = ["Planned. We'll publish the method before the first edition.", 'திட்டமிடப்பட்டுள்ளது. முதல் பதிப்புக்கு முன் முறையியலை வெளியிடுவோம்.'];
 
@@ -64,7 +64,8 @@ export default function Insights() {
   const reportList = [...(reports.data || [])]
     .sort((a, b) => (a.status === b.status ? (b.year || 0) - (a.year || 0) : a.status === 'published' ? -1 : 1))
     .slice(0, 3)
-    .map((r) => localiseItem(Array.isArray(r.keyFindings) ? { ...r, keyFindings: r.keyFindings.map(withKpiTa) } : r, lang));
+    // Findings without a published value are left out (the card shows no "[placeholder]" figures).
+    .map((r) => localiseItem(listedReport(r), lang));
   // Seeded placeholder stories are never listed; the section hides until one is published.
   const storyList = realStories(stories.data).slice(0, 8).map((s) => localiseItem(s, lang));
 
@@ -118,7 +119,7 @@ export default function Insights() {
       />
 
       <PageHero
-        className="insights-hero rk-hero rk-page"
+        className="insights-hero"
         surface="night"
         eyebrow={t('Insights', 'நுண்ணறிவுகள்')}
         title={t('What we count, and how we count it.', 'நாங்கள் எதை எண்ணுகிறோம், எப்படி எண்ணுகிறோம்.')}
@@ -136,22 +137,17 @@ export default function Insights() {
         art={heroArt}
       />
 
-      {/* Featured: latest Ledger edition + at a glance */}
-      <Section surface="paper" labelledBy="insights-glance">
-        <div className={`insights-glance${!ledger.loading && !glance.length ? ' insights-glance--solo' : ''}`}>
-          {/* AIWO P13: with no glance figures yet, the feature leads with its own 16:10 media slot. */}
-          {!ledger.loading && !glance.length && (
-            <Reveal className="insights-glance__media" variant="clip">
-              <ArtImage variant="grid" ratio="16/10" seed={12} alt="" />
-            </Reveal>
-          )}
+      {/* Featured (SPEC §5.6): a Bone half-image row. Text (badge, h2, lede, primary) | a 3/4 cover at radius 16.
+          The Ledger's at-a-glance figures, once published, sit under the text. */}
+      <Section surface="white" labelledBy="insights-glance" className="insights-feature">
+        <div className="insights-glance">
           <Reveal className="insights-glance__feature">
-            <p className="eyebrow">{featuredEyebrow}</p>
-            <h2 id="insights-glance" className="h2">
+            <Badge kind="type">{featuredEyebrow}</Badge>
+            <h2 id="insights-glance" className="h2 insights-glance__title">
               Founder Ledger
               {!p.upcoming && p.label && !isPlaceholderText(p.label) ? ` ${p.label}` : null}
             </h2>
-            <p className="body-lg text-2">
+            <p className="body-lg text-2 insights-glance__lede">
               {t(
                 'Founders nurtured, companies launched, capital raised and pilots signed, by level, brand and district, each with an A/B/C confidence tag.',
                 'வளர்க்கப்பட்ட நிறுவனர்கள், தொடங்கப்பட்ட நிறுவனங்கள், திரட்டிய மூலதனம், கையெழுத்தான முன்னோட்டங்கள்: நிலை, பிராண்டு, மாவட்டம் வாரியாக, ஒவ்வொன்றுக்கும் A/B/C நம்பகத்தன்மைக் குறியுடன்.',
@@ -167,29 +163,35 @@ export default function Insights() {
                 )}
               </p>
             ) : null}
-            <Button variant="tertiary" to="/insights/founder-ledger" icon={ArrowRight}>{t('Read the Founder Ledger', 'Founder Ledger‑ஐப் படியுங்கள்')}</Button>
+            {/* The hero already says "Read the Founder Ledger": the featured row uses the spec's "Read the report". */}
+            <Button to="/insights/founder-ledger" size="lg" arrow>{t('Read the report', 'அறிக்கையைப் படியுங்கள்')}</Button>
+            {(ledger.loading || glance.length > 0) && (
+              <div className="insights-glance__stats">
+                <p className="insights-glance__label">{t('The Ledger at a glance', 'Ledger ஒரு பார்வையில்')}</p>
+                {ledger.loading ? (
+                  <Skeleton height="6rem" count={1} />
+                ) : (
+                  <RevealGroup className="insights-glance__grid">
+                    {glance.map((m) => (
+                      <div className="insights-glance__stat" key={m.id || m.key}>
+                        <Stat metric={withKpiTa(m)} />
+                      </div>
+                    ))}
+                  </RevealGroup>
+                )}
+              </div>
+            )}
           </Reveal>
-          {(ledger.loading || glance.length > 0) && (
-            <div className="insights-glance__stats">
-              <p className="insights-glance__label">{t('The Ledger at a glance', 'Ledger ஒரு பார்வையில்')}</p>
-              {ledger.loading ? (
-                <Skeleton height="6rem" count={3} />
-              ) : (
-                <RevealGroup className="insights-glance__grid">
-                  {glance.map((m) => (
-                    <div className="insights-glance__stat" key={m.id || m.key}>
-                      <Stat metric={withKpiTa(m)} />
-                    </div>
-                  ))}
-                </RevealGroup>
-              )}
-            </div>
-          )}
+          <Reveal className="insights-glance__media" variant="clip">
+            <ArtImage variant="grid" ratio="3/4" seed={12} night alt="" />
+          </Reveal>
         </div>
       </Section>
 
+      <InsightsTabs current="/insights" />
+
       {/* Collections */}
-      <Section surface="white">
+      <Section surface="paper" pad="tight" className="insights-list">
         <SectionHeader
           eyebrow={t('Collections', 'தொகுப்புகள்')}
           title={t('Ledger, reports, indices and stories', 'Ledger, அறிக்கைகள், குறியீடுகள், கதைகள்')}
@@ -198,12 +200,13 @@ export default function Insights() {
             'ஒவ்வொரு எண்ணுக்கும் ஆதாரம் அல்லது நம்பகத்தன்மைக் குறி உண்டு. திட்டமிடப்பட்ட வெளியீடுகள் முதல் பதிப்புக்கு முன் தங்கள் முறையியலை வெளியிடும்.',
           )}
         />
-        <RevealGroup className="insights-collections">
+        <div className="ins-grid insights-collections">
           {COLLECTIONS.map((c, i) => {
             const title = t(...c.title);
-            return (
+            const card = (
               <Card
                 key={c.key}
+                variant="media"
                 className="insights-collections__card"
                 to={c.to}
                 eyebrow={t(...c.cadence)}
@@ -221,13 +224,27 @@ export default function Insights() {
                 }
               />
             );
+            // After every 6th item: the inline newsletter promo row (Bone, radius 12).
+            return (i + 1) % 6 === 0 && i < COLLECTIONS.length - 1 ? (
+              <Fragment key={c.key}>
+                {card}
+                <aside className="ins-promo" aria-labelledby="insights-promo-title">
+                  <p id="insights-promo-title" className="ins-promo__title">
+                    {t('Get each new edition in your inbox, with its method and corrections.', 'ஒவ்வொரு புதிய பதிப்பையும், அதன் முறையியல், திருத்தங்களுடன், உங்கள் மின்னஞ்சலில் பெறுங்கள்.')}
+                  </p>
+                  <div className="ins-promo__action">
+                    <Button href="#insights-newsletter" icon={Bell}>{t('Subscribe', 'செய்திமடலைப் பெறுங்கள்')}</Button>
+                  </div>
+                </aside>
+              </Fragment>
+            ) : card;
           })}
-        </RevealGroup>
+        </div>
       </Section>
 
       {/* Latest reports (M22): hidden while there is no report record at all */}
       {(reports.loading || reportList.length > 0) && (
-      <Section surface="paper">
+      <Section surface="white">
         <SectionHeader
           eyebrow={t('Reports', 'அறிக்கைகள்')}
           title={t('Latest reports', 'சமீபத்திய அறிக்கைகள்')}
@@ -245,7 +262,7 @@ export default function Insights() {
 
       {/* Stories (M14): hidden until at least one real story is published */}
       {(stories.loading || storyList.length > 0) && (
-      <Section surface="white">
+      <Section surface="paper">
         <SectionHeader
           eyebrow={t('Founder stories', 'நிறுவனர் கதைகள்')}
           title={t('Founders, in their own words', 'நிறுவனர்கள், அவர்களின் சொந்த வார்த்தைகளில்')}
@@ -254,23 +271,34 @@ export default function Insights() {
         {stories.loading ? (
           <Skeleton height="16rem" />
         ) : (
-          <Scroller label={t('Founder stories', 'நிறுவனர் கதைகள்')} itemWidth="min(20rem, 82vw)">
-            {storyList.map((s) => <StoryCard key={s.slug} story={s} />)}
-          </Scroller>
+          storyList.length >= 4 ? (
+            <Scroller label={t('Founder stories', 'நிறுவனர் கதைகள்')} itemWidth="min(20rem, 82vw)">
+              {storyList.map((s) => <StoryCard key={s.slug} story={s} />)}
+            </Scroller>
+          ) : (
+            // Fewer than four stories: a plain grid (a rail would leave most of the row empty).
+            <RevealGroup className="ins-grid insights-stories">
+              {storyList.map((s) => <StoryCard key={s.slug} story={s} />)}
+            </RevealGroup>
+          )
         )}
       </Section>
       )}
 
-      {/* Newsletter strip */}
-      <Section surface="sunken" id="insights-newsletter" width="narrow" pad="sm">
-        <div className="insights-news" ref={newsRef}>
-          <div>
-            <p className="eyebrow">{t('Insights newsletter', 'நுண்ணறிவுகள் செய்திமடல்')}</p>
-            <h2 className="h2">{t('New data, once a quarter', 'புதிய தரவு, காலாண்டுக்கு ஒருமுறை')}<span className="dot">.</span></h2>
+      {/* Closing CTA headband (SPEC §5.6 → CTABand): the Insights newsletter as the Ink band, headline left,
+          the sign-up form right. The headline's full stop is the band's one red point. */}
+      <CTABand
+        surface="night"
+        id="insights-newsletter"
+        className="insights-news-band"
+        eyebrow={t('Insights newsletter', 'நுண்ணறிவுகள் செய்திமடல்')}
+        title={t('New data, once a quarter.', 'புதிய தரவு, காலாண்டுக்கு ஒருமுறை.')}
+        actions={
+          <div className="insights-news" ref={newsRef}>
+            <NewsletterForm compact night defaultTopics={['ledger']} />
           </div>
-          <NewsletterForm compact defaultTopics={['ledger']} />
-        </div>
-      </Section>
+        }
+      />
     </>
   );
 }

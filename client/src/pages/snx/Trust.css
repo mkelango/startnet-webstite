@@ -6,12 +6,12 @@
 /* Four cards: 1 → 2 × 2 → 4-up (auto-fill gave 3 + 1 at 900–1024). */
 @media (min-width: 640px) { .snx-trust-page__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1280px) { .snx-trust-page__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-.snx-trust-card { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--media-radius); box-shadow: none; min-width: 0; }
+.snx-trust-card { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-6); background: var(--card); border: 1px solid var(--color-border); border-radius: var(--radius-card); box-shadow: none; min-width: 0; }
 .snx-trust-card .h5 { font-weight: 500; letter-spacing: -0.01em; }
 /* Line icon in a 40px hairline square (no tinted circle). */
 .snx-trust-card__icon {
   display: inline-grid; place-items: center; width: 40px; height: 40px; margin-bottom: var(--space-3);
-  border: 1px solid var(--color-border); border-radius: var(--btn-radius);
+  border: 1px solid var(--color-border); border-radius: var(--radius-full);
   background: transparent; color: var(--color-text);
 }
 .snx-trust-card__icon svg { width: 20px; height: 20px; }
@@ -38,7 +38,7 @@
 .snx-guard__intro { display: grid; gap: var(--space-5); justify-items: start; }
 .snx-guard__icon {
   display: inline-grid; place-items: center; width: 40px; height: 40px;
-  border: 1px solid var(--night-line); border-radius: var(--btn-radius);
+  border: 1px solid var(--night-line); border-radius: var(--radius-full);
   color: var(--night-text);
 }
 .snx-guard__lede { color: var(--color-text-2); max-width: 40ch; }
@@ -48,7 +48,7 @@
 .snx-guard__item strong { color: var(--color-text); font-weight: 500; }
 
 /* Governance links: a flat hairline card. */
-.snx-trust-links { display: grid; gap: var(--space-6); align-items: center; padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--media-radius); background: var(--card); min-width: 0; }
+.snx-trust-links { display: grid; gap: var(--space-6); align-items: center; padding: var(--space-6); border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--card); min-width: 0; }
 @media (min-width: 640px) { .snx-trust-links { padding: var(--space-8); } }
 .snx-trust-links .h4 { font-weight: 500; letter-spacing: -0.01em; }
 .snx-trust-links p { margin-top: var(--space-2); max-width: 52ch; }
@@ -66,7 +66,10 @@
 .brand-layout[data-brand='x'],
 .brand-layout[data-brand='x'] [data-brand='x']:not([data-surface='night']) { --color-label-dot: var(--color-text); }
 .brand-layout[data-brand='x'] [data-surface='night'] { --color-label-dot: var(--paper); }
-:root .brand-layout[data-brand='x'] .button--tertiary { --button-fg: var(--color-link-standalone); --button-fg-hover: var(--color-link-standalone); }
-:root .brand-layout[data-brand='x'] [data-surface='night'] .button--tertiary { --button-fg: var(--paper); --button-fg-hover: var(--paper); }
-:root .brand-layout[data-brand='x'] .brand-hero__journey { color: var(--night-text-2); }
+:root .brand-layout[data-brand='x'] .brand-hero__journey { color: var(--night-text-2); flex-wrap: nowrap; align-items: baseline; }
 :root .brand-layout[data-brand='x'] .brand-hero__journey::before { background: var(--paper); }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.snx-trust-card .h5:lang(ta),
+.snx-rights__label:lang(ta),
+.snx-trust-links .h4:lang(ta) { letter-spacing: 0; }

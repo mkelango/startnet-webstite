@@ -307,6 +307,8 @@ function BillingToggle({ value, onChange }) {
   );
 }
 
+const RECOMMENDED_PLAN = 'pro';
+
 function PlanCard({ plan: p, billing, href }) {
   const { t, tx, lang } = useSnxT();
   const annual = billing === 'annual';
@@ -314,7 +316,9 @@ function PlanCard({ plan: p, billing, href }) {
   const value = p.monthly === 0 ? 0 : showAnnual ? p.annual : p.monthly;
   const billed = p.monthly === 0 ? '' : showAnnual ? t(', billed yearly', ', ஆண்டுதோறும் வசூலிக்கப்படும்') : t(', billed monthly', ', மாதந்தோறும் வசூலிக்கப்படும்');
   return (
-    <article className={`snx-plan snx-plan--${p.id}`} aria-labelledby={`plan-${p.id}`}>
+    // SPEC §5.9 #6: the recommended plan (SNX Pro, the learner / solo-founder step up) takes the 2px Ink ring, never red.
+    // No "Most chosen" badge: that is a usage claim with no source yet (pending owner sign-off).
+    <article className={`snx-plan snx-plan--${p.id}${p.id === RECOMMENDED_PLAN ? ' snx-plan--recommended' : ''}`} aria-labelledby={`plan-${p.id}`}>
       <header className="snx-plan__head">
         <h3 id={`plan-${p.id}`} className="h4 snx-plan__name">{p.name}</h3>
         <p className="snx-plan__for">{tx(p.for)}</p>
@@ -349,9 +353,9 @@ function PlanCard({ plan: p, billing, href }) {
       )}
       <div className="snx-plan__cta">
         {p.to ? (
-          <Button full variant="secondary" to={p.to}>{tx(p.button)}</Button>
+          <Button full variant="primary" to={p.to}>{tx(p.button)}</Button>
         ) : (
-          <Button full variant={p.id === 'free' ? 'primary' : 'secondary'} href={href}>{tx(p.button)}</Button>
+          <Button full variant="primary" href={href}>{tx(p.button)}</Button>
         )}
       </div>
     </article>

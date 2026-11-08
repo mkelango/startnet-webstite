@@ -1,17 +1,15 @@
-/* VideoFeature, VideoPlaylist, EventVideos (components/VideoFeature.jsx).
-   Poster first, YouTube (youtube-nocookie.com) only after a press. Tokens only; reduced motion: no zoom, no pulse. */
+/* VideoFeature, VideoPlaylist, EventVideos (components/VideoFeature.jsx, docs/redesign/SPEC.md §4.6 media rules).
+   Poster first, YouTube (youtube-nocookie.com) only after a press. Flat: a 16px frame with a quiet keyline, no
+   shadow; hover = poster zoom 1.05 over 300ms + the play disc fills Paper. Reduced motion: no zoom. */
 
 /* ---------- One video ---------- */
 .video-feature { margin: 0; display: grid; gap: var(--space-4); min-width: 0; align-content: start; }
 .video-feature__frame {
   position: relative; aspect-ratio: 16 / 9; overflow: hidden; isolation: isolate;
-  border-radius: var(--radius-media, 12px); background: var(--night-0);
-  box-shadow:
-    0 0 0 1px rgb(12 23 25 / 0.08),
-    0 1px 2px rgb(12 23 25 / 0.06),
-    0 12px 32px -12px rgb(12 23 25 / 0.28);
-  transition: box-shadow var(--dur-4) var(--ease-snap), outline-color var(--dur-2) var(--ease-snap);
-  outline: 2px solid transparent; outline-offset: 3px;
+  border-radius: var(--radius-media); background: var(--night-0);
+  box-shadow: 0 0 0 1px var(--color-border);
+  transition: outline-color var(--dur-2) var(--ease-snap);
+  outline: 2px solid transparent; outline-offset: var(--focus-offset);
 }
 .video-feature__screen { position: absolute; inset: 0; }
 .video-feature__player, .video-feature__poster { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
@@ -32,27 +30,24 @@
   /* Same paper-ink grade as every photo (tools/images/photos.mjs INK), a touch darker under the play button */
   filter: url(#sn-photo-grade) brightness(0.92);
   transition:
-    filter calc(var(--dur-media) * 1.4) var(--ease-reveal),
-    transform calc(var(--dur-media) * 1.6) var(--ease-reveal);
-  will-change: transform;
+    filter var(--dur-media) var(--ease-media),
+    transform var(--dur-media) var(--ease-media);
 }
-/* Bottom scrim for the chip, and a soft vignette that settles the play button */
+/* A flat Ink scrim (no gradients) keeps the chip and the play disc legible on any poster */
 .video-feature__poster::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background:
-    radial-gradient(60% 60% at 50% 50%, rgb(12 23 25 / 0.18), rgb(12 23 25 / 0) 70%),
-    linear-gradient(to top, rgb(12 23 25 / 0.62), rgb(12 23 25 / 0) 38%);
-  transition: opacity var(--dur-4) var(--ease-snap);
+  background: var(--overlay-photo);
+  opacity: 0.5;
+  transition: opacity var(--dur-media) var(--ease-media);
 }
 
-/* Play button: frosted disc, a paper fill on hover / focus, and two pulse rings while hovered */
+/* Play button: an Ink disc with a Paper ring, a Paper fill on hover / focus (no pulse rings) */
 .video-feature__play {
   position: absolute; left: 50%; top: 50%; z-index: 1;
   width: clamp(56px, 6.5vw, 84px); aspect-ratio: 1; border-radius: 50%;
   display: grid; place-items: center; transform: translate(-50%, -50%);
-  background: rgb(12 23 25 / 0.34); color: var(--paper);
-  box-shadow: inset 0 0 0 1px rgb(244 243 239 / 0.85), 0 8px 24px rgb(12 23 25 / 0.25);
-  -webkit-backdrop-filter: blur(10px) saturate(1.2); backdrop-filter: blur(10px) saturate(1.2);
+  background: var(--overlay-photo-strong); color: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--paper);
   transition:
     transform var(--dur-3) var(--ease-snap),
     background-color var(--dur-2) var(--ease-snap),
@@ -60,48 +55,33 @@
     box-shadow var(--dur-3) var(--ease-snap);
 }
 .video-feature__play svg { margin-left: 3px; transition: transform var(--dur-3) var(--ease-snap); }
-.video-feature__play::before, .video-feature__play::after {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  box-shadow: 0 0 0 1px rgb(244 243 239 / 0.7); opacity: 0;
-}
-@keyframes video-feature-pulse {
-  0% { transform: scale(1); opacity: 0.6; }
-  100% { transform: scale(1.75); opacity: 0; }
-}
 
 .video-feature__duration {
   position: absolute; right: var(--space-3); bottom: var(--space-3); z-index: 1;
   display: inline-flex; align-items: center; gap: 5px;
-  padding: 3px 9px 3px 7px; border-radius: var(--radius-chip, 9999px);
-  background: rgb(12 23 25 / 0.66); color: var(--paper);
-  box-shadow: inset 0 0 0 1px rgb(244 243 239 / 0.14);
-  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  padding: 3px 9px 3px 7px; border-radius: var(--radius-chip);
+  background: var(--overlay-photo-strong); color: var(--paper);
   font-size: var(--text-caption); font-weight: 500; line-height: 1.4; font-variant-numeric: tabular-nums; letter-spacing: 0.01em;
 }
 .video-feature__duration svg { opacity: 0.85; }
 
 @media (hover: hover) {
-  .video-feature__frame:hover { box-shadow: 0 0 0 1px rgb(12 23 25 / 0.1), 0 2px 4px rgb(12 23 25 / 0.08), 0 24px 48px -16px rgb(12 23 25 / 0.36); }
   .video-feature__poster:hover img {
     filter: url(#sn-photo-grade) brightness(0.98);
-    transform: scale(calc(var(--poster-zoom, 1) * 1.045));
+    transform: scale(calc(var(--poster-zoom, 1) * var(--media-zoom)));
   }
   .video-feature__poster:hover .video-feature__play {
-    transform: translate(-50%, -50%) scale(1.06);
-    background: var(--paper); color: var(--sn-ink);
-    box-shadow: inset 0 0 0 1px var(--paper), 0 12px 32px rgb(12 23 25 / 0.32);
+    background: var(--paper); color: var(--ink-900);
+    box-shadow: inset 0 0 0 1px var(--paper);
   }
-  .video-feature__poster:hover .video-feature__play svg { transform: scale(1.06); }
-  .video-feature__poster:hover .video-feature__play::before { animation: video-feature-pulse 1.6s var(--ease-enter) infinite; }
-  .video-feature__poster:hover .video-feature__play::after { animation: video-feature-pulse 1.6s var(--ease-enter) 0.8s infinite; }
 }
 .video-feature__poster:active .video-feature__play { transform: translate(-50%, -50%) scale(0.96); }
 
 /* Focus: a 2px ring outside the frame (the frame clips its children) plus the filled disc */
 .video-feature__frame:has(.video-feature__poster:focus-visible) { outline-color: var(--color-focus); }
 .video-feature__poster:focus-visible .video-feature__play {
-  background: var(--paper); color: var(--sn-ink);
-  box-shadow: inset 0 0 0 1px var(--paper), 0 0 0 3px var(--sn-ink), 0 0 0 5px var(--paper);
+  background: var(--paper); color: var(--ink-900);
+  box-shadow: inset 0 0 0 1px var(--paper), 0 0 0 3px var(--ink-900), 0 0 0 5px var(--paper);
 }
 
 /* Caption: title, facts line, then a row of chips and the source link */
@@ -111,7 +91,7 @@
 .video-feature__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin-top: 2px; }
 .video-feature__chip {
   display: inline-flex; align-items: center; min-height: 24px; padding: 0 10px;
-  border-radius: var(--radius-chip, 9999px); box-shadow: inset 0 0 0 1px var(--color-border-strong, var(--color-border));
+  border-radius: var(--radius-chip); box-shadow: inset 0 0 0 1px var(--color-border-strong, var(--color-border));
   color: var(--color-text-2); font-size: var(--text-caption); line-height: 1;
 }
 .video-feature__source {
@@ -150,7 +130,7 @@
 }
 .video-playlist__item {
   display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: var(--space-3); align-items: start;
-  padding: var(--space-2); margin: 0; border: 0; border-radius: calc(var(--radius-media, 12px) + 4px);
+  padding: var(--space-2); margin: 0; border: 0; border-radius: calc(var(--radius-media) + 4px);
   background: transparent; color: inherit; font: inherit; text-align: start; cursor: pointer;
   scroll-snap-align: start; position: relative;
   transition: background-color var(--dur-2) var(--ease-snap), box-shadow var(--dur-2) var(--ease-snap);
@@ -163,14 +143,14 @@
 .video-playlist__item:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 .video-playlist__thumb {
   position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden;
-  border-radius: calc(var(--radius-media, 12px) - 4px); background: var(--night-0);
+  border-radius: calc(var(--radius-media) - 4px); background: var(--night-0);
 }
 .video-playlist__thumb img {
   width: 100%; height: 100%; object-fit: cover; display: block;
   filter: url(#sn-photo-grade) brightness(0.88);
   transition: filter var(--dur-4) var(--ease-snap), transform var(--dur-media) var(--ease-reveal);
 }
-@media (hover: hover) { .video-playlist__item:hover .video-playlist__thumb img { transform: scale(1.05); filter: url(#sn-photo-grade) brightness(0.96); } }
+@media (hover: hover) { .video-playlist__item:hover .video-playlist__thumb img { transform: scale(var(--media-zoom)); filter: url(#sn-photo-grade) brightness(0.96); } }
 .video-playlist__item.is-active .video-playlist__thumb img { filter: url(#sn-photo-grade) brightness(0.72); }
 .video-playlist__duration {
   position: absolute; right: 6px; bottom: 6px; padding: 1px 6px; border-radius: var(--radius-btn, 4px);
@@ -218,24 +198,20 @@
 .event-videos__list { display: grid; gap: var(--space-8) var(--space-6); }
 @media (min-width: 900px) { .event-videos--pair .event-videos__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
-/* Night surfaces: lift the frame off the ink with a hairline instead of a shadow */
+/* Night surfaces: a stronger hairline lifts the frame off the Ink (no shadow) */
 .section--night .video-feature__frame, [data-surface="night"] .video-feature__frame {
-  box-shadow: 0 0 0 1px var(--night-line-strong, rgb(244 243 239 / 0.14)), 0 24px 48px -20px rgb(0 0 0 / 0.6);
+  box-shadow: 0 0 0 1px var(--night-line-strong);
 }
 
 /* ---------- Reduced motion: no zoom, no pulse, no equaliser ---------- */
 :root[data-motion="reduced"] :is(.video-feature__poster img, .video-feature__play, .video-feature__play svg, .video-playlist__thumb img, .video-feature__frame) { transition: none; }
 :root[data-motion="reduced"] .video-feature__poster:hover img { transform: scale(var(--poster-zoom, 1)); }
 :root[data-motion="reduced"] .video-playlist__item:hover .video-playlist__thumb img { transform: none; }
-:root[data-motion="reduced"] .video-feature__play::before,
-:root[data-motion="reduced"] .video-feature__play::after,
 :root[data-motion="reduced"] .video-playlist__bars i { animation: none !important; }
 @media (prefers-reduced-motion: reduce) {
   :root:not([data-motion="full"]) :is(.video-feature__poster img, .video-feature__play, .video-feature__play svg, .video-playlist__thumb img, .video-feature__frame) { transition: none; }
   :root:not([data-motion="full"]) .video-feature__poster:hover img { transform: scale(var(--poster-zoom, 1)); }
   :root:not([data-motion="full"]) .video-playlist__item:hover .video-playlist__thumb img { transform: none; }
-  :root:not([data-motion="full"]) .video-feature__play::before,
-  :root:not([data-motion="full"]) .video-feature__play::after,
   :root:not([data-motion="full"]) .video-playlist__bars i { animation: none !important; }
 }
 

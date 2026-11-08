@@ -63,8 +63,11 @@
   bottom: 12px;
   z-index: 1;
   max-width: calc(100% - 24px);
-  padding: 4px 8px;
-  border-radius: var(--radius-btn);
+  /* The bottom 4px is a transparent border, not padding: overflow clips at the padding box, so a clamped third line
+     (tall Tamil glyphs) never peeks out under the second; the background still fills the border area. */
+  padding: 4px 8px 0;
+  border-bottom: 4px solid transparent;
+  border-radius: var(--radius-md);
   background: rgb(12 23 25 / 0.72);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);

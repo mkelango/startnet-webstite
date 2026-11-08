@@ -13,6 +13,7 @@ import { BRANDS } from '../../data/brands.js';
 import { localiseItem } from './ledgerUtils.js';
 import { realStories } from '../../components/_placeholders.js';
 import StartupShowcase from './StartupShowcase.jsx';
+import { InsightsTabs } from './InsightsTabs.jsx';
 import './Stories.css';
 
 const BRAND_FILTERS = [
@@ -126,12 +127,15 @@ export default function Stories() {
         breadcrumbs={[{ label: t('Insights', 'நுண்ணறிவுகள்'), to: '/insights' }, { label: t('Stories', 'கதைகள்') }]}
       />
 
-      <Section surface="paper" id="community-startups">
+      <InsightsTabs current="/insights/stories" />
+
+      <Section surface="paper" id="community-startups" pad="tight">
         <StartupShowcase />
       </Section>
 
-      <Section surface="paper" pad="sm">
-        <div className="stories-filters" role="group" aria-label={t('Filter stories', 'கதைகளை வடிகட்டு')}>
+      <Section surface="paper" pad="tight" className="stories-list">
+        {/* Filter band (SPEC §5.6): Bone, radius 12, padding 24, kit filter chips; count and Clear on the right. */}
+        <div className="ins-filter stories-filters" role="group" aria-label={t('Filter stories', 'கதைகளை வடிகட்டு')}>
           <FilterRow
             id="brand"
             label={t('Brand', 'பிராண்டு')}
@@ -147,18 +151,18 @@ export default function Stories() {
             value={type}
             onChange={(v) => set('type', v)}
           />
-        </div>
-        <p className="stories-count" aria-live="polite">
-          {loading ? t('Loading stories…', 'கதைகள் ஏற்றப்படுகின்றன…') : error ? '' : countText}
+          <p className="ins-filter__count stories-count" aria-live="polite">
+            {loading ? t('Loading stories…', 'கதைகள் ஏற்றப்படுகின்றன…') : error ? '' : countText}
+          </p>
           {filtered && !loading && (
-            <button type="button" className="stories-clear" onClick={() => setParams({}, { replace: true })}>
+            <button type="button" className="ins-filter__clear stories-clear" onClick={() => setParams({}, { replace: true })}>
               {t('Clear all', 'அனைத்தையும் அழி')}
             </button>
           )}
-        </p>
+        </div>
 
         {loading ? (
-          <div className="grid grid-3 stories-grid"><Skeleton height="22rem" count={3} /></div>
+          <div className="ins-grid stories-grid"><Skeleton height="22rem" count={3} /></div>
         ) : error ? (
           <EmptyState
             title={t("We couldn't load stories just now.", 'கதைகளை இப்போது ஏற்ற முடியவில்லை.')}
@@ -169,7 +173,7 @@ export default function Stories() {
           <>
             <div ref={listRef}>
               <h2 className="visually-hidden">{t('All stories', 'அனைத்துக் கதைகள்')}</h2>
-              <RevealGroup className="grid grid-3 stories-grid" key={`${brand}-${type}`}>
+              <RevealGroup className="ins-grid stories-grid" key={`${brand}-${type}`}>
                 {visible.map((s) => <StoryCard key={s.slug} story={s} />)}
               </RevealGroup>
             </div>
@@ -216,18 +220,18 @@ export default function Stories() {
 function FilterRow({ id, label, options, value, onChange, brandDots = false }) {
   const { t } = useLang();
   return (
-    <div className="stories-filters__row">
-      <span className="stories-filters__label" id={`stories-f-${id}`}>{label}</span>
-      <div className="stories-filters__chips" role="group" aria-labelledby={`stories-f-${id}`}>
+    <div className="ins-filter__row stories-filters__row">
+      <span className="ins-filter__label stories-filters__label" id={`stories-f-${id}`}>{label}</span>
+      <div className="ins-filter__chips stories-filters__chips" role="group" aria-labelledby={`stories-f-${id}`}>
         {options.map((o) => (
           <button
             key={o.value || 'all'}
             type="button"
-            className={`stories-chip${o.value && brandDots ? ` stories-chip--${o.value}` : ''}`}
+            className={`chip stories-chip${o.value && brandDots ? ` stories-chip--${o.value}` : ''}`}
             aria-pressed={value === o.value}
             onClick={() => onChange(o.value)}
           >
-            {o.value && brandDots && <span className="stories-chip__dot" aria-hidden="true" />}
+            {o.value && brandDots && <span className="ins-filter__dot stories-chip__dot" data-brand={o.value} aria-hidden="true" />}
             {t(o.label[0], o.label[1])}
           </button>
         ))}

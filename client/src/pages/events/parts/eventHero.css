@@ -1,0 +1,119 @@
+/* Event detail template (docs/redesign/SPEC.md §5.5), shared by events/EventDetail (.event-*) and
+   mega/events-series/EditionPage (.edition-*). The class names stay; this file holds the common look:
+   1. The split hero on Ink: breadcrumbs → chips → h1 (--text-display-xl) → lede → actions → notes in cols 1–7, the
+      poster (4/3, 16px, date chip on Paper) in cols 8–12, then the hairline fact strip (the meta row).
+   2. The body on a 12-column grid that rises over the band: main in cols 1–8, the ticket card in cols 9–12, pulled
+      up 96px at ≥1024 (PnP overlap) and sticky 16px under the header. Below 1024 it follows the main column.
+   Imported by both pages; every rule is scoped to their own classes. */
+
+/* ---------- 1. Hero ---------- */
+:is(.event-hero, .edition-hero) {
+  position: relative; background: var(--night-0); color: var(--night-text);
+  padding-top: var(--space-hero-top-page);
+  padding-bottom: calc(var(--space-hero-bottom) + var(--sheet-radius));
+}
+/* The body slides over the band as the rounded Paper sheet (as theme.css does after .page-hero) */
+:is(.event-detail, .edition-page) :is(.event-hero, .edition-hero) + .section {
+  position: relative; z-index: 1;
+  margin-top: calc(-1 * var(--sheet-radius));
+  border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
+}
+:is(.event-hero__grid, .edition-hero__grid) { display: grid; row-gap: var(--space-8); margin-top: var(--space-6); align-items: start; }
+@media (min-width: 1024px) {
+  :is(.event-hero__grid, .edition-hero__grid) { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--grid-gap); }
+  :is(.event-hero__copy, .edition-hero__copy) { padding-right: var(--space-8); }
+}
+:is(.event-hero__copy, .edition-hero__copy) { display: grid; gap: var(--space-5); justify-items: start; min-width: 0; }
+:is(.event-hero__chips, .edition-hero__chips) { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+:is(.event-hero__title, .edition-hero__title) { max-width: 8.83em; color: var(--night-text); overflow-wrap: break-word; }
+:lang(ta) :is(.event-hero__title, .edition-hero__title) { max-width: 13.88em; }
+:is(.event-hero__endorse, .edition-hero__endorse) { margin-top: calc(-1 * var(--space-2)); font-size: var(--text-small); font-weight: var(--weight-label); color: var(--accent-night); }
+:is(.event-hero__lede, .edition-hero__lede) { color: var(--night-text-2); max-width: var(--measure-lede); }
+:lang(ta) :is(.event-hero__lede, .edition-hero__lede) { max-width: 36em; }
+:is(.event-hero__actions, .edition-hero__actions) { --cluster-gap: var(--space-3); margin-top: var(--space-3); }
+:is(.event-hero__wa, .event-hero__micro, .edition-hero__micro) { color: var(--night-text-2); max-width: var(--measure-lede); }
+:is(.event-hero__copy, .edition-hero__copy) > .caption { color: var(--night-text-2); }
+@media (max-width: 479.98px) {
+  :is(.event-hero__actions, .edition-hero__actions) > .button:not(.button--tertiary) { flex: 1 1 100%; }
+}
+
+/* Poster: 4/3 (the JS passes a 21/9 band below 1024), 16px radius from theme.css, date chip on Paper */
+:is(.event-hero__poster, .edition-hero__poster) { position: relative; width: 100%; min-width: 0; }
+:is(.event-hero__dateblock, .edition-hero__dateblock) {
+  position: absolute; left: var(--space-3); top: var(--space-3); z-index: 2;
+  display: grid; justify-items: start; gap: var(--space-0-5);
+  min-width: 3.5rem; padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-input); background: var(--paper); color: var(--ink-900);
+}
+:is(.event-hero__dateblock-day, .edition-hero__dateblock-day) {
+  order: -1; font-size: var(--text-h3); font-weight: var(--weight-heading); line-height: 1.05; letter-spacing: var(--tracking-h4);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+:is(.event-hero__dateblock-month, .edition-hero__dateblock-month) { font-size: var(--text-caption); font-weight: var(--weight-label); line-height: 1.2; color: var(--ink-900); }
+:is(.event-hero__dateblock-wd, .edition-hero__dateblock-wd) { font-size: var(--text-caption); line-height: 1.2; color: var(--ink-600); }
+:lang(ta) :is(.event-hero__dateblock-day--word) { font-size: var(--text-h5); line-height: 1.3; }
+@media (min-width: 1024px) {
+  :is(.event-hero__dateblock, .edition-hero__dateblock) { left: var(--space-4); top: var(--space-4); padding: var(--space-3) var(--space-4); }
+  :is(.event-hero__dateblock-day, .edition-hero__dateblock-day) { font-size: var(--text-h2); }
+}
+/* Phones: the poster is decorative (alt="", its date chip repeats the Date fact), so the hero keeps to copy + facts */
+@media (max-width: 479.98px) {
+  :is(.event-hero__poster, .edition-hero__poster) { display: none; }
+}
+
+/* Fact strip (the meta row): a hairline strip on the band, label over value */
+:is(.event-hero__facts, .edition-hero__facts) {
+  display: grid; margin: var(--space-12) 0 0; grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--night-line);
+}
+@media (min-width: 768px) { :is(.event-hero__facts, .edition-hero__facts) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { :is(.event-hero__facts, .edition-hero__facts) { grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); } }
+:is(.event-hero__fact, .edition-hero__fact) {
+  min-width: 0; overflow-wrap: break-word;
+  padding: var(--space-4) var(--space-4) var(--space-4) 0; border-bottom: 1px solid var(--night-line);
+}
+:is(.event-hero__fact, .edition-hero__fact) dt {
+  display: flex; align-items: center; gap: var(--space-2);
+  font-size: var(--text-caption); font-weight: var(--weight-body); color: var(--night-text-muted);
+}
+:is(.event-hero__fact, .edition-hero__fact) dt svg { flex: none; }
+:is(.event-hero__fact, .edition-hero__fact) dd { margin: var(--space-1) 0 0; font-weight: var(--weight-label); color: var(--night-text); font-variant-numeric: tabular-nums; }
+@media (max-width: 767.98px) {
+  :is(.event-hero__facts, .edition-hero__facts) { margin-top: var(--space-8); }
+  :is(.event-hero__fact, .edition-hero__fact) { padding: var(--space-3) var(--space-3) var(--space-3) 0; }
+}
+@media (max-width: 359.98px) {
+  :is(.event-hero__facts, .edition-hero__facts) { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- 2. Body: main cols 1–8, ticket card cols 9–12 ---------- */
+:is(.event-detail__layout, .edition-body__layout) { display: grid; gap: var(--space-12); }
+:is(.event-detail__main, .edition-body__main) { min-width: 0; }
+:is(.event-detail__aside, .edition-body__aside) { min-width: 0; }
+@media (min-width: 1024px) {
+  :is(.event-detail__layout, .edition-body__layout) {
+    grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); row-gap: 0; align-items: start;
+  }
+  :is(.event-detail__main, .edition-body__main) { grid-column: 1 / span 8; grid-row: 1; padding-right: var(--space-8); }
+  :is(.event-detail__aside, .edition-body__aside) { grid-column: 9 / -1; grid-row: 1; align-self: stretch;
+    /* PnP overlap: past the body top padding, so the card rises 64px over the sheet edge (96 into the Ink), 32px
+       under the hero facts row */
+    margin-top: calc(-1 * (var(--space-section) + var(--space-16))); position: relative; z-index: 2; }
+  /* Sticky 16px under the visible header; never taller than the viewport, so it never runs into the footer */
+  :is(.event-detail__sticky, .edition-body__sticky) {
+    position: sticky; top: calc(var(--shell-offset, 0px) + var(--space-4));
+    max-height: calc(100vh - var(--shell-offset, 0px) - 2 * var(--space-4));
+    overflow: auto; overscroll-behavior: contain; scrollbar-width: thin;
+    border-radius: var(--radius-card);
+    transition: top var(--dur-header) var(--ease-standard), max-height var(--dur-header) var(--ease-standard);
+  }
+}
+:is(.event-detail__sticky, .edition-body__sticky) { display: grid; gap: var(--space-4); justify-items: start; }
+/* Ticket card: the White form surface, 12px, hairline, large padding */
+:root :is(.event-detail__sticky, .edition-body__sticky) > .key-facts {
+  width: 100%; padding: var(--pad-card-lg); background: var(--color-bg-form); border-color: var(--color-border);
+}
+:is(.event-detail__aside-actions, .edition-body__aside-actions) { display: grid; gap: var(--space-3); }
+
+@media (prefers-reduced-motion: reduce) { :root:not([data-motion='full']) :is(.event-detail__sticky, .edition-body__sticky) { transition: none; } }
+:root[data-motion='reduced'] :is(.event-detail__sticky, .edition-body__sticky) { transition: none; }

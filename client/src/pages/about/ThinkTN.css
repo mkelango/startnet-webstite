@@ -3,14 +3,14 @@
 .ttn-ext {
   display: inline-flex; align-items: center; gap: var(--space-2);
   min-height: 44px; padding: 0 1.125rem; border-radius: var(--btn-radius);
-  background: var(--color-text); color: var(--color-bg); font-weight: 500; letter-spacing: -0.005em; text-decoration: none;
+  background: var(--color-text); color: var(--color-bg); font-weight: 500; letter-spacing: var(--tracking-h4); text-decoration: none;
   transition: background-color var(--dur-2) var(--ease-standard);
 }
 .ttn-ext--lg { min-height: 52px; padding: 0 1.5rem; font-size: var(--text-body); }
 @media (hover: hover) and (pointer: fine) { .ttn-ext:hover { background: var(--color-text-2); } }
 @media (hover: hover) and (pointer: fine) { .ttn-ext:hover svg { transform: translate(2px, -2px); } }
 .ttn-ext svg { transition: transform var(--dur-2) var(--ease-standard); }
-.ttn-ext:focus-visible { border-radius: var(--btn-radius); }
+.ttn-ext:focus-visible { border-radius: var(--radius-full); }
 
 /* Diagram: one hairline frame on var(--card); sentence-case labels; a 1px ink firewall. */
 .ttn-diagram {
@@ -26,7 +26,7 @@
 .ttn-diagram__side li { padding-left: var(--space-5); position: relative; }
 .ttn-diagram__side li::before { content: ''; position: absolute; left: 0; top: 0.7em; width: var(--space-3); height: 1px; background: var(--color-text-muted); }
 .ttn-diagram__label { font-size: var(--text-small); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--color-text-muted); }
-.ttn-diagram__name { font-size: var(--text-h2); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; }
+.ttn-diagram__name { font-size: var(--text-h2); font-weight: 400; letter-spacing: var(--tracking-h2); line-height: 1.1; }
 .ttn-diagram__side--thinktn .ttn-diagram__name { color: var(--color-text-2); }
 @media (min-width: 768px) { .ttn-diagram__side--thinktn { text-align: right; } .ttn-diagram__side--thinktn li { padding-left: 0; padding-right: var(--space-5); } .ttn-diagram__side--thinktn li::before { left: auto; right: 0; } }
 
@@ -82,7 +82,7 @@
   padding: var(--space-6); background: var(--card);
 }
 .ttn-rules__n {
-  display: block; font-size: var(--text-h2); font-weight: 400; line-height: 1; letter-spacing: -0.035em;
+  display: block; font-size: var(--text-h2); font-weight: 400; line-height: 1; letter-spacing: var(--tracking-h1);
   font-variant-numeric: tabular-nums lining-nums; color: var(--color-text);
 }
 .ttn-rules__item p { font-weight: 400; color: var(--color-text); }

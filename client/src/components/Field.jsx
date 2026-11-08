@@ -1,4 +1,4 @@
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, ChevronDown } from 'lucide-react';
 import { useLang } from '../lib/i18n.jsx';
 import { cx } from './_utils.js';
 import './Field.css';
@@ -16,7 +16,8 @@ export function CheckboxControl(props) {
 }
 
 /**
- * Labelled input with hint and inline error (Book 3 C39). Native controls only.
+ * Labelled input with hint and inline error (docs/redesign/SPEC.md §4.12). Native controls only: 48px, 8px radius,
+ * Ink-500 control border, White ground; label 15px / 500, hint 14px muted, error 14px Red-700 with AlertCircle 16.
  * `tel` shows a fixed +91 prefix and a numeric keypad. onChange receives the value (or boolean).
  * Extra optional props: name, onBlur, placeholder, inputMode, rows, disabled, maxLength, className.
  */
@@ -113,6 +114,7 @@ export function Field({
             </option>
           ))}
         </select>
+        <ChevronDown className="field__chevron" size={18} strokeWidth={1.75} aria-hidden="true" focusable="false" />
       </div>
     );
   } else if (type === 'tel') {

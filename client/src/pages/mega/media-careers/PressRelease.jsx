@@ -91,7 +91,7 @@ export default function PressRelease() {
       />
 
       {/* Head: centred 7-col measure (Book 3 Part B §4, T09), on the ink band; the body sheet slides over it. */}
-      <Section surface="night" pad="sm" className="release__head-section">
+      <Section surface="night" pad="tight" className="release__head-section">
         <div className="release__measure">
           <Breadcrumbs items={[{ label: t('Media', 'ஊடகம்'), to: '/media' }, { label: titleIsMark ? t('Press release', 'செய்திக் குறிப்பு') : release.title }]} />
           <div className="cluster release__chips">
@@ -123,7 +123,7 @@ export default function PressRelease() {
       </Section>
 
       {/* Body */}
-      <Section surface="paper" pad="sm">
+      <Section surface="paper" pad="tight">
         <div className="release__measure release__body">
           {body.length ? (
             body.map((para, i) => (
@@ -162,7 +162,7 @@ export default function PressRelease() {
       </Section>
 
       {/* Notes to editors: boilerplate + media contact */}
-      <Section surface="white" pad="sm" labelledBy="release-notes-h">
+      <Section surface="white" pad="tight" labelledBy="release-notes-h">
         <div className="release__measure release__notes">
           <h2 id="release-notes-h" className="h4">{t('Notes to editors', 'ஆசிரியர்களுக்கான குறிப்புகள்')}</h2>
           {notes.length > 0 && (
@@ -190,7 +190,7 @@ export default function PressRelease() {
       </Section>
 
       {/* More releases */}
-      <Section surface="paper" pad="sm" labelledBy="release-more-h">
+      <Section surface="paper" pad="tight" labelledBy="release-more-h">
         <div className="release__measure">
           <div className="release__more-head">
             <h2 id="release-more-h" className="h4">{t('More press releases', 'மேலும் செய்திக் குறிப்புகள்')}</h2>

@@ -4,7 +4,11 @@ import { Scroller } from './Scroller.jsx';
 import { cx, renderIcon } from './_utils.js';
 import './Steps.css';
 
-/** Numbered "how it works" steps (Book 3 C21). `engines` = six-card scroller (R4 pattern 12). */
+/**
+ * Numbered "how it works" steps (docs/redesign/SPEC.md §4.15). `row`: 3–5 columns ≥1024, each a 32px Ink number
+ * circle → hairline connector → title (--text-h5) → body (15px Graphite); vertical below 1024 with the connector as a
+ * 1px left rule. `engines` = a card scroller.
+ */
 export function Steps({ steps, variant = 'row', headingLevel = 3, label, className }) {
   const { t } = useLang();
   const list = (Array.isArray(steps) ? steps : []).filter(Boolean);
@@ -17,6 +21,7 @@ export function Steps({ steps, variant = 'row', headingLevel = 3, label, classNa
         <span className="steps__num" aria-hidden="true">
           {String(i + 1).padStart(2, '0')}
         </span>
+        <span className="steps__line" aria-hidden="true" />
         {s.icon && <span className="steps__icon">{renderIcon(s.icon, { size: 26, strokeWidth: 1.75, 'aria-hidden': true })}</span>}
       </div>
       <H className="steps__title">{s.title}</H>

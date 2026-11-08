@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import {
-  Seo, PageHero, Section, SectionHeader, Steps, Button, Reveal, RevealGroup, ArtImage, CTABand, Dot, Accordion,
+  Seo, PageHero, Section, SectionHeader, Steps, Button, Badge, Reveal, RevealGroup, ArtImage, CTABand, Dot, Accordion,
 } from '../../components';
 import { ScrubText } from '../../components/ScrubText.jsx';
 import { useLang } from '../../lib/i18n.jsx';
@@ -52,8 +52,10 @@ export default function Partner() {
         breadcrumbs={[{ label: t('Partner with us', 'எங்களுடன் கூட்டு சேருங்கள்') }]}
         actions={
           <>
-            <Button to="/partner/enquire" size="lg">{enquire}</Button>
-            <Button to="/insights/founder-ledger" variant="tertiary" size="lg">{t('Read the Founder Ledger', 'Founder Ledger-ஐப் படியுங்கள்')}</Button>
+            {/* SPEC §7.2: the h1's red full stop is this section's one red point, so the first CTA is the Paper primary
+                (never `point` next to a red .dot); the CTABand below keeps a Paper primary too. */}
+            <Button to="/partner/enquire" variant="primary" size="lg">{enquire}</Button>
+            <Button to="/insights/founder-ledger" variant="secondary" size="lg">{t('Read the Founder Ledger', 'Founder Ledger-ஐப் படியுங்கள்')}</Button>
           </>
         }
         art={{ variant: 'network', ratio: '4/5', seed: 8, alt: '' }}
@@ -159,6 +161,9 @@ export default function Partner() {
           {SOLUTIONS.map((s) => (
             <li key={s.title} className="partner-solution">
               <Link to={localePath(s.to)} className="partner-solution__link">
+                {PARTNER_TYPES[s.audience] && (
+                  <Badge kind="type" className="partner-solution__badge">{f(PARTNER_TYPES[s.audience], 'label')}</Badge>
+                )}
                 <span className="partner-solution__title h5">{f(s, 'title')}</span>
                 <span className="partner-solution__body">{f(s, 'body')}</span>
                 <ArrowRight className="partner-solution__arrow" aria-hidden="true" size={20} />
@@ -266,6 +271,7 @@ export default function Partner() {
       </Section>
 
       <CTABand
+        className="partner-close"
         surface="night"
         accentWord="need"
         title={t(

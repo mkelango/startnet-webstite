@@ -17,3 +17,6 @@
 .connect-seats__key { display: inline-flex; align-items: center; gap: var(--space-2); }
 .connect-seats__swatch { width: 8px; height: 8px; border-radius: var(--radius-full); background: var(--color-text); flex: none; box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 3px var(--accent); }
 .connect-seats__swatch--open { background: transparent; border: 1px dashed var(--ink-500); box-shadow: none; }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.connect-seats__range:lang(ta) { letter-spacing: 0; }

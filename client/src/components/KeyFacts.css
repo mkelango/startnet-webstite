@@ -1,27 +1,18 @@
-/* Key facts (DESIGN-v2 3.7 framed family): Card ground, hairline ring, 2px top rule in Ink (accent in a brand scope). */
+/* Key facts (docs/redesign/SPEC.md §4.7): a 2-column <dl> panel on Card, 1px hairline, --radius-card, padding
+   --pad-card; dt 13px muted, dd 17px / 500, hairlines between rows. Sticky in a right rail from 1024, under the
+   header and the sub-nav. White on Bone grounds, Night-1 on Ink. */
 :root .key-facts {
   position: relative;
   align-self: start;
-  padding: 28px;
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-media);
+  padding: var(--pad-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
   background: var(--card);
   color: var(--color-text);
 }
-:root .key-facts::before {
-  content: '';
-  position: absolute;
-  inset: -1px -1px auto;
-  height: 12px;
-  border-top: 2px solid var(--color-text);
-  border-radius: var(--radius-media) var(--radius-media) 0 0;
-  pointer-events: none;
-}
-:root [data-brand] .key-facts::before { border-top-color: var(--accent); }
 :root :is(.section--white, .section--sunken) .key-facts { background: var(--white); }
-@media (max-width: 767.98px) { :root .key-facts { padding: 24px; } }
 @media (min-width: 1024px) {
-  :root .key-facts--sticky { position: sticky; top: calc(var(--header-h-compact) + var(--subnav-h) + var(--space-6)); }
+  :root .key-facts--sticky { position: sticky; top: calc(var(--shell-offset, var(--header-h)) + var(--subnav-h) + var(--space-4)); }
 }
 /* Title as a dot label (sentence case, no tracking) */
 :root .key-facts__title {
@@ -30,7 +21,8 @@
   gap: 0.6em;
   margin-bottom: var(--space-4);
   font-size: var(--text-label);
-  font-weight: 500;
+  font-weight: var(--weight-label);
+  line-height: 1.4;
   letter-spacing: 0;
   text-transform: none;
   color: var(--color-text);
@@ -45,16 +37,12 @@
   border-top: 1px solid var(--color-border);
 }
 .key-facts__row:first-child { border-top: 0; padding-top: 0; }
-.key-facts__label { font-size: var(--text-small); color: var(--color-text-muted); }
-.key-facts__value { margin: 0; font-size: var(--text-small); font-weight: 500; color: var(--color-text); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.key-facts__label { font-size: var(--text-caption); line-height: 1.45; color: var(--color-text-muted); padding-top: 0.15em; }
+.key-facts__value { margin: 0; font-size: var(--text-body); font-weight: var(--weight-label); line-height: 1.4; color: var(--color-text); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .key-facts__action { display: grid; gap: var(--space-3); margin-top: var(--space-6); }
 .key-facts__action .button { width: 100%; }
-:root [data-surface='night'] .key-facts { background: var(--night-1); border-color: var(--night-line); }
-:root [data-surface='night'] .key-facts::before { border-top-color: var(--accent-night); }
-/* Verifier r1: Tamil labels ("விண்ணப்பிக்கலாம்", "ஸ்பான்சர்கள்") split mid-word in the 6rem label column on phones; stack them. */
+:root [data-surface="night"] .key-facts { background: var(--night-1); border-color: var(--night-line); }
+/* Tamil labels ("விண்ணப்பிக்கலாம்", "ஸ்பான்சர்கள்") split mid-word in the 6rem label column below 1280; stack them. */
 @media (max-width: 1279.98px) { :lang(ta) .key-facts__row { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); } }
-
-/* Final verifier r3: at 1280+ (two columns) a long Tamil label ("விதிமுறைகளும்", 156px) split in the 127px label
-   column; the label column now never gets narrower than its longest word. */
+/* At 1280+ the label column never gets narrower than its longest Tamil word ("விதிமுறைகளும்", 156px). */
 @media (min-width: 1280px) { :lang(ta) .key-facts__row { grid-template-columns: minmax(min-content, 0.8fr) minmax(0, 1.2fr); } }
-

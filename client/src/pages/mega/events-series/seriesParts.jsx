@@ -72,7 +72,7 @@ export function EditionCard({ event, headingLevel = 3 }) {
       to={editionPath(e)}
       brand={brand || undefined}
       headingLevel={headingLevel}
-      art={{ variant: ART_FOR[brand] || 'dot', brand: brand || undefined, ratio: '16/9', seed: seedOf(e.slug), alt: '', photoPool: eventPool(event), sizes: PHOTO_SIZES.card }}
+      art={{ variant: ART_FOR[brand] || 'dot', brand: brand || undefined, ratio: '3/2', seed: seedOf(e.slug), alt: '', photoPool: eventPool(event), sizes: PHOTO_SIZES.card, noCaption: true }}
       badges={
         <>
           {past ? (

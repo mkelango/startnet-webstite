@@ -64,6 +64,7 @@ export default function Careers() {
       />
 
       <PageHero
+        layout="text"
         className="rk-hero rk-page"
         eyebrow={t('Careers', 'பணி வாய்ப்புகள்')}
         title={t("Help Tamil Nadu's next founders get started.", 'தமிழ்நாட்டின் அடுத்த நிறுவனர்கள் தொடங்க உதவுங்கள்.')}
@@ -220,7 +221,7 @@ export default function Careers() {
         </div>
       </Section>
 
-      <CTABand surface="night"
+      <CTABand surface="paper"
         title={t('Not the right time? Stay close.', 'இது சரியான நேரம் இல்லையா? தொடர்பில் இருங்கள்.')}
         body={t('Our numbers are public. Read what the team is building towards.', 'எங்கள் எண்கள் பொதுவில் உள்ளன. குழு எதை நோக்கி உருவாக்குகிறது என்பதைப் படியுங்கள்.')}
         actions={

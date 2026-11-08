@@ -1,18 +1,38 @@
-/* Report card (DESIGN-v2 3.7, framed family) */
+/* Report card (docs/redesign/SPEC.md §4.6, framed family): 3:4 cover at 8px with a hairline, Ink type chip,
+   title --text-h5 on 3 lines, key findings as left-rule stats (2px Ink rule, 16px in). */
+/* The cover is 3:4, capped at 18rem tall so a 3-up listing is not a wall of posters; the art fills the frame */
+.report-card > .card__media { aspect-ratio: var(--ar-report); max-height: 18rem; border: 1px solid var(--color-border); }
+.report-card > .card__media > .art-image { position: absolute; inset: 0; height: 100%; }
+:root .report-card .card__badges .badge--type { background: var(--color-cta); color: var(--color-on-cta); box-shadow: none; }
+/* Type + year + "Upcoming" do not fit on one line in 3-up listings from 700 to 1279 (the status chip ran past the
+   card edge); report cards let the chip row wrap instead of keeping it on one line. */
+:root .report-card .card__badges { flex-wrap: wrap; }
+:root .report-card .card__title {
+  font-size: var(--text-h5);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .report-card .card__meta { display: grid; gap: var(--space-4); }
 .report-card__findings {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
   gap: var(--space-4);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-2);
 }
+.report-card__findings > .stat { padding-left: var(--space-4); border-left: 2px solid var(--color-text); }
 .report-card__formats { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
 .report-card__formats li {
   padding: 2px 8px;
-  border-radius: var(--radius-btn);
-  background: var(--bone);
-  font-size: 0.75rem;
+  border-radius: var(--radius-chip);
+  background: var(--color-bg-sunken);
+  font-size: var(--text-caption);
   font-weight: 500;
-  color: var(--ink-600);
+  color: var(--color-text-2);
+}
+/* Phones (one column): a 3:2 crop of the cover, so a list of reports is not a column of posters */
+@media (max-width: 599.98px) {
+  .report-card > .card__media { aspect-ratio: var(--ar-card); }
 }

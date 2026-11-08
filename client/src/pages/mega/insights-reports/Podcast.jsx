@@ -10,6 +10,7 @@ import { useApi } from '../../../hooks/useApi.js';
 import { useLang } from '../../../lib/i18n.jsx';
 import NotifyForm from './NotifyForm.jsx';
 import './Podcast.css';
+import { InsightsTabs } from '../../insights/InsightsTabs.jsx';
 import { realStories } from '../../../components/_placeholders.js';
 
 const LANGS = [
@@ -51,7 +52,6 @@ export default function Podcast() {
 
       <PageHero
         eyebrow={t('Insights · Podcast', 'நுண்ணறிவுகள் · பாட்காஸ்ட்')}
-        titleClass="display-xl podcast-hero__title"
         title={t('Founder conversations, in Tamil and English.', 'நிறுவனர் உரையாடல்கள், தமிழிலும் ஆங்கிலத்திலும்.')}
         lede={t(
           'Conversations with people building companies across Tamil Nadu, in the language they think in. The first episodes are being planned.',
@@ -63,7 +63,7 @@ export default function Podcast() {
           <div className="podcast-hero__badges">
             <Badge kind="lang"><span lang="ta">தமிழ்</span></Badge>
             <Badge kind="lang"><span lang="en">English</span></Badge>
-            <Badge kind="status" status="upcoming">{t('Planned', 'திட்டமிடப்பட்டது')}</Badge>
+            <Badge kind="type">{t('Planned', 'திட்டமிடப்பட்டது')}</Badge>
           </div>
         }
         actions={
@@ -74,8 +74,11 @@ export default function Podcast() {
         }
       />
 
+      <InsightsTabs current="/insights/podcast" />
+
       {/* Subscribe links */}
-      <Section surface="white" pad="sm" labelledBy="podcast-listen-h">
+      <Section surface="paper" pad="tight" labelledBy="podcast-listen-h">
+        <div className="ins-panel podcast-listen-panel">
         <div className="podcast-listen">
           <div>
             <h2 id="podcast-listen-h" className="h4">{t('Listen on', 'இங்கே கேளுங்கள்')}</h2>
@@ -95,21 +98,24 @@ export default function Podcast() {
             })}
           </ul>
         </div>
+        </div>
       </Section>
 
       {/* Episodes */}
-      <Section surface="paper" labelledBy="podcast-episodes-h">
+      <Section surface="paper" pad="tight" labelledBy="podcast-episodes-h">
         <SectionHeader
           id="podcast-episodes-h"
           eyebrow={t('Episodes', 'அத்தியாயங்கள்')}
           title={t('Latest episodes', 'சமீபத்திய அத்தியாயங்கள்')}
         />
-        <div className="podcast-filter" role="group" aria-label={t('Filter by language', 'மொழி வாரியாக வடிகட்டு')}>
+        {/* The language chips show once there is an episode to filter. */}
+        {episodes.length > 0 && (
+        <div className="ins-filter podcast-filter" role="group" aria-label={t('Filter by language', 'மொழி வாரியாக வடிகட்டு')}>
           {LANGS.map((l) => (
             <button
               key={l.value || 'all'}
               type="button"
-              className="podcast-filter__chip"
+              className="chip podcast-filter__chip"
               aria-pressed={lang === l.value}
               onClick={() => setLang(l.value)}
             >
@@ -117,14 +123,15 @@ export default function Podcast() {
             </button>
           ))}
         </div>
+        )}
         <p className="visually-hidden" aria-live="polite">
           {loading ? t('Loading episodes', 'அத்தியாயங்கள் ஏற்றப்படுகின்றன') : t(`${shown.length} episodes`, `${shown.length} அத்தியாயங்கள்`)}
         </p>
 
         {loading ? (
-          <div className="podcast-grid"><Skeleton height="16rem" count={3} /></div>
+          <div className="ins-grid podcast-grid"><Skeleton height="16rem" count={3} /></div>
         ) : shown.length > 0 ? (
-          <RevealGroup className="podcast-grid" key={lang || 'all'}>
+          <RevealGroup className="ins-grid podcast-grid" key={lang || 'all'}>
             {shown.map((s) => (
               <div key={s.slug} className="podcast-grid__item"><StoryCard story={s} /></div>
             ))}
@@ -158,7 +165,8 @@ export default function Podcast() {
         actions={<Button variant="secondary" to="/contact?topic=media" icon={ArrowRight}>{t('Suggest a guest', 'விருந்தினரைப் பரிந்துரையுங்கள்')}</Button>}
       />
 
-      <Section surface="white" id="podcast-notify" labelledBy="podcast-notify-h">
+      {/* Paper after the inset Bone CTA panel, so the page keeps Paper → Bone → Paper before the footer. */}
+      <Section surface="paper" id="podcast-notify" labelledBy="podcast-notify-h">
         <div className="podcast-notify">
           <Reveal className="podcast-notify__copy">
             <p className="eyebrow">{t('Podcast', 'பாட்காஸ்ட்')}</p>

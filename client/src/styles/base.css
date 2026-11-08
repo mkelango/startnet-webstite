@@ -32,30 +32,35 @@ a:hover { text-decoration-color: currentColor; text-decoration-thickness: 2px; }
 .prose a, .rich-text a { color: var(--color-link-longread); text-decoration-color: currentColor; }
 
 /* Focus: one 2px ring, Ink on Paper and Paper on Ink (--color-focus). Red is no longer the focus colour. */
-:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--focus-offset); }
 @media (forced-colors: active) {
   :focus-visible:not([tabindex="-1"]) { outline: 2px solid CanvasText !important; outline-offset: 2px !important; }
 }
 ::selection { background: rgb(239 68 68 / 0.2); color: var(--sn-ink); }
 
-/* Headings (DESIGN-v2 2.4): display and h1 at 400; h2, h3 and card titles at 500. No 600/700. */
+/* Headings (docs/redesign/SPEC.md §2.1): display, h1, h2, h3 and card titles all at 500 (--weight-display /
+   --weight-heading). Only 400 and 500 exist; no 600/700. */
 h1, h2, h3, h4, h5, h6 { margin: 0; font-family: var(--font-display); font-weight: var(--weight-heading); letter-spacing: var(--tracking-heading); line-height: var(--leading-heading); text-wrap: balance; }
-h1 { font-weight: var(--weight-display); letter-spacing: var(--tracking-h1); }
-h3, h4, h5, h6 { letter-spacing: var(--tracking-h3); line-height: 1.2; }
+h1 { font-weight: var(--weight-display); letter-spacing: var(--tracking-h1); line-height: var(--leading-h1); }
+h2 { letter-spacing: var(--tracking-h2); line-height: var(--leading-h2); }
+h3 { letter-spacing: var(--tracking-h3); line-height: var(--leading-h3); }
+h4, h5, h6 { letter-spacing: var(--tracking-h4); line-height: var(--leading-h4); }
 p { margin: 0; text-wrap: pretty; }
+/* Bold is Inter 500 (SPEC §7.4: only 400 and 500 exist), never the browser's 700 */
+strong, b { font-weight: var(--weight-label); }
 ul, ol { margin: 0; padding: 0; }
 
 /* Type scale classes */
 .display-2xl, .display-xl { font-family: var(--font-display); }
-.display-2xl { font-size: var(--text-display-2xl); font-weight: 400; line-height: var(--leading-display); letter-spacing: var(--tracking-display); }
-.display-xl  { font-size: var(--text-display-xl);  font-weight: 400; line-height: 1.04; letter-spacing: var(--tracking-display); }
-.h1 { font-size: var(--text-h1); font-weight: 400; line-height: var(--leading-h1, 1.08); letter-spacing: var(--tracking-h1); }
-.h2 { font-size: var(--text-h2); font-weight: 500; line-height: var(--leading-h2, var(--leading-heading)); letter-spacing: var(--tracking-h2, var(--tracking-heading)); }
-.h3 { font-size: var(--text-h3); font-weight: 500; line-height: 1.2; letter-spacing: var(--tracking-h3); }
-.h4 { font-size: var(--text-h4); font-weight: 500; line-height: 1.3; letter-spacing: var(--tracking-h3); }
-.h5 { font-size: var(--text-h5); font-weight: 500; }
-.body-lg, .lede { font-size: var(--text-lede); line-height: 1.45; letter-spacing: -0.005em; }
-p.lede { max-width: 40ch; }
+.display-2xl { font-size: var(--text-display-2xl); font-weight: var(--weight-display); line-height: var(--leading-display); letter-spacing: var(--tracking-display); }
+.display-xl  { font-size: var(--text-display-xl);  font-weight: var(--weight-display); line-height: var(--leading-display); letter-spacing: var(--tracking-display); }
+.h1 { font-size: var(--text-h1); font-weight: var(--weight-display); line-height: var(--leading-h1); letter-spacing: var(--tracking-h1); }
+.h2 { font-size: var(--text-h2); font-weight: var(--weight-heading); line-height: var(--leading-h2); letter-spacing: var(--tracking-h2); }
+.h3 { font-size: var(--text-h3); font-weight: var(--weight-heading); line-height: var(--leading-h3); letter-spacing: var(--tracking-h3); }
+.h4 { font-size: var(--text-h4); font-weight: var(--weight-heading); line-height: var(--leading-h4); letter-spacing: var(--tracking-h4); }
+.h5 { font-size: var(--text-h5); font-weight: var(--weight-heading); line-height: var(--leading-h4); letter-spacing: var(--tracking-h4); }
+.body-lg, .lede { font-size: var(--text-lede); line-height: var(--leading-lede); letter-spacing: -0.005em; }
+p.lede { max-width: var(--measure-lede); }
 :lang(ta) :is(.body-lg, .lede) { letter-spacing: 0; }
 :lang(ta) p.lede { max-width: 36em; }
 .small { font-size: var(--text-small); }
@@ -111,47 +116,30 @@ p.lede { max-width: 40ch; }
 
 /* Layout */
 .container { width: 100%; max-width: calc(var(--container-max) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
-.container--narrow { max-width: calc(52rem + 2 * var(--gutter)); }
+.container--narrow { max-width: calc(var(--measure-article) + 2 * var(--gutter)); }   /* 900 content */
 .stack > * + * { margin-top: var(--stack-gap, var(--space-4)); }
 .cluster { display: flex; flex-wrap: wrap; gap: var(--cluster-gap, var(--space-3)); align-items: center; }
-.grid { display: grid; gap: var(--grid-gap, var(--space-6)); }
+/* Card grids: --gap-grid (16→24) on both axes. --grid-gap is the 12-column gap (theme.css .grid-12). */
+.grid { display: grid; gap: var(--gap-grid); }
 .grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
 .grid-3 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
 .grid-4 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
 /* .grid-3 never exceeds three columns: 6-item sets lay out 3+3, not 4+2 */
 @media (min-width: 1024px) { .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-/* Tablet (640–1023): the utility grids run as an even 2-up, and an odd last card takes the full row instead of
-   sitting alone next to an empty half (same pattern as EventDetail's related grid). From 768 a set of exactly
-   three runs as one row of three instead (3 cards → 3, not 2 + 1). */
+/* Tablet (640–1023): the utility grids run as an even 2-up, and an odd last item takes the full row instead of
+   sitting alone next to an empty half. From 768 a set of exactly three runs as one row of three instead.
+   How a card lays itself out in that full-width cell (media 5 / body 7) belongs to components/Card.css. */
 @media (min-width: 640px) and (max-width: 1023.98px) {
   .grid-3, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   :where(.grid-3, .grid-4) > :last-child:nth-child(odd) { grid-column: 1 / -1; }
-  /* The wide card turns horizontal (media 5 / body 7) rather than becoming one oversized image. The third card of
-     an exactly-three set is excluded here: from 768 it sits in a row of three, not on its own (see 640–767 below). */
-  :where(.grid-3, .grid-4) > :last-child:nth-child(odd):not(:nth-child(3)) .card:has(> .card__media) {
-    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--space-6); align-items: stretch;
-  }
-  :where(.grid-3, .grid-4) > :last-child:nth-child(odd):not(:nth-child(3)) .card:has(> .card__media) > .card__media { width: 100%; height: 100%; min-width: 0; margin-bottom: 0; }
-  :where(.grid-3, .grid-4) > :last-child:nth-child(odd):not(:nth-child(3)) .card:has(> .card__media) > .card__media .art-image { aspect-ratio: auto !important; width: 100%; height: 100%; min-height: 12rem; }
-  :where(.grid-3, .grid-4) > :last-child:nth-child(odd):not(:nth-child(3)) .card--media:has(> .card__media) > .card__body { padding-top: 0; }
-  :where(.grid-3, .grid-4) > :last-child:nth-child(odd):not(:nth-child(3)) .card--framed:has(> .card__media) > .card__media { border-radius: calc(var(--radius-media) - 1px) 0 0 calc(var(--radius-media) - 1px); }
-}
-/* 640–767: an exactly-three set is still 2 + 1, so its third card takes the same wide horizontal treatment */
-@media (min-width: 640px) and (max-width: 767.98px) {
-  :where(.grid-3, .grid-4) > :last-child:nth-child(3) .card:has(> .card__media) {
-    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--space-6); align-items: stretch;
-  }
-  :where(.grid-3, .grid-4) > :last-child:nth-child(3) .card:has(> .card__media) > .card__media { width: 100%; height: 100%; min-width: 0; margin-bottom: 0; }
-  :where(.grid-3, .grid-4) > :last-child:nth-child(3) .card:has(> .card__media) > .card__media .art-image { aspect-ratio: auto !important; width: 100%; height: 100%; min-height: 12rem; }
-  :where(.grid-3, .grid-4) > :last-child:nth-child(3) .card--media:has(> .card__media) > .card__body { padding-top: 0; }
-  :where(.grid-3, .grid-4) > :last-child:nth-child(3) .card--framed:has(> .card__media) > .card__media { border-radius: calc(var(--radius-media) - 1px) 0 0 calc(var(--radius-media) - 1px); }
 }
 @media (min-width: 768px) and (max-width: 1023.98px) {
-  :is(.grid-3, .grid-4):has(> :nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); --grid-gap: var(--space-4); }
+  :is(.grid-3, .grid-4):has(> :nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   :where(.grid-3, .grid-4):has(> :nth-child(3):last-child) > :last-child { grid-column: auto; }
 }
+/* Two-column text + media: --gap-split (48→96) */
 .split { display: grid; gap: var(--space-10); align-items: center; }
-@media (min-width: 1024px) { .split { grid-template-columns: 1fr 1fr; gap: var(--space-16); } .split--8-4 { grid-template-columns: 2fr 1fr; align-items: start; } }
+@media (min-width: 1024px) { .split { grid-template-columns: 1fr 1fr; gap: var(--gap-split); } .split--8-4 { grid-template-columns: 2fr 1fr; align-items: start; } }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .skip-link { position: absolute; left: var(--space-4); top: -100px; z-index: 1000; background: var(--sn-ink); color: var(--paper); padding: var(--space-3) var(--space-4); border-radius: var(--radius-btn); outline-color: var(--paper); }
 .skip-link:focus { top: var(--space-4); }
@@ -160,7 +148,7 @@ p.lede { max-width: 40ch; }
 .dot { color: var(--color-point); }
 
 /* Placeholder register marker (Book 2 Appendix A): visible, never hidden */
-.placeholder { background: transparent; color: var(--color-text-muted); border: 1px dashed var(--line-strong); border-radius: var(--radius-btn); padding: 0 0.3em; font-size: 0.9em; }
+.placeholder { background: transparent; color: var(--color-text-muted); border: 1px dashed var(--line-strong); border-radius: var(--radius-sm); padding: 0 0.3em; font-size: 0.9em; }
 [data-surface="night"] .placeholder { border-color: var(--night-line-strong); }
 
 /* Night surface helper for any element */
@@ -179,15 +167,16 @@ p.lede { max-width: 40ch; }
 .route-error { padding-block: var(--space-section); display: grid; gap: var(--space-4); justify-items: start; }
 .route-error__btn {
   min-height: 44px; padding: 0 var(--space-6); border: 0; border-radius: var(--radius-btn);
-  background: var(--sn-ink); color: var(--paper); font-weight: 500;
+  background: var(--color-cta); color: var(--color-on-cta); font-weight: 500;
   transition: background-color var(--dur-2) var(--ease-standard);
 }
-.route-error__btn:hover { background: var(--color-action); color: #fff; }
-.route-error__btn:active { background: var(--color-action-active); }
+/* Primary = Ink; it never hovers to red (SPEC §4.1) */
+.route-error__btn:hover { background: var(--color-cta-hover); }
+.route-error__btn:active { background: var(--color-cta-active); }
 .route-error__link { display: inline-flex; align-items: center; min-height: 44px; font-weight: 500; }
 
 /* Tamil: no negative tracking and roomier leading on headings, including component classes that set literal values */
-:lang(ta) { --tracking-h1: 0; --tracking-h2: 0; --tracking-h3: 0; --leading-h1: var(--leading-heading); --leading-h2: var(--leading-heading); }
+/* (The Tamil --tracking-* / --leading-* values themselves live in tokens.css.) */
 :lang(ta) :is(.h1, .h2, .h3, .display-xl, .card__title, .form-success__title, .newsletter__title, .quote__text p,
   .mega-menu__title, .mobile-drawer__toggle, .kinetic__word) { letter-spacing: 0; line-height: var(--leading-heading); }
 
@@ -206,6 +195,7 @@ p.lede { max-width: 40ch; }
    navigation, so later page heroes animate as usual. The snapshot itself (#sn-prerender) is not affected. */
 html[data-from-snapshot] #root :is(
   .hero-rise,
+  .home-hero,
   .home-hero__rise,
   :is(.page-hero__art, .brand-hero__art) .art-image,
   .vibathon__hero-art > :first-child,

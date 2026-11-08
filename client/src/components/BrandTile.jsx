@@ -14,10 +14,13 @@ const ART = { research: 'network', vibe: 'grid', connect: 'network', women: 'lad
 const SEED = { research: 11, vibe: 23, connect: 37, women: 41, x: 5 };
 
 /**
- * Brand door (Book 3 C22, DESIGN-v2 3.7 media card): unframed 4/5 media, accent only in the journey dot label;
- * hover zooms the media 1.03 and nudges the arrow. The stat sits outside the link.
+ * Brand door (Book 3 C22, docs/redesign/SPEC.md §4.6): an Ink or Slate tile at the panel radius (Ink / Slate alternate
+ * by position in the list; `tone="ink"|"slate"` fixes it). A 4px accent rule on the top edge, the reversed lock-up
+ * (the whole-tile link), the journey dot label, the promise, a one-line stat and the CTA. The photo fills the lower
+ * 45% at 55% opacity; on hover it runs full-bleed at full strength under a flat Ink scrim and zooms 1.05.
+ * The accent never fills the tile: it is the top rule and the lock-up dot only. The stat sits outside the link.
  */
-export function BrandTile({ brand, stat, headingLevel = 3, showArt = true, className }) {
+export function BrandTile({ brand, stat, headingLevel = 3, showArt = true, tone, className }) {
   const { t, localePath, pick } = useLang();
   const b = BRANDS[brand];
   if (!b) return null;
@@ -29,7 +32,13 @@ export function BrandTile({ brand, stat, headingLevel = 3, showArt = true, class
   const linkLabel = t(`Explore ${b.name}: ${journeyText}`, `${b.name}: ஆராயுங்கள். ${journeyText}`);
 
   return (
-    <article className={cx('brand-tile', className)} data-brand={brand} id={`brand-${brand}`}>
+    <article
+      className={cx('brand-tile', showArt && 'brand-tile--art', (tone === 'ink' || tone === 'slate') && `brand-tile--${tone}`, className)}
+      data-brand={brand}
+      data-surface="night"
+      data-tone={tone === 'slate' ? 'raised' : undefined}
+      id={`brand-${brand}`}
+    >
       <span className="brand-tile__rule" aria-hidden="true" />
       {showArt && (
         <div className="brand-tile__art">
@@ -51,7 +60,7 @@ export function BrandTile({ brand, stat, headingLevel = 3, showArt = true, class
         )}
         <span className="brand-tile__cta" aria-hidden="true">
           {name}
-          <ArrowRight size={18} className="brand-tile__cta-arrow" />
+          <ArrowRight size={18} strokeWidth={1.75} className="brand-tile__cta-arrow" />
         </span>
       </div>
     </article>

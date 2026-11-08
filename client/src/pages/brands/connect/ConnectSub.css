@@ -40,12 +40,12 @@
 .connect-sub__offerinner { display: grid; grid-template-columns: auto 1fr; gap: var(--space-6); padding: var(--space-8) 0; }
 .connect-sub__offernum { font-size: var(--text-meta); font-weight: 400; line-height: 1.6; color: var(--color-text-muted); min-width: 2.5ch; font-variant-numeric: tabular-nums; }
 .connect-sub__offer h2 { margin-bottom: var(--space-2); }
-.connect-sub__offer:target .connect-sub__offernum { color: var(--accent-text); }
+.connect-sub__offer:target .connect-sub__offernum { color: var(--color-text); font-weight: 500; }
 
 /* Angels legal */
 .connect-sub__legal {
   display: grid; gap: var(--space-2); padding: var(--space-5) var(--space-6);
-  background: var(--color-warning-bg); color: var(--color-text); border: 1px solid color-mix(in srgb, var(--color-warning-icon) 45%, transparent); border-radius: var(--media-radius);
+  background: var(--color-warning-bg); color: var(--color-text); border: 1px solid color-mix(in srgb, var(--color-warning-icon) 45%, transparent); border-radius: var(--radius-card);
   max-width: var(--measure);
 }
 
@@ -68,3 +68,6 @@
 /* Verifier r1: "நிதியுதவியாளர்கள்" (145px) split inside the 8rem label column at 320; Tamil labels get room. */
 :lang(ta) .connect-sub__dl > div { grid-template-columns: minmax(8rem, max-content) minmax(0, 1fr); }
 @media (max-width: 399.98px) { :lang(ta) .connect-sub__dl > div { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); } }
+
+/* Tamil headings and labels: no tracking (SPEC §7.6). Each selector above that sets tracking, reset under :lang(ta). */
+.connect-sub__happen h3:lang(ta) { letter-spacing: 0; }

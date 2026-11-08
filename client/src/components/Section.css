@@ -1,6 +1,7 @@
-/* Section (DESIGN-v2 2.1 / 2.3): padding-block --space-section (64→128), pad="tight" 48→80.
-   Grounds: paper = Paper, white/sunken = Bone, night = flat Ink (the old pulli dot texture is retired: no dot grids). Same-ground neighbours get a
-   hairline (styles/theme.css), not a gap. */
+/* Section (docs/redesign/SPEC.md §4.4). Padding: default --space-section (80→128), tight --space-section-tight
+   (48→64), sm --space-band (24→32), none 0. Grounds: paper = Paper, white / sunken = Bone, night = flat Ink,
+   accent = Ink with a 3px accent rule on top (never an accent ground), inset = the rounded Ink panel (theme.css draws
+   it as ::before inside a Paper margin). Same-ground neighbours get a hairline (theme.css), not a gap. */
 .section {
   position: relative;
   background: var(--color-bg);
@@ -10,14 +11,16 @@
 .section--white,
 .section--sunken { background: var(--bone); }
 
-/* Night band: the evidence room. One flat Ink ground, straight edges (AIWO: no texture, no gradient on grounds). */
-.section--night {
+/* Night band: one flat Ink ground, straight edges (no gradient on grounds). */
+.section--night,
+.section--accent {
   background-color: var(--night-0);
   background-image: none;
   isolation: isolate;
 }
+.section--accent { box-shadow: inset 0 3px 0 var(--accent-night); }
 
-.section--pad-sm,
 .section--pad-tight { padding-block: var(--space-section-tight); }
+.section--pad-sm { padding-block: var(--space-band); }
 .section--pad-none { padding-block: 0; }
 .section__inner { position: relative; }

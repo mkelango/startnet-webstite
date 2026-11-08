@@ -1,25 +1,91 @@
-/* Brand tile (DESIGN-v2 3.7, media family): unframed, 12px media at 4/5, the brand accent only in the journey
-   dot label. Hover: media 1.03 (styles/pointerFx.css), underline sweep on the CTA label, arrow nudge. */
+/* Brand tile (docs/redesign/SPEC.md §4.6): an Ink or Slate tile (data-surface="night"), radius --radius-panel,
+   4/5 from 768 (16/10 minimum below), padding --pad-card-lg. A 4px accent rule on the top edge, the reversed
+   lock-up, journey dot label, promise, a one-line stat and the CTA, all in Paper. The photo fills the lower 45% at
+   .55; on hover it runs full-bleed at full strength under a flat Ink scrim and zooms 1.05 (styles/pointerFx.css).
+   No accent fill: the accent is the top rule and the lock-up / journey dot only. */
 .brand-tile {
+  --tile-ratio: 0.625;   /* 16/10 below 768, 4/5 from 768 */
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template: 'stack' minmax(0, 1fr) / minmax(0, 1fr);
   min-width: 0;
   height: 100%;
-  color: var(--color-text);
+  padding: var(--pad-card-lg);
+  border-radius: var(--radius-panel);
+  overflow: hidden;
   isolation: isolate;
+  background: var(--color-bg);
+  color: var(--color-text);
 }
-.brand-tile__rule { display: none; }
-.brand-tile__art { position: relative; overflow: hidden; border-radius: var(--radius-media); background: var(--bone); }
-[data-surface='night'] .brand-tile__art { background: var(--night-1); }
-.brand-tile__art .art-image { border-radius: inherit; }
-.brand-tile__body { display: flex; flex: 1; flex-direction: column; gap: 8px; padding-top: 20px; }
+@media (min-width: 768px) { .brand-tile { --tile-ratio: 1.25; } }
+/* The ratio is a minimum, drawn by a spacer in the same grid cell as the body: long (Tamil) copy grows the tile
+   instead of being clipped by its overflow: hidden. Height = width × ratio, less the block padding. */
+.brand-tile::before {
+  content: '';
+  grid-area: stack;
+  padding-top: calc(var(--tile-ratio) * 100% + (var(--tile-ratio) * 2 - 2) * var(--pad-card-lg));
+  pointer-events: none;
+}
+/* Ink / Slate alternate by position (Slate = the night "raised" tone in tokens.css); tone="ink"|"slate" fixes it */
+:where(li:nth-child(even)) .brand-tile:not(.brand-tile--ink),
+.brand-tile:nth-child(even):not(.brand-tile--ink),
+.brand-tile.brand-tile--slate {
+  --color-bg: var(--night-2);
+  --color-bg-raised: var(--night-1);
+  --color-border: var(--night-line-strong);
+  --color-bg-tile: var(--night-1);
+  background: var(--color-bg);
+}
+.brand-tile__rule {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 3;
+  display: block;
+  height: 4px;
+  background: var(--accent-night);
+  pointer-events: none;
+}
+
+/* Photo: lower 45% at .55 under a flat Ink scrim; hover = full bleed, full strength, deeper scrim */
+.brand-tile__art {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 0;
+  height: 45%;
+  overflow: hidden;
+  isolation: isolate;
+  opacity: 0.55;
+  background: var(--night-1);
+  transition: height var(--dur-media) var(--ease-media), opacity var(--dur-media) var(--ease-media);
+}
+.brand-tile__art .art-image { position: absolute; inset: 0; height: 100%; border-radius: 0; }
+.brand-tile__art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: var(--overlay-photo);
+  transition: background-color var(--dur-media) var(--ease-media);
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .brand-tile:hover .brand-tile__art { height: 100%; opacity: 1; }
+  .brand-tile:hover .brand-tile__art::after { background: var(--overlay-photo-strong); }
+}
+.brand-tile:focus-within .brand-tile__art { height: 100%; opacity: 1; }
+.brand-tile:focus-within .brand-tile__art::after { background: var(--overlay-photo-strong); }
+
+.brand-tile__body { grid-area: stack; position: relative; z-index: 2; display: flex; flex: 1; flex-direction: column; gap: var(--space-3); min-width: 0; }
 .brand-tile__heading { line-height: 1; }
 .brand-tile__link { color: inherit; text-decoration: none; }
-.brand-tile__link::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: var(--radius-media); }
+.brand-tile__link::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: var(--radius-panel); }
 .brand-tile__link:focus-visible { outline: none; }
-.brand-tile:has(.brand-tile__link:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 4px; border-radius: var(--radius-media); }
-/* Journey line as a dot label: accent dot, Ink text */
+/* The ring sits on the tile: Ink on Paper grounds, Paper on Ink grounds (the tile's own --color-focus is Paper) */
+.brand-tile:has(.brand-tile__link:focus-visible) { outline: 2px solid var(--ink-900); outline-offset: var(--focus-offset); }
+:root [data-surface='night'] .brand-tile:has(.brand-tile__link:focus-visible) { outline-color: var(--paper); }
+/* On an Ink section the tiles step up one tone so they still read as tiles */
+:root [data-surface='night'] .brand-tile { --color-bg: var(--night-1); }
+/* Journey line as a dot label: accent dot, Paper text */
 :root .brand-tile__journey {
   display: inline-flex;
   align-items: baseline;
@@ -27,7 +93,7 @@
   gap: 0 0.3em;
   font-size: var(--text-meta);
   font-weight: 500;
-  color: var(--color-text);
+  color: var(--color-text-2);
 }
 .brand-tile__journey::before {
   content: '';
@@ -37,29 +103,33 @@
   height: 0.55em;
   margin-right: 0.3em;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-night);
 }
-[data-surface='night'] .brand-tile__journey::before { background: var(--accent-night); }
 .brand-tile__promise {
-  color: var(--color-text-2);
+  font-size: var(--text-body);
+  line-height: var(--leading-lede);
+  color: var(--color-text);
   /* No line clamp: the promise is one sentence and must read in full (Tamil runs 5-7 lines). */
 }
-.brand-tile__stat { position: relative; z-index: 2; margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--color-border); }
+:lang(ta) .brand-tile__promise { line-height: var(--leading-body); }
+.brand-tile__stat { position: relative; z-index: 2; margin-top: var(--space-2); }
+:root .brand-tile__stat .stat__value { font-size: var(--text-stat); line-height: var(--leading-stat); letter-spacing: var(--tracking-stat); color: var(--color-text); }
+:root .brand-tile__stat .stat__label { color: var(--color-text-2); }
 .brand-tile__cta {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
   align-self: flex-start;
   margin-top: auto;
-  padding-top: 16px;
-  font-size: var(--text-small);
+  padding-top: var(--space-4);
+  font-size: var(--text-button);
   font-weight: 500;
   color: var(--color-text);
 }
-.brand-tile__cta-arrow { transition: transform var(--dur-2) var(--ease-snap); }
+.brand-tile__cta-arrow { flex: none; transition: transform var(--dur-2) var(--ease-snap); }
 @media (hover: hover) {
   .brand-tile:hover .brand-tile__cta-arrow,
-  .brand-tile:hover .journey-line__arrow { transform: translateX(4px); }
+  .brand-tile:hover .journey-line__arrow { transform: translateX(var(--shift-1)); }
 }
-.brand-tile:focus-within .brand-tile__cta-arrow { transform: translateX(4px); }
+.brand-tile:focus-within .brand-tile__cta-arrow { transform: translateX(var(--shift-1)); }
 .brand-tile:focus-within, .brand-tile:has(.tag-pop__button[aria-expanded='true']) { z-index: 3; }

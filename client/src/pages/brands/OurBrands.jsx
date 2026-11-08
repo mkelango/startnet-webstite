@@ -107,7 +107,13 @@ function BrandDoor({ brand, index }) {
   const { t, localePath } = useLang();
   const d = DOORS[brand.key];
   return (
-    <article className="ourbrands-door" data-brand={brand.key} aria-labelledby={`door-${brand.key}`}>
+    <article
+      className={`ourbrands-door ourbrands-door--${index % 3 === 0 ? 'ink' : 'slate'}`}
+      data-brand={brand.key}
+      data-surface="night"
+      aria-labelledby={`door-${brand.key}`}
+    >
+      <span className="ourbrands-door__rule" aria-hidden="true" />
       <Link to={localePath(brand.base)} className="ourbrands-door__art" tabIndex={-1} aria-hidden="true" draggable="false">
         <ArtImage {...d.art} brand={brand.key} ratio="16/10" alt="" />
         <span className="ourbrands-door__index tnum">{String(index + 1).padStart(2, '0')}</span>
@@ -124,14 +130,14 @@ function BrandDoor({ brand, index }) {
             <li key={s.to}>
               <Link to={localePath(s.to)} className="ourbrands-door__chip bp-linkrows__link">
                 <span>{s.label}</span>
-                <span className="arrow" aria-hidden="true">→</span>
+                <span className="arrow" aria-hidden="true"><ArrowRight size={16} strokeWidth={2} /></span>
               </Link>
             </li>
           ))}
         </ul>
         <Link to={localePath(brand.base)} className="ourbrands-door__cta arrow-link">
           <span className="arrow-link__label">{t(`Explore ${brand.name}`, `${brand.name}-ஐப் பாருங்கள்`)}</span>
-          <span className="arrow" aria-hidden="true">→</span>
+          <span className="arrow" aria-hidden="true"><ArrowRight size={16} strokeWidth={2} /></span>
         </Link>
       </div>
     </article>
@@ -252,7 +258,7 @@ export default function OurBrands() {
       />
 
       {/* Section 1 · Brand doors */}
-      <Section pad="sm" labelledBy="ourbrands-doors-title">
+      <Section pad="tight" labelledBy="ourbrands-doors-title">
         <h2 id="ourbrands-doors-title" className="visually-hidden">{t('The four StartNet brands', 'நான்கு StartNet பிராண்டுகள்')}</h2>
         <RevealGroup className="ourbrands-doors" stagger={0.08}>
           {TALENT_BRANDS.map((b, i) => <BrandDoor key={b.key} brand={b} index={i} />)}

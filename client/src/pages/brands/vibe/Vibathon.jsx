@@ -127,7 +127,7 @@ export default function Vibathon() {
       </Section>
 
       {/* ---------- Figures + the last edition ---------- */}
-      <Section surface="paper" pad="sm">
+      <Section surface="paper" pad="tight">
         <FactBand
           className="bp-facts"
           metrics={VIBATHON_FACTS.map((m) => localiseMetric(t, m))}
