@@ -1,7 +1,7 @@
 /* Home (T01), docs/redesign/SPEC.md §5.1: the Plug and Play home rhythm in StartNet's brand.
    Grounds: Ink hero (runs up under the header card) → sheet rise → Paper (#i-am) → Ink band #1 (#where-things-stand)
    → Paper (#brands) → Bone (#how-it-works) → inset Ink panel, band #2 (#why-tamil-nadu, with Mission 1 Lakh, #mission)
-   → white (#coming-up) → Paper (#open-now) → Bone (#stories, with the film) → Paper (#partner) → Bone (#questions)
+   → Paper (#on-film) → white (#coming-up) → Paper (#open-now) → Bone (#stories) → Paper (#partner) → Bone (#questions)
    → the closing Ink CTA band → the Slate newsletter → footer. (Trimmed by about a third in Nov 2026.)
    The kit (Section, SectionHeader, FactBand, Stat, BrandTile, Scroller, cards, Marquee, LogoWall, Accordion, CTABand)
    draws itself; this file lays the sections out and styles the home-only pieces. Values come from tokens.css. */
@@ -437,6 +437,22 @@
 }
 
 /* =====================================================================================================
+   On film (#on-film, SPEC §5.1 #8, restored Nov 2026): Paper; the video 16/9 in a 20px frame at full container width.
+   ===================================================================================================== */
+.home-film__media { overflow: hidden; border-radius: var(--radius-xl); }
+.home-film .video-feature { margin: 0; }
+.home-film .video-feature__frame { aspect-ratio: 16 / 9; border-radius: var(--radius-xl); }
+.home-film .video-feature__caption { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: var(--space-6); }
+.home-film .video-feature__title { grid-column: 1; }
+.home-film .video-feature__meta { grid-column: 1; }
+.home-film .video-feature__source { grid-column: 2; grid-row: 1 / span 2; align-self: start; }
+.home-film__more { margin-top: var(--space-8); }
+@media (max-width: 639.98px) {
+  .home-film .video-feature__caption { grid-template-columns: minmax(0, 1fr); }
+  .home-film .video-feature__source { grid-column: 1; grid-row: auto; }
+}
+
+/* =====================================================================================================
    Open now (#open-now, SPEC §5.1 #10): framed ProgrammeCards on an inset Bone panel, 1 / 2 (768) / 3 (1024).
    768–1023: an odd last card takes the full row instead of sitting next to an empty half.
    ===================================================================================================== */
@@ -454,20 +470,6 @@
 @media (min-width: 768px) { .home-stories__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 768px) and (max-width: 1279.98px) { .home-stories__grid > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
 @media (min-width: 1280px) { .home-stories__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-/* The film as an Ink card in the grid: the 16/9 poster flush on top, the caption padded below (StoryCard's frame). */
-.home-stories__film {
-  align-content: start;
-  min-height: 27.5rem;
-  background: var(--color-bg);
-  border-radius: var(--radius-card);
-  overflow: hidden;
-  isolation: isolate;
-}
-.home-stories__film .video-feature { gap: 0; }
-.home-stories__film .video-feature__frame { aspect-ratio: 16 / 10; border-radius: 0; }
-.home-stories__film .video-feature__caption { padding: var(--pad-card); gap: var(--space-2); }
-.home-stories__film .video-feature__title { font-size: var(--text-h4); letter-spacing: var(--tracking-h4); }
-:lang(ta) .home-stories__film .video-feature__title { letter-spacing: 0; }
 
 /* =====================================================================================================
    Partner (#partner, SPEC §5.1 #13): Paper, tight. The copy left (cols 1–5), the four audience links right

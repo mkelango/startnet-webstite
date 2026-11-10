@@ -6,6 +6,7 @@ import {
   Stat, Scroller, EventCard, ProgrammeCard, StoryCard, LogoWall, EmptyState,
   Skeleton, VideoFeature, CTABand,
 } from '../../components';
+import { ClipReveal } from '../../components/ClipReveal.jsx';
 import { featuredVideos } from '../../data/videos.js';
 import { useApi } from '../../hooks/useApi.js';
 import { useLang } from '../../lib/i18n.jsx';
@@ -98,11 +99,10 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
   const partners = Array.isArray(partnersReq.data) ? partnersReq.data : [];
   const signedPartners = partners.filter((p) => p && p.agreementStatus === 'signed');
   const film = featuredVideos().filter((v) => v.series === 'saas-connect' && v.edition === '2025').slice(0, 1);
-  // The film takes one of the three story slots.
-  const stories = (founderStories.length ? founderStories : published.filter((s) => s.type === 'recap')).slice(0, 3 - film.length);
-  const showStories = storiesReq.loading || stories.length > 0 || film.length > 0;
-  // Grounds (SPEC §5.1): Coming up (white) → Open now (Paper) → Stories (Bone) → Partner (Paper) → Questions (Bone)
-  // → the closing Ink band.
+  const stories = (founderStories.length ? founderStories : published.filter((s) => s.type === 'recap')).slice(0, 3);
+  const showStories = storiesReq.loading || stories.length > 0;
+  // Grounds (SPEC §5.1): On film (Paper) → Coming up (white) → Open now (Paper) → Stories (Bone) → Partner (Paper) →
+  // Questions (Bone) → the closing Ink band.
 
   return (
     <>
@@ -152,6 +152,28 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
               {context.map((s) => <Stat key={s.id} metric={s} dl className="home-why__fact" />)}
             </RevealGroup>
           )}
+        </div>
+      </Section>
+
+      {/* On film (restored to its full-width format at the user's request, Nov 2026): the SaaS Connect 2025 film
+          (0:12–5:50, data/videos.js) on Paper (SPEC §5.1 #8: Ink bands are capped at two), 16/9 in a 20px frame,
+          opened up by ClipReveal */}
+      <Section id="on-film" className="home-film home-lazy">
+        {film.length > 0 && (
+          <>
+            <SectionHeader
+              eyebrow={t('On film', 'காணொளியில்')}
+              title={t('Inside the room at SaaS Connect 2025', 'SaaS Connect 2025 அரங்கின் உள்ளே')}
+            />
+            {film.map((v) => (
+              <ClipReveal key={v.id} className="home-film__media">
+                <VideoFeature video={v} />
+              </ClipReveal>
+            ))}
+          </>
+        )}
+        <div className="home-film__more">
+          <Button variant="tertiary" to="/events/past">{t('See past events', 'கடந்த நிகழ்வுகளைப் பாருங்கள்')}</Button>
         </div>
       </Section>
 
@@ -213,8 +235,8 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
         </div>
       </Section>
 
-      {/* M14 · Stories and film (Bone): a 3-up grid of Ink cards. The SaaS Connect 2025 film (data/videos.js, 0:12–5:50)
-          takes the first slot; founder stories fill the rest (event recaps until a founder story is published). */}
+      {/* M14 · Founder stories (Bone; event recaps until a founder story is published; hidden when neither exists): a 3-up
+          grid of Ink StoryCards */}
       {showStories && (
       <Section id="stories" surface="sunken" className="home-stories home-lazy">
         <SectionHeader
@@ -229,11 +251,6 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
             <Skeleton height="18rem" count={1} />
           ) : (
             <ul className="home-stories__grid" aria-label={founderStories.length ? t('Founder stories', 'நிறுவனர் கதைகள்') : t('Event recaps', 'நிகழ்வுச் சுருக்கங்கள்')}>
-              {film.map((v) => (
-                <li key={v.id} className="home-stories__film" data-surface="night">
-                  <VideoFeature video={v} />
-                </li>
-              ))}
               {stories.map((s) => <li key={s.slug}><StoryCard story={s} /></li>)}
             </ul>
           )}

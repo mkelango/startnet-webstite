@@ -18,6 +18,8 @@ const CHROME = [
 const browser = await puppeteer.launch({ executablePath: CHROME, headless: true, args: ['--hide-scrollbars'] });
 const page = await browser.newPage();
 await page.setViewport({ width, height: 900, deviceScaleFactor: 1 });
+// Reduced motion: scroll-linked reveals and count-ups render at their end state, so shots show the settled page.
+await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
 await page.goto(`http://localhost:5173${route}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
 await page.waitForSelector('.home', { timeout: 60000 });
 await new Promise((r) => setTimeout(r, 3000));
