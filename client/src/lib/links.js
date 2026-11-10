@@ -1,8 +1,13 @@
-// Deep links into StartNet X (x.startnet.in) and WhatsApp click-to-chat (Book 1 Part B §2.1, §3.4).
-// The origin can be set at build time (VITE_SNX_ORIGIN, e.g. for staging) so a release check can test the same value
-// the build uses; the default is the production origin. Launch dependency: x.startnet.in must resolve and serve the
-// app before release (every Sign in, Create your free profile, Apply and Register link goes there).
-export const SNX_ORIGIN = String(import.meta.env.VITE_SNX_ORIGIN || 'https://x.startnet.in').replace(/\/+$/, '');
+// Deep links into StartNet X and WhatsApp click-to-chat (Book 1 Part B §2.1, §3.4).
+// The origin can be set at build time (VITE_SNX_ORIGIN, e.g. for staging or once x.startnet.in resolves) so a release
+// check can test the same value the build uses. x.startnet.in does not resolve yet (Nov 2026), so the default is the
+// live StartNet X app, the same place the header "Sign in" goes.
+export const SNX_ORIGIN = String(import.meta.env.VITE_SNX_ORIGIN || 'https://startnet-platform.vercel.app').replace(/\/+$/, '');
+
+// Pages the StartNet X app serves today (its router, 10 Nov 2026). Every other deep link the site uses (/signup,
+// /login, event registration, programme applications, circles, learning) opens its sign-in, which creates the free
+// profile; the query still carries src, brand, lang and the rest. Add a path here once the app serves it.
+const SNX_LIVE_PATHS = new Set(['/', '/sign-in', '/onboarding']);
 
 // Where the header "Sign in" (utility bar, mobile drawer, mega menu) and the /signin vanity route go (18 Oct 2026).
 // VITE_SIGNIN_URL at build time overrides it.
@@ -25,6 +30,8 @@ if (WHATSAPP_IS_PLACEHOLDER && import.meta.env.DEV && typeof console !== 'undefi
  */
 export function snxLink(path = '/signup', { src = 'web', brand, lang = 'en', ...rest } = {}) {
   const u = new URL(path || '/', SNX_ORIGIN);
+  // Only when the origin is the live app: a custom VITE_SNX_ORIGIN (x.startnet.in, staging) keeps the full deep path.
+  if (!import.meta.env.VITE_SNX_ORIGIN && !SNX_LIVE_PATHS.has(u.pathname)) u.pathname = '/sign-in';
   const params = { src, lang, ...(brand ? { brand } : {}), ...rest };
   Object.entries(params).forEach(([k, v]) => {
     if (v !== null && v !== undefined) u.searchParams.set(k, String(v));

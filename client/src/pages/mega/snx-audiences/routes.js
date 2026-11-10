@@ -13,7 +13,7 @@ export const MEGA_ROUTES = [
     phase: 1,
     menu: { section: 'StartNet X', replaces: '/startnet-x' /* "Founders & learners (free)" currently points at the overview */ },
     slugs: null,
-    bottomCta: { label: 'Create your free profile', snx: '/signup', href: 'https://x.startnet.in/signup?src=snx-founders&lang=en&brand=x' },
+    bottomCta: { label: 'Create your free profile', snx: '/signup', href: 'https://startnet-platform.vercel.app/sign-in?src=snx-founders&lang=en&brand=x' },
     notes: 'Primary CTA snxLink("/signup", { src: "snx-founders", brand: "x", lang }). Only replace the "Founders & learners (free)" link in the Built for column, not "What SNX is".',
   },
   {
