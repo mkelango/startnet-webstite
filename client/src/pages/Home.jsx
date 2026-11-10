@@ -1,15 +1,16 @@
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
   Seo, Section, SectionHeader, KineticHeadline, Reveal, Button, FactBand, BrandTile, Scroller, Marquee,
 } from '../components';
 import { ScrubText } from '../components/ScrubText.jsx';
-import { eventPath } from '../components/_utils.js';
+import { eventPath, cx } from '../components/_utils.js';
 import { useApi } from '../hooks/useApi.js';
 import { useLang } from '../lib/i18n.jsx';
 import { TALENT_BRANDS } from '../data/brands.js';
-import PersonaSelector from './home/PersonaSelector.jsx';
+import PersonaChips, { firstChipInputId } from './home/PersonaChips.jsx';
+import { getPersona } from './home/personas.js';
 import HeroShowcase from './home/HeroShowcase.jsx';
 import { pickHomeMetrics, proofAndContext, brandMetric } from './home/homeMetrics.js';
 import { localizeMetric } from './home/homeI18n.js';
@@ -243,23 +244,66 @@ function HomeHero({ events }) {
 }
 
 /*
- * "I am a…" (SPEC §5.1 #2): the section header, then the nine personas as PnP "Who we work with" tiles (§4.6): each
- * tile links straight to its path (no radio + Continue step). Talent tiles carry a photo of their brand; Ink, Slate
- * and Bone alternate by position. /join keeps the radio form (the same PersonaSelector without `links`).
+ * "I am a…" (M02), the pre-redesign look restored at the user's request (Nov 2026): the question in cols 1–4, the
+ * nine personas as pill chips in two groups in cols 5–12 (home/PersonaChips.jsx), and Continue under the chips. The
+ * chosen persona's next step shows beside the button, which then names that step; Continue with no choice says what
+ * is missing and moves focus to the first chip. /join keeps its own tiles (PersonaSelector).
  */
 function PersonaBand() {
-  const { t } = useLang();
+  const [value, setValue] = useState('');
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
+  const { t, localePath } = useLang();
+  const persona = getPersona(value);
   return (
-    <Section id="i-am" pad="tight" className="home-persona-band">
-      <SectionHeader
-        id="home-persona-legend"
-        className="home-persona-band__head"
-        title={t('I am a…', 'நான் ஒரு…')}
-        lede={t('Pick the one closest to you.', 'உங்களுக்கு மிக நெருக்கமானதைத் தேர்ந்தெடுங்கள்.')}
-      />
-      <Reveal delay={0.12} className="home-persona-band__pick">
-        <PersonaSelector name="home-persona" legendId="home-persona-legend" links />
-      </Reveal>
+    <Section id="i-am" className="home-persona-band">
+      <form
+        className="home-persona-band__form"
+        noValidate
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (persona) { navigate(localePath(persona.to)); return; }
+          setError(true);
+          document.getElementById(firstChipInputId('home-persona'))?.focus();
+        }}
+      >
+        <div id="home-persona-legend" className="home-persona-band__head">
+          <Reveal as="h2" className="h2 home-persona-band__title">{t('I am a…', 'நான் ஒரு…')}</Reveal>
+          <Reveal as="p" delay={0.06} className="body-lg home-persona-band__lede">
+            {t(
+              'Pick the one closest to you and we’ll take you to the right door.',
+              'உங்களுக்கு மிக நெருக்கமானதைத் தேர்ந்தெடுங்கள்; சரியான வாசலுக்கு உங்களை அழைத்துச் செல்கிறோம்.'
+            )}
+          </Reveal>
+        </div>
+        <Reveal delay={0.12} className="home-persona-band__pick">
+          <PersonaChips
+            name="home-persona"
+            value={value}
+            onChange={(v) => { setValue(v); setError(false); }}
+            legendId="home-persona-legend"
+            invalid={error}
+            describedBy={error ? 'home-persona-error' : undefined}
+          />
+          {error && (
+            <p className="home-persona-band__error" id="home-persona-error" role="alert">
+              {t('Please choose the option closest to you.', 'உங்களுக்கு மிக நெருக்கமான தேர்வைத் தேர்ந்தெடுக்கவும்.')}
+            </p>
+          )}
+        </Reveal>
+        <div className="home-persona-band__go" aria-live="polite">
+          {persona && <p className="small muted home-persona-band__hint">{t(persona.next, persona.nextTa)}</p>}
+          <Button
+            type="submit"
+            size="lg"
+            icon={ArrowRight}
+            aria-disabled={!persona || undefined}
+            className={cx('home-persona-band__submit', !persona && 'is-inactive')}
+          >
+            {persona ? t(persona.stepLabel, persona.stepLabelTa) : t('Continue', 'தொடருங்கள்')}
+          </Button>
+        </div>
+      </form>
     </Section>
   );
 }

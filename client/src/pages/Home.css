@@ -238,9 +238,43 @@
 .home-hero__pill-tag:lang(ta) { font-size: var(--text-caption); }
 
 /* =====================================================================================================
-   "I am a…" (SPEC §5.1 #2): the section header, then the persona link tiles (home/PersonaSelector.css, links mode).
+   "I am a…" (M02, the pre-redesign look, restored Nov 2026): question cols 1–4, chips cols 5–12
+   (home/PersonaChips.css), Continue under the chips.
    ===================================================================================================== */
+.home-persona-band__form { display: grid; gap: var(--space-8); }
+.home-persona-band__head { display: grid; gap: var(--space-5); align-content: start; }
+.home-persona-band__title { margin: 0; }
+.home-persona-band__lede { max-width: 30rem; margin: 0; color: var(--color-text-2); }
+:lang(ta) .home-persona-band__lede { max-width: 34rem; }
 .home-persona-band__pick { min-width: 0; }
+.home-persona-band__error { margin: var(--space-4) 0 0; padding: var(--space-3) var(--space-4); border-radius: var(--btn-radius); background: var(--color-error-bg); color: var(--color-error); font-weight: 500; }
+.home-persona-band__go {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+.home-persona-band__hint { flex: 1 1 18rem; max-width: 40rem; margin: 0; color: var(--color-text-2); }
+.home-persona-band__go > .button { margin-left: auto; }
+@media (max-width: 559px) { .home-persona-band__go > .button { flex: 1 1 100%; } }
+@media (min-width: 1024px) {
+  .home-persona-band__form { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); row-gap: var(--space-10); }
+  .home-persona-band__head { grid-column: 1 / span 4; grid-row: 1 / span 2; padding-right: var(--space-6); }
+  .home-persona-band__pick,
+  .home-persona-band__go { grid-column: 5 / -1; }
+}
+/* Continue before a choice: reads inactive, not broken (Bone, Ink-500 text, hairline ring; still focusable). */
+:root .home .home-persona-band__submit.is-inactive,
+:root .home .home-persona-band__submit[aria-disabled='true'] {
+  opacity: 1;
+  background: var(--bone);
+  color: var(--ink-600);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+  cursor: not-allowed;
+}
 
 /* =====================================================================================================
    Where things stand (SPEC §5.1 #3): Ink band #1, the kit FactBand at variant="lg" under a section-size statement.
