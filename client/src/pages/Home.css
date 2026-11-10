@@ -1,7 +1,7 @@
 /* Home (T01), docs/redesign/SPEC.md §5.1: the Plug and Play home rhythm in StartNet's brand.
    Grounds: Ink hero (runs up under the header card) → sheet rise → Paper (#i-am) → Ink band #1 (#where-things-stand)
    → Paper (#brands) → Bone (#how-it-works) → inset Ink panel, band #2 (#why-tamil-nadu, with Mission 1 Lakh, #mission)
-   → Paper (#on-film) → Bone (#coming-up) → Paper (#partner) → Bone (#questions)
+   → Paper (#on-film) → Bone (#partner) → Paper (#questions)
    → the closing Ink CTA band → the Slate newsletter → footer. (Trimmed by about a third in Nov 2026.)
    The kit (Section, SectionHeader, FactBand, Stat, BrandTile, Scroller, cards, Marquee, LogoWall, Accordion, CTABand)
    draws itself; this file lays the sections out and styles the home-only pieces. Values come from tokens.css. */
@@ -339,7 +339,7 @@
 .home-doors__item { display: grid; min-width: 0; height: 100%; }
 .home-doors__item > .brand-tile { height: 100%; }
 
-/* Rails (#brands, #coming-up): from 1024 the Scroller's counter and 48px arrows share the section header's action
+/* Rails (#brands): from 1024 the Scroller's counter and 48px arrows share the section header's action
    row, so there is no extra controls row above the cards; the header's own link moves left to make room. */
 @media (min-width: 1024px) {
   .home-rail .home-block { position: relative; }

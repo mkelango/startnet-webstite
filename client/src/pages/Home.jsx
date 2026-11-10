@@ -408,11 +408,11 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* M07 → M04: FounderStory, Why Tamil Nadu + Mission 1 Lakh, the film, events, open calls, partners,
+      {/* M07 → M04: FounderStory, Why Tamil Nadu + Mission 1 Lakh, the film, partners,
           questions, closing CTA (home/HomeRest.jsx). Their data requests start here, with the page. */}
       {showRest ? (
         <Suspense fallback={restPlaceholder(null)}>
-          <HomeRest m={m} context={context} eventsReq={eventsReq} partnersReq={partnersReq} />
+          <HomeRest m={m} context={context} partnersReq={partnersReq} />
         </Suspense>
       ) : (
         restPlaceholder(restRef)

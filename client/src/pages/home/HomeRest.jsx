@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
   Section, SectionHeader, Reveal, RevealGroup, Button, Accordion,
-  Stat, Scroller, EventCard, LogoWall, EmptyState,
-  Skeleton, VideoFeature, CTABand,
+  Stat, LogoWall, VideoFeature, CTABand,
 } from '../../components';
 import { ClipReveal } from '../../components/ClipReveal.jsx';
 import { featuredVideos } from '../../data/videos.js';
@@ -63,14 +62,13 @@ function ClosingCta() {
   );
 }
 
-export default function HomeRest({ m, context, eventsReq, partnersReq }) {
+export default function HomeRest({ m, context, partnersReq }) {
   const { lang, t, localePath } = useLang();
-  const events = Array.isArray(eventsReq.data) ? eventsReq.data : [];
   const partners = Array.isArray(partnersReq.data) ? partnersReq.data : [];
   const signedPartners = partners.filter((p) => p && p.agreementStatus === 'signed');
   const film = featuredVideos().filter((v) => v.series === 'saas-connect' && v.edition === '2025').slice(0, 1);
-  // Grounds (SPEC §5.1): On film (Paper) → Coming up (Bone) → Partner (Paper) → Questions (Bone) → the closing Ink
-  // band. (The Open now and Stories sections were removed from Home at the user's request, Nov 2026.)
+  // Grounds (SPEC §5.1): On film (Paper) → Partner (Bone) → Questions (Paper) → the closing Ink band. (The Coming up,
+  // Open now and Stories sections were removed from Home at the user's request, Nov 2026; /events lists every event.)
 
   return (
     <>
@@ -145,38 +143,10 @@ export default function HomeRest({ m, context, eventsReq, partnersReq }) {
         </div>
       </Section>
 
-      {/* M05 · What's on: a right-bleed snap scroller; its controls share the header's action row (Home.css) */}
-      <Section id="coming-up" surface="white" className="home-events home-rail home-lazy">
-        <SectionHeader
-          eyebrow={t("What's on", 'நடப்பவை')}
-          title={t('Coming up', 'வரவிருப்பவை')}
-          action={<Button variant="tertiary" to="/events">{t('See all events', 'அனைத்து நிகழ்வுகளையும் பாருங்கள்')}</Button>}
-        />
-        <div className="home-block">
-          {eventsReq.loading ? (
-            <Skeleton height="22rem" count={1} />
-          ) : events.length ? (
-            <Scroller label={t('Upcoming events', 'வரவிருக்கும் நிகழ்வுகள்')} itemWidth="min(20rem, 82vw)" nudge={false}>
-              {events.slice(0, 4).map((e) => <EventCard key={e.slug} event={e} />)}
-            </Scroller>
-          ) : (
-            <EmptyState
-              title={t('New dates are being confirmed.', 'புதிய தேதிகள் உறுதி செய்யப்பட்டு வருகின்றன.')}
-              body={t('Get them first on WhatsApp or by email.', 'WhatsApp அல்லது மின்னஞ்சல் வழியாக முதலில் பெறுங்கள்.')}
-              action={(
-                <Button variant="whatsapp" href={waLink('Hi StartNet, please send me event alerts', 'home-events')}>
-                  {t('Get event alerts', 'நிகழ்வு அறிவிப்புகளைப் பெறுங்கள்')}
-                </Button>
-              )}
-            />
-          )}
-        </div>
-      </Section>
-
       {/* Partner band (Paper, tight): the copy left (cols 1–5), the four audience links right (cols 7–12); the signed
           partners' logo-tile carousel under both once there are at least three (the community companies are already in
           the hero's proof strip). */}
-      <Section id="partner" pad="tight" className="home-partner home-lazy">
+      <Section id="partner" surface="sunken" pad="tight" className="home-partner home-lazy">
         <div className="home-partner__inner">
           <div className="home-partner__copy">
             <Reveal as="p" className="eyebrow">{t('Partner with us', 'எங்களுடன் கூட்டு சேருங்கள்')}</Reveal>
@@ -210,7 +180,7 @@ export default function HomeRest({ m, context, eventsReq, partnersReq }) {
 
       {/* AEO FAQ: drafted from Book 2 §1 and §3.0 — StartNet review. FAQPage JSON-LD is emitted by Home.jsx.
           SPEC §4.14: the header sticks in cols 1–4 at ≥1024 while the questions run in cols 6–12 (kit .faq-split). */}
-      <Section id="questions" surface="sunken" pad="tight" className="home-faq home-lazy" labelledBy="home-faq-title">
+      <Section id="questions" pad="tight" className="home-faq home-lazy" labelledBy="home-faq-title">
         <div className="faq-split home-faq__inner">
           <div className="faq-split__head home-faq__head">
             <SectionHeader
