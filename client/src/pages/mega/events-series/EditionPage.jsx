@@ -24,7 +24,7 @@ import { eventTimeRange, eventDateRange, dateBlock } from '../../events/parts/ev
 import { downloadIcs } from '../../events/parts/ics.js';
 import NotFound from '../../utility/NotFound.jsx';
 import { hasMark, isPlaceholderText as isOnlyPlaceholder } from '../../../components/_placeholders.js';
-import { seriesConfig, findEdition, editionKeyOf, editionCrumb, brandOf, ART_FOR, seedOf, isPlaceholderText, localizeEvent, enIf, SERIES_SEO, editionWhenSentence, retiredSeriesOf } from './seriesData.js';
+import { seriesConfig, findEdition, editionKeyOf, editionCrumb, brandOf, ART_FOR, seedOf, isPlaceholderText, localizeEvent, enIf, SERIES_SEO, editionWhenSentence, retiredSeriesOf, movedEditionPath } from './seriesData.js';
 import {
   RecordRecap, RecordHighlights, RecordPeople, RecordLists, RecordPartners, RecordSources, hasRecap, hasHighlights,
   hasJuryGroup, peopleNames, recordFigures,
@@ -216,12 +216,14 @@ export default function EditionPage({ tab: tabProp }) {
   const [added, setAdded] = useState(false);
   // Editions withdrawn from the listings (seriesData RETIRED_EDITIONS) go to their series page; the server 301s them.
   const retired = retiredSeriesOf(series, edition);
+  // Editions that moved year (seriesData MOVED_EDITIONS) go to the new edition, same tab; the server 301s them.
+  const moved = movedEditionPath(series, edition);
   const [microOpen, setMicroOpen] = useState(false); // phones: the eligibility/fee note folds behind a toggle
   const tab = TAB_IDS.includes(tabProp) ? tabProp : tabFromPath(pathname);
   // Below 1024 the poster is a short landscape band under the copy (as EventDetail).
   const singleCol = useMediaQuery('(max-width: 1023px)');
 
-  const { data, loading, error } = useApi(series && !retired ? `/api/events?series=${encodeURIComponent(series)}` : null);
+  const { data, loading, error } = useApi(series && !retired && !moved ? `/api/events?series=${encodeURIComponent(series)}` : null);
   const events = useMemo(() => (Array.isArray(data) ? data : []), [data]);
   const raw = findEdition(events, series, edition);
   // e: the edition with its Tamil fields swapped in on /ta (raw keeps the English record for JSON-LD).
@@ -248,6 +250,10 @@ export default function EditionPage({ tab: tabProp }) {
 
   if (retired) {
     return <><Navigate to={{ pathname: localePath(`/events/${retired}`), search, hash }} replace /><PageLoader /></>;
+  }
+  if (moved) {
+    const sub = tab && tab !== 'overview' ? `/${tab}` : '';
+    return <><Navigate to={{ pathname: localePath(`${moved}${sub}`), search, hash }} replace /><PageLoader /></>;
   }
 
   if (loading) {

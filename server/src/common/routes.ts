@@ -138,6 +138,29 @@ function retiredRedirects(): Record<string, string> {
 }
 
 /**
+ * Editions that moved to another year (Nov 2026: Agentic AI Connect 2026 became the 2027 edition, date to come).
+ * Every old URL (flat, nested, /agenda, /speakers) 301s to the same page of the new edition. Mirrors MOVED_EDITIONS in
+ * client/src/pages/mega/events-series/seriesData.js.
+ */
+export const MOVED_EDITIONS: Record<string, Record<string, string>> = {
+  'agentic-ai-connect': { '2026': '2027' },
+};
+
+function movedRedirects(): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const [series, moves] of Object.entries(MOVED_EDITIONS)) {
+    for (const [from, to] of Object.entries(moves)) {
+      const target = `/events/${series}/${to}`;
+      out[`/events/${series}-${from}`] = target;
+      out[`/events/${series}/${from}`] = target;
+      out[`/events/${series}/${from}/agenda`] = `${target}/agenda`;
+      out[`/events/${series}/${from}/speakers`] = `${target}/speakers`;
+    }
+  }
+  return out;
+}
+
+/**
  * Old client-side redirects, served as real 301s. Targets may carry a query.
  * (/connect/events and /connect/stories used to redirect here; they are brand pages now.)
  */
@@ -150,6 +173,7 @@ export const REDIRECTS: Record<string, string> = {
   '/events/saas-connect-archive': '/events/saas-connect/2025',
   '/events/saas-connect/archive': '/events/saas-connect/2025',
   ...retiredRedirects(),
+  ...movedRedirects(),
 };
 
 /** Static pages left out of sitemap.xml (no indexable content of their own). */

@@ -174,7 +174,7 @@ export const MEGA_ROUTES = [
     menu: { section: 'Events', replaces: null },
     slugs: null,
     bottomCta: null,
-    notes: 'Events › Flagships item (StartNet Connect flagship, Chennai; next edition coming in 2027, date to come). Served by events/:slug.',
+    notes: 'Events › Flagships item (StartNet Connect flagship, Chennai; 2027 edition, date to come). Served by events/:slug.',
     menuOnly: true,
   },
   {

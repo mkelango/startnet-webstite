@@ -134,7 +134,7 @@ const HERO_NEXT = {
   titleTa: 'Agentic AI Connect 2027',
   meta: 'Coming soon',
   metaTa: 'விரைவில்',
-  to: '/events/agentic-ai-connect',
+  to: '/events/agentic-ai-connect/2027',
 };
 
 function HeroPill({ event: apiEvent }) {

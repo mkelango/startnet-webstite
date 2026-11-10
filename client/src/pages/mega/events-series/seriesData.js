@@ -174,8 +174,8 @@ export const SERIES = {
     ],
     about: [
       [
-        'One of StartNet Connect’s two flagship summits, with Physical AI Connect. The two always run on separate dates, published a year out. The next edition is coming in 2027, in Chennai; the date will be announced soon. Venue and fees: [placeholder — to be supplied by StartNet].',
-        'Physical AI Connect உடன், StartNet Connect-இன் இரண்டு முதன்மை உச்சி மாநாடுகளில் ஒன்று. இரண்டும் எப்போதும் வெவ்வேறு தேதிகளில் நடைபெறும்; தேதிகள் ஓராண்டுக்கு முன்பே வெளியிடப்படும். அடுத்த பதிப்பு 2027-இல், சென்னையில்; தேதி விரைவில் அறிவிக்கப்படும். நிகழ்விடமும் கட்டணமும்: [placeholder — to be supplied by StartNet].',
+        'One of StartNet Connect’s two flagship summits, with Physical AI Connect. The two always run on separate dates, published a year out. The 2027 edition is coming to Chennai; the date will be announced soon. Venue and fees: [placeholder — to be supplied by StartNet].',
+        'Physical AI Connect உடன், StartNet Connect-இன் இரண்டு முதன்மை உச்சி மாநாடுகளில் ஒன்று. இரண்டும் எப்போதும் வெவ்வேறு தேதிகளில் நடைபெறும்; தேதிகள் ஓராண்டுக்கு முன்பே வெளியிடப்படும். 2027 பதிப்பு சென்னையில் நடைபெறும்; தேதி விரைவில் அறிவிக்கப்படும். நிகழ்விடமும் கட்டணமும்: [placeholder — to be supplied by StartNet].',
       ],
     ],
     pillars: null,
@@ -389,6 +389,26 @@ export const RETIRED_EDITIONS = {
   'saas-connect': ['2027'],
   'd2c-connect': ['2027'],
 };
+/**
+ * Editions that moved to another year (Nov 2026: Agentic AI Connect 2026 became the 2027 edition, date to come).
+ * Their old URLs (flat, nested, /agenda, /speakers) go to the new edition. Mirrors MOVED_EDITIONS in
+ * server/src/common/routes.ts (real 301s).
+ */
+export const MOVED_EDITIONS = {
+  'agentic-ai-connect': { 2026: '2027' },
+};
+/** The new edition path of a moved edition (nested series + edition, or a flat "<series>-<edition>" slug), or null. */
+export function movedEditionPath(seriesOrSlug, edition) {
+  for (const [series, moves] of Object.entries(MOVED_EDITIONS)) {
+    for (const [from, to] of Object.entries(moves)) {
+      if (edition !== undefined ? seriesOrSlug === series && String(edition) === from : seriesOrSlug === `${series}-${from}`) {
+        return `/events/${series}/${to}`;
+      }
+    }
+  }
+  return null;
+}
+
 /** The series of a withdrawn edition: nested (series, edition) or a flat "<series>-<edition>" slug. Null otherwise. */
 export function retiredSeriesOf(seriesOrSlug, edition) {
   for (const [series, editions] of Object.entries(RETIRED_EDITIONS)) {

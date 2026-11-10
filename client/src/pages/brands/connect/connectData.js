@@ -98,8 +98,8 @@ export const SECTOR_PAST = {
 // Source: startnet.in and startnet.in/connect, read 13 Oct 2026. They replace the GenAI / SaaS / D2C Connect 2027
 // entries, which are no longer listed as upcoming. A flagship links to its event page only once /api/events lists it.
 export const CONNECT_FLAGSHIPS = [
-  // Nov 2026: the next edition moved to 2027, date to come (`when` replaces the formatted date).
-  { id: 'agentic-ai-connect', name: 'Agentic AI Connect 2026', date: '2027-01-01', when: ['Coming soon · 2027', 'விரைவில் · 2027'], city: 'Chennai', cityTa: 'சென்னை' },
+  // Nov 2026: the edition moved to 2027, date to come (`when` replaces the formatted date).
+  { id: 'agentic-ai-connect', name: 'Agentic AI Connect 2027', date: '2027-01-01', when: ['Coming soon · 2027', 'விரைவில் · 2027'], city: 'Chennai', cityTa: 'சென்னை' },
   { id: 'physical-ai-connect', name: 'Physical AI Connect 2027', date: '2027-05-08', city: 'Chennai', cityTa: 'சென்னை' },
 ];
 /** The /api/events record for a flagship (matched on its name), or undefined while the API does not list it. */
