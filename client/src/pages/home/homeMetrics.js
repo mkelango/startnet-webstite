@@ -58,6 +58,10 @@ export function proofAndContext(m) {
   return { proof: [m.nurtured, m.events, m.tier34, m.institutions], context: ctx, swapped: false };
 }
 
+/** Home shows an evidence chip only when a figure needs a caveat (B claimed, C estimate): "A Verified" chips are
+ *  dropped at the user's request (Nov 2026). The source and as-at date stay on the metric. */
+export const withoutVerifiedTag = (m) => (m && String(m.tag || '').toUpperCase() === 'A' ? { ...m, tag: undefined } : m);
+
 /** First brand-level metric for a brand door, if the API has one. */
 export function brandMetric(list, brand) {
   return Array.isArray(list) ? list.find((m) => m && m.brand === brand && m.value != null) : undefined;

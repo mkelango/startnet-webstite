@@ -14,7 +14,7 @@ import { TALENT_BRANDS } from '../data/brands.js';
 import PersonaChips, { firstChipInputId } from './home/PersonaChips.jsx';
 import { getPersona } from './home/personas.js';
 import HeroShowcase from './home/HeroShowcase.jsx';
-import { pickHomeMetrics, proofAndContext, brandMetric } from './home/homeMetrics.js';
+import { pickHomeMetrics, proofAndContext, brandMetric, withoutVerifiedTag } from './home/homeMetrics.js';
 import { localizeMetric } from './home/homeI18n.js';
 import { homeFaqItems } from './home/homeFaq.js';
 import { itemListLd } from '../lib/seo.js';
@@ -321,7 +321,8 @@ export default function Home() {
   const m = useMemo(() => pickHomeMetrics(metricsReq.data), [metricsReq.data]);
   const { proof, context } = useMemo(() => {
     const pc = proofAndContext(m);
-    return { proof: pc.proof.map((x) => localizeMetric(x, lang)), context: pc.context.map((x) => localizeMetric(x, lang)) };
+    const prep = (x) => withoutVerifiedTag(localizeMetric(x, lang));
+    return { proof: pc.proof.map(prep), context: pc.context.map(prep) };
   }, [m, lang]);
 
   return (
@@ -361,8 +362,8 @@ export default function Home() {
             </h2>
             <p className="home-proof__lede">
               {t(
-                'The startup picture in Tamil Nadu, and how far StartNet has reached. Every figure shows its evidence grade.',
-                'தமிழ்நாட்டின் ஸ்டார்ட்அப் நிலவரமும், StartNet இதுவரை சென்றடைந்தவையும். ஒவ்வொரு எண்ணும் அதன் சான்றுத் தரத்தைக் காட்டுகிறது.'
+                'The startup picture in Tamil Nadu, and how far StartNet has reached.',
+                'தமிழ்நாட்டின் ஸ்டார்ட்அப் நிலவரமும், StartNet இதுவரை சென்றடைந்தவையும்.'
               )}
             </p>
             <ul className="home-proof__links">
@@ -401,7 +402,7 @@ export default function Home() {
           <Scroller className="home-doors__rail" label={t('The four StartNet brands', 'நான்கு StartNet பிராண்டுகள்')} itemWidth="min(24rem, 82vw)" nudge={false}>
             {TALENT_BRANDS.map((b, i) => (
               <Reveal key={b.key} delay={Math.min(i, 5) * 0.06} className="home-doors__item">
-                <BrandTile brand={b.key} stat={localizeMetric(brandMetric(metricsReq.data, b.key), lang)} />
+                <BrandTile brand={b.key} stat={withoutVerifiedTag(localizeMetric(brandMetric(metricsReq.data, b.key), lang))} />
               </Reveal>
             ))}
           </Scroller>
