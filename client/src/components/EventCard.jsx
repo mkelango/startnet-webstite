@@ -97,7 +97,7 @@ export function EventCard({ event, headingLevel = 3, className }) {
   } else if (dp && dateTbc) {
     dateItem = (
       <span className="event-card__date event-card__date--tbc" aria-hidden="true">
-        <span className="event-card__day">{t('TBC', 'விரைவில்')}</span> <span className="event-card__month">{dp.year}</span>
+        <span className="event-card__day">{t('Soon', 'விரைவில்')}</span> <span className="event-card__month">{dp.year}</span>
       </span>
     );
   }

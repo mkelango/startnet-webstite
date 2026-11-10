@@ -637,9 +637,9 @@ export default function EditionPage({ tab: tabProp }) {
                   </>
                 ) : (
                   <>
-                    <span className="edition-hero__dateblock-month">{past ? t('Recap', 'சுருக்கம்') : t('Dates', 'தேதி')}</span>
+                    {/* No confirmed date: "Coming soon" over the year (upcoming), or "Recap" over it (past). */}
+                    <span className="edition-hero__dateblock-month">{past ? t('Recap', 'சுருக்கம்') : t('Coming soon', 'விரைவில்')}</span>
                     <span className="edition-hero__dateblock-day tnum">{(e.date || '').slice(0, 4) || t('TBC', 'விரைவில்')}</span>
-                    {!past && <span className="edition-hero__dateblock-wd">{t('TBC', 'விரைவில்')}</span>}
                   </>
                 )}
               </div>

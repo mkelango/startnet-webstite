@@ -25,7 +25,9 @@ export function ConnectFlagships({ events = [], className = '' }) {
               ? <Link className="connect-flagships__name" to={localePath(to)}>{f.name}</Link>
               : <span className="connect-flagships__name">{f.name}</span>}
             <span className="connect-flagships__meta small text-2">
-              <time className="tnum" dateTime={f.date}>{formatDate(f.date, undefined, lang)}</time> · {t(f.city, f.cityTa)}
+              {f.when
+                ? <span>{t(f.when[0], f.when[1])}</span>
+                : <time className="tnum" dateTime={f.date}>{formatDate(f.date, undefined, lang)}</time>} · {t(f.city, f.cityTa)}
             </span>
           </li>
         );

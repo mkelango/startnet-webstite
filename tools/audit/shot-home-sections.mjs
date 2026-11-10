@@ -1,5 +1,5 @@
 // Screenshots of chosen Home sections from the running Vite dev server (headless Chrome via puppeteer-core).
-// Usage: node tools/audit/shot-home-sections.mjs <outDir> [width] [path] [ids...]
+// Usage: node tools/audit/shot-home-sections.mjs <outDir> [width] [path] [ids or CSS selectors...]
 import fs from 'fs';
 import path from 'path';
 import puppeteer from 'puppeteer-core';
@@ -21,7 +21,7 @@ await page.setViewport({ width, height: 900, deviceScaleFactor: 1 });
 // Reduced motion: scroll-linked reveals and count-ups render at their end state, so shots show the settled page.
 await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
 await page.goto(`http://localhost:5173${route}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
-await page.waitForSelector('.home', { timeout: 60000 });
+await page.waitForSelector('main h1', { timeout: 60000 });
 await new Promise((r) => setTimeout(r, 3000));
 // Dismiss the consent banner if present, then walk the page so lazy sections, reveals and count-ups settle.
 await page.evaluate(async () => {
@@ -32,7 +32,8 @@ await page.evaluate(async () => {
 });
 await new Promise((r) => setTimeout(r, 2500));
 for (const id of sections) {
-  const el = await page.$(`#${id}`);
+  const sel = /^[.#[]/.test(id) ? id : `#${id}`;
+  const el = await page.$(sel);
   if (!el) { console.log('missing', id); continue; }
   await el.evaluate((n) => n.scrollIntoView({ block: 'start' }));
   await new Promise((r) => setTimeout(r, 1800));

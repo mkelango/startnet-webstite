@@ -174,8 +174,8 @@ export const SERIES = {
     ],
     about: [
       [
-        'One of StartNet Connect’s two flagship summits, with Physical AI Connect. The two always run on separate dates, published a year out. The 2026 edition is in Chennai on 14 November 2026; venue and fees: [placeholder — to be supplied by StartNet].',
-        'Physical AI Connect உடன், StartNet Connect-இன் இரண்டு முதன்மை உச்சி மாநாடுகளில் ஒன்று. இரண்டும் எப்போதும் வெவ்வேறு தேதிகளில் நடைபெறும்; தேதிகள் ஓராண்டுக்கு முன்பே வெளியிடப்படும். 2026 பதிப்பு 14 நவம்பர் 2026 அன்று சென்னையில்; நிகழ்விடமும் கட்டணமும்: [placeholder — to be supplied by StartNet].',
+        'One of StartNet Connect’s two flagship summits, with Physical AI Connect. The two always run on separate dates, published a year out. The next edition is coming in 2027, in Chennai; the date will be announced soon. Venue and fees: [placeholder — to be supplied by StartNet].',
+        'Physical AI Connect உடன், StartNet Connect-இன் இரண்டு முதன்மை உச்சி மாநாடுகளில் ஒன்று. இரண்டும் எப்போதும் வெவ்வேறு தேதிகளில் நடைபெறும்; தேதிகள் ஓராண்டுக்கு முன்பே வெளியிடப்படும். அடுத்த பதிப்பு 2027-இல், சென்னையில்; தேதி விரைவில் அறிவிக்கப்படும். நிகழ்விடமும் கட்டணமும்: [placeholder — to be supplied by StartNet].',
       ],
     ],
     pillars: null,
