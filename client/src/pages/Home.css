@@ -1,7 +1,7 @@
 /* Home (T01), docs/redesign/SPEC.md §5.1: the Plug and Play home rhythm in StartNet's brand.
    Grounds: Ink hero (runs up under the header card) → sheet rise → Paper (#i-am) → Ink band #1 (#where-things-stand)
    → Paper (#brands) → Bone (#how-it-works) → inset Ink panel, band #2 (#why-tamil-nadu, with Mission 1 Lakh, #mission)
-   → Paper (#on-film) → white (#coming-up) → Paper (#open-now) → Bone (#stories) → Paper (#partner) → Bone (#questions)
+   → Paper (#on-film) → white (#coming-up) → Paper (#open-now) → Bone (#partner) → Paper (#questions)
    → the closing Ink CTA band → the Slate newsletter → footer. (Trimmed by about a third in Nov 2026.)
    The kit (Section, SectionHeader, FactBand, Stat, BrandTile, Scroller, cards, Marquee, LogoWall, Accordion, CTABand)
    draws itself; this file lays the sections out and styles the home-only pieces. Values come from tokens.css. */
@@ -463,15 +463,6 @@
 @media (min-width: 1024px) { .home-open__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* =====================================================================================================
-   Stories (#stories, SPEC §5.1 #12): Ink StoryCards 1 / 2 (768) / 3 (1280).
-   ===================================================================================================== */
-.home-stories__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-grid); }
-.home-stories__grid > li { display: grid; min-width: 0; }
-@media (min-width: 768px) { .home-stories__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 768px) and (max-width: 1279.98px) { .home-stories__grid > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
-@media (min-width: 1280px) { .home-stories__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-
-/* =====================================================================================================
    Partner (#partner, SPEC §5.1 #13): Paper, tight. The copy left (cols 1–5), the four audience links right
    (cols 7–12); the signed partners' logo-tile carousel under both when there are three or more.
    ===================================================================================================== */
@@ -521,13 +512,12 @@
 .home-faq__list { min-width: 0; }
 
 /* =====================================================================================================
-   Phones (< 768): Open now and Stories become swipe rails (one card and a peek of the next, snap, bleeding to the
+   Phones (< 768): Open now becomes a swipe rail (one card and a peek of the next, snap, bleeding to the
    page edge) like Coming up, instead of three cards stacked. Every card stays in the list; keyboard focus scrolls
    each link into view.
    ===================================================================================================== */
 @media (max-width: 767.98px) {
-  .home-open__grid,
-  .home-stories__grid {
+  .home-open__grid {
     grid-template-columns: none;
     grid-auto-flow: column;
     grid-auto-columns: min(20rem, 82%);
@@ -540,9 +530,6 @@
     padding-bottom: var(--space-2);
     scrollbar-width: none;
   }
-  .home-open__grid::-webkit-scrollbar,
-  .home-stories__grid::-webkit-scrollbar { display: none; }
-  .home-open__grid > *,
-  .home-stories__grid > li { scroll-snap-align: start; }
-  .home-stories__grid > :last-child:nth-child(odd) { grid-column: auto; }
+  .home-open__grid::-webkit-scrollbar { display: none; }
+  .home-open__grid > * { scroll-snap-align: start; }
 }

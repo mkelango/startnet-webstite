@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
   Section, SectionHeader, Reveal, RevealGroup, Button, Accordion,
-  Stat, Scroller, EventCard, ProgrammeCard, StoryCard, LogoWall, EmptyState,
+  Stat, Scroller, EventCard, ProgrammeCard, LogoWall, EmptyState,
   Skeleton, VideoFeature, CTABand,
 } from '../../components';
 import { ClipReveal } from '../../components/ClipReveal.jsx';
@@ -15,7 +15,6 @@ import * as programmeMeta from '../programmes/parts/programmeMeta.js';
 import FounderStory from './FounderStory.jsx';
 import MissionMeter from './MissionMeter.jsx';
 import { localizeMetric } from './homeI18n.js';
-import { realStories } from '../../components/_placeholders.js';
 import { homeFaqItems } from './homeFaq.js';
 
 /*
@@ -25,7 +24,7 @@ import { homeFaqItems } from './homeFaq.js';
  * already made by Home stay there and arrive here as props.
  *
  * Trimmed by about a third (Nov 2026): Mission 1 Lakh now closes the Why Tamil Nadu panel, the SaaS Connect film is a
- * card in the stories grid, the Updates tabs are gone (they repeated Coming up and the Founder Ledger link), and the
+ * card in the stories grid (later restored as its own section; the stories section was then removed), the Updates tabs are gone (they repeated Coming up and the Founder Ledger link), and the
  * partner band drops its art and the community logos (the hero's proof strip already shows them).
  */
 
@@ -84,7 +83,7 @@ function ClosingCta() {
   );
 }
 
-export default function HomeRest({ m, context, eventsReq, storiesReq, partnersReq }) {
+export default function HomeRest({ m, context, eventsReq, partnersReq }) {
   const { lang, t, localePath } = useLang();
   const progReq = useApi(`/api/programmes?status=${ACCEPTING.join(',')}`);
   const events = Array.isArray(eventsReq.data) ? eventsReq.data : [];
@@ -92,17 +91,11 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
     () => (Array.isArray(progReq.data) ? progReq.data : []).filter((p) => ACCEPTING.includes(p.status)).sort(sortCalls).slice(0, 3),
     [progReq.data]
   );
-  // Seeded placeholder stories are never listed. Founder stories first; until one is published, the event recaps
-  // (each StoryCard carries its "Recap" type chip, as on /insights), so the Ink story-card block still shows.
-  const published = realStories(storiesReq.data);
-  const founderStories = published.filter((s) => s.type !== 'recap');
   const partners = Array.isArray(partnersReq.data) ? partnersReq.data : [];
   const signedPartners = partners.filter((p) => p && p.agreementStatus === 'signed');
   const film = featuredVideos().filter((v) => v.series === 'saas-connect' && v.edition === '2025').slice(0, 1);
-  const stories = (founderStories.length ? founderStories : published.filter((s) => s.type === 'recap')).slice(0, 3);
-  const showStories = storiesReq.loading || stories.length > 0;
-  // Grounds (SPEC §5.1): On film (Paper) → Coming up (white) → Open now (Paper) → Stories (Bone) → Partner (Paper) →
-  // Questions (Bone) → the closing Ink band.
+  // Grounds (SPEC §5.1): On film (Paper) → Coming up (Bone) → Open now (Paper) → Partner (Bone) → Questions (Paper)
+  // → the closing Ink band. (The Stories / Event recaps section was removed from Home at the user's request, Nov 2026.)
 
   return (
     <>
@@ -235,33 +228,10 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
         </div>
       </Section>
 
-      {/* M14 · Founder stories (Bone; event recaps until a founder story is published; hidden when neither exists): a 3-up
-          grid of Ink StoryCards */}
-      {showStories && (
-      <Section id="stories" surface="sunken" className="home-stories home-lazy">
-        <SectionHeader
-          eyebrow={t('Stories', 'கதைகள்')}
-          title={founderStories.length || storiesReq.loading
-            ? t('Founders, in their own words', 'நிறுவனர்கள், அவர்களின் சொந்த வார்த்தைகளில்')
-            : t('Event recaps', 'நிகழ்வுச் சுருக்கங்கள்')}
-          action={<Button variant="tertiary" to="/insights/stories">{t('Read more stories', 'மேலும் கதைகளைப் படியுங்கள்')}</Button>}
-        />
-        <div className="home-block">
-          {storiesReq.loading ? (
-            <Skeleton height="18rem" count={1} />
-          ) : (
-            <ul className="home-stories__grid" aria-label={founderStories.length ? t('Founder stories', 'நிறுவனர் கதைகள்') : t('Event recaps', 'நிகழ்வுச் சுருக்கங்கள்')}>
-              {stories.map((s) => <li key={s.slug}><StoryCard story={s} /></li>)}
-            </ul>
-          )}
-        </div>
-      </Section>
-      )}
-
       {/* Partner band (Paper, tight): the copy left (cols 1–5), the four audience links right (cols 7–12); the signed
           partners' logo-tile carousel under both once there are at least three (the community companies are already in
           the hero's proof strip). */}
-      <Section id="partner" pad="tight" className="home-partner home-lazy">
+      <Section id="partner" surface="sunken" pad="tight" className="home-partner home-lazy">
         <div className="home-partner__inner">
           <div className="home-partner__copy">
             <Reveal as="p" className="eyebrow">{t('Partner with us', 'எங்களுடன் கூட்டு சேருங்கள்')}</Reveal>
@@ -295,7 +265,7 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
 
       {/* AEO FAQ: drafted from Book 2 §1 and §3.0 — StartNet review. FAQPage JSON-LD is emitted by Home.jsx.
           SPEC §4.14: the header sticks in cols 1–4 at ≥1024 while the questions run in cols 6–12 (kit .faq-split). */}
-      <Section id="questions" surface="sunken" pad="tight" className="home-faq home-lazy" labelledBy="home-faq-title">
+      <Section id="questions" pad="tight" className="home-faq home-lazy" labelledBy="home-faq-title">
         <div className="faq-split home-faq__inner">
           <div className="faq-split__head home-faq__head">
             <SectionHeader

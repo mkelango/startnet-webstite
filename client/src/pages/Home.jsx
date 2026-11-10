@@ -314,7 +314,6 @@ export default function Home() {
   const { lang, t, localePath } = useLang();
   const metricsReq = useApi('/api/metrics');
   const eventsReq = useApi('/api/events?when=upcoming');
-  const storiesReq = useApi('/api/stories');
   const partnersReq = useApi('/api/partners');
   const [restRef, showRest] = useRestOfHome();
 
@@ -409,11 +408,11 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* M07 → M04: FounderStory, Why Tamil Nadu + Mission 1 Lakh, events, open calls, stories and film, partners,
+      {/* M07 → M04: FounderStory, Why Tamil Nadu + Mission 1 Lakh, the film, events, open calls, partners,
           questions, closing CTA (home/HomeRest.jsx). Their data requests start here, with the page. */}
       {showRest ? (
         <Suspense fallback={restPlaceholder(null)}>
-          <HomeRest m={m} context={context} eventsReq={eventsReq} storiesReq={storiesReq} partnersReq={partnersReq} />
+          <HomeRest m={m} context={context} eventsReq={eventsReq} partnersReq={partnersReq} />
         </Suspense>
       ) : (
         restPlaceholder(restRef)
