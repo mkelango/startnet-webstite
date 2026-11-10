@@ -2,9 +2,11 @@ import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
-  Seo, Section, SectionHeader, KineticHeadline, Reveal, Button, FactBand, BrandTile, Scroller, Marquee,
+  Seo, Section, SectionHeader, KineticHeadline, Reveal, Button, BrandTile, Scroller, Marquee,
 } from '../components';
 import { ScrubText } from '../components/ScrubText.jsx';
+import { Stat } from '../components/Stat.jsx';
+import { realMetrics } from '../components/_placeholders.js';
 import { eventPath, cx } from '../components/_utils.js';
 import { useApi } from '../hooks/useApi.js';
 import { useLang } from '../lib/i18n.jsx';
@@ -347,22 +349,45 @@ export default function Home() {
       {/* M02 · Persona selector */}
       <PersonaBand />
 
-      {/* M12 · Proof band: the Ink fact band; its statement is the page's one scroll-scrubbed line */}
-      <Section surface="night" id="where-things-stand" className="home-proof">
-        <FactBand
-          surface="night"
-          variant="lg"
-          title={<ScrubText as="span" className="home-proof__statement">{t('Where things stand', 'இப்போதைய நிலை')}</ScrubText>}
-          metrics={proof}
-          footnote={(
-            <Link className="arrow-link home-proof__footnote-link" to={localePath('/about/evidence-standard')}>
-              <span className="arrow-link__label">{t('How we count, and what we got wrong.', 'நாங்கள் எப்படி எண்ணுகிறோம், எங்கே தவறினோம்.')}</span>
-              <span className="arrow" aria-hidden="true"><ArrowRight size={16} strokeWidth={1.75} /></span>
-            </Link>
-          )}
-          link={{ label: t('Read the Founder Ledger', 'Founder Ledger-ஐப் படியுங்கள்'), to: '/insights/founder-ledger' }}
-        />
+      {/* M12 · Proof band (Ink band #1, redesigned Nov 2026): the statement, a one-line intro and both links in cols 1–4;
+          the figures as equal-height Night-1 cards in cols 5–12 (3 across, 2×2 for four), each with its evidence tag
+          at the card's foot. The statement is the page's one scroll-scrubbed line. */}
+      {realMetrics(proof).length > 0 && (
+      <Section surface="night" id="where-things-stand" className="home-proof" labelledBy="home-proof-title">
+        <div className="home-proof__inner">
+          <div className="home-proof__head">
+            <h2 className="h2 home-proof__title" id="home-proof-title">
+              <ScrubText as="span" className="home-proof__statement">{t('Where things stand', 'இப்போதைய நிலை')}</ScrubText>
+            </h2>
+            <p className="home-proof__lede">
+              {t(
+                'The startup picture in Tamil Nadu, and how far StartNet has reached. Every figure shows its evidence grade.',
+                'தமிழ்நாட்டின் ஸ்டார்ட்அப் நிலவரமும், StartNet இதுவரை சென்றடைந்தவையும். ஒவ்வொரு எண்ணும் அதன் சான்றுத் தரத்தைக் காட்டுகிறது.'
+              )}
+            </p>
+            <ul className="home-proof__links">
+              <li>
+                <Link className="arrow-link home-proof__link" to={localePath('/insights/founder-ledger')}>
+                  <span className="arrow-link__label">{t('Read the Founder Ledger', 'Founder Ledger-ஐப் படியுங்கள்')}</span>
+                  <span className="arrow" aria-hidden="true"><ArrowRight size={16} strokeWidth={1.75} /></span>
+                </Link>
+              </li>
+              <li>
+                <Link className="arrow-link home-proof__link home-proof__link--muted" to={localePath('/about/evidence-standard')}>
+                  <span className="arrow-link__label">{t('How we count, and what we got wrong', 'நாங்கள் எப்படி எண்ணுகிறோம், எங்கே தவறினோம்')}</span>
+                  <span className="arrow" aria-hidden="true"><ArrowRight size={16} strokeWidth={1.75} /></span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <Reveal as="dl" y={12} className={cx('home-proof__grid', `home-proof__grid--n${Math.min(realMetrics(proof).length, 4)}`)}>
+            {realMetrics(proof).slice(0, 4).map((metric) => (
+              <Stat key={metric.id || metric.key} metric={metric} dl variant="lg" className="home-proof__card" />
+            ))}
+          </Reveal>
+        </div>
       </Section>
+      )}
 
       {/* M03 · Four doors (SPEC §5.1 #4): a Scroller of the four Ink / Slate BrandTiles; its counter and arrows share
           the header's action row from 1024 (.home-rail). */}

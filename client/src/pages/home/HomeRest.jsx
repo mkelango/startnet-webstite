@@ -13,6 +13,7 @@ import { waLink } from '../../lib/links.js';
 import * as programmeMeta from '../programmes/parts/programmeMeta.js';
 import FounderStory from './FounderStory.jsx';
 import MissionMeter from './MissionMeter.jsx';
+import { localizeMetric } from './homeI18n.js';
 import { realStories } from '../../components/_placeholders.js';
 import { homeFaqItems } from './homeFaq.js';
 
@@ -83,7 +84,7 @@ function ClosingCta() {
 }
 
 export default function HomeRest({ m, context, eventsReq, storiesReq, partnersReq }) {
-  const { t, localePath } = useLang();
+  const { lang, t, localePath } = useLang();
   const progReq = useApi(`/api/programmes?status=${ACCEPTING.join(',')}`);
   const events = Array.isArray(eventsReq.data) ? eventsReq.data : [];
   const programmes = useMemo(
@@ -108,9 +109,10 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
       {/* M07 · How it works (Bone): four steps, dot → grid → network → full stop */}
       <FounderStory />
 
-      {/* Why Tamil Nadu + Mission 1 Lakh (SPEC §5.1 #6–7): the inset Ink panel, Ink band #2. The problem (copy beside
-          the context figures from 1024), then the goal: Mission 1 Lakh with its meter, whose current value is the
-          panel's one red point. */}
+      {/* Why Tamil Nadu + Mission 1 Lakh (SPEC §5.1 #6–7, redesigned Nov 2026): the inset Ink panel, Ink band #2.
+          ≥1024: the problem (cols 1–6) beside the goal, a Night-1 Mission 1 Lakh card (cols 8–12: the 2031 target at
+          --text-stat-lg, the 2040 target, the meter whose current value is the panel's one red point); then the
+          context figures as one ruled row with their tags lined up at the foot. */}
       <Section id="why-tamil-nadu" surface="inset" className="home-why home-lazy">
         <div className="home-why__inner">
           <div className="home-why__copy">
@@ -126,25 +128,30 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
               <Button variant="tertiary" to="/insights">{t('Explore Insights', 'நுண்ணறிவுகளை ஆராயுங்கள்')}</Button>
             </Reveal>
           </div>
-          <RevealGroup className="home-why__stats">
-            {context.map((s) => <div key={s.id} className="home-why__cell"><Stat metric={s} /></div>)}
-          </RevealGroup>
-          <Reveal id="mission" className="home-why__mission">
-            <div className="home-why__mission-copy">
-              <h3 className="h3 home-why__mission-title">Mission 1 Lakh</h3>
-              <p className="home-why__mission-body">
-                {t(
-                  'Our goal: nurture 1,00,000 founders and aspiring founders in Tamil Nadu by March 2031, and 10,00,000 by 2040. We count it in public, every quarter.',
-                  'எங்கள் இலக்கு: மார்ச் 2031-க்குள் தமிழ்நாட்டில் 1,00,000 நிறுவனர்களையும் நிறுவனராக விரும்புவோரையும், 2040-க்குள் 10,00,000 பேரையும் வளர்த்தெடுப்பது. ஒவ்வொரு காலாண்டும் இதைப் பொதுவில் எண்ணுகிறோம்.'
-                )}
-              </p>
-              <Button variant="tertiary" to="/about/evidence-standard">{t('See how we count', 'நாங்கள் எப்படி எண்ணுகிறோம் என்று பாருங்கள்')}</Button>
+
+          <Reveal id="mission" className="home-why__mission" delay={0.08}>
+            <h3 className="home-why__mission-title">
+              <span className="home-why__mission-dot" aria-hidden="true" />
+              Mission 1 Lakh
+            </h3>
+            <div className="home-why__targets">
+              <Stat metric={localizeMetric(m.target2031, lang)} variant="lg" className="home-why__target" />
+              <Stat metric={localizeMetric(m.target2040, lang)} variant="compact" className="home-why__target home-why__target--later" />
             </div>
             <div className="home-why__meter">
               <MissionMeter metric={m.nurtured} />
-              <p className="caption home-why__tagline">{t('Target · planning assumption', 'இலக்கு · திட்டமிடல் அனுமானம்')}</p>
             </div>
+            <p className="home-why__mission-foot">
+              <span>{t('Counted in public, every quarter.', 'ஒவ்வொரு காலாண்டும் பொதுவில் எண்ணப்படுகிறது.')}</span>
+              <Button variant="tertiary" to="/about/evidence-standard">{t('See how we count', 'நாங்கள் எப்படி எண்ணுகிறோம் என்று பாருங்கள்')}</Button>
+            </p>
           </Reveal>
+
+          {context.length > 0 && (
+            <RevealGroup as="dl" className={`home-why__stats home-why__stats--n${Math.min(context.length, 4)}`}>
+              {context.map((s) => <Stat key={s.id} metric={s} dl className="home-why__fact" />)}
+            </RevealGroup>
+          )}
         </div>
       </Section>
 
