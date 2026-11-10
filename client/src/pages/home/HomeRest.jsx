@@ -2,11 +2,10 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
-  Section, SectionHeader, Reveal, RevealGroup, Button, ArtImage, Accordion,
+  Section, SectionHeader, Reveal, RevealGroup, Button, Accordion,
   Stat, Scroller, EventCard, ProgrammeCard, StoryCard, LogoWall, EmptyState,
-  Skeleton, VideoFeature, CTABand, CommunityLogos,
+  Skeleton, VideoFeature, CTABand,
 } from '../../components';
-import { ClipReveal } from '../../components/ClipReveal.jsx';
 import { featuredVideos } from '../../data/videos.js';
 import { useApi } from '../../hooks/useApi.js';
 import { useLang } from '../../lib/i18n.jsx';
@@ -14,16 +13,18 @@ import { waLink } from '../../lib/links.js';
 import * as programmeMeta from '../programmes/parts/programmeMeta.js';
 import FounderStory from './FounderStory.jsx';
 import MissionMeter from './MissionMeter.jsx';
-import UpdatesTabs from './UpdatesTabs.jsx';
-import { localizeMetric } from './homeI18n.js';
 import { realStories } from '../../components/_placeholders.js';
 import { homeFaqItems } from './homeFaq.js';
 
 /*
  * Home, below the first screens (F-33/F-14): FounderStory → closing CTA. Split out of Home.jsx so this code is not
  * in the entry chunk every other page downloads, and so Home's first render (hero, persona band, proof band,
- * doors) is a shorter task; this part renders in a task of its own once its chunk arrives. Markup, copy and
- * order are unchanged. Data requests that were already made by Home stay there and arrive here as props.
+ * doors) is a shorter task; this part renders in a task of its own once its chunk arrives. Data requests that were
+ * already made by Home stay there and arrive here as props.
+ *
+ * Trimmed by about a third (Nov 2026): Mission 1 Lakh now closes the Why Tamil Nadu panel, the SaaS Connect film is a
+ * card in the stories grid, the Updates tabs are gone (they repeated Coming up and the Founder Ledger link), and the
+ * partner band drops its art and the community logos (the hero's proof strip already shows them).
  */
 
 const PARTNER_LINKS = [
@@ -65,15 +66,15 @@ function ClosingCta() {
       accentWord="where"
       dot={false}
       body={t(
-        'Make a free StartNet X profile and we’ll show you the next step that fits you: an event, a course, a circle or a programme.',
-        'இலவச StartNet X சுயவிவரத்தை உருவாக்குங்கள்; உங்களுக்குப் பொருந்தும் அடுத்த படியை நாங்கள் காட்டுவோம்: ஒரு நிகழ்வு, ஒரு பயிற்சி, ஒரு வட்டம் அல்லது ஒரு திட்டம்.'
+        'Make a free StartNet X profile and we’ll show you the next step that fits you.',
+        'இலவச StartNet X சுயவிவரத்தை உருவாக்குங்கள்; உங்களுக்குப் பொருந்தும் அடுத்த படியை நாங்கள் காட்டுவோம்.'
       )}
       actions={(
         <>
           <Button size="lg" variant="point" to="/join">{t('Join StartNet', 'StartNet-இல் இணையுங்கள்')}</Button>
           <Button size="lg" variant="whatsapp" href={waLink('Hi StartNet', 'home')}>{t('Chat on WhatsApp', 'WhatsApp-இல் பேசுங்கள்')}</Button>
           <p className="home-close__micro">
-            <span>{t('Free for individuals. Takes about two minutes. Tamil or English.', 'தனிநபர்களுக்கு இலவசம். சுமார் இரண்டு நிமிடங்கள் ஆகும். தமிழ் அல்லது ஆங்கிலம்.')}</span>
+            <span>{t('Free for individuals. About two minutes, in Tamil or English.', 'தனிநபர்களுக்கு இலவசம். சுமார் இரண்டு நிமிடங்கள், தமிழ் அல்லது ஆங்கிலத்தில்.')}</span>
           </p>
         </>
       )}
@@ -82,7 +83,7 @@ function ClosingCta() {
 }
 
 export default function HomeRest({ m, context, eventsReq, storiesReq, partnersReq }) {
-  const { lang, t, localePath } = useLang();
+  const { t, localePath } = useLang();
   const progReq = useApi(`/api/programmes?status=${ACCEPTING.join(',')}`);
   const events = Array.isArray(eventsReq.data) ? eventsReq.data : [];
   const programmes = useMemo(
@@ -93,49 +94,23 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
   // (each StoryCard carries its "Recap" type chip, as on /insights), so the Ink story-card block still shows.
   const published = realStories(storiesReq.data);
   const founderStories = published.filter((s) => s.type !== 'recap');
-  const stories = (founderStories.length ? founderStories : published.filter((s) => s.type === 'recap')).slice(0, 3);
   const partners = Array.isArray(partnersReq.data) ? partnersReq.data : [];
-  const showStories = storiesReq.loading || stories.length > 0;
+  const signedPartners = partners.filter((p) => p && p.agreementStatus === 'signed');
   const film = featuredVideos().filter((v) => v.series === 'saas-connect' && v.edition === '2025').slice(0, 1);
-  // Grounds (SPEC §5.1): Updates (Bone) → Stories (Paper, when shown) → Partner (Paper, hairline between) →
-  // Questions (Bone) → the closing Ink band.
+  // The film takes one of the three story slots.
+  const stories = (founderStories.length ? founderStories : published.filter((s) => s.type === 'recap')).slice(0, 3 - film.length);
+  const showStories = storiesReq.loading || stories.length > 0 || film.length > 0;
+  // Grounds (SPEC §5.1): Coming up (white) → Open now (Paper) → Stories (Bone) → Partner (Paper) → Questions (Bone)
+  // → the closing Ink band.
 
   return (
     <>
-      {/* M07 · How it works (Bone), dot → grid → network → full stop, with a sticky StartNet X profile tracker */}
+      {/* M07 · How it works (Bone): four steps, dot → grid → network → full stop */}
       <FounderStory />
 
-      {/* Mission 1 Lakh (Paper): 5/7, copy top-aligned; the Card panel carries the meter whose current value is the red point */}
-      <Section id="mission" pad="tight" className="home-mission home-lazy">
-        <div className="home-mission__inner">
-          <div className="home-mission__copy">
-            <SectionHeader eyebrow={t('Our goal', 'எங்கள் இலக்கு')} title="Mission 1 Lakh" />
-            <Reveal>
-              <p className="body-lg home-mission__body">
-                {t(
-                  'Our goal is to nurture 1,00,000 founders and aspiring founders in Tamil Nadu by March 2031, and 10,00,000 by 2040. “Nurtured” has a strict meaning: a StartNet X profile plus at least two meaningful programme touchpoints. We count it in public, every quarter.',
-                  'மார்ச் 2031-க்குள் தமிழ்நாட்டில் 1,00,000 நிறுவனர்களையும் நிறுவனராக விரும்புவோரையும், 2040-க்குள் 10,00,000 பேரையும் வளர்த்தெடுப்பதே எங்கள் இலக்கு. “வளர்த்தெடுக்கப்பட்டவர்” என்பதற்குக் கண்டிப்பான பொருள் உண்டு: ஒரு StartNet X சுயவிவரமும், குறைந்தது இரண்டு அர்த்தமுள்ள திட்டத் தொடர்புகளும். ஒவ்வொரு காலாண்டும் இதைப் பொதுவில் எண்ணுகிறோம்.'
-                )}
-              </p>
-            </Reveal>
-            <Reveal delay={0.08} className="home-mission__actions">
-              <Button variant="secondary" to="/about/evidence-standard">{t('See how we count', 'நாங்கள் எப்படி எண்ணுகிறோம் என்று பாருங்கள்')}</Button>
-              <Button variant="tertiary" to="/insights/founder-ledger">{t('Read the latest Founder Ledger', 'சமீபத்திய Founder Ledger-ஐப் படியுங்கள்')}</Button>
-            </Reveal>
-          </div>
-          <Reveal delay={0.12} className="home-mission__panel">
-            <div className="home-mission__targets">
-              <Stat metric={localizeMetric(m.target2031, lang)} variant="lg" />
-              <Stat metric={localizeMetric(m.target2040, lang)} variant="compact" />
-            </div>
-            <p className="caption home-mission__tagline">{t('Target · planning assumption', 'இலக்கு · திட்டமிடல் அனுமானம்')}</p>
-            <MissionMeter metric={m.nurtured} />
-          </Reveal>
-        </div>
-      </Section>
-
-      {/* Why Tamil Nadu (SPEC §5.1 #7): the inset Ink panel, Ink band #2. Copy and the map art side by side from 1024,
-          then the context figures as one hairline-topped row. */}
+      {/* Why Tamil Nadu + Mission 1 Lakh (SPEC §5.1 #6–7): the inset Ink panel, Ink band #2. The problem (copy beside
+          the context figures from 1024), then the goal: Mission 1 Lakh with its meter, whose current value is the
+          panel's one red point. */}
       <Section id="why-tamil-nadu" surface="inset" className="home-why home-lazy">
         <div className="home-why__inner">
           <div className="home-why__copy">
@@ -143,47 +118,33 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
               eyebrow={t('Why Tamil Nadu', 'ஏன் தமிழ்நாடு')}
               title={t("The talent is here. The bridge to capital isn't, yet.", 'திறமை இங்கே இருக்கிறது. மூலதனத்துக்கான பாலம் இன்னும் இல்லை.')}
               lede={t(
-                'Tamil Nadu has the students, the researchers, the women founders and the Global Capability Centres. What it lacks is enough people helping talent become companies, especially outside Chennai.',
-                'தமிழ்நாட்டில் மாணவர்கள், ஆய்வாளர்கள், பெண் நிறுவனர்கள், Global Capability Centres அனைத்தும் உள்ளன. குறைவாக இருப்பது, திறமையை நிறுவனங்களாக மாற்ற உதவும் போதுமான மனிதர்கள்தான், குறிப்பாகச் சென்னைக்கு வெளியே.'
+                'Tamil Nadu has the students, researchers, women founders and GCCs. It lacks enough people helping talent become companies, especially outside Chennai.',
+                'தமிழ்நாட்டில் மாணவர்கள், ஆய்வாளர்கள், பெண் நிறுவனர்கள், GCC-கள் அனைத்தும் உள்ளன. குறைவாக இருப்பது, திறமையை நிறுவனங்களாக மாற்ற உதவும் மனிதர்கள்தான், குறிப்பாகச் சென்னைக்கு வெளியே.'
               )}
             />
             <Reveal className="home-why__more">
               <Button variant="tertiary" to="/insights">{t('Explore Insights', 'நுண்ணறிவுகளை ஆராயுங்கள்')}</Button>
             </Reveal>
           </div>
-          <Reveal variant="clip" className="home-why__art">
-            <ArtImage
-              variant="map"
-              ratio="4/5"
-              seed={38}
-              night
-              alt={t("Abstract dot map of Tamil Nadu's 38 districts", 'தமிழ்நாட்டின் 38 மாவட்டங்களின் புள்ளி வரைபடம் (கலைப்படைப்பு)')}
-            />
-          </Reveal>
           <RevealGroup className="home-why__stats">
             {context.map((s) => <div key={s.id} className="home-why__cell"><Stat metric={s} /></div>)}
           </RevealGroup>
-        </div>
-      </Section>
-
-      {/* On film: the SaaS Connect 2025 film (0:12–5:50) (data/videos.js) on Paper (SPEC §5.1 #8: Ink bands are capped
-          at two), 16/9 in a 20px frame, opened up by ClipReveal */}
-      <Section id="on-film" className="home-film home-lazy">
-        {film.length > 0 && (
-          <>
-            <SectionHeader
-              eyebrow={t('On film', 'காணொளியில்')}
-              title={t('Inside the room at SaaS Connect 2025', 'SaaS Connect 2025 அரங்கின் உள்ளே')}
-            />
-            {film.map((v) => (
-              <ClipReveal key={v.id} className="home-film__media">
-                <VideoFeature video={v} />
-              </ClipReveal>
-            ))}
-          </>
-        )}
-        <div className="home-film__more">
-          <Button variant="tertiary" to="/events/past">{t('See past events', 'கடந்த நிகழ்வுகளைப் பாருங்கள்')}</Button>
+          <Reveal id="mission" className="home-why__mission">
+            <div className="home-why__mission-copy">
+              <h3 className="h3 home-why__mission-title">Mission 1 Lakh</h3>
+              <p className="home-why__mission-body">
+                {t(
+                  'Our goal: nurture 1,00,000 founders and aspiring founders in Tamil Nadu by March 2031, and 10,00,000 by 2040. We count it in public, every quarter.',
+                  'எங்கள் இலக்கு: மார்ச் 2031-க்குள் தமிழ்நாட்டில் 1,00,000 நிறுவனர்களையும் நிறுவனராக விரும்புவோரையும், 2040-க்குள் 10,00,000 பேரையும் வளர்த்தெடுப்பது. ஒவ்வொரு காலாண்டும் இதைப் பொதுவில் எண்ணுகிறோம்.'
+                )}
+              </p>
+              <Button variant="tertiary" to="/about/evidence-standard">{t('See how we count', 'நாங்கள் எப்படி எண்ணுகிறோம் என்று பாருங்கள்')}</Button>
+            </div>
+            <div className="home-why__meter">
+              <MissionMeter metric={m.nurtured} />
+              <p className="caption home-why__tagline">{t('Target · planning assumption', 'இலக்கு · திட்டமிடல் அனுமானம்')}</p>
+            </div>
+          </Reveal>
         </div>
       </Section>
 
@@ -199,7 +160,7 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
             <Skeleton height="22rem" count={1} />
           ) : events.length ? (
             <Scroller label={t('Upcoming events', 'வரவிருக்கும் நிகழ்வுகள்')} itemWidth="min(20rem, 82vw)" nudge={false}>
-              {events.slice(0, 8).map((e) => <EventCard key={e.slug} event={e} />)}
+              {events.slice(0, 4).map((e) => <EventCard key={e.slug} event={e} />)}
             </Scroller>
           ) : (
             <EmptyState
@@ -245,21 +206,10 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
         </div>
       </Section>
 
-      {/* Updates: a pill segmented control with a sliding indicator */}
-      <Section id="updates" surface="white" pad="tight" className="home-updates home-lazy">
-        <SectionHeader
-          eyebrow={t('Updates', 'புதிய தகவல்கள்')}
-          title={t('News, events and the Founder Ledger', 'செய்திகள், நிகழ்வுகள் மற்றும் Founder Ledger')}
-        />
-        <Reveal className="home-block">
-          <UpdatesTabs events={events} eventsLoading={eventsReq.loading} />
-        </Reveal>
-      </Section>
-
-      {/* M14 · Founder stories (event recaps until a founder story is published; hidden when neither exists): a 3-up grid
-          of Ink StoryCards */}
+      {/* M14 · Stories and film (Bone): a 3-up grid of Ink cards. The SaaS Connect 2025 film (data/videos.js, 0:12–5:50)
+          takes the first slot; founder stories fill the rest (event recaps until a founder story is published). */}
       {showStories && (
-      <Section id="stories" className="home-stories home-lazy">
+      <Section id="stories" surface="sunken" className="home-stories home-lazy">
         <SectionHeader
           eyebrow={t('Stories', 'கதைகள்')}
           title={founderStories.length || storiesReq.loading
@@ -272,6 +222,11 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
             <Skeleton height="18rem" count={1} />
           ) : (
             <ul className="home-stories__grid" aria-label={founderStories.length ? t('Founder stories', 'நிறுவனர் கதைகள்') : t('Event recaps', 'நிகழ்வுச் சுருக்கங்கள்')}>
+              {film.map((v) => (
+                <li key={v.id} className="home-stories__film" data-surface="night">
+                  <VideoFeature video={v} />
+                </li>
+              ))}
               {stories.map((s) => <li key={s.slug}><StoryCard story={s} /></li>)}
             </ul>
           )}
@@ -279,9 +234,9 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
       </Section>
       )}
 
-      {/* Partner band (Paper, tight): 5/7, the copy left, the art right (the copy comes first in the DOM, so phones open
-          on the dot label and h2); the logo-tile carousel (LogoWall variant="carousel") under both: the signed partners
-          once there are at least three, the community companies until then */}
+      {/* Partner band (Paper, tight): the copy left (cols 1–5), the four audience links right (cols 7–12); the signed
+          partners' logo-tile carousel under both once there are at least three (the community companies are already in
+          the hero's proof strip). */}
       <Section id="partner" pad="tight" className="home-partner home-lazy">
         <div className="home-partner__inner">
           <div className="home-partner__copy">
@@ -291,38 +246,26 @@ export default function HomeRest({ m, context, eventsReq, storiesReq, partnersRe
             </Reveal>
             <Reveal as="p" delay={0.12} className="body-lg text-2 home-partner__lede">
               {t(
-                'Universities want spinouts and innovation metrics. GCCs want problem-solvers, pilots and talent. Government wants reach and measured delivery. We design programmes around those outcomes and report on them in public.',
-                'பல்கலைக்கழகங்களுக்கு ஸ்பின்அவுட்களும் புத்தாக்க அளவீடுகளும் தேவை. GCC-களுக்குச் சிக்கல் தீர்ப்பவர்கள், பைலட்கள், திறமையாளர்கள் தேவை. அரசுக்குப் பரவலான சென்றடைவும் அளவிடப்பட்ட செயலாக்கமும் தேவை. அந்த விளைவுகளைச் சுற்றியே நாங்கள் திட்டங்களை வடிவமைத்து, அவற்றைப் பொதுவில் அறிக்கையிடுகிறோம்.'
+                'Universities want spinouts, GCCs want pilots and talent, government wants measured reach. We design programmes around those outcomes and report on them in public.',
+                'பல்கலைக்கழகங்களுக்கு ஸ்பின்அவுட்கள், GCC-களுக்குப் பைலட்களும் திறமையாளர்களும், அரசுக்கு அளவிடப்பட்ட சென்றடைவு தேவை. அந்த விளைவுகளைச் சுற்றியே நாங்கள் திட்டங்களை வடிவமைத்து, அவற்றைப் பொதுவில் அறிக்கையிடுகிறோம்.'
               )}
             </Reveal>
-            <RevealGroup as="ul" className="home-partner__links">
-              {PARTNER_LINKS.map((l) => (
-                <li key={l.to}>
-                  <Link className="home-partner__link" to={localePath(l.to)}>
-                    <span className="home-partner__link-label">{t(l.label, l.labelTa)}</span>
-                    <ArrowRight size={18} aria-hidden="true" />
-                  </Link>
-                </li>
-              ))}
-            </RevealGroup>
           </div>
-          <div className="home-partner__aside">
-            <Reveal variant="clip" className="home-partner__art">
-              <ArtImage
-                variant="network"
-                ratio="3/2"
-                seed={4}
-                alt={t('Generative artwork: dots joined into a network', 'உருவாக்கக் கலைப்படைப்பு: ஒரு வலையமைப்பாக இணைந்த புள்ளிகள்')}
-              />
-            </Reveal>
-          </div>
-          {/* The signed partners once there are at least three; until then the companies built by founders in our
-              community, labelled as such (never as partners). */}
-          <div className="home-partner__logos">
-            {partners.filter((p) => p && p.agreementStatus === 'signed').length >= 3
-              ? <LogoWall partners={partners} variant="carousel" />
-              : <CommunityLogos />}
-          </div>
+          <RevealGroup as="ul" className="home-partner__links">
+            {PARTNER_LINKS.map((l) => (
+              <li key={l.to}>
+                <Link className="home-partner__link" to={localePath(l.to)}>
+                  <span className="home-partner__link-label">{t(l.label, l.labelTa)}</span>
+                  <ArrowRight size={18} aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </RevealGroup>
+          {signedPartners.length >= 3 && (
+            <div className="home-partner__logos">
+              <LogoWall partners={partners} variant="carousel" />
+            </div>
+          )}
         </div>
       </Section>
 

@@ -122,8 +122,36 @@ function nextEvent(list) {
     .sort((a, b) => String(a.date).localeCompare(String(b.date)))[0];
 }
 
-function HeroPill({ event }) {
+/*
+ * A fixed "next" announcement that takes the pill's place while it is set (Nov 2026: the next Agentic AI Connect is
+ * 2027, date to come). Set to null to go back to the soonest dated event from the API.
+ */
+const HERO_NEXT = {
+  title: 'Agentic AI Connect 2027',
+  titleTa: 'Agentic AI Connect 2027',
+  meta: 'Coming soon',
+  metaTa: 'விரைவில்',
+  to: '/events/agentic-ai-connect',
+};
+
+function HeroPill({ event: apiEvent }) {
   const { t, lang, pick, localePath } = useLang();
+  if (HERO_NEXT) {
+    return (
+      <Link className="home-hero__pill home-hero__rise" to={localePath(HERO_NEXT.to)}>
+        <span className="home-hero__pill-tag">
+          <span className="home-hero__pill-dot" aria-hidden="true" />
+          {t('Next', 'அடுத்து')}
+        </span>
+        <span className="home-hero__pill-text">
+          <span className="home-hero__pill-title">{t(HERO_NEXT.title, HERO_NEXT.titleTa)}</span>
+          <span className="home-hero__pill-meta">{t(HERO_NEXT.meta, HERO_NEXT.metaTa)}</span>
+        </span>
+        <ArrowRight className="home-hero__pill-arrow" size={16} strokeWidth={1.75} aria-hidden="true" />
+      </Link>
+    );
+  }
+  const event = apiEvent;
   if (!event) {
     return (
       <p className="eyebrow home-hero__eyebrow home-hero__rise">
@@ -227,10 +255,7 @@ function PersonaBand() {
         id="home-persona-legend"
         className="home-persona-band__head"
         title={t('I am a…', 'நான் ஒரு…')}
-        lede={t(
-          'Pick the one closest to you and we’ll take you to the right door.',
-          'உங்களுக்கு மிக நெருக்கமானதைத் தேர்ந்தெடுங்கள்; சரியான வாசலுக்கு உங்களை அழைத்துச் செல்கிறோம்.'
-        )}
+        lede={t('Pick the one closest to you.', 'உங்களுக்கு மிக நெருக்கமானதைத் தேர்ந்தெடுங்கள்.')}
       />
       <Reveal delay={0.12} className="home-persona-band__pick">
         <PersonaSelector name="home-persona" legendId="home-persona-legend" links />
@@ -301,10 +326,6 @@ export default function Home() {
         <SectionHeader
           eyebrow={t('Our brands', 'எங்கள் பிராண்டுகள்')}
           title={t('Four doors into founding', 'நிறுவனராவதற்கு நான்கு வாசல்கள்')}
-          lede={t(
-            'Talent in Tamil Nadu sits in four places. Each StartNet brand goes to one of them.',
-            'தமிழ்நாட்டின் திறமை நான்கு இடங்களில் இருக்கிறது. ஒவ்வொரு StartNet பிராண்டும் அவற்றில் ஒன்றைத் தேடிச் செல்கிறது.'
-          )}
           action={<Button variant="tertiary" to="/brands">{t('See all our brands', 'எங்கள் அனைத்துப் பிராண்டுகளையும் பாருங்கள்')}</Button>}
         />
         <div className="home-block">
@@ -318,8 +339,8 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* M07 → M04: FounderStory, Mission 1 Lakh, Why Tamil Nadu, events, open calls, updates, stories, partners,
-          closing CTA (home/HomeRest.jsx). Their data requests start here, with the page. */}
+      {/* M07 → M04: FounderStory, Why Tamil Nadu + Mission 1 Lakh, events, open calls, stories and film, partners,
+          questions, closing CTA (home/HomeRest.jsx). Their data requests start here, with the page. */}
       {showRest ? (
         <Suspense fallback={restPlaceholder(null)}>
           <HomeRest m={m} context={context} eventsReq={eventsReq} storiesReq={storiesReq} partnersReq={partnersReq} />

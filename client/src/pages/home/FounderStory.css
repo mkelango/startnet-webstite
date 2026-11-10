@@ -1,9 +1,7 @@
-/* How it works × dot → grid → network → full stop (Book 2 §1.4, Book 3 §1.1; SPEC §5.1 #5). A Bone section, 5/7 at
-   ≥1024: the header and a StartNet X profile card (Card, radius 12, hairline, no shadow) sticky on the left; the four
-   steps down a vertical rail on the right, each led by its pulli glyph and a Steps-style number (32px Ink circle).
-   Only the full stop glyph is red (one red point per composition). */
-.home-story { position: relative; }
-
+/* How it works × dot → grid → network → full stop (Book 2 §1.4, Book 3 §1.1; SPEC §5.1 #5). A Bone section. At
+   ≥1024 the header sits in cols 1–4 and the four steps run as a 2×2 grid of Card-ground cards (radius 12, hairline, no
+   shadow) in cols 6–12; 2-up from 640, stacked below. Each card is led by its pulli glyph; only the full stop glyph is
+   red (one red point per composition). */
 .home-story__layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -11,165 +9,56 @@
 }
 @media (min-width: 1024px) {
   .home-story__layout {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    column-gap: clamp(var(--space-12), 1rem + 5vw, var(--space-24));
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
     align-items: start;
   }
-  .home-story__intro { position: sticky; top: calc(var(--shell-offset, 80px) + var(--space-8)); }
-  /* Too tall for the viewport (FounderStory.jsx useIntroFits): scrolls normally; `top` stays set (ignored when static) for the measurement. */
-  .home-story--unpinned .home-story__intro { position: static; }
+  .home-story__intro { grid-column: 1 / span 4; }
+  .home-story__steps { grid-column: 6 / -1; }
 }
 .home-story .section-header { margin-bottom: 0; }
+.home-story__link { display: inline-flex; margin-top: var(--space-6); color: var(--color-text); font-weight: 500; white-space: nowrap; }
+:lang(ta) .home-story__link { white-space: normal; }
 
-/* Profile card: the "one profile" promise, made visible. Rows tick off as the reader passes each step. */
-.home-story__profile {
-  margin-top: var(--space-10);
+.home-story__steps {
+  --tile: 56px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gap-grid);
+  margin: 0;
+  padding: 0;
+}
+@media (min-width: 640px) { .home-story__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.home-story__step {
+  display: grid;
+  align-content: start;
+  gap: var(--space-5);
   padding: var(--space-6);
   background: var(--color-bg-raised);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
 }
-.home-story__profile-head {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin: 0 0 var(--space-5);
-  font-size: var(--text-meta);
-  font-weight: 500;
-  color: var(--color-text);
-}
-.home-story__profile-badge {
-  display: inline-grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: var(--radius-full);
-  background: var(--ink-900);
-  color: var(--paper);
-  font-size: var(--text-caption);
-  font-weight: 500;
-}
-.home-story__track { list-style: none; margin: 0; padding: 0; position: relative; }
-/* The rail joining the marks. */
-.home-story__track::before {
-  content: '';
-  position: absolute;
-  left: 7px;
-  top: 14px;
-  bottom: 14px;
-  width: 2px;
-  background: var(--color-border);
-}
-.home-story__track-row {
-  position: relative;
-  display: grid;
-  grid-template-columns: 16px auto minmax(0, 1fr);
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-2) var(--space-3) var(--space-2) 0;
-  margin-left: 0;
-  border-radius: var(--radius-md);
-  color: var(--color-text-muted);
-  transition: color var(--dur-2) ease, background-color var(--dur-2) ease;
-}
-.home-story__track-mark {
-  position: relative;
-  z-index: 1;
-  width: 16px;
-  height: 16px;
-  border-radius: var(--radius-full);
-  background: var(--color-bg-raised);
-  box-shadow: inset 0 0 0 2px var(--line-strong);
-  transition: background-color var(--dur-2) ease, box-shadow var(--dur-2) ease, transform var(--dur-3) ease;
-}
-.home-story__track-num { font-size: var(--text-caption); font-variant-numeric: tabular-nums lining-nums; }
-.home-story__track-title { font-size: var(--text-small); font-weight: 500; }
-.home-story__track-row.is-done { color: var(--color-text-2); }
-.home-story__track-row.is-done .home-story__track-mark { background: var(--ink-900); box-shadow: none; }
-.home-story__track-row.is-current { color: var(--color-text); }
-.home-story__track-row.is-current .home-story__track-mark {
-  background: var(--color-bg-raised);
-  box-shadow: inset 0 0 0 5px var(--ink-900);
-  transform: scale(1.15);
-}
-
-.home-story__foot {
-  margin: var(--space-5) 0 var(--space-3);
-  padding-top: var(--space-5);
-  border-top: 1px solid var(--color-border);
-  font-size: var(--text-small);
-  line-height: 1.55;
-  color: var(--color-text-2);
-}
-.home-story__link { display: inline-flex; color: var(--color-text); font-weight: 500; white-space: nowrap; }
-:lang(ta) .home-story__link { white-space: normal; }
-
-/* Steps: a vertical rail; each step is glyph tile + content. */
-.home-story__steps {
-  --tile: 64px;
-  list-style: none;
-  position: relative;
-  display: grid;
-  gap: var(--space-4);
-  margin: 0;
-  padding: 0;
-}
-.home-story__steps::before {
-  content: '';
-  position: absolute;
-  left: calc(var(--space-6) + var(--tile) / 2 - 0.5px);
-  top: calc(var(--space-6) + var(--tile));
-  bottom: calc(var(--space-6) + var(--tile));
-  width: 1px;
-  background: var(--color-border-strong);
-}
-.home-story__step {
-  position: relative;
-  display: grid;
-  grid-template-columns: var(--tile) minmax(0, 1fr);
-  gap: var(--space-6);
-  padding: var(--space-6);
-  border: 1px solid transparent;
-  border-radius: var(--radius-card);
-  transition: background-color var(--dur-3) ease, border-color var(--dur-3) ease;
-}
-.home-story__step.is-current {
-  background: var(--color-bg-raised);
-  border-color: var(--color-border);
-}
 .home-story__glyph {
-  position: relative;
-  z-index: 1;
   display: grid;
   place-items: center;
   width: var(--tile);
   height: var(--tile);
   border-radius: var(--radius-card);
-  background: var(--color-bg-raised);
-  box-shadow: inset 0 0 0 1px var(--color-border);
+  background: var(--color-bg-sunken);
   color: var(--color-text);
-  transition: background-color var(--dur-3) ease, color var(--dur-3) ease;
 }
-.home-story__step.is-current .home-story__glyph { background: var(--ink-900); box-shadow: none; color: var(--paper); }
-.home-story__glyph-svg { width: 40px; height: 40px; }
+.home-story__glyph-svg { width: 36px; height: 36px; }
 .home-story__point { fill: var(--color-point); }
 
-.home-story__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2) var(--space-3);
-  margin: 0;
-  font-size: var(--text-meta);
-  line-height: 1.4;
-}
-/* Steps-style number (SPEC §4.15): 13px/500 Paper in a 32px Ink circle */
+/* Steps-style number (SPEC §4.15): 13px/500 Paper in a 28px Ink circle, inline before the title */
 .home-story__num {
   flex: none;
   display: inline-grid;
   place-items: center;
-  width: 2rem;
-  height: 2rem;
+  width: 1.75rem;
+  height: 1.75rem;
   border-radius: var(--radius-full);
   background: var(--ink-900);
   color: var(--paper);
@@ -177,30 +66,28 @@
   font-weight: 500;
   font-variant-numeric: tabular-nums lining-nums;
 }
-.home-story__concept { color: var(--color-text-muted); }
 :root .home-story__title {
-  margin: var(--space-3) 0 0;
-  font-size: var(--text-h3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-size: var(--text-h4);
   font-weight: var(--weight-heading);
-  line-height: var(--leading-h3);
-  letter-spacing: var(--tracking-h3);
+  line-height: var(--leading-h4, 1.3);
+  letter-spacing: var(--tracking-h4);
   color: var(--color-text);
 }
-.home-story__body { margin: var(--space-2) 0 0; max-width: 52ch; font-size: var(--text-small); line-height: var(--leading-body); color: var(--color-text-2); }
+:root :lang(ta) .home-story__title { letter-spacing: 0; }
+.home-story__body { margin: var(--space-2) 0 0; font-size: var(--text-small); line-height: var(--leading-body); color: var(--color-text-2); }
 
-/* Phones: smaller tiles, tighter padding. */
 @media (max-width: 639.98px) {
-  .home-story__steps { --tile: 48px; gap: var(--space-2); }
-  .home-story__step { gap: var(--space-4); padding: var(--space-5) var(--space-4); }
-  .home-story__steps::before { left: calc(var(--space-4) + var(--tile) / 2 - 0.5px); top: calc(var(--space-5) + var(--tile)); bottom: calc(var(--space-5) + var(--tile)); }
+  .home-story__steps { --tile: 48px; }
+  .home-story__step { padding: var(--space-5); gap: var(--space-4); }
   .home-story__glyph-svg { width: 30px; height: 30px; }
-  .home-story__profile { padding: var(--space-5); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .home-story__step, .home-story__glyph, .home-story__track-row, .home-story__track-mark { transition: none; }
+/* Phones: the glyph sits beside the step text, so each card is one short row. */
+@media (max-width: 639.98px) {
+  .home-story__step { grid-template-columns: var(--tile) minmax(0, 1fr); align-items: start; }
+  .home-story__steps { gap: var(--space-3); }
 }
-html[data-motion="reduced"] .home-story__step,
-html[data-motion="reduced"] .home-story__glyph,
-html[data-motion="reduced"] .home-story__track-row,
-html[data-motion="reduced"] .home-story__track-mark { transition: none; }

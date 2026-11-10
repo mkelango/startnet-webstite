@@ -1,8 +1,8 @@
 /* Home (T01), docs/redesign/SPEC.md §5.1: the Plug and Play home rhythm in StartNet's brand.
    Grounds: Ink hero (runs up under the header card) → sheet rise → Paper (#i-am) → Ink band #1 (#where-things-stand)
-   → Paper (#brands) → Bone (#how-it-works) → Paper (#mission) → inset Ink panel, band #2 (#why-tamil-nadu) → Paper
-   (#on-film) → Bone (#coming-up) → Paper (#open-now) → Bone (#updates) → Paper (#stories, when shown) → Paper
-   (#partner, hairline) → Bone (#questions) → the closing Ink CTA band → the Slate newsletter → footer.
+   → Paper (#brands) → Bone (#how-it-works) → inset Ink panel, band #2 (#why-tamil-nadu, with Mission 1 Lakh, #mission)
+   → white (#coming-up) → Paper (#open-now) → Bone (#stories, with the film) → Paper (#partner) → Bone (#questions)
+   → the closing Ink CTA band → the Slate newsletter → footer. (Trimmed by about a third in Nov 2026.)
    The kit (Section, SectionHeader, FactBand, Stat, BrandTile, Scroller, cards, Marquee, LogoWall, Accordion, CTABand)
    draws itself; this file lays the sections out and styles the home-only pieces. Values come from tokens.css. */
 
@@ -284,67 +284,50 @@
 }
 
 /* =====================================================================================================
-   Mission 1 Lakh (#mission, SPEC §5.1 #6): Paper, 5/7. The copy left; a Card panel right with the 2031 target at
-   --text-stat-lg, the 2040 target, and the meter whose current value is the section's red point.
+   Why Tamil Nadu + Mission 1 Lakh (#why-tamil-nadu, SPEC §5.1 #6–7): the inset Ink panel (Ink band #2).
+   ≥1024: the copy in cols 1–6 beside the context figures stacked in cols 8–12; then Mission 1 Lakh as a
+   hairline-topped row (its line in cols 1–6, the meter in cols 8–12). The meter's dot is the panel's red point.
    ===================================================================================================== */
-.home-mission__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); align-items: start; }
-.home-mission__inner > * { min-width: 0; }
-@media (min-width: 1024px) {
-  .home-mission__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
-  .home-mission__copy { grid-column: 1 / span 5; }
-  .home-mission__panel { grid-column: 7 / -1; }
-}
-.home-mission__copy .section-header { margin-bottom: var(--space-6); }
-.home-mission__body { max-width: var(--measure-lede); margin: 0; color: var(--color-text-2); }
-.home-mission__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-8); margin-top: var(--space-8); }
-.home-mission__panel {
-  display: grid;
-  gap: var(--space-6);
-  padding: var(--pad-card-lg);
-  background: var(--color-bg-raised);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
-}
-.home-mission__targets { display: grid; }
-.home-mission__targets > * + * { margin-top: var(--space-6); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
-.home-mission__tagline { margin: 0; font-size: var(--text-meta); color: var(--color-text-muted); }
-
-/* =====================================================================================================
-   Why Tamil Nadu (#why-tamil-nadu, SPEC §5.1 #7): the inset Ink panel (Section surface="inset", Ink band #2).
-   ≥1024: the copy in cols 1–6 beside the map art in cols 8–12, then the context figures as one hairline-topped row.
-   ===================================================================================================== */
-.home-why__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); align-items: center; }
+.home-why__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); align-items: start; }
 .home-why__inner > * { min-width: 0; }
-.home-why__more { margin-top: calc(var(--space-8) - var(--space-head-gap)); }
-.home-why__art { width: 100%; max-width: 28rem; }
-@media (min-width: 1024px) {
-  .home-why__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); row-gap: var(--space-head-gap); }
-  .home-why__copy { grid-column: 1 / span 6; }
-  .home-why__art { grid-column: 8 / -1; justify-self: end; }
-  .home-why__stats { grid-column: 1 / -1; }
-}
-.home-why__stats { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8) var(--grid-gap); }
+.home-why .section-header { margin-bottom: 0; }
+.home-why__more { margin-top: var(--space-6); }
+.home-why__stats { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6) var(--grid-gap); }
 /* Each Stat brings its own hairline top rule (Stat.css .stat--default). */
 .home-why__cell { min-width: 0; }
-@media (min-width: 400px) { .home-why__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 480px) { .home-why__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 768px) { .home-why__stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (min-width: 1280px) { .home-why__stats { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); } }
 @media (max-width: 479.98px) { .home:lang(ta) .home-why__stats { grid-template-columns: minmax(0, 1fr); } }
 
-/* =====================================================================================================
-   On film (#on-film, SPEC §5.1 #8): Paper; the video 16/9 in a 20px frame at full container width.
-   ===================================================================================================== */
-.home-film__media { overflow: hidden; border-radius: var(--radius-xl); }
-.home-film .video-feature { margin: 0; }
-.home-film .video-feature__frame { aspect-ratio: 16 / 9; border-radius: var(--radius-xl); }
-.home-film .video-feature__caption { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: var(--space-6); }
-.home-film .video-feature__title { grid-column: 1; }
-.home-film .video-feature__meta { grid-column: 1; }
-.home-film .video-feature__source { grid-column: 2; grid-row: 1 / span 2; align-self: start; }
-.home-film__more { margin-top: var(--space-8); }
-@media (max-width: 639.98px) {
-  .home-film .video-feature__caption { grid-template-columns: minmax(0, 1fr); }
-  .home-film .video-feature__source { grid-column: 1; grid-row: auto; }
+.home-why__mission {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  padding-top: var(--space-10);
+  border-top: 1px solid var(--color-border-strong);
+}
+.home-why__mission > * { min-width: 0; }
+:root .home-why__mission-title { margin: 0; color: var(--color-text); }
+.home-why__mission-body { max-width: var(--measure-lede); margin: var(--space-3) 0 var(--space-4); color: var(--color-text-2); }
+.home-why__meter { display: grid; gap: var(--space-3); align-self: end; }
+.home-why .home-meter__track { background: var(--color-border-strong); }
+.home-why__tagline { margin: 0; font-size: var(--text-meta); color: var(--color-text-muted); }
+
+/* ≥1024: the problem (cols 1–6) beside the goal (Mission 1 Lakh, cols 8–12, a hairline rule on its left), then the
+   context figures as one row under both. */
+@media (min-width: 1024px) {
+  .home-why__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); row-gap: var(--space-12); }
+  .home-why__copy { grid-column: 1 / span 6; grid-row: 1; }
+  .home-why__mission {
+    grid-column: 8 / -1;
+    grid-row: 1;
+    align-self: stretch;
+    align-content: space-between;
+    padding: 0 0 0 var(--space-10);
+    border-top: 0;
+    border-left: 1px solid var(--color-border-strong);
+  }
+  .home-why__stats { grid-column: 1 / -1; grid-row: 2; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 /* =====================================================================================================
@@ -365,16 +348,30 @@
 @media (min-width: 768px) { .home-stories__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 768px) and (max-width: 1279.98px) { .home-stories__grid > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
 @media (min-width: 1280px) { .home-stories__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* The film as an Ink card in the grid: the 16/9 poster flush on top, the caption padded below (StoryCard's frame). */
+.home-stories__film {
+  align-content: start;
+  min-height: 27.5rem;
+  background: var(--color-bg);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  isolation: isolate;
+}
+.home-stories__film .video-feature { gap: 0; }
+.home-stories__film .video-feature__frame { aspect-ratio: 16 / 10; border-radius: 0; }
+.home-stories__film .video-feature__caption { padding: var(--pad-card); gap: var(--space-2); }
+.home-stories__film .video-feature__title { font-size: var(--text-h4); letter-spacing: var(--tracking-h4); }
+:lang(ta) .home-stories__film .video-feature__title { letter-spacing: 0; }
 
 /* =====================================================================================================
-   Partner (#partner, SPEC §5.1 #13): Paper, tight. 5/7: the copy left (cols 1–5), the art right (cols 7–12); the
-   signed partners' logo-tile carousel under both when there are three or more.
+   Partner (#partner, SPEC §5.1 #13): Paper, tight. The copy left (cols 1–5), the four audience links right
+   (cols 7–12); the signed partners' logo-tile carousel under both when there are three or more.
    ===================================================================================================== */
-.home-partner__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); align-items: start; }
+.home-partner__inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8); align-items: start; }
 @media (min-width: 1024px) {
-  .home-partner__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
+  .home-partner__inner { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: center; }
   .home-partner__copy { grid-column: 1 / span 5; grid-row: 1; padding-right: var(--space-4); }
-  .home-partner__aside { grid-column: 7 / -1; grid-row: 1; }
+  .home-partner__links { grid-column: 7 / -1; grid-row: 1; }
   .home-partner__logos { grid-column: 1 / -1; }
 }
 .home-partner__inner > *, .home-partner__copy > * { min-width: 0; }
@@ -383,8 +380,7 @@
 .home-partner__title { margin: 0; max-width: 18ch; overflow-wrap: break-word; color: var(--color-text); text-wrap: balance; }
 :lang(ta) .home-partner__title { max-width: 26ch; }
 .home-partner__lede { max-width: var(--measure-lede); margin: 0; color: var(--color-text-2); }
-.home-partner__aside { display: grid; gap: var(--space-10); min-width: 0; }
-.home-partner__links { list-style: none; margin: var(--space-4) 0 0; padding: 0; border-top: 1px solid var(--color-border); }
+.home-partner__links { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--color-border); }
 .home-partner__link {
   display: flex;
   align-items: center;
@@ -415,3 +411,30 @@
 /* Questions (#questions, SPEC §5.1 #14): Bone, the kit FAQ split (Accordion.css .faq-split). The closing CTA
    (§5.1 #15) is the kit headband as it comes. */
 .home-faq__list { min-width: 0; }
+
+/* =====================================================================================================
+   Phones (< 768): Open now and Stories become swipe rails (one card and a peek of the next, snap, bleeding to the
+   page edge) like Coming up, instead of three cards stacked. Every card stays in the list; keyboard focus scrolls
+   each link into view.
+   ===================================================================================================== */
+@media (max-width: 767.98px) {
+  .home-open__grid,
+  .home-stories__grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: min(20rem, 82%);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+    padding-bottom: var(--space-2);
+    scrollbar-width: none;
+  }
+  .home-open__grid::-webkit-scrollbar,
+  .home-stories__grid::-webkit-scrollbar { display: none; }
+  .home-open__grid > *,
+  .home-stories__grid > li { scroll-snap-align: start; }
+  .home-stories__grid > :last-child:nth-child(odd) { grid-column: auto; }
+}
