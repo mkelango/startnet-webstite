@@ -1,7 +1,7 @@
 /* Home (T01), docs/redesign/SPEC.md §5.1: the Plug and Play home rhythm in StartNet's brand.
    Grounds: Ink hero (runs up under the header card) → sheet rise → Paper (#i-am) → Ink band #1 (#where-things-stand)
    → Paper (#brands) → Bone (#how-it-works) → inset Ink panel, band #2 (#why-tamil-nadu, with Mission 1 Lakh, #mission)
-   → Paper (#on-film) → white (#coming-up) → Paper (#open-now) → Bone (#partner) → Paper (#questions)
+   → Paper (#on-film) → Bone (#coming-up) → Paper (#partner) → Bone (#questions)
    → the closing Ink CTA band → the Slate newsletter → footer. (Trimmed by about a third in Nov 2026.)
    The kit (Section, SectionHeader, FactBand, Stat, BrandTile, Scroller, cards, Marquee, LogoWall, Accordion, CTABand)
    draws itself; this file lays the sections out and styles the home-only pieces. Values come from tokens.css. */
@@ -453,16 +453,6 @@
 }
 
 /* =====================================================================================================
-   Open now (#open-now, SPEC §5.1 #10): framed ProgrammeCards on an inset Bone panel, 1 / 2 (768) / 3 (1024).
-   768–1023: an odd last card takes the full row instead of sitting next to an empty half.
-   ===================================================================================================== */
-/* The inset Bone panel the framed cards stand on (SPEC §4.6: framed on Bone). */
-.home-open__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-grid-row) var(--gap-grid); }
-.home-open__grid > * { min-width: 0; display: grid; }
-@media (min-width: 768px) { .home-open__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1024px) { .home-open__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-
-/* =====================================================================================================
    Partner (#partner, SPEC §5.1 #13): Paper, tight. The copy left (cols 1–5), the four audience links right
    (cols 7–12); the signed partners' logo-tile carousel under both when there are three or more.
    ===================================================================================================== */
@@ -510,26 +500,3 @@
 /* Questions (#questions, SPEC §5.1 #14): Bone, the kit FAQ split (Accordion.css .faq-split). The closing CTA
    (§5.1 #15) is the kit headband as it comes. */
 .home-faq__list { min-width: 0; }
-
-/* =====================================================================================================
-   Phones (< 768): Open now becomes a swipe rail (one card and a peek of the next, snap, bleeding to the
-   page edge) like Coming up, instead of three cards stacked. Every card stays in the list; keyboard focus scrolls
-   each link into view.
-   ===================================================================================================== */
-@media (max-width: 767.98px) {
-  .home-open__grid {
-    grid-template-columns: none;
-    grid-auto-flow: column;
-    grid-auto-columns: min(20rem, 82%);
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--gutter);
-    margin-inline: calc(-1 * var(--gutter));
-    padding-inline: var(--gutter);
-    padding-bottom: var(--space-2);
-    scrollbar-width: none;
-  }
-  .home-open__grid::-webkit-scrollbar { display: none; }
-  .home-open__grid > * { scroll-snap-align: start; }
-}

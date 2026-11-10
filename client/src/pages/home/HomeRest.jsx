@@ -1,17 +1,14 @@
-import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
   Section, SectionHeader, Reveal, RevealGroup, Button, Accordion,
-  Stat, Scroller, EventCard, ProgrammeCard, LogoWall, EmptyState,
+  Stat, Scroller, EventCard, LogoWall, EmptyState,
   Skeleton, VideoFeature, CTABand,
 } from '../../components';
 import { ClipReveal } from '../../components/ClipReveal.jsx';
 import { featuredVideos } from '../../data/videos.js';
-import { useApi } from '../../hooks/useApi.js';
 import { useLang } from '../../lib/i18n.jsx';
 import { waLink } from '../../lib/links.js';
-import * as programmeMeta from '../programmes/parts/programmeMeta.js';
 import FounderStory from './FounderStory.jsx';
 import MissionMeter from './MissionMeter.jsx';
 import { localizeMetric } from './homeI18n.js';
@@ -34,23 +31,6 @@ const PARTNER_LINKS = [
   { label: 'For government', labelTa: 'அரசுக்கு', to: '/partner/government' },
   { label: 'For sponsors & CSR', labelTa: 'ஸ்பான்சர்கள் மற்றும் CSR-க்கு', to: '/partner/sponsors' },
 ];
-
-/*
- * "Open now" = every status that is accepting applications (rolling calls included), soonest first —
- * the same set /programmes/open-calls lists. TODO(F-66): ACCEPTING and sortCalls come from
- * programmeMeta once the programmes fix exports them; these fallbacks keep the same meaning until then.
- */
-const ACCEPTING = programmeMeta.ACCEPTING || ['closing', 'open', 'rolling'];
-const CALL_ORDER = { closing: 0, open: 1, rolling: 2 };
-const sortCalls = programmeMeta.sortCalls || ((a, b) => {
-  const sa = CALL_ORDER[a.status] ?? 3;
-  const sb = CALL_ORDER[b.status] ?? 3;
-  if (sa !== sb) return sa - sb;
-  const da = a.applyBy ? Date.parse(a.applyBy) : Infinity;
-  const db = b.applyBy ? Date.parse(b.applyBy) : Infinity;
-  if (da !== db) return da - db;
-  return String(a.title).localeCompare(String(b.title));
-});
 
 /*
  * Closing CTA (SPEC §5.1 #15): the kit Ink CTA headband (headline left, actions right from 1024). Join is the page's
@@ -85,17 +65,12 @@ function ClosingCta() {
 
 export default function HomeRest({ m, context, eventsReq, partnersReq }) {
   const { lang, t, localePath } = useLang();
-  const progReq = useApi(`/api/programmes?status=${ACCEPTING.join(',')}`);
   const events = Array.isArray(eventsReq.data) ? eventsReq.data : [];
-  const programmes = useMemo(
-    () => (Array.isArray(progReq.data) ? progReq.data : []).filter((p) => ACCEPTING.includes(p.status)).sort(sortCalls).slice(0, 3),
-    [progReq.data]
-  );
   const partners = Array.isArray(partnersReq.data) ? partnersReq.data : [];
   const signedPartners = partners.filter((p) => p && p.agreementStatus === 'signed');
   const film = featuredVideos().filter((v) => v.series === 'saas-connect' && v.edition === '2025').slice(0, 1);
-  // Grounds (SPEC §5.1): On film (Paper) → Coming up (Bone) → Open now (Paper) → Partner (Bone) → Questions (Paper)
-  // → the closing Ink band. (The Stories / Event recaps section was removed from Home at the user's request, Nov 2026.)
+  // Grounds (SPEC §5.1): On film (Paper) → Coming up (Bone) → Partner (Paper) → Questions (Bone) → the closing Ink
+  // band. (The Open now and Stories sections were removed from Home at the user's request, Nov 2026.)
 
   return (
     <>
@@ -198,40 +173,10 @@ export default function HomeRest({ m, context, eventsReq, partnersReq }) {
         </div>
       </Section>
 
-      {/* M06 · Open calls: open, closing and rolling (F-40); photo-led programme cards 3-up on Paper */}
-      <Section id="open-now" className="home-open home-lazy">
-        <SectionHeader
-          eyebrow={t('Programmes', 'திட்டங்கள்')}
-          title={t('Open now', 'இப்போது திறந்துள்ளவை')}
-          lede={t('Most first steps are free.', 'பெரும்பாலான முதல் படிகள் இலவசம்.')}
-          action={<Button variant="tertiary" to="/programmes">{t('Find your programme', 'உங்கள் திட்டத்தைக் கண்டறியுங்கள்')}</Button>}
-        />
-        <div className="home-block">
-          {progReq.loading ? (
-            <Skeleton height="16rem" count={1} />
-          ) : programmes.length ? (
-            // SPEC §4.6: photo-led ProgrammeCards, unframed straight on the Paper section (no panel inside the section).
-            <RevealGroup className="home-open__grid">
-              {programmes.map((p) => <ProgrammeCard key={p.slug} programme={p} />)}
-            </RevealGroup>
-          ) : (
-            <EmptyState
-              title={t('Nothing open right now.', 'இப்போது எதுவும் திறந்திருக்கவில்லை.')}
-              body={t('Get an alert when something opens.', 'ஏதேனும் திறக்கும்போது அறிவிப்பு பெறுங்கள்.')}
-              action={(
-                <Button variant="whatsapp" href={waLink('Hi StartNet, alert me when a programme opens', 'home-programmes')}>
-                  {t('Get alerts', 'அறிவிப்புகளைப் பெறுங்கள்')}
-                </Button>
-              )}
-            />
-          )}
-        </div>
-      </Section>
-
       {/* Partner band (Paper, tight): the copy left (cols 1–5), the four audience links right (cols 7–12); the signed
           partners' logo-tile carousel under both once there are at least three (the community companies are already in
           the hero's proof strip). */}
-      <Section id="partner" surface="sunken" pad="tight" className="home-partner home-lazy">
+      <Section id="partner" pad="tight" className="home-partner home-lazy">
         <div className="home-partner__inner">
           <div className="home-partner__copy">
             <Reveal as="p" className="eyebrow">{t('Partner with us', 'எங்களுடன் கூட்டு சேருங்கள்')}</Reveal>
@@ -265,7 +210,7 @@ export default function HomeRest({ m, context, eventsReq, partnersReq }) {
 
       {/* AEO FAQ: drafted from Book 2 §1 and §3.0 — StartNet review. FAQPage JSON-LD is emitted by Home.jsx.
           SPEC §4.14: the header sticks in cols 1–4 at ≥1024 while the questions run in cols 6–12 (kit .faq-split). */}
-      <Section id="questions" pad="tight" className="home-faq home-lazy" labelledBy="home-faq-title">
+      <Section id="questions" surface="sunken" pad="tight" className="home-faq home-lazy" labelledBy="home-faq-title">
         <div className="faq-split home-faq__inner">
           <div className="faq-split__head home-faq__head">
             <SectionHeader
