@@ -29,10 +29,10 @@ const SEO = {
 
 const FOUNDERS = [
   {
-    slug: 'm-k-elango', name: 'M K Elango', role: 'Founder & CEO', initials: 'ME', group: 'leadership',
+    slug: 'm-k-elango', name: 'M. K. Elango', role: 'Founder & CEO', initials: 'ME', group: 'leadership',
     roleTa: 'நிறுவனர் & தலைமைச் செயல் அதிகாரி',
-    bio: 'Entrepreneur and strategist. Leads strategy, government and anchor partnerships, and Mission 1 Lakh. Focused on how founders contribute to Tamil Nadu’s $1 trillion economy goal.',
-    bioTa: 'தொழில்முனைவோர், உத்தி வகுப்பாளர். உத்தி, அரசு மற்றும் முதன்மைக் கூட்டாண்மைகள், Mission 1 Lakh ஆகியவற்றை வழிநடத்துகிறார். தமிழ்நாட்டின் $1 டிரில்லியன் பொருளாதார இலக்குக்கு நிறுவனர்கள் எப்படிப் பங்களிக்கிறார்கள் என்பதில் கவனம் செலுத்துகிறார்.',
+    bio: 'Founder of elan1, author of Milk, Mountain, Moonshot, founder of StartNet and Publytics, and building the institutions for a trillion-dollar, AI-driven Tamil Nadu.',
+    bioTa: 'elan1-இன் நிறுவனர், Milk, Mountain, Moonshot நூலின் ஆசிரியர், StartNet மற்றும் Publytics-இன் நிறுவனர்; டிரில்லியன் டாலர், AI-இயக்கும் தமிழ்நாட்டுக்கான அமைப்புகளைக் கட்டமைத்து வருகிறார்.',
   },
   {
     slug: 'v-nagaraj', name: 'Dr V. Nagaraj', role: 'Co-founder & Chief Innovation Officer', initials: 'VN', group: 'leadership',
@@ -239,7 +239,7 @@ export default function Leadership() {
             max={1}
             headingLevel={3}
             eyebrow={t('In his own words', 'அவரது சொற்களில்')}
-            title={t('M K Elango on building brands', 'பிராண்டுகளை உருவாக்குவது பற்றி M K Elango')}
+            title={t('M. K. Elango on building brands', 'பிராண்டுகளை உருவாக்குவது பற்றி M. K. Elango')}
             className="lead-film"
           />
         </Section>

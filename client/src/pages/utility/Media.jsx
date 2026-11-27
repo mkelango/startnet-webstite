@@ -265,7 +265,16 @@ export default function Media() {
           <Skeleton height="10rem" />
         ) : leaders.length ? (
           <RevealGroup className="grid grid-4 media-people">
-            {leaders.map((p) => <PersonCard key={p.slug} person={p} />)}
+            {leaders.map((p) => {
+              // The short bio under each spokesperson, as on /about/leadership (Tamil from the API's bioTa).
+              const bio = p.bio && !/^\[/.test(p.bio) ? (lang === 'ta' && p.bioTa ? p.bioTa : p.bio) : null;
+              return (
+                <div key={p.slug} className="media-person">
+                  <PersonCard person={p} />
+                  {bio && <p className="media-person__bio" lang={lang === 'ta' && !p.bioTa ? 'en' : undefined}>{bio}</p>}
+                </div>
+              );
+            })}
           </RevealGroup>
         ) : null}
       </Section>
